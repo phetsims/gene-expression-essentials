@@ -28,13 +28,6 @@ define( function( require ) {
     }
   };
 
-  // Appending '?dev' to the URL will enable developer-only features.
-  if ( window.phetcommon.getQueryParameter( 'dev' ) ) {
-    simOptions = _.extend( {
-      // add dev-specific options here
-    }, simOptions );
-  }
-
   SimLauncher.launch( function() {
     var sim = new Sim( simTitle, [ new GeneExpressionBasicsScreen() ], simOptions );
     sim.start();
