@@ -1,15 +1,15 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- *
+ * @author Sharfudeen Ashraf
  * @author John Blanco
  */
 define( function( require ) {
   'use strict';
 
   // modules
-  var GeneExpressionBasicsModel = require( 'GENE_EXPRESSION_BASICS/gene-expression-basics/model/GeneExpressionBasicsModel' );
-  var GeneExpressionBasicsScreenView = require( 'GENE_EXPRESSION_BASICS/gene-expression-basics/view/GeneExpressionBasicsScreenView' );
+  var ManualGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ManualGeneExpressionModel' );
+  var ManualGeneExpressionScreenView = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/ManualGeneExpressionScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
 
@@ -19,18 +19,18 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function GeneExpressionBasicsScreen() {
+  function ManualGeneExpressionScreen() {
 
     //If this is a single-screen sim, then no icon is necessary.
     //If there are multiple screens, then the icon must be provided here.
     var icon = null;
 
     Screen.call( this, geneExpressionBasicsSimString, icon,
-      function() { return new GeneExpressionBasicsModel(); },
-      function( model ) { return new GeneExpressionBasicsScreenView( model ); },
-      { backgroundColor: 'white' }
+      function() { return new ManualGeneExpressionModel(); },
+      function( model ) { return new ManualGeneExpressionScreenView( model ); },
+      { backgroundColor: '#ABCBDB' }
     );
   }
 
-  return inherit( Screen, GeneExpressionBasicsScreen );
+  return inherit( Screen, ManualGeneExpressionScreen );
 } );

@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var GeneExpressionBasicsScreen = require( 'GENE_EXPRESSION_BASICS/gene-expression-basics/GeneExpressionBasicsScreen' );
+  var ManualGeneExpressionScreen = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/ManualGeneExpressionScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
@@ -29,7 +29,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new GeneExpressionBasicsScreen() ], simOptions );
+    var sim = new Sim( simTitle, [ new ManualGeneExpressionScreen() ], simOptions );
     sim.start();
   } );
 } );
