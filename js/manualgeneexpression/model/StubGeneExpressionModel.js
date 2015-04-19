@@ -1,3 +1,28 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Gene expression model that doesn't do anything.  This is needed in cases
+ * where we want to create biomolecules without needing a full blown model, such
+ * as on control panels.
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author John Blanco
+ */
+  define( function( require ) {
+    'use strict';
+
+    // modules
+    var inherit = require( 'PHET_CORE/inherit' );
+
+    /**
+     * @constructor
+     */
+    function StubGeneExpressionModel() {
+    }
+
+    return inherit( Object, StubGeneExpressionModel );
+  } );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.manualgeneexpression.model;
 //

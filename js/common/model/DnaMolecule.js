@@ -1,60 +1,63 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.geneexpressionbasics.common.model;
-//
-//import java.awt.Shape;
-//import java.awt.geom.AffineTransform;
-//import java.awt.geom.Point2D;
-//import java.awt.geom.Rectangle2D;
-//import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.Comparator;
-//import java.util.List;
-//
-//import edu.colorado.phet.common.phetcommon.math.MathUtil;
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.common.phetcommon.util.FunctionalUtils;
-//import edu.colorado.phet.common.phetcommon.util.IntegerRange;
-//import edu.colorado.phet.common.phetcommon.util.function.Function1;
-//import edu.colorado.phet.geneexpressionbasics.common.model.TranscriptionFactor.TranscriptionFactorConfig;
-//import edu.colorado.phet.geneexpressionbasics.manualgeneexpression.model.StubGeneExpressionModel;
-//
-///**
-// * This class models a molecule of DNA in the model.  It includes the shape of
-// * the two "backbone" strands of the DNA and the individual base pairs, defines
-// * where the various genes reside, and retains other information about the DNA
-// * molecule.  This is an important and central object in the model for this
-// * simulation.
-// * <p/>
-// * A big simplifying assumption that this class makes is that molecules that
-// * attach to the DNA do so to individual base pairs.  In reality, biomolecules
-// * attach to groups of base pairs, the exact configuration of which dictate
-// * where biomolecules attach. This was unnecessarily complicated for the needs
-// * of this sim.
-// *
-// * @author John Blanco
-// */
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * This class models a molecule of DNA in the model.  It includes the shape of
+ * the two "backbone" strands of the DNA and the individual base pairs, defines
+ * where the various genes reside, and retains other information about the DNA
+ * molecule.  This is an important and central object in the model for this
+ * simulation.
+ *
+ * A big simplifying assumption that this class makes is that molecules that
+ * attach to the DNA do so to individual base pairs.  In reality, biomolecules
+ * attach to groups of base pairs, the exact configuration of which dictate
+ * where biomolecules attach. This was unnecessarily complicated for the needs
+ * of this sim.
+
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author John Blanco
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
+  // constants
+  // Distance within which transcription factors may attach.
+  // var TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE = 400; TODO Let Lint pass
+
+  // Distance within which RNA polymerase may attach.
+  // var RNA_POLYMERASE_ATTACHMENT_DISTANCE = 400;
+
+  /**
+   * @param {GeneExpressionModel} model //  The gene expression model within which this DNA strand exists.
+   * Needed for evaluation of biomolecule interaction.
+   *
+   * @param {number} numBasePairs - number of base pairs in the strand
+   *
+   * @param {number} leftEdgeXOffset - x position in model space of the left side of
+   * the molecule.  Y position is assumed to be zero.
+   *
+   * @param {boolean} pursueAttachments - flag that controls whether the DNA strand
+   * actively pulls in transcription factors and polymerase, or just lets them drift into place.
+   *
+   * @constructor
+   */
+  function DnaMolecule( model, numBasePairs, leftEdgeXOffset, pursueAttachments ) {
+
+  }
+
+  return inherit( Object, DnaMolecule, {} );
+} );
+
+
 //public class DnaMolecule {
 //
 //    //-------------------------------------------------------------------------
 //    // Class Data
 //    //-------------------------------------------------------------------------
 //
-//    // Constants the define the geometry of the DNA molecule.
-//    public static final double DIAMETER = 200; // In picometers.
-//    private static final double LENGTH_PER_TWIST = 340; // In picometers.
-//    public static final int BASE_PAIRS_PER_TWIST = 10; // In picometers.
-//    public static final double DISTANCE_BETWEEN_BASE_PAIRS = LENGTH_PER_TWIST / BASE_PAIRS_PER_TWIST;
-//    private static final double INTER_STRAND_OFFSET = LENGTH_PER_TWIST * 0.3;
-//    public static final double Y_POS = 0; // Y position of the molecule in model space.
-//
-//    // Distance within which transcription factors may attach.
-//    private static final double TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE = 400;
-//
-//    // Distance within which RNA polymerase may attach.
-//    private static final double RNA_POLYMERASE_ATTACHMENT_DISTANCE = 400;
-//
-//    // Default affinity for any given biomolecule.
-//    public static final double DEFAULT_AFFINITY = 0.05;
+
+
 //
 //    //-------------------------------------------------------------------------
 //    // Instance Data
