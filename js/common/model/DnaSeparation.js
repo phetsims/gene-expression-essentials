@@ -1,3 +1,72 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Class that defines a separation of the DNA strand.  This is used when
+ * forcing the DNA strand to separate in certain locations, which happens,
+ * for instance, when RNA polymerase is attached and transcribing the DNA.
+ *
+ * @author John Blanco
+ */
+define( function( require ) {
+  'use strict';
+
+  //modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
+
+  //private  properties
+  var amount = 0;// Actual amount of separation.  Starts at 0 and is generally grown over time toward target.
+
+  /**
+   *
+   * @param {number} xPos  - X Position in model space where this separation should exist.
+   * @param {number} targetAmount
+   * @constructor
+   */
+  function DnaSeparation( xPos, targetAmount ) {
+    this.xPos = xPos;// X Position in model space.
+    this.targetAmount = targetAmount;
+  }
+
+  return inherit( Object, DnaSeparation, {
+
+    /**
+     *
+     * @returns {number}
+     */
+    getXPos: function() {
+      return this.xPos;
+    },
+
+    /**
+     *
+     * @param {number} xPos
+     */
+    setXPos: function( xPos ) {
+      this.xPos = xPos;
+    },
+
+    /**
+     *
+     * @returns {number}
+     */
+    getAmount: function() {
+      return amount;
+    },
+
+    /**
+     *
+     * @param {number} proportion
+     */
+    setProportionOfTargetAmount: function( proportion ) {
+      amount = this.targetAmount * proportion;
+    }
+
+  } );
+
+
+} );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.common.model;
 //

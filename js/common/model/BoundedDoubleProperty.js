@@ -1,14 +1,14 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * @author Sam Reid (PhET Interactive Simulations)
+ * @author John Blanco
  * @author Mohamed Safi
  */
 
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Util = require( 'DOT/Util' );
@@ -29,9 +29,7 @@ define( function( require ) {
 
   return inherit( Property, BoundedDoubleProperty, {
 
-
     /**
-     *
      * @param {number} value
      */
     set: function( value ) {
@@ -40,4 +38,5 @@ define( function( require ) {
     }
 
   } );
+
 } );

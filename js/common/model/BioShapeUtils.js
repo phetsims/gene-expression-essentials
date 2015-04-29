@@ -1,4 +1,97 @@
-//// Copyright 2002-2012, University of Colorado
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Several utilities for making it easier to create some complex and somewhat
+ * random shapes.  This was created initially to make it easier to create the
+ * shapes associated with biomolecules, but may have other uses.
+
+ * @author Mohamed Mohamed Safi
+ * @author John Blanco
+ */
+
+//TODO safi
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
+  function BioShapeUtils() {
+
+  }
+
+  return inherit( Object, BioShapeUtils, {}, {
+
+    /**
+     * Create a distorted shape from a list of points.  This is useful when
+     * trying to animate some sort of deviation from a basic shape.
+     * <p/>
+     * Note that this works best when the points are centered around the point
+     * (0, 0), and may not work at all otherwise (it has never been tested).
+     *
+     * @param {Array<Vector2>} points
+     * @param {number} distortionFactor
+     * @param {number} randomNumberSeed
+     * @return
+     */
+    createdDistortedRoundedShapeFromPoints: function( points, distortionFactor, randomNumberSeed ) {
+
+
+    },
+
+    /**
+     * Create a shape based on a set of points.  The points must be in an order
+     * that, if connected by straight lines, would form a closed shape.  Some of
+     * the segments will be straight lines and some will be curved, and which is
+     * which will be based on a pseudo-random variable.
+     *
+     * @private
+     * @param {Array} points
+     * @param {number} seed
+     * @return {Shape}
+     */
+    createRandomShapeFromPoints: function( points, seed ) {
+
+    },
+
+    /**
+     * @param {Dimension2D} size
+     * @param {number} seed
+     * @return {Shape}
+     */
+    createRandomShape: function( size, seed ) {
+
+    },
+
+    /**
+     * @param {Array} points
+     */
+    createCurvyLineFromPoints: function( points ) {
+
+
+    },
+
+    createSegmentedLineFromPoints: function( points ) {
+
+
+    },
+
+    createCurvyEnclosedShape: function( bounds, variationFactor, seed ) {
+
+
+    },
+
+    createEColiLikeShape: function( center, width, height, rotationAngle, seed ) {
+
+
+    }
+
+  } );
+
+
+} )
+;
+
+
 //package edu.colorado.phet.geneexpressionbasics.common.model;
 //
 //import java.awt.Color;
