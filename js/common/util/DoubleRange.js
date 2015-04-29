@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * @author Sam Reid (PhET Interactive Simulations)
+ * @author John Blanco
  * @author Mohamed Safi
  */
 
@@ -25,7 +25,6 @@ define( function( require ) {
   return inherit( Object, DoubleRange, {
 
     /**
-     *
      * @returns {number}
      */
     getMin: function() {
@@ -33,7 +32,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @returns {number}
      */
     getMax: function() {

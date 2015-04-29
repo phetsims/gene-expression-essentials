@@ -1,6 +1,6 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 /**
- *
+ * @author John Blanco
  * @author Mohamed Safi
  *
  */
@@ -9,7 +9,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-
 
   function Random() {
   }
