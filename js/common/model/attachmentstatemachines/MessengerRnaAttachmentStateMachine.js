@@ -1,157 +1,95 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.geneexpressionbasics.common.model.attachmentstatemachines;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.geneexpressionbasics.common.model.MessengerRna;
-//import edu.colorado.phet.geneexpressionbasics.common.model.motionstrategies.RandomWalkMotionStrategy;
-//import edu.colorado.phet.geneexpressionbasics.common.model.motionstrategies.StillnessMotionStrategy;
-//import edu.colorado.phet.geneexpressionbasics.common.model.motionstrategies.WanderInGeneralDirectionMotionStrategy;
-//
-///**
-// * Attachment state machine for messenger RNA.
-// *
-// * @author John Blanco
-// */
-//public class MessengerRnaAttachmentStateMachine extends AttachmentStateMachine {
-//
-//    // Local reference of appropriate type.
-//    private final MessengerRna messengerRna;
-//
-//    // Flag to control whether the mRNA continues to exist once fully formed.
-//    private boolean fadeAwayWhenFormed;
-//
-//    public MessengerRnaAttachmentStateMachine( MessengerRna messengerRna ) {
-//        super( messengerRna );
-//        this.messengerRna = messengerRna;
-//        setState( new BeingSynthesizedState() );
-//    }
-//
-//    /**
-//     * Detach from the RNA polymerase.  Note that this should NOT be used to
-//     * detach the mRNA from ribosomes or any other biomolecules.
-//     */
-//    @Override public void detach() {
-//        if ( fadeAwayWhenFormed ) {
-//            setState( new UnattachedAndFadingState() );
-//        }
-//        else {
-//            setState( new DetachingFromPolymeraseState() );
-//        }
-//    }
-//
-//    @Override public void forceImmediateUnattachedAndAvailable() {
-//        if ( attachmentSite != null ) {
-//            attachmentSite.attachedOrAttachingMolecule.set( null );
-//        }
-//        attachmentSite = null;
-//        setState( new WanderingAroundCytoplasmState() );
-//    }
-//
-//    public void setFadeAwayWhenFormed( boolean fadeAwayWhenFormed ) {
-//        this.fadeAwayWhenFormed = fadeAwayWhenFormed;
-//    }
-//
-//    /**
-//     * Signals this state machine that at least one ribosome is now attached
-//     * to the mRNA and is thus translating it.
-//     */
-//    public void attachedToRibosome() {
-//        setState( new BeingTranslatedState() );
-//    }
-//
-//    /**
-//     * Signals this state machine that all ribosomes that were translating it
-//     * have completed the translation process and have detached.
-//     */
-//    public void allRibosomesDetached() {
-//        setState( new WanderingAroundCytoplasmState() );
-//    }
-//
-//    public void attachToDestroyer() {
-//        setState( new BeingDestroyedState() );
-//    }
-//
-//    protected class BeingSynthesizedState extends AttachmentState {
-//        @Override public void entered( AttachmentStateMachine enclosingStateMachine ) {
-//            // Set the motion strategy to something that doesn't move the
-//            // molecule, since its position will be controlled by the polymerase
-//            // that is synthesizing it.
-//            enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
-//        }
-//    }
-//
-//    // State where the mRNA is detaching from the polymerase.  During this
-//    // time, it moves generally upwards until either the timer runs out or
-//    // it is attached to by some biomolecule.
-//    protected class DetachingFromPolymeraseState extends AttachmentState {
-//        private static final double DETACHING_TIME = 3; // seconds
-//        private double detachingCountdownTimer = DETACHING_TIME;
-//
-//        @Override public void stepInTime( AttachmentStateMachine enclosingStateMachine, double dt ) {
-//            detachingCountdownTimer -= dt;
-//            if ( detachingCountdownTimer <= 0 ) {
-//                // Done detaching, start wandering.
-//                setState( new WanderingAroundCytoplasmState() );
-//            }
-//        }
-//
-//        @Override public void entered( AttachmentStateMachine enclosingStateMachine ) {
-//            // Move upwards, away from the DNA and polymerase.
-//            enclosingStateMachine.biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( new Vector2D( -0.5, 1 ),
-//                                                                                                             enclosingStateMachine.biomolecule.motionBoundsProperty ) );
-//            // Update externally visible state.
-//            messengerRna.beingSynthesized.set( false );
-//        }
-//    }
-//
-//    // State where the mRNA is wandering around the cell's cytoplasm unattached
-//    // to anything.
-//    protected class WanderingAroundCytoplasmState extends AttachmentState {
-//        @Override public void entered( AttachmentStateMachine enclosingStateMachine ) {
-//            enclosingStateMachine.biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty ) );
-//        }
-//    }
-//
-//    // State where the mRNA is wandering around the cell's cytoplasm unattached
-//    // to anything.
-//    protected class BeingTranslatedState extends AttachmentState {
-//        @Override public void entered( AttachmentStateMachine enclosingStateMachine ) {
-//            // Set a motion strategy that will not move this molecule, since
-//            // its position will be defined by the translator(s).
-//            enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
-//        }
-//    }
-//
-//    // State where the mRNA is being destroyed.
-//    protected class BeingDestroyedState extends AttachmentState {
-//        @Override public void entered( AttachmentStateMachine enclosingStateMachine ) {
-//            // Set a motion strategy that will not move this molecule, since
-//            // its position will be defined by the destroyer and translators.
-//            enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
-//        }
-//    }
-//
-//    // State where the mRNA is fading out of existence.
-//    protected class UnattachedAndFadingState extends AttachmentState {
-//        private static final double PRE_FADE_TIME = 5;
-//        private static final double FADE_OUT_TIME = 2;
-//        private double preFadeCountdown = PRE_FADE_TIME;
-//
-//        @Override public void stepInTime( AttachmentStateMachine asm, double dt ) {
-//            if ( preFadeCountdown > 0 ) {
-//                preFadeCountdown -= dt;
-//            }
-//            else {
-//                biomolecule.existenceStrength.set( Math.max( biomolecule.existenceStrength.get() - dt / FADE_OUT_TIME, 0 ) );
-//            }
-//        }
-//
-//        @Override public void entered( AttachmentStateMachine asm ) {
-//            assert biomolecule.existenceStrength.get() == 1.0; // State checking - should be at full strength.
-//            preFadeCountdown = PRE_FADE_TIME;
-//            // Move upwards, away from the DNA and polymerase.
-//            asm.biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( new Vector2D( 0, 0.75 ),
-//                                                                                           asm.biomolecule.motionBoundsProperty ) );
-//        }
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Attachment state machine for messenger RNA.
+ *
+ * @author John Blanco
+ * @author Mohamed Safi
+ *
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var AttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentStateMachine' );
+  var BeingSynthesizedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/BeingSynthesizedState' );
+  var UnattachedAndFadingState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/UnattachedAndFadingState' );
+  var DetachingFromPolymeraseState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/DetachingFromPolymeraseState' );
+  var WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/WanderingAroundCytoplasmState' );
+  var BeingTranslatedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/BeingTranslatedState' );
+  var BeingDestroyedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/BeingDestroyedState' );
+
+  /**
+   * @param {MessengerRna} messengerRna
+   * @constructor
+   */
+  function MessengerRnaAttachmentStateMachine( messengerRna ) {
+    AttachmentStateMachine.call( this, messengerRna );
+
+    // Local reference of appropriate type.
+    this.messengerRna = messengerRna; //private;
+
+    // Flag to control whether the mRNA continues to exist once fully formed.
+    this.fadeAwayWhenFormed = false; //private
+    this.setState( new BeingSynthesizedState() );
+  }
+
+  return inherit( AttachmentStateMachine, MessengerRnaAttachmentStateMachine, {
+
+    /**
+     * @Override
+     * Detach from the RNA polymerase.  Note that this should NOT be used to
+     * detach the mRNA from ribosomes or any other biomolecules.
+     */
+    detach: function() {
+      if ( this.fadeAwayWhenFormed ) {
+        this.setState( new UnattachedAndFadingState( this ) );
+      }
+      else {
+        this.setState( new DetachingFromPolymeraseState( this ) );
+      }
+    },
+
+    /**
+     * @Override
+     */
+    forceImmediateUnattachedAndAvailable: function() {
+      if ( this.attachmentSite !== null ) {
+        this.attachmentSite.attachedOrAttachingMolecule.set( null );
+      }
+      this.attachmentSite = null;
+      this.setState( new WanderingAroundCytoplasmState() );
+    },
+
+    /**
+     * @param {boolean} fadeAwayWhenFormed
+     */
+    setFadeAwayWhenFormed: function( fadeAwayWhenFormed ) {
+      this.fadeAwayWhenFormed = fadeAwayWhenFormed;
+    },
+
+    /**
+     * Signals this state machine that at least one ribosome is now attached
+     * to the mRNA and is thus translating it.
+     */
+    attachedToRibosome: function() {
+      this.setState( new BeingTranslatedState() );
+    },
+
+    /**
+     * Signals this state machine that all ribosomes that were translating it
+     * have completed the translation process and have detached.
+     */
+    allRibosomesDetached: function() {
+      this.setState( new WanderingAroundCytoplasmState() );
+    },
+
+    attachToDestroyer: function() {
+      this.setState( new BeingDestroyedState() );
+    }
+
+  } );
+
+
+} );
+

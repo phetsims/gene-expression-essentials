@@ -1,54 +1,74 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.geneexpressionbasics.common.model.attachmentstatemachines;
-//
-//import edu.colorado.phet.geneexpressionbasics.common.model.MobileBiomolecule;
-//import edu.colorado.phet.geneexpressionbasics.common.model.motionstrategies.WanderInGeneralDirectionMotionStrategy;
-//
-///**
-// * Generic attachment state machine - just implements basic behavior.
-// * <p/>
-// * This class exists mainly for testing and for quick implementation of
-// * biomolecules.  The code analyzer may show that it is unused, but it should
-// * be kept around anyway for testing and prototyping of changes.
-// *
-// * @author John Blanco
-// */
-//public class GenericAttachmentStateMachine extends AttachmentStateMachine {
-//
-//    // States used by this state machine.  These are often set by subclasses
-//    // to non-default values in order to change the default behavior.
-//    protected AttachmentState unattachedAndAvailableState = new AttachmentState.GenericUnattachedAndAvailableState();
-//    protected AttachmentState attachedState = new AttachmentState.GenericAttachedState();
-//    protected AttachmentState movingTowardsAttachmentState = new AttachmentState.GenericMovingTowardsAttachmentState();
-//    protected AttachmentState unattachedButUnavailableState = new AttachmentState.GenericUnattachedButUnavailableState();
-//
-//    public GenericAttachmentStateMachine( MobileBiomolecule biomolecule ) {
-//        super( biomolecule );
-//        setState( unattachedAndAvailableState );
-//    }
-//
-//    @Override public void detach() {
-//        assert attachmentSite != null; // Verify internal state is consistent.
-//        attachmentSite.attachedOrAttachingMolecule.set( null );
-//        attachmentSite = null;
-//        forceImmediateUnattachedButUnavailable();
-//    }
-//
-//    @Override public void forceImmediateUnattachedAndAvailable() {
-//        if ( attachmentSite != null ) {
-//            attachmentSite.attachedOrAttachingMolecule.set( null );
-//        }
-//        attachmentSite = null;
-//        setState( unattachedAndAvailableState );
-//    }
-//
-//    @Override public void forceImmediateUnattachedButUnavailable() {
-//        if ( attachmentSite != null ) {
-//            attachmentSite.attachedOrAttachingMolecule.set( null );
-//        }
-//        attachmentSite = null;
-//        biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( biomolecule.getDetachDirection(),
-//                                                                                   biomolecule.motionBoundsProperty ) );
-//        setState( unattachedButUnavailableState );
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Generic attachment state machine - just implements basic behavior.
+ * <p/>
+ * This class exists mainly for testing and for quick implementation of
+ * biomolecules.  The code analyzer may show that it is unused, but it should
+ * be kept around anyway for testing and prototyping of changes.
+ *
+ * @author John Blanco
+ * @author Mohamed Safi
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var AttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentStateMachine' );
+  var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
+  var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
+
+  /**
+   * @param {MobileBiomolecule} biomolecule
+   * @constructor
+   */
+  function GenericAttachmentStateMachine( biomolecule ) {
+    AttachmentStateMachine.call( this, biomolecule );
+
+    // States used by this state machine.  These are often set by subclasses
+    // to non-default values in order to change the default behavior.
+    this.unattachedAndAvailableState = AttachmentState.GenericUnattachedAndAvailableState();
+    this.attachedState = AttachmentState.GenericAttachedState();
+    this.movingTowardsAttachmentState = AttachmentState.GenericMovingTowardsAttachmentState();
+    this.unattachedButUnavailableState = AttachmentState.GenericUnattachedButUnavailableState();
+    this.setState( this.unattachedAndAvailableState );
+  }
+
+  return inherit( AttachmentStateMachine, GenericAttachmentStateMachine, {
+
+    /**
+     * @Override
+     */
+    detach: function() {
+      this.attachmentSite.attachedOrAttachingMolecule.set( null );
+      this.attachmentSite = null;
+      this.forceImmediateUnattachedButUnavailable();
+    },
+
+    /**
+     * @Override
+     */
+    forceImmediateUnattachedAndAvailable: function() {
+      if ( this.attachmentSite !== null ) {
+        this.attachmentSite.attachedOrAttachingMolecule.set( null );
+      }
+      this.attachmentSite = null;
+      this.setState( this.unattachedAndAvailableState );
+    },
+
+    /**
+     * @Override
+     */
+    forceImmediateUnattachedButUnavailable: function() {
+      if ( this.attachmentSite !== null ) {
+        this.attachmentSite.attachedOrAttachingMolecule.set( null );
+      }
+      this.attachmentSite = null;
+      this.biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( this.biomolecule.getDetachDirection(),
+        this.biomolecule.motionBoundsProperty ) );
+      this.setState( this.unattachedButUnavailableState );
+    }
+
+  } );
+
+} );

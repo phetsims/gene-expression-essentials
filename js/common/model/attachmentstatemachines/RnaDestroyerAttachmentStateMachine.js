@@ -1,119 +1,175 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.geneexpressionbasics.common.model.attachmentstatemachines;
-//
-//import java.util.Random;
-//
-//import edu.colorado.phet.common.phetcommon.util.DoubleRange;
-//import edu.colorado.phet.geneexpressionbasics.common.model.MessengerRnaDestroyer;
-//import edu.colorado.phet.geneexpressionbasics.common.model.MessengerRnaFragment;
-//import edu.colorado.phet.geneexpressionbasics.common.model.MobileBiomolecule;
-//import edu.colorado.phet.geneexpressionbasics.common.model.motionstrategies.DestroyerTrackingRnaMotionStrategy;
-//
-///**
-// * This class defined the attachment state machine for the biomolecules that
-// * destroy the messenger RNA molecules.
-// *
-// * @author John Blanco
-// */
-//public class RnaDestroyerAttachmentStateMachine extends GenericAttachmentStateMachine {
-//
-//    // Scalar velocity for transcription.
-//    private static final double RNA_DESTRUCTION_RATE = 750; // Picometers per second.
-//
-//    // Range of lengths for mRNA fragments.
-//    private static final DoubleRange MRNA_FRAGMENT_LENGTH_RANGE = new DoubleRange( 100, 400 ); // In picometers.
-//
-//    private static final Random RAND = new Random();
-//
-//    // Reference back to the mRNA destroyer that is controlled by this state machine.
-//    private final MessengerRnaDestroyer mRnaDestroyer;
-//
-//    public RnaDestroyerAttachmentStateMachine( MobileBiomolecule biomolecule ) {
-//        super( biomolecule );
-//
-//        // Set up a local reference of the needed type.
-//        mRnaDestroyer = (MessengerRnaDestroyer) biomolecule;
-//
-//        // Set up a non-default "attached" state, since the behavior is
-//        // different from the default.
-//        attachedState = new MRnaDestroyerAttachedState();
-//
-//        // Set up a non-default "moving toward attachment" state, since the
-//        // behavior is slightly different from the default.
-//        movingTowardsAttachmentState = new MRnaDestroyerMovingTowardAttachmentState();
-//    }
-//
-//    /*
-//     * Use generic state except that interaction is turned off.
-//     */
-//    protected class MRnaDestroyerMovingTowardAttachmentState extends AttachmentState.GenericMovingTowardsAttachmentState {
-//        @Override public void entered( AttachmentStateMachine asm ) {
-//            super.entered( asm );
-//            asm.biomolecule.movableByUser.set( false );
-//        }
-//    }
-//
-//    /*
-//     * Class that defines what the mRNA destroyer does when attached to mRNA.
-//     */
-//    protected class MRnaDestroyerAttachedState extends AttachmentState {
-//
-//        private MessengerRnaFragment messengerRnaFragment = null;
-//        private double targetFragmentLength = 0;
-//
-//        @Override public void stepInTime( AttachmentStateMachine asm, double dt ) {
-//
-//            // Verify that state is consistent.
-//            assert asm.attachmentSite != null;
-//            assert asm.attachmentSite.attachedOrAttachingMolecule.get() == asm.biomolecule;
-//
-//            // Grow the mRNA fragment, release it if it is time to do so.
-//            if ( messengerRnaFragment == null ) {
-//                messengerRnaFragment = new MessengerRnaFragment( biomolecule.getModel(), biomolecule.getPosition() );
-//                biomolecule.getModel().addMobileBiomolecule( messengerRnaFragment );
-//                targetFragmentLength = MRNA_FRAGMENT_LENGTH_RANGE.getMin() + RAND.nextDouble() * MRNA_FRAGMENT_LENGTH_RANGE.getLength();
-//            }
-//            messengerRnaFragment.addLength( RNA_DESTRUCTION_RATE * dt );
-//            if ( messengerRnaFragment.getLength() >= targetFragmentLength ) {
-//                // Time to release this fragment.
-//                messengerRnaFragment.releaseFromDestroyer();
-//                messengerRnaFragment = null;
-//            }
-//
-//            // Advance the destruction of the mRNA.
-//            boolean destructionComplete = mRnaDestroyer.advanceMessengerRnaDestruction( RNA_DESTRUCTION_RATE * dt );
-//            if ( destructionComplete ) {
-//                // Detach the current mRNA fragment.
-//                if ( messengerRnaFragment != null ) {
-//                    messengerRnaFragment.releaseFromDestroyer();
-//                    messengerRnaFragment = null;
-//                }
-//
-//                // Remove the messenger RNA that is now destroyed from the
-//                // model.  There should be no visual representation left to it
-//                // at this point.
-//                biomolecule.getModel().removeMessengerRna( mRnaDestroyer.getMessengerRnaBeingDestroyed() );
-//                mRnaDestroyer.clearMessengerRnaBeingDestroyed();
-//
-//                // Release this destroyer to wander in the cytoplasm.
-//                asm.detach();
-//            }
-//        }
-//
-//        @Override public void entered( AttachmentStateMachine asm ) {
-//            mRnaDestroyer.initiateMessengerRnaDestruction();
-//            mRnaDestroyer.setMotionStrategy( new DestroyerTrackingRnaMotionStrategy( mRnaDestroyer ) );
-//            // Turn off user interaction while mRNA is being destroyed.
-//            asm.biomolecule.movableByUser.set( false );
-//        }
-//    }
-//
-//    @Override public void forceImmediateUnattachedAndAvailable() {
-//        if ( mRnaDestroyer.getMessengerRnaBeingDestroyed() != null ) {
-//            // Abort a pending attachment to mRNA.
-//            mRnaDestroyer.getMessengerRnaBeingDestroyed().abortDestruction();
-//            mRnaDestroyer.clearMessengerRnaBeingDestroyed();
-//        }
-//        super.forceImmediateUnattachedAndAvailable();
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ /**
+ * This class defined the attachment state machine for the biomolecules that
+ * destroy the messenger RNA molecules.
+ *
+ * @author John Blanco
+ * @author Mohamed Safi
+ *
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
+  var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
+  var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/model/util/DoubleRange' );
+  var MessengerRnaFragment = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRnaFragment' );
+  var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/DestroyerTrackingRnaMotionStrategy' );
+  var RAND = require( 'GENE_EXPRESSION_BASICS/common/model/util/Random' );
+
+  // constants
+  // Scalar velocity for transcription.
+  var RNA_DESTRUCTION_RATE = 750; // Picometers per second.
+
+  // Range of lengths for mRNA fragments.
+  var MRNA_FRAGMENT_LENGTH_RANGE = new DoubleRange( 100, 400 ); // In picometers.
+
+  /**
+   * protected class //TODO
+   * Use generic state except that interaction is turned off.
+   */
+  var MRnaDestroyerMovingTowardAttachmentState = inherit( AttachmentState,
+
+    /**
+     * @param  {RnaDestroyerAttachmentStateMachine} rnaDestroyerAttachmentStateMachine
+     */
+    function( rnaDestroyerAttachmentStateMachine ) {
+      this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine;
+    },
+
+    {
+
+      /**
+       * @Override
+       * @param {AttachmentStateMachine} asm
+       */
+      entered: function( asm ) {
+        AttachmentState.prototype.entered.call( this );
+        asm.biomolecule.movableByUser.set( false );
+      }
+
+    } );
+
+
+  /*
+   * Class that defines what the mRNA destroyer does when attached to mRNA.
+   */
+  var MRnaDestroyerAttachedState = inherit( AttachmentState,
+
+    /**
+     *
+     * @param {RnaDestroyerAttachmentStateMachine} rnaDestroyerAttachmentStateMachine
+     */
+    function( rnaDestroyerAttachmentStateMachine ) {
+      this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine;
+      this.messengerRnaFragment = null;
+      this.targetFragmentLength = 0;
+    },
+
+    {
+
+      /**
+       * @Override
+       * @param {AttachmentStateMachine} asm
+       * @param {number} dt
+       */
+      stepInTime: function( asm, dt ) {
+        var biomolecule = this.rnaDestroyerAttachmentStateMachine.biomolecule;
+
+        // Grow the mRNA fragment, release it if it is time to do so.
+        if ( this.messengerRnaFragment === null ) {
+          this.messengerRnaFragment = new MessengerRnaFragment( biomolecule.getModel(), biomolecule.getPosition() );
+          biomolecule.getModel().addMobileBiomolecule( this.messengerRnaFragment );
+          this.targetFragmentLength = MRNA_FRAGMENT_LENGTH_RANGE.getMin() +
+                                      RAND.nextDouble() * MRNA_FRAGMENT_LENGTH_RANGE.getLength();
+        }
+        this.messengerRnaFragment.addLength( RNA_DESTRUCTION_RATE * dt );
+        if ( this.messengerRnaFragment.getLength() >= this.targetFragmentLength ) {
+
+          // Time to release this fragment.
+          this.messengerRnaFragment.releaseFromDestroyer();
+          this.messengerRnaFragment = null;
+        }
+
+        // Advance the destruction of the mRNA.
+        var destructionComplete = this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer
+          .advanceMessengerRnaDestruction( RNA_DESTRUCTION_RATE * dt );
+        if ( destructionComplete ) {
+
+          // Detach the current mRNA fragment.
+          if ( this.messengerRnaFragment !== null ) {
+            this.messengerRnaFragment.releaseFromDestroyer();
+            this.messengerRnaFragment = null;
+          }
+
+          // Remove the messenger RNA that is now destroyed from the
+          // model.  There should be no visual representation left to it
+          // at this point.
+          this.rnaDestroyerAttachmentStateMachine.biomolecule.getModel().removeMessengerRna(
+            this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.getMessengerRnaBeingDestroyed() );
+          this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.clearMessengerRnaBeingDestroyed();
+
+          // Release this destroyer to wander in the cytoplasm.
+          asm.detach();
+        }
+      },
+
+      /**
+       * @Override
+       * @param {AttachmentStateMachine} asm
+       */
+      entered: function( asm ) {
+        var mRnaDestroyer = this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer;
+        mRnaDestroyer.initiateMessengerRnaDestruction();
+        mRnaDestroyer.setMotionStrategy( new DestroyerTrackingRnaMotionStrategy( mRnaDestroyer ) );
+
+        // Turn off user interaction while mRNA is being destroyed.
+        asm.biomolecule.movableByUser.set( false );
+      }
+
+    } );
+
+  /**
+   *
+   * @param biomolecule {MobileBiomolecule}
+   * @constructor
+   */
+  function RnaDestroyerAttachmentStateMachine( biomolecule ) {
+    GenericAttachmentStateMachine.call( this, biomolecule );
+
+    // Set up a local reference of the needed type.
+    this.mRnaDestroyer = biomolecule;
+
+    // Set up a non-default "attached" state, since the behavior is
+    // different from the default.
+    this.attachedState = new MRnaDestroyerAttachedState( this );
+
+    // Set up a non-default "moving toward attachment" state, since the
+    // behavior is slightly different from the default.
+    this.movingTowardsAttachmentState = new MRnaDestroyerMovingTowardAttachmentState( this );
+
+  }
+
+  return inherit( GenericAttachmentStateMachine, RnaDestroyerAttachmentStateMachine, {
+
+    /**
+     * @Override
+     */
+    forceImmediateUnattachedAndAvailable: function() {
+      if ( this.mRnaDestroyer.getMessengerRnaBeingDestroyed() !== null ) {
+
+        // Abort a pending attachment to mRNA.
+        this.mRnaDestroyer.getMessengerRnaBeingDestroyed().abortDestruction();
+        this.mRnaDestroyer.clearMessengerRnaBeingDestroyed();
+      }
+      GenericAttachmentStateMachine.prototype.forceImmediateUnattachedAndAvailable.call( this );
+    }
+
+  } );
+
+
+} );
+
