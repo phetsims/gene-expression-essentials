@@ -57,6 +57,12 @@ define( function( require ) {
     clear: function() {
       this.keys = [];
       this.values = [];
+    },
+
+    //TODO
+    isEmpty: function() {
+
+      return false;
     }
   } );
 
