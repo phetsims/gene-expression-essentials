@@ -1,3 +1,106 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Base class for elements in the model that change shape and/or move around.
+ *
+ * @author John Blanco
+ * @author Mohamed Safi
+ */
+define( function( require ) {
+  'use strict';
+
+  //modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Matrix3 = require( 'DOT/Matrix3' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Property = require( 'AXON/Property' );
+
+
+  /**
+   * @abstract
+   * @param {Shape} initialShape
+   * @constructor
+   */
+  function ShapeChangingModelElement( initialShape ) {
+    // Shape property, which is not public because it should only be changed
+    // by descendants of the class.
+    this.shapeProperty = new Property( initialShape );
+
+
+  }
+
+  return inherit( Object, ShapeChangingModelElement, {
+
+    /**
+     *
+     * @returns {Shape}
+     */
+    getShape: function() {
+      return this.shapeProperty.get();
+    },
+
+    /**
+     *
+     * @param {Function} shapeChangeObserver
+     */
+    addShapeChangeObserver: function( shapeChangeObserver ) {
+      this.shapeProperty.link( shapeChangeObserver );
+    },
+
+    /**
+     *
+     * @param {Function} shapeChangeObserver
+     */
+    removeShapeChangeObserver: function( shapeChangeObserver ) {
+      this.shapeProperty.unlink( shapeChangeObserver );
+    },
+
+    /**
+     *
+     * @param {Vector2} translationVector
+     */
+    translate: function( translationVector ) {
+      var translationTransform = Matrix3.translation( translationVector.x, translationVector.y );
+      this.shapeProperty.set( this.shapeProperty.get().transformed( translationTransform ) );
+    },
+
+    /**
+     *
+     * @param {Vector2} newPos
+     */
+    setPosition: function( newPos ) {
+      this.setPositionByXY( newPos.getX(), newPos.getY() );
+    },
+
+    /**
+     *
+     * @param {number} x
+     * @param  {number} y
+     */
+    setPositionByXY: function( x, y ) {
+      if ( x !== this.getPosition().x || y !== this.getPosition().y ) {
+
+        // This default implementation assumes that the position indicator
+        // is defined by the center of the shape's bounds.  Override if
+        // some other behavior is required.
+        this.translate( new Vector2( x - this.shapeProperty.get().bounds.getCenterX(),
+          y - this.shapeProperty.get().bounds.getCenterY() ) );
+      }
+    },
+
+    /**
+     *
+     * @returns {Vector2}
+     */
+    getPosition: function() {
+      // Assumes that the center of the shape is the position.  Override if
+      // other behavior is needed.
+      return new Vector2( this.shapeProperty.get().bounds.getCenterX(), this.shapeProperty.get().bounds.getCenterY() );
+    }
+
+  } );
+
+} );
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.common.model;
 //

@@ -1,3 +1,163 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * This class defines a point in model space that also has mass.  It is
+ * is used to define the overall shape of the mRNA, which uses a spring
+ * algorithm to implement the winding/twisting behavior.
+ *
+ *@author John Blanco
+ * @author Mohamed Safi
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
+
+  //constants
+  var MASS = 0.25; // In kg.  Arbitrarily chosen to get the desired behavior.
+
+
+  /**
+   *
+   * @param {Vector2} initialPosition
+   * @param {number} targetDistanceToPreviousPoint
+   * @constructor
+   */
+  function PointMass( initialPosition, targetDistanceToPreviousPoint ) {
+    this.setPosition( initialPosition );
+    this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint;// In picometers.
+
+    // private
+    this.position = new Vector2( 0, 0 );
+    this.velocity = new Vector2( 0, 0 );
+    this.acceleration = new Vector2( 0, 0 );
+    this.previousPointMass = null;
+    this.nextPointMass = null;
+
+  }
+
+  return inherit( Object, PointMass, {
+
+    /**
+     * @returns {string}
+     */
+    toString: function() { //TODO
+      return " Position: " + this.position.toString();
+    },
+
+
+    /**
+     * @param {number} x
+     * @param {number} y
+     */
+    setPosition: function( x, y ) {
+      this.position.setLocation( x, y );
+    },
+
+    /**
+     * @param {Vector2} position
+     */
+    setPositionByVector: function( position ) {
+      this.setPosition( position.x, position.y );
+    },
+
+    /**
+     * @returns {Vector2}
+     */
+    getPosition: function() {
+      return new Vector2( this.position.x, this.position.getY() );
+    },
+
+    /**
+     * @param {Vector2} velocity
+     * @returns {Vector2}
+     */
+    getVelocity: function( velocity ) {
+      return new Vector2( velocity.x, velocity.y );
+    },
+
+    /**
+     * @param {Vector2} acceleration
+     */
+    setAcceleration: function( acceleration ) {
+      this.acceleration.setValue( acceleration );
+    },
+
+    /**
+     * @returns {PointMass}
+     */
+    getPreviousPointMass: function() {
+      return this.previousPointMass;
+    },
+
+    /**
+     * @param {PointMass} previousPointMass
+     */
+    setPreviousPointMass: function( previousPointMass ) {
+      this.previousPointMass = previousPointMass;
+    },
+
+    /**
+     * @returns {PointMass}
+     */
+    getNextPointMass: function() {
+      return this.nextPointMass;
+    },
+
+    /**
+     * @param {PointMass} nextPointMass
+     */
+    setNextPointMass: function( nextPointMass ) {
+      this.nextPointMass = nextPointMass;
+    },
+
+    /**
+     * @returns {number}
+     */
+    getTargetDistanceToPreviousPoint: function() {
+      return this.targetDistanceToPreviousPoint;
+    },
+
+    /**
+     * @param {PointMass} p
+     * @returns {number}
+     */
+    distance: function( p ) {
+      return this.getPosition().distance( p.getPosition() );
+    },
+
+    /**
+     * @param {number} deltaTime
+     */
+    update: function( deltaTime ) {
+      this.velocity.setValue( this.velocity.plus( this.acceleration.times( deltaTime ) ) );
+      this.position.setLocation( this.position.x + this.velocity.x * deltaTime, this.position.y + this.velocity.y * deltaTime );
+    },
+
+    translate: function( translationVector ) {
+      this.setPosition( this.position.x + translationVector.x, this.position.y + translationVector.getY() );
+    },
+
+    /**
+     * @param {number} targetDistance
+     */
+    setTargetDistanceToPreviousPoint: function( targetDistance ) {
+      this.targetDistanceToPreviousPoint = targetDistance;
+    },
+
+
+    clearVelocity: function() {
+      this.velocity.setComponents( 0, 0 );
+    }
+
+  }, {
+
+    MASS: MASS
+  } );
+
+
+} );
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.common.model;
 //
