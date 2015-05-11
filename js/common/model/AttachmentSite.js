@@ -8,7 +8,7 @@
  * @author John Blanco
  * @author Mohamed Mohamed Safi
  */
-define( function() {
+define( function( require ) {
   'use strict';
 
   // modules
