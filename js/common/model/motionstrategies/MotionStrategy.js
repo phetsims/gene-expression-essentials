@@ -17,7 +17,7 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/model/util/DoubleRange' );
+  var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
   var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
   var MotionBounds = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionBounds' );
 

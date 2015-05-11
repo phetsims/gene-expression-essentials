@@ -26,7 +26,7 @@ define( function( require ) {
   var MessengerRna = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRna' );
   var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/RandomWalkMotionStrategy' );
   var DriftThenTeleportMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/DriftThenTeleportMotionStrategy' );
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/model/util/Random' );
+  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
 
   // constants
   var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.  Half-life of attachment to a site with affinity of 0.5.

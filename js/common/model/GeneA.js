@@ -13,8 +13,8 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Gene = require( 'GENE_EXPRESSION_BASICS/common/model/Gene' );
   var IntegerRange = require( 'GENE_EXPRESSION_BASICS/common/util/IntegerRange' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/util/TranscriptionFactor' );
-  var ProteinA = require( 'GENE_EXPRESSION_BASICS/common/model/ProteinA' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
+  var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
 
   // constants
   var REGULATORY_REGION_COLOR = new Color( 216, 191, 216 );

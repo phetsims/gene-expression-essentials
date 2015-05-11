@@ -10,7 +10,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
-  var MeanderToDestinationMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/MeanderToDestinationMotionStrategy' );
+  var MeanderToDestinationMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MeanderToDestinationMotionStrategy' );
   var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/RandomWalkMotionStrategy' );
 
   function GenericUnattachedAndAvailableState() {

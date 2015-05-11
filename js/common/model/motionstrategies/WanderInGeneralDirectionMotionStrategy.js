@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/model/util/Random' );
+  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
   var MotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionStrategy' );
 
 

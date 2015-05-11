@@ -14,7 +14,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/model/util/Random' );
+  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
   var Vector2 = require( 'DOT/Vector2' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
   var MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MoveDirectlyToDestinationMotionStrategy' );

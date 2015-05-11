@@ -25,7 +25,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var BioShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/BioShapeUtils' );
-  var IntegerRange = require( 'GENE_EXPRESSION_BASICS/common/model/util/IntegerRange' );
+  var IntegerRange = require( 'GENE_EXPRESSION_BASICS/common/util/IntegerRange' );
   var BasePair = require( 'GENE_EXPRESSION_BASICS/common/model/BasePair' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeChangingModelElement' );

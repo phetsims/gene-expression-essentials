@@ -12,11 +12,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Area = require( 'Area' ); //TODO
-  var ShapeUtils = require( 'ShapeUtils' ); //TODO
+  var Area; // = require( 'Area' ); //TODO
+  var ShapeUtils; //= require( 'ShapeUtils' ); //TODO
   var Color = require( 'SCENERY/util/Color' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
-  var RibosomeAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/RibosomeAttachmentStateMachine' );
+  var RibosomeAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/RibosomeAttachmentStateMachine' );
 
   //constants
   var WIDTH = 430;                  // In nanometers.

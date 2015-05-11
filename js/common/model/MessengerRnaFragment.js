@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MessengerRnaFragmentAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/MessengerRnaFragmentAttachmentStateMachine' );
   var SquareSegment = require( 'GENE_EXPRESSION_BASICS/common/model/SquareSegment' );
-  var DoubleGeneralPath = require( 'GENE_EXPRESSION_BASICS/common/model/DoubleGeneralPath' );
+  var DoubleGeneralPath; //= require( 'GENE_EXPRESSION_BASICS/common/model/DoubleGeneralPath' ); TODO
   var WindingBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/WindingBiomolecule' );
 
 

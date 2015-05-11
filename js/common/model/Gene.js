@@ -24,7 +24,7 @@ define( function( require ) {
   var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
   var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/common/model/StubGeneExpressionModel' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
   var TranscriptionFactorPlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactorPlacementHint' );
   var TranscriptionFactorAttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactorAttachmentSite' );
 

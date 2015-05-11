@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Util = require( 'DOT/Util' );
-  var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/model/util/DoubleRange' );
+  var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
 
   /**
    * Constraint value between min and max value

@@ -16,11 +16,11 @@ define( function( require ) {
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
   var TranscriptionFactorConfig = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactorConfig' );
   var BioShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/BioShapeUtils' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/common/model/StubGeneExpressionModel' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
   var PDimension; // TODO
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/RAND' ); //TODO System.currentTimeMillis() - 8 );
+  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' ); //TODO System.currentTimeMillis() - 8 );
   var TranscriptionFactorAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/TranscriptionFactorAttachmentStateMachine' );
 
   // constants

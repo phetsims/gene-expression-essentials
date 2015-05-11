@@ -16,8 +16,32 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var GeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionModel' );
+  var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
+  var GeneA = require( 'GENE_EXPRESSION_BASICS/common/model/GeneA' );
+  var GeneB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneB' );
+  var GeneC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneC' );
+  var ObservableArray; // = require( 'AXON/util/ObservableArray' ); //TODO ObservableArray package name
+  var ConstantDtClock; // = require( 'ConstantDtClock' ); TODO
+  var Property = require( 'AXON/Property' );
+  var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
+  var Rectangle = require( 'DOT/Rectangle' );
+  var Area;// = require('Area'); // TODO
+  var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
+  var ProteinB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinB' );
+  var ProteinC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinC' );
+  var MotionBounds = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionBounds' );
+  var Protein = require( 'GENE_EXPRESSION_BASICS/common/model/Protein' );
 
   // constants
+  // Stage size for the mobile biomolecules, which is basically the area in
+  // which the molecules can move.  These are empirically determined such
+  // that the molecules don't move off of the screen when looking at a given
+  // gene.
+  var BIOMOLECULE_STAGE_WIDTH = 10000; // In picometers.
+  var BIOMOLECULE_STAGE_HEIGHT = 6700; // In picometers.
+
+  // Size of the DNA strand.
+  var NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
 
   /**
    * Main constructor for ManualGeneExpressionModel, which contains all of the model logic for the entire sim screen.
@@ -26,6 +50,63 @@ define( function( require ) {
   function ManualGeneExpressionModel() {
 
     GeneExpressionModel.call( this, {} );
+
+
+    // DNA strand, which is where the genes reside, where the polymerase does
+    // its transcription, and where a lot of the action takes place.
+    // Initialize the DNA molecule.
+    this.dnaMolecule = new DnaMolecule( this, NUM_BASE_PAIRS_ON_DNA_STRAND, -NUM_BASE_PAIRS_ON_DNA_STRAND * DnaMolecule.DISTANCE_BETWEEN_BASE_PAIRS / 4, false );
+    this.dnaMolecule.addGene( new GeneA( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 4 - GeneA.NUM_BASE_PAIRS / 2 ) );
+    this.dnaMolecule.addGene( new GeneB( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 2 - GeneB.NUM_BASE_PAIRS / 2 ) );
+    this.dnaMolecule.addGene( new GeneC( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND * 3 / 4 - GeneC.NUM_BASE_PAIRS / 2 ) );
+
+    // List of mobile biomolecules in the model, excluding mRNA.
+    this.mobileBiomoleculeList = new ObservableArray(); //TODO ObservableArray
+
+    // List of mRNA molecules in the sim.  These are kept separate because they
+    // are treated a bit differently than the other mobile biomolecules.
+    this.messengerRnaList = new ObservableArray();
+
+    // Clock that drives all time-dependent behavior in this model.
+    this.clock = new ConstantDtClock( 30.0 );
+
+    // The gene that the user is focusing on, other gene activity is
+    // suspended.  Start with the 0th gene in the DNA (leftmost).
+    // Initialize variables that are dependent upon the DNA.
+    this.activeGene = new Property( this.dnaMolecule.getGenes().get( 0 ) );
+
+    // Properties that keep track of whether the first or last gene is
+    // currently active, which means that the user is viewing it.
+    this.isFirstGeneActive = this.activeGene.valueEquals( this.dnaMolecule.getGenes().get( 0 ) );
+    this.isLastGeneActive = this.activeGene.valueEquals( this.dnaMolecule.getLastGene() );
+
+    // List of areas where biomolecules should not be allowed.  These are
+    // generally populated by the view in order to keep biomolecules from
+    // wandering over the tool boxes and such.
+    this.offLimitsMotionSpaces = [];
+
+    // Properties that track how many of the various proteins have been collected.
+    this.proteinACollected = new Property( 0 );
+    this.proteinBCollected = new Property( 0 );
+    this.proteinCCollected = new Property( 0 );
+
+    // Map of the protein collection count properties to the protein types,
+    // used to obtain the count property based on the type of protein.
+    this.mapProteinClassToCollectedCount = new Map();
+    this.mapProteinClassToCollectedCount.put( "ProteinA", this.proteinACollected ); // TODO ProteinA.Class
+    this.mapProteinClassToCollectedCount.put( "ProteinB", this.proteinBCollected );
+    this.mapProteinClassToCollectedCount.put( "ProteinC", this.proteinCCollected );
+
+    // Rectangle that describes the "protein capture area".  When a protein is
+    // dropped by the user over this area, it is considered to be captured.
+    this.proteinCaptureArea = new Rectangle();
+
+
+    //TODO Clock listener
+    this.clock.addClockListener( function( clockEvent ) {
+      this.stepInTime( clockEvent.getSimulationTimeChange() );
+    } );
+
   }
 
   return inherit( GeneExpressionModel, ManualGeneExpressionModel, {
@@ -33,7 +114,236 @@ define( function( require ) {
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
       // Handle model animation here.
+    },
+
+    getClock: function() {
+      return this.clock;
+    },
+
+    getDnaMolecule: function() {
+      return this.dnaMolecule;
+    },
+
+    previousGene: function() {
+      this.switchToGeneRelative( -1 );
+    },
+
+    nextGene: function() {
+      this.switchToGeneRelative( +1 );
+    },
+
+    setProteinCaptureArea: function( newCaptureAreaBounds ) {
+      this.proteinCaptureArea.setFrame( newCaptureAreaBounds );
+    },
+
+    getCollectedCounterForProteinType: function( proteinType ) {
+      return this.mapProteinClassToCollectedCount.get( proteinType );
+    },
+
+    /**
+     * @private
+     * @param {int} i
+     */
+    switchToGeneRelative: function( i ) {
+      var genes = this.dnaMolecule.getGenes();
+      var index = this.clamp( 0, genes.indexOf( this.activeGene.get() ) + i, genes.length - 1 );
+      this.activeGene.set( genes[ index ] );
+    },
+
+    activateGene: function( i ) {
+      this.activeGene.set( this.dnaMolecule.getGenes().get( i ) );
+    },
+
+    addMobileBiomolecule: function( mobileBiomolecule ) {
+
+      var self = this;
+      self.mobileBiomoleculeList.add( mobileBiomolecule );
+      mobileBiomolecule.setMotionBounds( self.getBoundsForActiveGene() );
+
+
+      // Hook up an observer that will activate and deactivate placement
+      // hints for this molecule.
+      mobileBiomolecule.userControlled.link( function( isUserControlled, wasUserControlled ) {
+
+        if ( isUserControlled ) {
+          self.dnaMolecule.activateHints( mobileBiomolecule );
+          _.forEach( self.messengerRnaList, function( messengerRna ) {
+            messengerRna.activateHints( mobileBiomolecule );
+          } );
+        }
+        else {
+          self.dnaMolecule.deactivateAllHints();
+
+          _.forEach( self.messengerRnaList, function( messengerRna ) {
+            messengerRna.deactivateAllHints();
+          } );
+
+          if ( wasUserControlled ) {
+            // The user dropped this biomolecule.
+            if ( self.proteinCaptureArea.contains( mobileBiomolecule.getPosition() ) && mobileBiomolecule instanceof Protein ) {
+              // The user has dropped this protein in the
+              // capture area.  So, like, capture it.
+              self.captureProtein( mobileBiomolecule );
+            }
+          }
+        }
+      } );
+
+      // Hook up an observer that will remove this biomolecule from the
+      // model if its existence strength reaches zero.
+      mobileBiomolecule.existenceStrength.link( function( existenceStrength ) {
+        if ( existenceStrength === 0 ) {
+          self.removeMobileBiomolecule( mobileBiomolecule );
+          mobileBiomolecule.existenceStrength.removeObserver( this );
+        }
+      } );
+
+    },
+
+    /**
+     * Get a list of all mobile biomolecules that overlap with the provided
+     * shape.
+     *
+     * @param testShape - Shape, in model coordinate, to test for overlap.
+     * @return List of molecules that overlap with the provided shape.
+     */
+    getOverlappingBiomolecules: function( testShape ) {
+
+      var overlappingBiomolecules = [];
+
+      // Since it is computationally expensive to test overlap with every
+      // shape, we do a fast bounds test first, and then the more expensive
+      // test when necessary.
+      var testShapeBounds = testShape.bounds;
+      _.forEach( this.mobileBiomoleculeList, function( mobileBiomolecule ) {
+        if ( mobileBiomolecule.getShape().bounds.intersects( testShapeBounds ) ) {
+          // Bounds overlap, see if actual shapes overlap.
+          var testShapeArea = new Area( testShape ); //TODO Area
+          var biomoleculeArea = new Area( mobileBiomolecule.getShape() );
+          biomoleculeArea.intersect( testShapeArea );
+          if ( !biomoleculeArea.isEmpty() ) {
+            // The biomolecule overlaps with the test shape, so add it
+            // to the list.
+            overlappingBiomolecules.push( mobileBiomolecule );
+          }
+        }
+      } );
+
+      return overlappingBiomolecules;
+    },
+
+    // Capture the specified protein, which means that it is actually removed
+    // from the model and the associated capture count property is incremented.
+    captureProtein: function( protein ) {
+      if ( protein instanceof ProteinA ) {
+        this.proteinACollected.set( this.proteinACollected.get() + 1 );
+      }
+      if ( protein instanceof ProteinB ) {
+        this.proteinBCollected.set( this.proteinBCollected.get() + 1 );
+      }
+      if ( protein instanceof ProteinC ) {
+        this.proteinCCollected.set( this.proteinCCollected.get() + 1 );
+      }
+      this.mobileBiomoleculeList.remove( protein );
+    },
+
+    getProteinCount: function( proteinClass ) {
+      var count = 0;
+      _.forEach( this.mobileBiomoleculeList, function() {
+        if ( this.mobileBiomolecule === proteinClass ) { // TODO mobileBiomolecule.getClass
+          count++;
+        }
+      } );
+      return count;
+    },
+
+    removeMobileBiomolecule: function( mobileBiomolecule ) {
+      this.mobileBiomoleculeList.remove( mobileBiomolecule );
+    },
+
+    addMessengerRna: function( messengerRna ) {
+      this.messengerRnaList.add( messengerRna );
+      messengerRna.setMotionBounds( this.getBoundsForActiveGene() );
+    },
+
+    removeMessengerRna: function( messengerRnaBeingDestroyed ) {
+      this.messengerRnaList.remove( messengerRnaBeingDestroyed );
+    },
+
+    getMessengerRnaList: function() {
+      return this.messengerRnaList;
+    },
+
+    reset: function() {
+      this.mobileBiomoleculeList.clear();
+      this.messengerRnaList.clear();
+      this.dnaMolecule.reset();
+      this.proteinACollected.reset();
+      this.proteinBCollected.reset();
+      this.proteinCCollected.reset();
+      this.activateGene( 0 );
+    },
+
+    /**
+     * Add a space where the biomolecules should not be allowed to wander. This
+     * is generally used by the view to prevent biomolecules from moving over
+     * tool boxes and such.
+     *
+     * @param newOffLimitsSpace
+     */
+    addOffLimitsMotionSpace: function( newOffLimitsSpace ) {
+      for ( var i = 0; i < this.offLimitsMotionSpaces.length; i++ ) {
+
+        var offLimitsMotionSpace = this.offLimitsMotionSpaces[ i ];
+        if ( offLimitsMotionSpace.equals( newOffLimitsSpace ) ) {
+          // An equivalent space already exists, so don't bother adding
+          // this one.
+          return;
+        }
+      }
+      // Add the new one to the list.
+      this.offLimitsMotionSpaces.push( newOffLimitsSpace );
+    },
+
+    stepInTime: function( dt ) {
+      _.forEach( this.mobileBiomoleculeList, function( mobileBiomolecule ) {
+        mobileBiomolecule.stepInTime( dt );
+      } );
+
+      _.forEach( this.messengerRnaList, function( messengerRna ) {
+        messengerRna.stepInTime( dt );
+      } );
+
+      this.dnaMolecule.stepInTime( dt );
+    },
+
+    /**
+     * Get the motion bounds for any biomolecule that is going to be associated
+     * with the currently active gene.  This is used to keep the biomolecules
+     * from wandering outside of the area that the user can see.
+     */
+    getBoundsForActiveGene: function() {
+
+      // The bottom bounds are intended to be roughly at the bottom of the
+      // viewport.  The value was empirically determined.
+      var bottomYPos = DnaMolecule.Y_POS - 2000;
+
+      // Get the nominal bounds for this gene.
+      var bounds = new Area( new Rectangle( this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
+        bottomYPos,
+        BIOMOLECULE_STAGE_WIDTH,
+        BIOMOLECULE_STAGE_HEIGHT ) );
+
+      // Subtract off any off limits areas.
+      _.forEach( this.offLimitsMotionSpaces, function( offLimitMotionSpace ) {
+        if ( bounds.intersects( offLimitMotionSpace.bounds ) ) {
+          bounds.subtract( new Area( offLimitMotionSpace ) );
+        }
+      } );
+
+      return new MotionBounds( bounds );
     }
+
   } );
 } );
 

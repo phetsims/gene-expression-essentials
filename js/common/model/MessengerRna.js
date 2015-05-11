@@ -15,9 +15,9 @@ define( function( require ) {
   var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
   var Vector2 = require( 'DOT/Vector2' );
   var Property = require( 'AXON/Property' );
-  var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/WindingBiomolecule' );
+  var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/MessengerRnaAttachmentStateMachine' );
   var WindingBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/WindingBiomolecule' );
-  var DoubleGeneralPath = require( 'DoubleGeneralPath' ); // TODO
+  var DoubleGeneralPath; // = require( 'DoubleGeneralPath' ); // TODO
   var PlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/PlacementHint' );
   var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
   var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRnaDestroyer' );

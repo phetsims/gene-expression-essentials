@@ -15,10 +15,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
   var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
-  var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/model/util/DoubleRange' );
+  var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
   var MessengerRnaFragment = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRnaFragment' );
   var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/DestroyerTrackingRnaMotionStrategy' );
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/model/util/Random' );
+  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
 
   // constants
   // Scalar velocity for transcription.
