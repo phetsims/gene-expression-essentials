@@ -1,15 +1,23 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * @author Sharfudeen Ashraf
+ *  Primary model for the manual gene expression tab.
+ * <p/>
+ * The point (0,0) in model space is at the leftmost edge of the DNA strand, and
+ * at the vertical center of the strand.
+ *
  * @author John Blanco
+ * @author Sharfudeen Ashraf
+ * @author Mohamed Safi
  */
 define( function( require ) {
   'use strict';
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var GeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionModel' );
+
+  // constants
 
   /**
    * Main constructor for ManualGeneExpressionModel, which contains all of the model logic for the entire sim screen.
@@ -17,10 +25,10 @@ define( function( require ) {
    */
   function ManualGeneExpressionModel() {
 
-    PropertySet.call( this, {} );
+    GeneExpressionModel.call( this, {} );
   }
 
-  return inherit( PropertySet, ManualGeneExpressionModel, {
+  return inherit( GeneExpressionModel, ManualGeneExpressionModel, {
 
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
