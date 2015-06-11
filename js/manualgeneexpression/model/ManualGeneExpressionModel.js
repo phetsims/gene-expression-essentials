@@ -111,11 +111,6 @@ define( function( require ) {
 
   return inherit( GeneExpressionModel, ManualGeneExpressionModel, {
 
-    // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
-    step: function( dt ) {
-      // Handle model animation here.
-    },
-
     getClock: function() {
       return this.clock;
     },
