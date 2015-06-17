@@ -116,10 +116,16 @@ define( function( require ) {
       // Handle model animation here.
     },
 
+    /**
+     * @returns {ConstantDtClock}
+     */
     getClock: function() {
       return this.clock;
     },
 
+    /**
+     * @returns {DnaMolecule}
+     */
     getDnaMolecule: function() {
       return this.dnaMolecule;
     },
@@ -132,10 +138,18 @@ define( function( require ) {
       this.switchToGeneRelative( +1 );
     },
 
+    /**
+     *
+     * @param {Rectangle} newCaptureAreaBounds
+     */
     setProteinCaptureArea: function( newCaptureAreaBounds ) {
       this.proteinCaptureArea.setFrame( newCaptureAreaBounds );
     },
 
+    /**
+     * @param {String} proteinType //TODO class
+     * @returns {Property}
+     */
     getCollectedCounterForProteinType: function( proteinType ) {
       return this.mapProteinClassToCollectedCount.get( proteinType );
     },
@@ -154,12 +168,14 @@ define( function( require ) {
       this.activeGene.set( this.dnaMolecule.getGenes().get( i ) );
     },
 
+    /**
+     * @param {MobileBiomolecule} mobileBiomolecule
+     */
     addMobileBiomolecule: function( mobileBiomolecule ) {
 
       var self = this;
       self.mobileBiomoleculeList.add( mobileBiomolecule );
       mobileBiomolecule.setMotionBounds( self.getBoundsForActiveGene() );
-
 
       // Hook up an observer that will activate and deactivate placement
       // hints for this molecule.
@@ -204,8 +220,8 @@ define( function( require ) {
      * Get a list of all mobile biomolecules that overlap with the provided
      * shape.
      *
-     * @param testShape - Shape, in model coordinate, to test for overlap.
-     * @return List of molecules that overlap with the provided shape.
+     * @param {Shape} testShape - Shape, in model coordinate, to test for overlap.
+     * @return {Array} List of molecules that overlap with the provided shape.
      */
     getOverlappingBiomolecules: function( testShape ) {
 
@@ -232,8 +248,12 @@ define( function( require ) {
       return overlappingBiomolecules;
     },
 
-    // Capture the specified protein, which means that it is actually removed
-    // from the model and the associated capture count property is incremented.
+
+    /**
+     *  Capture the specified protein, which means that it is actually removed
+     *  from the model and the associated capture count property is incremented.
+     * @param {Protein} protein
+     */
     captureProtein: function( protein ) {
       if ( protein instanceof ProteinA ) {
         this.proteinACollected.set( this.proteinACollected.get() + 1 );
@@ -257,6 +277,9 @@ define( function( require ) {
       return count;
     },
 
+    /**
+     * @param {MobileBiomolecule} mobileBiomolecule
+     */
     removeMobileBiomolecule: function( mobileBiomolecule ) {
       this.mobileBiomoleculeList.remove( mobileBiomolecule );
     },
