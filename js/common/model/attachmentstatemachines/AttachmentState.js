@@ -12,10 +12,10 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericUnattachedAndAvailableState' );
-  var GenericAttachedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachedState' );
-  var GenericMovingTowardsAttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericMovingTowardsAttachmentState' );
-  var GenericUnattachedButUnavailableState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericUnattachedButUnavailableState' );
+ // TODO var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericUnattachedAndAvailableState' );
+  // TODO var GenericAttachedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachedState' );
+  // TODO var GenericMovingTowardsAttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericMovingTowardsAttachmentState' );
+ //TODO var GenericUnattachedButUnavailableState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericUnattachedButUnavailableState' );
 
   /**
    * @abstract class
@@ -54,28 +54,28 @@ define( function( require ) {
      * @returns {GenericUnattachedAndAvailableState}
      */
     GenericUnattachedAndAvailableState: function() {
-      return new GenericUnattachedAndAvailableState();
+      // TODO return new GenericUnattachedAndAvailableState();
     },
 
     /**
      * @returns {GenericAttachedState}
      */
     GenericAttachedState: function() {
-      return new GenericAttachedState();
+     // TODO return new GenericAttachedState();
     },
 
     /**
      * @returns {GenericMovingTowardsAttachmentState}
      */
     GenericMovingTowardsAttachmentState: function() {
-      return new GenericMovingTowardsAttachmentState();
+      // TODO return new GenericMovingTowardsAttachmentState();
     },
 
     /**
      * @returns {GenericUnattachedButUnavailableState}
      */
     GenericUnattachedButUnavailableState: function() {
-      return new GenericUnattachedButUnavailableState();
+      // TODO return new GenericUnattachedButUnavailableState();
     }
 
   } );

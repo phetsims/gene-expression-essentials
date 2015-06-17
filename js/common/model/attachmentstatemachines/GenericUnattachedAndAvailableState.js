@@ -9,15 +9,15 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
+//TODO  var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
   var MeanderToDestinationMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MeanderToDestinationMotionStrategy' );
   var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/RandomWalkMotionStrategy' );
 
   function GenericUnattachedAndAvailableState() {
-    AttachmentState.call( this );
+   // TODO AttachmentState.call( this );
   }
 
-  return inherit( AttachmentState, GenericUnattachedAndAvailableState, {
+  return inherit( Object, GenericUnattachedAndAvailableState, {
 
     /**
      * @Override
