@@ -1,3 +1,55 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Main module for the tab where the user manually performs the steps for
+ * expressing proteins within a cell.
+ *
+ * @author John Blanco
+ * @author Mohamed Safi
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ManualGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/ManualGeneExpressionModel' );
+  var ManualGeneExpressionCanvas;
+
+
+  // constants
+  var ZOOM_ANIMATION_TIME = 2000; // In milliseconds.
+
+  function ManualGeneExpressionModule( model ) {
+
+    model = model || new ManualGeneExpressionModel();
+    //Module.call( this.name, model.getClock() );
+    this.model = model;
+    this.canvas = new ManualGeneExpressionCanvas( model );
+    this.setSimulationPanel( this.canvas );
+    this.reset();
+    this.setClockControlPanel( null );
+
+  }
+
+  return inherit( Object, ManualGeneExpressionModule, {
+
+    setCanvasZoomedIn: function( isZoomedIn ) {
+      if ( isZoomedIn ) {
+        this.canvas.zoomIn( ZOOM_ANIMATION_TIME );
+      }
+      else {
+        this.canvas.zoomOut( ZOOM_ANIMATION_TIME );
+      }
+    },
+
+    reset: function() {
+      this.model.reset();
+      this.canvas.reset();
+    }
+
+  } );
+
+
+} );
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.manualgeneexpression;
 //

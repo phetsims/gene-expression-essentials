@@ -1,3 +1,385 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Primary model for the Messenger RNA Production tab.
+ *
+ * @author John Blanco
+ * @author Mohamed Safi
+ */
+define( function( require ) {
+  'use strict';
+
+  //modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/util/TranscriptionFactor' );
+  var Random = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
+  var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
+  var GeneA = require( 'GENE_EXPRESSION_BASICS/common/model/GeneA' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+  var Property = require( 'AXON/Property' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Vector3 = require( 'DOT/Vector3' );
+  var Area; //TODO
+  var Rectangle = require( 'DOT/Rectangle' );
+  var ConstantDtClock;
+  var RnaPolymerase;
+
+  // constants
+  // Length, in terms of base pairs, of the DNA molecule.
+  var NUM_BASE_PAIRS_ON_DNA_STRAND = 500;
+
+  // Configurations for the transcriptions factors used within this model.
+  var POSITIVE_TRANSCRIPTION_FACTOR_CONFIG = TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS;
+  var NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG = TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG;
+
+  // Maximum number of transcription factor molecules.  The pertains to both
+  // positive and negative transcription factors.
+  var MAX_TRANSCRIPTION_FACTOR_COUNT = 8;
+
+  // Number of RNA polymerase molecules present.
+  var RNA_POLYMERASE_COUNT = 7;
+
+  // etc.
+  var RAND = new Random();
+
+  function MessengerRnaProductionModel() {
+
+    var self = this;
+
+    // DNA strand, which is where the genes reside, where the polymerase does
+//    // its transcription, and where a lot of the action takes place.
+    self.dnaMolecule = new DnaMolecule( self, NUM_BASE_PAIRS_ON_DNA_STRAND,
+      -NUM_BASE_PAIRS_ON_DNA_STRAND * DnaMolecule.DISTANCE_BETWEEN_BASE_PAIRS / 2, true );
+
+    // The one gene that is on this DNA strand.
+    // Add the gene to the DNA molecule.  There is only one gene in this model.
+    self.gene = new GeneA( self.dnaMolecule, Math.round( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.45 ) );
+    self.dnaMolecule.addGene( self.gene );
+
+    // List of mobile biomolecules in the model, excluding mRNA.
+    self.mobileBiomoleculeList = new ObservableArray();
+
+    // List of mRNA molecules in the sim.  These are kept separate because they
+    // are treated a bit differently than the other mobile biomolecules.
+    self.messengerRnaList = new ObservableArray();
+
+    // Properties that control the quantity of transcription factors.
+    self.positiveTranscriptionFactorCount = new Property( 0 );
+    self.positiveTranscriptionFactorCount.link( function( count ) {
+      self.setTranscriptionFactorCount( TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS, count );
+
+    } );
+
+    self.negativeTranscriptionFactorCount = new Property( 0 );
+    self.link( function( count ) {
+      self.setTranscriptionFactorCount( TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG, count );
+
+    } );
+
+
+    // Motion bounds for the mobile biomolecules.
+    this.moleculeMotionBounds = null;
+    this.setupMotionBounds();
+
+    // Clock that drives all time-dependent behavior in this model.
+    this.clock = new ConstantDtClock( 30.0 );
+
+    // The bounds within which polymerase may be moved when recycled.
+    // Set up the area where RNA polymerase goes when it is recycled.
+    // This is near the beginning of the transcribed region in order to
+    // make transcription more likely to occur.
+    var polymeraseSize = new RnaPolymerase().getShape().bounds;
+    var recycleZoneCenterX = this.dnaMolecule.getBasePairXOffsetByIndex(
+        this.dnaMolecule.getGenes().get( 0 ).getTranscribedRegion().getMin() ) + ( RAND.nextDouble() - 0.5 ) * 2000;
+    var recycleZoneHeight = polymeraseSize.getHeight() * 1.2;
+    var recycleZoneWidth = polymeraseSize.getWidth() * 4;
+    this.aboveDnaPolymeraseReturnBounds = new Rectangle( recycleZoneCenterX - polymeraseSize.getWidth() * 2,
+      DnaMolecule.Y_POS + polymeraseSize.getHeight(),
+      recycleZoneWidth,
+      recycleZoneHeight );
+    this.belowDnaPolymeraseReturnBounds = new Rectangle( recycleZoneCenterX - polymeraseSize.getWidth() * 2,
+      DnaMolecule.Y_POS - polymeraseSize.getHeight() - recycleZoneHeight,
+      recycleZoneWidth,
+      polymeraseSize.getHeight() * 1.2 );
+
+    // Reset this model in order to set initial state.
+    this.reset();
+
+  }
+
+  return inherit( Object, MessengerRnaProductionModel, {
+
+
+      setupMotionBounds: function() {
+
+        // The bottom of the bounds, based off center point of the DNA
+        // molecule.  Offset was empirically determined.
+        var minY = DnaMolecule.Y_POS - 1200;
+
+        // The max Y position is set to make it so that molecules can move
+        // outside of the view port, but not way outside.  Its value was
+        // empirically determined.
+        var maxY = DnaMolecule.Y_POS + 1100;
+
+        // Figure out the X bounds based on the length of the gene.  This
+        // extends a little less in the -x direction than in the +x, since the
+        // beginning of the gene is in the center of the view port.
+        var minX = this.gene.getStartX() - 1300;
+        var maxX = this.gene.getEndX() + 400; // Needs to be long enough to allow the polymerase to get to the end.
+
+        // Create the nominal rectangular bounds.
+        var bounds = new Area( new Rectangle( minX, minY, maxX - minX, maxY - minY ) );
+
+        this.moleculeMotionBounds = bounds;
+
+
+      },
+
+      /**
+       *
+       * @returns {ConstantDtClock}
+       */
+      getClock: function() {
+        return this.clock;
+      },
+
+      /**
+       *
+       * @returns {DnaMolecule}
+       */
+      getDnaMolecule: function() {
+        return this.dnaMolecule;
+      },
+
+      /**
+       * @param {MobileBiomolecule} mobileBiomolecule
+       */
+      addMobileBiomolecule: function( mobileBiomolecule ) {
+        var self = this;
+        self.mobileBiomoleculeList.add( mobileBiomolecule );
+
+        // Set the motion bounds such that the molecules move around above and
+        // on top of the DNA.
+        mobileBiomolecule.setMotionBounds( self.moleculeMotionBounds );
+
+        // Hook up an observer that will activate and deactivate placement
+        // hints for this molecule.
+        mobileBiomolecule.userControlled.link( function( isUserControlled, wasUserControlled ) {
+          if ( isUserControlled ) {
+            self.dnaMolecule.activateHints( mobileBiomolecule );
+          }
+          else {
+            self.dnaMolecule.deactivateAllHints();
+          }
+        } );
+
+
+        // Hook up an observer that will remove this biomolecule from the
+        // model if its existence strength reaches zero.
+        mobileBiomolecule.existenceStrength.link( function( existenceStrength ) {
+          if ( self.existenceStrength === 0 ) {
+            self.removeMobileBiomolecule( mobileBiomolecule );
+            mobileBiomolecule.existenceStrength.unlink( self );
+          }
+        } );
+
+      },
+
+      /**
+       * Get a list of all mobile biomolecules that overlap with the provided
+       * shape.
+       *
+       * @param {Shape} testShape - Shape, in model coordinate, to test for overlap.
+       * @return {Array} List of molecules that overlap with the provided shape.
+       */
+      getOverlappingBiomolecules: function( testShape ) {
+
+        var overlappingBiomolecules = [];
+
+        // Since it is computationally expensive to test overlap with every
+        // shape, we do a fast bounds test first, and then the more expensive
+        // test when necessary.
+        var testShapeBounds = testShape.bounds;
+        _.forEach( this.mobileBiomoleculeList, function( mobileBiomolecule ) {
+          if ( mobileBiomolecule.getShape().bounds.intersects( testShapeBounds ) ) {
+
+            // Bounds overlap, see if actual shapes overlap.
+            var testShapeArea = new Area( testShape );
+            var biomoleculeArea = new Area( mobileBiomolecule.getShape() );
+            biomoleculeArea.intersect( testShapeArea );
+            if ( !biomoleculeArea.isEmpty() ) {
+
+              // The biomolecule overlaps with the test shape, so add it
+              // to the list.
+              overlappingBiomolecules.push( mobileBiomolecule );
+            }
+          }
+        } );
+
+        return overlappingBiomolecules;
+      },
+
+      /**
+       * @param {MobileBiomolecule} mobileBiomolecule
+       */
+      removeMobileBiomolecule: function( mobileBiomolecule ) {
+        var index = this.mobileBiomoleculeList.indexOf( mobileBiomolecule );
+        this.mobileBiomoleculeList.splice( index, 1 );
+      },
+
+      /**
+       * @param {MessengerRna} messengerRna
+       */
+      addMessengerRna: function( messengerRna ) {
+
+        var self = this;
+        self.messengerRnaList.push( messengerRna );
+
+        // Since this will never be translated in this model, make it fade
+        // away once it is formed.
+        messengerRna.setFadeAwayWhenFormed( true );
+
+        // Remove this from the model once its existence strength reaches
+        // zero, which it will do since it is fading out.
+        messengerRna.existenceStrength.link( function( existenceStrength ) {
+          if ( existenceStrength <= 0 ) {
+
+            // It's "gone", so remove it from the model.
+            self.messengerRnaList.remove( messengerRna );
+            messengerRna.existenceStrength.unlink( self );
+          }
+        } );
+
+      },
+
+      /**
+       * @param {MessengerRna} messengerRnaBeingDestroyed
+       */
+      removeMessengerRna: function( messengerRnaBeingDestroyed ) {
+        var index = this.mobileBiomoleculeList.indexOf( messengerRnaBeingDestroyed );
+        this.messengerRnaList.splice( index, 1 );
+      },
+
+      /**
+       * @returns {Array}
+       */
+      getMessengerRnaList: function() {
+        return this.messengerRnaList;
+      },
+
+      reset: function() {
+        this.positiveTranscriptionFactorCount.reset();
+        this.negativeTranscriptionFactorCount.reset();
+        this.mobileBiomoleculeList.clear();
+        this.messengerRnaList.clear();
+        this.dnaMolecule.reset();
+        this.gene.getPolymeraseAffinityProperty().reset();
+        this.gene.getTranscriptionFactorAffinityProperty( POSITIVE_TRANSCRIPTION_FACTOR_CONFIG ).reset();
+        this.gene.getTranscriptionFactorAffinityProperty( NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG ).reset();
+
+        // Add the polymerase molecules.  These don't come and go, the
+        // concentration of these remains constant in this model.
+        for ( var i = 0; i < RNA_POLYMERASE_COUNT; i++ ) {
+          var rnaPolymerase = new RnaPolymerase( this, new Vector2( 0, 0 ) );
+          rnaPolymerase.setPosition3D( this.generateInitialLocation3D( rnaPolymerase ) );
+          rnaPolymerase.set3DMotionEnabled( true );
+          rnaPolymerase.setRecycleMode( true );
+          rnaPolymerase.addRecycleReturnZone( this.aboveDnaPolymeraseReturnBounds );
+          rnaPolymerase.addRecycleReturnZone( this.belowDnaPolymeraseReturnBounds );
+          this.addMobileBiomolecule( rnaPolymerase );
+        }
+      },
+
+      /**
+       * @param {number} dt
+       */
+      stepInTime: function( dt ) { // TODO step or stepInTime
+
+        // Step all the contained biomolecules.
+
+        this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
+          mobileBiomolecule.stepInTime( dt );
+        } );
+        this.messengerRnaList.forEach( function( messengerRna ) {
+          messengerRna.stepInTime( dt );
+        } );
+
+
+        this.dnaMolecule.stepInTime( dt );
+      },
+
+
+      /**
+       * Generate a random, valid, initial location, including the Z dimension.
+       * @param {MobileBiomolecule} biomolecule
+       * @returns {e.Vector3}
+       */
+      generateInitialLocation3D: function( biomolecule ) {
+        var xMin = this.moleculeMotionBounds.getBounds().bounds.getMinX() + biomolecule.getShape().bounds.getWidth() / 2;
+        var yMin = this.moleculeMotionBounds.getBounds().bounds.getMinY() + biomolecule.getShape().bounds.getHeight() / 2;
+        var xMax = this.moleculeMotionBounds.getBounds().bounds.getMaxX() - biomolecule.getShape().bounds.getWidth() / 2;
+        var yMax = this.moleculeMotionBounds.getBounds().bounds.getMaxY() - biomolecule.getShape().bounds.getHeight() / 2;
+        var xPos = xMin + RAND.nextDouble() * ( xMax - xMin );
+        var yPos = yMin + RAND.nextDouble() * ( yMax - yMin );
+        var zPos = -RAND.nextDouble(); // Valid z values are from -1 to 0.
+        return new Vector3( xPos, yPos, zPos );
+      },
+
+      /**
+       * @param {TranscriptionFactorConfig} tcConfig
+       * @param {number} targetCount
+       */
+      setTranscriptionFactorCount: function( tcConfig, targetCount ) {
+
+        // Count the transcription factors that match this configuration.
+        var currentLevel = 0;
+        this.mobileBiomoleculeList( function( mobileBiomolecule ) {
+          if ( mobileBiomolecule instanceof TranscriptionFactor && mobileBiomolecule.getConfig() === tcConfig ) {
+            currentLevel++;
+          }
+        } );
+
+        if ( targetCount > currentLevel ) {
+
+          // Add some.
+          for ( var i = currentLevel; i < targetCount; i++ ) {
+            var transcriptionFactor = new TranscriptionFactor( this, tcConfig, new Vector2( 0, 0 ) );
+            transcriptionFactor.setPosition3D( this.generateInitialLocation3D( transcriptionFactor ) );
+            transcriptionFactor.set3DMotionEnabled( true );
+            this.addMobileBiomolecule( transcriptionFactor );
+          }
+        }
+        else if ( targetCount < currentLevel ) {
+
+        }
+        // Remove some.
+        this.mobileBiomoleculeList( function( mobileBiomolecule ) {
+          if ( mobileBiomolecule instanceof TranscriptionFactor ) {
+            if ( mobileBiomolecule.getConfig() === tcConfig ) { // TODO equal
+              // Remove this one.
+              mobileBiomolecule.forceDetach();
+              this.removeMobileBiomolecule( mobileBiomolecule );
+              currentLevel--;
+              if ( currentLevel === targetCount ) {
+                return false;
+              }
+            }
+          }
+        } );
+
+      }
+
+
+    },
+
+    {
+
+      MAX_TRANSCRIPTION_FACTOR_COUNT: MAX_TRANSCRIPTION_FACTOR_COUNT
+
+    } );
+
+
+} );
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.mrnaproduction.model;
 //

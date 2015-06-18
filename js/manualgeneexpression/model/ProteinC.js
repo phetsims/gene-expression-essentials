@@ -1,3 +1,91 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * @author John Blanco
+ * @author Mohamed Safi
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Protein = require( 'GENE_EXPRESSION_BASICS/common/model/Protein' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
+  //var Util = require( 'DOT/Util' ); TODO
+  // var DoubleGeneralPath; //TODO
+  var ColorChangingCellNode;
+
+  // constants
+  var BASE_COLOR = ColorChangingCellNode.FLORESCENT_FILL_COLOR; // Make the color look like the fluorescent green used in "multiple cells" tab.
+  var FULL_GROWN_WIDTH = 320;
+
+  function ProteinC( model ) {
+    model = model || new StubGeneExpressionModel();
+    Protein.call( this, model, this.createInitialShape(), BASE_COLOR );
+  }
+
+  return inherit( Protein, ProteinC, {
+
+
+    /**
+     * @param {number} growthFactor
+     * @returns {Shape}
+     */
+    getUntranslatedShape: function( growthFactor ) {
+      return this.createShape( growthFactor );
+    },
+
+    /**
+     * @Override
+     * @returns {ProteinC}
+     */
+    createInstance: function() {
+      return new ProteinC( this.model );
+    },
+
+    /**
+     * @param {Vector2} attachmentPointLocation
+     */
+    setAttachmentPointPosition: function( attachmentPointLocation ) {
+      // Note: This is specific to this protein's shape, and will need to be
+      // adjusted if the protein's shape algorithm changes.
+      this.setPosition( attachmentPointLocation.x + FULL_GROWN_WIDTH * 0.12 * this.getFullSizeProportion(),
+        attachmentPointLocation.y + FULL_GROWN_WIDTH * 0.45 * this.getFullSizeProportion() );
+    },
+
+    /**
+     * @returns {Shape}
+     */
+    createInitialShape: function() {
+      return this.createShape( 0 );
+    },
+
+    /**
+     * @param {number} growthFactor
+     * @returns {Shape}
+     */
+    createShape: function( growthFactor ) {
+      //TODO
+      //final double currentWidth = MathUtil.clamp( 0.01, growthFactor, 1 ) * FULL_GROWN_WIDTH;
+//        double currentHeight = currentWidth * 1.4;
+//        DoubleGeneralPath path = new DoubleGeneralPath();
+//        double topAndBottomCurveMultiplier = 0.55;
+//        double sideCurvesMultiplier = 0.40;
+//        // Start in the upper left and proceed clockwise in adding segments.
+//        path.moveTo( -currentWidth * 0.45, currentHeight * 0.45 );
+//        path.curveTo( -currentWidth * 0.33, currentHeight * topAndBottomCurveMultiplier, currentWidth * 0.3, currentHeight * topAndBottomCurveMultiplier, currentWidth * 0.45, currentHeight * 0.45 );
+//        path.curveTo( currentWidth * sideCurvesMultiplier, currentHeight * 0.33, currentWidth * sideCurvesMultiplier, -currentHeight * 0.33, currentWidth * 0.45, -currentHeight * 0.45 );
+//        path.curveTo( currentWidth * 0.33, -currentHeight * topAndBottomCurveMultiplier, -currentWidth * 0.3, -currentHeight * topAndBottomCurveMultiplier, -currentWidth * 0.45, -currentHeight * 0.45 );
+//        path.curveTo( -currentWidth * sideCurvesMultiplier, -currentHeight * 0.33, -currentWidth * sideCurvesMultiplier, currentHeight * 0.33, -currentWidth * 0.45, currentHeight * 0.45 );
+//        return path.getGeneralPath();
+    }
+
+
+  } );
+
+
+} );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.manualgeneexpression.model;
 //
