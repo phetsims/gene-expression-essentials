@@ -11,7 +11,7 @@ define( function( require ) {
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/util/TranscriptionFactor' );
-  var Random = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
+  var Random = require( 'DOT/Random' );
   var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
   var GeneA = require( 'GENE_EXPRESSION_BASICS/common/model/GeneA' );
   var ObservableArray = require( 'AXON/ObservableArray' );
