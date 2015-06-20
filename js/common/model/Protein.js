@@ -11,7 +11,7 @@ define( function( require ) {
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
-  var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
+  var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericUnattachedAndAvailableState' );
   var ProteinAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/ProteinAttachmentStateMachine' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Property = require( 'AXON/Property' );
@@ -95,7 +95,7 @@ define( function( require ) {
      * the cell.
      */
     release: function() {
-      this.attachmentStateMachine.setState( AttachmentState.GenericUnattachedAndAvailableState() );
+      this.attachmentStateMachine.setState( new GenericUnattachedAndAvailableState() );
       this.fullGrown.set( true );
     },
 

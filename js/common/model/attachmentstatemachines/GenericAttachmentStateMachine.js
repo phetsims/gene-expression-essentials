@@ -15,7 +15,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentStateMachine' );
-  var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
+  var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericUnattachedAndAvailableState' );
+  var GenericAttachedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachedState' );
+  var GenericMovingTowardsAttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericMovingTowardsAttachmentState' );
+  var GenericUnattachedButUnavailableState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericUnattachedButUnavailableState' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
 
   /**
@@ -27,10 +30,10 @@ define( function( require ) {
 
     // States used by this state machine.  These are often set by subclasses
     // to non-default values in order to change the default behavior.
-    this.unattachedAndAvailableState = AttachmentState.GenericUnattachedAndAvailableState();
-    this.attachedState = AttachmentState.GenericAttachedState();
-    this.movingTowardsAttachmentState = AttachmentState.GenericMovingTowardsAttachmentState();
-    this.unattachedButUnavailableState = AttachmentState.GenericUnattachedButUnavailableState();
+    this.unattachedAndAvailableState = new GenericUnattachedAndAvailableState();
+    this.attachedState = new GenericAttachedState();
+    this.movingTowardsAttachmentState = new GenericMovingTowardsAttachmentState();
+    this.unattachedButUnavailableState = new GenericUnattachedButUnavailableState();
     this.setState( this.unattachedAndAvailableState );
   }
 
