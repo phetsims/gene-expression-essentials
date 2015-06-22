@@ -68,7 +68,7 @@ define( function( require ) {
      * @param {Vector2} newPos
      */
     setPosition: function( newPos ) {
-      this.setPositionByXY( newPos.getX(), newPos.getY() );
+      this.setPositionByXY( newPos.x, newPos.y );
     },
 
     /**
@@ -92,6 +92,8 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getPosition: function() {
+
+      console.log( this.shapeProperty );
       // Assumes that the center of the shape is the position.  Override if
       // other behavior is needed.
       return new Vector2( this.shapeProperty.get().bounds.getCenterX(), this.shapeProperty.get().bounds.getCenterY() );

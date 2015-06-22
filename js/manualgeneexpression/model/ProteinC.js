@@ -12,7 +12,7 @@ define( function( require ) {
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
   //var Util = require( 'DOT/Util' ); TODO
   // var DoubleGeneralPath; //TODO
-  var ColorChangingCellNode;
+  var ColorChangingCellNode = require( 'GENE_EXPRESSION_BASICS/multiplecells/view/ColorChangingCellNode' );
 
   // constants
   var BASE_COLOR = ColorChangingCellNode.FLORESCENT_FILL_COLOR; // Make the color look like the fluorescent green used in "multiple cells" tab.

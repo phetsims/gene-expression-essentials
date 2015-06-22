@@ -18,7 +18,7 @@ define( function( require ) {
   var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
   var MessengerRnaFragment = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRnaFragment' );
   var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/DestroyerTrackingRnaMotionStrategy' );
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
+  var RAND = require( 'DOT/Random' );
 
   // constants
   // Scalar velocity for transcription.

@@ -11,34 +11,30 @@ define( function( require ) {
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );// Random number generator. TODO System.currentTimeMillis() + 2
+  var RAND = require( 'DOT/Random' );// Random number generator. TODO System.currentTimeMillis() + 2
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
   var RnaPolymeraseAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/RnaPolymeraseAttachmentStateMachine' );
+  var GeneExpressionRnaPolymeraseConstant = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionRnaPolymeraseConstant' );
   var BioShapeUtils; //TODO
   var ColorUtils; //TODO
   var ShapeUtils;// TODO
+  var Shape = require( 'KITE/Shape' );
 
 
-  // constants
-  // Overall size of the polymerase molecule.
-  var WIDTH = 340;   // picometers
-  var HEIGHT = 480;  // picometers
 
-  // Offset from the center of the molecule to the location where mRNA
-  // should emerge when transcription is occurring.  This is determined
-  // empirically, and may need to change if the shape is changed.
-  var MESSENGER_RNA_GENERATION_OFFSET = new Vector2( -WIDTH * 0.4, HEIGHT * 0.4 );
 
   // Set of points that outline the basic, non-distorted shape of this
   // molecule.  The shape is meant to look like illustrations in "The
   // Machinery of Life" by David Goodsell.
-  var shapePoints = [ new Vector2( 0, HEIGHT / 2 ), // Middle top.
-    new Vector2( WIDTH / 2, HEIGHT * 0.25 ), new Vector2( WIDTH * 0.35, -HEIGHT * 0.25 ),
-    new Vector2( 0, -HEIGHT / 2 ), // Middle bottom.
-    new Vector2( -WIDTH * 0.35, -HEIGHT * 0.25 ), new Vector2( -WIDTH / 2, HEIGHT * 0.25 )
+  var shapePoints = [ new Vector2( 0, GeneExpressionRnaPolymeraseConstant.HEIGHT / 2 ), // Middle top.
+    new Vector2( GeneExpressionRnaPolymeraseConstant.WIDTH / 2, GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 ),
+    new Vector2( GeneExpressionRnaPolymeraseConstant.WIDTH * 0.35, -GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 ),
+    new Vector2( 0, -GeneExpressionRnaPolymeraseConstant.HEIGHT / 2 ), // Middle bottom.
+    new Vector2( -GeneExpressionRnaPolymeraseConstant.WIDTH * 0.35, -GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 ),
+    new Vector2( -GeneExpressionRnaPolymeraseConstant.WIDTH / 2, GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 )
   ];
 
   // Colors used by this molecule.
@@ -55,7 +51,7 @@ define( function( require ) {
   function RnaPolymerase( model, position ) {
     model = model || new StubGeneExpressionModel();
     position = position || new Vector2( 0, 0 );
-    RnaPolymerase.call( this, model, this.createShape(), NOMINAL_COLOR );
+    MobileBiomolecule.call( this, model, this.createShape(), NOMINAL_COLOR );
 
     // Copy of the attachment state machine reference from base class, but
     // with the more specific type.
@@ -126,12 +122,10 @@ define( function( require ) {
     createShape: function() {
       // Shape is meant to look like illustrations in "The Machinery of
       // Life" by David Goodsell.
-      return ShapeUtils.createRoundedShapeFromPoints( shapePoints );
+      //return ShapeUtils.createRoundedShapeFromPoints( shapePoints ); TODO
+
+      return Shape.rectangle( 0, 0, 0, 0 ); //TODO fake shape to avoid  build error
     }
-
-  }, {
-
-    MESSENGER_RNA_GENERATION_OFFSET: MESSENGER_RNA_GENERATION_OFFSET
 
   } );
 

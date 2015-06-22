@@ -1,3 +1,41 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ *  Node that represents a cell (as in a biological organism) that changes color
+ * as the level of protein within the cell changes.  The color change is
+ * meant to represent a cell that is expressing a fluorescent protein,
+ * something like Green Fluorescent Protein, or GFP.
+ *
+ * @author John Blanco
+ * @author Mohamed Safi
+ */
+define( function( require ) {
+  'use strict';
+
+  //modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Color = require( 'SCENERY/util/Color' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  // constant
+  var NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray
+  var FLORESCENT_FILL_COLOR = new Color( 200, 255, 58 );
+  // private static final Stroke STROKE = new BasicStroke( 2 );
+  //  private static final Color STROKE_COLOR = Color.WHITE;
+
+  function ColorChangingCellNode() {
+    Node.call( this );
+
+  }
+
+  return inherit( Node, ColorChangingCellNode, {}, {
+
+    FLORESCENT_FILL_COLOR: FLORESCENT_FILL_COLOR,
+    NOMINAL_FILL_COLOR: NOMINAL_FILL_COLOR
+
+
+  } );
+
+
+} );
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.multiplecells.view;
 //

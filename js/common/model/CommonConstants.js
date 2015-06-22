@@ -26,4 +26,7 @@ define( function( require ) {
   // verify that enum is immutable, without the runtime penalty in production code
   if ( assert ) { Object.freeze( CommonConstants ); }
 
+
+  return CommonConstants;
+
 } );

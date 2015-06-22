@@ -20,7 +20,7 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
+  var RAND = require( 'DOT/Random' );
   var MotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionStrategy' );
 
   // constants

@@ -22,11 +22,11 @@ define( function( require ) {
   var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
   var DnaSeparation = require( 'GENE_EXPRESSION_BASICS/common/model/DnaSeparation' );
   var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
-  var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
+  var GeneExpressionRnaPolymeraseConstant = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionRnaPolymeraseConstant' );
   var MessengerRna = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRna' );
   var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/RandomWalkMotionStrategy' );
   var DriftThenTeleportMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/DriftThenTeleportMotionStrategy' );
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
+  var RAND = require( 'DOT/Random' );
 
   // constants
   var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.  Half-life of attachment to a site with affinity of 0.5.
@@ -267,8 +267,8 @@ define( function( require ) {
         // Grow the messenger RNA and position it to be attached to the
         // polymerase.
         this.messengerRna.addLength( AttachedAndTranscribingState.TRANSCRIPTION_VELOCITY * dt );
-        this.messengerRna.setLowerRightPosition( rnaPolymerase.getPosition().x + RnaPolymerase.MESSENGER_RNA_GENERATION_OFFSET.x,
-          rnaPolymerase.getPosition().y + RnaPolymerase.MESSENGER_RNA_GENERATION_OFFSET.y );
+        this.messengerRna.setLowerRightPosition( rnaPolymerase.getPosition().x + GeneExpressionRnaPolymeraseConstant.MESSENGER_RNA_GENERATION_OFFSET.x,
+          rnaPolymerase.getPosition().y + GeneExpressionRnaPolymeraseConstant.MESSENGER_RNA_GENERATION_OFFSET.y );
 
         // Move the DNA strand separator.
         dnaStrandSeparation.setXPos( rnaPolymerase.getPosition().x );
@@ -316,7 +316,7 @@ define( function( require ) {
         // Create the mRNA that will be grown as a result of this
         // transcription.
         this.messengerRna = new MessengerRna( biomolecule.getModel(), geneToTranscribe.getProteinPrototype(),
-          biomolecule.getPosition().plus( RnaPolymerase.MESSENGER_RNA_GENERATION_OFFSET ) );
+          biomolecule.getPosition().plus( GeneExpressionRnaPolymeraseConstant.MESSENGER_RNA_GENERATION_OFFSET ) );
         biomolecule.spawnMessengerRna( this.messengerRna );
 
         // Free up the initial attachment site by hooking up to a somewhat

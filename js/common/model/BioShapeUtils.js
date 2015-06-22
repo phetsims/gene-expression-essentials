@@ -14,7 +14,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-
+  var Shape = require( 'KITE/Shape' );
   function BioShapeUtils() {
 
   }
@@ -51,6 +51,7 @@ define( function( require ) {
      */
     createRandomShapeFromPoints: function( points, seed ) {
 
+      return Shape.rectangle( 0, 0, 0, 0 ); //TODO fake shape to avoid  build error
     },
 
     /**
@@ -60,6 +61,8 @@ define( function( require ) {
      */
     createRandomShape: function( size, seed ) {
 
+
+      return Shape.rectangle( 0, 0, 0, 0 ); //TODO fake shape to avoid  build error
     },
 
     /**
@@ -68,21 +71,23 @@ define( function( require ) {
     createCurvyLineFromPoints: function( points ) {
 
 
+      return Shape.rectangle( 0, 0, 0, 0 ); //TODO fake shape to avoid  build error
     },
 
     createSegmentedLineFromPoints: function( points ) {
 
 
+      return Shape.rectangle( 0, 0, 0, 0 ); //TODO fake shape to avoid  build error
     },
 
     createCurvyEnclosedShape: function( bounds, variationFactor, seed ) {
 
-
+      return Shape.rectangle( 0, 0, 0, 0 ); //TODO fake shape to avoid  build error
     },
 
     createEColiLikeShape: function( center, width, height, rotationAngle, seed ) {
 
-
+      return Shape.rectangle( 0, 0, 0, 0 ); //TODO fake shape to avoid  build error
     }
 
   } );

@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
   var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
-  var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
+  var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionRibosomeConstant' );
   var RibosomeTranslatingRnaMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/RibosomeTranslatingRnaMotionStrategy' );
 
   // constants
@@ -103,7 +103,7 @@ define( function( require ) {
     this.proteinBeingSynthesized = null;
 
     // Set up offset used when attaching to mRNA.
-    this.setDestinationOffset( Ribosome.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
+    this.setDestinationOffset( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
 
     // Set up a non-default "attached" state, since the behavior is
     // different from the default.

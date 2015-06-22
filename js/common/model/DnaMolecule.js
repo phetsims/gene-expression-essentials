@@ -152,9 +152,12 @@ define( function( require ) {
     // Create a shadow of the shape-defining points.  This will be used for
     // detecting shape changes.
     this.strandPointsShadow = [];
-    _.forEach( this.strandPoints, function( strandPoint ) {
-      this.strandPointsShadow.add( new DnaStrandPoint( strandPoint ) );
-    } );
+
+    for ( var j = 0; j < this.strandPoints.length; j++ ) {
+      var strandPoint = this.strandPoints[ j ];
+      this.strandPointsShadow.push( new DnaStrandPoint( strandPoint ) );
+    }
+
 
     // Create the sets of segments that will be observed by the view.
     this.initializeStrandSegments();

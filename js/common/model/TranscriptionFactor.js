@@ -19,14 +19,14 @@ define( function( require ) {
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
-  var PDimension; // TODO
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' ); //TODO System.currentTimeMillis() - 8 );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var RAND = require( 'DOT/Random' ); //TODO System.currentTimeMillis() - 8 );
   var TranscriptionFactorAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/TranscriptionFactorAttachmentStateMachine' );
 
   // constants
   var WIDTH = 325;   // In nanometers.
   var HEIGHT = 240;  // In nanometers.
-  var SIZE = new PDimension( WIDTH, HEIGHT );
+  var SIZE = new Dimension2( WIDTH, HEIGHT );
 
 
   /**
@@ -39,6 +39,7 @@ define( function( require ) {
   function TranscriptionFactor( model, config, initialPosition ) {
     model = model || new StubGeneExpressionModel();
     initialPosition = initialPosition || new Vector2( 0, 0 );
+    console.log( config );
     MobileBiomolecule.call( this, model, config.shape, config.baseColor );
 
     // Configuration used to create this transcription factor, used when

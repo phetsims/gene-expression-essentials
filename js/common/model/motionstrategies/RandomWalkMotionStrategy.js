@@ -16,7 +16,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
   var MotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionStrategy' );
-  var RAND = require( 'GENE_EXPRESSION_BASICS/common/util/Random' );
+  var RAND = require( 'DOT/Random' );
   var Util = require( 'DOT/Util' );
 
   // constants
@@ -38,6 +38,7 @@ define( function( require ) {
     self.directionChangeCountdown = 0;
     self.currentMotionVector2D = new Vector2( 0, 0 );
     self.currentZVelocity = 0;
+    console.dir( motionBoundsProperty );
     motionBoundsProperty.link( function( motionBounds ) {
       self.motionBounds = motionBounds;
     } );

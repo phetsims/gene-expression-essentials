@@ -20,7 +20,7 @@ define( function( require ) {
   var GeneA = require( 'GENE_EXPRESSION_BASICS/common/model/GeneA' );
   var GeneB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneC' );
-  var ObservableArray; // = require( 'AXON/util/ObservableArray' ); //TODO ObservableArray package name
+  var ObservableArray = require( 'AXON/ObservableArray' );
   var ConstantDtClock; // = require( 'ConstantDtClock' ); TODO
   var Property = require( 'AXON/Property' );
   var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
@@ -68,17 +68,17 @@ define( function( require ) {
     this.messengerRnaList = new ObservableArray();
 
     // Clock that drives all time-dependent behavior in this model.
-    this.clock = new ConstantDtClock( 30.0 );
+    this.clock = null;// = new ConstantDtClock( 30.0 );
 
     // The gene that the user is focusing on, other gene activity is
     // suspended.  Start with the 0th gene in the DNA (leftmost).
     // Initialize variables that are dependent upon the DNA.
-    this.activeGene = new Property( this.dnaMolecule.getGenes().get( 0 ) );
+    this.activeGene = new Property( this.dnaMolecule.getGenes()[ 0 ] );
 
     // Properties that keep track of whether the first or last gene is
     // currently active, which means that the user is viewing it.
-    this.isFirstGeneActive = this.activeGene.valueEquals( this.dnaMolecule.getGenes().get( 0 ) );
-    this.isLastGeneActive = this.activeGene.valueEquals( this.dnaMolecule.getLastGene() );
+    this.isFirstGeneActive = this.activeGene === this.dnaMolecule.getGenes()[ 0 ];
+    this.isLastGeneActive = this.activeGene === this.dnaMolecule.getLastGene();
 
     // List of areas where biomolecules should not be allowed.  These are
     // generally populated by the view in order to keep biomolecules from
@@ -103,9 +103,9 @@ define( function( require ) {
 
 
     //TODO Clock listener
-    this.clock.addClockListener( function( clockEvent ) {
-      this.stepInTime( clockEvent.getSimulationTimeChange() );
-    } );
+    //this.clock.addClockListener( function( clockEvent ) {
+    //  this.stepInTime( clockEvent.getSimulationTimeChange() );
+    //} );
 
   }
 

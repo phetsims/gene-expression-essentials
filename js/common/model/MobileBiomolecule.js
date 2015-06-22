@@ -16,6 +16,7 @@ define( function( require ) {
 
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Color = require( 'SCENERY/util/Color' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
@@ -31,6 +32,7 @@ define( function( require ) {
    */
   function MobileBiomolecule( model, initialShape, baseColor ) {
     var self = this;
+
     ShapeChangingModelElement.call( self, initialShape );
 
     // Reference to the model in which this biomolecule exists.  This is
@@ -38,32 +40,8 @@ define( function( require ) {
     // biomolecules.
     self.model = model;
 
-    // Attachment state machine that controls how the molecule interacts with
-    // other model objects (primarily other biomolecules) in terms of
-    // attaching, detaching, etc.
-    self.attachmentStateMachine = self.createAttachmentStateMachine();
-
-    // Color to use when displaying this biomolecule to the user.  This is
-    // a bit out of place here, and has nothing to do with the fact that the
-    // molecule moves.  This was just a convenient place to put it (so far).
-    self.colorProperty.set( baseColor );
-
-    // Property that tracks whether this biomolecule is user controlled.  If
-    // it is, it shouldn't try to move or interact with anything.
-    // Handle changes in user control.
-    self.userControlled.link( function( isUserControlled, wasUserControlled ) {
-      if ( wasUserControlled && !isUserControlled ) {
-        self.handleReleasedByUser();
-      }
-    } );
-
-
     // Bounds within which this biomolecule is allowed to move.
     this.motionBoundsProperty = new Property( new MotionBounds() );
-
-    // Motion strategy that governs how this biomolecule moves.  This changes
-    // as the molecule interacts with other portions of the model.
-    this.motionStrategy = null;
 
 
     // Position on the Z axis.  This is handled much differently than for the
@@ -88,6 +66,37 @@ define( function( require ) {
     // the DNA strand.  Some biomolecules never attach to DNA, so it will
     // never become true.  This should only be set by subclasses.
     this.attachedToDna = new Property( false );  // TODO BooleanProperty
+
+    // Attachment state machine that controls how the molecule interacts with
+    // other model objects (primarily other biomolecules) in terms of
+    // attaching, detaching, etc.
+    self.attachmentStateMachine = self.createAttachmentStateMachine();
+
+    // Color to use when displaying this biomolecule to the user.  This is
+    // a bit out of place here, and has nothing to do with the fact that the
+    // molecule moves.  This was just a convenient place to put it (so far).
+    self.colorProperty = new Property( Color.BLACK );
+    if ( baseColor ) {
+      self.colorProperty.set( baseColor );
+    }
+
+
+    self.userControlled = new Property( false );
+    // Property that tracks whether this biomolecule is user controlled.  If
+    // it is, it shouldn't try to move or interact with anything.
+    // Handle changes in user control.
+    self.userControlled.link( function( isUserControlled, wasUserControlled ) {
+      if ( wasUserControlled && !isUserControlled ) {
+        self.handleReleasedByUser();
+      }
+    } );
+
+
+    // Motion strategy that governs how this biomolecule moves.  This changes
+    // as the molecule interacts with other portions of the model.
+    this.motionStrategy = null;
+
+
 
   }
 

@@ -8,7 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  // TODO var ManualGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ManualGeneExpressionModel' );
+  var ManualGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ManualGeneExpressionModel' );
   var ManualGeneExpressionScreenView = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/ManualGeneExpressionScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
@@ -24,9 +24,9 @@ define( function( require ) {
     //If this is a single-screen sim, then no icon is necessary.
     //If there are multiple screens, then the icon must be provided here.
     var icon = null;
-    var model = {}; // TODO done to avoid linkage error
+
     Screen.call( this, geneExpressionBasicsSimString, icon,
-      function() { return model; },//return new ManualGeneExpressionModel(); },
+      function() { return new ManualGeneExpressionModel();},
       function( model ) { return new ManualGeneExpressionScreenView( model ); },
       { backgroundColor: '#ABCBDB' }
     );

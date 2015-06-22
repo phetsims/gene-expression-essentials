@@ -68,8 +68,9 @@ define( function( require ) {
     // attaches when the transcription factors support transcription.
     this.polymeraseAffinityProperty = new Property( 1.0 );
 
+    console.log( this.polymeraseAttachmentSite );
     // Initialize the placement hint for polymerase.
-    this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.locationProperty.get() );
+    this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.location.get() );
   }
 
   return inherit( Object, Gene, {
@@ -189,7 +190,7 @@ define( function( require ) {
      * @param {TranscriptionFactorConfig} tfConfig
      */
     addTranscriptionFactor: function( basePairOffset, tfConfig ) {
-      this.transcriptionFactorMap.put( basePairOffset, new TranscriptionFactor( tfConfig ) );
+      this.transcriptionFactorMap.put( basePairOffset, new TranscriptionFactor( null, tfConfig ) );
       var position = new Vector2( this.dnaMolecule.getBasePairXOffsetByIndex(
         basePairOffset + this.regulatoryRegion.getMin() ), DnaMolecule.Y_POS );
       this.transcriptionFactorPlacementHints.push( new TranscriptionFactorPlacementHint(
