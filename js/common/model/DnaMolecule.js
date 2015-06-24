@@ -247,7 +247,7 @@ define( function( require ) {
      * @return {number}
      */
     getDnaStrandYPosition: function( xPos, offset ) {
-      return Math.sin( ( xPos + offset ) / CommonConstants.LENGTH_PER_TWIST * Math.PI * 2 ) * CommonConstants.DIAMETER / 2;
+      return Math.sin( ( xPos + offset ) / CommonConstants.LENGTH_PER_TWIST * Math.PI * 2 ) * CommonConstants.DNA_MOLECULE_DIAMETER / 2;
     },
 
     /**
@@ -815,7 +815,7 @@ define( function( require ) {
      */
     getGeneAtLocation: function( location ) {
       if ( !( location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&
-              location.y >= CommonConstants.Y_POS - CommonConstants.DIAMETER / 2 && location.y <= CommonConstants.Y_POS + CommonConstants.DIAMETER / 2 ) ) {
+              location.y >= CommonConstants.Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2 && location.y <= CommonConstants.Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 ) ) {
         console.log( " - Warning: Location for gene test is not on DNA molecule." );
         return null;
       }

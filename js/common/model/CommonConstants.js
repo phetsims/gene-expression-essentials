@@ -13,7 +13,7 @@ define( function( require ) {
 
   var CommonConstants = {
     // Constants the define the geometry of the DNA molecule.
-    DIAMETER: 200,
+    DNA_MOLECULE_DIAMETER: 200,
     LENGTH_PER_TWIST: LENGTH_PER_TWIST,// In picometers
     BASE_PAIRS_PER_TWIST: BASE_PAIRS_PER_TWIST,
     DISTANCE_BETWEEN_BASE_PAIRS: LENGTH_PER_TWIST / BASE_PAIRS_PER_TWIST,

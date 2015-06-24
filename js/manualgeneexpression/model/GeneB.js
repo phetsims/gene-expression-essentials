@@ -21,7 +21,6 @@ define( function( require ) {
   var TRANSCRIBED_REGION_COLOR = new Color( 240, 246, 143, 150 );
   var NUM_BASE_PAIRS_IN_REGULATORY_REGION = 28;
   var NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION = 150;
-  var NUM_BASE_PAIRS = NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION;
 
   /**
    * @param {DnaMolecule} dnaMolecule -  The DNA molecule within which this gene exists
@@ -55,7 +54,7 @@ define( function( require ) {
 
   }, {
 
-    NUM_BASE_PAIRS: NUM_BASE_PAIRS
+    NUM_BASE_PAIRS: NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
 
   } );
 

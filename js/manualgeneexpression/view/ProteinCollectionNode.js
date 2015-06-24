@@ -1,3 +1,33 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * A PNode that represents a labeled box where the user can collect protein
+ * molecules.
+ *
+ * @author Sharfudeen Ashraf
+ * @author John Blanco
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+
+  function ProteinCollectionNode() {
+    var thisNode = this;
+    Node.call( thisNode );
+
+
+  }
+
+
+  return inherit( Node, ProteinCollectionNode );
+
+
+} );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.manualgeneexpression.view;
 //

@@ -1,3 +1,30 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * Class for displaying placement hints, which let the user know where various
+ * things (e.g. biomolecules) can and should be placed.
+ *
+ * @author Sharfudeen Ashraf
+ * @author John Blanco
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+
+  function PlacementHintNode() {
+    var thisNode = this;
+    Node.call( thisNode );
+
+
+  }
+
+
+  return inherit( Node, PlacementHintNode );
+} );
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.common.view;
 //
@@ -13,8 +40,7 @@
 //import edu.umd.cs.piccolo.PNode;
 //
 ///**
-// * Class for displaying placement hints, which let the user know where various
-// * things (e.g. biomolecules) can and should be placed.
+
 // */
 //public class PlacementHintNode extends PNode {
 //

@@ -20,7 +20,7 @@ define( function( require ) {
   var GeneExpressionRnaPolymeraseConstant = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionRnaPolymeraseConstant' );
   var BioShapeUtils; //TODO
   var ColorUtils; //TODO
-  var ShapeUtils;// TODO
+ // var ShapeUtils;// TODO
   var Shape = require( 'KITE/Shape' );
 
 

@@ -31,12 +31,8 @@ define( function( require ) {
   return inherit( Object, GeneExpressionCommonConstant, {}, {
 
     WIDTH : WIDTH,
-
     HEIGHT : HEIGHT,
-
     MESSENGER_RNA_GENERATION_OFFSET : MESSENGER_RNA_GENERATION_OFFSET
-
-
 
   } );
 } );

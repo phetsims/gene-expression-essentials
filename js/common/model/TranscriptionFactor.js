@@ -20,7 +20,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var RAND = require( 'DOT/Random' ); //TODO System.currentTimeMillis() - 8 );
+  var RAND = require( 'DOT/Random' );
   var TranscriptionFactorAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/TranscriptionFactorAttachmentStateMachine' );
 
   // constants

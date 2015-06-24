@@ -1,4 +1,69 @@
-//// Copyright 2002-2011, University of Colorado
+//  Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * Class that represents the DNA molecule in the view.
+ *
+ * @author Sharfudeen Ashraf
+ * @author John Blanco
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Color = require( 'SCENERY/util/Color' );
+  var GeneNode = require( 'GENE_EXPRESSION_BASICS/common/view/GeneNode' );
+
+  // constants
+  var STRAND_1_COLOR = new Color( 31, 163, 223 );
+ // var STRAND_2_COLOR = new Color( 214, 87, 107 ); TODO
+
+  // strings
+  var GENE = require( 'string!GENE_EXPRESSION_BASICS/gene' );
+
+  /**
+   *
+   * @param {DnaMolecule} dnaMolecule
+   * @param {ModelViewTransform2} mvt
+   * @param {number} backboneStrokeWidth
+   * @param {boolean} showGeneBracketLabels
+   * @constructor
+   */
+  function DnaMoleculeNode( dnaMolecule, mvt, backboneStrokeWidth, showGeneBracketLabels ) {
+    var thisView = this;
+    Node.call(thisView);
+
+    // Layers for supporting the 3D look by allowing the "twist" to be depicted.
+    this.dnaBackboneBackLayer = new Node();
+    this.dnaBackboneFrontLayer = new Node();
+
+    // Add the layers onto which the various nodes that represent parts of
+    // the dna, the hints, etc. are placed.
+    var geneBackgroundLayer = new Node();
+    thisView.addChild( geneBackgroundLayer );
+    thisView.addChild( this.dnaBackboneBackLayer );
+    var basePairLayer = new Node();
+    thisView.addChild( basePairLayer );
+    thisView.addChild( this.dnaBackboneFrontLayer );
+
+    // Put the gene backgrounds and labels behind everything.
+    for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
+      geneBackgroundLayer.addChild( new GeneNode( mvt, dnaMolecule.getGenes()[i], dnaMolecule,
+        GENE + ( i + 1 ), showGeneBracketLabels ) );
+    }
+
+    // Add the first backbone strand.
+    _.each( dnaMolecule.getStrand1Segments(), function( dnaStrandSegment ) {
+      thisView.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_1_COLOR );
+    } );
+
+
+  }
+
+  return inherit( Node, DnaMoleculeNode );
+
+} );
 //package edu.colorado.phet.geneexpressionbasics.common.view;
 //
 //import java.awt.BasicStroke;

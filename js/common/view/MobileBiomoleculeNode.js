@@ -1,3 +1,32 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * Base class for displaying and interacting with mobile biomolecules.  In
+ * essence, this observes the shape of the biomolecule, which changes as it
+ * moves.
+ *
+ * @author Sharfudeen Ashraf
+ * @author John Blanco
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+
+  function MobileBiomoleculeNode() {
+    var thisNode = this;
+    Node.call( thisNode );
+
+
+  }
+
+
+  return inherit( Node, MobileBiomoleculeNode );
+} );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.common.view;
 //
@@ -20,9 +49,7 @@
 //import edu.umd.cs.piccolo.nodes.PPath;
 //
 ///**
-// * Base class for displaying and interacting with mobile biomolecules.  In
-// * essence, this observes the shape of the biomolecule, which changes as it
-// * moves.
+
 // */
 //public class MobileBiomoleculeNode extends PPath {
 //

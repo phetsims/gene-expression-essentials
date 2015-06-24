@@ -21,7 +21,7 @@ define( function( require ) {
   var GeneB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneC' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var ConstantDtClock; // = require( 'ConstantDtClock' ); TODO
+//  var ConstantDtClock; // = require( 'ConstantDtClock' ); TODO
   var Property = require( 'AXON/Property' );
   var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
   var Rectangle = require( 'DOT/Rectangle' );
@@ -50,7 +50,6 @@ define( function( require ) {
   function ManualGeneExpressionModel() {
 
     GeneExpressionModel.call( this, {} );
-
 
     // DNA strand, which is where the genes reside, where the polymerase does
     // its transcription, and where a lot of the action takes place.
