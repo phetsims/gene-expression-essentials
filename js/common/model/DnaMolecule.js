@@ -138,9 +138,19 @@ define( function( require ) {
     this.pursueAttachments = pursueAttachments; // Flag that controls active pursual of transcription factors and polymerase.
     this.moleculeLength = numBasePairs * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
     this.numberOfTwists = this.moleculeLength / CommonConstants.LENGTH_PER_TWIST;
-    this.strandPoints = [];
-    this.basePairs = [];
-    this.genes = [];// Genes on this strand of DNA.
+
+    // Points that, when connected, define the shape of the DNA strands.
+    this.strandPoints = []; // Array of DnaStrandPoint
+
+    // The backbone strands that are portrayed in the view, which consist of lists of shapes.
+    // This is done so that the shapes can be colored differently and layered in order to create a "twisted" look.
+    this.strand1Segments = []; // Array of DnaStrandSegment
+    this.strand2Segments = []; // Array of DnaStrandSegment
+
+    // Base pairs within the DNA strand.
+    this.basePairs = []; // Array of BasePair
+
+    this.genes = [];// Array of Genes on this strand of DNA.
 
     // Add the initial set of shape-defining points for each of the two
     // strands.  Points are spaced the same as the base pairs.
@@ -149,8 +159,7 @@ define( function( require ) {
       this.strandPoints.push( new DnaStrandPoint( xPos, this.getDnaStrandYPosition( xPos, 0 ), this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET ) ) );
     }
 
-    // Create a shadow of the shape-defining points.  This will be used for
-    // detecting shape changes.
+    // Create a shadow of the shape-defining points.  This will be used for detecting shape changes.
     this.strandPointsShadow = [];
 
     for ( var j = 0; j < this.strandPoints.length; j++ ) {
@@ -158,13 +167,11 @@ define( function( require ) {
       this.strandPointsShadow.push( new DnaStrandPoint( strandPoint ) );
     }
 
-
     // Create the sets of segments that will be observed by the view.
     this.initializeStrandSegments();
 
-    // Add in the base pairs between the backbone strands.  This calculates
-    // the distance between the two strands and puts a line between them in
-    // order to look like the base pair.
+    // Add in the base pairs between the backbone strands.  This calculates the distance between the
+    // two strands and puts a line between them in  order to look like the base pair.
     var basePairXPos = leftEdgeXOffset;
     while ( basePairXPos <= this.strandPoints[ this.strandPoints.length - 1 ].xPos ) {
       var strand1YPos = this.getDnaStrandYPosition( basePairXPos, 0 );
@@ -180,8 +187,7 @@ define( function( require ) {
 
     /**
      * private
-     * Get the index of the nearest base pair given an X position in model
-     * space.
+     * Get the index of the nearest base pair given an X position in model space.
      *
      * @param {number} xOffset
      * @returns {number}
@@ -195,9 +201,7 @@ define( function( require ) {
 
     /**
      * private
-     * Get the X location of the nearest base pair given an arbitrary x
-     * location.
-     *
+     * Get the X location of the nearest base pair given an arbitrary x location.
      * @param {number} xPos
      * @returns {number}
      */
@@ -211,6 +215,7 @@ define( function( require ) {
      * private
      */
     initializeStrandSegments: function() {
+      var self = this;
       var strand1SegmentPoints = []; //ArrayList<Point2D> TODO
       var strand2SegmentPoints = [];
       var segmentStartX = this.strandPoints[ 0 ].xPos;
@@ -222,8 +227,8 @@ define( function( require ) {
         if ( xPos - segmentStartX >= ( CommonConstants.LENGTH_PER_TWIST / 2 ) ) {
 
           // Time to add these segments and start a new ones.
-          this.strand1Segments.push( new DnaStrandSegment( BioShapeUtils.createCurvyLineFromPoints( strand1SegmentPoints ), strand1InFront ) );
-          this.strand2Segments.push( new DnaStrandSegment( BioShapeUtils.createCurvyLineFromPoints( strand2SegmentPoints ), !strand1InFront ) );
+          self.strand1Segments.push( new DnaStrandSegment( BioShapeUtils.createCurvyLineFromPoints( strand1SegmentPoints ), strand1InFront ) );
+          self.strand2Segments.push( new DnaStrandSegment( BioShapeUtils.createCurvyLineFromPoints( strand2SegmentPoints ), !strand1InFront ) );
           var firstPointOfNextSegment = strand1SegmentPoints[ strand1SegmentPoints.length - 1 ];
           strand1SegmentPoints = []; // clear;
           strand1SegmentPoints.push( firstPointOfNextSegment ); // This point must be on this segment too in order to prevent gaps.

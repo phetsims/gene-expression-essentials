@@ -19,16 +19,17 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Color = require( 'SCENERY/util/Color' );
   var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
+  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Text = require( 'SCENERY/nodes/Text' );
-
+  
   // strings
-  var REGULATORY_REGION = require( 'string!GENE_EXPRESSION_BASICS/gene-expression-basics.name' );
-  var TRANSCRIBED_REGION = require( 'string!GENE_EXPRESSION_BASICS/gene-expression-basics.name' );
+  var REGULATORY_REGION = require( 'string!GENE_EXPRESSION_BASICS/regulatoryRegion' );
+  var TRANSCRIBED_REGION = require( 'string!GENE_EXPRESSION_BASICS/transcribedRegion' );
 
   // constants
-  var REGION_LABEL_FONT = new PhetFont( 11 );
-  var GENE_LABEL_FONT = new PhetFont( 16 );
-  var BRACKET_DEPTH = 20;
+  var REGION_LABEL_FONT = new PhetFont( { size: 12, weight: 'bold' } );
+  var GENE_LABEL_FONT = new PhetFont( { size: 18, weight: 'bold' } );
+  var BRACKET_DEPTH = 30;
   var RECT_ROUNDING = 15;
 
   /**
@@ -55,7 +56,7 @@ define( function( require ) {
     var regulatoryRegionNode = new Path( regRegionShape, { fill: gene.getRegulatoryRegionColor() } );
     thisNode.addChild( regulatoryRegionNode );
 
-    var regulatoryRegionCaption = new Text( REGULATORY_REGION, { font: REGION_LABEL_FONT } );
+    var regulatoryRegionCaption = new MultiLineText( REGULATORY_REGION, { font: REGION_LABEL_FONT } );
     regulatoryRegionCaption.x = regulatoryRegionNode.bounds.getCenterX() - regulatoryRegionCaption.bounds.width / 2;
     regulatoryRegionCaption.y = regulatoryRegionNode.bounds.getMaxY();
     thisNode.addChild( regulatoryRegionCaption );
@@ -69,7 +70,7 @@ define( function( require ) {
     var transcribedRegionNode = new Path( transcribedRegionShape, { fill: gene.getTranscribedRegionColor() } );
     thisNode.addChild( transcribedRegionNode );
 
-    var transcribedRegionCaption = new Text( TRANSCRIBED_REGION, { font: REGION_LABEL_FONT } );
+    var transcribedRegionCaption = new MultiLineText( TRANSCRIBED_REGION, { font: REGION_LABEL_FONT } );
     transcribedRegionCaption.x = transcribedRegionNode.bounds.getCenterX() - transcribedRegionCaption.bounds.width / 2;
     transcribedRegionCaption.y = transcribedRegionNode.bounds.getMaxY();
     thisNode.addChild( transcribedRegionCaption );
@@ -83,16 +84,14 @@ define( function( require ) {
       bracketPath.lineTo( transcribedRegionNode.bounds.getMaxX() - BRACKET_DEPTH,
         transcribedRegionCaption.bounds.getMaxY() + BRACKET_DEPTH );
       bracketPath.lineToRelative( BRACKET_DEPTH, -BRACKET_DEPTH );
-      thisNode.addChild( new Path( bracketPath, {
-        lineWidth: 2,
-        stroke: Color.BLACK
-      } ) );
+      thisNode.addChild( new Path( bracketPath, { lineWidth: 2, stroke: Color.BLACK } ) );
 
       // And the textual label for the gene.
       var labelText = new Text( label, { font: GENE_LABEL_FONT } );
       thisNode.addChild( labelText );
-      labelText.x = bracketPath.computeBounds().getCenterX() - labelText.bounds.width / 2;
-      labelText.y = bracketPath.computeBounds().getMaxY() + 5;
+      var bracketBounds = bracketPath.computeBounds();
+      labelText.x = bracketBounds.getCenterX() - labelText.bounds.width / 2;
+      labelText.y = bracketBounds.getMaxY() + 20;
     }
   }
 

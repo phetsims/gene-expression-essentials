@@ -16,6 +16,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var GeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionModel' );
+  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
   var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
   var GeneA = require( 'GENE_EXPRESSION_BASICS/common/model/GeneA' );
   var GeneB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneB' );
@@ -54,7 +55,7 @@ define( function( require ) {
     // DNA strand, which is where the genes reside, where the polymerase does
     // its transcription, and where a lot of the action takes place.
     // Initialize the DNA molecule.
-    this.dnaMolecule = new DnaMolecule( this, NUM_BASE_PAIRS_ON_DNA_STRAND, -NUM_BASE_PAIRS_ON_DNA_STRAND * DnaMolecule.DISTANCE_BETWEEN_BASE_PAIRS / 4, false );
+    this.dnaMolecule = new DnaMolecule( this, NUM_BASE_PAIRS_ON_DNA_STRAND, -NUM_BASE_PAIRS_ON_DNA_STRAND * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 4, false );
     this.dnaMolecule.addGene( new GeneA( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 4 - GeneA.NUM_BASE_PAIRS / 2 ) );
     this.dnaMolecule.addGene( new GeneB( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 2 - GeneB.NUM_BASE_PAIRS / 2 ) );
     this.dnaMolecule.addGene( new GeneC( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND * 3 / 4 - GeneC.NUM_BASE_PAIRS / 2 ) );

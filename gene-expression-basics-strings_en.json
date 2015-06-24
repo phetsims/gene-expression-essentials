@@ -6,7 +6,7 @@
     "value": "Low"
   },
   "regulatoryRegion": {
-    "value": "<center>Regulatory<br>Region</center>"
+    "value": "Regulatory\nRegion"
   },
   "positiveTranscriptionFactorHtml": {
     "value": "<center>Positive Transcription<br>Factor</center>"
@@ -75,7 +75,7 @@
     "value": "Cells"
   },
   "transcribedRegion": {
-    "value": "<center>Transcribed<br>Region</center>"
+    "value": "Transcribed\nRegion"
   },
   "lots": {
     "value": "Lots"
@@ -87,7 +87,7 @@
     "value": "Zoom In"
   },
   "negativeTranscriptionFactorHtml": {
-    "value": "<center>Negative Transcription<br>Factor</center>"
+    "value": "Negative Transcription\nFactor"
   },
   "gene": {
     "value": "Gene"

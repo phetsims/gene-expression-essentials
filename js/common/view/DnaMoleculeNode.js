@@ -14,10 +14,11 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Color = require( 'SCENERY/util/Color' );
   var GeneNode = require( 'GENE_EXPRESSION_BASICS/common/view/GeneNode' );
+  var DnaStrandSegmentNode = require( 'GENE_EXPRESSION_BASICS/common/view/DnaStrandSegmentNode' );
 
   // constants
   var STRAND_1_COLOR = new Color( 31, 163, 223 );
- // var STRAND_2_COLOR = new Color( 214, 87, 107 ); TODO
+  // var STRAND_2_COLOR = new Color( 214, 87, 107 ); TODO
 
   // strings
   var GENE = require( 'string!GENE_EXPRESSION_BASICS/gene' );
@@ -32,7 +33,7 @@ define( function( require ) {
    */
   function DnaMoleculeNode( dnaMolecule, mvt, backboneStrokeWidth, showGeneBracketLabels ) {
     var thisView = this;
-    Node.call(thisView);
+    Node.call( thisView );
 
     // Layers for supporting the 3D look by allowing the "twist" to be depicted.
     this.dnaBackboneBackLayer = new Node();
@@ -49,7 +50,7 @@ define( function( require ) {
 
     // Put the gene backgrounds and labels behind everything.
     for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
-      geneBackgroundLayer.addChild( new GeneNode( mvt, dnaMolecule.getGenes()[i], dnaMolecule,
+      geneBackgroundLayer.addChild( new GeneNode( mvt, dnaMolecule.getGenes()[ i ], dnaMolecule,
         GENE + ( i + 1 ), showGeneBracketLabels ) );
     }
 
@@ -61,7 +62,26 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, DnaMoleculeNode );
+  return inherit( Node, DnaMoleculeNode, {
+
+    /**
+     *
+     * @param mvt
+     * @param dnaStrandSegment
+     * @param strandSegmentStroke
+     * @param color
+     */
+    addStrand: function( mvt, dnaStrandSegment, strandSegmentStroke, color ) {
+      var segmentNode = new DnaStrandSegmentNode( dnaStrandSegment, mvt, strandSegmentStroke, color );
+      if ( dnaStrandSegment.inFront ) {
+        this.dnaBackboneFrontLayer.addChild( segmentNode );
+      }
+      else {
+        this.dnaBackboneBackLayer.addChild( segmentNode );
+      }
+    }
+
+  } );
 
 } );
 //package edu.colorado.phet.geneexpressionbasics.common.view;

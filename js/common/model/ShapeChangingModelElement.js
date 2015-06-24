@@ -21,11 +21,8 @@ define( function( require ) {
    * @constructor
    */
   function ShapeChangingModelElement( initialShape ) {
-    // Shape property, which is not public because it should only be changed
-    // by descendants of the class.
+    // Shape property, which is not public because it should only be changed by descendants of the class.
     this.shapeProperty = new Property( initialShape );
-
-
   }
 
   return inherit( Object, ShapeChangingModelElement, {

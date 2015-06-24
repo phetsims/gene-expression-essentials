@@ -22,10 +22,9 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
 
-  //constants
+  // constants
   // Inset for several of the controls.
   var INSET = 15;
-
 
   // images
   var mockupImage = require( 'image!GENE_EXPRESSION_BASICS/GEB-01.png' );
@@ -39,7 +38,7 @@ define( function( require ) {
     ScreenView.call( this );
     var thisView = this;
 
-    var viewPortPosition = new Vector2( thisView.layoutBounds.width * 0.5, thisView.layoutBounds.height * 0.70 );
+    var viewPortPosition = new Vector2( thisView.layoutBounds.width * 0.48, thisView.layoutBounds.height * 0.64 );
     // Set up the model-canvas transform.
     // IMPORTANT NOTES: The multiplier factors for the 2nd point can be
     // adjusted to shift the center right or left, and the scale factor
@@ -83,7 +82,6 @@ define( function( require ) {
     // stay in one place and not scroll.
     var frontControlsLayer = new Node();
     thisView.addChild( frontControlsLayer );
-
 
     // BackGround Cell related Code -- TODO
 
