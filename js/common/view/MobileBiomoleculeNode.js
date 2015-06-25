@@ -19,7 +19,6 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-
   }
 
 

@@ -10,8 +10,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Protein = require( 'GENE_EXPRESSION_BASICS/common/model/Protein' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
-  //var Util = require( 'DOT/Util' ); TODO
-  // var DoubleGeneralPath; //TODO
+  var Util = require( 'DOT/Util' );
+  var Shape = require( 'KITE/Shape' );
   var ColorChangingCellNode = require( 'GENE_EXPRESSION_BASICS/multiplecells/view/ColorChangingCellNode' );
 
   // constants
@@ -24,7 +24,6 @@ define( function( require ) {
   }
 
   return inherit( Protein, ProteinC, {
-
 
     /**
      * @param {number} growthFactor
@@ -64,19 +63,18 @@ define( function( require ) {
      * @returns {Shape}
      */
     createShape: function( growthFactor ) {
-      //TODO
-      //final double currentWidth = MathUtil.clamp( 0.01, growthFactor, 1 ) * FULL_GROWN_WIDTH;
-//        double currentHeight = currentWidth * 1.4;
-//        DoubleGeneralPath path = new DoubleGeneralPath();
-//        double topAndBottomCurveMultiplier = 0.55;
-//        double sideCurvesMultiplier = 0.40;
-//        // Start in the upper left and proceed clockwise in adding segments.
-//        path.moveTo( -currentWidth * 0.45, currentHeight * 0.45 );
-//        path.curveTo( -currentWidth * 0.33, currentHeight * topAndBottomCurveMultiplier, currentWidth * 0.3, currentHeight * topAndBottomCurveMultiplier, currentWidth * 0.45, currentHeight * 0.45 );
-//        path.curveTo( currentWidth * sideCurvesMultiplier, currentHeight * 0.33, currentWidth * sideCurvesMultiplier, -currentHeight * 0.33, currentWidth * 0.45, -currentHeight * 0.45 );
-//        path.curveTo( currentWidth * 0.33, -currentHeight * topAndBottomCurveMultiplier, -currentWidth * 0.3, -currentHeight * topAndBottomCurveMultiplier, -currentWidth * 0.45, -currentHeight * 0.45 );
-//        path.curveTo( -currentWidth * sideCurvesMultiplier, -currentHeight * 0.33, -currentWidth * sideCurvesMultiplier, currentHeight * 0.33, -currentWidth * 0.45, currentHeight * 0.45 );
-//        return path.getGeneralPath();
+      var currentWidth = Util.clamp( growthFactor, 0.01, 1 ) * FULL_GROWN_WIDTH;
+      var currentHeight = currentWidth * 1.4;
+      var path = new Shape();
+      var topAndBottomCurveMultiplier = 0.55;
+      var sideCurvesMultiplier = 0.40;
+      // Start in the upper left and proceed clockwise in adding segments.
+      path.moveTo( -currentWidth * 0.45, currentHeight * 0.45 );
+      path.cubicCurveTo( -currentWidth * 0.33, currentHeight * topAndBottomCurveMultiplier, currentWidth * 0.3, currentHeight * topAndBottomCurveMultiplier, currentWidth * 0.45, currentHeight * 0.45 );
+      path.cubicCurveTo( currentWidth * sideCurvesMultiplier, currentHeight * 0.33, currentWidth * sideCurvesMultiplier, -currentHeight * 0.33, currentWidth * 0.45, -currentHeight * 0.45 );
+      path.cubicCurveTo( currentWidth * 0.33, -currentHeight * topAndBottomCurveMultiplier, -currentWidth * 0.3, -currentHeight * topAndBottomCurveMultiplier, -currentWidth * 0.45, -currentHeight * 0.45 );
+      path.cubicCurveTo( -currentWidth * sideCurvesMultiplier, -currentHeight * 0.33, -currentWidth * sideCurvesMultiplier, currentHeight * 0.33, -currentWidth * 0.45, currentHeight * 0.45 );
+      return path;
     }
 
 

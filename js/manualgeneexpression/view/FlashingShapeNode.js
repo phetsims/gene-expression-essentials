@@ -1,3 +1,29 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * PNode that has a shape and that can be set up to flash in a number of  different ways.
+ *
+ * @author Sharfudeen Ashraf
+ * @author John Blanco
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+
+  function FlashingShapeNode() {
+    var thisNode = this;
+    Node.call( thisNode );
+
+  }
+
+
+  return inherit( Node, FlashingShapeNode );
+} );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.manualgeneexpression.view;
 //

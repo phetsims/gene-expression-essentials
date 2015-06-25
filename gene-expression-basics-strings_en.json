@@ -45,7 +45,7 @@
     "value": "slow"
   },
   "yourProteinCollection": {
-    "value": "<center>Your Protein<br>Collection:</center>"
+    "value": "Your Protein\nCollection"
   },
   "previousGene": {
     "value": "Previous Gene"

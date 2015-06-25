@@ -32,10 +32,9 @@ define( function( require ) {
     MobileBiomolecule.call( this, model, initialShape, baseColor );
 
     // Property that gets set when this protein is fully formed and released.
-    this.fullGrown = new Property( false );
+    this.fullGrownProperty = new Property( false );
 
-    // A value between 0 and 1 that defines how fully developed, or "grown"
-    // this protein is.
+    // A value between 0 and 1 that defines how fully developed, or "grown"  this protein is.
     this.fullSizeProportion = 0;// private
   }
 
@@ -96,7 +95,7 @@ define( function( require ) {
      */
     release: function() {
       this.attachmentStateMachine.setState( new GenericUnattachedAndAvailableState() );
-      this.fullGrown.set( true );
+      this.fullGrownProperty.set( true );
     },
 
     /**

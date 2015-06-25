@@ -1,8 +1,7 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * A PNode that represents a labeled box where the user can collect protein
- * molecules.
+ * A PNode that represents a labeled box where the user can collect protein molecules.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -13,17 +12,189 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Color = require( 'SCENERY/util/Color' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Shape = require( 'KITE/Shape' );
+  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
+  var ProteinCollectionArea = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/ProteinCollectionArea' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var Panel = require( 'SUN/Panel' );
 
-  function ProteinCollectionNode() {
+
+  // constants
+  // Upper limit on the width of the PNodes contained in this control panel.
+  // This prevents translations from making this box too large.
+  var MAX_CONTENT_WIDTH = 300;
+
+  // Total number of protein types that can be collected.
+  var NUM_PROTEIN_TYPES = 3;
+
+  // Attributes of various aspects of the box.
+  var TITLE_FONT = new PhetFont( 20, true );
+  var READOUT_FONT = new PhetFont( 18 );
+  var BACKGROUND_COLOR = new Color( 255, 250, 205 );
+  var INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
+
+  // strings
+  var YOUR_PROTEIN_COLLECTION = require( 'string!GENE_EXPRESSION_BASICS/yourProteinCollection' );
+  var COLLECTION_COMPLETE = require( 'string!GENE_EXPRESSION_BASICS/collectionComplete' );
+  var PROTEIN_COUNT_CAPTION_PART_1 = require( 'string!GENE_EXPRESSION_BASICS/proteinCountCaptionPart1' );
+  var PROTEIN_COUNT_CAPTION_PART_2 = require( 'string!GENE_EXPRESSION_BASICS/proteinCountCaptionPart2' );
+
+  /**
+   * Center the full bounds of this node so that they are centered on the
+   * given point specified on the local coordinates of this nodes parent.
+   * @param parentX
+   * @param parentY
+   */
+  function centerFullBoundsOnPoint( node, parentX, parentY ) {
+    var dx = parentX - node.bounds.getCenterX();
+    var dy = parentY - node.bounds.getCenterY();
+    node.setTranslation( dx, dy );
+  }
+
+  /**
+   * Convenience class for putting an integer in a box, kind of like a
+   * grayed out edit box.
+   *
+   * @param {number} value
+   * @constructor
+   */
+  function IntegerBox( value ) {
     var thisNode = this;
     Node.call( thisNode );
 
+    var valueText = new Text( value, { font: READOUT_FONT } );
+    var boxBounds = Shape.rectangle( 0, 0, valueText.bounds.width * 2, valueText.bounds.height );
+    var box = new Path( boxBounds, {
+      fill: INTEGER_BOX_BACKGROUND_COLOR,
+      lineWidth: 1,
+      stroke: Color.BLACK
+    } );
+
+    thisNode.addChild( box );
+    centerFullBoundsOnPoint( valueText, box.bounds.getCenterX(), box.bounds.getCenterY() );
+    thisNode.addChild( valueText );
 
   }
 
+  inherit( Node, IntegerBox );
+
+  /**
+   * // private
+   * Node that indicates the number of proteins that the user has collected
+   * so far.  This monitors the model and updates automatically.
+   * @param {ManualGeneExpressionModel}model
+   * @constructor
+   */
+  function CollectionCountIndicator( model ) {
+    var thisNode = this;
+    Node.call( thisNode );
+
+    thisNode.collectionCompleteNode = new Text( COLLECTION_COMPLETE, { font: new PhetFont( 20 ) } );
+    if ( thisNode.collectionCompleteNode.bounds.width > MAX_CONTENT_WIDTH ) {
+      // Scale to fit.
+      thisNode.collectionCompleteNode.scale( MAX_CONTENT_WIDTH / thisNode.collectionCompleteNode.bounds.width );
+    }
+
+    function countChangeUpdater() {
+      thisNode.updateCount( model );
+    }
+
+    model.proteinACollectedProperty.link( countChangeUpdater );
+    model.proteinBCollectedProperty.link( countChangeUpdater );
+    model.proteinCCollectedProperty.link( countChangeUpdater );
+
+  }
+
+  inherit( Node, CollectionCountIndicator, {
+    /**
+     *
+     * @param {ManualGeneExpressionModel} model
+     */
+    updateCount: function( model ) {
+      var thisNode = this;
+      var numProteinTypesCollected = 0;
+      if ( model.proteinACollected > 0 ) {
+        numProteinTypesCollected++;
+      }
+      if ( model.proteinBCollected > 0 ) {
+        numProteinTypesCollected++;
+      }
+      if ( model.proteinCCollected > 0 ) {
+        numProteinTypesCollected++;
+      }
+      thisNode.removeAllChildren();
+
+      var hBox = new HBox( {
+        children: [ new Text( PROTEIN_COUNT_CAPTION_PART_1, { font: READOUT_FONT } ),
+          new IntegerBox( numProteinTypesCollected ) ],
+        spacing: 4
+      } );
+
+      var vBoxChildren = [ hBox, new Text( PROTEIN_COUNT_CAPTION_PART_2, { font: READOUT_FONT } ) ];
+      var collectedQuantityIndicator = new VBox( {
+        children: vBoxChildren, spacing: 5
+      } );
+
+      if ( collectedQuantityIndicator.bounds.width > MAX_CONTENT_WIDTH ) {
+        // Scale to fit.
+        collectedQuantityIndicator.scale( MAX_CONTENT_WIDTH / collectedQuantityIndicator.bounds.width );
+      }
+
+      // Offset the collection complete indicator so that it will be centered when it is shown.
+      var dx = collectedQuantityIndicator.bounds.getCenterX() - thisNode.collectionCompleteNode.bounds.getCenterX();
+      var dy = collectedQuantityIndicator.bounds.getCenterY() - thisNode.collectionCompleteNode.bounds.getCenterY();
+      thisNode.collectionCompleteNode.setTranslation( dx, dy );
+
+      // Add both nodes, so that the overall size of the node is consistent, but
+      // only show one of them based upon whether the collection is complete.
+      thisNode.addChild( collectedQuantityIndicator );
+      thisNode.addChild( thisNode.collectionCompleteNode );
+
+      // Set the visibility.
+      collectedQuantityIndicator.setVisible( numProteinTypesCollected !== NUM_PROTEIN_TYPES );
+      thisNode.collectionCompleteNode.setVisible( numProteinTypesCollected === NUM_PROTEIN_TYPES );
+    }
+  } );
+
+  /**
+   *
+   * @param {ManualGeneExpressionModel} model
+   * @param {ModelViewTransform2} mvt
+   * @constructor
+   */
+  function ProteinCollectionNode( model, mvt ) {
+    var thisNode = this;
+    Node.call( thisNode );
+
+    // Create the title and scale it if needed.
+    var title = new MultiLineText( YOUR_PROTEIN_COLLECTION, {
+        fill: Color.BLACK, font: TITLE_FONT
+      }
+    );
+    if ( title.bounds.width > MAX_CONTENT_WIDTH ) {
+      // Scale title to fit.
+      title.scale( MAX_CONTENT_WIDTH / title.bounds.width );
+    }
+
+    // Create the collection area.
+    var collectionArea = new ProteinCollectionArea( model, mvt );
+    assert && assert( collectionArea.bounds.width <= MAX_CONTENT_WIDTH ); // Need to make some adjustments if this gets hit.
+
+    var contents = new VBox( {
+      children: [ title,
+        collectionArea,
+        new CollectionCountIndicator( model ) ], spacing: 5
+    } );
+
+    thisNode.addChild( new Panel( contents, { fill: BACKGROUND_COLOR } ) );
+  }
 
   return inherit( Node, ProteinCollectionNode );
-
 
 } );
 
@@ -76,43 +247,18 @@ define( function( require ) {
 // */
 //class ProteinCollectionNode extends PNode {
 //
-//    // Upper limit on the width of the PNodes contained in this control panel.
-//    // This prevents translations from making this box too large.
-//    private static final double MAX_CONTENT_WIDTH = 300;
+
 //
-//    // Total number of protein types that can be collected.
-//    private static final double NUM_PROTEIN_TYPES = 3;
+
 //
-//    // Attributes of various aspects of the box.
-//    private static final Font TITLE_FONT = new PhetFont( 20, true );
-//    private static final Font READOUT_FONT = new PhetFont( 18 );
-//    private static final Color BACKGROUND_COLOR = new Color( 255, 250, 205 );
+
 //
 //    public ProteinCollectionNode( ManualGeneExpressionModel model, ModelViewTransform mvt ) {
-//        // Create the title and scale it if needed.
-//        PNode title = new HTMLNode( GeneExpressionBasicsResources.Strings.YOUR_PROTEIN_COLLECTION, Color.BLACK, TITLE_FONT ) {{
-//            if ( getFullBoundsReference().getWidth() > MAX_CONTENT_WIDTH ) {
-//                // Scale title to fit.
-//                setScale( MAX_CONTENT_WIDTH / getFullBoundsReference().width );
-//            }
-//        }};
+
 //
-//        // Create the collection area.
-//        PNode collectionArea = new ProteinCollectionArea( model, mvt );
-//        assert collectionArea.getFullBoundsReference().width <= MAX_CONTENT_WIDTH; // Need to make some adjustments if this gets hit.
+
 //
-//        PNode contents = new VBox(
-//                title,
-//                collectionArea,
-//                new CollectionCountIndicator( model )
-//        );
-//        addChild( new ControlPanelNode( contents, BACKGROUND_COLOR ) );
-//    }
-//
-//    /**
-//     * PNode that indicates the number of proteins that the user has collected
-//     * so far.  This monitors the model and updates automatically.
-//     */
+
 //    private static class CollectionCountIndicator extends PNode {
 //
 //        final PNode collectionCompleteNode = new PText( GeneExpressionBasicsResources.Strings.COLLECTION_COMPLETE ) {{
@@ -125,55 +271,10 @@ define( function( require ) {
 //
 //        // Constructor.
 //        public CollectionCountIndicator( final ManualGeneExpressionModel model ) {
-//            SimpleObserver countChangeUpdater = new SimpleObserver() {
-//                public void update() {
-//                    updateCount( model );
-//                }
-//            };
-//            model.proteinACollected.addObserver( countChangeUpdater );
-//            model.proteinBCollected.addObserver( countChangeUpdater );
-//            model.proteinCCollected.addObserver( countChangeUpdater );
+//
 //        }
 //
 //        private void updateCount( ManualGeneExpressionModel model ) {
-//            int numProteinTypesCollected = 0;
-//            if ( model.proteinACollected.get() > 0 ) {
-//                numProteinTypesCollected++;
-//            }
-//            if ( model.proteinBCollected.get() > 0 ) {
-//                numProteinTypesCollected++;
-//            }
-//            if ( model.proteinCCollected.get() > 0 ) {
-//                numProteinTypesCollected++;
-//            }
-//            removeAllChildren();
-//            PNode collectedQuantityIndicator = new VBox(
-//                    5,
-//                    new HBox( 4, new ReadoutPText( PROTEIN_COUNT_CAPTION_PART_1 ), new IntegerBox( numProteinTypesCollected ) ),
-//                    new ReadoutPText( PROTEIN_COUNT_CAPTION_PART_2 ) {{
-//                        setFont( READOUT_FONT );
-//                    }}
-//
-//            );
-//            if ( collectedQuantityIndicator.getFullBoundsReference().width > MAX_CONTENT_WIDTH ) {
-//                // Scale to fit.
-//                collectedQuantityIndicator.setScale( MAX_CONTENT_WIDTH / getFullBoundsReference().width );
-//            }
-//
-//            // Offset the collection complete indicator so that it will be
-//            // centered when it is shown.
-//            collectionCompleteNode.centerFullBoundsOnPoint( collectedQuantityIndicator.getFullBoundsReference().getCenterX(),
-//                                                            collectedQuantityIndicator.getFullBoundsReference().getCenterY() );
-//
-//            // Add both nodes, so that the overall size of the node is
-//            // consistent, but only show one of them based upon whether the
-//            // collection is complete.
-//            addChild( collectedQuantityIndicator );
-//            addChild( collectionCompleteNode );
-//
-//            // Set the visibility.
-//            collectedQuantityIndicator.setVisible( numProteinTypesCollected != NUM_PROTEIN_TYPES );
-//            collectionCompleteNode.setVisible( numProteinTypesCollected == NUM_PROTEIN_TYPES );
 //        }
 //    }
 //

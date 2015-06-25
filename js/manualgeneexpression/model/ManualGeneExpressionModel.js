@@ -50,7 +50,6 @@ define( function( require ) {
    */
   function ManualGeneExpressionModel() {
 
-    GeneExpressionModel.call( this, {} );
 
     // DNA strand, which is where the genes reside, where the polymerase does
     // its transcription, and where a lot of the action takes place.
@@ -61,7 +60,7 @@ define( function( require ) {
     this.dnaMolecule.addGene( new GeneC( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND * 3 / 4 - GeneC.NUM_BASE_PAIRS / 2 ) );
 
     // List of mobile biomolecules in the model, excluding mRNA.
-    this.mobileBiomoleculeList = new ObservableArray(); //TODO ObservableArray
+    this.mobileBiomoleculeList = new ObservableArray();
 
     // List of mRNA molecules in the sim.  These are kept separate because they
     // are treated a bit differently than the other mobile biomolecules.
@@ -86,16 +85,19 @@ define( function( require ) {
     this.offLimitsMotionSpaces = [];
 
     // Properties that track how many of the various proteins have been collected.
-    this.proteinACollected = new Property( 0 );
-    this.proteinBCollected = new Property( 0 );
-    this.proteinCCollected = new Property( 0 );
+    GeneExpressionModel.call( this, {
+      proteinACollected: 0,
+      proteinBCollected: 0,
+      proteinCCollected: 0
+    } );
+
 
     // Map of the protein collection count properties to the protein types,
     // used to obtain the count property based on the type of protein.
     this.mapProteinClassToCollectedCount = new Map();
-    this.mapProteinClassToCollectedCount.put( "ProteinA", this.proteinACollected ); // TODO ProteinA.Class
-    this.mapProteinClassToCollectedCount.put( "ProteinB", this.proteinBCollected );
-    this.mapProteinClassToCollectedCount.put( "ProteinC", this.proteinCCollected );
+    this.mapProteinClassToCollectedCount.put( "ProteinA", this.proteinACollectedProperty );
+    this.mapProteinClassToCollectedCount.put( "ProteinB", this.proteinBCollectedProperty );
+    this.mapProteinClassToCollectedCount.put( "ProteinC", this.proteinCCollectedProperty );
 
     // Rectangle that describes the "protein capture area".  When a protein is
     // dropped by the user over this area, it is considered to be captured.
@@ -148,7 +150,7 @@ define( function( require ) {
     },
 
     /**
-     * @param {String} proteinType //TODO class
+     * @param {String} proteinType
      * @returns {Property}
      */
     getCollectedCounterForProteinType: function( proteinType ) {
@@ -257,21 +259,26 @@ define( function( require ) {
      */
     captureProtein: function( protein ) {
       if ( protein instanceof ProteinA ) {
-        this.proteinACollected.set( this.proteinACollected.get() + 1 );
+        this.proteinACollected = this.proteinACollected + 1 ;
       }
       if ( protein instanceof ProteinB ) {
-        this.proteinBCollected.set( this.proteinBCollected.get() + 1 );
+        this.proteinBCollected = this.proteinBCollected + 1 ;
       }
       if ( protein instanceof ProteinC ) {
-        this.proteinCCollected.set( this.proteinCCollected.get() + 1 );
+        this.proteinCCollected = this.proteinCCollected + 1;
       }
       this.mobileBiomoleculeList.remove( protein );
     },
 
-    getProteinCount: function( proteinClass ) {
+    /**
+     *
+     * @param {Function} proteinClassType
+     * @returns {number}
+     */
+    getProteinCount: function( proteinClassType) {
       var count = 0;
-      _.forEach( this.mobileBiomoleculeList, function() {
-        if ( this.mobileBiomolecule === proteinClass ) { // TODO mobileBiomolecule.getClass
+      _.forEach( this.mobileBiomoleculeList, function(mobileBiomolecule) {
+        if ( mobileBiomolecule instanceof proteinClassType ) {
           count++;
         }
       } );

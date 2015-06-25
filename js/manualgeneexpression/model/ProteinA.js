@@ -9,72 +9,71 @@ define( function( require ) {
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
+  var Shape = require( 'KITE/Shape' );
   var Protein = require( 'GENE_EXPRESSION_BASICS/common/model/Protein' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
-  //var Util = require( 'DOT/Util' ); //TODO commented to pass lint
+  var Util = require( 'DOT/Util' );
 
   // constants
-    var BASE_COLOR = new Color( 255, 99, 71 );
+  var BASE_COLOR = new Color( 255, 99, 71 );
   var FULL_GROWN_WIDTH = 450;
 
 
   function ProteinA( model ) {
     model = model || new StubGeneExpressionModel();
-    Protein.call(this, model, this.createInitialShape(), BASE_COLOR );
+    Protein.call( this, model, this.createInitialShape(), BASE_COLOR );
   }
 
-  return inherit( Protein,ProteinA , {
+  return inherit( Protein, ProteinA, {
 
     /**
      *
      * @param {number} growthFactor
      * @returns {Shape}
      */
-    getUntranslatedShape : function(  growthFactor ) {
-        return this.createShape( growthFactor );
+    getUntranslatedShape: function( growthFactor ) {
+      return this.createShape( growthFactor );
     },
 
     /**
      * @returns {ProteinA}
      */
-    createInstance : function() {
-        return new ProteinA( this.model );
+    createInstance: function() {
+      return new ProteinA( this.model );
     },
 
     /**
      * @param {Vector2} attachmentPointLocation
      */
-    setAttachmentPointPosition : function(  attachmentPointLocation ) {
-        // Note: This is specific to this protein's shape, and will need to be
-        // adjusted if the protein's shape algorithm changes.
-        this.setPosition( attachmentPointLocation.x, attachmentPointLocation.y + ( FULL_GROWN_WIDTH / 2 * this.getFullSizeProportion() ) );
+    setAttachmentPointPosition: function( attachmentPointLocation ) {
+      // Note: This is specific to this protein's shape, and will need to be
+      // adjusted if the protein's shape algorithm changes.
+      this.setPosition( attachmentPointLocation.x, attachmentPointLocation.y +
+                                                   ( FULL_GROWN_WIDTH / 2 * this.getFullSizeProportion() ) );
     },
 
     /**
      * @returns {Shape}
      */
-    createInitialShape : function() {
-        return this.createShape( 0 );
+    createInitialShape: function() {
+      return this.createShape( 0 );
     },
 
     /**
      * @param {number} growthFactor
      * @returns {Shape}
      */
-    createShape  :function(  growthFactor ) {
-      //var currentWidth = Util.clamp(growthFactor, 0.01 , 1 ) * FULL_GROWN_WIDTH; //TODO
+    createShape: function( growthFactor ) {
+      var currentWidth = Util.clamp( growthFactor, 0.01, 1 ) * FULL_GROWN_WIDTH;
+      var shape = new Shape();
+      shape.moveTo( -currentWidth / 2, 0 );
+      shape.lineTo( 0, -currentWidth / 2 );
+      shape.lineTo( currentWidth / 2, 0 );
+      shape.lineTo( 0, currentWidth / 2 );
+      shape.lineTo( -currentWidth / 2, 0 );
+      shape.close();
 
-      var path; //TODO
-        //DoubleGeneralPath path = new DoubleGeneralPath( 0, 0 ) {{
-        //    moveTo( -currentWidth / 2, 0 );
-        //    lineTo( 0, -currentWidth / 2 );
-        //    lineTo( currentWidth / 2, 0 );
-        //    lineTo( 0, currentWidth / 2 );
-        //    lineTo( -currentWidth / 2, 0 );
-        //    closePath();
-        //}};
-
-        return path.getGeneralPath();
+      return shape;
     }
 
 

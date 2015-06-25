@@ -21,7 +21,7 @@ define( function( require ) {
   var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Text = require( 'SCENERY/nodes/Text' );
-  
+
   // strings
   var REGULATORY_REGION = require( 'string!GENE_EXPRESSION_BASICS/regulatoryRegion' );
   var TRANSCRIBED_REGION = require( 'string!GENE_EXPRESSION_BASICS/transcribedRegion' );
