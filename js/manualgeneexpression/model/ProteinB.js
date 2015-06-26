@@ -28,6 +28,15 @@ define( function( require ) {
 
 
     /**
+     * //protected
+     * @param {number} growthFactor
+     * @returns {Shape}
+     */
+    getUntranslatedShape: function( growthFactor ) {
+      return this.createShape( growthFactor );
+    },
+
+    /**
      * @param {Vector2} attachmentPointLocation
      */
     setAttachmentPointPosition: function( attachmentPointLocation ) {

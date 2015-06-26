@@ -1,7 +1,7 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * PNode that has a shape and that can be set up to flash in a number of  different ways.
+ * Node that has a shape and that can be set up to flash in a number of  different ways.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -12,15 +12,147 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Color = require( 'SCENERY/util/Color' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Timer = require( 'JOIST/Timer' );
 
-  function FlashingShapeNode() {
+  // constants
+  var INVISIBLE_COLOR = new Color( 0, 0, 0, 0 );
+
+
+  /**
+   * Class that controls timed flashing.
+   *
+   * @param {Path} flashingNode
+   * @param {Color} normalColor
+   * @param {Color} flashColor
+   * @param {number} onTime - in milliseconds
+   * @param {number} offTime - in milliseconds
+   * @param {number} numFlashes
+   * @param {boolean} flashOnAtStart
+   * @param {boolean} flashOnAtEnd
+   * @constructor
+   */
+  function FlashController( flashingNode, normalColor, flashColor, onTime, offTime, numFlashes, flashOnAtStart, flashOnAtEnd ) {
+
+    var self = this;
+    // Variables used to implement the flashing behavior.
+    var transitionCountdown = 0;
+
+    this.flashingNode = flashingNode;
+    this.flashColor = flashColor;
+    this.normalColor = normalColor;
+    this.flashOnAtStart = flashOnAtStart;
+    this.flashOnAtEnd = flashOnAtEnd;
+    this.numFlashes = numFlashes;
+    this.timerHandle = null;
+
+    var time = 0;
+    this.timerListener = function() {
+      if ( flashingNode.fill === flashColor ) {
+        // Flash is on, so turn flash off.
+        flashingNode.fill = normalColor;
+        time = offTime;
+      }
+      else {
+        // Flash is off, so turn flash on.
+        flashingNode.fill = flashColor;
+        time = onTime;
+      }
+      transitionCountdown--;
+      if ( transitionCountdown > 0 ) {
+        // Set timer for next transition.
+        self.stop();
+        self.timerHandle = Timer.setTimeout( self.timerListener, time );
+      }
+      else {
+        // Done flashing.
+        self.stop();
+      }
+    };
+
+    this.timerListener();
+
+    // Set up the timer.
+    self.timerHandle = Timer.setTimeout( this.timerListener, time );
+
+  }
+
+  inherit( Object, FlashController, {
+
+    isFlashing: function() {
+      return this.timerHandle !== null;
+    },
+
+    stop: function() {
+      Timer.clearTimeout( this.timerHandle );
+      this.timerHandle = null;
+    },
+
+    forceFlashOff: function() {
+      if ( this.isFlashing() ) {
+        this.stop();
+      }
+      this.setFlashOn( false );
+    },
+
+    restart: function() {
+      this.stop();
+      this.setFlashOn( this.flashOnAtStart );
+      this.transitionCountdown = this.numFlashes * 2;
+      if ( this.flashOnAtStart !== this.flashOnAtEnd ) {
+        this.transitionCountdown -= 1;
+      }
+      this.timerHandle = Timer.setTimeout( this.timerListener, 0 );
+    },
+
+    /**
+     * // private
+     * @param {boolean} flashOn
+     */
+    setFlashOn: function( flashOn ) {
+      this.flashingNode.fill = flashOn ? this.flashColor : this.normalColor;
+    }
+
+  } );
+
+  /**
+   *
+   * @param {Shape} shape
+   * @param {Color} flashColor
+   * @param {number} onTime - in milliseconds
+   * @param {number} offTime - in milliseconds
+   * @param {number} numFlashes
+   * @param {boolean} visibleAtStart
+   * @param {boolean} visibleAtEnd
+   * @constructor
+   */
+  function FlashingShapeNode( shape, flashColor, onTime, offTime, numFlashes, visibleAtStart, visibleAtEnd ) {
     var thisNode = this;
     Node.call( thisNode );
+
+    var flashingNode = new Path( shape, {
+      fill: visibleAtStart ? flashColor : INVISIBLE_COLOR
+    } );
+    thisNode.addChild( flashingNode );
+    this.flashController = new FlashController( flashingNode, INVISIBLE_COLOR, flashColor, onTime, offTime, numFlashes, visibleAtStart, visibleAtEnd );
 
   }
 
 
-  return inherit( Node, FlashingShapeNode );
+  return inherit( Node, FlashingShapeNode, {
+    startFlashing: function() {
+      this.flashController.restart();
+    },
+
+    stopFlashing: function() {
+      this.flashController.stop();
+    },
+
+    forceFlashOff: function() {
+      this.flashController.forceFlashOff();
+    }
+  } );
 } );
 
 

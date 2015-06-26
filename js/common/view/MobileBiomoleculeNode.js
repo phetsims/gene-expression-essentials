@@ -14,6 +14,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   function MobileBiomoleculeNode() {
     var thisNode = this;
@@ -22,7 +24,40 @@ define( function( require ) {
   }
 
 
-  return inherit( Node, MobileBiomoleculeNode );
+  return inherit( Node, MobileBiomoleculeNode, {},
+    //statics
+    {
+      /**
+       * Create a gradient paint in order to give a molecule a little depth.
+       * This is public so that it can be used by other nodes that need to
+       * depict biomolecules.
+       *
+       * @param {Shape} shape;
+       * @param {Color} baseColor
+       */
+      createGradientPaint: function( shape, baseColor ) {
+        var paint;
+        if ( !CommonConstants.FLORESCENT_FILL_COLOR.equals( baseColor ) ) {
+          var shapeBounds = shape.computeBounds();
+          paint = new LinearGradient( shapeBounds.getMinX(),
+            shapeBounds.getCenterY(),
+            shapeBounds.getMaxX(),
+            shapeBounds.getCenterY() );
+
+          paint.addColorStop( 0, baseColor.brighterColor( 0.8 ) );
+          paint.addColorStop( 1, baseColor.darkerColor( 0.3 ) );
+
+        }
+        else {
+          // Special case: If using the "fluorescent" color, i.e. the one
+          // used to depict green fluorescent protein in the sim, don't
+          // create a gradient, because it looks brighter and more distinct.
+          paint = baseColor;
+        }
+
+        return paint;
+      }
+    } );
 } );
 
 

@@ -32,10 +32,10 @@ define( function( require ) {
   // Tweak warning: This is used to make sure that the counters on
   // the various protein nodes end up horizontally aligned.  This will
   // need to be adjust if the protein shapes change a lot.
-  var VERTICAL_DISTANCE_TO_COUNT_NODE = 35;
+  var VERTICAL_DISTANCE_TO_COUNT_NODE = 40;
 
   var proteinStringConstructorMap = {
-    "ProtienA": ProteinA,
+    "ProteinA": ProteinA,
     "ProteinB": ProteinB,
     "ProteinC": ProteinC
   };
@@ -57,20 +57,15 @@ define( function( require ) {
     var fullBaseColor = Color.PINK; // Arbitrary initial color.
 
     // Get the shape of the protein.
-    try {
-      var protein = new proteinStringConstructorMap[ proteinClassName ]();
-      proteinShape = protein.getFullyGrownShape().transformed( transform );
-      fullBaseColor = protein.colorProperty.get();
-    }
-    catch( e ) {
-      console.log( e );
-    }
+    var protein = new proteinStringConstructorMap[ proteinClassName ]();
+    proteinShape = protein.getFullyGrownShape().transformed( transform );
+    fullBaseColor = protein.colorProperty.get();
 
     // Add the background node.  This is invisible, and exists only to
     // made the node a specific size.
-    thisNode.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ) ), {
+    thisNode.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ) , {
       fill: new Color( 0, 0, 0, 0 )
-    } );
+    }) );
 
     // Add the node that will flash when a protein is created, stay lit
     // until the protein is captured, and turn off once it is captured.
@@ -86,7 +81,7 @@ define( function( require ) {
     var gradientPaint = MobileBiomoleculeNode.createGradientPaint( proteinShape, fullBaseColor );
 
     // Add the node that represents a count of the collected type.
-    var countNode = new Text( "", { font: new PhetFont( 18 ) } );
+    var countNode = new Text( "", { font: new PhetFont( { size: 18, weight: 'bold' }  ) } );
     thisNode.addChild( countNode );
     model.getCollectedCounterForProteinType( proteinClassName ).link( function( proteinCaptureCount ) {
       countNode.text = proteinCaptureCount;
@@ -125,7 +120,7 @@ define( function( require ) {
 
     // Observe the biomolecules and make sure that if none of the
     // protein that this collects is in the model, the highlight is off.
-    model.mobileBiomoleculeList.addElementRemovedObserver( function( biomolecule ) {
+    model.mobileBiomoleculeList.addItemRemovedListener( function( biomolecule ) {
       if ( biomolecule instanceof proteinStringConstructorMap[ proteinClassName ] &&
            model.getProteinCount( proteinStringConstructorMap[ proteinClassName ] ) === 0 ) {
         // Make sure highlight is off.

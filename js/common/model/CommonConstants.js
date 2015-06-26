@@ -8,6 +8,9 @@
 define( function( require ) {
   'use strict';
 
+  // imports
+  var Color = require( 'SCENERY/util/Color' );
+
   var LENGTH_PER_TWIST = 340;// In picometers
   var BASE_PAIRS_PER_TWIST = 10;// In picometers.
 
@@ -20,6 +23,7 @@ define( function( require ) {
     INTER_STRAND_OFFSET:         LENGTH_PER_TWIST * 0.3,
     Y_POS: 0,//Y position of the molecule in model space.
     WATER_EQUILIBRIUM_CONSTANT: 1E-14,
+    FLORESCENT_FILL_COLOR:new Color( 200, 255, 58 ),
     DEFAULT_AFFINITY: 0.05 // Default affinity for any given biomolecule.
   };
 

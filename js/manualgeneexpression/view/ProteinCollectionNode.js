@@ -33,8 +33,8 @@ define( function( require ) {
   var NUM_PROTEIN_TYPES = 3;
 
   // Attributes of various aspects of the box.
-  var TITLE_FONT = new PhetFont( 20, true );
-  var READOUT_FONT = new PhetFont( 18 );
+  var TITLE_FONT = new PhetFont( { size: 18, weight: 'bold' } );
+  var READOUT_FONT = new PhetFont( { size: 18, weight: 'bold' } );
   var BACKGROUND_COLOR = new Color( 255, 250, 205 );
   var INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
 
@@ -137,7 +137,7 @@ define( function( require ) {
 
       var vBoxChildren = [ hBox, new Text( PROTEIN_COUNT_CAPTION_PART_2, { font: READOUT_FONT } ) ];
       var collectedQuantityIndicator = new VBox( {
-        children: vBoxChildren, spacing: 5
+        children: vBoxChildren, spacing: 10
       } );
 
       if ( collectedQuantityIndicator.bounds.width > MAX_CONTENT_WIDTH ) {

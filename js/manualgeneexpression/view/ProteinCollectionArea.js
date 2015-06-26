@@ -14,12 +14,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Dimensions2 = require( 'DOT/Dimensions2' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
   var ProteinB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinB' );
   var ProteinC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinC' );
   var ProteinCaptureNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/ProteinCaptureNode' );
+  var kite = require( 'KITE/kite' );
 
   /**
    *
@@ -39,22 +40,14 @@ define( function( require ) {
 
     // Figure out the max dimensions of the various protein types so
     // that the capture nodes can be properly laid out.
-    var captureNodeBackgroundSize = new Dimensions2( 0, 0 );
+    var captureNodeBackgroundSize = new Dimension2( 0, 0 );
 
     var protienTypes = [ ProteinA, ProteinB, ProteinC ];
     for ( var i = 0; i < protienTypes.length; i++ ) {
-
-      try {
-        var protein = new protienTypes[ i ]();
-        var proteinShapeBounds = transform.transformed( protein.getFullyGrownShape() ).computeBounds();
-        captureNodeBackgroundSize.setSize( Math.max( proteinShapeBounds.getWidth() * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.getWidth() ),
-          Math.max( proteinShapeBounds.getHeight() * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.getHeight() ) );
-      }
-      catch( e ) {
-        // Not much that can be done here except to essentially
-        // re-throw the exception.
-        throw new Error( "Exception thrown when instantiating protein, e = " + e );
-      }
+      var protein = new protienTypes[ i ]();
+      var proteinShapeBounds = protein.getFullyGrownShape().transformed( transform ).computeBounds( new kite.LineStyles( { lineWidth: 1 } ) );
+      captureNodeBackgroundSize.width = ( Math.max( proteinShapeBounds.width * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.width ) );
+      captureNodeBackgroundSize.height = ( Math.max( proteinShapeBounds.height * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.height ) );
     }
 
     // Add the collection area, which is a set of collection nodes.

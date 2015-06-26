@@ -26,6 +26,7 @@ define( function( require ) {
   return inherit( Protein, ProteinC, {
 
     /**
+     * //protected
      * @param {number} growthFactor
      * @returns {Shape}
      */
