@@ -62,7 +62,7 @@ define( function( require ) {
     fullBaseColor = protein.colorProperty.get();
 
     // Add the background node.  This is invisible, and exists only to
-    // made the node a specific size.
+    // make the node a specific size.
     thisNode.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ) , {
       fill: new Color( 0, 0, 0, 0 )
     }) );
