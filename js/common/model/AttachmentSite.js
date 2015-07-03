@@ -13,7 +13,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var BoundedDoubleProperty = require( 'GENE_EXPRESSION_BASICS/common/model/BoundedDoubleProperty' );
 
   // constants
@@ -25,44 +25,45 @@ define( function( require ) {
    * @constructor
    */
   function AttachmentSite( initialLocation, initialAffinity ) {
+    PropertySet.call( this, {
+      // Location of this attachment site.  It is a property so that it can be
+      // followed in the event that the biomolecule upon which it exists is
+      // moving.
+      location: initialLocation,
 
-    // Location of this attachment site.  It is a property so that it can be
-    // followed in the event that the biomolecule upon which it exists is
-    // moving.
-    this.location = new Property( initialLocation );
+      // Property that represents the affinity of the attachment site.
+      affinity: new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 ),
 
-    // Property that represents the affinity of the attachment site.
-    this.affinity = new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 );
-
-    // A property that tracks which if any biomolecule is attached to or moving
-    // towards attachment with this site.
-    this.attachedOrAttachingMolecule = new Property( null );
+      // A property that tracks which if any biomolecule is attached to or moving
+      // towards attachment with this site.
+      attachedOrAttachingMolecule: null
+    } );
   }
 
 
-  return inherit( Object, AttachmentSite, {
+  return inherit( PropertySet, AttachmentSite, {
 
     /**
      * @returns {number}
      */
     getAffinity: function() {
-      return this.affinity.get();
+      return this.affinity;
     },
 
     /**
-     * Indicates whether or not a biomolecules is currently attached to this
-     * site.
+     *
+     * Indicates whether or not a biomolecules is currently attached to this site.
      * @return {boolean} - true if a biomolecule is fully attached, false if not.  If a
      *         molecule is on its way but not yet at the site, false is returned.
      */
     isMoleculeAttached: function() {
-      return this.attachedOrAttachingMolecule.get() !== null &&
-             this.location.get().distance( this.attachedOrAttachingMolecule.get().getPosition() ) < ATTACHED_THRESHOLD;
+      return this.attachedOrAttachingMolecule !== null &&
+             this.location.distance( this.attachedOrAttachingMolecule.getPosition() ) < ATTACHED_THRESHOLD;
     },
 
     /**
      * @param {Object} obj
-     * @returns {boolen}
+     * @returns {boolean}
      */
     equals: function( obj ) {
       if ( this === obj ) { return true; }
@@ -71,8 +72,8 @@ define( function( require ) {
 
       var otherAttachmentSite = obj;
 
-      return this.affinityProperty.get().equals( otherAttachmentSite.affinityProperty.get() ) &&
-             this.locationProperty.get().equals( otherAttachmentSite.locationProperty.get() );
+      return (this.affinity === otherAttachmentSite.affinity) &&
+             this.location.equals( otherAttachmentSite.location );
     }
 
 

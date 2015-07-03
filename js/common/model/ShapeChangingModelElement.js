@@ -23,6 +23,9 @@ define( function( require ) {
   function ShapeChangingModelElement( initialShape ) {
     // Shape property, which is not public because it should only be changed by descendants of the class.
     this.shapeProperty = new Property( initialShape );
+
+    //cache the bounds, instead of calculating it every time
+    this.shapeBounds  = initialShape.computeBounds();
   }
 
   return inherit( Object, ShapeChangingModelElement, {
@@ -58,7 +61,9 @@ define( function( require ) {
     translate: function( translationVector ) {
       var translationTransform = Matrix3.translation( translationVector.x, translationVector.y );
       this.shapeProperty.set( this.shapeProperty.get().transformed( translationTransform ) );
+      this.shapeBounds  = this.shapeProperty.get().computeBounds();
     },
+
 
     /**
      *
@@ -79,8 +84,9 @@ define( function( require ) {
         // This default implementation assumes that the position indicator
         // is defined by the center of the shape's bounds.  Override if
         // some other behavior is required.
-        this.translate( new Vector2( x - this.shapeProperty.get().bounds.getCenterX(),
-          y - this.shapeProperty.get().bounds.getCenterY() ) );
+        this.translate( new Vector2( x - this.shapeBounds.getCenterX(),
+          y - this.shapeBounds.getCenterY() ) );
+
       }
     },
 
@@ -89,11 +95,9 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getPosition: function() {
-
-      console.log( this.shapeProperty );
       // Assumes that the center of the shape is the position.  Override if
       // other behavior is needed.
-      return new Vector2( this.shapeProperty.get().bounds.getCenterX(), this.shapeProperty.get().bounds.getCenterY() );
+      return this.shapeBounds.getCenter();
     }
 
   } );

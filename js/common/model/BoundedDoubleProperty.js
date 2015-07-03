@@ -24,7 +24,7 @@ define( function( require ) {
 
   function BoundedDoubleProperty( value, minValue, maxValue ) {
     Property.call( this, value );
-    this.bounds = new Property( new DoubleRange( minValue, maxValue ) );
+    this.bounds = new DoubleRange( minValue, maxValue );
   }
 
   return inherit( Property, BoundedDoubleProperty, {
@@ -34,7 +34,7 @@ define( function( require ) {
      */
     set: function( value ) {
       var boundedValue = Util.clamp( value, this.bounds.get().getMin(), this.bounds.get().getMax() );
-      Property.prototype.set( boundedValue );
+      Property.prototype.set.call(this, boundedValue );
     }
 
   } );

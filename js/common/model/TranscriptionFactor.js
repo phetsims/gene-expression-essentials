@@ -39,7 +39,6 @@ define( function( require ) {
   function TranscriptionFactor( model, config, initialPosition ) {
     model = model || new StubGeneExpressionModel();
     initialPosition = initialPosition || new Vector2( 0, 0 );
-    console.log( config );
     MobileBiomolecule.call( this, model, config.shape, config.baseColor );
 
     // Configuration used to create this transcription factor, used when
@@ -79,12 +78,17 @@ define( function( require ) {
       // detaching state so that this drifts away from the DNA.  This makes it
       // clear the you can't have two transcription factors in the same
       // place on the DNA.
-      _.forEach( this.model.getOverlappingBiomolecules( this.getShape() ), function( biomolecule ) {
+
+      var moleculesShapes = this.model.getOverlappingBiomolecules( this.getShape() );
+
+      for ( var i = 0; i < moleculesShapes.length; i++ ) {
+        var biomolecule = moleculesShapes[ i ];
         if ( biomolecule !== this && biomolecule.attachedToDna.get() ) {
           this.attachmentStateMachine.forceImmediateUnattachedButUnavailable();
-          return false; //break;
+          break;
         }
-      } );
+      }
+
     },
 
     /**

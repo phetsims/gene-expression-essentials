@@ -32,8 +32,8 @@ define( function( require ) {
    * @constructor
    */
   function DnaMoleculeNode( dnaMolecule, mvt, backboneStrokeWidth, showGeneBracketLabels ) {
-    var thisView = this;
-    Node.call( thisView );
+    var thisNode = this;
+    Node.call( thisNode );
 
     // Layers for supporting the 3D look by allowing the "twist" to be depicted.
     this.dnaBackboneBackLayer = new Node();
@@ -42,11 +42,11 @@ define( function( require ) {
     // Add the layers onto which the various nodes that represent parts of
     // the dna, the hints, etc. are placed.
     var geneBackgroundLayer = new Node();
-    thisView.addChild( geneBackgroundLayer );
-    thisView.addChild( this.dnaBackboneBackLayer );
+    thisNode.addChild( geneBackgroundLayer );
+    thisNode.addChild( this.dnaBackboneBackLayer );
     var basePairLayer = new Node();
-    thisView.addChild( basePairLayer );
-    thisView.addChild( this.dnaBackboneFrontLayer );
+    thisNode.addChild( basePairLayer );
+    thisNode.addChild( this.dnaBackboneFrontLayer );
 
     // Put the gene backgrounds and labels behind everything.
     for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
@@ -56,7 +56,7 @@ define( function( require ) {
 
     // Add the first backbone strand.
     _.each( dnaMolecule.getStrand1Segments(), function( dnaStrandSegment ) {
-      thisView.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_1_COLOR );
+      thisNode.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_1_COLOR );
     } );
 
 
@@ -66,10 +66,10 @@ define( function( require ) {
 
     /**
      *
-     * @param mvt
-     * @param dnaStrandSegment
-     * @param strandSegmentStroke
-     * @param color
+     * @param {ModelViewTransform2} mvt
+     * @param {DnaStrandSegment} dnaStrandSegment
+     * @param {number} strandSegmentStroke
+     * @param {Color} color
      */
     addStrand: function( mvt, dnaStrandSegment, strandSegmentStroke, color ) {
       var segmentNode = new DnaStrandSegmentNode( dnaStrandSegment, mvt, strandSegmentStroke, color );

@@ -38,7 +38,6 @@ define( function( require ) {
     self.directionChangeCountdown = 0;
     self.currentMotionVector2D = new Vector2( 0, 0 );
     self.currentZVelocity = 0;
-    console.dir( motionBoundsProperty );
     motionBoundsProperty.link( function( motionBounds ) {
       self.motionBounds = motionBounds;
     } );

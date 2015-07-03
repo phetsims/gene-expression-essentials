@@ -22,7 +22,7 @@ define( function( require ) {
   var GeneB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneC' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-//  var ConstantDtClock; // = require( 'ConstantDtClock' ); TODO
+  var ConstantDtClock = require( 'GENE_EXPRESSION_BASICS/common/model/ConstantDtClock' );
   var Property = require( 'AXON/Property' );
   var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
   var Rectangle = require( 'DOT/Rectangle' );
@@ -43,13 +43,15 @@ define( function( require ) {
 
   // Size of the DNA strand.
   var NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
+  var FRAMES_PER_SECOND = 30;
+
+
 
   /**
    * Main constructor for ManualGeneExpressionModel, which contains all of the model logic for the entire sim screen.
    * @constructor
    */
   function ManualGeneExpressionModel() {
-
 
     // DNA strand, which is where the genes reside, where the polymerase does
     // its transcription, and where a lot of the action takes place.
@@ -104,19 +106,20 @@ define( function( require ) {
     this.proteinCaptureArea = new Rectangle();
 
 
-    //TODO Clock listener
-    //this.clock.addClockListener( function( clockEvent ) {
-    //  this.stepInTime( clockEvent.getSimulationTimeChange() );
-    //} );
-
+    //Wire up to the clock so we can update when it ticks
+    var stepEventCallBack = this.stepInTime.bind( this );
+    this.clock = new ConstantDtClock( FRAMES_PER_SECOND, stepEventCallBack );
+    this.clockRunning = new Property( true );
   }
 
   return inherit( GeneExpressionModel, ManualGeneExpressionModel, {
 
-
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
-      // Handle model animation here.
+      // step one frame, assuming 60fps
+      if ( this.clockRunning ) {
+        this.clock.step( dt );
+      }
     },
 
     /**

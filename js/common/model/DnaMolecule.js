@@ -12,7 +12,7 @@
  * where biomolecules attach. This was unnecessarily complicated for the needs
  * of this sim.
 
- * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sharfudeen Ashraf
  * @author John Blanco
  */
 define( function( require ) {
@@ -28,88 +28,8 @@ define( function( require ) {
   var IntegerRange = require( 'GENE_EXPRESSION_BASICS/common/util/IntegerRange' );
   var BasePair = require( 'GENE_EXPRESSION_BASICS/common/model/BasePair' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var ShapeChangingModelElement = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeChangingModelElement' );
-
-
-  //-------------------------------------------------------------------------
-  // Inner Classes and Interfaces
-  //-------------------------------------------------------------------------
-
-  /**
-   * This class defines a segment of the DNA strand.  It is needed because the
-   * DNA molecule needs to look like it is 3D, but we are only modeling it as
-   * 2D, so in order to create the appearance of a twist between the two
-   * strands, we need to track which segments are in front and which are in
-   * back.
-   */
-  var DnaStrandSegment = inherit( ShapeChangingModelElement,
-
-    /**
-     * @param {Shape} shape
-     * @param {boolean} inFront
-     * @constructor
-     */
-    function( shape, inFront ) {
-      ShapeChangingModelElement.call( this, shape );
-      this.inFront = inFront;
-    },
-
-    {
-
-      setShape: function( newShape ) {
-        this.shapeProperty.set( newShape );
-      }
-
-    } );
-
-
-  var DnaStrandPoint = inherit( Object,
-
-
-    //TODO
-    //public DnaStrandPoint( DnaStrandPoint strandPoint ) {
-    //        xPos = strandPoint.xPos;
-    //        strand1YPos = strandPoint.strand1YPos;
-    //        strand2YPos = strandPoint.strand2YPos;
-    //    }
-
-    /**
-     * @param  {number} xPos
-     * @param {number} strand1YPos
-     * @param {number} strand2YPos
-     * @constructor
-     */
-    function( xPos, strand1YPos, strand2YPos ) {
-      this.xPos = xPos || 0;
-      this.strand1YPos = strand1YPos || 0;
-      this.strand2YPos = strand2YPos || 0;
-
-    },
-    {
-
-      /**
-       * @param {DnaStrandPoint} dnaStrandPoint
-       */
-      set: function( dnaStrandPoint ) {
-        this.xPos = dnaStrandPoint.xPos;
-        this.strand1YPos = dnaStrandPoint.strand1YPos;
-        this.strand2YPos = dnaStrandPoint.strand2YPos;
-      },
-
-      equals: function( o ) {
-        if ( this === o ) { return true; }
-        if ( o === null ) { return false; } // || getClass() != o.getClass()  TODO
-        var that = o;
-        if ( that.strand1YPos !== this.strand1YPos ) {
-          return false;
-        }
-        if ( that.strand2YPos !== this.strand2YPos ) {
-          return false;
-        }
-        return that.xPos === this.xPos;
-      }
-
-    } );
+  var DnaStrandSegment = require( 'GENE_EXPRESSION_BASICS/common/model/DnaStrandSegment' );
+  var DnaStrandPoint = require( 'GENE_EXPRESSION_BASICS/common/model/DnaStrandPoint' );
 
   // constants
   // Distance within which transcription factors may attach.
@@ -156,7 +76,8 @@ define( function( require ) {
     // strands.  Points are spaced the same as the base pairs.
     for ( var i = 0; i < this.moleculeLength / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS; i++ ) {
       var xPos = leftEdgeXOffset + i * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
-      this.strandPoints.push( new DnaStrandPoint( xPos, this.getDnaStrandYPosition( xPos, 0 ), this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET ) ) );
+      this.strandPoints.push( new DnaStrandPoint( xPos, this.getDnaStrandYPosition( xPos, 0 ),
+        this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET ) ) );
     }
 
     // Create a shadow of the shape-defining points.  This will be used for detecting shape changes.
@@ -262,30 +183,31 @@ define( function( require ) {
      * otherwise deforming the nominal double-helix shape.
      */
     updateStrandSegments: function() {
-
+      var thisMolecule = this;
       // Set the shadow points to the nominal, non-deformed positions.
       _.forEach( this.strandPointsShadow, function( dnaStrandPoint ) {
-        dnaStrandPoint.strand1YPos = this.getDnaStrandYPosition( dnaStrandPoint.xPos, 0 );
-        dnaStrandPoint.strand2YPos = this.getDnaStrandYPosition( dnaStrandPoint.xPos, CommonConstants.INTER_STRAND_OFFSET );
+        dnaStrandPoint.strand1YPos = thisMolecule.getDnaStrandYPosition( dnaStrandPoint.xPos, 0 );
+        dnaStrandPoint.strand2YPos = thisMolecule.getDnaStrandYPosition( dnaStrandPoint.xPos, CommonConstants.INTER_STRAND_OFFSET );
       } );
 
       // Move the shadow points to account for any separations.
       _.forEach( this.separations, function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
-        var separationWindowXIndexRange = new IntegerRange( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
-          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
+        var separationWindowXIndexRange = new IntegerRange( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
+                                                                          thisMolecule.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
+          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - thisMolecule.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
         for ( var i = separationWindowXIndexRange.getMin(); i < separationWindowXIndexRange.getMax(); i++ ) {
           var windowCenterX = ( separationWindowXIndexRange.getMin() + separationWindowXIndexRange.getMax() ) / 2;
-          if ( i >= 0 && i < this.strandPointsShadow.length ) {
+          if ( i >= 0 && i < thisMolecule.strandPointsShadow.length ) {
 
             // Perform a windowing algorithm that weights the separation
             // at 1 in the center, 0 at the edges, and linear
             // graduations in between.  By
             var separationWeight = 1 - Math.abs( 2 * ( i - windowCenterX ) / separationWindowXIndexRange.getLength() );
-            this.strandPointsShadow[ i ].strand1YPos = ( 1 - separationWeight ) * this.strandPointsShadow[ i ].strand1YPos +
-                                                       separationWeight * separation.getAmount() / 2;
-            this.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * this.strandPointsShadow[ i ].strand2YPos -
-                                                       separationWeight * separation.getAmount() / 2;
+            thisMolecule.strandPointsShadow[ i ].strand1YPos = ( 1 - separationWeight ) * thisMolecule.strandPointsShadow[ i ].strand1YPos +
+                                                               separationWeight * separation.getAmount() / 2;
+            thisMolecule.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * thisMolecule.strandPointsShadow[ i ].strand2YPos -
+                                                               separationWeight * separation.getAmount() / 2;
           }
         }
       } );
@@ -301,7 +223,7 @@ define( function( require ) {
         // Determine the bounds of the current segment.  Assumes that the
         // bounds for the strand1 and strand2 segments are the same, which
         // should be a safe assumption.
-        var bounds = strand1Segment.getShape().bounds;
+        var bounds = strand1Segment.getShape().computeBounds();
         var pointIndexRange = new IntegerRange( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
           Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
 
@@ -323,9 +245,9 @@ define( function( require ) {
           // Update the shape of this segment.
           var strand1ShapePoints = [];
           var strand2ShapePoints = [];
-          for ( var k = pointIndexRange.getMin(); k <= pointIndexRange.getMax(); j++ ) {
+          for ( var k = pointIndexRange.getMin(); k <= pointIndexRange.getMax(); k++ ) {
             strand1ShapePoints.push( new Vector2( this.strandPoints[ k ].xPos, this.strandPoints[ k ].strand1YPos ) );
-            strand2ShapePoints.push( new Vector2( this.strandPoints[ k ].xPos, this.strandPoints[ j ].strand2YPos ) );
+            strand2ShapePoints.push( new Vector2( this.strandPoints[ k ].xPos, this.strandPoints[ k ].strand2YPos ) );
           }
           strand1Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand1ShapePoints ) );
           strand2Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand2ShapePoints ) );

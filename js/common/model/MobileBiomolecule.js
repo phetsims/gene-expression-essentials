@@ -81,23 +81,19 @@ define( function( require ) {
     }
 
 
-    self.userControlled = new Property( false );
+    self.userControlledProperty = new Property( false );
     // Property that tracks whether this biomolecule is user controlled.  If
     // it is, it shouldn't try to move or interact with anything.
     // Handle changes in user control.
-    self.userControlled.link( function( isUserControlled, wasUserControlled ) {
+    self.userControlledProperty.link( function( isUserControlled, wasUserControlled ) {
       if ( wasUserControlled && !isUserControlled ) {
         self.handleReleasedByUser();
       }
     } );
 
-
     // Motion strategy that governs how this biomolecule moves.  This changes
     // as the molecule interacts with other portions of the model.
     this.motionStrategy = null;
-
-
-
   }
 
   return inherit( ShapeChangingModelElement, MobileBiomolecule, {
@@ -131,7 +127,7 @@ define( function( require ) {
      */
     stepInTime: function( dt ) {
 
-      if ( !this.userControlled.get() ) {
+      if ( !this.userControlled) {
 
         // Set a new position in model space based on the current motion
         // strategy.

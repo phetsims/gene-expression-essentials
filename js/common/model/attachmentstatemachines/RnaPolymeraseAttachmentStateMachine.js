@@ -47,7 +47,7 @@ define( function( require ) {
     {
 
       detachFromDnaMolecule: function( asm ) {
-        asm.attachmentSite.attachedOrAttachingMolecule.set( null );
+        asm.attachmentSite.attachedOrAttachingMolecule = null;
         asm.attachmentSite = null;
         asm.setState( this.rnaPolymeraseAttachmentStateMachine.unattachedButUnavailableState );
         this.rnaPolymeraseAttachmentStateMachine.biomolecule.setMotionStrategy(
@@ -120,11 +120,11 @@ define( function( require ) {
 
               // Move to an adjacent base pair.  Firs, clear the
               // previous attachment site.
-              attachmentSite.attachedOrAttachingMolecule.set( null );
+              attachmentSite.attachedOrAttachingMolecule = null;
 
               // Set a new attachment site.
               attachmentSite = attachmentSites[ 0 ];
-              attachmentSite.attachedOrAttachingMolecule.set( biomolecule );
+              attachmentSite.attachedOrAttachingMolecule = biomolecule;
 
               // Set up the state to move to the new attachment site.
               this.rnaPolymeraseAttachmentStateMachine.setState( this.movingTowardsAttachmentState );
@@ -321,8 +321,8 @@ define( function( require ) {
 
         // Free up the initial attachment site by hooking up to a somewhat
         // fictional attachment site instead.
-        attachmentSite.attachedOrAttachingMolecule.set( null );
-        transcribingAttachmentSite.attachedOrAttachingMolecule.set( asm.biomolecule );
+        attachmentSite.attachedOrAttachingMolecule = null;
+        transcribingAttachmentSite.attachedOrAttachingMolecule = asm.biomolecule;
         attachmentSite = transcribingAttachmentSite;
       }
 
@@ -429,7 +429,7 @@ define( function( require ) {
           attachedState = attachedAndWanderingState;
 
           // Detach from the DNA.
-          attachmentSite.attachedOrAttachingMolecule.set( null );
+          attachmentSite.attachedOrAttachingMolecule = null;
           attachmentSite = null;
           if ( recycleMode ) {
             this.rnaPolymeraseAttachmentStateMachine.setState(
@@ -501,7 +501,7 @@ define( function( require ) {
     this.recycleReturnZones = [];
 
     // Initialize the attachment site used when transcribing.
-    this.transcribingAttachmentSite.attachedOrAttachingMolecule.set( rnaPolymerase );
+    this.transcribingAttachmentSite.attachedOrAttachingMolecule = rnaPolymerase;
 
   }
 
