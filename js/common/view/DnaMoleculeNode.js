@@ -12,13 +12,14 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Color = require( 'SCENERY/util/Color' );
   var GeneNode = require( 'GENE_EXPRESSION_BASICS/common/view/GeneNode' );
   var DnaStrandSegmentNode = require( 'GENE_EXPRESSION_BASICS/common/view/DnaStrandSegmentNode' );
 
   // constants
   var STRAND_1_COLOR = new Color( 31, 163, 223 );
-  // var STRAND_2_COLOR = new Color( 214, 87, 107 ); TODO
+  var STRAND_2_COLOR = new Color( 214, 87, 107 );
 
   // strings
   var GENE = require( 'string!GENE_EXPRESSION_BASICS/gene' );
@@ -57,6 +58,16 @@ define( function( require ) {
     // Add the first backbone strand.
     _.each( dnaMolecule.getStrand1Segments(), function( dnaStrandSegment ) {
       thisNode.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_1_COLOR );
+    } );
+
+    // Add the other backbone strand.
+    _.each( dnaMolecule.getStrand2Segments(), function( dnaStrandSegment ) {
+      thisNode.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_2_COLOR );
+    } );
+
+    // Add the base pairs.
+    _.each( dnaMolecule.getBasePairs(), function( basePair ) {
+      basePairLayer.addChild( new Path( mvt.modelToViewShape( basePair.getShape() ), { fill: Color.DARK_GRAY } ) );
     } );
 
 
@@ -118,34 +129,9 @@ define( function( require ) {
 //
 //    public DnaMoleculeNode( DnaMolecule dnaMolecule, ModelViewTransform mvt, float backboneStrokeWidth, boolean showGeneBracketLabels ) {
 //
-//        // Add the layers onto which the various nodes that represent parts of
-//        // the dna, the hints, etc. are placed.
-//        PNode geneBackgroundLayer = new PNode();
-//        addChild( geneBackgroundLayer );
-//        addChild( dnaBackboneBackLayer );
-//        PNode basePairLayer = new PNode();
-//        addChild( basePairLayer );
-//        addChild( dnaBackboneFrontLayer );
+
 //
-//        // Put the gene backgrounds and labels behind everything.
-//        for ( int i = 0; i < dnaMolecule.getGenes().size(); i++ ) {
-//            geneBackgroundLayer.addChild( new GeneNode( mvt, dnaMolecule.getGenes().get( i ), dnaMolecule, GENE + ( i + 1 ), showGeneBracketLabels ) );
-//        }
-//
-//        // Add the first backbone strand.
-//        for ( DnaStrandSegment dnaStrandSegment : dnaMolecule.getStrand1Segments() ) {
-//            addStrand( mvt, dnaStrandSegment, new BasicStroke( backboneStrokeWidth ), STRAND_1_COLOR );
-//        }
-//
-//        // Add the other backbone strand.
-//        for ( DnaStrandSegment dnaStrandSegment : dnaMolecule.getStrand2Segments() ) {
-//            addStrand( mvt, dnaStrandSegment, new BasicStroke( backboneStrokeWidth ), STRAND_2_COLOR );
-//        }
-//
-//        // Add the base pairs.
-//        for ( BasePair basePair : dnaMolecule.getBasePairs() ) {
-//            basePairLayer.addChild( new PhetPPath( mvt.modelToView( basePair.getShape() ), Color.DARK_GRAY ) );
-//        }
+
 //    }
 //
 //    private void addStrand( ModelViewTransform mvt, DnaStrandSegment dnaStrandSegment, Stroke strandSegmentStroke, Color color ) {
