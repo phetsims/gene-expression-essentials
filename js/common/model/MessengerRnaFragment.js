@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MessengerRnaFragmentAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/MessengerRnaFragmentAttachmentStateMachine' );
   var SquareSegment = require( 'GENE_EXPRESSION_BASICS/common/model/SquareSegment' );
-  var DoubleGeneralPath; //= require( 'GENE_EXPRESSION_BASICS/common/model/DoubleGeneralPath' ); TODO
+  var Shape = require( 'KITE/Shape' );
   var WindingBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/WindingBiomolecule' );
 
 
@@ -27,7 +27,7 @@ define( function( require ) {
    * @constructor
    */
   function MessengerRnaFragment( model, position ) {
-    WindingBiomolecule.call( this, model, new DoubleGeneralPath( position ).getGeneralPath(), position );
+    WindingBiomolecule.call( this, model, new Shape().moveToPoint( position ), position );
 
     // Add the first, and in this case only, segment to the shape segment
     // list.

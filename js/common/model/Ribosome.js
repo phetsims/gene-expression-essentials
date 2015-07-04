@@ -1,6 +1,6 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 /**
- * Class that represents the a ribosome in the model.
+ * Class that represents the ribosome in the model.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -12,8 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Area; // = require( 'Area' ); //TODO
-  var ShapeUtils; //= require( 'ShapeUtils' ); //TODO
+  var ShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeUtils' );
   var Color = require( 'SCENERY/util/Color' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
   var RibosomeAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/RibosomeAttachmentStateMachine' );
@@ -109,7 +108,10 @@ define( function( require ) {
         var translation = Matrix3.translation( 0, GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
         var topSubunitShape = ShapeUtils.createRoundedShapeFromPoints( topSubunitPointList ).transformed( translation );
 
-        // Draw the bottom portion, which in this sim is the smaller subunit.
+        /*
+
+         TODO CAG
+         // Draw the bottom portion, which in this sim is the smaller subunit.
         var bottomSubunitPointList = [
           // Define the shape with a series of points.
           new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.5 ),
@@ -120,13 +122,17 @@ define( function( require ) {
           new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, -GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.5 )
         ];
 
-        var bottomSubunitTranslation = Matrix3.getTranslateInstance( 0, -GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
-        var bottomSubunitShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList ).transformed( bottomSubunitTranslation );
+
 
         // Combine the two subunits into one shape.
+
+     var bottomSubunitTranslation = Matrix3.translation( 0, -GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
+     var bottomSubunitShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList ).transformed( bottomSubunitTranslation );
         var combinedShape = new Area( topSubunitShape );
         combinedShape.add( new Area( bottomSubunitShape ) );
-        return combinedShape;
+        //return combinedShape; */
+
+        return topSubunitShape;
       },
 
       /**

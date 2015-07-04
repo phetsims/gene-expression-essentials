@@ -25,15 +25,16 @@ define( function( require ) {
    * @constructor
    */
   function PointMass( initialPosition, targetDistanceToPreviousPoint ) {
-    this.setPosition( initialPosition );
-    this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint;// In picometers.
-
     // private
     this.position = new Vector2( 0, 0 );
     this.velocity = new Vector2( 0, 0 );
     this.acceleration = new Vector2( 0, 0 );
     this.previousPointMass = null;
     this.nextPointMass = null;
+
+    this.setPosition( initialPosition );
+    this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint;// In picometers.
+
 
   }
 
@@ -52,7 +53,7 @@ define( function( require ) {
      * @param {number} y
      */
     setPosition: function( x, y ) {
-      this.position.setLocation( x, y );
+      this.position.setXY( x, y );
     },
 
     /**
@@ -66,7 +67,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getPosition: function() {
-      return new Vector2( this.position.x, this.position.getY() );
+      return new Vector2( this.position.x, this.position.y );
     },
 
     /**

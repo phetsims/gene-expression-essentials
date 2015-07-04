@@ -11,8 +11,8 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var BiomoleculeCreatorNode = require( 'GENE_EXPRESSION_BASICS/common/view/BiomoleculeCreatorNode' );
   var Vector2 = require( 'DOT/Vector2' );
+  var BiomoleculeCreatorNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/BiomoleculeCreatorNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
   var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRnaDestroyer' );

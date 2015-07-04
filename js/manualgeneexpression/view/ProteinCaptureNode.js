@@ -22,7 +22,7 @@ define( function( require ) {
   var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
   var ProteinB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinB' );
   var ProteinC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinC' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/MobileBiomoleculeNode' );
+  var GradientUtil = require( 'GENE_EXPRESSION_BASICS/common/util/GradientUtil' );
   var FlashingShapeNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/FlashingShapeNode' );
 
   // constants
@@ -63,9 +63,9 @@ define( function( require ) {
 
     // Add the background node.  This is invisible, and exists only to
     // make the node a specific size.
-    thisNode.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ) , {
+    thisNode.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ), {
       fill: new Color( 0, 0, 0, 0 )
-    }) );
+    } ) );
 
     // Add the node that will flash when a protein is created, stay lit
     // until the protein is captured, and turn off once it is captured.
@@ -78,10 +78,10 @@ define( function( require ) {
     // until a protein is captured, then it changes to look filled in.
     var captureAreaNode = new Path( proteinShape );
     thisNode.addChild( captureAreaNode );
-    var gradientPaint = MobileBiomoleculeNode.createGradientPaint( proteinShape, fullBaseColor );
+    var gradientPaint = GradientUtil.createGradientPaint( proteinShape, fullBaseColor );
 
     // Add the node that represents a count of the collected type.
-    var countNode = new Text( "", { font: new PhetFont( { size: 18, weight: 'bold' }  ) } );
+    var countNode = new Text( "", { font: new PhetFont( { size: 18, weight: 'bold' } ) } );
     thisNode.addChild( countNode );
     model.getCollectedCounterForProteinType( proteinClassName ).link( function( proteinCaptureCount ) {
       countNode.text = proteinCaptureCount;

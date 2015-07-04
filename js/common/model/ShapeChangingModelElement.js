@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
 
 
   /**
@@ -20,15 +20,18 @@ define( function( require ) {
    * @param {Shape} initialShape
    * @constructor
    */
-  function ShapeChangingModelElement( initialShape ) {
-    // Shape property, which is not public because it should only be changed by descendants of the class.
-    this.shapeProperty = new Property( initialShape );
+  function ShapeChangingModelElement( initialShape, props ) {
+
+    PropertySet.call( this, _.extend( {
+      // Shape property, which is not public because it should only be changed by descendants of the class.
+      shape: initialShape
+    }, props || {} ) );
 
     //cache the bounds, instead of calculating it every time
-    this.shapeBounds  = initialShape.computeBounds();
+    this.shapeBounds = initialShape.computeBounds();
   }
 
-  return inherit( Object, ShapeChangingModelElement, {
+  return inherit( PropertySet, ShapeChangingModelElement, {
 
     /**
      *
@@ -61,7 +64,7 @@ define( function( require ) {
     translate: function( translationVector ) {
       var translationTransform = Matrix3.translation( translationVector.x, translationVector.y );
       this.shapeProperty.set( this.shapeProperty.get().transformed( translationTransform ) );
-      this.shapeBounds  = this.shapeProperty.get().computeBounds();
+      this.shapeBounds = this.shapeProperty.get().computeBounds();
     },
 
 

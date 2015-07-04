@@ -41,7 +41,7 @@ define( function( require ) {
    */
   function RowLabel( text ) {
     var thisNode = this;
-    MultiLineText.call( thisNode, text, { font: new PhetFont( 16 ) } );
+    MultiLineText.call( thisNode, text, { font: new PhetFont( { size: 15, weight: 'bold' } ) } );
   }
 
   inherit( MultiLineText, RowLabel );
@@ -61,56 +61,77 @@ define( function( require ) {
     this.canvas = canvas;
     this.mvt = mvt;
     this.biomoleculeCreatorNodeList = [];
-    // Create the content of this control panel.
-    var contentNode = new VBox();
+
     // Add the title.
     var toolBoxTitleNode = new Text( BIOMOLECULE_TOOLBOX, TITLE_FONT );
-
-    // Add the biomolecule rows, each of which has a title and a set of  biomolecules that can be added to the active area.
-    var positiveTranscriptionBox = new HBox();
 
     //  Positive transcription factor(s).
     var transcriptionFactors = gene.getTranscriptionFactorConfigs();
     var tfConfig = null;
+    var positiveTranscriptNodes = [];
     for ( var i = 0; i < transcriptionFactors.length; i++ ) {
       tfConfig = transcriptionFactors[ i ];
       if ( tfConfig.isPositive ) {
-        positiveTranscriptionBox.children.push( new RowLabel( POSITIVE_TRANSCRIPTION_FACTOR_HTML ) );
-        positiveTranscriptionBox.children.push( thisNode.addCreatorNode( new TranscriptionFactorCreatorNode( thisNode, tfConfig ) ) );
+        positiveTranscriptNodes.push( new RowLabel( POSITIVE_TRANSCRIPTION_FACTOR_HTML ) );
+        positiveTranscriptNodes.push( thisNode.addCreatorNode( new TranscriptionFactorCreatorNode( thisNode, tfConfig ) ) );
       }
     }
 
+    // Add the biomolecule rows, each of which has a title and a set of  biomolecules that can be added to the active area.
+    var positiveTranscriptionBox = new HBox( {
+      children: positiveTranscriptNodes,
+      spacing: 10
+    } );
+
     // Polymerase.
-    var polymeraseBox = new HBox();
-    polymeraseBox.children.push( new RowLabel( RNA_POLYMERASE ) );
-    polymeraseBox.children.push( thisNode.addCreatorNode( new RnaPolymeraseCreatorNode( thisNode ) ) );
-    polymeraseBox.children.push( thisNode.addCreatorNode( new RnaPolymeraseCreatorNode( thisNode ) ) );
+    var polymeraseBox = new HBox( {
+      children: [ new RowLabel( RNA_POLYMERASE ),
+        thisNode.addCreatorNode( new RnaPolymeraseCreatorNode( thisNode ) ),
+        thisNode.addCreatorNode( new RnaPolymeraseCreatorNode( thisNode ) )
+      ],
+      spacing: 10
+    } );
 
     // Ribosomes.
-    var ribosomeBox = new HBox();
-    polymeraseBox.children.push( new RowLabel( RIBOSOME ) );
-    ribosomeBox.children.push( thisNode.addCreatorNode( new RibosomeCreatorNode( thisNode ) ) );
-    ribosomeBox.children.push( thisNode.addCreatorNode( new RibosomeCreatorNode( thisNode ) ) );
+    var ribosomeBox = new HBox( {
+      children: [ new RowLabel( RIBOSOME ), thisNode.addCreatorNode( new RibosomeCreatorNode( thisNode ) ),
+        thisNode.addCreatorNode( new RibosomeCreatorNode( thisNode ) ) ],
+      spacing: 10
+    } );
 
     // mRNA destroyer.
-    var mRnaDestroyerBox = new HBox();
-    polymeraseBox.children.push( new RowLabel( MRNA_DESTROYER ) );
-    mRnaDestroyerBox.children.push( thisNode.addCreatorNode( new MessengerRnaDestroyerCreatorNode( thisNode ) ) );
-    mRnaDestroyerBox.children.push( thisNode.addCreatorNode( new MessengerRnaDestroyerCreatorNode( thisNode ) ) );
+    var mRnaDestroyerBox = new HBox( {
+      children: [ new RowLabel( MRNA_DESTROYER ), thisNode.addCreatorNode( new MessengerRnaDestroyerCreatorNode( thisNode ) ),
+        thisNode.addCreatorNode( new MessengerRnaDestroyerCreatorNode( thisNode ) ) ],
+      spacing: 10
+    } );
+
 
     // Negative transcription factor(s).
     transcriptionFactors = gene.getTranscriptionFactorConfigs();
-    var negativeTranscriptionBox = new HBox();
+
+
+    var negativeTranscriptorNodes = [];
+    negativeTranscriptorNodes.push( new RowLabel( NEGATIVE_TRANSCRIPTION_FACTOR_HTML ) );
     for ( i = 0; i < transcriptionFactors.length; i++ ) {
       tfConfig = transcriptionFactors[ i ];
       if ( !tfConfig.isPositive ) {
-        negativeTranscriptionBox.children.push( new RowLabel( NEGATIVE_TRANSCRIPTION_FACTOR_HTML ) );
-        negativeTranscriptionBox.children.push( thisNode.addCreatorNode( new TranscriptionFactorCreatorNode( thisNode, tfConfig ) ) );
+        negativeTranscriptorNodes.push( thisNode.addCreatorNode( new TranscriptionFactorCreatorNode( thisNode, tfConfig ) ) );
       }
     }
 
-    contentNode.children = [ toolBoxTitleNode, positiveTranscriptionBox, polymeraseBox, ribosomeBox, mRnaDestroyerBox, negativeTranscriptionBox ];
-    contentNode.spacing = 20;
+    var negativeTranscriptionBox = new HBox( {
+      children: negativeTranscriptorNodes,
+      spacing: 10
+    } );
+
+
+    // Create the content of this control panel.
+    var contentNode = new VBox( {
+      children: [ toolBoxTitleNode, positiveTranscriptionBox, polymeraseBox, ribosomeBox, mRnaDestroyerBox, negativeTranscriptionBox ],
+      spacing: 10
+    } );
+
 
     Panel.call( thisNode, contentNode, {
       fill: new Color( 250, 250, 250 ),

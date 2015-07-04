@@ -12,7 +12,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var ObservableArray = require( 'AXON/ObservableArray' ); //TODO
+  var EnhancedObservableList = require( 'GENE_EXPRESSION_BASICS/common/util/EnhancedObservableList' );
   var Color = require( 'SCENERY/util/Color' );
   var BioShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/BioShapeUtils' );
   var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
@@ -47,7 +47,7 @@ define( function( require ) {
     this.lastShapeDefiningPoint = this.firstShapeDefiningPoint;
 
     // List of the shape segments that define the outline shape.
-    this.shapeSegments = new ObservableArray(); //TODO
+    this.shapeSegments = new EnhancedObservableList();
 
 
   }
@@ -107,7 +107,7 @@ define( function( require ) {
 
             // This is not the last point on the list, so go ahead and
             // run the spring algorithm on it.
-            var vectorToPreviousPoint = new Vector2( previousPoint.getPosition() ).minus( new Vector2( currentPoint.getPosition() ) );
+            var vectorToPreviousPoint = previousPoint.getPosition().minus( currentPoint.getPosition() );
 
             if ( vectorToPreviousPoint.magnitude() === 0 ) {
 
@@ -117,7 +117,7 @@ define( function( require ) {
             }
             var scalarForceDueToPreviousPoint = ( -springConstant ) * ( currentPoint.getTargetDistanceToPreviousPoint() - currentPoint.distance( previousPoint ) );
             var forceDueToPreviousPoint = vectorToPreviousPoint.normalized().times( scalarForceDueToPreviousPoint );
-            var vectorToNextPoint = new Vector2( nextPoint.getPosition() ).minus( new Vector2( currentPoint.getPosition() ) );
+            var vectorToNextPoint = nextPoint.getPosition().minus( currentPoint.getPosition() );
             if ( vectorToNextPoint.magnitude() === 0 ) {
 
               // This point is sitting on top of the next point,
@@ -423,7 +423,7 @@ define( function( require ) {
       var pointList = [];
       var thisPoint = this.firstShapeDefiningPoint;
       while ( thisPoint !== null ) {
-        pointList.push( thisPoint.getPosition() ); // TODO toPoint2D()
+        pointList.push( thisPoint.getPosition() );
         thisPoint = thisPoint.getNextPointMass();
       }
       return pointList;
@@ -478,16 +478,16 @@ define( function( require ) {
 
       // Align segments that follow this one.
       var currentSegment = segmentToAlignFrom;
-      var nextSegment = this.shapeSegments.getNextItem( currentSegment ); //TODO getNextItem
+      var nextSegment = this.shapeSegments.getNextItem( currentSegment );
       while ( nextSegment !== null ) {
         nextSegment.setUpperLeftCornerPosition( currentSegment.getLowerRightCornerPos() );
         currentSegment = nextSegment;
-        nextSegment = this.shapeSegments.getNextItem( currentSegment );//TODO getNextItem
+        nextSegment = this.shapeSegments.getNextItem( currentSegment );
       }
 
       // Align segments that precede this one.
       currentSegment = segmentToAlignFrom;
-      var previousSegment = this.shapeSegments.getPreviousItem( currentSegment );//TODO getPreviousItem
+      var previousSegment = this.shapeSegments.getPreviousItem( currentSegment );
       while ( previousSegment !== null ) {
         previousSegment.setLowerRightCornerPos( currentSegment.getUpperLeftCornerPos() );
         currentSegment = previousSegment;

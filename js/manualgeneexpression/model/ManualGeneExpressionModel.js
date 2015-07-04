@@ -6,9 +6,9 @@
  * The point (0,0) in model space is at the leftmost edge of the DNA strand, and
  * at the vertical center of the strand.
  *
- * @author John Blanco
  * @author Sharfudeen Ashraf
  * @author Mohamed Safi
+ * @author John Blanco
  */
 define( function( require ) {
   'use strict';
@@ -26,7 +26,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
   var Rectangle = require( 'DOT/Rectangle' );
-  var Area;// = require('Area'); // TODO
   var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
   var ProteinB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinB' );
   var ProteinC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinC' );
@@ -44,7 +43,6 @@ define( function( require ) {
   // Size of the DNA strand.
   var NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
   var FRAMES_PER_SECOND = 30;
-
 
 
   /**
@@ -239,15 +237,19 @@ define( function( require ) {
       var testShapeBounds = testShape.bounds;
       _.forEach( this.mobileBiomoleculeList, function( mobileBiomolecule ) {
         if ( mobileBiomolecule.getShape().bounds.intersects( testShapeBounds ) ) {
-          // Bounds overlap, see if actual shapes overlap.
-          var testShapeArea = new Area( testShape ); //TODO Area
-          var biomoleculeArea = new Area( mobileBiomolecule.getShape() );
-          biomoleculeArea.intersect( testShapeArea );
-          if ( !biomoleculeArea.isEmpty() ) {
-            // The biomolecule overlaps with the test shape, so add it
-            // to the list.
-            overlappingBiomolecules.push( mobileBiomolecule );
-          }
+
+          /*
+           // Bounds overlap, see if actual shapes overlap.
+           var testShapeArea = new Area( testShape ); //TODO Area
+           var biomoleculeArea = new Area( mobileBiomolecule.getShape() );
+           biomoleculeArea.intersect( testShapeArea );
+           if ( !biomoleculeArea.isEmpty() ) {
+           // The biomolecule overlaps with the test shape, so add it
+           // to the list.
+           overlappingBiomolecules.push( mobileBiomolecule );
+           } */
+
+
         }
       } );
 
@@ -262,10 +264,10 @@ define( function( require ) {
      */
     captureProtein: function( protein ) {
       if ( protein instanceof ProteinA ) {
-        this.proteinACollected = this.proteinACollected + 1 ;
+        this.proteinACollected = this.proteinACollected + 1;
       }
       if ( protein instanceof ProteinB ) {
-        this.proteinBCollected = this.proteinBCollected + 1 ;
+        this.proteinBCollected = this.proteinBCollected + 1;
       }
       if ( protein instanceof ProteinC ) {
         this.proteinCCollected = this.proteinCCollected + 1;
@@ -278,9 +280,9 @@ define( function( require ) {
      * @param {Function} proteinClassType
      * @returns {number}
      */
-    getProteinCount: function( proteinClassType) {
+    getProteinCount: function( proteinClassType ) {
       var count = 0;
-      _.forEach( this.mobileBiomoleculeList, function(mobileBiomolecule) {
+      _.forEach( this.mobileBiomoleculeList, function( mobileBiomolecule ) {
         if ( mobileBiomolecule instanceof proteinClassType ) {
           count++;
         }
@@ -363,15 +365,15 @@ define( function( require ) {
       var bottomYPos = DnaMolecule.Y_POS - 2000;
 
       // Get the nominal bounds for this gene.
-      var bounds = new Area( new Rectangle( this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
+      var bounds = new Rectangle( this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
         bottomYPos,
         BIOMOLECULE_STAGE_WIDTH,
-        BIOMOLECULE_STAGE_HEIGHT ) );
+        BIOMOLECULE_STAGE_HEIGHT );
 
       // Subtract off any off limits areas.
       _.forEach( this.offLimitsMotionSpaces, function( offLimitMotionSpace ) {
-        if ( bounds.intersects( offLimitMotionSpace.bounds ) ) {
-          bounds.subtract( new Area( offLimitMotionSpace ) );
+        if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {
+          // bounds.subtract( new Area( offLimitMotionSpace ) ); TODO
         }
       } );
 

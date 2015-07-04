@@ -54,7 +54,7 @@ define( function( require ) {
           new WanderInGeneralDirectionMotionStrategy( this.rnaPolymeraseAttachmentStateMachine.biomolecule.getDetachDirection(),
             this.rnaPolymeraseAttachmentStateMachine.biomolecule.motionBoundsProperty ) );
         this.rnaPolymeraseAttachmentStateMachine.detachFromDnaThreshold.reset(); // Reset this threshold.
-        asm.biomolecule.attachedToDna.set( false ); // Update externally visible state indication.
+        asm.biomolecule.attachedToDna = false; // Update externally visible state indication.
       },
 
       /**
@@ -155,13 +155,13 @@ define( function( require ) {
                           RAND.nextDouble() < attachmentSite.getAffinity();
 
         // Allow user interaction.
-        asm.biomolecule.movableByUser.set( true );
+        asm.biomolecule.movableByUser = true;
 
         // Indicate attachment to DNA.
-        asm.biomolecule.attachedToDna.set( true );
+        asm.biomolecule.attachedToDna = true;
 
         // Update externally visible state information.
-        asm.biomolecule.attachedToDna.set( true ); // Update externally visible state indication.
+        asm.biomolecule.attachedToDna = true; // Update externally visible state indication.
       }
 
     },
@@ -276,7 +276,7 @@ define( function( require ) {
         // Check for molecules that are in the way.
         var molecules = asm.biomolecule.getModel().getOverlappingBiomolecules( asm.biomolecule.getShape() );
         _.forEach( molecules, function( molecule ) {
-          if ( molecule.getPosition().x > asm.biomolecule.getPosition().x && molecule.attachedToDna.get() ) {
+          if ( molecule.getPosition().x > asm.biomolecule.getPosition().x && molecule.attachedToDna ) {
 
             // This molecule is blocking transcription, so bump it off
             // of the DNA strand.
@@ -422,7 +422,7 @@ define( function( require ) {
           rnaPolymerase.getModel().getDnaMolecule().removeSeparation( dnaStrandSeparation );
 
           // Update externally visible state indication.
-          asm.biomolecule.attachedToDna.set( false );
+          asm.biomolecule.attachedToDna = false;
 
           // Make sure that we enter the correct initial state upon the
           // next attachment.

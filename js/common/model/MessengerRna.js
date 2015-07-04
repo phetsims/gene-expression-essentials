@@ -17,7 +17,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/MessengerRnaAttachmentStateMachine' );
   var WindingBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/WindingBiomolecule' );
-  var DoubleGeneralPath; // = require( 'DoubleGeneralPath' ); // TODO
+  var Shape = require( 'KITE/Shape' );
   var PlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/PlacementHint' );
   var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
   var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRnaDestroyer' );
@@ -28,9 +28,17 @@ define( function( require ) {
   var MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers
 
 
+  /**
+   * Constructor.  This creates the mRNA as a single point, with the intention of growing it.
+   *
+   * @param {GeneExpressionModel} model
+   * @param {Protein} proteinPrototype
+   * @param {Vector2} position
+   * @constructor
+   */
   function MessengerRna( model, proteinPrototype, position ) {
     var self = this;
-    WindingBiomolecule.call( self, model, new DoubleGeneralPath( position ).getGeneralPath(), position );
+    WindingBiomolecule.call( self, model, new Shape().moveToPoint( position ), position );
 
     // Protein prototype, used to keep track of protein that should be
     // synthesized from this particular strand of mRNA.
@@ -360,7 +368,7 @@ define( function( require ) {
       // channel of this ribosome.
       translatedLength += segmentInRibosomeChannel.getContainedLength() -
                           ( segmentInRibosomeChannel.getLowerRightCornerPos().x -
-                          segmentInRibosomeChannel.attachmentSite.locationProperty.get().x);
+                            segmentInRibosomeChannel.attachmentSite.locationProperty.get().x);
 
       return Math.max( translatedLength / this.getLength(), 0 );
     },

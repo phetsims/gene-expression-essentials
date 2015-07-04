@@ -12,11 +12,30 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Shape = require( 'KITE/Shape' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
   var RnaDestroyerAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/RnaDestroyerAttachmentStateMachine' );
 
   // constants
-  //var WIDTH = 250;   // In nanometers. //TODO lint
+  var WIDTH = 250;   // In nanometers.
+
+
+  /**  static
+   * @return {Shape}
+   */
+  function createShape() {
+    //  var circle = new Shape.Double( -WIDTH / 2, -WIDTH / 2, WIDTH, WIDTH );
+    var mouthPath = new Shape().moveTo( 0, 0 );
+    mouthPath.lineTo( WIDTH, WIDTH * 0.8 );
+    mouthPath.lineTo( WIDTH, -WIDTH * 0.8 );
+    mouthPath.close();
+    /* Area overallShape = new Area( circle );
+     overallShape.subtract( new Area( mouthPath.getGeneralPath() ) );
+     return overallShape; *
+     */
+    return mouthPath;
+
+  }
 
   /**
    *
@@ -26,7 +45,7 @@ define( function( require ) {
    */
   function MessengerRnaDestroyer( model, position ) {
     position = position || new Vector2( 0, 0 );
-    MobileBiomolecule.call( this, model, MessengerRnaDestroyer.createShape(), new Color( 255, 150, 66 ) );
+    MobileBiomolecule.call( this, model, createShape(), new Color( 255, 150, 66 ) );
     this.setPosition( position );
 
     // Reference to the messenger RNA being destroyed.
@@ -105,24 +124,6 @@ define( function( require ) {
     }
 
   } );
-
-
-}, {
-
-  /** TODO
-   * @return {Shape}
-   */
-  createShape: function() {
-    //var circle = new Shape.Double( -WIDTH / 2, -WIDTH / 2, WIDTH, WIDTH );
-    //DoubleGeneralPath mouthPath = new DoubleGeneralPath( 0, 0 ) {{
-    //  lineTo( WIDTH, WIDTH * 0.8 );
-    //  lineTo( WIDTH, -WIDTH * 0.8 );
-    //  closePath();
-    //}};
-    //Area overallShape = new Area( circle );
-    //overallShape.subtract( new Area( mouthPath.getGeneralPath() ) );
-    //return overallShape;
-  }
 
 } );
 

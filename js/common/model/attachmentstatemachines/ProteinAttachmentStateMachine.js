@@ -38,7 +38,7 @@ define( function( require ) {
         biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
 
         // Prevent user interaction while the protein is growing.
-        asm.biomolecule.movableByUser.set( false );
+        asm.biomolecule.movableByUser = false;
       }
 
     } );

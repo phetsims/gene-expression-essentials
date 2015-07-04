@@ -113,7 +113,7 @@ define( function( require ) {
      * @param {number} y
      */
     setDestinationOffset: function( x, y ) {
-      this.destinationOffset.setComponents( x, y );
+      this.destinationOffset.setXY( x, y );
     },
 
 
@@ -121,7 +121,7 @@ define( function( require ) {
      * @param {Vector2}  offset
      */
     setDestinationOffsetByVector: function( offset ) {
-      this.destinationOffset.setComponents( offset.x, offset.y );
+      this.destinationOffset.setXY( offset.x, offset.y );
     }
 
   } );

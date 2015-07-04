@@ -51,7 +51,7 @@ define( function( require ) {
       detachCountdownTime = DEFAULT_DETACH_TIME;
 
       // Allow user interaction.
-      enclosingStateMachine.biomolecule.movableByUser.set( true );
+      enclosingStateMachine.biomolecule.movableByUser = true;
     }
 
   } );

@@ -17,7 +17,6 @@ define( function( require ) {
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
-  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeChangingModelElement' );
@@ -32,59 +31,61 @@ define( function( require ) {
    */
   function MobileBiomolecule( model, initialShape, baseColor ) {
     var self = this;
-
-    ShapeChangingModelElement.call( self, initialShape );
-
     // Reference to the model in which this biomolecule exists.  This is
     // needed in case the biomolecule needs to locate or create other
     // biomolecules.
     self.model = model;
 
-    // Bounds within which this biomolecule is allowed to move.
-    this.motionBoundsProperty = new Property( new MotionBounds() );
+    ShapeChangingModelElement.call( self, initialShape, {
+      // Bounds within which this biomolecule is allowed to move.
+      motionBounds: new MotionBounds(),
+
+      // Position on the Z axis.  This is handled much differently than for the
+      // x and y axes, which can be set to any value.  The Z axis only goes
+      // between 0 (all the way to the front) and -1 (all the way to the back).
+      zPosition: 0,
+
+      // Flag that tracks whether motion in Z dimension is enabled.
+      zMotionEnabled: false,
+
+      // A property that keeps track of this biomolecule's "existence strength",
+      // which is used primarily to fade out of existence.  The range for this
+      // is 1 (full existence) to 0 (non-existent).
+      existenceStrength: 1,
+
+      // Property that is used to let the view know whether or not this
+      // biomolecule is in a state where it is okay for the user to move it
+      // around.
+      movableByUser: true,
+
+      // Property that indicates whether or not this biomolecule is attached to
+      // the DNA strand.  Some biomolecules never attach to DNA, so it will
+      // never become true.  This should only be set by subclasses.
+      attachedToDna: false,
+
+      // Color to use when displaying this biomolecule to the user.  This is
+      // a bit out of place here, and has nothing to do with the fact that the
+      // molecule moves.  This was just a convenient place to put it (so far).
+      color: Color.BLACK,
 
 
-    // Position on the Z axis.  This is handled much differently than for the
-    // x and y axes, which can be set to any value.  The Z axis only goes
-    // between 0 (all the way to the front) and -1 (all the way to the back).
-    this.zPosition = new Property( 0.0 );
+      // Property that tracks whether this biomolecule is user controlled.  If
+      // it is, it shouldn't try to move or interact with anything.
+      // Handle changes in user control.
+      userControlled: false
 
-    // Flag that tracks whether motion in Z dimension is enabled.
-    this.zMotionEnabled = false;
 
-    // A property that keeps track of this biomolecule's "existence strength",
-    // which is used primarily to fade out of existence.  The range for this
-    // is 1 (full existence) to 0 (non-existent).
-    this.existenceStrength = new Property( 1.0 );
-
-    // Property that is used to let the view know whether or not this
-    // biomolecule is in a state where it is okay for the user to move it
-    // around.
-    this.movableByUser = new Property( true ); // TODO BooleanProperty
-
-    // Property that indicates whether or not this biomolecule is attached to
-    // the DNA strand.  Some biomolecules never attach to DNA, so it will
-    // never become true.  This should only be set by subclasses.
-    this.attachedToDna = new Property( false );  // TODO BooleanProperty
+    } );
 
     // Attachment state machine that controls how the molecule interacts with
     // other model objects (primarily other biomolecules) in terms of
     // attaching, detaching, etc.
     self.attachmentStateMachine = self.createAttachmentStateMachine();
 
-    // Color to use when displaying this biomolecule to the user.  This is
-    // a bit out of place here, and has nothing to do with the fact that the
-    // molecule moves.  This was just a convenient place to put it (so far).
-    self.colorProperty = new Property( Color.BLACK );
     if ( baseColor ) {
       self.colorProperty.set( baseColor );
     }
 
-
-    self.userControlledProperty = new Property( false );
-    // Property that tracks whether this biomolecule is user controlled.  If
-    // it is, it shouldn't try to move or interact with anything.
-    // Handle changes in user control.
     self.userControlledProperty.link( function( isUserControlled, wasUserControlled ) {
       if ( wasUserControlled && !isUserControlled ) {
         self.handleReleasedByUser();
@@ -127,7 +128,7 @@ define( function( require ) {
      */
     stepInTime: function( dt ) {
 
-      if ( !this.userControlled) {
+      if ( !this.userControlled ) {
 
         // Set a new position in model space based on the current motion
         // strategy.
@@ -152,7 +153,7 @@ define( function( require ) {
      *         negative one, inclusive.
      */
     getPosition3D: function() {
-      return new Vector3( this.getPosition().x, this.getPosition().y, this.zPosition.get() );
+      return new Vector3( this.getPosition().x, this.getPosition().y, this.zPosition );
     },
 
     /**
@@ -160,7 +161,7 @@ define( function( require ) {
      */
     setPosition3D: function( position ) {
       this.setPosition( position.x, position.y );
-      this.zPosition.set( position.z );
+      this.zPosition = position.z;
     },
 
     /**
@@ -195,7 +196,7 @@ define( function( require ) {
      * @param  {MotionBounds} motionBounds
      */
     setMotionBounds: function( motionBounds ) {
-      this.motionBoundsProperty.set( motionBounds );
+      this.motionBounds = motionBounds;
     },
 
     /**

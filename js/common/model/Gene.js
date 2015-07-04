@@ -445,7 +445,7 @@ define( function( require ) {
     getTranscriptionFactorConfigs: function() {
       var configList = [];
       _.forEach( this.transcriptionFactorMap.values, function( transcriptionFactor ) {
-        configList.add( transcriptionFactor.getConfig() );
+        configList.push( transcriptionFactor.getConfig() );
       } );
       return configList;
     }

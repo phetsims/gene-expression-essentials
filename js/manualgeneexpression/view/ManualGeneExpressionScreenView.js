@@ -14,6 +14,7 @@ define( function( require ) {
   var PlacementHintNode = require( 'GENE_EXPRESSION_BASICS/common/view/PlacementHintNode' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/MobileBiomoleculeNode' );
   var ProteinCollectionNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/ProteinCollectionNode' );
+  var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/BiomoleculeToolBoxNode' );
   var HSlider = require( 'SUN/HSlider' );
   var Property = require( 'AXON/Property' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -39,6 +40,7 @@ define( function( require ) {
     var thisView = this;
 
     var viewPortPosition = new Vector2( thisView.layoutBounds.width * 0.48, thisView.layoutBounds.height * 0.64 );
+    var biomoleculeToolBoxNodeList = []; // Array of BiomoleculeToolBoxNode
     // Set up the model-canvas transform.
     // IMPORTANT NOTES: The multiplier factors for the 2nd point can be
     // adjusted to shift the center right or left, and the scale factor
@@ -110,6 +112,21 @@ define( function( require ) {
     _.each( model.mobileBiomoleculeList, function( biomolecule ) {
       topBiomoleculeLayer.addChild( new MobileBiomoleculeNode( thisView.mvt, biomolecule ) );
     } );
+
+
+    // TODO
+
+
+    // Add the tool boxes from which the various biomolecules can be moved  into the active area of the sim.
+    _.each( model.getDnaMolecule().getGenes(), function( gene ) {
+      var biomoleculeToolBoxNode = new BiomoleculeToolBoxNode( model, this, thisView.mvt, gene );
+      biomoleculeToolBoxNode.x = thisView.mvt.modelToViewX( gene.getCenterX() ) - thisView.layoutBounds.getWidth() / 2 + INSET;
+      biomoleculeToolBoxNode.y = INSET;
+      biomoleculeToolBoxNodeList.push( biomoleculeToolBoxNode );
+      biomoleculeToolBoxLayer.addChild( biomoleculeToolBoxNode );
+      model.addOffLimitsMotionSpace( thisView.mvt.viewToModelBounds( biomoleculeToolBoxNode.bounds ) );
+    } );
+
 
     //Show the mock-up and a slider to change its transparency
     var mockupOpacityProperty = new Property( 0.4 );
