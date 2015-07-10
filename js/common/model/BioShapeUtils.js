@@ -43,7 +43,7 @@ define( function( require ) {
     createdDistortedRoundedShapeFromPoints: function( points, distortionFactor, randomNumberSeed ) {
       // Determine the center location of the undistorted shape.
       var undistortedShape = ShapeUtils.createRoundedShapeFromPoints( points );
-      var undistortedShapeBounds = undistortedShape.computeBounds();
+      var undistortedShapeBounds = undistortedShape.bounds;
       var undistortedShapeCenter = undistortedShapeBounds.getCenter();
 
       var rand = new Random( randomNumberSeed ); // seed not used
@@ -61,7 +61,7 @@ define( function( require ) {
       // Create the basis for the new shape.
       var distortedShape = ShapeUtils.createRoundedShapeFromPoints( alteredPoints );
       // Determine the center of the new shape.
-      var distortedShapeCenter = distortedShape.computeBounds().getCenter();
+      var distortedShapeCenter = distortedShape.bounds.getCenter();
       // Shift the new shape so that the center is in the same place as the old one.
       var translationMatrix = Matrix3.translation( undistortedShapeCenter.x - distortedShapeCenter.x,
         undistortedShapeCenter.y - distortedShapeCenter.y );
@@ -119,7 +119,7 @@ define( function( require ) {
       }
 
       var unscaledShape = this.createRandomShapeFromPoints( pointList, seed );
-      var unscaledShapeBounds = unscaledShape.computeBounds();
+      var unscaledShapeBounds = unscaledShape.bounds;
 
       // Scale the shape to the specified size.
       var horizontalScale = size.width / unscaledShapeBounds.getWidth();

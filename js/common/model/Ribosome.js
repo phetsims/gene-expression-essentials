@@ -15,6 +15,7 @@ define( function( require ) {
   var ShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeUtils' );
   var Color = require( 'SCENERY/util/Color' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
+  var RibosomeShape = require( 'GENE_EXPRESSION_BASICS/common/model/RibosomeShape' );
   var RibosomeAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/RibosomeAttachmentStateMachine' );
   var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionRibosomeConstant' );
 
@@ -108,10 +109,8 @@ define( function( require ) {
         var translation = Matrix3.translation( 0, GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
         var topSubunitShape = ShapeUtils.createRoundedShapeFromPoints( topSubunitPointList ).transformed( translation );
 
-        /*
 
-         TODO CAG
-         // Draw the bottom portion, which in this sim is the smaller subunit.
+        // Draw the bottom portion, which in this sim is the smaller subunit.
         var bottomSubunitPointList = [
           // Define the shape with a series of points.
           new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.5 ),
@@ -122,17 +121,17 @@ define( function( require ) {
           new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, -GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.5 )
         ];
 
-
-
         // Combine the two subunits into one shape.
 
-     var bottomSubunitTranslation = Matrix3.translation( 0, -GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
-     var bottomSubunitShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList ).transformed( bottomSubunitTranslation );
-        var combinedShape = new Area( topSubunitShape );
-        combinedShape.add( new Area( bottomSubunitShape ) );
-        //return combinedShape; */
+        var bottomSubunitTranslation = Matrix3.translation( 0, -GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
+        var bottomSubunitShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList ).transformed( bottomSubunitTranslation );
 
-        return topSubunitShape;
+        /*
+         TODO CAG var combinedShape = new Area( topSubunitShape );
+         combinedShape.add( new Area( bottomSubunitShape ) );
+         //return combinedShape; */
+
+        return new RibosomeShape( topSubunitShape, bottomSubunitShape );
       },
 
       /**
@@ -175,6 +174,36 @@ define( function( require ) {
         if ( this.messengerRnaBeingTranslated !== null ) {
           this.messengerRnaBeingTranslated.initiateTranslation( this );
         }
+      },
+
+      /**
+       * Get a shape that is positioned such that its center is at point (0, 0).
+       *
+       * The Java version of the code has this method of MobileBioMoleculeNode itself. Now finding the
+       * center of the shape is encapsulated into individual BioMolecules so
+       * that composite shapes can apply their special cases.Ex ribosome Ashraf
+       *
+       * @param {ModelViewTransform2} mvt
+       */
+      centeredShape: function( ribosomeShape, mvt ) {
+        var centeredTop = this.centerShapePart( ribosomeShape.topShape, mvt );
+        var centeredBottom = this.centerShapePart( ribosomeShape.bottomShape, mvt );
+        return new RibosomeShape( centeredTop, centeredBottom );
+      },
+
+      /**
+       *
+       * @param {Shape} shape
+       * @param {ModelViewTransform2} mvt
+       * @returns {*}
+       */
+      centerShapePart: function( shape, mvt ) {
+        var shapeBounds = shape.bounds;
+        var xOffset = shapeBounds.getCenterX();
+        var yOffset = shapeBounds.getCenterY();
+        var transform = Matrix3.translation( -xOffset, -yOffset );
+        var transformedShape = shape.transformed( transform );
+        return mvt.modelToViewShape( transformedShape );
       }
 
     }

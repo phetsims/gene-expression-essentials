@@ -31,7 +31,7 @@ define( function( require ) {
     createGradientPaint: function( shape, baseColor ) {
       var paint;
       if ( !CommonConstants.FLORESCENT_FILL_COLOR.equals( baseColor ) ) {
-        var shapeBounds = shape.computeBounds();
+        var shapeBounds = shape.bounds;
         paint = new LinearGradient( shapeBounds.getMinX(),
           shapeBounds.getCenterY(),
           shapeBounds.getMaxX(),

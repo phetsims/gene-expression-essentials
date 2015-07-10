@@ -27,8 +27,7 @@ define( function( require ) {
       shape: initialShape
     }, props || {} ) );
 
-    //cache the bounds, instead of calculating it every time
-    this.shapeBounds = initialShape.computeBounds();
+
   }
 
   return inherit( PropertySet, ShapeChangingModelElement, {
@@ -64,9 +63,7 @@ define( function( require ) {
     translate: function( translationVector ) {
       var translationTransform = Matrix3.translation( translationVector.x, translationVector.y );
       this.shapeProperty.set( this.shapeProperty.get().transformed( translationTransform ) );
-      this.shapeBounds = this.shapeProperty.get().computeBounds();
     },
-
 
     /**
      *
@@ -87,8 +84,8 @@ define( function( require ) {
         // This default implementation assumes that the position indicator
         // is defined by the center of the shape's bounds.  Override if
         // some other behavior is required.
-        this.translate( new Vector2( x - this.shapeBounds.getCenterX(),
-          y - this.shapeBounds.getCenterY() ) );
+        this.translate( new Vector2( x - this.shape.bounds.getCenterX(),
+          y - this.shape.bounds.getCenterY() ) );
 
       }
     },
@@ -100,7 +97,7 @@ define( function( require ) {
     getPosition: function() {
       // Assumes that the center of the shape is the position.  Override if
       // other behavior is needed.
-      return this.shapeBounds.getCenter();
+      return this.shape.bounds.getCenter();
     }
 
   } );

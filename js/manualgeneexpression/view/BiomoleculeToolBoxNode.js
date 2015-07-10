@@ -36,6 +36,7 @@ define( function( require ) {
   var NEGATIVE_TRANSCRIPTION_FACTOR_HTML = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactorHtml' );
 
 
+
   /**
    * Convenience class for creating row labels.
    */

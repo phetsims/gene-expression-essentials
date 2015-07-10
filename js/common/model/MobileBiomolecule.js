@@ -19,6 +19,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeChangingModelElement' );
   var MotionBounds = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionBounds' );
 
@@ -268,6 +269,24 @@ define( function( require ) {
      */
     setMotionStrategy: function( motionStrategy ) {
       this.motionStrategy = motionStrategy;
+    },
+
+    /**
+     * Get a shape that is positioned such that its center is at point (0, 0).
+     *
+     * The Java version of the code has this method of MobileBioMoleculeNode itself. Now finding the
+     * center of the shape is encapsulated into individual BioMolecules so
+     * that composite shapes can apply their special cases.Ex ribosome Ashraf
+     *
+     * @param {ModelViewTransform2} mvt
+     */
+    centeredShape: function( shape, mvt ) {
+      var shapeBounds = shape.bounds;
+      var xOffset = shapeBounds.getCenterX();
+      var yOffset = shapeBounds.getCenterY();
+      var transform = Matrix3.translation( -xOffset, -yOffset );
+      var transformedShape = shape.transformed( transform );
+      return mvt.modelToViewShape( transformedShape );
     }
 
 

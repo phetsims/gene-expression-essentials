@@ -25,10 +25,10 @@ define( function( require ) {
    *
    * @constructor
    */
-  function GeneExpressionCommonConstant() {
+  function GeneExpressionRnaPolymeraseConstant() {
   }
 
-  return inherit( Object, GeneExpressionCommonConstant, {}, {
+  return inherit( Object, GeneExpressionRnaPolymeraseConstant, {}, {
 
     WIDTH : WIDTH,
     HEIGHT : HEIGHT,

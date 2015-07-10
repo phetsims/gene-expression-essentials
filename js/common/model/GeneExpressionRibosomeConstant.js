@@ -29,10 +29,10 @@ define( function( require ) {
    *
    * @constructor
    */
-  function GeneExpressionCommonConstant() {
+  function GeneExpressionRibosomeConstant() {
   }
 
-  return inherit( Object, GeneExpressionCommonConstant, {}, {
+  return inherit( Object, GeneExpressionRibosomeConstant, {}, {
 
     WIDTH: WIDTH,
     OVERALL_HEIGHT: OVERALL_HEIGHT,

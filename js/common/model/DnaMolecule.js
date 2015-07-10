@@ -223,7 +223,7 @@ define( function( require ) {
         // Determine the bounds of the current segment.  Assumes that the
         // bounds for the strand1 and strand2 segments are the same, which
         // should be a safe assumption.
-        var bounds = strand1Segment.getShape().computeBounds();
+        var bounds = strand1Segment.getShape().bounds;
         var pointIndexRange = new IntegerRange( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
           Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
 

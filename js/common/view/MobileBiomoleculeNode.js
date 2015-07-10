@@ -20,6 +20,8 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var GradientUtil = require( 'GENE_EXPRESSION_BASICS/common/util/GradientUtil' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
+  var RibosomeNode = require( 'GENE_EXPRESSION_BASICS/common/view/RibosomeNode' );
+  var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
 
 
   /**
@@ -34,7 +36,8 @@ define( function( require ) {
     Node.call( thisNode );
     outlineStroke = outlineStroke || 1;
 
-    var path = new Path( new Shape(), {
+
+    var path = this.getPathByMobileBioMoleculeType( mobileBiomolecule, {
       stroke: Color.BLACK,
       lineWidth: outlineStroke
     } );
@@ -44,22 +47,21 @@ define( function( require ) {
     // Update the shape whenever it changes.
     mobileBiomolecule.addShapeChangeObserver( function( shape ) {
       // Create a shape that excludes any offset.
-      var centeredShape = thisNode.getCenteredShape( mvt.modelToViewShape( shape ) );
+      var centeredShape = mobileBiomolecule.centeredShape( shape, mvt );
       path.setShape( centeredShape );
       // Account for the offset.
       var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
       path.x = offset.x;
       path.y = offset.y;
       // Set the gradient paint.
-      path.fill = ( GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.colorProperty.get() ) );
+      path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.colorProperty.get() );
     } );
 
 
     //Update the color whenever it changes.
     mobileBiomolecule.colorProperty.link( function( color ) {
-      path.fill = GradientUtil.createGradientPaint(
-        thisNode.getCenteredShape( mvt.modelToViewShape( mobileBiomolecule.getShape() ) ),
-        mobileBiomolecule.colorProperty.get() );
+      path.fill = GradientUtil.createGradientPaint( mobileBiomolecule.centeredShape( mobileBiomolecule.getShape(), mvt ),
+        color );
     } );
 
     // Update its existence strength (i.e. fade level) whenever it changes.
@@ -99,13 +101,28 @@ define( function( require ) {
   return inherit( Node, MobileBiomoleculeNode, {
 
     /**
+     *
+     * @param {MobileBioMolecule} mobileBiomolecule
+     * @param {Object} options
+     */
+    getPathByMobileBioMoleculeType: function( mobileBiomolecule, options ) {
+
+      if ( mobileBiomolecule instanceof  Ribosome ) {
+        return new RibosomeNode( mobileBiomolecule.getShape(), options );
+      }
+
+      return new Path( new Shape(), options );
+
+    },
+
+    /**
      * Get a shape that is positioned such that its center is at point (0, 0).
      *
      * @param {Shape} shape
      * @return {Shape}
      */
     getCenteredShape: function( shape ) {
-      var shapeBounds = shape.computeBounds();
+      var shapeBounds = shape.bounds;
       var xOffset = shapeBounds.getCenterX();
       var yOffset = shapeBounds.getCenterY();
       var transform = Matrix3.translation( -xOffset, -yOffset );
