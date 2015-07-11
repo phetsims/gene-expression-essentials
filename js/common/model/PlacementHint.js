@@ -12,7 +12,6 @@ define( function( require ) {
 
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeChangingModelElement' );
 
 
@@ -22,14 +21,13 @@ define( function( require ) {
    * @constructor
    */
   function PlacementHint( biomolecule ) {
-    ShapeChangingModelElement.call( this, biomolecule.getShape() );
-
     // Biomolecule that defines the shape of this hint.
     this.biomolecule = biomolecule;
 
-    // Property that tracks whether or not the hint is should be visible to the user.
-    this.active = new Property( false );
-
+    ShapeChangingModelElement.call( this, biomolecule.getShape(),{
+      // Property that tracks whether or not the hint is should be visible to the user.
+      active:false
+    } );
   }
 
   return inherit( ShapeChangingModelElement, PlacementHint, {
@@ -39,7 +37,7 @@ define( function( require ) {
      */
 
     getBaseColor: function() {
-      return this.biomolecule.colorProperty.get();
+      return this.biomolecule.color;
     },
 
     /**
@@ -51,7 +49,7 @@ define( function( require ) {
      * @return {boolean}
      */
     isMatchingBiomolecule: function( testBiomolecule ) {
-      return testBiomolecule instanceof this.biomolecule; // TODO getClass
+      return testBiomolecule instanceof this.biomolecule.constructor;
     },
 
     /**
@@ -62,7 +60,7 @@ define( function( require ) {
      */
     activateIfMatch: function( testBiomolecule ) {
       if ( this.isMatchingBiomolecule( testBiomolecule ) ) {
-        this.active.set( true );
+        this.activeProperty.set( true );
       }
     }
 

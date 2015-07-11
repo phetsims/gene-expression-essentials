@@ -105,10 +105,8 @@ define( function( require ) {
     // Set up offset used when attaching to mRNA.
     this.setDestinationOffset( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
 
-    // Set up a non-default "attached" state, since the behavior is
-    // different from the default.
+    // Set up a non-default "attached" state, since the behavior is different from the default.
     this.attachedState = new RibosomeAttachedState( this );
-
   }
 
   return inherit( GenericAttachmentStateMachine, RibosomeAttachmentStateMachine, {
@@ -120,7 +118,7 @@ define( function( require ) {
       if ( this.ribosome.getMessengerRnaBeingTranslated() !== null ) {
         this.ribosome.releaseMessengerRna();
       }
-      RibosomeAttachmentStateMachine.prototype.forceImmediateUnattachedAndAvailable.call( this );
+      GenericAttachmentStateMachine.prototype.forceImmediateUnattachedAndAvailable.call( this );
     }
 
 

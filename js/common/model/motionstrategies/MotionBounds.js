@@ -16,6 +16,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Shape = require( 'KITE/Shape' );
   var Matrix3 = require( 'DOT/Matrix3' );
 
 
@@ -24,6 +25,10 @@ define( function( require ) {
    * @constructor
    */
   function MotionBounds( boundsShape ) {
+
+    if ( !boundsShape ) {
+      boundsShape = Shape.rectangle( Number.MIN_VALUE, Number.MIN_VALUE, Number.MAX_VALUE, Number.MAX_VALUE );
+    }
 
     // Use a shape, rather than a rectangle, for the bounds.  This allows
     // more complex bounds to be used.
@@ -37,22 +42,22 @@ define( function( require ) {
      * @returns {boolean}
      */
     inBounds: function( p ) {
-        return this.boundsShape === null || this.boundsShape.contains( p.bounds );
+      return this.boundsShape === null || this.boundsShape.bounds.containsBounds( p.bounds );
     },
 
     /**
      * @param {Vector2} p
      * @returns {boolean}
      */
-    inBoundsByVector: function( p ) {
-      return this.boundsShape === null || this.boundsShape.contains( p );
+    inBoundsByPoint: function( p ) {
+      return this.boundsShape === null || this.boundsShape.bounds.containsPoint( p );
     },
 
     /**
-     * return Area
+     * return Bounds
      */
     getBounds: function() {
-      // return new Area( boundsShape ); // TODO  safi
+      return this.boundsShape.bounds;
     },
 
 

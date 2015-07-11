@@ -19,9 +19,8 @@ define( function( require ) {
 
   /**
    *
-   * @param {ModelViewTransform2} mvt
    * @param {RibosomeShape} ribosomeShape
-   * @param {number} outlineStroke
+   * @param {Object} options
    * @constructor
    */
   function RibosomeNode( ribosomeShape, options ) {
@@ -35,7 +34,6 @@ define( function( require ) {
     Object.defineProperty( proto, 'fill', { set: proto.setFill, get: proto.getFill } );
     Object.defineProperty( proto, 'opacity', { set: proto.setOpacity, get: proto.getOpacity } );
   }
-
 
   return inherit( Node, RibosomeNode, {
 

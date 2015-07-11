@@ -25,17 +25,39 @@ define( function( require ) {
   return inherit( Object, DoubleRange, {
 
     /**
-     * @returns {number}
+     * Gets the lower bound (minimum) of the range.
+     *
+     * @return {number} min
      */
     getMin: function() {
       return this.minValue;
     },
 
     /**
-     * @returns {number}
+     * Gets the upper bound (maximum) of the range.
+     *
+     * @return {number} max
      */
     getMax: function() {
       return this.maxValue;
+    },
+
+    /**
+     * Gets the length of the range.
+     *
+     * @return{number} length of the range
+     */
+    getLength: function() {
+      return this.maxValue - this.minValue;
+    },
+
+    /**
+     * Is the length of the range zero?
+     *
+     * @return{boolean}
+     */
+    isZero: function() {
+      return ( this.maxValue - this.minValue === 0 );
     }
 
   } );

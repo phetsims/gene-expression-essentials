@@ -88,7 +88,7 @@ define( function( require ) {
       },
 
       translate: function( translationParams ) {
-        thisNode.biomolecule.setPosition( thisNode.biomolecule.position.plus( translationParams.delta ) );
+        thisNode.biomolecule.setPosition( thisNode.biomolecule.getPosition().plus( translationParams.delta ) );
       },
 
       end: function( event ) {

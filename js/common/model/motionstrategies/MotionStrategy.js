@@ -17,8 +17,8 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
+  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
   var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
-  var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
   var MotionBounds = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionBounds' );
 
   function MotionStrategy() {
@@ -114,12 +114,11 @@ define( function( require ) {
       // just that it is stuck to the DNA or something.  So, just return a
       // vector back to the center of the motion bounds.  That should be a
       // safe bet.
-      var centerOfMotionBounds = new Vector2( this.motionBounds.getBounds().bounds.getCenterX(),
-        this.motionBounds.getBounds().bounds.getCenterY() );
+      var centerOfMotionBounds = this.motionBounds.getBounds().getCenter();
       var vectorToMotionBoundsCenter = new Vector2( centerOfMotionBounds.x - shape.bounds.getCenterX(),
         centerOfMotionBounds.y - shape.bounds.getCenterY() );
-      vectorToMotionBoundsCenter.scale( maxVelocity / vectorToMotionBoundsCenter.magnitude() );
-      return new Vector2( vectorToMotionBoundsCenter );
+      vectorToMotionBoundsCenter.multiplyScalar( maxVelocity / vectorToMotionBoundsCenter.magnitude() );
+      return vectorToMotionBoundsCenter;
     },
 
     /**
@@ -167,9 +166,10 @@ define( function( require ) {
      * @return {number}
      */
     getMinZ: function( shape, positionXY ) {
-      var shapeYRange = new DoubleRange( positionXY.y - shape.bounds.getHeight() / 2,
-        positionXY.y + shape.bounds.getHeight() / 2 );
-      var dnaYRange = new DoubleRange( DnaMolecule.Y_POS - DnaMolecule.DIAMETER / 2, DnaMolecule.Y_POS + DnaMolecule.DIAMETER / 2 );
+      var shapeYRange = new DoubleRange( positionXY.y - shape.bounds.height / 2,
+        positionXY.y + shape.bounds.height / 2 );
+      var dnaYRange = new DoubleRange( CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2,
+        CommonConstants.DNA_MOLECULE_Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 );
       var minZ = -1;
       var distanceToEdgeOfDna = this.calculateDistanceBetweenRanges( shapeYRange, dnaYRange );
       if ( distanceToEdgeOfDna < shapeYRange.getLength() / 2 ) {

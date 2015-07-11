@@ -22,10 +22,10 @@ define( function( require ) {
   var GeneB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneC' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+  var Shape = require( 'KITE/Shape' );
   var ConstantDtClock = require( 'GENE_EXPRESSION_BASICS/common/model/ConstantDtClock' );
   var Property = require( 'AXON/Property' );
   var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
-  var Rectangle = require( 'DOT/Rectangle' );
   var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
   var ProteinB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinB' );
   var ProteinC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinC' );
@@ -101,7 +101,7 @@ define( function( require ) {
 
     // Rectangle that describes the "protein capture area".  When a protein is
     // dropped by the user over this area, it is considered to be captured.
-    this.proteinCaptureArea = new Rectangle();
+    this.proteinCaptureArea = Shape.rectangle( 0, 0, 1, 1 );
 
 
     //Wire up to the clock so we can update when it ticks
@@ -183,7 +183,7 @@ define( function( require ) {
 
       // Hook up an observer that will activate and deactivate placement
       // hints for this molecule.
-      mobileBiomolecule.userControlled.link( function( isUserControlled, wasUserControlled ) {
+      mobileBiomolecule.userControlledProperty.link( function( isUserControlled, wasUserControlled ) {
 
         if ( isUserControlled ) {
           self.dnaMolecule.activateHints( mobileBiomolecule );
@@ -200,7 +200,7 @@ define( function( require ) {
 
           if ( wasUserControlled ) {
             // The user dropped this biomolecule.
-            if ( self.proteinCaptureArea.contains( mobileBiomolecule.getPosition() ) && mobileBiomolecule instanceof Protein ) {
+            if ( self.proteinCaptureArea.bounds.containsPoint( mobileBiomolecule.getPosition() ) && mobileBiomolecule instanceof Protein ) {
               // The user has dropped this protein in the
               // capture area.  So, like, capture it.
               self.captureProtein( mobileBiomolecule );
@@ -211,7 +211,7 @@ define( function( require ) {
 
       // Hook up an observer that will remove this biomolecule from the
       // model if its existence strength reaches zero.
-      mobileBiomolecule.existenceStrength.link( function( existenceStrength ) {
+      mobileBiomolecule.existenceStrengthProperty.link( function( existenceStrength ) {
         if ( existenceStrength === 0 ) {
           self.removeMobileBiomolecule( mobileBiomolecule );
           mobileBiomolecule.existenceStrength.removeObserver( this );
@@ -342,11 +342,11 @@ define( function( require ) {
     },
 
     stepInTime: function( dt ) {
-      _.forEach( this.mobileBiomoleculeList, function( mobileBiomolecule ) {
+      this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         mobileBiomolecule.stepInTime( dt );
       } );
 
-      _.forEach( this.messengerRnaList, function( messengerRna ) {
+      this.messengerRnaList.forEach( function( messengerRna ) {
         messengerRna.stepInTime( dt );
       } );
 
@@ -362,22 +362,22 @@ define( function( require ) {
 
       // The bottom bounds are intended to be roughly at the bottom of the
       // viewport.  The value was empirically determined.
-      var bottomYPos = DnaMolecule.Y_POS - 2000;
+      var bottomYPos = CommonConstants.DNA_MOLECULE_Y_POS - 2000;
 
       // Get the nominal bounds for this gene.
-      var bounds = new Rectangle( this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
+      var boundsShape = Shape.rectangle( this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
         bottomYPos,
         BIOMOLECULE_STAGE_WIDTH,
         BIOMOLECULE_STAGE_HEIGHT );
 
       // Subtract off any off limits areas.
       _.forEach( this.offLimitsMotionSpaces, function( offLimitMotionSpace ) {
-        if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {
+        if ( boundsShape.bounds.intersectsBounds( offLimitMotionSpace ) ) {
           // bounds.subtract( new Area( offLimitMotionSpace ) ); TODO
         }
       } );
 
-      return new MotionBounds( bounds );
+      return new MotionBounds( boundsShape );
     }
 
   } );

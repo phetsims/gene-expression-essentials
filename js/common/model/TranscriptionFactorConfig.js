@@ -22,8 +22,6 @@ define( function( require ) {
     this.shape = shape;
     this.baseColor = baseColor;
     this.isPositive = positive;
-
-
   }
 
   return inherit( Object, TranscriptionFactorConfig, {} );

@@ -21,7 +21,7 @@ define( function( require ) {
     BASE_PAIRS_PER_TWIST: BASE_PAIRS_PER_TWIST,
     DISTANCE_BETWEEN_BASE_PAIRS: LENGTH_PER_TWIST / BASE_PAIRS_PER_TWIST,
     INTER_STRAND_OFFSET:         LENGTH_PER_TWIST * 0.3,
-    Y_POS: 0,//Y position of the molecule in model space.
+    DNA_MOLECULE_Y_POS: 0,//Y position of the molecule in model space.
     WATER_EQUILIBRIUM_CONSTANT: 1E-14,
     FLORESCENT_FILL_COLOR:new Color( 200, 255, 58 ),
     DEFAULT_AFFINITY: 0.05 // Default affinity for any given biomolecule.

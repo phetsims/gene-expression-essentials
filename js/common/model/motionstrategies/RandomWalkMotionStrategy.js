@@ -16,7 +16,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
   var MotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionStrategy' );
-  var RAND = require( 'DOT/Random' );
+  var Random = require( 'DOT/Random' );
   var Util = require( 'DOT/Util' );
 
   // constants
@@ -26,6 +26,7 @@ define( function( require ) {
   var MAX_Z_VELOCITY = 0.6; // In normalized units per sec
   var MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
   var MAX_TIME_IN_ONE_DIRECTION = 0.8; // In seconds.
+  var RAND = new Random();
 
 
   /**
@@ -54,8 +55,8 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getNextLocation: function( currentLocation, shape, dt ) {
-      var location3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.getY(), 0 ), shape, dt );
-      return new Vector2( location3D.x, location3D.getY() );
+      var location3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.y, 0 ), shape, dt );
+      return new Vector2( location3D.x, location3D.y );
     },
 
     /**
@@ -63,6 +64,7 @@ define( function( require ) {
      * @returns {number}
      */
     generateDirectionChangeCountdownValue: function() {
+
       return MIN_TIME_IN_ONE_DIRECTION + RAND.nextDouble() * ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
     },
 
@@ -104,12 +106,12 @@ define( function( require ) {
       // To prevent odd-looking situations, the Z direction is limited so
       // that biomolecules don't appear transparent when on top of the DNA
       // molecule.
-      var minZ = this.getMinZ( shape, new Vector2( currentLocation.x, currentLocation.getY() ) );
+      var minZ = this.getMinZ( shape, currentLocation );
 
       // Calculate the next location based on current motion.
-      return new Vector2( currentLocation.x + this.currentMotionVector2D.x * dt,
-        currentLocation.getY() + this.currentMotionVector2D.getY() * dt,
-        Util.clamp( currentLocation.getZ() + this.currentZVelocity * dt, minZ, 0 ) );
+      return new Vector3( currentLocation.x + this.currentMotionVector2D.x * dt,
+        currentLocation.y + this.currentMotionVector2D.y * dt,
+        Util.clamp( currentLocation.z + this.currentZVelocity * dt, minZ, 0 ) );
     }
 
   } );
