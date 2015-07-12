@@ -14,7 +14,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var ScreenView = require( 'JOIST/ScreenView' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   /**
@@ -33,7 +33,6 @@ define( function( require ) {
   function BiomoleculeCreatorNode( appearanceNode, canvas, mvt, moleculeCreator, moleculeDestroyer, enclosingToolBoxNode ) {
     var thisNode = this;
     Node.call( thisNode, { cursor: 'pointer' } );
-
     thisNode.canvas = canvas;
     thisNode.mvt = mvt;
     thisNode.appearanceNode = appearanceNode;
@@ -46,24 +45,12 @@ define( function( require ) {
       start: function( event, trail ) {
         //Set the node to look faded out so that something is still
         // visible.  This acts a a legend in the tool box.
+        thisNode.pickable = false;
         thisNode.appearanceNode.opacity = 0.3;
 
-        // Find the parent screen by moving up the scene graph.
-        var testNode = thisNode;
-        while ( testNode !== null ) {
-          if ( testNode instanceof ScreenView ) {
-            this.parentScreen = testNode;
-            break;
-          }
-          testNode = testNode.parents[ 0 ]; // Move up the scene graph by one level
-        }
-
-        var upperLeftCornerGlobal = thisNode.parentToGlobalPoint( thisNode.leftTop );
-        var initialPositionOffset = upperLeftCornerGlobal.minus( event.pointer.point );
-        //screen Coordinates
-        var screenViewPos = this.parentScreen.globalToLocalPoint( event.pointer.point.plus( initialPositionOffset ) );
         // Convert the canvas position to the corresponding location in the model.
-        var modelPos = mvt.viewToModelPosition( screenViewPos );
+        var modelPos = thisNode.getModelPosition( event.pointer.point );
+        //   thisNode.debugPoint(thisNode.canvas,modelPos); TODO Debug
 
         // Create the corresponding biomolecule and add it to the model.
         thisNode.biomolecule = moleculeCreator( modelPos );
@@ -80,6 +67,7 @@ define( function( require ) {
               moleculeDestroyer( finalBiomolecule );
               finalBiomolecule.userControlledProperty.unlink( thisNode.userControlledPropertyObserver );
               thisNode.appearanceNode.opacity = 1;
+              thisNode.pickable = true;
             }
           }
         };
@@ -88,7 +76,7 @@ define( function( require ) {
       },
 
       translate: function( translationParams ) {
-        thisNode.biomolecule.setPosition( thisNode.biomolecule.getPosition().plus( translationParams.delta ) );
+        thisNode.biomolecule.setPosition( thisNode.biomolecule.getPosition().plus( mvt.viewToModelDelta( translationParams.delta ) ) );
       },
 
       end: function( event ) {
@@ -111,6 +99,29 @@ define( function( require ) {
       }
       this.appearanceNode.opacity = 1;
       this.pickable = true;
+    },
+
+    /**
+     * Needs to take care ViewPortOffset TODO
+     * @param point
+     * @returns {*}
+     */
+    getModelPosition: function( point ) {
+      var canvasPosition = this.canvas.globalToLocalPoint( point );
+      return this.mvt.viewToModelPosition( canvasPosition );
+    },
+
+    debugPoint: function( canvas, pt ) {
+      var cirlceNode = new Circle( 15, {
+        fill: "red"
+      } );
+
+      canvas.addChild( cirlceNode );
+
+      pt = this.mvt.modelToViewPosition( pt );
+
+      cirlceNode.x = pt.x;
+      cirlceNode.y = pt.y;
     }
 
   } );

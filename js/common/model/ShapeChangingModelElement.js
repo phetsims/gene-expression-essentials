@@ -86,7 +86,6 @@ define( function( require ) {
         // some other behavior is required.
         this.translate( new Vector2( x - this.shape.bounds.getCenterX(),
           y - this.shape.bounds.getCenterY() ) );
-
       }
     },
 

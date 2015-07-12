@@ -176,7 +176,6 @@ define( function( require ) {
      * @param {MobileBiomolecule} mobileBiomolecule
      */
     addMobileBiomolecule: function( mobileBiomolecule ) {
-
       var self = this;
       self.mobileBiomoleculeList.add( mobileBiomolecule );
       mobileBiomolecule.setMotionBounds( self.getBoundsForActiveGene() );
@@ -193,7 +192,6 @@ define( function( require ) {
         }
         else {
           self.dnaMolecule.deactivateAllHints();
-
           _.forEach( self.messengerRnaList, function( messengerRna ) {
             messengerRna.deactivateAllHints();
           } );

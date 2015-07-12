@@ -58,10 +58,10 @@ define( function( require ) {
   function BiomoleculeToolBoxNode( model, canvas, mvt, gene ) {
     var thisNode = this;
 
-    this.model = model;
-    this.canvas = canvas;
-    this.mvt = mvt;
-    this.biomoleculeCreatorNodeList = [];
+    thisNode.model = model;
+    thisNode.canvas = canvas;
+    thisNode.mvt = mvt;
+    thisNode.biomoleculeCreatorNodeList = [];
 
     // Add the title.
     var toolBoxTitleNode = new Text( BIOMOLECULE_TOOLBOX, TITLE_FONT );

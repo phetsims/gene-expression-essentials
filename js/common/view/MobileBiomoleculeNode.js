@@ -21,6 +21,7 @@ define( function( require ) {
   var GradientUtil = require( 'GENE_EXPRESSION_BASICS/common/util/GradientUtil' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
   var RibosomeNode = require( 'GENE_EXPRESSION_BASICS/common/view/RibosomeNode' );
+//  var BiomoleculeDragHandler = require( 'GENE_EXPRESSION_BASICS/common/view/BiomoleculeDragHandler' );
   var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
 
 
@@ -36,7 +37,6 @@ define( function( require ) {
     Node.call( thisNode );
     outlineStroke = outlineStroke || 1;
 
-
     var path = this.getPathByMobileBioMoleculeType( mobileBiomolecule, {
       stroke: Color.BLACK,
       lineWidth: outlineStroke
@@ -51,10 +51,11 @@ define( function( require ) {
       path.setShape( centeredShape );
       // Account for the offset.
       var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
+
       path.x = offset.x;
       path.y = offset.y;
       // Set the gradient paint.
-      path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.colorProperty.get() );
+      path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.color );
     } );
 
 
@@ -90,10 +91,22 @@ define( function( require ) {
     // and the DNA molecule.  Otherwise odd-looking things can happen.
     mobileBiomolecule.attachedToDnaProperty.link( function( attachedToDna ) {
       if ( mobileBiomolecule instanceof RnaPolymerase && attachedToDna ) {
-        path.moveToBack();
+        thisNode.moveToBack();
       }
     } );
 
+    // Drag handling.
+    //thisNode.addInputListener( new BiomoleculeDragHandler( mobileBiomolecule, thisNode, mvt ) );
+
+    // Interactivity control.
+    mobileBiomolecule.movableByUserProperty.link( function( movableByUser ) {
+      thisNode.setPickable( movableByUser );
+    } );
+
+    // Move this biomolecule to the top of its layer when grabbed.
+    mobileBiomolecule.userControlledProperty.link( function( userControlled ) {
+      thisNode.moveToFront();
+    } );
 
   }
 

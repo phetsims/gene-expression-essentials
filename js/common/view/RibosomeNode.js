@@ -44,6 +44,12 @@ define( function( require ) {
     setShape: function( ribosomeShape ) {
       this.topPath.setShape( ribosomeShape.topShape );
       this.bottomPath.setShape( ribosomeShape.bottomShape );
+
+      // Arranges the top and BottomShape (compensates for the lack of union boolean operation)
+      // In Java version this was simply a Add of two areas (shapes)
+      var topBounds = this.topPath.getLocalBounds();
+      this.bottomPath.x = 0;
+      this.bottomPath.y = topBounds.height / 1.5;
     },
 
     setFill: function( fillValue ) {

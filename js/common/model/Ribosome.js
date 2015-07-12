@@ -36,12 +36,8 @@ define( function( require ) {
 
   }
 
-  return inherit( MobileBiomolecule, Ribosome,
-
-    {
-
+  return inherit( MobileBiomolecule, Ribosome, {
       /**
-       *
        * @returns {MessengerRna}
        */
       getMessengerRnaBeingTranslated: function() {
@@ -121,15 +117,8 @@ define( function( require ) {
           new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, -GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.5 )
         ];
 
-        // Combine the two subunits into one shape.
-
         var bottomSubunitTranslation = Matrix3.translation( 0, -GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
         var bottomSubunitShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList ).transformed( bottomSubunitTranslation );
-
-        /*
-         TODO CAG var combinedShape = new Area( topSubunitShape );
-         combinedShape.add( new Area( bottomSubunitShape ) );
-         //return combinedShape; */
 
         return new RibosomeShape( topSubunitShape, bottomSubunitShape );
       },
@@ -198,12 +187,13 @@ define( function( require ) {
        * @returns {*}
        */
       centerShapePart: function( shape, mvt ) {
-        var shapeBounds = shape.bounds;
+        var viewShape = mvt.modelToViewShape( shape );
+        var shapeBounds = viewShape.bounds;
         var xOffset = shapeBounds.getCenterX();
         var yOffset = shapeBounds.getCenterY();
         var transform = Matrix3.translation( -xOffset, -yOffset );
-        var transformedShape = shape.transformed( transform );
-        return mvt.modelToViewShape( transformedShape );
+        var transformedShape = viewShape.transformed( transform );
+        return transformedShape;
       }
 
     }

@@ -281,12 +281,13 @@ define( function( require ) {
      * @param {ModelViewTransform2} mvt
      */
     centeredShape: function( shape, mvt ) {
-      var shapeBounds = shape.bounds;
+      var viewShape = mvt.modelToViewShape(shape);
+      var shapeBounds = viewShape.bounds;
       var xOffset = shapeBounds.getCenterX();
       var yOffset = shapeBounds.getCenterY();
       var transform = Matrix3.translation( -xOffset, -yOffset );
-      var transformedShape = shape.transformed( transform );
-      return mvt.modelToViewShape( transformedShape );
+      var transformedShape = viewShape.transformed( transform );
+      return transformedShape;
     }
 
 

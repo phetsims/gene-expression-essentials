@@ -18,6 +18,7 @@ define( function( require ) {
   var HSlider = require( 'SUN/HSlider' );
   var Property = require( 'AXON/Property' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var DnaMoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/DnaMoleculeNode' );
   var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -101,6 +102,7 @@ define( function( require ) {
       } );
     } );
 
+    // this.debugPoint( thisView, new Vector2( 0, 0 ) );
 
     // Add the protein collection box.
     var proteinCollectionNode = new ProteinCollectionNode( model, this.mvt );
@@ -113,13 +115,29 @@ define( function( require ) {
       topBiomoleculeLayer.addChild( new MobileBiomoleculeNode( thisView.mvt, biomolecule ) );
     } );
 
+    // Watch for and handle comings and goings of biomolecules in the model. Most, but not all, of the biomolecules
+    // are handled by this.  Some  others are handled as special cases.
+    model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
+      var biomoleculeNode = new MobileBiomoleculeNode( thisView.mvt, addedBiomolecule );
+      topBiomoleculeLayer.addChild( biomoleculeNode );
+
+      function removeItemListener( removedBiomolecule ) {
+        if ( removedBiomolecule === addedBiomolecule ) {
+          topBiomoleculeLayer.removeChild( biomoleculeNode );
+          model.mobileBiomoleculeList.removeItemRemovedListener( removeItemListener );// Clean up memory leak
+        }
+      }
+
+      model.mobileBiomoleculeList.addItemRemovedListener( removeItemListener );
+
+    } );
 
     // TODO
 
 
     // Add the tool boxes from which the various biomolecules can be moved  into the active area of the sim.
     _.each( model.getDnaMolecule().getGenes(), function( gene ) {
-      var biomoleculeToolBoxNode = new BiomoleculeToolBoxNode( model, this, thisView.mvt, gene );
+      var biomoleculeToolBoxNode = new BiomoleculeToolBoxNode( model, thisView, thisView.mvt, gene );
       biomoleculeToolBoxNode.x = thisView.mvt.modelToViewX( gene.getCenterX() ) - thisView.layoutBounds.getWidth() / 2 + INSET;
       biomoleculeToolBoxNode.y = INSET;
       biomoleculeToolBoxNodeList.push( biomoleculeToolBoxNode );
@@ -146,5 +164,17 @@ define( function( require ) {
     this.addChild( resetAllButton );
   }
 
-  return inherit( ScreenView, ManualGeneExpressionScreenView );
+  return inherit( ScreenView, ManualGeneExpressionScreenView, {
+    debugPoint: function( canvas, pt ) {
+      var cirlceNode = new Circle( 15, {
+        fill: "red"
+      } );
+
+      canvas.addChild( cirlceNode );
+
+      cirlceNode.x = pt.x;
+      cirlceNode.y = pt.y;
+    }
+
+  } );
 } );

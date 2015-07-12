@@ -18,6 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
+  var Shape = require( 'KITE/Shape' );
   var Area; //TODO
   var Rectangle = require( 'DOT/Rectangle' );
   var ConstantDtClock;
@@ -42,11 +43,10 @@ define( function( require ) {
   var RAND = new Random();
 
   function MessengerRnaProductionModel() {
-
     var self = this;
 
     // DNA strand, which is where the genes reside, where the polymerase does
-//    // its transcription, and where a lot of the action takes place.
+    // its transcription, and where a lot of the action takes place.
     self.dnaMolecule = new DnaMolecule( self, NUM_BASE_PAIRS_ON_DNA_STRAND,
       -NUM_BASE_PAIRS_ON_DNA_STRAND * DnaMolecule.DISTANCE_BETWEEN_BASE_PAIRS / 2, true );
 
@@ -66,11 +66,10 @@ define( function( require ) {
     self.positiveTranscriptionFactorCount = new Property( 0 );
     self.positiveTranscriptionFactorCount.link( function( count ) {
       self.setTranscriptionFactorCount( TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS, count );
-
     } );
 
     self.negativeTranscriptionFactorCount = new Property( 0 );
-    self.link( function( count ) {
+    self.negativeTranscriptionFactorCount.link( function( count ) {
       self.setTranscriptionFactorCount( TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG, count );
 
     } );
@@ -108,7 +107,6 @@ define( function( require ) {
 
   return inherit( Object, MessengerRnaProductionModel, {
 
-
       setupMotionBounds: function() {
 
         // The bottom of the bounds, based off center point of the DNA
@@ -127,10 +125,8 @@ define( function( require ) {
         var maxX = this.gene.getEndX() + 400; // Needs to be long enough to allow the polymerase to get to the end.
 
         // Create the nominal rectangular bounds.
-        var bounds = new Area( new Rectangle( minX, minY, maxX - minX, maxY - minY ) );
-
+        var bounds = Shape.rectangle( minX, minY, maxX - minX, maxY - minY );
         this.moleculeMotionBounds = bounds;
-
 
       },
 
@@ -163,7 +159,7 @@ define( function( require ) {
 
         // Hook up an observer that will activate and deactivate placement
         // hints for this molecule.
-        mobileBiomolecule.userControlled.link( function( isUserControlled, wasUserControlled ) {
+        mobileBiomolecule.userControlledProperty.link( function( isUserControlled, wasUserControlled ) {
           if ( isUserControlled ) {
             self.dnaMolecule.activateHints( mobileBiomolecule );
           }
@@ -175,10 +171,10 @@ define( function( require ) {
 
         // Hook up an observer that will remove this biomolecule from the
         // model if its existence strength reaches zero.
-        mobileBiomolecule.existenceStrength.link( function( existenceStrength ) {
-          if ( self.existenceStrength === 0 ) {
+        mobileBiomolecule.existenceStrengthProperty.link( function existenceObserver( existenceStrength ) {
+          if ( existenceStrength === 0 ) {
             self.removeMobileBiomolecule( mobileBiomolecule );
-            mobileBiomolecule.existenceStrength.unlink( self );
+            mobileBiomolecule.existenceStrengthProperty.unlink( existenceObserver );
           }
         } );
 
