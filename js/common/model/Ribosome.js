@@ -128,7 +128,7 @@ define( function( require ) {
        * @returns {Vector2}
        */
       getEntranceOfRnaChannelPos: function() {
-        return new Vector2( this.getPosition() ).plus( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
+        return this.getPosition().plus( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
       },
 
       /**
@@ -178,7 +178,7 @@ define( function( require ) {
         var centeredTop = this.centerShapePart( ribosomeShape.topShape, mvt );
         var centeredBottom = this.centerShapePart( ribosomeShape.bottomShape, mvt );
         return new RibosomeShape( centeredTop, centeredBottom );
-      },
+       },
 
       /**
        *

@@ -22,7 +22,7 @@ define( function( require ) {
   var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
   var RibosomeNode = require( 'GENE_EXPRESSION_BASICS/common/view/RibosomeNode' );
   var BiomoleculeDragHandler = require( 'GENE_EXPRESSION_BASICS/common/view/BiomoleculeDragHandler' );
-  var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
+  var RibosomeShape = require( 'GENE_EXPRESSION_BASICS/common/model/RibosomeShape' );
 
 
   /**
@@ -121,8 +121,8 @@ define( function( require ) {
      */
     getPathByMobileBioMoleculeType: function( mobileBiomolecule, options ) {
 
-      if ( mobileBiomolecule instanceof  Ribosome ) {
-        return new RibosomeNode( mobileBiomolecule.getShape(), options );
+      if( mobileBiomolecule.getShape() instanceof  RibosomeShape) {
+          return new RibosomeNode( mobileBiomolecule.getShape(), options );
       }
 
       return new Path( new Shape(), options );

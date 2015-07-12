@@ -36,12 +36,11 @@ define( function( require ) {
 
 
     transformed: function( matrix ) {
-      this.topShape = this.topShape.transformed( matrix );
-      this.bottomShape = this.bottomShape.transformed( matrix );
+      var newTopShape = this.topShape.transformed( matrix );
+      var newBottomShape = this.bottomShape.transformed( matrix );
       // create a new Instance of Shape, so the observers can detect change
-      return new RibosomeShape( this.topShape, this.bottomShape );
+      return new RibosomeShape( newTopShape, newBottomShape );
     }
-
 
   } );
 

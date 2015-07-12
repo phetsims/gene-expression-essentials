@@ -15,7 +15,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
   var Matrix3 = require( 'DOT/Matrix3' );
 
@@ -42,6 +41,9 @@ define( function( require ) {
      * @returns {boolean}
      */
     inBounds: function( p ) {
+      if ( p.x ) {
+        return this.inBoundsByPoint( p );
+      }
       return this.boundsShape === null || this.boundsShape.bounds.containsBounds( p.bounds );
     },
 
@@ -86,8 +88,8 @@ define( function( require ) {
      * @return - True is in bounds, false if not.
      */
     testIfInMotionBounds: function( shape, proposedLocation ) {
-      var shapeCenter = new Vector2( shape.bounds.getCenterX(), shape.bounds.getCenterY() );
-      var translationVector = new Vector2( proposedLocation ).minus( shapeCenter );
+      var shapeCenter = shape.bounds.getCenter();
+      var translationVector = proposedLocation.minus( shapeCenter );
       var translation = Matrix3.translation( translationVector.x, translationVector.y );
       var translatedBounds = shape.transformed( translation );
       return this.inBounds( translatedBounds );

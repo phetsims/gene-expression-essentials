@@ -64,7 +64,6 @@ define( function( require ) {
      * @returns {number}
      */
     generateDirectionChangeCountdownValue: function() {
-
       return MIN_TIME_IN_ONE_DIRECTION + RAND.nextDouble() * ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
     },
 
@@ -91,12 +90,10 @@ define( function( require ) {
         this.directionChangeCountdown = this.generateDirectionChangeCountdownValue();
       }
 
-      // Make sure that current motion will not cause the model element to
-      // move outside of the motion bounds.
+      // Make sure that current motion will not cause the model element to move outside of the motion bounds.
       if ( !this.motionBounds.testIfInMotionBounds( shape, this.currentMotionVector2D, dt ) ) {
 
-        // The current motion vector would take this element out of bounds,
-        // so it needs to "bounce".
+        // The current motion vector would take this element out of bounds, so it needs to "bounce".
         this.currentMotionVector2D = this.getMotionVectorForBounce( shape, this.currentMotionVector2D, dt, MAX_XY_VELOCITY );
 
         // Reset the timer.

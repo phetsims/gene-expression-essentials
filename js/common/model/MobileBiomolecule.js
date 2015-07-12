@@ -131,12 +131,12 @@ define( function( require ) {
 
       if ( !this.userControlled ) {
 
-        // Set a new position in model space based on the current motion
-        // strategy.
+        // Set a new position in model space based on the current motion strategy.
         if ( this.zMotionEnabled ) {
           this.setPosition3D( this.motionStrategy.getNextLocation3D( this.getPosition3D(), this.getShape(), dt ) );
         }
         else {
+
           this.setPosition( this.motionStrategy.getNextLocation( this.getPosition(), this.getShape(), dt ) );
         }
 
