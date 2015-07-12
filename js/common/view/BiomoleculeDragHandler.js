@@ -27,7 +27,7 @@ define( function( require ) {
 
       start: function( event, trail ) {
         // The user is moving this, so they have control.
-         biomolecule.userControlled = true;
+        biomolecule.userControlled = true;
       },
 
       translate: function( translationParams ) {

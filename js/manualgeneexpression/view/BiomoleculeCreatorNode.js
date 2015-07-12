@@ -38,6 +38,16 @@ define( function( require ) {
     thisNode.appearanceNode = appearanceNode;
     thisNode.biomolecule = null;
 
+
+    // Appearance Node is a bioMolecule Node which has its own DragHandler, since the node
+    // within the creator Node only serves as a iocn, it shouldn't be pickable -
+    // otherwise the DragHandler of the BioMolecule takes over the Input Listener of the creator Node - Ashraf
+    
+    appearanceNode.pickable = false;
+    thisNode.mouseArea = appearanceNode.bounds;
+    thisNode.touchArea = appearanceNode.bounds;
+
+
     thisNode.addInputListener( new SimpleDragHandler( {
 
       // Allow moving a finger (touch) across this node to interact with it
@@ -58,21 +68,21 @@ define( function( require ) {
 
         // Add an observer to watch for this model element to be returned.
         var finalBiomolecule = thisNode.biomolecule;
-        thisNode.userControlledPropertyObserver = function( userControlled ) {
+        var userControlledPropertyObserver = function( userControlled ) {
           if ( !userControlled ) {
             // The user has released this biomolecule.  If it  was dropped above the return bounds (which are
             // generally the bounds of the tool box where this creator node resides),then the model element
             // should be removed from the model.
             if ( enclosingToolBoxNode.bounds.containsPoint( mvt.modelToViewPosition( finalBiomolecule.getPosition() ) ) ) {
               moleculeDestroyer( finalBiomolecule );
-              finalBiomolecule.userControlledProperty.unlink( thisNode.userControlledPropertyObserver );
+              finalBiomolecule.userControlledProperty.unlink( userControlledPropertyObserver );
               thisNode.appearanceNode.opacity = 1;
               thisNode.pickable = true;
             }
           }
         };
 
-        thisNode.biomolecule.userControlledProperty.link( thisNode.userControlledPropertyObserver );
+        thisNode.biomolecule.userControlledProperty.link( userControlledPropertyObserver );
       },
 
       translate: function( translationParams ) {
@@ -88,6 +98,7 @@ define( function( require ) {
 
     // Add the main node with which the user will interact.
     thisNode.addChild( appearanceNode );
+
   }
 
   return inherit( Node, BiomoleculeCreatorNode, {

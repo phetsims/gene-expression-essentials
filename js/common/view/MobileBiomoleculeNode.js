@@ -21,7 +21,7 @@ define( function( require ) {
   var GradientUtil = require( 'GENE_EXPRESSION_BASICS/common/util/GradientUtil' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
   var RibosomeNode = require( 'GENE_EXPRESSION_BASICS/common/view/RibosomeNode' );
-//  var BiomoleculeDragHandler = require( 'GENE_EXPRESSION_BASICS/common/view/BiomoleculeDragHandler' );
+  var BiomoleculeDragHandler = require( 'GENE_EXPRESSION_BASICS/common/view/BiomoleculeDragHandler' );
   var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
 
 
@@ -91,21 +91,22 @@ define( function( require ) {
     // and the DNA molecule.  Otherwise odd-looking things can happen.
     mobileBiomolecule.attachedToDnaProperty.link( function( attachedToDna ) {
       if ( mobileBiomolecule instanceof RnaPolymerase && attachedToDna ) {
-        thisNode.moveToBack();
+        path.moveToBack();
       }
     } );
 
     // Drag handling.
-    //thisNode.addInputListener( new BiomoleculeDragHandler( mobileBiomolecule, thisNode, mvt ) );
+     thisNode.addInputListener( new BiomoleculeDragHandler( mobileBiomolecule, thisNode, mvt ) );
+
 
     // Interactivity control.
     mobileBiomolecule.movableByUserProperty.link( function( movableByUser ) {
-      thisNode.setPickable( movableByUser );
+      path.setPickable( movableByUser );
     } );
 
     // Move this biomolecule to the top of its layer when grabbed.
     mobileBiomolecule.userControlledProperty.link( function( userControlled ) {
-      thisNode.moveToFront();
+      path.moveToFront();
     } );
 
   }
