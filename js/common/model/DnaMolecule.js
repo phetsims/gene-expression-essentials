@@ -21,6 +21,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
+  var NumberUtil = require( 'GENE_EXPRESSION_BASICS/common/util/NumberUtil' );
   var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -376,7 +377,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getLeftEdgePos: function() {
-      return new Vector2( this.leftEdgeXOffset, CommonConstants.Y_POS );
+      return new Vector2( this.leftEdgeXOffset, CommonConstants.DNA_MOLECULE_Y_POS );
     },
 
 
@@ -391,9 +392,10 @@ define( function( require ) {
      * @return {AttachmentSite}
      */
     considerProposalFromByTranscriptionFactor: function( transcriptionFactor ) {
+      var self = this;
       return this.considerProposalFromBiomolecule( transcriptionFactor, TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE,
         function( basePairIndex ) {
-          return this.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex, transcriptionFactor.getConfig() );
+          return self.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex, transcriptionFactor.getConfig() );
         },
         function( gene ) {
           return true; // TFs can always attach if a spot is available.
@@ -410,9 +412,10 @@ define( function( require ) {
      * @returns {AttachmentSite}
      */
     considerProposalFromByRnaPolymerase: function( rnaPolymerase ) {
+      var self = this;
       return this.considerProposalFromBiomolecule( rnaPolymerase, RNA_POLYMERASE_ATTACHMENT_DISTANCE,
         function( basePairIndex ) {
-          return this.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex );
+          return self.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex );
         },
         function( gene ) {
           return gene.transcriptionFactorsSupportTranscription();
@@ -428,19 +431,23 @@ define( function( require ) {
      * @private
      * Consider a proposal from a biomolecule.  This is the generic version
      * that avoids duplicated code.
+     * @param {MobileBiomolecule} biomolecule
+     * @param {number} maxAttachDistance
+     * @param {Function<Integer>} getAttachSiteForBasePair
+     * @param {Function<Gene>} isOkayToAttach
+     * @param {Function<Gene>} getAttachmentSite
+     * @returns {*}
      */
     considerProposalFromBiomolecule: function( biomolecule, maxAttachDistance, getAttachSiteForBasePair, isOkayToAttach,
                                                getAttachmentSite ) {
       var potentialAttachmentSites = [];
       for ( var i = 0; i < this.basePairs.length; i++ ) {
-
         // See if the base pair is within the max attachment distance.
-        var attachmentSiteLocation = new Vector2( this.basePairs[ i ].getCenterLocation().x, CommonConstants.Y_POS );
+        var attachmentSiteLocation = new Vector2( this.basePairs[ i ].getCenterLocation().x, CommonConstants.DNA_MOLECULE_Y_POS );
         if ( attachmentSiteLocation.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
-
           // In range.  Add it to the list if it is available.
-          var potentialAttachmentSite = getAttachSiteForBasePair.call( this );
-          if ( potentialAttachmentSite.attachedOrAttachingMolecule.get() === null ) {
+          var potentialAttachmentSite = getAttachSiteForBasePair( i );
+          if ( potentialAttachmentSite.attachedOrAttachingMolecule === null ) {
             potentialAttachmentSites.push( potentialAttachmentSite );
           }
         }
@@ -451,26 +458,24 @@ define( function( require ) {
       // attachment site anyways.
       if ( potentialAttachmentSites.length === 0 && this.pursueAttachments ) {
         _.forEach( this.genes, function( gene ) {
-          if ( isOkayToAttach.call( this, gene ) ) {
-            var matchingSite = getAttachmentSite.call( this, gene );
+          if ( isOkayToAttach( gene ) ) {
+            var matchingSite = getAttachmentSite( gene );
 
             // Found a matching site on a gene.
-            if ( matchingSite.attachedOrAttachingMolecule.get() === null ) {
+            if ( matchingSite.attachedOrAttachingMolecule === null ) {
 
-              // The site is unoccupied, so add it to the list of
-              // potential sites.
+              // The site is unoccupied, so add it to the list of  potential sites.
               potentialAttachmentSites.push( matchingSite );
             }
             else if ( !matchingSite.isMoleculeAttached() ) {
-              var thisDistance = biomolecule.getPosition().distance( matchingSite.locationProperty.get() );
-              var thatDistance = matchingSite.attachedOrAttachingMolecule.get().getPosition().distance(
-                matchingSite.locationProperty.get() );
+              var thisDistance = biomolecule.getPosition().distance( matchingSite.location );
+              var thatDistance = matchingSite.attachedOrAttachingMolecule.getPosition().distance(
+                matchingSite.location );
               if ( thisDistance < thatDistance ) {
 
-                // The other molecule is not yet attached, and this
-                // one is closer, so force the other molecule to
+                // The other molecule is not yet attached, and this one is closer, so force the other molecule to
                 // abort its pending attachment.
-                matchingSite.attachedOrAttachingMolecule.get().forceAbortPendingAttachment();
+                matchingSite.attachedOrAttachingMolecule.forceAbortPendingAttachment();
 
                 // Add this site to the list of potential sites.
                 potentialAttachmentSites.push( matchingSite );
@@ -505,9 +510,9 @@ define( function( require ) {
         // as needed.
         var exponent = 1;
         var as1Factor = attachmentSite1.getAffinity() / Math.pow( attachLocation.distance(
-            attachmentSite1.locationProperty.get() ), exponent );
+            attachmentSite1.location ), exponent );
         var as2Factor = attachmentSite2.getAffinity() / Math.pow( attachLocation.distance(
-            attachmentSite2.locationProperty.get() ), exponent );
+            attachmentSite2.location ), exponent );
         if ( as1Factor > as2Factor ) {
           return 1;
         }
@@ -534,16 +539,17 @@ define( function( require ) {
      *                                 biomolecule could attach.
      */
     eliminateInvalidAttachmentSites: function( biomolecule, potentialAttachmentSites ) {
+      var self = this;
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
-        var translationVector = new Vector2( biomolecule.getPosition(), attachmentSite.locationProperty.get() );
+        var translationVector = attachmentSite.location.minus( biomolecule.getPosition() );
         var transform = Matrix3.translation( translationVector.x, translationVector.y );
         var translatedShape = biomolecule.getShape().transformed( transform );
-        var inBounds = biomolecule.motionBoundsProperty.get().inBounds( translatedShape );
+        var inBounds = biomolecule.motionBounds.inBounds( translatedShape );
         var overlapsOtherMolecules = false;
-        var list = this.model.getOverlappingBiomolecules( translatedShape );
+        var list = self.model.getOverlappingBiomolecules( translatedShape );
         for ( var i = 0; i < list.length; i++ ) {
           var mobileBiomolecule = list[ i ];
-          if ( mobileBiomolecule.attachedToDna.get() && mobileBiomolecule !== biomolecule ) {
+          if ( mobileBiomolecule.attachedToDna && mobileBiomolecule !== biomolecule ) {
             overlapsOtherMolecules = true;
             break;
           }
@@ -560,8 +566,8 @@ define( function( require ) {
      * @returns {Array<AttachmentSite>}
      */
     eliminateOverlappingAttachmentSitesNew: function( biomolecule, potentialAttachmentSites ) {
-      return _.findLast( potentialAttachmentSites, function( attachmentSite ) {
-        var translationVector = new Vector2( biomolecule.getPosition(), attachmentSite.locationProperty.get() );
+      return _.filter( potentialAttachmentSites, function( attachmentSite ) {
+        var translationVector = attachmentSite.location.minus( biomolecule.getPosition() );
         var transform = Matrix3.translation( translationVector.x, translationVector.y );
         var translatedShape = biomolecule.getShape().transformed( transform );
         return biomolecule.motionBoundsProperty.get().inBounds( translatedShape );
@@ -576,16 +582,13 @@ define( function( require ) {
      * @returns {AttachmentSite}
      */
     getTranscriptionFactorAttachmentSiteForBasePairIndex: function( i, tfConfig ) {
-
       // See if this base pair is inside a gene.
       var gene = this.getGeneContainingBasePair( i );
       if ( gene !== null ) {
-
         // Base pair is in a gene, so get it from the gene.
         return gene.getTranscriptionFactorAttachmentSite( i, tfConfig );
       }
       else {
-
         // Base pair is not contained within a gene, so use the default.
         return this.createDefaultAffinityAttachmentSite( i );
       }
@@ -598,16 +601,13 @@ define( function( require ) {
      * @returns {AttachmentSite}
      */
     getRnaPolymeraseAttachmentSiteForBasePairIndex: function( i ) {
-
       // See if this base pair is inside a gene.
       var gene = this.getGeneContainingBasePair( i );
       if ( gene !== null ) {
-
         // Base pair is in a gene.  See if site is available.
         return gene.getPolymeraseAttachmentSite( i );
       }
       else {
-
         // Base pair is not contained within a gene, so use the default.
         return this.createDefaultAffinityAttachmentSite( i );
       }
@@ -630,14 +630,14 @@ define( function( require ) {
       if ( basePairIndex !== 0 ) {
         potentialSite = this.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex - 1,
           transcriptionFactor.getConfig() );
-        if ( potentialSite.attachedOrAttachingMolecule.get() === null ) {
+        if ( potentialSite.attachedOrAttachingMolecule === null ) {
           attachmentSites.push( potentialSite );
         }
       }
       if ( basePairIndex !== this.basePairs.length - 1 ) {
         potentialSite = this.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex + 1,
           transcriptionFactor.getConfig() );
-        if ( potentialSite.attachedOrAttachingMolecule.get() === null ) {
+        if ( potentialSite.attachedOrAttachingMolecule === null ) {
           attachmentSites.push( potentialSite );
         }
       }
@@ -661,13 +661,13 @@ define( function( require ) {
       var potentialSite;
       if ( basePairIndex !== 0 ) {
         potentialSite = this.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex - 1 );
-        if ( potentialSite.attachedOrAttachingMolecule.get() === null ) {
+        if ( potentialSite.attachedOrAttachingMolecule === null ) {
           attachmentSites.push( potentialSite );
         }
       }
       if ( basePairIndex !== this.basePairs.length - 1 ) {
         potentialSite = this.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex + 1 );
-        if ( potentialSite.attachedOrAttachingMolecule.get() === null ) {
+        if ( potentialSite.attachedOrAttachingMolecule === null ) {
           attachmentSites.push( potentialSite );
         }
       }
@@ -709,6 +709,19 @@ define( function( require ) {
     },
 
     /**
+     * Handles overloaded createDefaultAffinityAttachmentSite by Data type
+     * @param value
+     * @returns {*}
+     */
+    createDefaultAffinityAttachmentSite: function( value ) {
+      if ( NumberUtil.isInt( value ) ) {
+        return this.createDefaultAffinityAttachmentSiteByInt( value );
+      }
+
+      return this.createDefaultAffinityAttachmentSiteByDouble( value );
+    },
+
+    /**
      * Create an attachment site instance with the default affinity for all
      * DNA-attaching biomolecules at the specified x offset.
      *
@@ -716,8 +729,8 @@ define( function( require ) {
      * @return
      */
     createDefaultAffinityAttachmentSiteByDouble: function( xOffset ) {
-      return new AttachmentSite( new Vector2( this.getNearestBasePairXOffset( CommonConstants.xOffset ),
-        CommonConstants.Y_POS ), CommonConstants.DEFAULT_AFFINITY );
+      return new AttachmentSite( new Vector2( this.getNearestBasePairXOffset( xOffset ),
+        CommonConstants.DNA_MOLECULE_Y_POS ), CommonConstants.DEFAULT_AFFINITY );
     },
 
 
@@ -730,7 +743,7 @@ define( function( require ) {
      */
     createDefaultAffinityAttachmentSiteByInt: function( xOffset ) {
       return new AttachmentSite( new Vector2( this.getBasePairXOffsetByIndex( xOffset ),
-        CommonConstants.Y_POS ), CommonConstants.DEFAULT_AFFINITY );
+        CommonConstants.DNA_MOLECULE_Y_POS ), CommonConstants.DEFAULT_AFFINITY );
     },
 
 
@@ -742,7 +755,7 @@ define( function( require ) {
      */
     getGeneAtLocation: function( location ) {
       if ( !( location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&
-              location.y >= CommonConstants.Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2 && location.y <= CommonConstants.Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 ) ) {
+              location.y >= CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2 && location.y <= CommonConstants.DNA_MOLECULE_Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 ) ) {
         console.log( " - Warning: Location for gene test is not on DNA molecule." );
         return null;
       }

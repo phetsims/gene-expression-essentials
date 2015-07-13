@@ -33,8 +33,8 @@ define( function( require ) {
      * @param {number} value
      */
     set: function( value ) {
-      var boundedValue = Util.clamp( value, this.bounds.get().getMin(), this.bounds.get().getMax() );
-      Property.prototype.set.call(this, boundedValue );
+      var boundedValue = Util.clamp( value, this.bounds.getMin(), this.bounds.getMax() );
+      Property.prototype.set.call( this, boundedValue );
     }
 
   } );

@@ -388,7 +388,7 @@ define( function( require ) {
         // See if the attachment site at the leading edge of the mRNA is
         // available.
         var leadingEdgeAttachmentSite = this.shapeSegments.get( 0 ).attachmentSite;
-        if ( leadingEdgeAttachmentSite.attachedOrAttachingMolecule.get() === null &&
+        if ( leadingEdgeAttachmentSite.attachedOrAttachingMolecule === null &&
              leadingEdgeAttachmentSite.locationProperty.get().distance(
                ribosome.getEntranceOfRnaChannelPos() ) < RIBOSOME_CONNECTION_DISTANCE ) {
 
@@ -420,7 +420,7 @@ define( function( require ) {
         // See if the attachment site at the leading edge of the mRNA is
         // available.
         var leadingEdgeAttachmentSite = this.shapeSegments.get( 0 ).attachmentSite;
-        if ( leadingEdgeAttachmentSite.attachedOrAttachingMolecule.get() === null &&
+        if ( leadingEdgeAttachmentSite.attachedOrAttachingMolecule === null &&
              leadingEdgeAttachmentSite.locationProperty.get().distance(
                messengerRnaDestroyer.getPosition() ) < MRNA_DESTROYER_CONNECT_DISTANCE ) {
 
@@ -627,7 +627,7 @@ define( function( require ) {
 //        // segment that corresponds to the translation channel of the ribosome.
 //        segmentToAdvance.advance( length, shapeSegments );
 //
-//        // Realign the segments, since they may well have changed shape.  
+//        // Realign the segments, since they may well have changed shape.
 //        if ( shapeSegments.contains( segmentToAdvance ) ) {
 //            realignSegmentsFrom( segmentToAdvance );
 //        }

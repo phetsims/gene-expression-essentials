@@ -85,7 +85,7 @@ define( function( require ) {
      */
     proposeAttachments: function() {
       // Propose attachment to the DNA.
-      return this.model.getDnaMolecule().considerProposalFrom( this );
+       return this.model.getDnaMolecule().considerProposalFromByRnaPolymerase( this );
     },
 
     /**

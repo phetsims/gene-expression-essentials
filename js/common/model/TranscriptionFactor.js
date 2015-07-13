@@ -45,7 +45,6 @@ define( function( require ) {
     // comparing factors and creating copies.
     this.config = config; // private
     this.setPosition( initialPosition );
-
   }
 
   return inherit( MobileBiomolecule, TranscriptionFactor, {
@@ -106,7 +105,7 @@ define( function( require ) {
      */
     proposeAttachments: function() {
       // Transcription factors only attach to DNA.
-      return this.model.getDnaMolecule().considerProposalFrom( this );
+      return this.model.getDnaMolecule().considerProposalFromByTranscriptionFactor( this );
     },
 
     /**

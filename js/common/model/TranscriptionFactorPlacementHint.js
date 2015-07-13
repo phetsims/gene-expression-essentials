@@ -31,7 +31,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     isMatchingBiomolecule: function( testBiomolecule ) {
-      return testBiomolecule instanceof TranscriptionFactor && ( testBiomolecule ).getConfig().equals( this.tfConfig );
+      return testBiomolecule instanceof TranscriptionFactor && ( testBiomolecule.getConfig() === this.tfConfig);
     },
 
     /**
@@ -39,8 +39,8 @@ define( function( require ) {
      * @param { TranscriptionFactorConfig } transcriptionFactorConfig
      */
     activateIfConfigMatch: function( transcriptionFactorConfig ) {
-      if ( this.tfConfig.equals( transcriptionFactorConfig ) ) {
-        this.active.set( true );
+      if ( this.tfConfig === transcriptionFactorConfig ) {
+        this.active = true;
       }
     }
 

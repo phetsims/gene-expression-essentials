@@ -269,14 +269,14 @@ define( function( require ) {
      * @return {AttachmentSite}
      */
     getTranscriptionFactorAttachmentSite: function( basePairIndex, tfConfig ) {
-
       // Assume a default affinity site until proven otherwise.
       var attachmentSite = this.dnaMolecule.createDefaultAffinityAttachmentSite(
         this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) );
 
       // Determine whether there are any transcription factor attachment
       // sites on this gene that match the specified configuration.
-      _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
+      for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
+        var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
         if ( transcriptionFactorAttachmentSite.configurationMatches( tfConfig ) ) {
           // Found matching site.  Is it available and in the right place?
           if ( transcriptionFactorAttachmentSite.attachedOrAttachingMolecule === null &&
@@ -286,11 +286,10 @@ define( function( require ) {
 
             // Yes, so this is the site where the given TF should go.
             attachmentSite = transcriptionFactorAttachmentSite;
-            return false; // break;
+            break;
           }
         }
-      } );
-
+      }
       return attachmentSite;
     },
 
@@ -305,11 +304,12 @@ define( function( require ) {
      * @return {AttachmentSite} attachment site for the config if present on the gene, null if not.
      */
     getMatchingSite: function( transcriptionFactorConfig ) {
-      _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
+      for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
+        var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
         if ( transcriptionFactorAttachmentSite.configurationMatches( transcriptionFactorConfig ) ) {
           return transcriptionFactorAttachmentSite;
         }
-      } );
+      }
       return null;
     },
 
@@ -322,14 +322,14 @@ define( function( require ) {
      */
     getTranscriptionFactorAffinityProperty: function( tfConfig ) {
       var affinityProperty = null;
-      _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
+      for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
+        var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
         if ( transcriptionFactorAttachmentSite.configurationMatches( tfConfig ) ) {
           affinityProperty = transcriptionFactorAttachmentSite.affinityProperty;
-
           // Built-in assumption here: Only one site for given TF config.
-          return false; // break;
+          break;
         }
-      } );
+      }
       return affinityProperty;
     },
 
@@ -378,7 +378,6 @@ define( function( require ) {
         }
       }
       else if ( biomolecule instanceof TranscriptionFactor ) {
-
         // Activate hint that matches this transcription factor.
         _.forEach( this.transcriptionFactorPlacementHints, function( transcriptionFactorPlacementHint ) {
           transcriptionFactorPlacementHint.activateIfMatch( biomolecule );

@@ -45,7 +45,6 @@ define( function( require ) {
     ATTACHED_DISTANCE_THRESHOLD: 1 // In picometers.
 
 
-
   } );
 
 

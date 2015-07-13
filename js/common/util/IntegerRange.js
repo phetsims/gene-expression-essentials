@@ -38,7 +38,19 @@ define( function( require ) {
      */
     getMax: function() {
       return this.maxValue;
+    },
+
+    /**
+     * Determines whether the range contains a value.
+     *
+     * @param value
+     * @return {boolean}
+     */
+    contains: function( value ) {
+      value = value | 0;
+      return ( value >= this.minValue && value <= this.maxValue );
     }
+
 
   } );
 } );

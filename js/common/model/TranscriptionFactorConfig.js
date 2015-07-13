@@ -1,6 +1,6 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 /**
- *Class the defines the shape, color, polarity, etc. of a transcription factor.
+ * Class the defines the shape, color, polarity, etc. of a transcription factor.
  *
  * @author John Blanco
  * @author Mohamed Safi

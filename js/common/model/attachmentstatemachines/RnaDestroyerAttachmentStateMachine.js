@@ -48,7 +48,7 @@ define( function( require ) {
        */
       entered: function( asm ) {
         AttachmentState.prototype.entered.call( this );
-        asm.biomolecule.movableByUser= false;
+        asm.biomolecule.movableByUser = false;
       }
 
     } );
@@ -127,7 +127,7 @@ define( function( require ) {
         mRnaDestroyer.setMotionStrategy( new DestroyerTrackingRnaMotionStrategy( mRnaDestroyer ) );
 
         // Turn off user interaction while mRNA is being destroyed.
-        asm.biomolecule.movableByUser= false;
+        asm.biomolecule.movableByUser = false;
       }
 
     } );

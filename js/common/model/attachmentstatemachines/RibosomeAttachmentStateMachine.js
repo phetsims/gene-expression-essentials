@@ -80,7 +80,7 @@ define( function( require ) {
         ribosome.getModel().addMobileBiomolecule( proteinBeingSynthesized );
 
         // Prevent user interaction while translating.
-        asm.biomolecule.movableByUser =  false ;
+        asm.biomolecule.movableByUser = false;
       }
 
 

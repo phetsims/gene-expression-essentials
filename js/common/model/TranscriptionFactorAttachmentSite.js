@@ -42,7 +42,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     configurationMatches: function( tfConfig ) {
-      return this.tfConfig.equals( tfConfig );
+      return this.tfConfig === tfConfig ;
     },
 
     /**

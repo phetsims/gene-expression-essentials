@@ -63,7 +63,7 @@ define( function( require ) {
        */
       detachFromDnaMolecule: function( asm ) {
         var biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
-        asm.attachmentSite.attachedOrAttachingMolecule.set( null );
+        asm.attachmentSite.attachedOrAttachingMolecule = null;
         asm.attachmentSite = null;
         asm.setState( this.transcriptionFactorAttachmentStateMachine.unattachedButUnavailableState );
         biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( biomolecule.getDetachDirection(),
@@ -125,11 +125,11 @@ define( function( require ) {
             else {
 
               // Clear the previous attachment site.
-              attachmentSite.attachedOrAttachingMolecule.set( null );
+              attachmentSite.attachedOrAttachingMolecule = null;
 
               // Set a new attachment site.
               attachmentSite = attachmentSites[ 0 ];
-              attachmentSite.attachedOrAttachingMolecule.set( biomolecule );
+              attachmentSite.attachedOrAttachingMolecule = biomolecule;
 
               // Set up the state to move to the new attachment site.
               this.transcriptionFactorAttachmentStateMachine.setState( movingTowardsAttachmentState );
@@ -140,7 +140,7 @@ define( function( require ) {
               // time to increase the probability of detachment.
               // Tweak as needed.
               this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold =
-                detachFromDnaThreshold * Math.pow( 0.5, TranscriptionFactorAttachedState.DEFAULT_ATTACH_TIME );
+              detachFromDnaThreshold * Math.pow( 0.5, TranscriptionFactorAttachedState.DEFAULT_ATTACH_TIME );
             }
           }
         }

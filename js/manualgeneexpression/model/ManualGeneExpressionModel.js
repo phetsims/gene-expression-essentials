@@ -233,8 +233,9 @@ define( function( require ) {
       // shape, we do a fast bounds test first, and then the more expensive
       // test when necessary.
       var testShapeBounds = testShape.bounds;
-      _.forEach( this.mobileBiomoleculeList, function( mobileBiomolecule ) {
-        if ( mobileBiomolecule.getShape().bounds.intersects( testShapeBounds ) ) {
+
+      this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
+        if ( mobileBiomolecule.getShape().bounds.intersectsBounds( testShapeBounds ) ) {
 
           /*
            // Bounds overlap, see if actual shapes overlap.

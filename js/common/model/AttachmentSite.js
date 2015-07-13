@@ -31,23 +31,26 @@ define( function( require ) {
       // moving.
       location: initialLocation,
 
-      // Property that represents the affinity of the attachment site.
-      affinity: new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 ),
-
       // A property that tracks which if any biomolecule is attached to or moving
       // towards attachment with this site.
       attachedOrAttachingMolecule: null
     } );
+
+    // Property that represents the affinity of the attachment site.
+    this.affinityProperty = new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 );
   }
 
 
   return inherit( PropertySet, AttachmentSite, {
 
+    get affinity() {
+      return this.getAffinity();
+    },
     /**
      * @returns {number}
      */
     getAffinity: function() {
-      return this.affinity;
+      return this.affinityProperty.get();
     },
 
     /**
