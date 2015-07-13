@@ -13,11 +13,46 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Color = require( 'SCENERY/util/Color' );
+  var Shape = require( 'KITE/Shape' );
 
-  function PlacementHintNode() {
+  // constants
+  var HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
+  var HINT_STROKE = { lineWidth: 2, lineJoin: "bevel", lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
+
+
+  /**
+   *
+   * @param {ModelViewTransform2} mvt
+   * @param {PlacementHint} placementHint
+   * @constructor
+   */
+  function PlacementHintNode( mvt, placementHint ) {
     var thisNode = this;
     Node.call( thisNode );
 
+    // Create a transparent color based on the base color of the molecule.
+    var transparentColor = new Color( placementHint.getBaseColor().getRed(), placementHint.getBaseColor().getGreen(),
+      placementHint.getBaseColor().getBlue(), 0.4 );
+
+    var pathStyleOptions = _.extend( HINT_STROKE, {
+      fill: transparentColor
+    } );
+
+    var path = new Path( new Shape(), pathStyleOptions );
+    thisNode.addChild( path );
+
+    // Update the shape whenever it changes.
+    placementHint.addShapeChangeObserver( function( shape ) {
+      path.setShape( mvt.modelToViewShape( shape ) );
+    } );
+
+    // Listen to the property that indicates whether the hint is active and
+    // only be visible when it is.
+    placementHint.activeProperty.link( function( hintActive ) {
+      path.visible = hintActive;
+    } );
 
   }
 

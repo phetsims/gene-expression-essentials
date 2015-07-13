@@ -24,9 +24,9 @@ define( function( require ) {
     // Biomolecule that defines the shape of this hint.
     this.biomolecule = biomolecule;
 
-    ShapeChangingModelElement.call( this, biomolecule.getShape(),{
+    ShapeChangingModelElement.call( this, biomolecule.getShape(), {
       // Property that tracks whether or not the hint is should be visible to the user.
-      active:false
+      active: false
     } );
   }
 
