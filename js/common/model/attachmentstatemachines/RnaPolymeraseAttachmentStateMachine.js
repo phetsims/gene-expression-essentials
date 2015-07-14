@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Property = require( 'AXON/Property' );
+  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
   var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
@@ -26,10 +27,11 @@ define( function( require ) {
   var MessengerRna = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRna' );
   var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/RandomWalkMotionStrategy' );
   var DriftThenTeleportMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/DriftThenTeleportMotionStrategy' );
-  var RAND = require( 'DOT/Random' );
+  var Random = require( 'DOT/Random' );
 
   // constants
   var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.  Half-life of attachment to a site with affinity of 0.5.
+  var RAND = new Random();
 
   //protected class TODO
   var AttachedToBasePair = inherit( AttachmentState,
@@ -92,12 +94,13 @@ define( function( require ) {
 
             // Move to an adjacent base pair.  Start by making a list
             // of candidate base pairs.
-            var attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSites(
+            var attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesRnaPolymerase(
               biomolecule, asm.attachmentSite );
 
             // Eliminate sites that are in use or that, if moved to,
             // would put the biomolecule out of bounds.
-            _.forEach( _.clone( attachmentSites ), function( site ) {
+            var clonedAttachmentSites = [].concat(attachmentSites);
+            _.forEach(clonedAttachmentSites, function( site ) {
 
               if ( site.isMoleculeAttached() || !biomolecule.motionBoundsProperty.get().testIfInMotionBounds(
                   biomolecule.getShape(), site.locationProperty.get() ) ) {
@@ -151,7 +154,7 @@ define( function( require ) {
         var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
 
         // Decide right away whether or not to transcribe.
-        this.transcribe = attachmentSite.getAffinity() > DnaMolecule.DEFAULT_AFFINITY &&
+        this.transcribe = attachmentSite.getAffinity() > CommonConstants.DEFAULT_AFFINITY &&
                           RAND.nextDouble() < attachmentSite.getAffinity();
 
         // Allow user interaction.

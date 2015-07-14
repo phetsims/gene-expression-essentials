@@ -11,8 +11,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
-  var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/RandomWalkMotionStrategy' );
 
+  /**
+   *
+   * @constructor
+   */
   function GenericMovingTowardsAttachmentState() {
     AttachmentState.call( this );
   }
@@ -27,16 +30,18 @@ define( function( require ) {
     stepInTime: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
 
+      // Verify that state is consistent.
+      assert && assert( gsm.attachmentSite !== null );
+      assert && assert( gsm.attachmentSite.attachedOrAttachingMolecule === gsm.biomolecule );
+
       // Calculate the location where this biomolecule must be in order
       // to attach to the attachment site.
-      var destination = new Vector2( gsm.attachmentSite.locationProperty.get().x - gsm.destinationOffset.x,
-        gsm.attachmentSite.locationProperty.get().y - gsm.destinationOffset.y );
+      var destination = new Vector2( gsm.attachmentSite.location.x - gsm.destinationOffset.x,
+        gsm.attachmentSite.location.y - gsm.destinationOffset.y );
 
       // See if the attachment site has been reached.
       if ( gsm.biomolecule.getPosition().distance( destination ) < AttachmentState.ATTACHED_DISTANCE_THRESHOLD ) {
-
-        // This molecule is now at the attachment site, so consider it
-        // attached.
+        // This molecule is now at the attachment site, so consider it attached.
         gsm.setState( gsm.attachedState );
       }
 
@@ -47,9 +52,6 @@ define( function( require ) {
      * @param {AttachmentStateMachine} enclosingStateMachine
      */
     entered: function( enclosingStateMachine ) {
-      enclosingStateMachine.biomolecule.setMotionStrategy(
-        new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty ) );
-
       // Allow user interaction.
       enclosingStateMachine.biomolecule.movableByUser = true;
     }

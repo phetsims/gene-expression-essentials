@@ -14,7 +14,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var RAND = require( 'DOT/Random' );
+  var Random = require( 'DOT/Random' );
   var Vector2 = require( 'DOT/Vector2' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
   var MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MoveDirectlyToDestinationMotionStrategy' );
@@ -22,7 +22,9 @@ define( function( require ) {
   var GenericAttachedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachedState' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
 
-  // protected class TODO
+  // constants
+  var RAND = new Random();
+
   // Subclass of the "attached" state.
   var TranscriptionFactorAttachedState = inherit( GenericAttachedState,
 
@@ -69,7 +71,7 @@ define( function( require ) {
         biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( biomolecule.getDetachDirection(),
           biomolecule.motionBoundsProperty ) );
         this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold = 1; // Reset this threshold.
-        asm.biomolecule.attachedToDna.set( false ); // Update externally visible state indication.
+        asm.biomolecule.attachedToDna = false; // Update externally visible state indication.
       },
 
       /**
@@ -98,12 +100,12 @@ define( function( require ) {
 
             // Move to an adjacent base pair.  Start by making a list
             // of candidate base pairs.
-            var attachmentSites = biomolecule.getModel().getDnaMolecule()
-              .getAdjacentAttachmentSites( biomolecule, asm.attachmentSite );
+            var attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesTranscriptionFactor( biomolecule, asm.attachmentSite );
 
             // Eliminate sites that, if moved to, would put the
             // biomolecule out of bounds.
-            _.forEach( _.clone( attachmentSites ), function( site ) {
+            var clonedAttachmentSites = [].concat(attachmentSites);
+            _.forEach( clonedAttachmentSites, function( site ) {
               if ( !biomolecule.motionBoundsProperty.get()
                   .testIfInMotionBounds( biomolecule.getShape(), site.locationProperty.get() ) ) {
 
@@ -115,7 +117,7 @@ define( function( require ) {
             } );
 
             // Shuffle in order to produce random-ish behavior.
-            _.shuffle( attachmentSites );
+            attachmentSites =   _.shuffle( attachmentSites );
 
             if ( attachmentSites.length === 0 ) {
 
@@ -152,7 +154,7 @@ define( function( require ) {
        */
       entered: function( enclosingStateMachine ) {
         enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
-        enclosingStateMachine.biomolecule.attachedToDna.set( true ); // Update externally visible state indication.
+        enclosingStateMachine.biomolecule.attachedToDna = true; // Update externally visible state indication.
       }
 
 

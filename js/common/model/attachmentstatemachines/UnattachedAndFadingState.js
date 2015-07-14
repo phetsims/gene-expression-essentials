@@ -39,7 +39,7 @@ define( function( require ) {
       }
       else {
         var biomolecule = this.messengerRnaAttachmentStateMachine;
-        biomolecule.existenceStrength.set( Math.max( biomolecule.existenceStrength.get() - dt / FADE_OUT_TIME, 0 ) );
+        biomolecule.existenceStrength = Math.max( biomolecule.existenceStrength - dt / FADE_OUT_TIME, 0 );
       }
     },
 

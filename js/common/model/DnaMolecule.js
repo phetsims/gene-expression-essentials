@@ -21,7 +21,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
-  var NumberUtil = require( 'GENE_EXPRESSION_BASICS/common/util/NumberUtil' );
   var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -116,8 +115,8 @@ define( function( require ) {
      */
     getBasePairIndexFromXOffset: function( xOffset ) {
       // assert xOffset >= leftEdgeXOffset && xOffset < leftEdgeXOffset + moleculeLength;
-      xOffset = Util.clamp( this.leftEdgeXOffset, xOffset, this.leftEdgeXOffset + CommonConstants.LENGTH_PER_TWIST * this.numberOfTwists );
-      return Math.round( ( xOffset - this.leftEdgeXOffset - CommonConstants.INTER_STRAND_OFFSET ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS );
+      xOffset = Util.clamp( xOffset, this.leftEdgeXOffset, this.leftEdgeXOffset + CommonConstants.LENGTH_PER_TWIST * this.numberOfTwists );
+      return (Math.round( ( xOffset - this.leftEdgeXOffset - CommonConstants.INTER_STRAND_OFFSET ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS )) | 0; // make it int
 
     },
 
@@ -497,9 +496,11 @@ define( function( require ) {
         return null;
       }
 
+      var exponent = 1;
+      var attachLocation = biomolecule.getPosition();
+
       // Sort the collection so that the best site is at the top of the list.
-      potentialAttachmentSites.sort( function( attachmentSite1, attachmentSite2 ) {
-        var attachLocation = biomolecule.getPosition();
+      potentialAttachmentSites = _.sortBy( potentialAttachmentSites, function( attachmentSite ) {
 
         // The comparison is based on a combination of the affinity and the
         // distance, much like gravitational attraction.  The exponent
@@ -508,20 +509,12 @@ define( function( require ) {
         // value of 100 means it is pretty much entirely distance.  A value
         // of 2 is how gravity works, so it appears kind of natural.  Tweak
         // as needed.
-        var exponent = 1;
-        var as1Factor = attachmentSite1.getAffinity() / Math.pow( attachLocation.distance(
-            attachmentSite1.location ), exponent );
-        var as2Factor = attachmentSite2.getAffinity() / Math.pow( attachLocation.distance(
-            attachmentSite2.location ), exponent );
-        if ( as1Factor > as2Factor ) {
-          return 1;
-        }
-        if ( as1Factor < as2Factor ) {
-          return -1;
-        }
-        return 0;
-
+        var as1Factor = attachmentSite.getAffinity() / Math.pow( attachLocation.distance(
+            attachmentSite.location ), exponent );
+        return as1Factor;
       } );
+
+      potentialAttachmentSites = potentialAttachmentSites.reverse();
 
       // Return the optimal attachment site.
       return potentialAttachmentSites[ 0 ];
@@ -584,14 +577,18 @@ define( function( require ) {
     getTranscriptionFactorAttachmentSiteForBasePairIndex: function( i, tfConfig ) {
       // See if this base pair is inside a gene.
       var gene = this.getGeneContainingBasePair( i );
+      var attachmentSite = null;
+
       if ( gene !== null ) {
         // Base pair is in a gene, so get it from the gene.
-        return gene.getTranscriptionFactorAttachmentSite( i, tfConfig );
+        attachmentSite = gene.getTranscriptionFactorAttachmentSite( i, tfConfig );
       }
       else {
         // Base pair is not contained within a gene, so use the default.
-        return this.createDefaultAffinityAttachmentSite( i );
+        attachmentSite = this.createDefaultAffinityAttachmentSiteByInt( i );
       }
+
+      return attachmentSite;
     },
 
 
@@ -609,7 +606,7 @@ define( function( require ) {
       }
       else {
         // Base pair is not contained within a gene, so use the default.
-        return this.createDefaultAffinityAttachmentSite( i );
+        return this.createDefaultAffinityAttachmentSiteByInt( i );
       }
     },
 
@@ -684,12 +681,14 @@ define( function( require ) {
      */
     getGeneContainingBasePair: function( basePairIndex ) {
       var geneContainingBasePair = null;
-      _.forEach( this.genes, function( gene ) {
+      for ( var i = 0; i < this.genes.length; i++ ) {
+        var gene = this.genes[ i ];
         if ( gene.containsBasePair( basePairIndex ) ) {
           geneContainingBasePair = gene;
-          return false; //break
+          break;
         }
-      } );
+      }
+
       return geneContainingBasePair;
     },
 
@@ -713,13 +712,7 @@ define( function( require ) {
      * @param value
      * @returns {*}
      */
-    createDefaultAffinityAttachmentSite: function( value ) {
-      if ( NumberUtil.isInt( value ) ) {
-        return this.createDefaultAffinityAttachmentSiteByInt( value );
-      }
 
-      return this.createDefaultAffinityAttachmentSiteByDouble( value );
-    },
 
     /**
      * Create an attachment site instance with the default affinity for all
@@ -742,6 +735,9 @@ define( function( require ) {
      * @return
      */
     createDefaultAffinityAttachmentSiteByInt: function( xOffset ) {
+
+      //    console.log("this.getBasePairXOffsetByIndex( xOffset ) "+ xOffset + "   "+ this.getBasePairXOffsetByIndex( xOffset ));
+
       return new AttachmentSite( new Vector2( this.getBasePairXOffsetByIndex( xOffset ),
         CommonConstants.DNA_MOLECULE_Y_POS ), CommonConstants.DEFAULT_AFFINITY );
     },

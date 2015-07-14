@@ -56,7 +56,7 @@ define( function( require ) {
     getNextLocation3D: function( currentLocation, shape, dt ) {
 
       // If the destination in within the shape, go straight to it.
-      if ( shape.bounds.contains( this.destinationProperty.get().toPoint2D() ) ) {
+      if ( shape.bounds.containsPoint( this.destinationProperty.get() ) ) {
 
         // Move directly towards the destination with no randomness.
         return this.directToDestinationMotionStrategy.getNextLocation3D( currentLocation, shape, dt );

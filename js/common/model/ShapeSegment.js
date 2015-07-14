@@ -118,7 +118,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     isFlat: function() {
-      return this.getBounds().getHeight() === 0;
+      return this.getBounds().height === 0;
     },
 
     updateAttachmentSiteLocation: function() {

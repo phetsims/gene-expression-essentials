@@ -97,7 +97,7 @@ define( function( require ) {
     getNextLocation3D: function( currentLocation, shape, dt ) {
 
       // Check if it is time to teleport.  This occurs when back of Z-space is reached.
-      if ( currentLocation.getZ() <= -1 ) {
+      if ( currentLocation.z <= -1 ) {
 
         // Time to teleport.
         var destination2D = this.generateRandomLocationInBounds( this.destinationZones, shape );
@@ -126,7 +126,7 @@ define( function( require ) {
 
       return new Vector3( currentLocation.x + xyMovement.x,
         currentLocation.x + xyMovement.x,
-        Util.clamp( currentLocation.getZ() + zMovement, -1, 0 ) );
+        Util.clamp( currentLocation.z + zMovement, -1, 0 ) );
     }
 
   } );

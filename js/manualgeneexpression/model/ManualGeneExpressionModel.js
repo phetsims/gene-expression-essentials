@@ -236,7 +236,6 @@ define( function( require ) {
 
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         if ( mobileBiomolecule.getShape().bounds.intersectsBounds( testShapeBounds ) ) {
-
           /*
            // Bounds overlap, see if actual shapes overlap.
            var testShapeArea = new Area( testShape ); //TODO Area
@@ -248,7 +247,7 @@ define( function( require ) {
            overlappingBiomolecules.push( mobileBiomolecule );
            } */
 
-
+          overlappingBiomolecules.push( mobileBiomolecule );
         }
       } );
 

@@ -73,7 +73,7 @@ define( function( require ) {
         this.velocityVector2D.setXY( 0, 0 );
       }
       else {
-        this.velocityVector2D.set( new Vector2( currentLocation, destination ).getInstanceOfMagnitude( velocity ) );
+        this.velocityVector2D.set( destination.minus( currentLocation ).withMagnitude( velocity ) );
       }
     },
 
@@ -103,7 +103,7 @@ define( function( require ) {
       var distanceToDestination2D = currentLocation2D.distance( this.destinationProperty.get() );
       var zVelocity;
       if ( distanceToDestination2D > 0 ) {
-        zVelocity = Math.min( Math.abs( currentLocation3D.getZ() ) / ( currentLocation2D.distance(
+        zVelocity = Math.min( Math.abs( currentLocation3D.z ) / ( currentLocation2D.distance(
           this.destinationProperty.get() ) / this.scalarVelocity2D ), MAX_Z_VELOCITY );
       }
       else {
@@ -131,7 +131,7 @@ define( function( require ) {
       // Calculate the next location based on the motion vector.
       return new Vector3( currentLocation3D.x + this.velocityVector2D.x * dt,
         currentLocation3D.y + this.velocityVector2D.y * dt,
-        Util.clamp( currentLocation3D.getZ() + zVelocity * dt, -1, 0 ) );
+        Util.clamp( currentLocation3D.z + zVelocity * dt, -1, 0 ) );
     }
 
   } );

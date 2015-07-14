@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
-  var RAND = require( 'DOT/Random' );
+  var Random = require( 'DOT/Random' );
   var MotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionStrategy' );
 
 
@@ -23,6 +23,7 @@ define( function( require ) {
   var MAX_VELOCITY = 500; // In picometers/s
   var MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
   var MAX_TIME_IN_ONE_DIRECTION = 1.25; // In seconds.
+  var RAND = new Random();
 
 
   /**
@@ -69,7 +70,7 @@ define( function( require ) {
         // Time to change the direction.
         var newVelocity = MIN_VELOCITY + RAND.nextDouble() * ( MAX_VELOCITY - MIN_VELOCITY );
         var varianceAngle = ( RAND.nextDouble() - 0.5 ) * Math.PI / 3;
-        this.currentMotionVector = this.generalDirection.getInstanceOfMagnitude( newVelocity ).getRotatedInstance( varianceAngle );
+        this.currentMotionVector = this.generalDirection.withMagnitude( newVelocity ).rotated( varianceAngle );
 
         // Reset the countdown timer.
         this.directionChangeCountdown = this.generateDirectionChangeCountdownValue();
@@ -99,10 +100,9 @@ define( function( require ) {
      */
     getNextLocation3D: function( currentLocation, shape, dt ) {
 
-      // The 3D version of this motion strategy doesn't move in the z
-      // direction.  This may change some day.
-      var nextLocation2D = this.getNextLocation( new Vector2( currentLocation.x, currentLocation.y ), shape, dt );
-      return new Vector3( nextLocation2D.x, nextLocation2D.y, currentLocation.getZ() );
+      // The 3D version of this motion strategy doesn't move in the z direction.  This may change some day.
+      var nextLocation2D = this.getNextLocation(currentLocation, shape, dt );
+      return new Vector3( nextLocation2D.x, nextLocation2D.y, currentLocation.z );
     }
 
   } );

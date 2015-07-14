@@ -18,6 +18,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
   var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
   var PlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/PlacementHint' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
@@ -46,10 +47,11 @@ define( function( require ) {
     this.transcribedRegion = transcribedRegion; //private
     this.transcribedRegionColor = transcribedRegionColor;//private
 
+
     // Create the attachment site for polymerase.  It is always at the end
     // of the regulatory region.
     this.polymeraseAttachmentSite = new AttachmentSite( new Vector2(
-      dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.getMax() ), DnaMolecule.Y_POS ), 1 );
+      dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.getMax() ), CommonConstants.DNA_MOLECULE_Y_POS ), 1 );
 
     // Placement hint for polymerase.  There is always only one.
     this.rnaPolymerasePlacementHint = new PlacementHint( new RnaPolymerase() );
@@ -175,7 +177,7 @@ define( function( require ) {
         this.polymeraseAttachmentSite.affinityProperty.set( this.polymeraseAffinityProperty.get() );
       }
       else {
-        this.polymeraseAttachmentSite.affinityProperty.set( DnaMolecule.DEFAULT_AFFINITY );
+        this.polymeraseAttachmentSite.affinityProperty.set( CommonConstants.DEFAULT_AFFINITY);
       }
     },
 
@@ -191,7 +193,7 @@ define( function( require ) {
     addTranscriptionFactor: function( basePairOffset, tfConfig ) {
       this.transcriptionFactorMap.put( basePairOffset, new TranscriptionFactor( null, tfConfig ) );
       var position = new Vector2( this.dnaMolecule.getBasePairXOffsetByIndex(
-        basePairOffset + this.regulatoryRegion.getMin() ), DnaMolecule.Y_POS );
+        basePairOffset + this.regulatoryRegion.getMin() ), CommonConstants.DNA_MOLECULE_Y_POS );
       this.transcriptionFactorPlacementHints.push( new TranscriptionFactorPlacementHint(
         new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, position ) ) );
       this.transcriptionFactorAttachmentSites.push( new TranscriptionFactorAttachmentSite( position, tfConfig, 1 ) );
@@ -270,7 +272,7 @@ define( function( require ) {
      */
     getTranscriptionFactorAttachmentSite: function( basePairIndex, tfConfig ) {
       // Assume a default affinity site until proven otherwise.
-      var attachmentSite = this.dnaMolecule.createDefaultAffinityAttachmentSite(
+      var attachmentSite = this.dnaMolecule.createDefaultAffinityAttachmentSiteByDouble(
         this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) );
 
       // Determine whether there are any transcription factor attachment

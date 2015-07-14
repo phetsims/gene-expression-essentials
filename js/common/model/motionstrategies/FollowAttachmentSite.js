@@ -32,7 +32,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getNextLocation: function( currentLocation, shape, dt ) {
-      return this.attachmentSite.locationProperty.get();
+      return this.attachmentSite.location;
     }
 
   } );
