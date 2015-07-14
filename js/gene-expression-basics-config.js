@@ -17,11 +17,12 @@ require.config(
     // relative to baseUrl unless the paths setting starts with a '/' or has a URL protocol.
     paths: {
 
-      // third-party libs
+      // third-party plugins
       text: '../../sherpa/lib/text-2.0.12',
 
       // PhET plugins
       image: '../../chipper/js/requirejs-plugins/image',
+      mipmap: '../../chipper/js/requirejs-plugins/mipmap',
       string: '../../chipper/js/requirejs-plugins/string',
 
       // common directories, uppercase names to identify them in require imports
@@ -32,7 +33,7 @@ require.config(
       KITE: '../../kite/js',
       PHET_CORE: '../../phet-core/js',
       PHETCOMMON: '../../phetcommon/js',
-    REPOSITORY: '..',
+      REPOSITORY: '..',
       SCENERY: '../../scenery/js',
       SCENERY_PHET: '../../scenery-phet/js',
       SUN: '../../sun/js',
