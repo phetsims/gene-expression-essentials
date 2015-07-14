@@ -20,13 +20,14 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var RAND = require( 'DOT/Random' );
+  var Random = require( 'DOT/Random' );
   var TranscriptionFactorAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/TranscriptionFactorAttachmentStateMachine' );
 
   // constants
   var WIDTH = 325;   // In nanometers.
   var HEIGHT = 240;  // In nanometers.
   var SIZE = new Dimension2( WIDTH, HEIGHT );
+  var RAND = new Random();
 
 
   /**
@@ -82,7 +83,7 @@ define( function( require ) {
 
       for ( var i = 0; i < moleculesShapes.length; i++ ) {
         var biomolecule = moleculesShapes[ i ];
-        if ( biomolecule !== this && biomolecule.attachedToDna.get() ) {
+        if ( biomolecule !== this && biomolecule.attachedToDna ) {
           this.attachmentStateMachine.forceImmediateUnattachedButUnavailable();
           break;
         }
