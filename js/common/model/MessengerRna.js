@@ -357,12 +357,14 @@ define( function( require ) {
       var segmentInRibosomeChannel = this.mapRibosomeToShapeSegment.get( ribosome );
 
       // Add the length for each segment that precedes this ribosome.
-      _.forEach( this.shapeSegments, function( shapeSegment ) {
+      for(var i=0;i<this.shapeSegments.length;i++){
+        var shapeSegment =  this.shapeSegments[i];
         if ( shapeSegment === segmentInRibosomeChannel ) {
-          return false;// break;
+          break;
         }
         translatedLength += shapeSegment.getContainedLength();
-      } );
+      }
+
 
       // Add the length for the segment that is inside the translation
       // channel of this ribosome.

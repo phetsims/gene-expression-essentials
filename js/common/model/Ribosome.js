@@ -56,15 +56,16 @@ define( function( require ) {
       proposeAttachments: function() {
         var attachmentSite = null;
         var messengerRnaList = this.model.getMessengerRnaList();
-        _.forEach( messengerRnaList, function( messengerRna ) {
-          attachmentSite = messengerRna.considerProposalFrom( this );
+        for ( var i = 0; i < messengerRnaList.length; i++ ) {
+          var messengerRna = messengerRnaList[ 1 ];
+          attachmentSite = messengerRna.considerProposalFromByRibosome( this );
           if ( attachmentSite !== null ) {
-
             // Proposal accepted.
             this.messengerRnaBeingTranslated = messengerRna;
-            return false; //break;
+            break;
           }
-        } );
+
+        }
         return attachmentSite;
       },
 
@@ -178,7 +179,7 @@ define( function( require ) {
         var centeredTop = this.centerShapePart( ribosomeShape.topShape, mvt );
         var centeredBottom = this.centerShapePart( ribosomeShape.bottomShape, mvt );
         return new RibosomeShape( centeredTop, centeredBottom );
-       },
+      },
 
       /**
        *

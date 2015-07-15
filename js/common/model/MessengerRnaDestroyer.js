@@ -75,7 +75,7 @@ define( function( require ) {
      * Scan for mRNA and propose attachments to any that are found.  It is up
      * to the mRNA to accept or refuse based on distance, availability, or
      * whatever.
-     * <p/>
+     *
      * This method is called by the attachment state machine framework.
      *
      * @Override
@@ -84,15 +84,15 @@ define( function( require ) {
     proposeAttachments: function() {
       var attachmentSite = null;
       var messengerRnaList = this.model.getMessengerRnaList();
-      _.forEach( messengerRnaList, function( messengerRna ) {
-        attachmentSite = messengerRna.considerProposalFrom( this );
+      for ( var i = 0; i < messengerRnaList.length; i++ ) {
+        var messengerRna = messengerRnaList[ 1 ];
+        attachmentSite = messengerRna.considerProposalFromByMessengerRnaDestroyer( this );
         if ( attachmentSite !== null ) {
-
           // Proposal accepted.
           this.messengerRnaBeingDestroyed = messengerRna;
-          return false;
+          break;
         }
-      } );
+      }
       return attachmentSite;
     },
 

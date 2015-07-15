@@ -174,10 +174,13 @@ define( function( require ) {
       // Update the affinity of the polymerase attachment site based upon the
       // state of the transcription factors.
       if ( this.transcriptionFactorsSupportTranscription() ) {
+
+        console.log( " this.polymeraseAffinityProperty.get() " + this.polymeraseAffinityProperty.get() );
+
         this.polymeraseAttachmentSite.affinityProperty.set( this.polymeraseAffinityProperty.get() );
       }
       else {
-        this.polymeraseAttachmentSite.affinityProperty.set( CommonConstants.DEFAULT_AFFINITY);
+        this.polymeraseAttachmentSite.affinityProperty.set( CommonConstants.DEFAULT_AFFINITY );
       }
     },
 
@@ -243,16 +246,16 @@ define( function( require ) {
      * @return {boolean} true if there are transcription factors that block transcription.
      */
     transcriptionFactorsBlockTranscription: function() {
-      var result;
-      _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
+      for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
+        var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
         if ( transcriptionFactorAttachmentSite.attachedOrAttachingMolecule !== null ) {
           if ( !(transcriptionFactorAttachmentSite.attachedOrAttachingMolecule ).isPositive() ) {
-            result = true;
-            return false;
+            return true;
           }
         }
-      } );
-      return result;
+      }
+
+      return false;
     },
 
     /**

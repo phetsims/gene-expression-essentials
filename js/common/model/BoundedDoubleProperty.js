@@ -33,6 +33,7 @@ define( function( require ) {
      * @param {number} value
      */
     set: function( value ) {
+  //    console.log("Bounded Property "+value);
       var boundedValue = Util.clamp( value, this.bounds.getMin(), this.bounds.getMax() );
       Property.prototype.set.call( this, boundedValue );
     }

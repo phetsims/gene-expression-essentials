@@ -109,7 +109,7 @@ define( function( require ) {
               if ( !biomolecule.motionBoundsProperty.get()
                   .testIfInMotionBounds( biomolecule.getShape(), site.locationProperty.get() ) ) {
 
-                attachmentSites = _.remove( attachmentSites, function( value ) {
+                 _.remove( attachmentSites, function( value ) {
                   return value === site;
                 } );
 
