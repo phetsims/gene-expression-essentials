@@ -38,6 +38,14 @@ define( function( require ) {
    */
   function MessengerRna( model, proteinPrototype, position ) {
     var self = this;
+
+    // Externally visible indicator for whether this mRNA is being synthesized.
+    // Assumes that it is being synthesized when created.
+    self.beingSynthesized = new Property( true );
+
+    // Map from ribosomes to the shape segment to which they are attached.
+    self.mapRibosomeToShapeSegment = new Map();
+
     WindingBiomolecule.call( self, model, new Shape().moveToPoint( position ), position );
 
     // Protein prototype, used to keep track of protein that should be
@@ -47,12 +55,6 @@ define( function( require ) {
     // Local reference to the non-generic state machine used by this molecule.
     self.mRnaAttachmentStateMachine = self.attachmentStateMachine; // private
 
-    // Externally visible indicator for whether this mRNA is being synthesized.
-    // Assumes that it is being synthesized when created.
-    self.beingSynthesized = new Property( true );
-
-    // Map from ribosomes to the shape segment to which they are attached.
-    self.mapRibosomeToShapeSegment = new Map();
 
     // mRNA destroyer that is destroying this mRNA.  Null until and unless
     // destruction has begun.
@@ -320,7 +322,6 @@ define( function( require ) {
      * @param {Ribosome} ribosome
      */
     initiateTranslation: function( ribosome ) {
-
       // Set the capacity of the first segment to the size of the channel
       // through which it will be pulled plus the leader length.
       var firstShapeSegment = this.shapeSegments[ 0 ]; //TODO
@@ -336,7 +337,6 @@ define( function( require ) {
      * @param {MessengerRnaDestroyer} messengerRnaDestroyer
      */
     initiateDestruction: function( messengerRnaDestroyer ) {
-
       // Set the capacity of the first segment to the size of the channel
       // through which it will be pulled plus the leader length.
       this.segmentWhereDestroyerConnects = this.shapeSegments.get( 0 ); //TODO
@@ -351,9 +351,7 @@ define( function( require ) {
      * @return
      */
     getProportionOfRnaTranslated: function( ribosome ) {
-
       var translatedLength = 0;
-
       var segmentInRibosomeChannel = this.mapRibosomeToShapeSegment.get( ribosome );
 
       // Add the length for each segment that precedes this ribosome.
@@ -381,7 +379,6 @@ define( function( require ) {
      * @returns {AttachmentSite}
      */
     considerProposalFromByRibosome: function( ribosome ) {
-
       var returnValue = null;
 
       // Can't consider proposal if currently being destroyed.
@@ -404,7 +401,6 @@ define( function( require ) {
           this.mapRibosomeToShapeSegment.put( ribosome, this.shapeSegments.get( 0 ) );
         }
       }
-
       return returnValue;
     },
 

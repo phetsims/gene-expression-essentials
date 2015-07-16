@@ -70,7 +70,10 @@ define( function( require ) {
     // Base pairs within the DNA strand.
     this.basePairs = []; // Array of BasePair
 
-    this.genes = [];// Array of Genes on this strand of DNA.
+    this.genes = [];// Array of Genes on this strand of DNA. // private
+
+    // List of forced separations between the two strands.
+    this.separations = [];//  Array of DnaSeparation // private
 
     // Add the initial set of shape-defining points for each of the two
     // strands.  Points are spaced the same as the base pairs.
@@ -80,6 +83,8 @@ define( function( require ) {
         this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET ) ) );
     }
 
+    // Shadow of the points that define the strand shapes, used for rapid
+    // evaluation of any shape changes.
     // Create a shadow of the shape-defining points.  This will be used for detecting shape changes.
     this.strandPointsShadow = [];
 

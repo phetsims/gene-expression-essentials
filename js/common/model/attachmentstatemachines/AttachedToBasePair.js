@@ -71,10 +71,9 @@ define( function( require ) {
         // the affinity of the site and the time of attachment.
 
         if ( this.transcribe ) {
-
           // Begin transcription.
           this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndConformingState;
-          this.setState( attachedState );
+          this.rnaPolymeraseAttachmentStateMachine.setState( attachedState );
           detachFromDnaThreshold.reset(); // Reset this threshold.
         }
         else if ( RAND.nextDouble() > ( 1 - this.rnaPolymeraseAttachmentStateMachine.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {

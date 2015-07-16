@@ -36,7 +36,6 @@ define( function( require ) {
       attachedOrAttachingMolecule: null
     } );
 
-
     // Property that represents the affinity of the attachment site.
     this.affinityProperty = new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 );
   }

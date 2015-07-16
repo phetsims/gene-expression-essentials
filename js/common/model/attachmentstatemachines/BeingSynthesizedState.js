@@ -12,6 +12,10 @@ define( function( require ) {
   var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
   var StillnessMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/StillnessMotionStrategy' );
 
+  /**
+   *
+   * @constructor
+   */
   function BeingSynthesizedState() {
     AttachmentState.call( this );
   }

@@ -32,10 +32,10 @@ define( function( require ) {
    */
   function MobileBiomolecule( model, initialShape, baseColor ) {
     var self = this;
-    // Reference to the model in which this biomolecule exists.  This is
-    // needed in case the biomolecule needs to locate or create other
-    // biomolecules.
-    self.model = model;
+
+    // Motion strategy that governs how this biomolecule moves.  This changes
+    // as the molecule interacts with other portions of the model.
+    this.motionStrategy = null;
 
     ShapeChangingModelElement.call( self, initialShape, {
       // Bounds within which this biomolecule is allowed to move.
@@ -74,9 +74,12 @@ define( function( require ) {
       // it is, it shouldn't try to move or interact with anything.
       // Handle changes in user control.
       userControlled: false
-
-
     } );
+
+    // Reference to the model in which this biomolecule exists.  This is
+    // needed in case the biomolecule needs to locate or create other
+    // biomolecules.
+    self.model = model;
 
     // Attachment state machine that controls how the molecule interacts with
     // other model objects (primarily other biomolecules) in terms of
@@ -93,13 +96,9 @@ define( function( require ) {
       }
     } );
 
-    // Motion strategy that governs how this biomolecule moves.  This changes
-    // as the molecule interacts with other portions of the model.
-    this.motionStrategy = null;
   }
 
   return inherit( ShapeChangingModelElement, MobileBiomolecule, {
-
 
     /**
      * Method used to set the attachment state machine during construction.
@@ -136,7 +135,6 @@ define( function( require ) {
           this.setPosition3D( this.motionStrategy.getNextLocation3D( this.getPosition3D(), this.getShape(), dt ) );
         }
         else {
-
           this.setPosition( this.motionStrategy.getNextLocation( this.getPosition(), this.getShape(), dt ) );
         }
 
@@ -281,7 +279,7 @@ define( function( require ) {
      * @param {ModelViewTransform2} mvt
      */
     centeredShape: function( shape, mvt ) {
-      var viewShape = mvt.modelToViewShape(shape);
+      var viewShape = mvt.modelToViewShape( shape );
       var shapeBounds = viewShape.bounds;
       var xOffset = shapeBounds.getCenterX();
       var yOffset = shapeBounds.getCenterY();

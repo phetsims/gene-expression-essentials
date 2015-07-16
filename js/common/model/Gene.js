@@ -23,7 +23,6 @@ define( function( require ) {
   var PlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/PlacementHint' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
   var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
-  var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
   var TranscriptionFactorPlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactorPlacementHint' );
@@ -174,9 +173,6 @@ define( function( require ) {
       // Update the affinity of the polymerase attachment site based upon the
       // state of the transcription factors.
       if ( this.transcriptionFactorsSupportTranscription() ) {
-
-        console.log( " this.polymeraseAffinityProperty.get() " + this.polymeraseAffinityProperty.get() );
-
         this.polymeraseAttachmentSite.affinityProperty.set( this.polymeraseAffinityProperty.get() );
       }
       else {
@@ -287,7 +283,7 @@ define( function( require ) {
           if ( transcriptionFactorAttachmentSite.attachedOrAttachingMolecule === null &&
                Math.abs( transcriptionFactorAttachmentSite.location.x -
                          this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) ) <
-               DnaMolecule.DISTANCE_BETWEEN_BASE_PAIRS / 2 ) {
+               CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2 ) {
 
             // Yes, so this is the site where the given TF should go.
             attachmentSite = transcriptionFactorAttachmentSite;

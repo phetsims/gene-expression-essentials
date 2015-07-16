@@ -38,7 +38,6 @@ define( function( require ) {
       stepInTime: function( asm, dt ) {
         var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
         var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
-        var attachedState = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
         var attachedAndTranscribingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndTranscribingState;
         this.conformationalChangeAmount = Math.min( this.conformationalChangeAmount +
                                                     CONFORMATIONAL_CHANGE_RATE * dt, 1 );
@@ -48,7 +47,7 @@ define( function( require ) {
 
           // Conformational change complete, time to start actual transcription.
           this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndTranscribingState;
-          this.rnaPolymeraseAttachmentStateMachine.setState( attachedState );
+          this.rnaPolymeraseAttachmentStateMachine.setState( attachedAndTranscribingState );
         }
       },
 

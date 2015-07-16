@@ -94,8 +94,10 @@ define( function( require ) {
         // Set up the motion strategy to move to the end of the transcribed
         // region of the gene.
         var endOfGene = new Vector2( geneToTranscribe.getEndX(), CommonConstants.DNA_MOLECULE_Y_POS );
-        asm.biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( new Property( endOfGene.copy() ) ),
-          biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), TRANSCRIPTION_VELOCITY );
+
+        asm.biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( new Property( endOfGene.copy() ) ,
+          biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), TRANSCRIPTION_VELOCITY ));
+
 
         // Create the mRNA that will be grown as a result of this
         // transcription.

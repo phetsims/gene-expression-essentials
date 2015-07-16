@@ -18,8 +18,9 @@ define( function( require ) {
    * @constructor
    */
   function IntegerRange( minValue, maxValue ) {
-    this.minValue = minValue | 0;
-    this.maxValue = maxValue | 0;
+
+    this.minValue = minValue | 0; // private
+    this.maxValue = maxValue | 0; // private
   }
 
   return inherit( Object, IntegerRange, {
@@ -49,7 +50,36 @@ define( function( require ) {
     contains: function( value ) {
       value = value | 0;
       return ( value >= this.minValue && value <= this.maxValue );
-    }
+    },
+
+    /**
+     * Gets the length of the range.
+     *
+     * @return {number} length of the range
+     */
+    getLength: function() {
+      return this.maxValue - this.minValue;
+    },
+
+    /**
+     * Is the length of the range zero?
+     *
+     * @return {boolean} true or false
+     */
+    isZero: function() {
+      return ( this.maxValue - this.minValue === 0 );
+    },
+
+    /**
+     * Do the two ranges overlap with one another?
+     * reference: http://eli.thegreenplace.net/2008/08/15/intersection-of-1d-segments/
+     *
+     * @param {DoubleRange} xRange
+     * @return {boolean}
+     */
+    intersects:function(  xRange ) {
+    return ( this.maxValue >= xRange.getMin() && xRange.getMax() >= this.minValue );
+  }
 
 
   } );

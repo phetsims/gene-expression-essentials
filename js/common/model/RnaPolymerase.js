@@ -53,7 +53,7 @@ define( function( require ) {
     // Copy of the attachment state machine reference from base class, but
     // with the more specific type.
     this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // defined by Super class - Ashraf
-     this.setPosition( position );
+    this.setPosition( position );
   }
 
   return inherit( MobileBiomolecule, RnaPolymerase, {
@@ -85,7 +85,7 @@ define( function( require ) {
      */
     proposeAttachments: function() {
       // Propose attachment to the DNA.
-       return this.model.getDnaMolecule().considerProposalFromByRnaPolymerase( this );
+      return this.model.getDnaMolecule().considerProposalFromByRnaPolymerase( this );
     },
 
     /**

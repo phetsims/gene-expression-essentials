@@ -28,7 +28,6 @@ define( function( require ) {
 
     // Local reference of appropriate type.
     this.messengerRna = messengerRna; //private;
-
     // Flag to control whether the mRNA continues to exist once fully formed.
     this.fadeAwayWhenFormed = false; //private
     this.setState( new BeingSynthesizedState() );
