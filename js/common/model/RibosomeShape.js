@@ -31,7 +31,7 @@ define( function( require ) {
     computeBounds: function() {
       var topBounds = this.topShape.computeBounds();
       var bottomBounds = this.bottomShape.computeBounds();
-      this.bounds = topBounds.union( bottomBounds );
+      this._bounds = topBounds.union( bottomBounds );
     },
 
 
