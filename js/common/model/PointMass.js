@@ -63,8 +63,9 @@ define( function( require ) {
      * @param {Vector2} velocity
      * @returns {Vector2}
      */
-    getVelocity: function( velocity ) {
-      return new Vector2( velocity.x, velocity.y );
+    getVelocity: function(  ) {
+
+      return new Vector2( this.velocity.x, this.velocity.y );
     },
 
     /**

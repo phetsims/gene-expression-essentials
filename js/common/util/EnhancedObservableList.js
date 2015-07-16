@@ -60,6 +60,35 @@ define( function( require ) {
       else {
         return this.get( index - 1 );
       }
+    },
+
+    /**
+     *
+     * @param existingItem
+     * @param itemToInsert
+     */
+    insertAfter: function( existingItem, itemToInsert ) {
+      if ( !this.contains( existingItem ) ) {
+        throw new Error( "Given item not on list" );
+      }
+      this._array.splice( this.indexOf( existingItem ) + 1, 0, itemToInsert );
+      this.lengthProperty.set( this._array.length );
+      this._fireItemAdded( itemToInsert );
+    },
+
+    /**
+     *
+     * @param existingItem
+     * @param itemToInsert
+     */
+    insertBefore: function( existingItem, itemToInsert ) {
+      if ( !this.contains( existingItem ) ) {
+        throw new Error( "Given item not on list" );
+      }
+
+      this._array.splice( this.indexOf( existingItem ), 0, itemToInsert );
+      this.lengthProperty.set( this._array.length );
+      this._fireItemAdded( itemToInsert );
     }
 
   } );

@@ -10,8 +10,9 @@ define( function( require ) {
 
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var ShapeSegment = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeSegment' );
-  var Rectangle = require( 'DOT/Rectangle' );
+  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
   var SquareSegment = require( 'GENE_EXPRESSION_BASICS/common/model/SquareSegment' );
 
   /**
@@ -20,10 +21,8 @@ define( function( require ) {
    */
   function FlatSegment( origin ) {
     ShapeSegment.call( this );
-    this.bounds.set( new Rectangle( origin.x, origin.y, 0, 0 ) );
+    this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );
     this.updateAttachmentSiteLocation();
-
-
   }
 
   return inherit( ShapeSegment, FlatSegment, {
@@ -31,7 +30,7 @@ define( function( require ) {
     getContainedLength: function() {
       // For a flat segment, the length of mRNA contained is equal to
       // the width.
-      return this.bounds.get().getWidth();
+      return this.bounds.getWidth();
     },
 
     add: function( length, shapeSegmentList ) {
@@ -49,18 +48,17 @@ define( function( require ) {
 
       // Grow the bounds linearly to the left to accommodate the
       // additional length.
-      this.bounds.set( new Rectangle( this.bounds.get().x - growthAmount,
-        this.bounds.get().y,
-        this.bounds.get().getWidth() + growthAmount,
+      this.bounds.set( Bounds2.rect( this.bounds.x - growthAmount,
+        this.bounds.y,
+        this.bounds.getWidth() + growthAmount,
         0 ) );
       this.updateAttachmentSiteLocation();
     },
 
     remove: function( length, shapeSegmentList ) {
-      this.bounds.set( new Rectangle( this.bounds.get().x, this.bounds.get().y, this.bounds.get().getWidth() - length, 0 ) );
+      this.bounds.set( Bounds2.rect( this.bounds.x, this.bounds.y, this.bounds.getWidth() - length, 0 ) );
 
-      // If the length has gotten to zero, remove this segment from
-      // the list.
+      // If the length has gotten to zero, remove this segment from  the list.
       if ( this.getContainedLength() < ShapeSegment.FLOATING_POINT_COMP_FACTOR ) {
         shapeSegmentList.remove( this );
       }
@@ -107,9 +105,7 @@ define( function( require ) {
             // but first, make sure there isn't something there
             // already.
             var newLeaderSegment = new FlatSegment( this.getUpperLeftCornerPos() );
-            //{{ //TODO
-            //  setCapacity( MessengerRna.LEADER_LENGTH );
-            //}};
+            newLeaderSegment.setCapacity(CommonConstants.LEADER_LENGTH);
             shapeSegmentList.insertBefore( this, newLeaderSegment );
             outputSegment = newLeaderSegment;
           }
@@ -162,8 +158,8 @@ define( function( require ) {
     // segments.
     maxOutLength: function() {
       var growthAmount = this.getRemainingCapacity();
-      this.bounds.set( new Rectangle( this.bounds.get().x - growthAmount,
-        this.bounds.get().y,
+      this.bounds.set( Bounds2.rect( this.bounds.x - growthAmount,
+        this.bounds.y,
         this.capacity,
         0 ) );
       this.updateAttachmentSiteLocation();

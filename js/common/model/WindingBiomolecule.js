@@ -12,13 +12,15 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var EnhancedObservableList = require( 'GENE_EXPRESSION_BASICS/common/util/EnhancedObservableList' );
+  var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
+  var EnhancedObservableList = require( 'GENE_EXPRESSION_BASICS/common/util/EnhancedObservableList' );
+  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
   var BioShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/BioShapeUtils' );
   var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
   var PointMass = require( 'GENE_EXPRESSION_BASICS/common/model/PointMass' );
-  var Vector2 = require( 'DOT/Vector2' );
+
 
   // constants
   // Color used by this molecule.  Since mRNA is depicted as a line and not
@@ -29,7 +31,7 @@ define( function( require ) {
   // Standard distance between points that define the shape.  This is done to
   // keep the number of points reasonable and make the shape-defining
   // algorithm consistent.
-  var INTER_POINT_DISTANCE = 50; // In picometers, empirically determined.
+  var INTER_POINT_DISTANCE = CommonConstants.INTER_POINT_DISTANCE;
 
 
   /**
@@ -76,7 +78,6 @@ define( function( require ) {
       // Position the first point at the upper left.
       firstPoint.setPosition( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
       if ( firstPoint === lastPoint ) {
-
         // Nothing more to do.
         return;
       }
@@ -116,7 +117,7 @@ define( function( require ) {
               vectorToPreviousPoint = new Vector2( 1, 1 );
             }
             var scalarForceDueToPreviousPoint = ( -springConstant ) * ( currentPoint.getTargetDistanceToPreviousPoint() - currentPoint.distance( previousPoint ) );
-            var forceDueToPreviousPoint = vectorToPreviousPoint.normalized().times( scalarForceDueToPreviousPoint );
+            var forceDueToPreviousPoint = vectorToPreviousPoint.normalized().timesScalar( scalarForceDueToPreviousPoint );
             var vectorToNextPoint = nextPoint.getPosition().minus( currentPoint.getPosition() );
             if ( vectorToNextPoint.magnitude() === 0 ) {
 
@@ -127,9 +128,9 @@ define( function( require ) {
 
             var scalarForceDueToNextPoint = ( -springConstant ) * ( currentPoint.getTargetDistanceToPreviousPoint() - currentPoint.distance( nextPoint ) );
             var forceDueToNextPoint = vectorToNextPoint.normalized().times( scalarForceDueToNextPoint );
-            var dampingForce = currentPoint.getVelocity().times( -dampingConstant );
+            var dampingForce = currentPoint.getVelocity().timesScalar( -dampingConstant );
             var totalForce = forceDueToPreviousPoint.plus( forceDueToNextPoint ).plus( dampingForce );
-            var acceleration = totalForce.times( 1 / pointMass );
+            var acceleration = totalForce.timesScalar( 1 / pointMass );
             currentPoint.setAcceleration( acceleration );
             currentPoint.update( dt );
           }
@@ -253,7 +254,8 @@ define( function( require ) {
 
       // Loop through the shape segments positioning the shape-defining
       // points within them.
-      for ( var shapeSegment in this.shapeSegments ) {
+      for ( var i = 0; i < this.shapeSegments.length; i++ ) {
+        var shapeSegment = this.shapeSegments.get( i );
         var lengthRange;
         if ( shapeSegment !== this.getLastShapeSegment() ) {
           lengthRange = new DoubleRange( handledLength, handledLength + shapeSegment.getContainedLength() );
@@ -309,9 +311,11 @@ define( function( require ) {
      */
     getTotalLengthInShapeSegments: function() {
       var totalShapeSegmentLength = 0;
-      for ( var shapeSeg in this.shapeSegments ) {
+
+      this.shapeSegments.forEach( function( shapeSeg ) {
         totalShapeSegmentLength += shapeSeg.getContainedLength();
-      }
+      } );
+
       return totalShapeSegmentLength;
     },
 
@@ -384,20 +388,25 @@ define( function( require ) {
      * starting point.
      */
     realignSegmentsFromEnd: function() {
-      var copyOfShapeSegments = _.clone( this.shapeSegments );
+      var copyOfShapeSegments = [].concat( this.shapeSegments );
 
-      copyOfShapeSegments = _( copyOfShapeSegments ).reverse().value();
+      copyOfShapeSegments = copyOfShapeSegments.reverse();
 
       for ( var i = 0; i < copyOfShapeSegments.length - 1; i++ ) {
 
         // Assumes that the shape segments attach to one another in such
         // a way that they chain from the upper left to the lower right.
-        copyOfShapeSegments.get( i + 1 ).setLowerRightCornerPos( copyOfShapeSegments.get( i ).getUpperLeftCornerPos() );
+        copyOfShapeSegments[ i + 1 ].setLowerRightCornerPos( copyOfShapeSegments[ i ].getUpperLeftCornerPos() );
       }
     },
 
+    /**
+     *
+     * @returns {ShapeSegment}
+     */
     getLastShapeSegment: function() {
-      return this.shapeSegments.get( this.shapeSegments.length - 1 );
+      var lastShapeSegment = this.shapeSegments.get( this.shapeSegments.length - 1 );
+      return lastShapeSegment;
     },
 
     /**

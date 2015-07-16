@@ -19,7 +19,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Rectangle = require( 'DOT/Rectangle' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var Property = require( 'AXON/Property' );
   var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
 
@@ -27,11 +27,14 @@ define( function( require ) {
   // Factor to use to avoid issues with floating point resolution.
   var FLOATING_POINT_COMP_FACTOR = 1E-7;
 
-
+  /**
+   *
+   * @constructor
+   */
   function ShapeSegment() {
 
     // Bounds of this shape segment.
-    this.bounds = new Property( new Rectangle() ); //TODO
+    this.boundsProperty = new Property( new Bounds2( 0, 0, 0, 0 ) );
 
     // Attachment point where anything that attached to this segment would
     // attach.  Affinity is arbitrary in this case.
@@ -39,11 +42,17 @@ define( function( require ) {
 
     // Max length of mRNA that this segment can contain.
     this.capacity = Number.MAX_VALUE;
-
-
   }
 
   return inherit( Object, ShapeSegment, {
+
+    set bounds( value ) {
+      this.boundsProperty.set( value );
+    },
+
+    get bounds() {
+      return this.boundsProperty.get();
+    },
 
     /**
      * @param {number} capacity
@@ -63,7 +72,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getLowerRightCornerPos: function() {
-      return new Vector2( this.bounds.get().getMaxX(), this.bounds.get().getMinY() );
+      return new Vector2( this.bounds.getMaxX(), this.bounds.getMinY() );
     },
 
     /**
@@ -72,7 +81,7 @@ define( function( require ) {
     setLowerRightCornerPos: function( newLowerRightCornerPos ) {
       var currentLowerRightCornerPos = new Vector2( this.getLowerRightCornerPos() );
       var delta = new Vector2( newLowerRightCornerPos ).minus( currentLowerRightCornerPos );
-      var newBounds = this.bounds.get().transformed( Matrix3.translation( delta.x, delta.y ) ).getBounds2D();
+      var newBounds = this.bounds.transformed( Matrix3.translation( delta.x, delta.y ) );
       this.bounds.set( newBounds );
       this.updateAttachmentSiteLocation();
     },
@@ -81,17 +90,17 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getUpperLeftCornerPos: function() {
-      return new Vector2( this.bounds.get().getMinX(), this.bounds.get().getMaxY() );
+      return new Vector2( this.bounds.getMinX(), this.bounds.getMaxY() );
     },
 
     /**
      * @param {Vector2} upperLeftCornerPosition
      */
     setUpperLeftCornerPosition: function( upperLeftCornerPosition ) {
-      this.bounds.set( new Rectangle( upperLeftCornerPosition.x,
-        upperLeftCornerPosition.y - this.bounds.get().getHeight(),
-        this.bounds.get().getWidth(),
-        this.bounds.get().getHeight() ) );
+      this.bounds.set( Bounds2.rect( upperLeftCornerPosition.x,
+        upperLeftCornerPosition.y - this.bounds.getHeight(),
+        this.bounds.getWidth(),
+        this.bounds.getHeight() ) );
       this.updateAttachmentSiteLocation();
     },
 
@@ -100,18 +109,18 @@ define( function( require ) {
      * @param {Vector2} translationVector
      */
     translate: function( translationVector ) {
-      this.bounds.set( new Rectangle( this.bounds.get().x + translationVector.x,
-        this.bounds.get().y + translationVector.y,
-        this.bounds.get().getWidth(),
-        this.bounds.get().getHeight() ) );
+      this.bounds.set( Bounds2.rect( this.bounds.x + translationVector.x,
+        this.bounds.y + translationVector.y,
+        this.bounds.getWidth(),
+        this.bounds.getHeight() ) );
       this.updateAttachmentSiteLocation();
     },
 
     /**
-     * @returns {Rectangle}
+     * @returns {Bounds2}
      */
     getBounds: function() {
-      return new Rectangle( this.bounds.get().x, this.bounds.get().y, this.bounds.get().getWidth(), this.bounds.get().getHeight() );
+      return this.bounds;
     },
 
     /**
@@ -183,7 +192,7 @@ define( function( require ) {
      * @param length
      * @param  {EnhancedObservableList} shapeSegmentList
      */
-    advanceAndRemove: function( length, shapeSegmentList ) { //TODO EnhancedObservableList
+    advanceAndRemove: function( length, shapeSegmentList ) {
       throw new Error( 'advance should be implemented in descendant classes of ShapeSegment ' );
     }
 
@@ -240,39 +249,39 @@ define( function( require ) {
 //    }
 //
 //    public Vector2D getLowerRightCornerPos() {
-//        return new Vector2D( bounds.get().getMaxX(), bounds.get().getMinY() );
+//        return new Vector2D( bounds.getMaxX(), bounds.getMinY() );
 //    }
 //
 //    public void setLowerRightCornerPos( Vector2D newLowerRightCornerPos ) {
 //        Vector2D currentLowerRightCornerPos = new Vector2D( getLowerRightCornerPos() );
 //        Vector2D delta = new Vector2D( newLowerRightCornerPos ).minus( currentLowerRightCornerPos );
-//        Rectangle2D newBounds = AffineTransform.getTranslateInstance( delta.getX(), delta.getY() ).createTransformedShape( bounds.get() ).getBounds2D();
+//        Rectangle2D newBounds = AffineTransform.getTranslateInstance( delta.getX(), delta.getY() ).createTransformedShape( bounds ).getBounds2D();
 //        bounds.set( newBounds );
 //        updateAttachmentSiteLocation();
 //    }
 //
 //    public Vector2D getUpperLeftCornerPos() {
-//        return new Vector2D( bounds.get().getMinX(), bounds.get().getMaxY() );
+//        return new Vector2D( bounds.getMinX(), bounds.getMaxY() );
 //    }
 //
 //    public void setUpperLeftCornerPosition( Vector2D upperLeftCornerPosition ) {
 //        bounds.set( new Rectangle2D.Double( upperLeftCornerPosition.getX(),
-//                                            upperLeftCornerPosition.getY() - bounds.get().getHeight(),
-//                                            bounds.get().getWidth(),
-//                                            bounds.get().getHeight() ) );
+//                                            upperLeftCornerPosition.getY() - bounds.getHeight(),
+//                                            bounds.getWidth(),
+//                                            bounds.getHeight() ) );
 //        updateAttachmentSiteLocation();
 //    }
 //
 //    public void translate( Vector2D translationVector ) {
-//        bounds.set( new Rectangle2D.Double( bounds.get().getX() + translationVector.getX(),
-//                                            bounds.get().getY() + translationVector.getY(),
-//                                            bounds.get().getWidth(),
-//                                            bounds.get().getHeight() ) );
+//        bounds.set( new Rectangle2D.Double( bounds.getX() + translationVector.getX(),
+//                                            bounds.getY() + translationVector.getY(),
+//                                            bounds.getWidth(),
+//                                            bounds.getHeight() ) );
 //        updateAttachmentSiteLocation();
 //    }
 //
 //    public Rectangle2D getBounds() {
-//        return new Rectangle2D.Double( bounds.get().getX(), bounds.get().getY(), bounds.get().getWidth(), bounds.get().getHeight() );
+//        return new Rectangle2D.Double( bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight() );
 //    }
 //
 //    public boolean isFlat() {
@@ -349,7 +358,7 @@ define( function( require ) {
 //        @Override public double getContainedLength() {
 //            // For a flat segment, the length of mRNA contained is equal to
 //            // the width.
-//            return bounds.get().getWidth();
+//            return bounds.getWidth();
 //        }
 //
 //        @Override public void add( double length, MessengerRna.EnhancedObservableList<ShapeSegment> shapeSegmentList ) {
@@ -366,15 +375,15 @@ define( function( require ) {
 //            }
 //            // Grow the bounds linearly to the left to accommodate the
 //            // additional length.
-//            bounds.set( new Rectangle2D.Double( bounds.get().getX() - growthAmount,
-//                                                bounds.get().getY(),
-//                                                bounds.get().getWidth() + growthAmount,
+//            bounds.set( new Rectangle2D.Double( bounds.getX() - growthAmount,
+//                                                bounds.getY(),
+//                                                bounds.getWidth() + growthAmount,
 //                                                0 ) );
 //            updateAttachmentSiteLocation();
 //        }
 //
 //        @Override public void remove( double length, MessengerRna.EnhancedObservableList<ShapeSegment> shapeSegmentList ) {
-//            bounds.set( new Rectangle2D.Double( bounds.get().getX(), bounds.get().getY(), bounds.get().getWidth() - length, 0 ) );
+//            bounds.set( new Rectangle2D.Double( bounds.getX(), bounds.getY(), bounds.getWidth() - length, 0 ) );
 //            // If the length has gotten to zero, remove this segment from
 //            // the list.
 //            if ( getContainedLength() < FLOATING_POINT_COMP_FACTOR ) {
@@ -471,8 +480,8 @@ define( function( require ) {
 //        // segments.
 //        private void maxOutLength() {
 //            double growthAmount = getRemainingCapacity();
-//            bounds.set( new Rectangle2D.Double( bounds.get().getX() - growthAmount,
-//                                                bounds.get().getY(),
+//            bounds.set( new Rectangle2D.Double( bounds.getX() - growthAmount,
+//                                                bounds.getY(),
 //                                                capacity,
 //                                                0 ) );
 //            updateAttachmentSiteLocation();
@@ -507,24 +516,24 @@ define( function( require ) {
 //            containedLength += length;
 //            // Grow the bounds up and to the left to accommodate the
 //            // additional length.
-//            double sideGrowthAmount = calculateSideLength() - bounds.get().getWidth();
+//            double sideGrowthAmount = calculateSideLength() - bounds.getWidth();
 //            assert length >= 0 && sideGrowthAmount >= 0; //
-//            bounds.set( new Rectangle2D.Double( bounds.get().getX() - sideGrowthAmount,
-//                                                bounds.get().getY(),
-//                                                bounds.get().getWidth() + sideGrowthAmount,
-//                                                bounds.get().getHeight() + sideGrowthAmount ) );
+//            bounds.set( new Rectangle2D.Double( bounds.getX() - sideGrowthAmount,
+//                                                bounds.getY(),
+//                                                bounds.getWidth() + sideGrowthAmount,
+//                                                bounds.getHeight() + sideGrowthAmount ) );
 //            updateAttachmentSiteLocation();
 //        }
 //
 //        @Override public void remove( double length, MessengerRna.EnhancedObservableList<ShapeSegment> shapeSegmentList ) {
 //            containedLength -= length;
 //            // Shrink by moving the lower right corner up and to the left.
-//            double sideShrinkageAmount = bounds.get().getWidth() - calculateSideLength();
+//            double sideShrinkageAmount = bounds.getWidth() - calculateSideLength();
 //            assert length >= 0 && sideShrinkageAmount >= 0; //
-//            bounds.set( new Rectangle2D.Double( bounds.get().getX(),
-//                                                bounds.get().getY() + sideShrinkageAmount,
-//                                                bounds.get().getWidth() - sideShrinkageAmount,
-//                                                bounds.get().getHeight() - sideShrinkageAmount ) );
+//            bounds.set( new Rectangle2D.Double( bounds.getX(),
+//                                                bounds.getY() + sideShrinkageAmount,
+//                                                bounds.getWidth() - sideShrinkageAmount,
+//                                                bounds.getHeight() - sideShrinkageAmount ) );
 //            // If the length has gotten to zero, remove this segment from
 //            // the list.
 //            if ( getContainedLength() <= FLOATING_POINT_COMP_FACTOR ) {

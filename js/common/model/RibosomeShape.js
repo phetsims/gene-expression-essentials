@@ -25,13 +25,23 @@ define( function( require ) {
     this.topShape = topShape;
     this.bottomShape = bottomShape;
     this.computeBounds();
-  }
+   }
 
   return inherit( Shape, RibosomeShape, {
+
+    /**
+     * @override
+     * @returns {Bounds2}
+     */
+    get bounds(){
+      return this.compositeBounds;
+    },
+
+
     computeBounds: function() {
       var topBounds = this.topShape.computeBounds();
       var bottomBounds = this.bottomShape.computeBounds();
-      this._bounds = topBounds.union( bottomBounds );
+      this.compositeBounds = topBounds.union( bottomBounds );
     },
 
 

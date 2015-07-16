@@ -27,14 +27,14 @@ define( function( require ) {
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
    * @constructor
    */
-  function AttachedAndTranscribingState(rnaPolymeraseAttachmentStateMachine){
-    AttachmentState.call(this);
+  function AttachedAndTranscribingState( rnaPolymeraseAttachmentStateMachine ) {
+    AttachmentState.call( this );
     this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
     this.endOfGene = null;
     this.messengerRna = null;
   }
 
-  return inherit(AttachmentState,AttachedAndTranscribingState,{
+  return inherit( AttachmentState, AttachedAndTranscribingState, {
 
       /**
        * @Override
@@ -86,17 +86,17 @@ define( function( require ) {
         var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
 
         // Prevent user interaction.
-        asm.biomolecule.movableByUser= false;
+        asm.biomolecule.movableByUser = false;
 
         // Determine the gene that is being transcribed.
         var geneToTranscribe = biomolecule.getModel().getDnaMolecule().getGeneAtLocation( biomolecule.getPosition() );
 
         // Set up the motion strategy to move to the end of the transcribed
         // region of the gene.
-        var endOfGene = new Vector2( geneToTranscribe.getEndX(), CommonConstants.DNA_MOLECULE_Y_POS );
+        this.endOfGene = new Vector2( geneToTranscribe.getEndX(), CommonConstants.DNA_MOLECULE_Y_POS );
 
-        asm.biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( new Property( endOfGene.copy() ) ,
-          biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), TRANSCRIPTION_VELOCITY ));
+        asm.biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( new Property( this.endOfGene.copy() ),
+          biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), TRANSCRIPTION_VELOCITY ) );
 
 
         // Create the mRNA that will be grown as a result of this
@@ -112,16 +112,15 @@ define( function( require ) {
         this.rnaPolymeraseAttachmentStateMachine.attachmentSite = transcribingAttachmentSite;
       }
 
-
     },
 
     {
 
       TRANSCRIPTION_VELOCITY: TRANSCRIPTION_VELOCITY
 
-    });
+    } );
 
 
-});
+} );
 
 

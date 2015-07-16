@@ -10,15 +10,19 @@ define( function( require ) {
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ShapeSegment = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeSegment' );
-  var Rectangle = require( 'DOT/Rectangle' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
-
+  /**
+   *
+   * @param {Vector2} origin
+   * @constructor
+   */
   function SquareSegment( origin ) {
     ShapeSegment.call( this );
-    this.bounds.set( new Rectangle( origin.x, origin.y, 0, 0 ) );
+    this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );
     this.updateAttachmentSiteLocation();
 
-// Maintain an explicit value for the length of the mRNA contained
+    // Maintain an explicit value for the length of the mRNA contained
     // within this segment even though the bounds essentially define
     // said length.  This helps to avoid floating point issues.
     this.containedLength = 0;
@@ -53,12 +57,12 @@ define( function( require ) {
 
       // Grow the bounds up and to the left to accommodate the
       // additional length.
-      var sideGrowthAmount = this.calculateSideLength() - this.bounds.get().getWidth();
+      var sideGrowthAmount = this.calculateSideLength() - this.bounds.getWidth();
 
-      this.bounds.set( new Rectangle( this.bounds.get().x - sideGrowthAmount,
-        this.bounds.get().y,
-        this.bounds.get().getWidth() + sideGrowthAmount,
-        this.bounds.get().getHeight() + sideGrowthAmount ) );
+      this.bounds.set( Bounds2.rect( this.bounds.x - sideGrowthAmount,
+        this.bounds.y,
+        this.bounds.getWidth() + sideGrowthAmount,
+        this.bounds.getHeight() + sideGrowthAmount ) );
       this.updateAttachmentSiteLocation();
     },
 
@@ -71,12 +75,12 @@ define( function( require ) {
       this.containedLength -= length;
 
       // Shrink by moving the lower right corner up and to the left.
-      this.sideShrinkageAmount = this.bounds.get().getWidth() - this.calculateSideLength();
+      this.sideShrinkageAmount = this.bounds.getWidth() - this.calculateSideLength();
 
-      this.bounds.set( new Rectangle( this.bounds.get().x,
-        this.bounds.get().y + this.sideShrinkageAmount,
-        this.bounds.get().getWidth() - this.sideShrinkageAmount,
-        this.bounds.get().getHeight() - this.sideShrinkageAmount ) );
+      this.bounds.set( Bounds2.rect( this.bounds.x,
+        this.bounds.y + this.sideShrinkageAmount,
+        this.bounds.getWidth() - this.sideShrinkageAmount,
+        this.bounds.getHeight() - this.sideShrinkageAmount ) );
 
       // If the length has gotten to zero, remove this segment from
       // the list.
