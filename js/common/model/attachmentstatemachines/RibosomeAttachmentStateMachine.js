@@ -13,78 +13,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
-  var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
+  var RibosomeAttachedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/RibosomeAttachedState' );
   var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionRibosomeConstant' );
-  var RibosomeTranslatingRnaMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/RibosomeTranslatingRnaMotionStrategy' );
-
-  // constants
-  var RNA_TRANSLATION_RATE = 750; // Picometers per second. // Scalar velocity for transcription.
-
-  // private classes
-  /**
-   * Class that defines what the ribosome does when attached to mRNA, which
-   * is essentially to transcribe it.
-   */
-  var RibosomeAttachedState = inherit( AttachmentState,
-
-    /**
-     * @param {RibosomeAttachmentStateMachine} ribosomeAttachmentStateMachine
-     */
-    function( ribosomeAttachmentStateMachine ) {
-      this.ribosomeAttachmentStateMachine = ribosomeAttachmentStateMachine;
-    },
-
-    {
-
-      /**
-       * @Override
-       * @param {AttachmentStateMachine} asm
-       * @param {number} dt
-       */
-      stepInTime: function( asm, dt ) {
-        var proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
-        var ribosome = this.ribosomeAttachmentStateMachine.ribosome;
-
-        // Grow the protein.
-        proteinBeingSynthesized.setFullSizeProportion(
-          ribosome.getMessengerRnaBeingTranslated().getProportionOfRnaTranslated( ribosome ) );
-        proteinBeingSynthesized.setAttachmentPointPosition( ribosome.getProteinAttachmentPoint() );
-
-        // Advance the translation of the mRNA.
-        var translationComplete = ribosome.advanceMessengerRnaTranslation( RNA_TRANSLATION_RATE * dt );
-        if ( translationComplete ) {
-
-          // Release the mRNA.
-          ribosome.releaseMessengerRna();
-
-          // Release the protein.
-          proteinBeingSynthesized.release();
-          proteinBeingSynthesized = null;
-
-          // Release this ribosome to wander in the cytoplasm.
-          asm.detach();
-        }
-      },
-
-      /**
-       * @Override
-       * @param {AttachmentStateMachine} asm
-       */
-      entered: function( asm ) {
-        var ribosome = this.ribosomeAttachmentStateMachine.ribosome;
-        var proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
-        ribosome.initiateTranslation();
-        ribosome.setMotionStrategy( new RibosomeTranslatingRnaMotionStrategy( ribosome ) );
-        proteinBeingSynthesized = ribosome.getMessengerRnaBeingTranslated().getProteinPrototype().createInstance();
-        proteinBeingSynthesized.setAttachmentPointPosition( ribosome.getProteinAttachmentPoint() );
-        ribosome.getModel().addMobileBiomolecule( proteinBeingSynthesized );
-
-        // Prevent user interaction while translating.
-        asm.biomolecule.movableByUser = false;
-      }
-
-
-    } );
 
 
   /**
@@ -103,7 +33,7 @@ define( function( require ) {
     this.proteinBeingSynthesized = null;
 
     // Set up offset used when attaching to mRNA.
-    this.setDestinationOffset( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
+    this.setDestinationOffsetByVector( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE);
 
     // Set up a non-default "attached" state, since the behavior is different from the default.
     this.attachedState = new RibosomeAttachedState( this );

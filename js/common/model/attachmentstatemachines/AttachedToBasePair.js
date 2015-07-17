@@ -148,10 +148,11 @@ define( function( require ) {
        */
       entered: function( asm ) {
         var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
+        var randValue = RAND.nextDouble();
 
-        // Decide right away whether or not to transcribe.
+       // Decide right away whether or not to transcribe.
         this.transcribe = attachmentSite.getAffinity() > CommonConstants.DEFAULT_AFFINITY &&
-                          RAND.nextDouble() < attachmentSite.getAffinity();
+                          randValue < attachmentSite.getAffinity();
 
         // Allow user interaction.
         asm.biomolecule.movableByUser = true;

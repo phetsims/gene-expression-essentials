@@ -221,6 +221,7 @@ define( function( require ) {
         }
       } );
 
+
       // Count the number of positive transcription factors attached.
       var numPositiveTranscriptionFactorsAttached = 0;
       _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {

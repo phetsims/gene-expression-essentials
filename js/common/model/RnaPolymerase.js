@@ -47,9 +47,8 @@ define( function( require ) {
    */
   function RnaPolymerase( model, position ) {
     model = model || new StubGeneExpressionModel();
-    position = position || new Vector2( 0, 0 );
     MobileBiomolecule.call( this, model, this.createShape(), NOMINAL_COLOR );
-
+    position = position || new Vector2( 0, 0 );
     // Copy of the attachment state machine reference from base class, but
     // with the more specific type.
     this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // defined by Super class - Ashraf
