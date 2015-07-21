@@ -1,1 +1,1 @@
-GEB-01.png source=PheT
+GEB-01.png source=PhET
