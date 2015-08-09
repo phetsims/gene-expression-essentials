@@ -21,13 +21,10 @@ define( function( require ) {
    * @constructor
    */
   function ShapeChangingModelElement( initialShape, props ) {
-
     PropertySet.call( this, _.extend( {
       // Shape property, which is not public because it should only be changed by descendants of the class.
       shape: initialShape
     }, props || {} ) );
-
-
   }
 
   return inherit( PropertySet, ShapeChangingModelElement, {
@@ -84,10 +81,24 @@ define( function( require ) {
         // This default implementation assumes that the position indicator
         // is defined by the center of the shape's bounds.  Override if
         // some other behavior is required.
-        this.translate( new Vector2( x - this.shape.bounds.getCenterX(),
-          y - this.shape.bounds.getCenterY() ) );
+        var center = this.getCenter();
+        this.translate( new Vector2( x - center.x,
+          y - center.y ) );
       }
     },
+
+    /**
+     * The Java version of shape.bounds returns the center even if the shape has only a single point
+     * the kite version gives NAN in such cases. This is a WorkAround. Needs Fixing. TODO
+     */
+    getCenter: function() {
+      var center = this.shape.bounds.getCenter();
+      if ( !_.isFinite( center.x ) ) {
+        return this.shape.subpaths[ 0 ].points[ 0 ];
+      }
+      return center;
+    },
+
 
     /**
      *
@@ -96,7 +107,7 @@ define( function( require ) {
     getPosition: function() {
       // Assumes that the center of the shape is the position.  Override if
       // other behavior is needed.
-      return this.shape.bounds.getCenter();
+      return this.getCenter();
     }
 
   } );

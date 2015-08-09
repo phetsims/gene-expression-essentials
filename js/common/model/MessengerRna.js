@@ -29,6 +29,7 @@ define( function( require ) {
   // Distance within which this will connect to a ribosome.
   var RIBOSOME_CONNECTION_DISTANCE = 400; // picometers
   var MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers
+
   // Length of the "leader segment", which is the portion of the mRNA that
   // sticks out on the upper left side so that a ribosome can be attached.
   var LEADER_LENGTH = CommonConstants.LEADER_LENGTH;
@@ -81,12 +82,12 @@ define( function( require ) {
     self.ribosomePlacementHint = new PlacementHint( new Ribosome( model ) );
     self.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) );
 
-    this.shapeProperty.link( function(){
+    this.shapeProperty.link( function() {
       // This hint always sits at the beginning of the RNA strand.
       var currentMRnaFirstPointPosition = self.firstShapeDefiningPoint.getPosition().copy();
       self.ribosomePlacementHint.setPosition( currentMRnaFirstPointPosition.minus( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE ) );
       self.mRnaDestroyerPlacementHint.setPosition( currentMRnaFirstPointPosition );
-    });
+    } );
   }
 
   return inherit( WindingBiomolecule, MessengerRna, {
@@ -102,7 +103,7 @@ define( function( require ) {
       WindingBiomolecule.prototype.translate.call( this, translationVector );
 
       // Translate each of the shape segments that define the outline shape.
-       this.shapeSegments.forEach(function( shapeSegment ) {
+      this.shapeSegments.forEach( function( shapeSegment ) {
         shapeSegment.translate( translationVector );
       } );
 
@@ -139,6 +140,9 @@ define( function( require ) {
     advanceTranslation: function( ribosome, length ) {
 
       var segmentToAdvance = this.mapRibosomeToShapeSegment.get( ribosome );
+
+      // Error checking.
+      assert && assert( segmentToAdvance !== null ); // Should never happen, since it means that the ribosome isn't attached.
 
       // Advance the translation by advancing the position of the mRNA in the
       // segment that corresponds to the translation channel of the ribosome.
@@ -207,7 +211,7 @@ define( function( require ) {
         // Reduce length to be zero.
         this.lastShapeDefiningPoint = this.firstShapeDefiningPoint;
         this.lastShapeDefiningPoint.setNextPointMass( null );
-        this.shapeSegments.clear();//TODO
+        this.shapeSegments.clear();
       }
       else {
 
@@ -323,10 +327,13 @@ define( function( require ) {
      * @param {Ribosome} ribosome
      */
     initiateTranslation: function( ribosome ) {
+      assert && assert( this.mapRibosomeToShapeSegment.containsKey( ribosome ) ); // State checking.
+
       // Set the capacity of the first segment to the size of the channel
       // through which it will be pulled plus the leader length.
-      var firstShapeSegment = this.shapeSegments[ 0 ]; //TODO
-      firstShapeSegment.setCapacity( this.ribosome.getTranslationChannelLength() + LEADER_LENGTH );
+      var firstShapeSegment = this.shapeSegments.get( 0 );
+      assert && assert( firstShapeSegment.isFlat() );
+      firstShapeSegment.setCapacity( ribosome.getTranslationChannelLength() + LEADER_LENGTH );
     },
 
     /**
@@ -338,9 +345,13 @@ define( function( require ) {
      * @param {MessengerRnaDestroyer} messengerRnaDestroyer
      */
     initiateDestruction: function( messengerRnaDestroyer ) {
+      assert && assert( this.messengerRnaDestroyer === messengerRnaDestroyer ); // Shouldn't get this from unattached destroyers.
+
       // Set the capacity of the first segment to the size of the channel
       // through which it will be pulled plus the leader length.
-      this.segmentWhereDestroyerConnects = this.shapeSegments.get( 0 ); //TODO
+      this.segmentWhereDestroyerConnects = this.shapeSegments.get( 0 );
+
+      assert && assert( this.segmentWhereDestroyerConnects.isFlat() );
       this.segmentWhereDestroyerConnects.setCapacity( this.messengerRnaDestroyer.getDestructionChannelLength() + LEADER_LENGTH );
     },
 
@@ -352,18 +363,20 @@ define( function( require ) {
      * @return
      */
     getProportionOfRnaTranslated: function( ribosome ) {
+      assert && assert(this.mapRibosomeToShapeSegment.containsKey( ribosome )); // Makes no sense if ribosome isn't attached.
       var translatedLength = 0;
       var segmentInRibosomeChannel = this.mapRibosomeToShapeSegment.get( ribosome );
 
+      assert && assert(segmentInRibosomeChannel.isFlat()); // Make sure things are as we expect.
+
       // Add the length for each segment that precedes this ribosome.
       for ( var i = 0; i < this.shapeSegments.length; i++ ) {
-        var shapeSegment = this.shapeSegments[ i ];
+        var shapeSegment = this.shapeSegments.get(i);
         if ( shapeSegment === segmentInRibosomeChannel ) {
           break;
         }
         translatedLength += shapeSegment.getContainedLength();
       }
-
 
       // Add the length for the segment that is inside the translation
       // channel of this ribosome.
@@ -380,6 +393,7 @@ define( function( require ) {
      * @returns {AttachmentSite}
      */
     considerProposalFromByRibosome: function( ribosome ) {
+      assert && assert(!this.mapRibosomeToShapeSegment.containsKey( ribosome )); // Shouldn't get redundant proposals from a ribosome.
       var returnValue = null;
 
       // Can't consider proposal if currently being destroyed.
@@ -411,6 +425,8 @@ define( function( require ) {
      * @returns {AttachmentSite}
      */
     considerProposalFromByMessengerRnaDestroyer: function( messengerRnaDestroyer ) {
+      assert  && assert(this.messengerRnaDestroyer !== messengerRnaDestroyer); // Shouldn't get redundant proposals from same destroyer.
+
       var returnValue = null;
 
       // Make sure that this mRNA is not already being destroyed.
@@ -457,6 +473,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getDestroyerAttachmentLocation: function() {
+      assert && assert(this.segmentWhereDestroyerConnects !== null); // State checking - shouldn't be called before this is set.
 
       // Avoid null pointer exception.
       if ( this.segmentWhereDestroyerConnects === null ) {

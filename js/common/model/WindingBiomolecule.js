@@ -20,6 +20,7 @@ define( function( require ) {
   var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
   var PointMass = require( 'GENE_EXPRESSION_BASICS/common/model/PointMass' );
+  var SeededRandom = require( 'GENE_EXPRESSION_BASICS/common/Util/SeededRandom' );
 
 
   // constants
@@ -69,6 +70,7 @@ define( function( require ) {
      * @param {Rectangle} bounds
      */
     runSpringAlgorithm: function( firstPoint, lastPoint, bounds ) {
+
       if ( firstPoint === null ) {
 
         // Defensive programming.
@@ -106,6 +108,12 @@ define( function( require ) {
           if ( currentPoint.getNextPointMass() !== null ) {
             var nextPoint = currentPoint.getNextPointMass();
 
+            // TODO REMOVE
+            /*if ( (!_.isFinite(nextPoint.getPosition().x )) || (!_.isFinite( nextPoint.getPosition().y )) ) {
+             debugger;
+             }*/
+
+
             // This is not the last point on the list, so go ahead and
             // run the spring algorithm on it.
             var vectorToPreviousPoint = previousPoint.getPosition().minus( currentPoint.getPosition() );
@@ -127,7 +135,7 @@ define( function( require ) {
             }
 
             var scalarForceDueToNextPoint = ( -springConstant ) * ( currentPoint.getTargetDistanceToPreviousPoint() - currentPoint.distance( nextPoint ) );
-            var forceDueToNextPoint = vectorToNextPoint.normalized().times( scalarForceDueToNextPoint );
+            var forceDueToNextPoint = vectorToNextPoint.normalized().timesScalar( scalarForceDueToNextPoint );
             var dampingForce = currentPoint.getVelocity().timesScalar( -dampingConstant );
             var totalForce = forceDueToPreviousPoint.plus( forceDueToNextPoint ).plus( dampingForce );
             var acceleration = totalForce.timesScalar( 1 / pointMass );
@@ -249,7 +257,6 @@ define( function( require ) {
      * when it is being synthesized and when it is being transcribed.
      */
     windPointsThroughSegments: function() {
-
       var handledLength = 0;
 
       // Loop through the shape segments positioning the shape-defining
@@ -372,12 +379,13 @@ define( function( require ) {
       // Position the last point at the lower right.
       lastPoint.setPosition( bounds.getMaxX(), bounds.getMinY() );
 
-
+      var seededRandom = new SeededRandom( 8 );
       var currentPoint = firstPoint;
       do {
+
         // Randomly position the points within the segment.
-        currentPoint.setPosition( bounds.getMinX() + (Math.random() * 8) * bounds.getWidth(),
-          bounds.getMinY() + (Math.random() * 8) * bounds.getHeight() );
+        currentPoint.setPosition( bounds.getMinX() + seededRandom.nextDouble() * bounds.getWidth(),
+          bounds.getMinY() + (seededRandom.nextDouble()) * bounds.getHeight() );
         currentPoint = currentPoint.getNextPointMass();
       } while ( currentPoint !== lastPoint && currentPoint !== null );
     },

@@ -54,7 +54,7 @@ define( function( require ) {
     extrapolateControlPoint: function( x, y, z ) {
       var xy = y.minus( x );
       var yz = z.minus( y );
-      return y.plus( xy.times( 0.25 ).plus( yz.times( 0.25 ) ) );
+      return y.plus( xy.timesScalar( 0.25 ).plus( yz.timesScalar( 0.25 ) ) );
     }
 
   } );

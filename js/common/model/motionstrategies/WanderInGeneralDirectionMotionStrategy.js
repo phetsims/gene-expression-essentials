@@ -88,7 +88,7 @@ define( function( require ) {
         this.directionChangeCountdown = this.generateDirectionChangeCountdownValue();
       }
 
-      return currentLocation.plus( this.currentMotionVector.times( dt ) );
+      return currentLocation.plus( this.currentMotionVector.timesScalar( dt ) );
     },
 
     /**

@@ -199,8 +199,8 @@ define( function( require ) {
       _.forEach( this.separations, function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
         var separationWindowXIndexRange = new IntegerRange( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
-                                                                          thisMolecule.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
-          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - thisMolecule.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
+                                                                          thisMolecule.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS )|0,
+          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - thisMolecule.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS )|0 );
         for ( var i = separationWindowXIndexRange.getMin(); i < separationWindowXIndexRange.getMax(); i++ ) {
           var windowCenterX = ( separationWindowXIndexRange.getMin() + separationWindowXIndexRange.getMax() ) / 2;
           if ( i >= 0 && i < thisMolecule.strandPointsShadow.length ) {
@@ -229,8 +229,8 @@ define( function( require ) {
         // bounds for the strand1 and strand2 segments are the same, which
         // should be a safe assumption.
         var bounds = strand1Segment.getShape().bounds;
-        var pointIndexRange = new IntegerRange( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
-          Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
+        var pointIndexRange = new IntegerRange( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS )|0,
+          Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS )|0 );
 
         // Check to see if any of the points within the identified range
         // have changed and, if so, update the corresponding segment shape
@@ -240,7 +240,7 @@ define( function( require ) {
           if ( !this.strandPoints[ j ].equals( this.strandPointsShadow[ j ] ) ) {
 
             // The point has changed.  Update it, mark the change.
-            this.strandPoints[ j ] = this.strandPointsShadow[ j ];
+            this.strandPoints[ j ].set(this.strandPointsShadow[ j ]);
             segmentChanged = true;
           }
         }

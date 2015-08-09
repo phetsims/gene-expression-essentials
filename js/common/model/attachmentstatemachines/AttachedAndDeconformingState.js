@@ -38,12 +38,19 @@ define( function( require ) {
 
     stepInTime: function( asm, dt ) {
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+
+      // Verify that state is consistent.
+      assert && assert( asm.attachmentSite !== null);
+      assert && assert(asm.attachmentSite.attachedOrAttachingMolecule === biomolecule);
+
       var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
       var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
       var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
       var recycleMode = this.rnaPolymeraseAttachmentStateMachine.recycleMode;
       var recycleReturnZones = this.rnaPolymeraseAttachmentStateMachine.recycleReturnZones;
       var attachedAndWanderingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndWanderingState;
+
+
       this.conformationalChangeAmount = Math.max( this.conformationalChangeAmount -
                                                   CONFORMATIONAL_CHANGE_RATE * dt, 0 );
       biomolecule.changeConformation( this.conformationalChangeAmount );
@@ -68,7 +75,7 @@ define( function( require ) {
             new BeingRecycledState( this.rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) );
         }
         else {
-          this.rnaPolymeraseAttachmentStateMachine.prototype.forceImmediateUnattachedButUnavailable.call( this );
+          this.rnaPolymeraseAttachmentStateMachine.forceImmediateUnattachedButUnavailable();
         }
       }
     },

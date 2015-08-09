@@ -28,12 +28,12 @@ define( function( require ) {
   return inherit( ShapeSegment, FlatSegment, {
 
     getContainedLength: function() {
-      // For a flat segment, the length of mRNA contained is equal to
-      // the width.
+      // For a flat segment, the length of mRNA contained is equal to  the width.
       return this.bounds.getWidth();
     },
 
     add: function( length, shapeSegmentList ) {
+      assert && assert(this.getContainedLength() <= this.capacity); // This shouldn't be called if there is no remaining capacity.
       var growthAmount = length;
       if ( this.getContainedLength() + length > this.capacity ) {
 
@@ -46,8 +46,7 @@ define( function( require ) {
         shapeSegmentList.insertAfter( this, newSquareSegment );
       }
 
-      // Grow the bounds linearly to the left to accommodate the
-      // additional length.
+      // Grow the bounds linearly to the left to accommodate the  additional length.
       this.bounds.set( Bounds2.rect( this.bounds.x - growthAmount,
         this.bounds.y,
         this.bounds.getWidth() + growthAmount,
@@ -104,6 +103,9 @@ define( function( require ) {
             // add a new one to the front of the segment list,
             // but first, make sure there isn't something there
             // already.
+
+            assert && assert( outputSegment === null);
+
             var newLeaderSegment = new FlatSegment( this.getUpperLeftCornerPos() );
             newLeaderSegment.setCapacity(CommonConstants.LEADER_LENGTH);
             shapeSegmentList.insertBefore( this, newLeaderSegment );
@@ -154,8 +156,7 @@ define( function( require ) {
       this.updateAttachmentSiteLocation();
     },
 
-    // Set size to be exactly the capacity.  Do not create any new
-    // segments.
+    // Set size to be exactly the capacity.  Do not create any new  segments.
     maxOutLength: function() {
       var growthAmount = this.getRemainingCapacity();
       this.bounds.set( Bounds2.rect( this.bounds.x - growthAmount,

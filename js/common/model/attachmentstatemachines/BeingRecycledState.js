@@ -41,6 +41,8 @@ define( function( require ) {
      * @param {number} dt
      */
     stepInTime: function( asm, dt ) {
+      // Verify that state is consistent.
+      assert && assert(asm.attachmentSite === null);
 
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
       var unattachedAndAvailableState = this.rnaPolymeraseAttachmentStateMachine.unattachedAndAvailableState;

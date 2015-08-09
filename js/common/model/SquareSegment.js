@@ -18,15 +18,14 @@ define( function( require ) {
    * @constructor
    */
   function SquareSegment( origin ) {
-    ShapeSegment.call( this );
-    this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );
-    this.updateAttachmentSiteLocation();
-
-    // Maintain an explicit value for the length of the mRNA contained
+   // Maintain an explicit value for the length of the mRNA contained
     // within this segment even though the bounds essentially define
     // said length.  This helps to avoid floating point issues.
     this.containedLength = 0;
+    ShapeSegment.call( this );
 
+    this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );
+    this.updateAttachmentSiteLocation();
   }
 
   return inherit( ShapeSegment, SquareSegment, {
@@ -58,7 +57,7 @@ define( function( require ) {
       // Grow the bounds up and to the left to accommodate the
       // additional length.
       var sideGrowthAmount = this.calculateSideLength() - this.bounds.getWidth();
-
+      assert && assert(length >= 0 && sideGrowthAmount >= 0); //
       this.bounds.set( Bounds2.rect( this.bounds.x - sideGrowthAmount,
         this.bounds.y,
         this.bounds.getWidth() + sideGrowthAmount,
@@ -75,12 +74,12 @@ define( function( require ) {
       this.containedLength -= length;
 
       // Shrink by moving the lower right corner up and to the left.
-      this.sideShrinkageAmount = this.bounds.getWidth() - this.calculateSideLength();
+      var sideShrinkageAmount = this.bounds.getWidth() - this.calculateSideLength();
 
       this.bounds.set( Bounds2.rect( this.bounds.x,
-        this.bounds.y + this.sideShrinkageAmount,
-        this.bounds.getWidth() - this.sideShrinkageAmount,
-        this.bounds.getHeight() - this.sideShrinkageAmount ) );
+        this.bounds.y + sideShrinkageAmount,
+        this.bounds.getWidth() - sideShrinkageAmount,
+        this.bounds.getHeight() - sideShrinkageAmount ) );
 
       // If the length has gotten to zero, remove this segment from
       // the list.

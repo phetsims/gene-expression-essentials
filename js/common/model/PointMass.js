@@ -42,7 +42,11 @@ define( function( require ) {
      * @param {number} y
      */
     setPosition: function( x, y ) {
+      if ( !y ) {
+        return this.setPositionByVector( x );
+      }
       this.position.setXY( x, y );
+
     },
 
     /**
@@ -63,7 +67,7 @@ define( function( require ) {
      * @param {Vector2} velocity
      * @returns {Vector2}
      */
-    getVelocity: function(  ) {
+    getVelocity: function() {
 
       return new Vector2( this.velocity.x, this.velocity.y );
     },
@@ -122,7 +126,7 @@ define( function( require ) {
      * @param {number} deltaTime
      */
     update: function( deltaTime ) {
-      this.velocity.set( this.velocity.plus( this.acceleration.times( deltaTime ) ) );
+      this.velocity.set( this.velocity.plus( this.acceleration.timesScalar( deltaTime ) ) );
       this.position.setXY( this.position.x + this.velocity.x * deltaTime, this.position.y + this.velocity.y * deltaTime );
     },
 

@@ -45,7 +45,7 @@ define( function( require ) {
     // List of valid places where the item can teleport.
     thisDriftThenTeleportMotionStrategy.destinationZones = destinationZones;
     thisDriftThenTeleportMotionStrategy.preFadeCountdown = PRE_FADE_DRIFT_TIME;
-    thisDriftThenTeleportMotionStrategy.velocityXY = wanderDirection.times( PRE_TELEPORT_VELOCITY );
+    thisDriftThenTeleportMotionStrategy.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY );
     thisDriftThenTeleportMotionStrategy.velocityZ = -1 / FADE_AND_DRIFT_TIME;
   }
 
@@ -107,7 +107,7 @@ define( function( require ) {
       // Determine movement for drift.
       var xyMovement;
       if ( this.motionBounds.testIfInMotionBounds( shape, this.velocityXY, dt ) ) {
-        xyMovement = this.velocityXY.times( dt );
+        xyMovement = this.velocityXY.timesScalar( dt );
       }
       else {
         xyMovement = new Vector2( 0, 0 );
