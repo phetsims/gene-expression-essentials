@@ -11,7 +11,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var MotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionStrategy' );
 
   /**
@@ -32,7 +31,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getNextLocation: function( currentLocation, shape, dt ) {
-      return new Vector2( currentLocation.x, currentLocation.y );
+      return currentLocation;
     }
 
   } );

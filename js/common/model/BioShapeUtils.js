@@ -143,11 +143,11 @@ define( function( require ) {
       var cp1;
 
       var path = new Shape();
-      path.moveToPoint( points[ 0 ] );
+      path.moveTo( points[ 0 ].x,  points[ 0 ].y);
       if ( points.length === 1 || points.length === 2 ) {
         // Can't really create a curve from this, so draw a straight line
         // to the end point and call it good.
-        path.lineToPoint( points[ points.length - 1 ] );
+        path.lineTo( points[ points.length - 1 ].x,points[ points.length - 1 ].y );
         return path;
       }
       // Create the first curved segment.

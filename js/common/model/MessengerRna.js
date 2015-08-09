@@ -315,8 +315,8 @@ define( function( require ) {
     },
 
     deactivateAllHints: function() {
-      this.ribosomePlacementHint.active.set( false );
-      this.mRnaDestroyerPlacementHint.active.set( false );
+      this.ribosomePlacementHint.active = false;
+      this.mRnaDestroyerPlacementHint.active = false;
     },
 
     /**
@@ -363,15 +363,15 @@ define( function( require ) {
      * @return
      */
     getProportionOfRnaTranslated: function( ribosome ) {
-      assert && assert(this.mapRibosomeToShapeSegment.containsKey( ribosome )); // Makes no sense if ribosome isn't attached.
+      assert && assert( this.mapRibosomeToShapeSegment.containsKey( ribosome ) ); // Makes no sense if ribosome isn't attached.
       var translatedLength = 0;
       var segmentInRibosomeChannel = this.mapRibosomeToShapeSegment.get( ribosome );
 
-      assert && assert(segmentInRibosomeChannel.isFlat()); // Make sure things are as we expect.
+      assert && assert( segmentInRibosomeChannel.isFlat() ); // Make sure things are as we expect.
 
       // Add the length for each segment that precedes this ribosome.
       for ( var i = 0; i < this.shapeSegments.length; i++ ) {
-        var shapeSegment = this.shapeSegments.get(i);
+        var shapeSegment = this.shapeSegments.get( i );
         if ( shapeSegment === segmentInRibosomeChannel ) {
           break;
         }
@@ -393,7 +393,7 @@ define( function( require ) {
      * @returns {AttachmentSite}
      */
     considerProposalFromByRibosome: function( ribosome ) {
-      assert && assert(!this.mapRibosomeToShapeSegment.containsKey( ribosome )); // Shouldn't get redundant proposals from a ribosome.
+      assert && assert( !this.mapRibosomeToShapeSegment.containsKey( ribosome ) ); // Shouldn't get redundant proposals from a ribosome.
       var returnValue = null;
 
       // Can't consider proposal if currently being destroyed.
@@ -425,7 +425,7 @@ define( function( require ) {
      * @returns {AttachmentSite}
      */
     considerProposalFromByMessengerRnaDestroyer: function( messengerRnaDestroyer ) {
-      assert  && assert(this.messengerRnaDestroyer !== messengerRnaDestroyer); // Shouldn't get redundant proposals from same destroyer.
+      assert && assert( this.messengerRnaDestroyer !== messengerRnaDestroyer ); // Shouldn't get redundant proposals from same destroyer.
 
       var returnValue = null;
 
@@ -473,11 +473,11 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getDestroyerAttachmentLocation: function() {
-      assert && assert(this.segmentWhereDestroyerConnects !== null); // State checking - shouldn't be called before this is set.
+      assert && assert( this.segmentWhereDestroyerConnects !== null ); // State checking - shouldn't be called before this is set.
 
       // Avoid null pointer exception.
       if ( this.segmentWhereDestroyerConnects === null ) {
-        return new Vector2( 0, 0 );
+        return Vector2.ZERO;
       }
 
       // The attachment location is at the right most side of the segment

@@ -21,7 +21,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
 
   // constants
@@ -50,7 +49,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getCenterLocation: function() {
-      return new Vector2( this.shape.bounds.getCenterX(), this.shape.bounds.getCenterY() );
+      return this.shape.bounds.getCenter();
     }
 
   } );

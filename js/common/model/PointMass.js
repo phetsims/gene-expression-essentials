@@ -42,7 +42,7 @@ define( function( require ) {
      * @param {number} y
      */
     setPosition: function( x, y ) {
-      if ( !y ) {
+      if ( _.isFinite( x.x) ) {
         return this.setPositionByVector( x );
       }
       this.position.setXY( x, y );
@@ -60,7 +60,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getPosition: function() {
-      return new Vector2( this.position.x, this.position.y );
+      return this.position;
     },
 
     /**
@@ -68,8 +68,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getVelocity: function() {
-
-      return new Vector2( this.velocity.x, this.velocity.y );
+      return this.velocity;
     },
 
     /**

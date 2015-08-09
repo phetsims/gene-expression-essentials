@@ -51,11 +51,24 @@ define( function( require ) {
      * @param {Vector2} z End of line segment.
      * @return Control point for segment from y to z.
      */
-    extrapolateControlPoint: function( x, y, z ) {
+    extrapolateControlPoint_VectorVersion: function( x, y, z ) {
       var xy = y.minus( x );
       var yz = z.minus( y );
       return y.plus( xy.timesScalar( 0.25 ).plus( yz.timesScalar( 0.25 ) ) );
+    },
+
+    extrapolateControlPoint: function( x, y, z ) {
+      var xy = { x: y.x - x.x, y: y.y - x.y }; // y-x
+      var yz = { x: z.x - y.x, y: z.y - y.y }; // z-y
+
+      var xy025 = { x: 0.25 * xy.x, y: 0.25 * xy.y }; // xy*0.25
+      var yz025 = { x: 0.25 * yz.x, y: 0.25 * yz.y }; // xy*0.25
+
+      // return y.plus( xy.timesScalar( 0.25 ).plus( yz.timesScalar( 0.25 ) ) );
+      var xy025Plusyz025 = { x: xy025.x + yz025.x, y: xy025.y + yz025.y };
+      return { x: y.x + xy025Plusyz025.x, y: y.y + xy025Plusyz025.y };
     }
+
 
   } );
 

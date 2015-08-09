@@ -38,6 +38,10 @@ define( function( require ) {
   var NOMINAL_COLOR = new Color( 0, 153, 210 );
   var CONFORMED_COLOR = Color.CYAN;
 
+  // Added  for per reasons, the Java code creates a new Vector instance every time getDetachDirection is called.
+  var UP_VECTOR = new Vector2( 0, 1 );
+  var DOWN_VECTOR = new Vector2( 0, -1 );
+
   /**
    * Default constructor, used mostly when instances are needed in places like control panels.
    *
@@ -93,7 +97,7 @@ define( function( require ) {
      */
     getDetachDirection: function() {
       // Randomly either up or down when detaching from DNA.
-      return new Random().nextBoolean() ? new Vector2( 0, 1 ) : new Vector2( 0, -1 );
+      return new Random().nextBoolean() ? UP_VECTOR : DOWN_VECTOR;
     },
 
     /**

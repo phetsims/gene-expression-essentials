@@ -186,13 +186,13 @@ define( function( require ) {
 
         if ( isUserControlled ) {
           self.dnaMolecule.activateHints( mobileBiomolecule );
-          _.forEach( self.messengerRnaList, function( messengerRna ) {
+          self.messengerRnaList.forEach( function( messengerRna ) {
             messengerRna.activateHints( mobileBiomolecule );
           } );
         }
         else {
           self.dnaMolecule.deactivateAllHints();
-          _.forEach( self.messengerRnaList, function( messengerRna ) {
+          self.messengerRnaList.forEach( function( messengerRna ) {
             messengerRna.deactivateAllHints();
           } );
 

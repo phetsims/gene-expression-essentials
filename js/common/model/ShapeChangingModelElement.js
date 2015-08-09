@@ -11,7 +11,6 @@ define( function( require ) {
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Vector2 = require( 'DOT/Vector2' );
   var PropertySet = require( 'AXON/PropertySet' );
 
 
@@ -55,12 +54,20 @@ define( function( require ) {
 
     /**
      *
-     * @param {Vector2} translationVector
+     * @param {number} x
+     * @param {number} y
      */
-    translate: function( translationVector ) {
-      var translationTransform = Matrix3.translation( translationVector.x, translationVector.y );
+    translate: function( x, y ) {
+      var translationTransform = null;
+      if ( _.isFinite( x.x ) ) { // if x is a vector
+        translationTransform = Matrix3.translation( x.x, x.y );
+      }
+      else {
+        translationTransform = Matrix3.translation( x, y );
+      }
       this.shapeProperty.set( this.shapeProperty.get().transformed( translationTransform ) );
     },
+
 
     /**
      *
@@ -82,8 +89,8 @@ define( function( require ) {
         // is defined by the center of the shape's bounds.  Override if
         // some other behavior is required.
         var center = this.getCenter();
-        this.translate( new Vector2( x - center.x,
-          y - center.y ) );
+        this.translate( x - center.x,
+          y - center.y );
       }
     },
 
