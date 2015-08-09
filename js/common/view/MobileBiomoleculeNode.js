@@ -44,6 +44,7 @@ define( function( require ) {
 
     thisNode.addChild( path );
 
+
     // Update the shape whenever it changes.
     mobileBiomolecule.addShapeChangeObserver( function( shape ) {
       // Create a shape that excludes any offset.
@@ -96,7 +97,7 @@ define( function( require ) {
     } );
 
     // Drag handling.
-     thisNode.addInputListener( new BiomoleculeDragHandler( mobileBiomolecule, thisNode, mvt ) );
+    thisNode.addInputListener( new BiomoleculeDragHandler( mobileBiomolecule, thisNode, mvt ) );
 
 
     // Interactivity control.
@@ -121,12 +122,12 @@ define( function( require ) {
      */
     getPathByMobileBioMoleculeType: function( mobileBiomolecule, options ) {
 
-      if( mobileBiomolecule.getShape() instanceof  RibosomeShape) {
-          return new RibosomeNode( mobileBiomolecule.getShape(), options );
+      if ( mobileBiomolecule.getShape() instanceof  RibosomeShape ) {
+        return new RibosomeNode( mobileBiomolecule.getShape(), options );
       }
 
-      return new Path( new Shape(), options );
-
+      var path = new Path( new Shape(), options );
+      return path;
     },
 
     /**

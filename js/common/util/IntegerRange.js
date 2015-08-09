@@ -18,7 +18,6 @@ define( function( require ) {
    * @constructor
    */
   function IntegerRange( minValue, maxValue ) {
-
     this.minValue = minValue | 0; // private
     this.maxValue = maxValue | 0; // private
   }

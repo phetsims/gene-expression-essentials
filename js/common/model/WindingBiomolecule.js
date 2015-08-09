@@ -34,6 +34,17 @@ define( function( require ) {
   // algorithm consistent.
   var INTER_POINT_DISTANCE = CommonConstants.INTER_POINT_DISTANCE;
 
+  //scratch vector instances - used by runSpringAlgorithm method -  for perf reasons the java code is refactored a bit to reuse vector instances
+  var vectorToPreviousPoint = new Vector2();
+  var forceDueToPreviousPoint = new Vector2();
+  var vectorToNextPoint = new Vector2();
+  var forceDueToNextPoint = new Vector2();
+  var totalForce = new Vector2();
+  var dampingForce = new Vector2();
+  // arbitrary vector
+  var arbitraryPrevVector = new Vector2( 1, 1 );
+  var arbitraryNextVector = new Vector2( -1, -1 );
+
 
   /**
    *
@@ -101,6 +112,8 @@ define( function( require ) {
       var pointMass = PointMass.MASS;
       var dt = 0.025; // In seconds.
       var numUpdates = 20;
+
+
       for ( var i = 0; i < numUpdates; i++ ) {
         var previousPoint = firstPoint;
         currentPoint = firstPoint.getNextPointMass();
@@ -108,37 +121,59 @@ define( function( require ) {
           if ( currentPoint.getNextPointMass() !== null ) {
             var nextPoint = currentPoint.getNextPointMass();
 
-            // TODO REMOVE
-            /*if ( (!_.isFinite(nextPoint.getPosition().x )) || (!_.isFinite( nextPoint.getPosition().y )) ) {
-             debugger;
-             }*/
-
-
             // This is not the last point on the list, so go ahead and
             // run the spring algorithm on it.
-            var vectorToPreviousPoint = previousPoint.getPosition().minus( currentPoint.getPosition() );
+            var prevPosition = previousPoint.getPosition();
+            var currentPosition = currentPoint.getPosition();
+            // refactored previousPoint.minus( currentPoint ); to the code below in order to avoid creating new Vector2 instances (found too many Vector2 instance at this place during profiling)
+            vectorToPreviousPoint.x = prevPosition.x - currentPosition.x;
+            vectorToPreviousPoint.y = prevPosition.y - currentPosition.y;
 
             if ( vectorToPreviousPoint.magnitude() === 0 ) {
 
               // This point is sitting on top of the previous point,
               // so create an arbitrary vector away from it.
-              vectorToPreviousPoint = new Vector2( 1, 1 );
+              vectorToPreviousPoint = arbitraryPrevVector;
             }
             var scalarForceDueToPreviousPoint = ( -springConstant ) * ( currentPoint.getTargetDistanceToPreviousPoint() - currentPoint.distance( previousPoint ) );
-            var forceDueToPreviousPoint = vectorToPreviousPoint.normalized().timesScalar( scalarForceDueToPreviousPoint );
-            var vectorToNextPoint = nextPoint.getPosition().minus( currentPoint.getPosition() );
+            vectorToPreviousPoint.normalize();
+
+            //forceDueToPreviousPoint = vectorToPreviousPoint.normalized().timesScalar(scalarForceDueToPreviousPoint);
+            forceDueToPreviousPoint.x = vectorToPreviousPoint.x * scalarForceDueToPreviousPoint;
+            forceDueToPreviousPoint.y = vectorToPreviousPoint.y * scalarForceDueToPreviousPoint;
+
+            var nextPosition = nextPoint.getPosition();
+
+            //vectorToNextPoint = nextPoint.getPosition().minus( currentPoint.getPosition() );
+            vectorToNextPoint.x = nextPosition.x - currentPosition.x;
+            vectorToNextPoint.y = nextPosition.y - currentPosition.y;
+
+
             if ( vectorToNextPoint.magnitude() === 0 ) {
 
               // This point is sitting on top of the next point,
               // so create an arbitrary vector away from it.
-              vectorToNextPoint = new Vector2( -1, -1 );
+              vectorToNextPoint = arbitraryNextVector;
             }
 
             var scalarForceDueToNextPoint = ( -springConstant ) * ( currentPoint.getTargetDistanceToPreviousPoint() - currentPoint.distance( nextPoint ) );
-            var forceDueToNextPoint = vectorToNextPoint.normalized().timesScalar( scalarForceDueToNextPoint );
-            var dampingForce = currentPoint.getVelocity().timesScalar( -dampingConstant );
-            var totalForce = forceDueToPreviousPoint.plus( forceDueToNextPoint ).plus( dampingForce );
-            var acceleration = totalForce.timesScalar( 1 / pointMass );
+
+            //var forceDueToNextPoint = vectorToNextPoint.normalized().timesScalar( scalarForceDueToNextPoint );
+            vectorToNextPoint.normalize();
+            forceDueToNextPoint.x = vectorToNextPoint.x * scalarForceDueToNextPoint;
+            forceDueToNextPoint.y = vectorToNextPoint.y * scalarForceDueToNextPoint;
+
+            var currentVelocity = currentPoint.getVelocity();
+
+            // var dampingForce = currentPoint.getVelocity().timesScalar( -dampingConstant );
+            dampingForce.x = currentVelocity.x * ( -dampingConstant );
+            dampingForce.y = currentVelocity.y * ( -dampingConstant );
+
+            //var totalForce = forceDueToPreviousPoint.plus( forceDueToNextPoint ).plus( dampingForce );
+            totalForce.x = forceDueToPreviousPoint.x + forceDueToNextPoint.x + dampingForce.x;
+            totalForce.y = forceDueToPreviousPoint.y + forceDueToNextPoint.y + dampingForce.y;
+
+            var acceleration = totalForce.timesScalar( 1 / pointMass ); // The acceleration vector is internally by currentPoit, so cant reuse a scratch instance
             currentPoint.setAcceleration( acceleration );
             currentPoint.update( dt );
           }
