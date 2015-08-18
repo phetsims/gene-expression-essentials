@@ -15,10 +15,7 @@
   },
   "phet": {
     "requirejsNamespace": "GENE_EXPRESSION_BASICS",
-    "simTitleStringKey": "GENE_EXPRESSION_BASICS/gene-expression-basics.name",
-    "phetLibs": [
-      "gene-expression-basics"
-    ]
+    "simTitleStringKey": "GENE_EXPRESSION_BASICS/gene-expression-basics.name"
   }
 }
 
