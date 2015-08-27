@@ -35,7 +35,11 @@ define( function( require ) {
     // Get a transform that performs only the scaling portion of the mvt.
     var scaleVector = mvt.getMatrix().getScaleVector();
     var scale = mvt.getMatrix().scaleVector.x;
-    assert && assert( scale === -scaleVector.y ); // This only handles symmetric transform case.
+
+    // The getScaleVector method of Matrix3 always returns positive value for the scales, even though
+    // the mvt uses inverted scaling for Y, so changing the assertion statement to check for absolute values
+    // see issue #7
+    assert && assert( scale === Math.abs( scaleVector.y ) ); // This only handles symmetric transform case.
     var transform = Matrix3.scaling( scale, -scale );
 
     // Figure out the max dimensions of the various protein types so
