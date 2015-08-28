@@ -1,3 +1,69 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * View representation for messenger RNA.  This is done differently from most
+ * if not all of the other mobile biomolecules because it is represented as an
+ * unclosed shape.
+ *
+ * @author Sharfudeen Ashraf
+ * @author John Blanco
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/MobileBiomoleculeNode' );
+  var PlacementHintNode = require( 'GENE_EXPRESSION_BASICS/common/view/PlacementHintNode' );
+  var FadeLabel = require( 'GENE_EXPRESSION_BASICS/common/view/FadeLabel' );
+
+  // constants
+  // For debug - turn on to show the enclosing shape segments.
+  //  var SHOW_SHAPE_SEGMENTS = false; TODO
+  var M_RNA = require( 'string!GENE_EXPRESSION_BASICS/mRna' );
+
+
+  /**
+   *
+   * @param {ModelViewTransform2} mvt
+   * @param {MessengerRna} messengerRna
+   * @constructor
+   */
+  function MessengerRnaNode( mvt, messengerRna ) {
+    var thisNode = this;
+    MobileBiomoleculeNode.call( thisNode, mvt, messengerRna, 2 );
+
+    // Add placement hints that show where ribosomes and mRNA destroyers could be attached.
+    thisNode.addChild( new PlacementHintNode( mvt, messengerRna.ribosomePlacementHint ) );
+    thisNode.addChild( new PlacementHintNode( mvt, messengerRna.mRnaDestroyerPlacementHint ) );
+
+    // Add the label. This fades in during synthesis, then fades out.
+    var label = new FadeLabel( M_RNA, false, messengerRna.existenceStrengthProperty );
+    thisNode.addChild( label );
+    messengerRna.beingSynthesizedProperty.link( function( beingSynthesized ) {
+      if ( beingSynthesized ) {
+        label.startFadeIn( 3000 ); // Fade time chosen empirically.
+      }
+      else {
+        label.startFadeOut( 1000 ); // Fade time chosen empirically.
+      }
+    } );
+
+    // Update the label position as the shape changes.
+    messengerRna.shapeProperty.link( function( shape ) {
+      var shapeBounds = messengerRna.shape.bounds;
+      var upperRightCornerPos = mvt.modelToViewPosition( new Vector2( shapeBounds.maxX, shapeBounds.maxY ) );
+      label.x = upperRightCornerPos.x;
+      label.y = upperRightCornerPos.y;
+    } );
+
+  }
+
+  return inherit( MobileBiomoleculeNode, MessengerRnaNode, {} );
+
+} );
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.geneexpressionbasics.common.view;
 //

@@ -13,7 +13,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
   var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
   var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
@@ -46,14 +45,15 @@ define( function( require ) {
   function MessengerRna( model, proteinPrototype, position ) {
     var self = this;
 
-    // Externally visible indicator for whether this mRNA is being synthesized.
-    // Assumes that it is being synthesized when created.
-    self.beingSynthesized = new Property( true );
-
     // Map from ribosomes to the shape segment to which they are attached.
     self.mapRibosomeToShapeSegment = new Map();
 
     WindingBiomolecule.call( self, model, new Shape().moveToPoint( position ), position );
+
+    // Externally visible indicator for whether this mRNA is being synthesized.
+    // Assumes that it is being synthesized when created.
+    self.addProperty( "beingSynthesized", true );
+
 
     // Protein prototype, used to keep track of protein that should be
     // synthesized from this particular strand of mRNA.
