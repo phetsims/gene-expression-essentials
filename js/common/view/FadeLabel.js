@@ -14,7 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
-   var FadeTimer = require( 'GENE_EXPRESSION_BASICS/common/view/FadeTimer' );
+  var FadeTimer = require( 'GENE_EXPRESSION_BASICS/common/view/FadeTimer' );
 
   // constants
   var FONT = new PhetFont( 14 );
@@ -29,6 +29,7 @@ define( function( require ) {
    */
   function FadeLabel( text, initiallyVisible, existenceStrengthProperty ) {
     var thisLabel = this;
+    Node.call( thisLabel );
     this.fadeDelta = 0;
     var opacity = 0;
 
@@ -45,14 +46,15 @@ define( function( require ) {
     // Create the timers that will be used for fading in and out.
     this.fadeInTimer = new FadeTimer( TIMER_DELAY, function() {
       opacity = Math.min( opacity + thisLabel.fadeDelta, existenceStrengthProperty.get() );
+      updateTransparency();
       if ( opacity >= 1 ) {
         thisLabel.fadeInTimer.stop();
       }
-
     } );
 
     this.fadeOutTimer = new FadeTimer( TIMER_DELAY, function() {
       opacity = Math.min( Math.max( opacity - thisLabel.fadeDelta, 0 ), existenceStrengthProperty.get() );
+      updateTransparency();
       if ( opacity <= 0 ) {
         thisLabel.fadeOutTimer.stop();
       }
@@ -76,7 +78,7 @@ define( function( require ) {
      * @param {number} time // in millseconds
      */
     startFadeIn: function( time ) {
-      if ( this.fadeOutTimer.isRunning() ) {
+      if ( this.fadeOutTimer.isRunning ) {
         this.fadeOutTimer.stop();
       }
       this.fadeDelta = TIMER_DELAY / time;
@@ -88,7 +90,7 @@ define( function( require ) {
      * @param {number} time // in millseconds
      */
     startFadeOut: function( time ) {
-      if ( this.fadeInTimer.isRunning() ) {
+      if ( this.fadeInTimer.isRunning ) {
         this.fadeInTimer.stop();
       }
       this.fadeDelta = TIMER_DELAY / time;

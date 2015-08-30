@@ -14,7 +14,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Timer = require( 'JOIST/Timer' );
 
-
   /**
    *
    * @param {number} interval in milliseconds
@@ -30,7 +29,7 @@ define( function( require ) {
     this._intervalId = null; // private
   }
 
-  return inherit( Object, FadeTimer, {
+  return inherit( PropertySet, FadeTimer, {
     // Starts the timer. This is a no-op if the timer is already running.
     start: function() {
       var self = this;

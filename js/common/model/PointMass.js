@@ -22,7 +22,6 @@ define( function( require ) {
   var VELOCITY_VECTOR = new Vector2();
 
 
-
   /**
    *
    * @param {Vector2} initialPosition
@@ -48,7 +47,7 @@ define( function( require ) {
      * @param {number} y
      */
     setPosition: function( x, y ) {
-      if ( _.isFinite( x.x) ) {
+      if ( _.isFinite( x.x ) ) {
         return this.setPositionByVector( x );
       }
       this.position.setXY( x, y );
@@ -137,10 +136,10 @@ define( function( require ) {
       ACCELERATION_VECTOR.x = this.acceleration.x * deltaTime;
       ACCELERATION_VECTOR.y = this.acceleration.y * deltaTime;
 
-      VELOCITY_VECTOR.x  = this.velocity.x + ACCELERATION_VECTOR.x;
-      VELOCITY_VECTOR.y  = this.velocity.y + ACCELERATION_VECTOR.y;
+      VELOCITY_VECTOR.x = this.velocity.x + ACCELERATION_VECTOR.x;
+      VELOCITY_VECTOR.y = this.velocity.y + ACCELERATION_VECTOR.y;
 
-      this.velocity.setXY(VELOCITY_VECTOR.x,VELOCITY_VECTOR.y);
+      this.velocity.setXY( VELOCITY_VECTOR.x, VELOCITY_VECTOR.y );
       this.position.setXY( this.position.x + this.velocity.x * deltaTime, this.position.y + this.velocity.y * deltaTime );
     },
 

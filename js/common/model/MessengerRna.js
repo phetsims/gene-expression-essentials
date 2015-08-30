@@ -54,14 +54,12 @@ define( function( require ) {
     // Assumes that it is being synthesized when created.
     self.addProperty( "beingSynthesized", true );
 
-
     // Protein prototype, used to keep track of protein that should be
     // synthesized from this particular strand of mRNA.
     self.proteinPrototype = proteinPrototype;
 
     // Local reference to the non-generic state machine used by this molecule.
     self.mRnaAttachmentStateMachine = self.attachmentStateMachine; // private
-
 
     // mRNA destroyer that is destroying this mRNA.  Null until and unless
     // destruction has begun.
@@ -84,7 +82,7 @@ define( function( require ) {
 
     this.shapeProperty.link( function() {
       // This hint always sits at the beginning of the RNA strand.
-      var currentMRnaFirstPointPosition = self.firstShapeDefiningPoint.getPosition().copy();
+      var currentMRnaFirstPointPosition = self.firstShapeDefiningPoint.getPosition();
       self.ribosomePlacementHint.setPosition( currentMRnaFirstPointPosition.minus( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE ) );
       self.mRnaDestroyerPlacementHint.setPosition( currentMRnaFirstPointPosition );
     } );

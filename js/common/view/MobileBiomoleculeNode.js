@@ -55,15 +55,27 @@ define( function( require ) {
 
       path.x = offset.x;
       path.y = offset.y;
-      // Set the gradient paint.
-      path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.color );
-    } );
 
+      // For shapes with just one point, the Java Version of GeneralPath's "Bounds" returns a width of
+      // zero and height of 1 but kite's shape bounds returns infinity in such cases. Since the MessengerRna starts with
+      // a single point, the Gradient fill code fails as the bounds of the shape at that point is infinity.
+      // So the following check is added before calling createGradientPaint - Ashraf
+
+      // Set the gradient paint.
+      if ( _.isFinite( centeredShape.bounds.centerX ) ) {
+        path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.color );
+      }
+    } );
 
     //Update the color whenever it changes.
     mobileBiomolecule.colorProperty.link( function( color ) {
-      path.fill = GradientUtil.createGradientPaint( mobileBiomolecule.centeredShape( mobileBiomolecule.getShape(), mvt ),
-        color );
+      var moleculeShape = mobileBiomolecule.centeredShape( mobileBiomolecule.getShape(), mvt );
+
+      //see the comment above on gradientPaint
+      if ( _.isFinite( moleculeShape.bounds.centerX ) ) {
+        path.fill = GradientUtil.createGradientPaint( moleculeShape, color );
+      }
+
     } );
 
     // Update its existence strength (i.e. fade level) whenever it changes.

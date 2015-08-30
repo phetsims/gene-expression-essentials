@@ -148,7 +148,6 @@ define( function( require ) {
             vectorToNextPoint.x = nextPosition.x - currentPosition.x;
             vectorToNextPoint.y = nextPosition.y - currentPosition.y;
 
-
             if ( vectorToNextPoint.magnitude() === 0 ) {
 
               // This point is sitting on top of the next point,
@@ -431,7 +430,7 @@ define( function( require ) {
      * starting point.
      */
     realignSegmentsFromEnd: function() {
-      var copyOfShapeSegments = [].concat( this.shapeSegments );
+      var copyOfShapeSegments = [].concat( this.shapeSegments.getArray() );
 
       copyOfShapeSegments = copyOfShapeSegments.reverse();
 

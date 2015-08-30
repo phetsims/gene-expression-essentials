@@ -20,6 +20,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var DnaMoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/DnaMoleculeNode' );
+  var MessengerRnaNode = require( 'GENE_EXPRESSION_BASICS/common/view/MessengerRnaNode' );
   var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -132,7 +133,22 @@ define( function( require ) {
 
     } );
 
-    // TODO
+    // Watch for and handle comings and goings of messenger RNA.
+    model.messengerRnaList.addItemAddedListener( function( addedMessengerRna ) {
+
+      var messengerRnaNode = new MessengerRnaNode( thisView.mvt, addedMessengerRna );
+      messengerRnaLayer.addChild( messengerRnaNode );
+
+      function removeItemListener( removedMessengerRna ) {
+        if ( removedMessengerRna === addedMessengerRna ) {
+          messengerRnaLayer.removeChild( messengerRnaNode );
+          model.messengerRnaList.removeItemRemovedListener( removeItemListener );// Clean up memory leak
+        }
+      }
+
+      model.messengerRnaList.addItemRemovedListener( removeItemListener );
+
+    } );
 
 
     // Add the tool boxes from which the various biomolecules can be moved  into the active area of the sim.

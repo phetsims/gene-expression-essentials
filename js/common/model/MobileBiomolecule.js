@@ -274,7 +274,7 @@ define( function( require ) {
      *
      * The Java version of the code has this method of MobileBioMoleculeNode itself. Now finding the
      * center of the shape is encapsulated into individual BioMolecules so
-     * that composite shapes can apply their special cases.Ex ribosome Ashraf
+     * that composite shapes can apply their special cases.Ex ribosome - Modified by Ashraf
      *
      * @param {ModelViewTransform2} mvt
      */
