@@ -10,7 +10,6 @@ define( function( require ) {
 
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var ShapeSegment = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeSegment' );
   var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
   var SquareSegment = require( 'GENE_EXPRESSION_BASICS/common/model/SquareSegment' );
@@ -21,7 +20,7 @@ define( function( require ) {
    */
   function FlatSegment( origin ) {
     ShapeSegment.call( this );
-    this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );
+    this.bounds.setMinMax( origin.x, origin.y, origin.x, origin.y );
     this.updateAttachmentSiteLocation();
   }
 
@@ -33,7 +32,7 @@ define( function( require ) {
     },
 
     add: function( length, shapeSegmentList ) {
-      assert && assert(this.getContainedLength() <= this.capacity); // This shouldn't be called if there is no remaining capacity.
+      assert && assert( this.getContainedLength() <= this.capacity ); // This shouldn't be called if there is no remaining capacity.
       var growthAmount = length;
       if ( this.getContainedLength() + length > this.capacity ) {
 
@@ -47,15 +46,15 @@ define( function( require ) {
       }
 
       // Grow the bounds linearly to the left to accommodate the  additional length.
-      this.bounds.set( Bounds2.rect( this.bounds.x - growthAmount,
+      this.bounds.setMinMax( this.bounds.x - growthAmount,
         this.bounds.y,
-        this.bounds.getWidth() + growthAmount,
-        0 ) );
+        this.bounds.x+this.bounds.getWidth(),
+        this.bounds.y );
       this.updateAttachmentSiteLocation();
     },
 
     remove: function( length, shapeSegmentList ) {
-      this.bounds.set( Bounds2.rect( this.bounds.x, this.bounds.y, this.bounds.getWidth() - length, 0 ) );
+      this.bounds.setMinMax( this.bounds.x, this.bounds.y, this.bounds.x + this.bounds.getWidth() - length, this.bounds.y );
 
       // If the length has gotten to zero, remove this segment from  the list.
       if ( this.getContainedLength() < ShapeSegment.FLOATING_POINT_COMP_FACTOR ) {
@@ -104,10 +103,10 @@ define( function( require ) {
             // but first, make sure there isn't something there
             // already.
 
-            assert && assert( outputSegment === null);
+            assert && assert( outputSegment === null );
 
             var newLeaderSegment = new FlatSegment( this.getUpperLeftCornerPos() );
-            newLeaderSegment.setCapacity(CommonConstants.LEADER_LENGTH);
+            newLeaderSegment.setCapacity( CommonConstants.LEADER_LENGTH );
             shapeSegmentList.insertBefore( this, newLeaderSegment );
             outputSegment = newLeaderSegment;
           }
@@ -159,10 +158,9 @@ define( function( require ) {
     // Set size to be exactly the capacity.  Do not create any new  segments.
     maxOutLength: function() {
       var growthAmount = this.getRemainingCapacity();
-      this.bounds.set( Bounds2.rect( this.bounds.x - growthAmount,
-        this.bounds.y,
-        this.capacity,
-        0 ) );
+      this.bounds.setMinMax( this.bounds.x - growthAmount,
+        this.bounds.minY, this.bounds.x - growthAmount + this.capacity,
+        this.bounds.minY );
       this.updateAttachmentSiteLocation();
     }
 
