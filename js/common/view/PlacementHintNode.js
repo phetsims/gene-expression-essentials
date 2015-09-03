@@ -37,7 +37,8 @@ define( function( require ) {
       placementHint.getBaseColor().getBlue(), 0.4 );
 
     var pathStyleOptions = _.extend( HINT_STROKE, {
-      fill: transparentColor
+      fill: transparentColor,
+      boundsMethod: "none"
     } );
 
     var path = new Path( new Shape(), pathStyleOptions );

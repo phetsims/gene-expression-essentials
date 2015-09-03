@@ -48,8 +48,17 @@ define( function( require ) {
     setAttachmentPointPosition: function( attachmentPointLocation ) {
       // Note: This is specific to this protein's shape, and will need to be
       // adjusted if the protein's shape algorithm changes.
-      this.setPosition( attachmentPointLocation.x, attachmentPointLocation.y +
-                                                   ( FULL_GROWN_WIDTH / 2 * this.getFullSizeProportion() ) );
+      this.setAttachmentPointPositionXY( attachmentPointLocation.x, attachmentPointLocation.y );
+    },
+
+    /*
+
+     */
+    setAttachmentPointPositionXY: function( attachmentPointLocationX, attachmentPointLocationY ) {
+      // Note: This is specific to this protein's shape, and will need to be
+      // adjusted if the protein's shape algorithm changes.
+      this.setPosition( attachmentPointLocationX, attachmentPointLocationY +
+                                                  ( FULL_GROWN_WIDTH / 2 * this.getFullSizeProportion() ) );
     },
 
     /**

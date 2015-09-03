@@ -154,10 +154,14 @@ define( function( require ) {
        * Get the location in model space of the point at which a protein that is
        * being synthesized by this ribosome should be attached.
        *
+       * @param {Vector2} newAttachmentPoint // optional output Vector - Added to avoid creating excessive vector2 instances
        * @return {Vector2}
        */
-      getProteinAttachmentPoint: function() {
-        return this.getPosition().plus( GeneExpressionRibosomeConstant.OFFSET_TO_PROTEIN_OUTPUT_CHANNEL );
+      getProteinAttachmentPoint: function( newAttachmentPoint ) {
+        newAttachmentPoint = newAttachmentPoint || new Vector2();
+        newAttachmentPoint.x = this.getPosition().x + GeneExpressionRibosomeConstant.OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.x;
+        newAttachmentPoint.y = this.getPosition().y + GeneExpressionRibosomeConstant.OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.y;
+        newAttachmentPoint;
       },
 
       initiateTranslation: function() {

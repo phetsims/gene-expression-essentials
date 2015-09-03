@@ -15,16 +15,18 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
 
   /**
    *
-   * @param {RibosomeShape} ribosomeShape
+   * @param {MobileBioMolecule} mobileBiomolecule
    * @param {Object} options
    * @constructor
    */
-  function RibosomeNode( ribosomeShape, options ) {
+  function RibosomeNode( mobileBiomolecule, options ) {
     var thisNode = this;
+    var ribosomeShape = mobileBiomolecule.getShape();
     thisNode.topPath = new Path( ribosomeShape.topShape, options );
     thisNode.bottomPath = new Path( ribosomeShape.bottomShape, options );
     Node.call( thisNode );
@@ -33,6 +35,23 @@ define( function( require ) {
     var proto = RibosomeNode.prototype;
     Object.defineProperty( proto, 'fill', { set: proto.setFill, get: proto.getFill } );
     Object.defineProperty( proto, 'opacity', { set: proto.setOpacity, get: proto.getOpacity } );
+
+    //TODO perf optimization?
+    var emptyBounds = new Bounds2( 0, 0, 0, 0 );
+    var emptyComputeShapeBounds = function() { return emptyBounds; };
+    var originalTopPathComputeShapeBounds = thisNode.topPath.computeShapeBounds;
+    var originalBottomPathComputeShapeBounds = thisNode.bottomPath.computeShapeBounds;
+
+    mobileBiomolecule.attachedToDnaProperty.link( function( attachedToDna ) {
+      if ( attachedToDna ) {
+        thisNode.topPath.computeShapeBounds = emptyComputeShapeBounds;
+        thisNode.bottomPath.computeShapeBounds = emptyComputeShapeBounds;
+      }
+      else {
+        thisNode.topPath.computeShapeBounds = originalTopPathComputeShapeBounds;
+        thisNode.bottomPath.computeShapeBounds = originalBottomPathComputeShapeBounds;
+      }
+    } );
   }
 
   return inherit( Node, RibosomeNode, {

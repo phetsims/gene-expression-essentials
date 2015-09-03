@@ -13,23 +13,27 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
   var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
   var RibosomeTranslatingRnaMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/RibosomeTranslatingRnaMotionStrategy' );
 
   // constants
   var RNA_TRANSLATION_RATE = 750; // Picometers per second. // Scalar velocity for transcription.
 
+  // to avoid creating excessive vector2 instances, we are using a scratch vector
+  var proteinAttachmentPointScratchVector = new Vector2();
+
   /**
    *
    * @param {RibosomeAttachmentStateMachine} ribosomeAttachmentStateMachine
    * @constructor
    */
-  function RibosomeAttachedState(ribosomeAttachmentStateMachine){
-    AttachmentState.call(this);
+  function RibosomeAttachedState( ribosomeAttachmentStateMachine ) {
+    AttachmentState.call( this );
     this.ribosomeAttachmentStateMachine = ribosomeAttachmentStateMachine;
   }
 
-  return inherit(AttachmentState,RibosomeAttachedState,{
+  return inherit( AttachmentState, RibosomeAttachedState, {
     /**
      * @Override
      * @param {AttachmentStateMachine} asm
@@ -42,7 +46,8 @@ define( function( require ) {
       // Grow the protein.
       proteinBeingSynthesized.setFullSizeProportion(
         ribosome.getMessengerRnaBeingTranslated().getProportionOfRnaTranslated( ribosome ) );
-      proteinBeingSynthesized.setAttachmentPointPosition( ribosome.getProteinAttachmentPoint() );
+      proteinAttachmentPointScratchVector = ribosome.getProteinAttachmentPoint( proteinAttachmentPointScratchVector );
+      proteinBeingSynthesized.setAttachmentPointPositionXY( proteinAttachmentPointScratchVector.x, proteinAttachmentPointScratchVector.y );
 
       // Advance the translation of the mRNA.
       var translationComplete = ribosome.advanceMessengerRnaTranslation( RNA_TRANSLATION_RATE * dt );
@@ -78,7 +83,7 @@ define( function( require ) {
     }
 
 
-  });
+  } );
 
 
-});
+} );

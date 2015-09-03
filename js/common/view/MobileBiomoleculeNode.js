@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Matrix3 = require( 'DOT/Matrix3' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Color = require( 'SCENERY/util/Color' );
@@ -22,7 +23,8 @@ define( function( require ) {
   var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
   var RibosomeNode = require( 'GENE_EXPRESSION_BASICS/common/view/RibosomeNode' );
   var BiomoleculeDragHandler = require( 'GENE_EXPRESSION_BASICS/common/view/BiomoleculeDragHandler' );
-  var RibosomeShape = require( 'GENE_EXPRESSION_BASICS/common/model/RibosomeShape' );
+  var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
+  var MessengerRna = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRna' );
 
 
   /**
@@ -44,7 +46,6 @@ define( function( require ) {
 
     thisNode.addChild( path );
 
-
     // Update the shape whenever it changes.
     mobileBiomolecule.addShapeChangeObserver( function( shape ) {
       // Create a shape that excludes any offset.
@@ -65,6 +66,7 @@ define( function( require ) {
       if ( _.isFinite( centeredShape.bounds.centerX ) ) {
         path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.color );
       }
+
     } );
 
     //Update the color whenever it changes.
@@ -106,6 +108,8 @@ define( function( require ) {
       if ( mobileBiomolecule instanceof RnaPolymerase && attachedToDna ) {
         path.moveToBack();
       }
+
+
     } );
 
     // Drag handling.
@@ -122,6 +126,7 @@ define( function( require ) {
       path.moveToFront();
     } );
 
+
   }
 
 
@@ -134,11 +139,23 @@ define( function( require ) {
      */
     getPathByMobileBioMoleculeType: function( mobileBiomolecule, options ) {
 
-      if ( mobileBiomolecule.getShape() instanceof  RibosomeShape ) {
-        return new RibosomeNode( mobileBiomolecule.getShape(), options );
+      if ( mobileBiomolecule instanceof  Ribosome ) {
+        //kiet shapes dont support CAG operations, so for Ribosome a specialized Node is created which
+        // internally maintains two shapes and uses transformations to get the desired ribosome shape
+        return new RibosomeNode( mobileBiomolecule, options );
       }
 
+      // override the computeShapeBounds based on Molecule  to optimize performance - Ashraf TODO verify
       var path = new Path( new Shape(), options );
+      if ( mobileBiomolecule instanceof  MessengerRna ) {
+        var emptyBounds = new Bounds2( 0, 0, 0, 0 );
+        var emptyComputeShapeBounds = function() { return emptyBounds; };
+        path.computeShapeBounds = emptyComputeShapeBounds;
+      }
+      else {
+        path.boundsMethod = "unstroked";
+      }
+
       return path;
     },
 
