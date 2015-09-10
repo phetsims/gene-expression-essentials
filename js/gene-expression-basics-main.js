@@ -14,7 +14,7 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var simTitle = require( 'string!GENE_EXPRESSION_BASICS/gene-expression-basics.name' );
+  var simTitle = require( 'string!GENE_EXPRESSION_BASICS/gene-expression-basics.title' );
 
   var simOptions = {
     credits: {
