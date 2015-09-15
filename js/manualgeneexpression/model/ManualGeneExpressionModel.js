@@ -169,7 +169,7 @@ define( function( require ) {
     },
 
     activateGene: function( i ) {
-      this.activeGene.set( this.dnaMolecule.getGenes().get( i ) );
+      this.activeGene.set( this.dnaMolecule.getGenes()[ i ] );
     },
 
     /**
@@ -235,9 +235,9 @@ define( function( require ) {
       var testShapeBounds = testShape.bounds;
 
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
-         if ( mobileBiomolecule.getShape().bounds.intersectsBounds( testShapeBounds ) ) {
+        if ( mobileBiomolecule.getShape().bounds.intersectsBounds( testShapeBounds ) ) {
 
-        /*   // Bounds overlap, see if actual shapes overlap.
+          /*   // Bounds overlap, see if actual shapes overlap.
            var testShapeArea = new Area( testShape ); //TODO Area
            var biomoleculeArea = new Area( mobileBiomolecule.getShape() );
            biomoleculeArea.intersect( testShapeArea );
@@ -312,9 +312,9 @@ define( function( require ) {
       this.mobileBiomoleculeList.clear();
       this.messengerRnaList.clear();
       this.dnaMolecule.reset();
-      this.proteinACollected.reset();
-      this.proteinBCollected.reset();
-      this.proteinCCollected.reset();
+      this.proteinACollectedProperty.reset();
+      this.proteinBCollectedProperty.reset();
+      this.proteinCCollectedProperty.reset();
       this.activateGene( 0 );
     },
 

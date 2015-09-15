@@ -51,8 +51,10 @@ define( function( require ) {
       this.setAttachmentPointPositionXY( attachmentPointLocation.x, attachmentPointLocation.y );
     },
 
-    /*
-
+    /**
+     *
+     * @param {number} attachmentPointLocationX
+     * @param {number} attachmentPointLocationY
      */
     setAttachmentPointPositionXY: function( attachmentPointLocationX, attachmentPointLocationY ) {
       // Note: This is specific to this protein's shape, and will need to be

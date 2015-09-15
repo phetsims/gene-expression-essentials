@@ -778,7 +778,7 @@ define( function( require ) {
       _.forEach( this.genes, function( gene ) {
         gene.clearAttachmentSites();
       } );
-      this.separations.clear();
+      this.separations = [];
     }
 
   } );
