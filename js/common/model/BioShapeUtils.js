@@ -5,7 +5,7 @@
  * shapes associated with biomolecules, but may have other uses.
 
  * @author Sharfudeen Ashraf
- * @author Mohamed Mohamed Safi
+ * @author Mohamed Safi
  * @author John Blanco
  */
 

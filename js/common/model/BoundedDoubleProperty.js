@@ -21,7 +21,6 @@ define( function( require ) {
    * @param  {number} maxValue
    * @constructor
    */
-
   function BoundedDoubleProperty( value, minValue, maxValue ) {
     Property.call( this, value );
     this.bounds = new DoubleRange( minValue, maxValue );
@@ -31,6 +30,7 @@ define( function( require ) {
 
     /**
      * @param {number} value
+     * @public
      */
     set: function( value ) {
       var boundedValue = Util.clamp( value, this.bounds.getMin(), this.bounds.getMax() );

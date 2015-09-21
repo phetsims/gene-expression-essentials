@@ -2,7 +2,6 @@
 /**
  * Class with one x position and two y positions, used for defining the
  * two strands that comprise the backbone of one DNA molecule.
-
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco

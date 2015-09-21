@@ -4,7 +4,7 @@
  *
  * A separate class is created to accommodate constructor overloading in DnaMolecule class
  *
- * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sharfudeen Ashraf
  * @author John Blanco
  */
 define( function( require ) {

@@ -73,7 +73,7 @@ define( function( require ) {
     this.genes = [];// Array of Genes on this strand of DNA. // private
 
     // List of forced separations between the two strands.
-    this.separations = [];//  Array of DnaSeparation // private
+    this.separations = []; // @private - Array.{DnaSeparation}
 
     // Add the initial set of shape-defining points for each of the two
     // strands.  Points are spaced the same as the base pairs.
