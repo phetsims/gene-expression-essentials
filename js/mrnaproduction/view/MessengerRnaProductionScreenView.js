@@ -242,7 +242,7 @@ define(function (require) {
 
             model.mobileBiomoleculeList.addItemRemovedListener(function (removedBiomolecule) {
                 if (removedBiomolecule === addedBiomolecule) {
-                    if (isAncesterOf(topBiomoleculeLayer, biomoleculeNode) { //TODO
+                    if (isAncesterOf(topBiomoleculeLayer, biomoleculeNode)) { //TODO
                         topBiomoleculeLayer.removeChild(biomoleculeNode);
                     }
                     else if (isAncestorOf(dnaLayer, biomoleculeNode)) { //TODO
@@ -272,6 +272,6 @@ define(function (require) {
 
     }
 
-    return inherit(ScreenView, MessengerRnaProductionScreenView, {},);
+    return inherit(ScreenView, MessengerRnaProductionScreenView, {});
 
 });
