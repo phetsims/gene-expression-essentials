@@ -10,11 +10,17 @@ define( function( require ) {
 
   // imports
   var Color = require( 'SCENERY/util/Color' );
+  var Vector2 = require('DOT/Vector2');
+  var ModelViewTransform2 = require('PHETCOMMON/view/ModelViewTransform2');
 
   var LENGTH_PER_TWIST = 340;// In picometers
   var BASE_PAIRS_PER_TWIST = 10;// In picometers.
   var INTER_POINT_DISTANCE = 50;
 
+  // used in TranscriptionFactorControlPanel and ConcentrationController.js
+  var TRANSCRIPTION_FACTOR_SCALE = 0.08;
+  var TRANSCRIPTION_FACTOR_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(new Vector2(0, 0),
+      new Vector2(0, 0), TRANSCRIPTION_FACTOR_SCALE);
   var CommonConstants = {
     // Constants the define the geometry of the DNA molecule.
     DNA_MOLECULE_DIAMETER: 200,
@@ -34,7 +40,11 @@ define( function( require ) {
 
     // Length of the "leader segment", which is the portion of the mRNA that
     // sticks out on the upper left side so that a ribosome can be attached.
-    LEADER_LENGTH: INTER_POINT_DISTANCE * 2
+    LEADER_LENGTH: INTER_POINT_DISTANCE * 2,
+
+
+    TRANSCRIPTION_FACTOR_SCALE: TRANSCRIPTION_FACTOR_SCALE,
+    TRANSCRIPTION_FACTOR_MVT: TRANSCRIPTION_FACTOR_MVT
   };
 
   // verify that enum is immutable, without the runtime penalty in production code

@@ -89,6 +89,9 @@
   "negativeTranscriptionFactorHtml": {
     "value": "Negative Transcription\nFactor"
   },
+  "positiveTranscriptionFactorHtml": {
+    "value": "Positive Transcription\nFactor"
+  },
   "gene": {
     "value": "Gene"
   },
