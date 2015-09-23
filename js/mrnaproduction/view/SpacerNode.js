@@ -12,58 +12,44 @@ define(function (require) {
     // modules
     var inherit = require('PHET_CORE/inherit');
     var Node = require('SCENERY/nodes/Node');
-    var HSlider = require('SUN/HSlider');
-    var Dimension2 = require('DOT/Dimension2');
-    var Text = require('SCENERY/nodes/Text');
-    var HBox = require('SCENERY/nodes/HBox');
-    var PhetFont = require('SCENERY_PHET/PhetFont');
+    var Path = require('SCENERY/nodes/Path');
+    var Shape = require('KITE/Shape');
+    var Color = require('SCENERY/util/Color');
 
     //constants
-    var OVERALL_WIDTH = 150;
-    var LABEL_FONT = new PhetFont({size: 12, weight: 'bold'});
-    var INTER_ELEMENT_SPACING = new PhetFont({size: 5, weight: 'bold'});
+    var MIN_DIMENSION = 1E-7;
 
 
     /**
      *
-     * @param {Property} doubleProperty
-     * @param {Number} min
-     * @param {Number} max
-     * @param {String} leftLabel
-     * @param {String} rightLabel
-     *
+     * @param width
+     * @param height
      * @constructor
      */
-    function HorizontalSliderWithLabelsAtEnds(doubleProperty, min, max, leftLabel, rightLabel) {
+    function SpacerNode(width, height) {
         var thisNode = this;
         Node.call(thisNode);
+        width = width || MIN_DIMENSION;
+        height = height || MIN_DIMENSION;
 
-        var leftLabelNode = new Text(leftLabel, LABEL_FONT);
-        var rightLabelNode = new Text(rightLabel, LABEL_FONT);
-        var sliderWidth = OVERALL_WIDTH - leftLabelNode.bounds.width -
-            rightLabelNode.bounds.width - ( 2 * INTER_ELEMENT_SPACING );
-        var sliderOptions = {
-            thumbSize: new Dimension2(18, 22),
-            trackSize: new Dimension2(100, 1)
-        };
-
-        //var sliderOptions = {
-        //        thumbSize: new Dimension2( 18, 22 ),
-        //        trackSize: new Dimension2( sliderWidth, 1 )
-        //    };
-
-
-        debugger;
-        var sliderNode = new HSlider(doubleProperty, {min: min, max: max}, sliderOptions);
-        thisNode.addChild(new HBox({
-            children: [leftLabelNode, sliderNode, rightLabelNode],
-            spacing: INTER_ELEMENT_SPACING
-        }));
+        thisNode.spacer = new Path(Shape.rectangle(0, 0, width, height), {fill: Color.BLACK});
+        thisNode.addChild(thisNode.spacer);
 
     }
 
 
-    return inherit(Node, HorizontalSliderWithLabelsAtEnds, {});
+    return inherit(Node, SpacerNode, {
+
+
+        setSize: function (width, height) {
+
+            this.spacer.setShape(Shape.Rectangle(0, 0, width, height));
+
+        }
+    }, {
+
+        MIN_DIMENSION: MIN_DIMENSION
+    });
 });
 
 
