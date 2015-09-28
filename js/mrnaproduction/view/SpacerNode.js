@@ -6,51 +6,51 @@
  * @author Mohamed Safi
  * @author John Blanco
  */
-define(function (require) {
-    'use strict';
+define( function( require ) {
+  'use strict';
 
-    // modules
-    var inherit = require('PHET_CORE/inherit');
-    var Node = require('SCENERY/nodes/Node');
-    var Path = require('SCENERY/nodes/Path');
-    var Shape = require('KITE/Shape');
-    var Color = require('SCENERY/util/Color');
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
+  var Color = require( 'SCENERY/util/Color' );
 
-    //constants
-    var MIN_DIMENSION = 1E-7;
+  //constants
+  var MIN_DIMENSION = 1E-7;
 
 
-    /**
-     *
-     * @param width
-     * @param height
-     * @constructor
-     */
-    function SpacerNode(width, height) {
-        var thisNode = this;
-        Node.call(thisNode);
-        width = width || MIN_DIMENSION;
-        height = height || MIN_DIMENSION;
+  /**
+   *
+   * @param width
+   * @param height
+   * @constructor
+   */
+  function SpacerNode( width, height ) {
+    var thisNode = this;
+    Node.call( thisNode );
+    width = width || MIN_DIMENSION;
+    height = height || MIN_DIMENSION;
 
-        thisNode.spacer = new Path(Shape.rectangle(0, 0, width, height), {fill: Color.BLACK});
-        thisNode.addChild(thisNode.spacer);
+    thisNode.spacer = new Path( Shape.rectangle( 0, 0, width, height ), { fill: Color.BLACK } );
+    thisNode.addChild( thisNode.spacer );
+
+  }
+
+
+  return inherit( Node, SpacerNode, {
+
+
+    setSize: function( width, height ) {
+
+      this.spacer.setShape( Shape.Rectangle( 0, 0, width, height ) );
 
     }
+  }, {
 
-
-    return inherit(Node, SpacerNode, {
-
-
-        setSize: function (width, height) {
-
-            this.spacer.setShape(Shape.Rectangle(0, 0, width, height));
-
-        }
-    }, {
-
-        MIN_DIMENSION: MIN_DIMENSION
-    });
-});
+    MIN_DIMENSION: MIN_DIMENSION
+  } );
+} );
 
 
 //// Copyright 2002-2012, University of Colorado

@@ -6,65 +6,65 @@
  * @author Mohamed Safi
  * @author John Blanco
  */
-define(function (require) {
-    'use strict';
+define( function( require ) {
+  'use strict';
 
-    // modules
-    var inherit = require('PHET_CORE/inherit');
-    var Node = require('SCENERY/nodes/Node');
-    var HSlider = require('SUN/HSlider');
-    var Dimension2 = require('DOT/Dimension2');
-    var Text = require('SCENERY/nodes/Text');
-    var HBox = require('SCENERY/nodes/HBox');
-    var PhetFont = require('SCENERY_PHET/PhetFont');
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var HSlider = require( 'SUN/HSlider' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
-    //constants
-    var OVERALL_WIDTH = 150;
-    var LABEL_FONT = new PhetFont({size: 12, weight: 'bold'});
-    var INTER_ELEMENT_SPACING = new PhetFont({size: 5, weight: 'bold'});
-
-
-    /**
-     *
-     * @param {Property} doubleProperty
-     * @param {Number} min
-     * @param {Number} max
-     * @param {String} leftLabel
-     * @param {String} rightLabel
-     *
-     * @constructor
-     */
-    function HorizontalSliderWithLabelsAtEnds(doubleProperty, min, max, leftLabel, rightLabel) {
-        var thisNode = this;
-        Node.call(thisNode);
-
-        var leftLabelNode = new Text(leftLabel, LABEL_FONT);
-        var rightLabelNode = new Text(rightLabel, LABEL_FONT);
-        var sliderWidth = OVERALL_WIDTH - leftLabelNode.bounds.width -
-            rightLabelNode.bounds.width - ( 2 * INTER_ELEMENT_SPACING );
-        var sliderOptions = {
-            thumbSize: new Dimension2(18, 22),
-            trackSize: new Dimension2(100, 1)
-        };
-
-        //var sliderOptions = {
-        //        thumbSize: new Dimension2( 18, 22 ),
-        //        trackSize: new Dimension2( sliderWidth, 1 )
-        //    };
+  //constants
+  var OVERALL_WIDTH = 150;
+  var LABEL_FONT = new PhetFont( { size: 12, weight: 'bold' } );
+  var INTER_ELEMENT_SPACING = new PhetFont( { size: 5, weight: 'bold' } );
 
 
-        debugger;
-        var sliderNode = new HSlider(doubleProperty, {min: min, max: max}, sliderOptions);
-        thisNode.addChild(new HBox({
-            children: [leftLabelNode, sliderNode, rightLabelNode],
-            spacing: INTER_ELEMENT_SPACING
-        }));
+  /**
+   *
+   * @param {Property} doubleProperty
+   * @param {Number} min
+   * @param {Number} max
+   * @param {String} leftLabel
+   * @param {String} rightLabel
+   *
+   * @constructor
+   */
+  function HorizontalSliderWithLabelsAtEnds( doubleProperty, min, max, leftLabel, rightLabel ) {
+    var thisNode = this;
+    Node.call( thisNode );
 
-    }
+    var leftLabelNode = new Text( leftLabel, LABEL_FONT );
+    var rightLabelNode = new Text( rightLabel, LABEL_FONT );
+    var sliderWidth = OVERALL_WIDTH - leftLabelNode.bounds.width -
+                      rightLabelNode.bounds.width - ( 2 * INTER_ELEMENT_SPACING );
+    var sliderOptions = {
+      thumbSize: new Dimension2( 18, 22 ),
+      trackSize: new Dimension2( 100, 1 )
+    };
+
+    //var sliderOptions = {
+    //        thumbSize: new Dimension2( 18, 22 ),
+    //        trackSize: new Dimension2( sliderWidth, 1 )
+    //    };
 
 
-    return inherit(Node, HorizontalSliderWithLabelsAtEnds, {});
-});
+    debugger;
+    var sliderNode = new HSlider( doubleProperty, { min: min, max: max }, sliderOptions );
+    thisNode.addChild( new HBox( {
+      children: [ leftLabelNode, sliderNode, rightLabelNode ],
+      spacing: INTER_ELEMENT_SPACING
+    } ) );
+
+  }
+
+
+  return inherit( Node, HorizontalSliderWithLabelsAtEnds, {} );
+} );
 
 
 //// Copyright 2002-2012, University of Colorado
