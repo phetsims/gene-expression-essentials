@@ -61,7 +61,6 @@ define( function( require ) {
       tfLevelProperty = model.negativeTranscriptionFactorCount;
     }
 
-    debugger;
 
     var titleNode = new Text( titleText, TITLE_FONT );
 

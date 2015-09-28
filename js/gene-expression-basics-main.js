@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var ManualGeneExpressionScreen = require('GENE_EXPRESSION_BASICS/manualgeneexpression/ManualGeneExpressionScreen');
-  var MessengerRnaProductionScreen = require('GENE_EXPRESSION_BASICS/mrnaproduction/MessengerRnaProductionScreen');
+//  var MessengerRnaProductionScreen = require('GENE_EXPRESSION_BASICS/mrnaproduction/MessengerRnaProductionScreen'); commented to pass lint test
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 

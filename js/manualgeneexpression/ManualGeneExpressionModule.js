@@ -14,7 +14,6 @@ define( function( require ) {
   var ManualGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/ManualGeneExpressionModel' );
   var ManualGeneExpressionCanvas;
 
-
   // constants
   var ZOOM_ANIMATION_TIME = 2000; // In milliseconds.
 

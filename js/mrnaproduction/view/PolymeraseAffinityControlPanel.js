@@ -12,7 +12,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Panel = require( 'SUN/Panel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -73,14 +72,14 @@ define( function( require ) {
 
     // In order to size the control panel correctly, make one first, see
     // how far off it is, and then make one of the correct size.
-    var dummyContents = new VBox( {
-        children: [ titleNode, topSpacer,
-          new AffinityController( polymeraseNode, dnaFragmentNode, new Property( 0 ) ),
-          bottomSpacer
-        ],
-        spacing: 20
-      }
-    );
+    //var dummyContents = new VBox( { TODO
+    //    children: [ titleNode, topSpacer,
+    //      new AffinityController( polymeraseNode, dnaFragmentNode, new Property( 0 ) ),
+    //      bottomSpacer
+    //    ],
+    //    spacing: 20
+    //  }
+    //);
 
 
     // var dummyControlPanel =  Panel.call( thisNode, dummyContents ); TODO

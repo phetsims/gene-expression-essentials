@@ -45,7 +45,6 @@ define( function( require ) {
 
   function MessengerRnaProductionModel() {
     var self = this;
-    debugger;
 
     // DNA strand, which is where the genes reside, where the polymerase does
     // its transcription, and where a lot of the action takes place.

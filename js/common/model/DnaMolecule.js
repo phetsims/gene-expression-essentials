@@ -76,7 +76,6 @@ define( function( require ) {
     // List of forced separations between the two strands.
     this.separations = []; // @private - Array.{DnaSeparation}
 
-      debugger;
     // Add the initial set of shape-defining points for each of the two
     // strands.  Points are spaced the same as the base pairs.
     for ( var i = 0; i < this.moleculeLength / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS; i++ ) {

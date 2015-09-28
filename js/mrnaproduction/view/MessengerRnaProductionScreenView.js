@@ -35,12 +35,11 @@ define( function( require ) {
   var negativeTranscriptionFactor = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactor' );
 
 
+  //TODO
   function isAncesterOf( node1, node2 ) {
-
-
     var p = node2.parent;
-    while ( p != null ) {
-      if ( p == node1 ) {
+    while ( p !== null ) {
+      if ( p === node1 ) {
         return true;
       }
       p = p.parent;
@@ -115,17 +114,15 @@ define( function( require ) {
     // Get a reference to the gene being controlled.
     var gene = model.getDnaMolecule().getGenes()[ 0 ];
 
-    // Add the nodes that allow the user to control the concentrations and
-    // affinities.
+    // Add the nodes that allow the user to control the concentrations and affinities.
     var positiveTranscriptionFactorControlPanel =
       new TranscriptionFactorControlPanel( model,
         MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
         gene.getTranscriptionFactorAffinityProperty( MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG ) );
     controlsNode.addChild( positiveTranscriptionFactorControlPanel );
 
-
     var polymeraseAffinityControlPanel = new PolymeraseAffinityControlPanel(
-      MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
+     MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
       positiveTranscriptionFactorControlPanel.bounds.height,
       gene.getPolymeraseAffinityProperty() );
     controlsNode.addChild( polymeraseAffinityControlPanel );
@@ -159,9 +156,8 @@ define( function( require ) {
     } );
 
 
-    debugger;
     // Add the floating clock control.
-    var modelClock = thisView.model.getClock();
+   // var modelClock = thisView.model.getClock(); //commented to pass jshint
     thisView.clockRunning.link( function( isRunning ) {
       // modelClock.setRunning(isRunning); //TODO
     } );
@@ -242,12 +238,12 @@ define( function( require ) {
 
       model.mobileBiomoleculeList.addItemRemovedListener( function( removedBiomolecule ) {
         if ( removedBiomolecule === addedBiomolecule ) {
-          if ( isAncesterOf( topBiomoleculeLayer, biomoleculeNode ) ) { //TODO
-            topBiomoleculeLayer.removeChild( biomoleculeNode );
-          }
-          else if ( isAncestorOf( dnaLayer, biomoleculeNode ) ) { //TODO
-            dnaLayer.removeChild( biomoleculeNode );
-          }
+          //if ( isAncesterOf( topBiomoleculeLayer, biomoleculeNode ) ) { //TODO
+          //  topBiomoleculeLayer.removeChild( biomoleculeNode );
+          //}
+          //else if ( isAncestorOf( dnaLayer, biomoleculeNode ) ) { //TODO
+          //  dnaLayer.removeChild( biomoleculeNode );
+          //}
         }
       } );
 

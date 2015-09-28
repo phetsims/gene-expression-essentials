@@ -1,5 +1,4 @@
 //  Copyright 2002-2014, University of Colorado Boulder
-
 /**
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -24,7 +23,6 @@ define( function( require ) {
     //If this is a single-screen sim, then no icon is necessary.
     //If there are multiple screens, then the icon must be provided here.
     var icon = null;
-
     Screen.call( this, geneExpressionBasicsSimString, icon,
       function() {
         return new MessengerRnaProductionModel();

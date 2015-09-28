@@ -1,6 +1,6 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 /**
- *  Convenience class for a horizontal slider that has labels at each end
+ * Convenience class for a horizontal slider that has labels at each end
  * rather than having tick marks with labels below them.
  *
  * @author Mohamed Safi
@@ -19,7 +19,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   //constants
-  var OVERALL_WIDTH = 150;
+  //var OVERALL_WIDTH = 150;
   var LABEL_FONT = new PhetFont( { size: 12, weight: 'bold' } );
   var INTER_ELEMENT_SPACING = new PhetFont( { size: 5, weight: 'bold' } );
 
@@ -40,20 +40,18 @@ define( function( require ) {
 
     var leftLabelNode = new Text( leftLabel, LABEL_FONT );
     var rightLabelNode = new Text( rightLabel, LABEL_FONT );
-    var sliderWidth = OVERALL_WIDTH - leftLabelNode.bounds.width -
-                      rightLabelNode.bounds.width - ( 2 * INTER_ELEMENT_SPACING );
+    //var sliderWidth = OVERALL_WIDTH - leftLabelNode.bounds.width -
+    //                  rightLabelNode.bounds.width - ( 2 * INTER_ELEMENT_SPACING ); TODO
     var sliderOptions = {
       thumbSize: new Dimension2( 18, 22 ),
       trackSize: new Dimension2( 100, 1 )
     };
 
-    //var sliderOptions = {
+    //var sliderOptions = { TODO
     //        thumbSize: new Dimension2( 18, 22 ),
     //        trackSize: new Dimension2( sliderWidth, 1 )
     //    };
 
-
-    debugger;
     var sliderNode = new HSlider( doubleProperty, { min: min, max: max }, sliderOptions );
     thisNode.addChild( new HBox( {
       children: [ leftLabelNode, sliderNode, rightLabelNode ],

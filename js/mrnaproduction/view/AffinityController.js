@@ -1,5 +1,4 @@
 //  Copyright 2002-2014, University of Colorado Boulder
-
 /**
  * User interface control that can be used to control the affinity between a
  * transcription factor and the DNA.  Presents a node with the transcription
@@ -32,19 +31,15 @@ define( function( require ) {
   var high = require( 'string!GENE_EXPRESSION_BASICS/high' );
 
   /**
-   *
    * @param {Node} leftNode
    * @param {Node} rightNode
    * @param {Property} affinityProperty
-   *
    * @constructor
    */
   function AffinityController( leftNode, rightNode, affinityProperty ) {
     var thisNode = this;
     Node.call( thisNode );
-
     var captionNode = new Text( affinity, new PhetFont( { size: 14, weight: 'bold' } ) );
-
     var arrowTail = new Vector2( 0, 0 );
     var arrowTip = new Vector2( ARROW_LENGTH, 0 );
     var arrowOptions = {
@@ -60,7 +55,6 @@ define( function( require ) {
     } );
     //affinityKey.setPickable( false ); //TODO
     //affinityKey.setChildrenPickable( false );
-
 
     var horizontalSlider = new HorizontalSliderWithLabelsAtEnds(
       affinityProperty,
