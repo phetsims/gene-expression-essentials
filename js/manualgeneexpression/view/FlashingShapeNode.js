@@ -71,10 +71,9 @@ define( function( require ) {
       }
     };
 
+    // Set up the timer.
     this.timerListener();
 
-    // Set up the timer.
-    self.timerHandle = Timer.setTimeout( this.timerListener, time );
 
   }
 
@@ -85,7 +84,9 @@ define( function( require ) {
     },
 
     stop: function() {
-      Timer.clearTimeout( this.timerHandle );
+      if ( this.timerHandle ) {
+        Timer.clearTimeout( this.timerHandle );
+      }
       this.timerHandle = null;
     },
 

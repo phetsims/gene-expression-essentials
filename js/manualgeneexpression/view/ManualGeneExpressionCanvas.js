@@ -67,7 +67,7 @@
 //    // Stage size, based on default screen size.
 //    private static final Dimension2D STAGE_SIZE = new PDimension( 1008, 679 );
 //
-//    // Constants the define the zoom range.
+//    // constants the define the zoom range.
 //    private static final double MIN_ZOOM = 0.005;
 //    private static final double MAX_ZOOM = 1;
 //

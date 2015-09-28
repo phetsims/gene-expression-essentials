@@ -1,9 +1,8 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 /**
- * An attachment site is a single point in model space to which a biomolecule
- * may attach.  Typically, one biomolecule (e.g. a DnaMolecule) owns the
- * attachment site, so if the biomolecule that owns it moves, the attachment
- * site should move with it.
+ * An attachment site is a single point in model space to which a biomolecule may attach.  Typically, one biomolecule
+ * (e.g. a DnaMolecule) owns the attachment site, so if the biomolecule that owns it moves, the attachment site should
+ * move with it.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -17,7 +16,7 @@ define( function( require ) {
   var BoundedDoubleProperty = require( 'GENE_EXPRESSION_BASICS/common/model/BoundedDoubleProperty' );
 
   // constants
-  var ATTACHED_THRESHOLD = 10; // picometers // Threshold used to decide whether or not a biomolecule is attached.
+  var ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
 
   /**
    * @param {Vector2} initialLocation
@@ -46,6 +45,7 @@ define( function( require ) {
     get affinity() {
       return this.getAffinity();
     },
+
     /**
      * @returns {number}
      */
@@ -54,10 +54,10 @@ define( function( require ) {
     },
 
     /**
-     *
      * Indicates whether or not a biomolecules is currently attached to this site.
-     * @return {boolean} - true if a biomolecule is fully attached, false if not.  If a
-     *         molecule is on its way but not yet at the site, false is returned.
+     * @return {boolean} - true if a biomolecule is fully attached, false if not.  If a molecule is on its way but not
+     * yet at the site, false is returned.
+     * @public
      */
     isMoleculeAttached: function() {
       return this.attachedOrAttachingMolecule !== null &&
@@ -75,8 +75,7 @@ define( function( require ) {
 
       var otherAttachmentSite = obj;
 
-      return (this.affinity === otherAttachmentSite.affinity) &&
-             this.location.equals( otherAttachmentSite.location );
+      return (this.affinity === otherAttachmentSite.affinity) && this.location.equals( otherAttachmentSite.location );
     }
 
 

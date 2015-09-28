@@ -22,7 +22,7 @@ define( function( require ) {
   var TRANSCRIPTION_FACTOR_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(new Vector2(0, 0),
       new Vector2(0, 0), TRANSCRIPTION_FACTOR_SCALE);
   var CommonConstants = {
-    // Constants the define the geometry of the DNA molecule.
+    // constants the define the geometry of the DNA molecule.
     DNA_MOLECULE_DIAMETER: 200,
     LENGTH_PER_TWIST: LENGTH_PER_TWIST,// In picometers
     BASE_PAIRS_PER_TWIST: BASE_PAIRS_PER_TWIST,

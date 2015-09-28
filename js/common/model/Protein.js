@@ -1,6 +1,6 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 /**
- *Base class for proteins.  Defines the methods used for growing a protein.
+ * Base class for proteins.  Defines the methods used for growing a protein.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -54,7 +54,7 @@ define( function( require ) {
      * Set the size of this protein by specifying the proportion of its full
      * size.
      *
-     * @param fullSizeProportion - Value between 0 and 1 indicating the
+     * @param {number} fullSizeProportion - Value between 0 and 1 indicating the
      *                           proportion of this protein's full grown size that it should be.
      */
     setFullSizeProportion: function( fullSizeProportion ) {
@@ -66,10 +66,18 @@ define( function( require ) {
       }
     },
 
+    /**
+     *
+     * @returns {number|*}
+     */
     getFullSizeProportion: function() {
       return this.fullSizeProportion;
     },
 
+    /**
+     *
+     * @param {number} growthFactor
+     */
     getUntranslatedShape: function( growthFactor ) {
       throw new Error( 'getUntranslatedShape should be implemented in descendant classes of Protein .' );
     },

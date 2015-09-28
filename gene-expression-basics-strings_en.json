@@ -1,5 +1,5 @@
 {
-  "gene-expression-basics.name": {
+  "gene-expression-basics.title": {
     "value": "Gene Expression - The Basics"
   },
   "low": {
@@ -23,7 +23,7 @@
   "affinities": {
     "value": "Affinities"
   },
-  "tab.cellGeneExpression": {
+  "screen.cellGeneExpression": {
     "value": "Cell Gene Expression"
   },
   "biomoleculeToolbox": {
@@ -104,7 +104,7 @@
   "imageCaption": {
     "value": "This image shows E. Coli cells expressing green fluorescent protein (GFP). Note that though the cells are genetically identical, they are expressing differing amounts of the protein."
   },
-  "tab.messengerRnaProduction": {
+  "screen.messengerRnaProduction": {
     "value": "Messenger RNA Production"
   },
   "proteinCountCaptionPart2": {
@@ -137,7 +137,7 @@
   "fast": {
     "value": "fast"
   },
-  "tab.multipleCells": {
+  "screen.multipleCells": {
     "value": "Multiple Cells"
   },
   "polymerase": {

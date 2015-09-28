@@ -22,6 +22,7 @@ define( function( require ) {
 
   // constants
   var TRANSCRIPTION_VELOCITY = 1000;// In picometers per second.
+  var BIO_MOLECULE_POSITION_COMPARISON_EPSILON = 0.000001; // Added by Ashraf  - used for doing comparing the position of Biomolecule and endOfGene's position.
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
@@ -69,7 +70,7 @@ define( function( require ) {
         } );
 
         // If we've reached the end of the gene, detach.
-        if ( biomolecule.getPosition().equals( this.endOfGene ) ) {
+        if ( biomolecule.getPosition().equalsEpsilon( this.endOfGene,BIO_MOLECULE_POSITION_COMPARISON_EPSILON ) ) {
           this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndDeconformingState;
           this.rnaPolymeraseAttachmentStateMachine.setState( attachedState );
           this.messengerRna.releaseFromPolymerase();
