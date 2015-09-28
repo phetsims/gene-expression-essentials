@@ -35,17 +35,17 @@ define( function( require ) {
   var negativeTranscriptionFactor = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactor' );
 
 
-  //TODO
-  function isAncesterOf( node1, node2 ) {
-    var p = node2.parent;
-    while ( p !== null ) {
-      if ( p === node1 ) {
-        return true;
-      }
-      p = p.parent;
-    }
-    return false;
-  }
+  //TODO  isAncesterOf method used in PNode java
+  //function isAncesterOf( node1, node2 ) {
+  //  var p = node2.parent;
+  //  while ( p !== null ) {
+  //    if ( p === node1 ) {
+  //      return true;
+  //    }
+  //    p = p.parent;
+  //  }
+  //  return false;
+  //}
 
 
   /**
