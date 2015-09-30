@@ -21,8 +21,7 @@ define( function( require ) {
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
-
-  //strings
+  // strings
   var concentrations = require( 'string!GENE_EXPRESSION_BASICS/concentrations' );
   var none = require( 'string!GENE_EXPRESSION_BASICS/none' );
   var low = require( 'string!GENE_EXPRESSION_BASICS/low' );
@@ -56,7 +55,6 @@ define( function( require ) {
     } ) );
 
   }
-
 
   return inherit( Node, ConcentrationController, {} );
 } );

@@ -33,8 +33,7 @@ define( function( require ) {
   var POSITIVE_TRANSCRIPTION_FACTOR_CONFIG = TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS;
   var NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG = TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG;
 
-  // Maximum number of transcription factor molecules.  The pertains to both
-  // positive and negative transcription factors.
+  // Maximum number of transcription factor molecules.  The pertains to both positive and negative transcription factors.
   var MAX_TRANSCRIPTION_FACTOR_COUNT = 8;
 
   // Number of RNA polymerase molecules present.
@@ -89,7 +88,8 @@ define( function( require ) {
     // make transcription more likely to occur.
     var polymeraseSize = new RnaPolymerase().getShape().bounds;
     var firstGene = self.dnaMolecule.getGenes()[ 0 ];
-    var recycleZoneCenterX = self.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().getMin() ) + ( RAND.nextDouble() - 0.5 ) * 2000;
+    var recycleZoneCenterX = self.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().getMin() ) +
+                             ( RAND.nextDouble() - 0.5 ) * 2000;
     var recycleZoneHeight = polymeraseSize.getHeight() * 1.2;
     var recycleZoneWidth = polymeraseSize.getWidth() * 4;
     this.aboveDnaPolymeraseReturnBounds = new Rectangle( recycleZoneCenterX - polymeraseSize.getWidth() * 2,
@@ -143,6 +143,7 @@ define( function( require ) {
       /**
        *
        * @returns {DnaMolecule}
+       * @public
        */
       getDnaMolecule: function() {
         return this.dnaMolecule;

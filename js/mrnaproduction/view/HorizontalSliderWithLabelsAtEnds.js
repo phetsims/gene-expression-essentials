@@ -23,7 +23,6 @@ define( function( require ) {
   var LABEL_FONT = new PhetFont( { size: 12, weight: 'bold' } );
   var INTER_ELEMENT_SPACING = new PhetFont( { size: 5, weight: 'bold' } );
 
-
   /**
    *
    * @param {Property} doubleProperty

@@ -22,7 +22,6 @@ define( function( require ) {
   var BioShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/BioShapeUtils' );
   var ShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeUtils' );
 
-
   // Set of points that outline the basic, non-distorted shape of this
   // molecule.  The shape is meant to look like illustrations in "The
   // Machinery of Life" by David Goodsell.
