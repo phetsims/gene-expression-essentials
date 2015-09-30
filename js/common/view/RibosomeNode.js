@@ -1,6 +1,6 @@
 //  Copyright 2002-2015, University of Colorado Boulder
 /**
- *  The current Scenery Implementation doesnt support CAG (constructive Area Operations) so we create a
+ *  The current Scenery Implementation doesn't support CAG (constructive Area Operations) so we create a
  *  composite Shape which includes the top and bottom portion of the Shapes as separate shape instances.
  *  This node handles the composite shape
  *
