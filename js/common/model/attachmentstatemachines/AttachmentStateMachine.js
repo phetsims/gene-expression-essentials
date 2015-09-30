@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+//  Copyright 2002-2015, University of Colorado Boulder
 /**
  * Base class for the attachment state machines that define how the various
  * biomolecules attach to one another, how they detach from one another, how

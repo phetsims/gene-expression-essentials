@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+//  Copyright 2002-2015, University of Colorado Boulder
 /**
  * Subclass of the "attached" state for polymerase when it is attached to
  * the DNA but is not transcribing.  In this state, it is doing a 1D

@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+//  Copyright 2002-2015, University of Colorado Boulder
 /**
  * Class that defines a separation of the DNA strand.  This is used when
  * forcing the DNA strand to separate in certain locations, which happens,

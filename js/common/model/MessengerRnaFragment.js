@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+//  Copyright 2002-2015, University of Colorado Boulder
 /**
  * Class that represents a fragment of messenger ribonucleic acid, or mRNA, in
  * the model.  The fragments exist for a short time as mRNA is being destroyed,

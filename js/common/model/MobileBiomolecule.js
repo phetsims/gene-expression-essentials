@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+//  Copyright 2002-2015, University of Colorado Boulder
 /**
  * Base class for all biomolecules (i.e. rna polymerase, transcription factors,
  * etc.) that move around within the simulation.  This is a very central class
