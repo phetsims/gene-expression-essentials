@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  /**
  *  Use generic state except that interaction is turned off.

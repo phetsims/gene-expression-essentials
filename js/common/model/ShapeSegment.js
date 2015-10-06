@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * This class defines a shape that encloses a segment of the mRNA.  These
  * segments, connected together, are used to define the outline shape of
@@ -206,7 +206,7 @@ define( function( require ) {
 
 } );
 
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.geneexpressionbasics.common.model;
 //
 //import java.awt.geom.AffineTransform;

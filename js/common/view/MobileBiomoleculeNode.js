@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 
 /**
  * Base class for displaying and interacting with mobile biomolecules.  In

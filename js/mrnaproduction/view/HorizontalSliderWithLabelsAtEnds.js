@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * Convenience class for a horizontal slider that has labels at each end
  * rather than having tick marks with labels below them.
@@ -64,7 +64,7 @@ define( function( require ) {
 } );
 
 
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.geneexpressionbasics.mrnaproduction.view;
 //
 //import java.awt.Font;

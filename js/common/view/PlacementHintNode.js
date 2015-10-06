@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 
 /**
  * Class for displaying placement hints, which let the user know where various

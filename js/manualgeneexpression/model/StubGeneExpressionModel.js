@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * Gene expression model that doesn't do anything.  This is needed in cases
  * where we want to create biomolecules without needing a full blown model, such

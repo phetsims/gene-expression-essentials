@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * Class that represents messenger ribonucleic acid, or mRNA, in the model.
  * This class is fairly complex, due to the need for mRNA to wind up and
@@ -486,7 +486,7 @@ define( function( require ) {
 
   } );
 } );
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.geneexpressionbasics.common.model;
 //
 //import java.awt.geom.Point2D;

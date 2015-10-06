@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * Base class for the models used in this simulation.  All models must extend
  * from a common class so that the sam biomolecules can be used within each.

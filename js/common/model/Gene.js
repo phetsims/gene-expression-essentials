@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * This class is the model representation of a gene on a DNA molecule.  The
  * consists of a regulatory region and a transcribed region, and it keeps track

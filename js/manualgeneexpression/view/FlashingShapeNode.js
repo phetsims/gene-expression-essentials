@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 
 /**
  * Node that has a shape and that can be set up to flash in a number of  different ways.

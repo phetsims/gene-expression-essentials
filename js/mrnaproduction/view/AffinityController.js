@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * User interface control that can be used to control the affinity between a
  * transcription factor and the DNA.  Presents a node with the transcription
@@ -72,7 +72,7 @@ define( function( require ) {
 } );
 
 
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.geneexpressionbasics.mrnaproduction.view;
 //
 //import java.awt.Color;

@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * Motion strategy where the controlled entity drifts at the front of a Z
  * dimension, then moves to the back of Z space, then moves instantly to a

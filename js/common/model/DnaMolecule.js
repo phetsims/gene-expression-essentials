@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * This class models a molecule of DNA in the model.  It includes the shape of
  * the two "backbone" strands of the DNA and the individual base pairs, defines
@@ -789,7 +789,7 @@ define( function( require ) {
 } );
 
 
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.geneexpressionbasics.common.model;
 //
 //import java.awt.Shape;

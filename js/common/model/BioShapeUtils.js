@@ -1,4 +1,4 @@
-//  Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 /**
  * Several utilities for making it easier to create some complex and somewhat
  * random shapes.  This was created initially to make it easier to create the
