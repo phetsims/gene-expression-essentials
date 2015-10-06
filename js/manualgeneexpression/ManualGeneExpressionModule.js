@@ -49,7 +49,7 @@ define( function( require ) {
 
 
 } );
-//// Copyright 2002-2011, University of Colorado
+// Copyright 2002-2014, University of Colorado Boulder
 //package edu.colorado.phet.geneexpressionbasics.manualgeneexpression;
 //
 //import edu.colorado.phet.common.phetcommon.application.Module;

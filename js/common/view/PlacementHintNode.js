@@ -61,7 +61,7 @@ define( function( require ) {
   return inherit( Node, PlacementHintNode );
 } );
 
-//// Copyright 2002-2011, University of Colorado
+// Copyright 2002-2014, University of Colorado Boulder
 //package edu.colorado.phet.geneexpressionbasics.common.view;
 //
 //import java.awt.BasicStroke;
