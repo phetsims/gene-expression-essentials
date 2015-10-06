@@ -117,8 +117,8 @@ define( function( require ) {
         // Not sure what to do in this case, where the destination causes
         // some portion of the shape to go out of bounds.  For now, just
         // issue a warning an allow it to happen.
-        console.log( "MoveDirectlyToDestinationMotionStrategy - Warning: " +
-                     "Destination is causing some portion of shape to move out of bounds." );
+        console.log( 'MoveDirectlyToDestinationMotionStrategy - Warning: ' +
+                     'Destination is causing some portion of shape to move out of bounds.' );
       }
 
       // Make sure that the current motion won't move the model element past

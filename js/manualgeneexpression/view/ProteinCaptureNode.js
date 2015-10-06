@@ -35,9 +35,9 @@ define( function( require ) {
   var VERTICAL_DISTANCE_TO_COUNT_NODE = 40;
 
   var proteinStringConstructorMap = {
-    "ProteinA": ProteinA,
-    "ProteinB": ProteinB,
-    "ProteinC": ProteinC
+    'ProteinA': ProteinA,
+    'ProteinB': ProteinB,
+    'ProteinC': ProteinC
   };
 
 
@@ -81,7 +81,7 @@ define( function( require ) {
     var gradientPaint = GradientUtil.createGradientPaint( proteinShape, fullBaseColor );
 
     // Add the node that represents a count of the collected type.
-    var countNode = new Text( "", { font: new PhetFont( { size: 18, weight: 'bold' } ) } );
+    var countNode = new Text( '', { font: new PhetFont( { size: 18, weight: 'bold' } ) } );
     thisNode.addChild( countNode );
     model.getCollectedCounterForProteinType( proteinClassName ).link( function( proteinCaptureCount ) {
       countNode.text = proteinCaptureCount;

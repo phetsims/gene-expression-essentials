@@ -316,7 +316,7 @@ define( function( require ) {
      */
     removeSeparation: function( separation ) {
       if ( !_.contains( this.separations, separation ) ) {
-        console.log( " - Warning: Ignoring attempt to remove separation that can't be found." );
+        console.log( ' - Warning: Ignoring attempt to remove separation that can\'t be found.' );
       }
       else {
         _.remove( this.separations, function( value ) {
@@ -759,7 +759,7 @@ define( function( require ) {
     getGeneAtLocation: function( location ) {
       if ( !( location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&
               location.y >= CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2 && location.y <= CommonConstants.DNA_MOLECULE_Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 ) ) {
-        console.log( " - Warning: Location for gene test is not on DNA molecule." );
+        console.log( ' - Warning: Location for gene test is not on DNA molecule.' );
         return null;
       }
       var geneAtLocation = null;

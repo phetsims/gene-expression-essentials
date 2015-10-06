@@ -124,7 +124,7 @@ define( function( require ) {
 
     debugPoint: function( canvas, pt ) {
       var cirlceNode = new Circle( 15, {
-        fill: "red"
+        fill: 'red'
       } );
 
       canvas.addChild( cirlceNode );

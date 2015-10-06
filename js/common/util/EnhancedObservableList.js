@@ -32,7 +32,7 @@ define( function( require ) {
     getNextItem: function( item ) {
       var index = this.indexOf( item );
       if ( index === -1 ) {
-        throw new Error( "Given item not on list" );
+        throw new Error( 'Given item not on list' );
       }
       if ( index === this.length - 1 ) {
         // The given segment is the last element on the list, so null is returned.
@@ -51,7 +51,7 @@ define( function( require ) {
     getPreviousItem: function( item ) {
       var index = this.indexOf( item );
       if ( index === -1 ) {
-        throw new Error( "Given item not on list" );
+        throw new Error( 'Given item not on list' );
       }
       if ( index === 0 ) {
         // The given segment is the first element on the list, so null is returned.
@@ -69,7 +69,7 @@ define( function( require ) {
      */
     insertAfter: function( existingItem, itemToInsert ) {
       if ( !this.contains( existingItem ) ) {
-        throw new Error( "Given item not on list" );
+        throw new Error( 'Given item not on list' );
       }
       this._array.splice( this.indexOf( existingItem ) + 1, 0, itemToInsert );
       this.lengthProperty.set( this._array.length );
@@ -83,7 +83,7 @@ define( function( require ) {
      */
     insertBefore: function( existingItem, itemToInsert ) {
       if ( !this.contains( existingItem ) ) {
-        throw new Error( "Given item not on list" );
+        throw new Error( 'Given item not on list' );
       }
 
       this._array.splice( this.indexOf( existingItem ), 0, itemToInsert );

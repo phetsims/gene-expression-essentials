@@ -153,7 +153,7 @@ define( function( require ) {
         path.computeShapeBounds = emptyComputeShapeBounds;
       }
       else {
-        path.boundsMethod = "unstroked";
+        path.boundsMethod = 'unstroked';
       }
 
       return path;

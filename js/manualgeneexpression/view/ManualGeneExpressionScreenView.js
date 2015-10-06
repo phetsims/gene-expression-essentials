@@ -183,7 +183,7 @@ define( function( require ) {
   return inherit( ScreenView, ManualGeneExpressionScreenView, {
     debugPoint: function( canvas, pt ) {
       var cirlceNode = new Circle( 15, {
-        fill: "red"
+        fill: 'red'
       } );
 
       canvas.addChild( cirlceNode );

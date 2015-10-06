@@ -19,7 +19,7 @@ define( function( require ) {
 
   // constants
   var HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
-  var HINT_STROKE = { lineWidth: 2, lineJoin: "bevel", lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
+  var HINT_STROKE = { lineWidth: 2, lineJoin: 'bevel', lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
 
 
   /**
@@ -38,7 +38,7 @@ define( function( require ) {
 
     var pathStyleOptions = _.extend( HINT_STROKE, {
       fill: transparentColor,
-      boundsMethod: "none"
+      boundsMethod: 'none'
     } );
 
     var path = new Path( new Shape(), pathStyleOptions );

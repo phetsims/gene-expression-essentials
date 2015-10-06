@@ -227,7 +227,7 @@ define( function( require ) {
       }
 
       if ( currentPoint === null ) {
-        console.log( "No last point." );
+        console.log( 'No last point.' );
       }
 
       return currentPoint;
@@ -314,7 +314,7 @@ define( function( require ) {
 
             // If this message appears, something may well be wrong
             // with the way the shape segments are being updated.
-            console.log( " Warning: Larger than expected difference between mRNA length and shape segment length." );
+            console.log( ' Warning: Larger than expected difference between mRNA length and shape segment length.' );
           }
         }
 
@@ -376,7 +376,7 @@ define( function( require ) {
         xOffset += currentPoint !== null ? currentPoint.getTargetDistanceToPreviousPoint() : 0;
       }
       if ( currentPoint === null ) {
-        console.log( " Error: Last point not found when positioning points." );
+        console.log( ' Error: Last point not found when positioning points.' );
       }
       else {
 
@@ -521,7 +521,7 @@ define( function( require ) {
      */
     realignSegmentsFrom: function( segmentToAlignFrom ) {
       if ( this.shapeSegments.indexOf( segmentToAlignFrom ) === -1 ) {
-        console.log( " Warning: Ignoring attempt to align to segment that is not on the list." );
+        console.log( ' Warning: Ignoring attempt to align to segment that is not on the list.' );
         return;
       }
 

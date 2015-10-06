@@ -52,7 +52,7 @@ define( function( require ) {
 
     // Externally visible indicator for whether this mRNA is being synthesized.
     // Assumes that it is being synthesized when created.
-    self.addProperty( "beingSynthesized", true );
+    self.addProperty( 'beingSynthesized', true );
 
     // Protein prototype, used to keep track of protein that should be
     // synthesized from this particular strand of mRNA.
@@ -172,7 +172,7 @@ define( function( require ) {
 
       // Error checking.
       if ( this.segmentWhereDestroyerConnects === null ) {
-        console.log( " - Warning: Attempt to advance the destruction of mRNA that has no content left." );
+        console.log( ' - Warning: Attempt to advance the destruction of mRNA that has no content left.' );
         return true;
       }
 
@@ -256,7 +256,7 @@ define( function( require ) {
      */
     getRibosomeAttachmentLocation: function( ribosome ) {
       if ( !this.mapRibosomeToShapeSegment.contains( ribosome ) ) {
-        console.log( " Warning: Ignoring attempt to obtain attachment point for non-attached ribosome." );
+        console.log( ' Warning: Ignoring attempt to obtain attachment point for non-attached ribosome.' );
         return null;
       }
       var attachmentPoint;

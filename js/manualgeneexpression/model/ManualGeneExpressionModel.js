@@ -95,9 +95,9 @@ define( function( require ) {
     // Map of the protein collection count properties to the protein types,
     // used to obtain the count property based on the type of protein.
     this.mapProteinClassToCollectedCount = new Map();
-    this.mapProteinClassToCollectedCount.put( "ProteinA", this.proteinACollectedProperty );
-    this.mapProteinClassToCollectedCount.put( "ProteinB", this.proteinBCollectedProperty );
-    this.mapProteinClassToCollectedCount.put( "ProteinC", this.proteinCCollectedProperty );
+    this.mapProteinClassToCollectedCount.put( 'ProteinA', this.proteinACollectedProperty );
+    this.mapProteinClassToCollectedCount.put( 'ProteinB', this.proteinBCollectedProperty );
+    this.mapProteinClassToCollectedCount.put( 'ProteinC', this.proteinCCollectedProperty );
 
     // Rectangle that describes the "protein capture area".  When a protein is
     // dropped by the user over this area, it is considered to be captured.

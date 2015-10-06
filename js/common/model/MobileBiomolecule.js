@@ -229,7 +229,7 @@ define( function( require ) {
         this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
       }
       else {
-        console.log( " - Warning: Commanded to abort attachment when attachment not pending." );
+        console.log( ' - Warning: Commanded to abort attachment when attachment not pending.' );
       }
     },
 

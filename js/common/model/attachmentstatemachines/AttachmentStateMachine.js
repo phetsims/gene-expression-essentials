@@ -85,7 +85,7 @@ define( function( require ) {
      * Calling this when already in this state is harmless.
      */
     forceImmediateUnattachedAndAvailable: function() {
-      console.log( "AttachmentStateMachine Warning: Unimplemented method called in base class." );
+      console.log( 'AttachmentStateMachine Warning: Unimplemented method called in base class.' );
     },
 
     /**
@@ -94,7 +94,7 @@ define( function( require ) {
      * in a place where it needs to move away.
      */
     forceImmediateUnattachedButUnavailable: function() {
-      console.log( "AttachmentStateMachine Warning: Unimplemented method called in base class." );
+      console.log( 'AttachmentStateMachine Warning: Unimplemented method called in base class.' );
     },
 
     /**

@@ -66,7 +66,7 @@ define( function( require ) {
       var reducedBoundsWidth = destinationBounds.getWidth() - shape.bounds.getWidth();
       var reducedBoundsHeight = destinationBounds.getHeight() - shape.bounds.getHeight();
       if ( reducedBoundsWidth <= 0 || reducedBoundsHeight <= 0 ) {
-        console.log( " - Warning: Bounds cannot contain shape." );
+        console.log( ' - Warning: Bounds cannot contain shape.' );
         return new Vector2( destinationBounds.getCenterX(), destinationBounds.getCenterY() );
       }
       else {
