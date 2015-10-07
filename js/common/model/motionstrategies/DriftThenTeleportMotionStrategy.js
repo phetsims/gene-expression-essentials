@@ -20,7 +20,7 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
-  var RAND = require( 'DOT/Random' );
+  var Random = require( 'DOT/Random' );
   var MotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionStrategy' );
 
   // constants
@@ -60,7 +60,7 @@ define( function( require ) {
     generateRandomLocationInBounds: function( destinationZones, shape ) {
 
       // Randomly choose one of the destination zones.
-      var destinationBounds = destinationZones.get( RAND.nextInt( destinationZones.length ) );
+      var destinationBounds = destinationZones.get( Random.nextInt( destinationZones.length ) );
 
       // Generate a random valid location within the chosen zone.
       var reducedBoundsWidth = destinationBounds.getWidth() - shape.bounds.getWidth();
@@ -70,8 +70,8 @@ define( function( require ) {
         return new Vector2( destinationBounds.getCenterX(), destinationBounds.getCenterY() );
       }
       else {
-        return new Vector2( destinationBounds.x + shape.bounds.getWidth() / 2 + RAND.nextDouble() * reducedBoundsWidth,
-          destinationBounds.x + shape.bounds.getHeight() / 2 + RAND.nextDouble() * reducedBoundsHeight );
+        return new Vector2( destinationBounds.x + shape.bounds.getWidth() / 2 + Random.nextDouble() * reducedBoundsWidth,
+          destinationBounds.x + shape.bounds.getHeight() / 2 + Random.nextDouble() * reducedBoundsHeight );
       }
     },
 
