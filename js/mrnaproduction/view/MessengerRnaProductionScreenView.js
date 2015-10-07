@@ -157,7 +157,7 @@ define( function( require ) {
 
 
     // Add the floating clock control.
-   // var modelClock = thisView.model.getClock(); //commented to pass jshint
+    // var modelClock = thisView.model.getClock(); //commented to pass lint
     thisView.clockRunning.link( function( isRunning ) {
       // modelClock.setRunning(isRunning); //TODO
     } );
