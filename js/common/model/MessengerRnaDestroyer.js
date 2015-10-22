@@ -24,7 +24,7 @@ define( function( require ) {
    * @return {Shape}
    */
   function createShape() {
-    //  var circle = new Shape.Double( -WIDTH / 2, -WIDTH / 2, WIDTH, WIDTH );
+    //  var circle = Shape.Double( -WIDTH / 2, -WIDTH / 2, WIDTH, WIDTH );
     var mouthPath = new Shape().moveTo( 0, 0 );
     mouthPath.lineTo( WIDTH, WIDTH * 0.8 );
     mouthPath.lineTo( WIDTH, -WIDTH * 0.8 );
