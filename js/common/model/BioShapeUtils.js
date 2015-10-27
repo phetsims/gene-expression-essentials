@@ -16,7 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
-  var SeededRandom = require( 'GENE_EXPRESSION_BASICS/common/Util/SeededRandom' );
+  var SeededRandom = require( 'GENE_EXPRESSION_BASICS/common/util/SeededRandom' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Vector2 = require( 'DOT/Vector2' );
   var ShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeUtils' );

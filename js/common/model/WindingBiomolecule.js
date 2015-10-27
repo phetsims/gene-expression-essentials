@@ -20,7 +20,7 @@ define( function( require ) {
   var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
   var PointMass = require( 'GENE_EXPRESSION_BASICS/common/model/PointMass' );
-  var SeededRandom = require( 'GENE_EXPRESSION_BASICS/common/Util/SeededRandom' );
+  var SeededRandom = require( 'GENE_EXPRESSION_BASICS/common/util/SeededRandom' );
 
 
   // constants
