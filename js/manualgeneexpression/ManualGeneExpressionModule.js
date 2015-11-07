@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * Main module for the tab where the user manually performs the steps for
  * expressing proteins within a cell.

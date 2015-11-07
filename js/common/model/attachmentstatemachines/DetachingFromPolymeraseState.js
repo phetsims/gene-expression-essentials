@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * State where the mRNA is detaching from the polymerase.  During this
  * time, it moves generally upwards until either the timer runs out or

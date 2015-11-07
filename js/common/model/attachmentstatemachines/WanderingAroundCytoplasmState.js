@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * State where the mRNA is wandering around the cell's cytoplasm unattached
  * to anything.

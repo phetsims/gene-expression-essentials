@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * This class defined the attachment state machine for all ribosomes.
  * Ribosomes pretty much only connect to mRNA, so that's what this controls.

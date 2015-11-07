@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * Attachment state machine for all protein molecules.  This class controls
  * how protein molecules behave with respect to attachments.

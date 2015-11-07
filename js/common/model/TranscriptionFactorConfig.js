@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * Class the defines the shape, color, polarity, etc. of a transcription factor.
  *

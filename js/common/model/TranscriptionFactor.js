@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * Class that represents a transcription factor in the model.  There are
  * multiple transcription factors, and some are positive (in the sense that

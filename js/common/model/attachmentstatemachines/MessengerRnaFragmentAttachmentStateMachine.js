@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * Attachment state machine for messenger RNA fragments.  These fragments
  * start their life as being attached to an mRNA destroyer, and and then

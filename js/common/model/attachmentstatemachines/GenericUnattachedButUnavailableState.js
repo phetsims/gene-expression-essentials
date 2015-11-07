@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * The generic "attached" state isn't very useful, but is included for
  * ompleteness.  The reason it isn't useful is because the different

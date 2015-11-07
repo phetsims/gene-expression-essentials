@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * Attachment state machine for all transcription factor molecules.  This
  * class controls how transcription factors behave with respect to attaching

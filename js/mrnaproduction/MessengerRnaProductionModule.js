@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 //package edu.colorado.phet.geneexpressionbasics.mrnaproduction;
 //
 //import edu.colorado.phet.common.phetcommon.application.Module;

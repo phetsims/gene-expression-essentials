@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * This class defines a motion strategy that produces a random walk, meaning
  * that items using this strategy will move in one direction for a while, then

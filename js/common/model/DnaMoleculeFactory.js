@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * A factory class to create DnaMolecules with and without explicitly specifying a model.
  *

@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 //package edu.colorado.phet.geneexpressionbasics.multiplecells.view;
 //
 //import edu.colorado.phet.common.piccolophet.nodes.layout.VBox;

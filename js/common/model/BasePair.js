@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 /**
  * Model class for the base pair in the DNA molecule.  In the real world, a
  * "base pair" is a pair of nitrogenous bases that connects to the DNA backbone
