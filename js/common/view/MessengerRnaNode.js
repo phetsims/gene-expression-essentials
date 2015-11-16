@@ -21,8 +21,7 @@ define( function( require ) {
   // constants
   // For debug - turn on to show the enclosing shape segments.
   //  var SHOW_SHAPE_SEGMENTS = false; TODO
-  var M_RNA = require( 'string!GENE_EXPRESSION_BASICS/mRna' );
-
+  var mRnaString = require( 'string!GENE_EXPRESSION_BASICS/mRna' );
 
   /**
    *
@@ -39,7 +38,7 @@ define( function( require ) {
     thisNode.addChild( new PlacementHintNode( mvt, messengerRna.mRnaDestroyerPlacementHint ) );
 
     // Add the label. This fades in during synthesis, then fades out.
-    var label = new FadeLabel( M_RNA, false, messengerRna.existenceStrengthProperty );
+    var label = new FadeLabel( mRnaString, false, messengerRna.existenceStrengthProperty );
     thisNode.addChild( label );
     messengerRna.beingSynthesizedProperty.link( function( beingSynthesized ) {
       if ( beingSynthesized ) {

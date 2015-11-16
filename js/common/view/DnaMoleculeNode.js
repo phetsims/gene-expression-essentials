@@ -22,7 +22,7 @@ define( function( require ) {
   var STRAND_2_COLOR = new Color( 214, 87, 107 );
 
   // strings
-  var GENE = require( 'string!GENE_EXPRESSION_BASICS/gene' );
+  var geneString = require( 'string!GENE_EXPRESSION_BASICS/gene' );
 
   /**
    *
@@ -52,7 +52,7 @@ define( function( require ) {
     // Put the gene backgrounds and labels behind everything.
     for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
       geneBackgroundLayer.addChild( new GeneNode( mvt, dnaMolecule.getGenes()[ i ], dnaMolecule,
-        GENE + ( i + 1 ), showGeneBracketLabels ) );
+        geneString + ( i + 1 ), showGeneBracketLabels ) );
     }
 
     // Add the first backbone strand.

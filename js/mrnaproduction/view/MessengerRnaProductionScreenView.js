@@ -30,10 +30,8 @@ define( function( require ) {
   // constants
   var INSET = 15;  // Inset for several of the controls.
 
-
   // strings
-  var negativeTranscriptionFactor = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactor' );
-
+  var negativeTranscriptionFactorString = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactor' );
 
   //TODO  isAncesterOf method used in PNode java
   //function isAncesterOf( node1, node2 ) {
@@ -137,7 +135,7 @@ define( function( require ) {
 
     // Add the check box for showing/hiding the control panel for the
     // negative transcription factor.
-    var negativeFactorEnabledCheckBox = new CheckBox( new Text( negativeTranscriptionFactor, { font: new PhetFont( 18 ) } ),
+    var negativeFactorEnabledCheckBox = new CheckBox( new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ) } ),
       thisView.negativeTranscriptionFactorEnabled, {
         boxWidth: 20
       } );

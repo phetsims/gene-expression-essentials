@@ -13,7 +13,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var geneExpressionBasicsSimString = require( 'string!GENE_EXPRESSION_BASICS/gene-expression-basics.name' );
+  var geneExpressionBasicsNameString = require( 'string!GENE_EXPRESSION_BASICS/gene-expression-basics.name' );
 
   /**
    * @constructor
@@ -23,7 +23,7 @@ define( function( require ) {
     //If this is a single-screen sim, then no icon is necessary.
     //If there are multiple screens, then the icon must be provided here.
     var icon = null;
-    Screen.call( this, geneExpressionBasicsSimString, icon,
+    Screen.call( this, geneExpressionBasicsNameString, icon,
       function() {
         return new MessengerRnaProductionModel();
       },

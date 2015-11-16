@@ -23,8 +23,8 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var REGULATORY_REGION = require( 'string!GENE_EXPRESSION_BASICS/regulatoryRegion' );
-  var TRANSCRIBED_REGION = require( 'string!GENE_EXPRESSION_BASICS/transcribedRegion' );
+  var regulatoryRegionString = require( 'string!GENE_EXPRESSION_BASICS/regulatoryRegion' );
+  var transcribedRegionString = require( 'string!GENE_EXPRESSION_BASICS/transcribedRegion' );
 
   // constants
   var REGION_LABEL_FONT = new PhetFont( { size: 12, weight: 'bold' } );
@@ -56,7 +56,7 @@ define( function( require ) {
     var regulatoryRegionNode = new Path( regRegionShape, { fill: gene.getRegulatoryRegionColor() } );
     thisNode.addChild( regulatoryRegionNode );
 
-    var regulatoryRegionCaption = new MultiLineText( REGULATORY_REGION, { font: REGION_LABEL_FONT } );
+    var regulatoryRegionCaption = new MultiLineText( regulatoryRegionString, { font: REGION_LABEL_FONT } );
     regulatoryRegionCaption.x = regulatoryRegionNode.bounds.getCenterX() - regulatoryRegionCaption.bounds.width / 2;
     regulatoryRegionCaption.y = regulatoryRegionNode.bounds.getMaxY();
     thisNode.addChild( regulatoryRegionCaption );
@@ -70,7 +70,7 @@ define( function( require ) {
     var transcribedRegionNode = new Path( transcribedRegionShape, { fill: gene.getTranscribedRegionColor() } );
     thisNode.addChild( transcribedRegionNode );
 
-    var transcribedRegionCaption = new MultiLineText( TRANSCRIBED_REGION, { font: REGION_LABEL_FONT } );
+    var transcribedRegionCaption = new MultiLineText( transcribedRegionString, { font: REGION_LABEL_FONT } );
     transcribedRegionCaption.x = transcribedRegionNode.bounds.getCenterX() - transcribedRegionCaption.bounds.width / 2;
     transcribedRegionCaption.y = transcribedRegionNode.bounds.getMaxY();
     thisNode.addChild( transcribedRegionCaption );

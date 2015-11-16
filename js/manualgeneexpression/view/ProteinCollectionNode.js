@@ -39,10 +39,10 @@ define( function( require ) {
   var INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
 
   // strings
-  var YOUR_PROTEIN_COLLECTION = require( 'string!GENE_EXPRESSION_BASICS/yourProteinCollection' );
-  var COLLECTION_COMPLETE = require( 'string!GENE_EXPRESSION_BASICS/collectionComplete' );
-  var PROTEIN_COUNT_CAPTION_PART_1 = require( 'string!GENE_EXPRESSION_BASICS/proteinCountCaptionPart1' );
-  var PROTEIN_COUNT_CAPTION_PART_2 = require( 'string!GENE_EXPRESSION_BASICS/proteinCountCaptionPart2' );
+  var yourProteinCollectionString = require( 'string!GENE_EXPRESSION_BASICS/yourProteinCollection' );
+  var collectionCompleteString = require( 'string!GENE_EXPRESSION_BASICS/collectionComplete' );
+  var proteinCountCaptionPart1String = require( 'string!GENE_EXPRESSION_BASICS/proteinCountCaptionPart1' );
+  var proteinCountCaptionPart2String = require( 'string!GENE_EXPRESSION_BASICS/proteinCountCaptionPart2' );
 
   /**
    * Center the full bounds of this node so that they are centered on the
@@ -94,7 +94,7 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    thisNode.collectionCompleteNode = new Text( COLLECTION_COMPLETE, { font: new PhetFont( 20 ) } );
+    thisNode.collectionCompleteNode = new Text( collectionCompleteString, { font: new PhetFont( 20 ) } );
     if ( thisNode.collectionCompleteNode.bounds.width > MAX_CONTENT_WIDTH ) {
       // Scale to fit.
       thisNode.collectionCompleteNode.scale( MAX_CONTENT_WIDTH / thisNode.collectionCompleteNode.bounds.width );
@@ -130,12 +130,12 @@ define( function( require ) {
       thisNode.removeAllChildren();
 
       var hBox = new HBox( {
-        children: [ new Text( PROTEIN_COUNT_CAPTION_PART_1, { font: READOUT_FONT } ),
+        children: [ new Text( proteinCountCaptionPart1String, { font: READOUT_FONT } ),
           new IntegerBox( numProteinTypesCollected ) ],
         spacing: 4
       } );
 
-      var vBoxChildren = [ hBox, new Text( PROTEIN_COUNT_CAPTION_PART_2, { font: READOUT_FONT } ) ];
+      var vBoxChildren = [ hBox, new Text( proteinCountCaptionPart2String, { font: READOUT_FONT } ) ];
       var collectedQuantityIndicator = new VBox( {
         children: vBoxChildren, spacing: 10
       } );
@@ -172,7 +172,7 @@ define( function( require ) {
     Node.call( thisNode );
 
     // Create the title and scale it if needed.
-    var title = new MultiLineText( YOUR_PROTEIN_COLLECTION, {
+    var title = new MultiLineText( yourProteinCollectionString, {
         fill: Color.BLACK, font: TITLE_FONT
       }
     );

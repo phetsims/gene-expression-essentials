@@ -28,14 +28,12 @@ define( function( require ) {
   var TITLE_FONT = new PhetFont( { size: 20, weight: 'bold' } );
 
   // strings
-  var BIOMOLECULE_TOOLBOX = require( 'string!GENE_EXPRESSION_BASICS/biomoleculeToolbox' );
-  var POSITIVE_TRANSCRIPTION_FACTOR_HTML = require( 'string!GENE_EXPRESSION_BASICS/positiveTranscriptionFactorHtml' );
-  var RIBOSOME = require( 'string!GENE_EXPRESSION_BASICS/ribosome' );
-  var RNA_POLYMERASE = require( 'string!GENE_EXPRESSION_BASICS/rnaPolymerase' );
-  var MRNA_DESTROYER = require( 'string!GENE_EXPRESSION_BASICS/mrnaDestroyer' );
-  var NEGATIVE_TRANSCRIPTION_FACTOR_HTML = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactorHtml' );
-
-
+  var biomoleculeToolboxString = require( 'string!GENE_EXPRESSION_BASICS/biomoleculeToolbox' );
+  var positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_BASICS/positiveTranscriptionFactorHtml' );
+  var ribosomeString = require( 'string!GENE_EXPRESSION_BASICS/ribosome' );
+  var rnaPolymeraseString = require( 'string!GENE_EXPRESSION_BASICS/rnaPolymerase' );
+  var mrnaDestroyerString = require( 'string!GENE_EXPRESSION_BASICS/mrnaDestroyer' );
+  var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactorHtml' );
 
   /**
    * Convenience class for creating row labels.
@@ -64,7 +62,7 @@ define( function( require ) {
     thisNode.biomoleculeCreatorNodeList = [];
 
     // Add the title.
-    var toolBoxTitleNode = new Text( BIOMOLECULE_TOOLBOX, TITLE_FONT );
+    var toolBoxTitleNode = new Text( biomoleculeToolboxString, TITLE_FONT );
 
     //  Positive transcription factor(s).
     var transcriptionFactors = gene.getTranscriptionFactorConfigs();
@@ -73,7 +71,7 @@ define( function( require ) {
     for ( var i = 0; i < transcriptionFactors.length; i++ ) {
       tfConfig = transcriptionFactors[ i ];
       if ( tfConfig.isPositive ) {
-        positiveTranscriptNodes.push( new RowLabel( POSITIVE_TRANSCRIPTION_FACTOR_HTML ) );
+        positiveTranscriptNodes.push( new RowLabel( positiveTranscriptionFactorHtmlString ) );
         positiveTranscriptNodes.push( thisNode.addCreatorNode( new TranscriptionFactorCreatorNode( thisNode, tfConfig ) ) );
       }
     }
@@ -86,7 +84,7 @@ define( function( require ) {
 
     // Polymerase.
     var polymeraseBox = new HBox( {
-      children: [ new RowLabel( RNA_POLYMERASE ),
+      children: [ new RowLabel( rnaPolymeraseString ),
         thisNode.addCreatorNode( new RnaPolymeraseCreatorNode( thisNode ) ),
         thisNode.addCreatorNode( new RnaPolymeraseCreatorNode( thisNode ) )
       ],
@@ -95,14 +93,14 @@ define( function( require ) {
 
     // Ribosomes.
     var ribosomeBox = new HBox( {
-      children: [ new RowLabel( RIBOSOME ), thisNode.addCreatorNode( new RibosomeCreatorNode( thisNode ) ),
+      children: [ new RowLabel( ribosomeString ), thisNode.addCreatorNode( new RibosomeCreatorNode( thisNode ) ),
         thisNode.addCreatorNode( new RibosomeCreatorNode( thisNode ) ) ],
       spacing: 10
     } );
 
     // mRNA destroyer.
     var mRnaDestroyerBox = new HBox( {
-      children: [ new RowLabel( MRNA_DESTROYER ), thisNode.addCreatorNode( new MessengerRnaDestroyerCreatorNode( thisNode ) ),
+      children: [ new RowLabel( mrnaDestroyerString ), thisNode.addCreatorNode( new MessengerRnaDestroyerCreatorNode( thisNode ) ),
         thisNode.addCreatorNode( new MessengerRnaDestroyerCreatorNode( thisNode ) ) ],
       spacing: 10
     } );
@@ -113,7 +111,7 @@ define( function( require ) {
 
 
     var negativeTranscriptorNodes = [];
-    negativeTranscriptorNodes.push( new RowLabel( NEGATIVE_TRANSCRIPTION_FACTOR_HTML ) );
+    negativeTranscriptorNodes.push( new RowLabel( negativeTranscriptionFactorHtmlString ) );
     for ( i = 0; i < transcriptionFactors.length; i++ ) {
       tfConfig = transcriptionFactors[ i ];
       if ( !tfConfig.isPositive ) {

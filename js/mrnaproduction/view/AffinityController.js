@@ -26,9 +26,9 @@ define( function( require ) {
   var ARROW_HEAD_HEIGHT = 10;
 
   //strings
-  var affinity = require( 'string!GENE_EXPRESSION_BASICS/affinity' );
-  var low = require( 'string!GENE_EXPRESSION_BASICS/low' );
-  var high = require( 'string!GENE_EXPRESSION_BASICS/high' );
+  var affinityString = require( 'string!GENE_EXPRESSION_BASICS/affinity' );
+  var lowString = require( 'string!GENE_EXPRESSION_BASICS/low' );
+  var highString = require( 'string!GENE_EXPRESSION_BASICS/high' );
 
   /**
    * @param {Node} leftNode
@@ -39,7 +39,7 @@ define( function( require ) {
   function AffinityController( leftNode, rightNode, affinityProperty ) {
     var thisNode = this;
     Node.call( thisNode );
-    var captionNode = new Text( affinity, new PhetFont( { size: 14, weight: 'bold' } ) );
+    var captionNode = new Text( affinityString, new PhetFont( { size: 14, weight: 'bold' } ) );
     var arrowTail = new Vector2( 0, 0 );
     var arrowTip = new Vector2( ARROW_LENGTH, 0 );
     var arrowOptions = {
@@ -60,8 +60,8 @@ define( function( require ) {
       affinityProperty,
       0,
       1,
-      low,
-      high );
+      lowString,
+      highString );
     thisNode.addChild( new VBox( {
       children: [ captionNode, affinityKey, horizontalSlider ],
       spacing: 10

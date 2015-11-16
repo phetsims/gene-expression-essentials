@@ -27,16 +27,14 @@ define( function( require ) {
   var ConcentrationController = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/ConcentrationController' );
   var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
 
-
   // constants
   var DNA_SCALE = 0.1;
   var DNA_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 0, 0 ), DNA_SCALE );
   var TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
 
   //strings
-  var positiveTranscriptionFactorHtml = require( 'string!GENE_EXPRESSION_BASICS/positiveTranscriptionFactorHtml' );
-  var negativeTranscriptionFactorHtml = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactorHtml' );
-
+  var positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_BASICS/positiveTranscriptionFactorHtml' );
+  var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactorHtml' );
 
   /**
    *
@@ -52,12 +50,12 @@ define( function( require ) {
     var tfLevelProperty;
     if ( transcriptionFactorConfig.isPositive ) {
       transcriptionFactorConfig = MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG;
-      titleText = positiveTranscriptionFactorHtml;
+      titleText = positiveTranscriptionFactorHtmlString;
       tfLevelProperty = model.positiveTranscriptionFactorCount;
     }
     else {
       transcriptionFactorConfig = MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG;
-      titleText = negativeTranscriptionFactorHtml;
+      titleText = negativeTranscriptionFactorHtmlString;
       tfLevelProperty = model.negativeTranscriptionFactorCount;
     }
 

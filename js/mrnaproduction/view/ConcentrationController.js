@@ -22,9 +22,9 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // strings
-  var concentrations = require( 'string!GENE_EXPRESSION_BASICS/concentrations' );
-  var none = require( 'string!GENE_EXPRESSION_BASICS/none' );
-  var low = require( 'string!GENE_EXPRESSION_BASICS/low' );
+  var concentrationsString = require( 'string!GENE_EXPRESSION_BASICS/concentrations' );
+  var noneString = require( 'string!GENE_EXPRESSION_BASICS/none' );
+  var lowString = require( 'string!GENE_EXPRESSION_BASICS/low' );
 
   /**
    *
@@ -39,7 +39,7 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    var captionNode = new Text( concentrations, new PhetFont( { size: 14, weight: 'bold' } ) );
+    var captionNode = new Text( concentrationsString, new PhetFont( { size: 14, weight: 'bold' } ) );
 
     var molecule = new MobileBiomoleculeNode( CommonConstants.TRANSCRIPTION_FACTOR_MVT,
       new TranscriptionFactor( new StubGeneExpressionModel(), transcriptionFactorConfig ) );
@@ -50,8 +50,8 @@ define( function( require ) {
         new HorizontalSliderWithLabelsAtEnds( tfLevelProperty,
           min,
           max,
-          none,
-          low ) ]
+          noneString,
+          lowString ) ]
     } ) );
 
   }

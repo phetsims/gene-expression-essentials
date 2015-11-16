@@ -14,7 +14,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var geneExpressionBasicsSimString = require( 'string!GENE_EXPRESSION_BASICS/gene-expression-basics.title' );
+  var geneExpressionBasicsTitleString = require( 'string!GENE_EXPRESSION_BASICS/gene-expression-basics.title' );
 
   /**
    * @constructor
@@ -25,7 +25,7 @@ define( function( require ) {
     //If there are multiple screens, then the icon must be provided here.
     var icon = null;
 
-    Screen.call( this, geneExpressionBasicsSimString, icon,
+    Screen.call( this, geneExpressionBasicsTitleString, icon,
       function() { return new ManualGeneExpressionModel();},
       function( model ) { return new ManualGeneExpressionScreenView( model ); },
       { backgroundColor: '#ABCBDB' }

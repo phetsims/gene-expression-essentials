@@ -38,8 +38,7 @@ define( function( require ) {
     new Vector2( 0, 0 ), DNA_AND_TF_SCALE );
 
   //strings
-  var rnaPolymeraseText = require( 'string!GENE_EXPRESSION_BASICS/rnaPolymerase' );
-
+  var rnaPolymeraseString = require( 'string!GENE_EXPRESSION_BASICS/rnaPolymerase' );
 
   /**
    *
@@ -52,7 +51,7 @@ define( function( require ) {
     var thisNode = this;
 
 
-    var titleNode = new Text( rnaPolymeraseText, TITLE_FONT );
+    var titleNode = new Text( rnaPolymeraseString, TITLE_FONT );
 
 
     // Create the affinity control node.
