@@ -49,7 +49,7 @@ define( function( require ) {
     var protienTypes = [ ProteinA, ProteinB, ProteinC ];
     for ( var i = 0; i < protienTypes.length; i++ ) {
       var protein = new protienTypes[ i ]();
-      var proteinShapeBounds = protein.getFullyGrownShape().transformed( transform ).computeBounds( new kite.LineStyles( { lineWidth: 1 } ) );
+      var proteinShapeBounds = protein.getFullyGrownShape().transformed( transform ).getStrokedBounds( new kite.LineStyles( { lineWidth: 1 } ) );
       captureNodeBackgroundSize.width = ( Math.max( proteinShapeBounds.width * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.width ) );
       captureNodeBackgroundSize.height = ( Math.max( proteinShapeBounds.height * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.height ) );
     }

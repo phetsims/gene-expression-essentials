@@ -24,7 +24,6 @@ define( function( require ) {
     Shape.call( this );
     this.topShape = topShape;
     this.bottomShape = bottomShape;
-    this.computeBounds();
    }
 
   return inherit( Shape, RibosomeShape, {
@@ -33,17 +32,12 @@ define( function( require ) {
      * @override
      * @returns {Bounds2}
      */
-    get bounds(){
+    getBounds: function() {
+      if ( !this.compositeBounds ) {
+        this.compositeBounds = this.topShape.bounds.union( this.bottomShape.bounds );
+      }
       return this.compositeBounds;
     },
-
-
-    computeBounds: function() {
-      var topBounds = this.topShape.computeBounds();
-      var bottomBounds = this.bottomShape.computeBounds();
-      this.compositeBounds = topBounds.union( bottomBounds );
-    },
-
 
     transformed: function( matrix ) {
       var newTopShape = this.topShape.transformed( matrix );

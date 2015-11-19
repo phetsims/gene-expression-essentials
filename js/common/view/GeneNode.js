@@ -89,7 +89,7 @@ define( function( require ) {
       // And the textual label for the gene.
       var labelText = new Text( label, { font: GENE_LABEL_FONT } );
       thisNode.addChild( labelText );
-      var bracketBounds = bracketPath.computeBounds();
+      var bracketBounds = bracketPath.bounds;
       labelText.x = bracketBounds.getCenterX() - labelText.bounds.width / 2;
       labelText.y = bracketBounds.getMaxY() + 20;
     }
