@@ -14,7 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Color = require( 'SCENERY/util/Color' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Timer = require( 'JOIST/Timer' );
+  var Timer = require( 'PHET_CORE/Timer' );
 
   // constants
   var INVISIBLE_COLOR = new Color( 0, 0, 0, 0 );
