@@ -15,13 +15,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Property = require( 'AXON/Property' );
-  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
-  var AttachedToBasePair = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachedToBasePair' );
-  var AttachedAndConformingState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachedAndConformingState' );
-  var AttachedAndDeconformingState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachedAndDeconformingState' );
-  var AttachedAndTranscribingState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachedAndTranscribingState' );
-  var DnaSeparation = require( 'GENE_EXPRESSION_BASICS/common/model/DnaSeparation' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
+  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
+  var AttachedToBasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachedToBasePair' );
+  var AttachedAndConformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachedAndConformingState' );
+  var AttachedAndDeconformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachedAndDeconformingState' );
+  var AttachedAndTranscribingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachedAndTranscribingState' );
+  var DnaSeparation = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaSeparation' );
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
 
 
   // constants

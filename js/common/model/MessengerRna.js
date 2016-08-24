@@ -14,15 +14,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
-  var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
-  var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionRibosomeConstant' );
-  var FlatSegment = require( 'GENE_EXPRESSION_BASICS/common/model/FlatSegment' );
-  var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/MessengerRnaAttachmentStateMachine' );
-  var WindingBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/WindingBiomolecule' );
-  var PlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/PlacementHint' );
-  var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
-  var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRnaDestroyer' );
+  var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRibosomeConstant' );
+  var FlatSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/FlatSegment' );
+  var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/MessengerRnaAttachmentStateMachine' );
+  var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
+  var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
+  var Ribosome = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Ribosome' );
+  var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaDestroyer' );
 
   // constants
   // Distance within which this will connect to a ribosome.

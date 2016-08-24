@@ -16,7 +16,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var Color = require( 'SCENERY/util/Color' );
-  var BioShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/BioShapeUtils' );
+  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   //constants

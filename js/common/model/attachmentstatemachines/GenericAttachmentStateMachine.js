@@ -14,12 +14,12 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var AttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentStateMachine' );
-  var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericUnattachedAndAvailableState' );
-  var GenericAttachedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachedState' );
-  var GenericMovingTowardsAttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericMovingTowardsAttachmentState' );
-  var GenericUnattachedButUnavailableState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericUnattachedButUnavailableState' );
-  var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
+  var AttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentStateMachine' );
+  var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericUnattachedAndAvailableState' );
+  var GenericAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericAttachedState' );
+  var GenericMovingTowardsAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericMovingTowardsAttachmentState' );
+  var GenericUnattachedButUnavailableState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericUnattachedButUnavailableState' );
+  var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
 
   /**
    * @param {MobileBiomolecule} biomolecule

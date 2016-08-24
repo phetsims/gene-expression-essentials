@@ -13,10 +13,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Random = require( 'DOT/Random' );
- var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
-  var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
-  var MessengerRnaFragment = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRnaFragment' );
-  var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/DestroyerTrackingRnaMotionStrategy' );
+ var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var DoubleRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/DoubleRange' );
+  var MessengerRnaFragment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaFragment' );
+  var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/DestroyerTrackingRnaMotionStrategy' );
 
   // constants
   var RAND = new Random();

@@ -18,13 +18,13 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Color = require( 'SCENERY/util/Color' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var regulatoryRegionString = require( 'string!GENE_EXPRESSION_BASICS/regulatoryRegion' );
-  var transcribedRegionString = require( 'string!GENE_EXPRESSION_BASICS/transcribedRegion' );
+  var regulatoryRegionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/regulatoryRegion' );
+  var transcribedRegionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/transcribedRegion' );
 
   // constants
   var REGION_LABEL_FONT = new PhetFont( { size: 12, weight: 'bold' } );

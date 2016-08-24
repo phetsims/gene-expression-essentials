@@ -11,10 +11,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
-  var Gene = require( 'GENE_EXPRESSION_BASICS/common/model/Gene' );
-  var IntegerRange = require( 'GENE_EXPRESSION_BASICS/common/util/IntegerRange' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
-  var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
+  var Gene = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Gene' );
+  var IntegerRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/IntegerRange' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
+  var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinA' );
 
   // constants
   var REGULATORY_REGION_COLOR = new Color( 216, 191, 216 );

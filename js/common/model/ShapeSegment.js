@@ -21,7 +21,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Property = require( 'AXON/Property' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
 
   // constants
   // Factor to use to avoid issues with floating point resolution.

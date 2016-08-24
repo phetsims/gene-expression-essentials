@@ -11,8 +11,8 @@
 
     // modules
     var inherit = require( 'PHET_CORE/inherit' );
-    var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
-    var StillnessMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/StillnessMotionStrategy' );
+    var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+    var StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/StillnessMotionStrategy' );
 
     /**
      * @constructor

@@ -14,15 +14,15 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Color = require( 'SCENERY/util/Color' );
-  var GeneNode = require( 'GENE_EXPRESSION_BASICS/common/view/GeneNode' );
-  var DnaStrandSegmentNode = require( 'GENE_EXPRESSION_BASICS/common/view/DnaStrandSegmentNode' );
+  var GeneNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/GeneNode' );
+  var DnaStrandSegmentNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaStrandSegmentNode' );
 
   // constants
   var STRAND_1_COLOR = new Color( 31, 163, 223 );
   var STRAND_2_COLOR = new Color( 214, 87, 107 );
 
   // strings
-  var geneString = require( 'string!GENE_EXPRESSION_BASICS/gene' );
+  var geneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene' );
 
   /**
    *

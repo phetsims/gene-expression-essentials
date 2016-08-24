@@ -19,21 +19,21 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Color = require( 'SCENERY/util/Color' );
-  var TranscriptionFactorCreatorNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/TranscriptionFactorCreatorNode' );
-  var RnaPolymeraseCreatorNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/RnaPolymeraseCreatorNode' );
-  var RibosomeCreatorNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/RibosomeCreatorNode' );
-  var MessengerRnaDestroyerCreatorNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/MessengerRnaDestroyerCreatorNode' );
+  var TranscriptionFactorCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/TranscriptionFactorCreatorNode' );
+  var RnaPolymeraseCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/RnaPolymeraseCreatorNode' );
+  var RibosomeCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/RibosomeCreatorNode' );
+  var MessengerRnaDestroyerCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/MessengerRnaDestroyerCreatorNode' );
 
   // constants
   var TITLE_FONT = new PhetFont( { size: 20, weight: 'bold' } );
 
   // strings
-  var biomoleculeToolboxString = require( 'string!GENE_EXPRESSION_BASICS/biomoleculeToolbox' );
-  var positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_BASICS/positiveTranscriptionFactorHtml' );
-  var ribosomeString = require( 'string!GENE_EXPRESSION_BASICS/ribosome' );
-  var rnaPolymeraseString = require( 'string!GENE_EXPRESSION_BASICS/rnaPolymerase' );
-  var mrnaDestroyerString = require( 'string!GENE_EXPRESSION_BASICS/mrnaDestroyer' );
-  var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactorHtml' );
+  var biomoleculeToolboxString = require( 'string!GENE_EXPRESSION_ESSENTIALS/biomoleculeToolbox' );
+  var positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactorHtml' );
+  var ribosomeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/ribosome' );
+  var rnaPolymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/rnaPolymerase' );
+  var mrnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mrnaDestroyer' );
+  var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactorHtml' );
 
   /**
    * Convenience class for creating row labels.

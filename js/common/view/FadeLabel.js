@@ -14,7 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var FadeTimer = require( 'GENE_EXPRESSION_BASICS/common/view/FadeTimer' );
+  var FadeTimer = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/FadeTimer' );
 
   // constants
   var FONT = new PhetFont( 14 );

@@ -10,8 +10,8 @@ define( function( require ) {
 
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/PlacementHint' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
+  var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
 
   /**
    *

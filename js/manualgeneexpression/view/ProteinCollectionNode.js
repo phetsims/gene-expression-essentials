@@ -18,7 +18,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Shape = require( 'KITE/Shape' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
-  var ProteinCollectionArea = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/ProteinCollectionArea' );
+  var ProteinCollectionArea = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/ProteinCollectionArea' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Panel = require( 'SUN/Panel' );
@@ -39,10 +39,10 @@ define( function( require ) {
   var INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
 
   // strings
-  var yourProteinCollectionString = require( 'string!GENE_EXPRESSION_BASICS/yourProteinCollection' );
-  var collectionCompleteString = require( 'string!GENE_EXPRESSION_BASICS/collectionComplete' );
-  var proteinCountCaptionPart1String = require( 'string!GENE_EXPRESSION_BASICS/proteinCountCaptionPart1' );
-  var proteinCountCaptionPart2String = require( 'string!GENE_EXPRESSION_BASICS/proteinCountCaptionPart2' );
+  var yourProteinCollectionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/yourProteinCollection' );
+  var collectionCompleteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/collectionComplete' );
+  var proteinCountCaptionPart1String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart1' );
+  var proteinCountCaptionPart2String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart2' );
 
   /**
    * Center the full bounds of this node so that they are centered on the

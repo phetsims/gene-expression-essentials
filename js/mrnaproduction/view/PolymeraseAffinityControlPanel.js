@@ -18,14 +18,14 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
-  var DnaMoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/DnaMoleculeNode' );
-  var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
-  var AffinityController = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/AffinityController' );
-  var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
-  var SpacerNode = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/SpacerNode' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/MobileBiomoleculeNode' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
+  var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
+  var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
+  var AffinityController = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/AffinityController' );
+  var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var SpacerNode = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/SpacerNode' );
+  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
@@ -38,7 +38,7 @@ define( function( require ) {
     new Vector2( 0, 0 ), DNA_AND_TF_SCALE );
 
   //strings
-  var rnaPolymeraseString = require( 'string!GENE_EXPRESSION_BASICS/rnaPolymerase' );
+  var rnaPolymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/rnaPolymerase' );
 
   /**
    *

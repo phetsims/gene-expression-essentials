@@ -10,8 +10,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var Shape = require( 'KITE/Shape' );
-  var Protein = require( 'GENE_EXPRESSION_BASICS/common/model/Protein' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
+  var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel' );
   var Util = require( 'DOT/Util' );
 
   // constants

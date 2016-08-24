@@ -1,10 +1,10 @@
 {
-  "name": "gene-expression-basics",
+  "name": "gene-expression-essentials",
   "version": "1.0.0-dev.1",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/phetsims/gene-expression-basics.git"
+    "url": "https://github.com/phetsims/gene-expression-essentials.git"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -14,7 +14,7 @@
     "requirejs": "~2.1.8"
   },
   "phet": {
-    "requirejsNamespace": "GENE_EXPRESSION_BASICS"
+    "requirejsNamespace": "GENE_EXPRESSION_ESSENTIALS"
   }
 }
 

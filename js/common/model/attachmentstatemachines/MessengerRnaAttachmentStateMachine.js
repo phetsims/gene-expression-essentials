@@ -11,13 +11,13 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var AttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentStateMachine' );
-  var BeingSynthesizedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/BeingSynthesizedState' );
-  var UnattachedAndFadingState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/UnattachedAndFadingState' );
-  var DetachingFromPolymeraseState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/DetachingFromPolymeraseState' );
-  var WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/WanderingAroundCytoplasmState' );
-  var BeingTranslatedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/BeingTranslatedState' );
-  var BeingDestroyedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/BeingDestroyedState' );
+  var AttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentStateMachine' );
+  var BeingSynthesizedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/BeingSynthesizedState' );
+  var UnattachedAndFadingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/UnattachedAndFadingState' );
+  var DetachingFromPolymeraseState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/DetachingFromPolymeraseState' );
+  var WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/WanderingAroundCytoplasmState' );
+  var BeingTranslatedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/BeingTranslatedState' );
+  var BeingDestroyedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/BeingDestroyedState' );
 
   /**
    * @param {MessengerRna} messengerRna

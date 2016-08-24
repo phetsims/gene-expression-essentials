@@ -7,13 +7,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/model/MessengerRnaProductionModel' );
-  var MessengerRnaProductionScreenView = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/MessengerRnaProductionScreenView' );
+  var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/model/MessengerRnaProductionModel' );
+  var MessengerRnaProductionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/MessengerRnaProductionScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var geneExpressionBasicsNameString = require( 'string!GENE_EXPRESSION_BASICS/gene-expression-basics.name' );
+  var geneExpressionEssentialsNameString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene-expression-essentials.name' );
 
   /**
    * @constructor
@@ -23,7 +23,7 @@ define( function( require ) {
     //If this is a single-screen sim, then no icon is necessary.
     //If there are multiple screens, then the icon must be provided here.
     var icon = null;
-    Screen.call( this, geneExpressionBasicsNameString, icon,
+    Screen.call( this, geneExpressionEssentialsNameString, icon,
       function() {
         return new MessengerRnaProductionModel();
       },

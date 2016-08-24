@@ -16,7 +16,7 @@ define( function( require ) {
 
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
 
   /**
    *

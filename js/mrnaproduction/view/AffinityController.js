@@ -18,7 +18,7 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var HorizontalSliderWithLabelsAtEnds = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/HorizontalSliderWithLabelsAtEnds' );
+  var HorizontalSliderWithLabelsAtEnds = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/HorizontalSliderWithLabelsAtEnds' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   //constants
@@ -26,9 +26,9 @@ define( function( require ) {
   var ARROW_HEAD_HEIGHT = 10;
 
   //strings
-  var affinityString = require( 'string!GENE_EXPRESSION_BASICS/affinity' );
-  var lowString = require( 'string!GENE_EXPRESSION_BASICS/low' );
-  var highString = require( 'string!GENE_EXPRESSION_BASICS/high' );
+  var affinityString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinity' );
+  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
+  var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
 
   /**
    * @param {Node} leftNode

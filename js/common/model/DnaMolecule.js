@@ -20,17 +20,17 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
-  var BioShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/BioShapeUtils' );
-  var IntegerRange = require( 'GENE_EXPRESSION_BASICS/common/util/IntegerRange' );
-  var BasePair = require( 'GENE_EXPRESSION_BASICS/common/model/BasePair' );
+  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
+  var IntegerRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/IntegerRange' );
+  var BasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BasePair' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var DnaStrandSegment = require( 'GENE_EXPRESSION_BASICS/common/model/DnaStrandSegment' );
-  var DnaStrandPoint = require( 'GENE_EXPRESSION_BASICS/common/model/DnaStrandPoint' );
-    var StubGeneExpressionModel = require('GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel');
+  var DnaStrandSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandSegment' );
+  var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
+    var StubGeneExpressionModel = require('GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel');
 
   // constants
   // Distance within which transcription factors may attach.

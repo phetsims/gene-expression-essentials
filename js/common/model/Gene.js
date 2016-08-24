@@ -18,15 +18,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
-  var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
-  var PlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/PlacementHint' );
-  var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/AttachmentSite' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
-  var TranscriptionFactorPlacementHint = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactorPlacementHint' );
-  var TranscriptionFactorAttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactorAttachmentSite' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
+  var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
+  var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel' );
+  var TranscriptionFactorPlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorPlacementHint' );
+  var TranscriptionFactorAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorAttachmentSite' );
 
   /**
    *

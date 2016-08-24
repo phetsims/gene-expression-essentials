@@ -18,14 +18,14 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/model/MessengerRnaProductionModel' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/MobileBiomoleculeNode' );
-  var DnaMoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/DnaMoleculeNode' );
-  var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
-  var AffinityController = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/AffinityController' );
-  var ConcentrationController = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/ConcentrationController' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
+  var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/model/MessengerRnaProductionModel' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
+  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
+  var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
+  var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
+  var AffinityController = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/AffinityController' );
+  var ConcentrationController = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/ConcentrationController' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
 
   // constants
   var DNA_SCALE = 0.1;
@@ -33,8 +33,8 @@ define( function( require ) {
   var TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
 
   //strings
-  var positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_BASICS/positiveTranscriptionFactorHtml' );
-  var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactorHtml' );
+  var positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactorHtml' );
+  var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactorHtml' );
 
   /**
    *

@@ -13,15 +13,15 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
-  var TranscriptionFactorConfig = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactorConfig' );
-  var BioShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/BioShapeUtils' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
+  var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
+  var TranscriptionFactorConfig = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorConfig' );
+  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel' );
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var Random = require( 'DOT/Random' );
-  var TranscriptionFactorAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/TranscriptionFactorAttachmentStateMachine' );
+  var TranscriptionFactorAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/TranscriptionFactorAttachmentStateMachine' );
 
   // constants
   var WIDTH = 325;   // In nanometers.

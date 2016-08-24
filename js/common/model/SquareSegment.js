@@ -9,7 +9,7 @@ define( function( require ) {
 
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var ShapeSegment = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeSegment' );
+  var ShapeSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeSegment' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
   /**

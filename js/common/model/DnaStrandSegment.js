@@ -15,7 +15,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var ShapeChangingModelElement = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeChangingModelElement' );
+  var ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
 
   /**
    * @param {Shape} shape

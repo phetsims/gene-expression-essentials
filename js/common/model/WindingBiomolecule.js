@@ -14,13 +14,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
-  var EnhancedObservableList = require( 'GENE_EXPRESSION_BASICS/common/util/EnhancedObservableList' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
-  var BioShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/BioShapeUtils' );
-  var DoubleRange = require( 'GENE_EXPRESSION_BASICS/common/util/DoubleRange' );
-  var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
-  var PointMass = require( 'GENE_EXPRESSION_BASICS/common/model/PointMass' );
-  var SeededRandom = require( 'GENE_EXPRESSION_BASICS/common/util/SeededRandom' );
+  var EnhancedObservableList = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/EnhancedObservableList' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
+  var DoubleRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/DoubleRange' );
+  var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
+  var PointMass = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PointMass' );
+  var SeededRandom = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/SeededRandom' );
 
 
   // constants

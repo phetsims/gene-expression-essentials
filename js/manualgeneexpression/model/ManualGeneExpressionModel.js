@@ -15,22 +15,22 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var GeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionModel' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
-  var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
-  var GeneA = require( 'GENE_EXPRESSION_BASICS/common/model/GeneA' );
-  var GeneB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneB' );
-  var GeneC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/GeneC' );
+  var GeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionModel' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
+  var GeneA = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneA' );
+  var GeneB = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/GeneB' );
+  var GeneC = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/GeneC' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Shape = require( 'KITE/Shape' );
-  var ConstantDtClock = require( 'GENE_EXPRESSION_BASICS/common/model/ConstantDtClock' );
+  var ConstantDtClock = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ConstantDtClock' );
   var Property = require( 'AXON/Property' );
-  var Map = require( 'GENE_EXPRESSION_BASICS/common/util/Map' );
-  var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
-  var ProteinB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinB' );
-  var ProteinC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinC' );
-  var MotionBounds = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionBounds' );
-  var Protein = require( 'GENE_EXPRESSION_BASICS/common/model/Protein' );
+  var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
+  var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinA' );
+  var ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinB' );
+  var ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinC' );
+  var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionBounds' );
+  var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
 
   // constants
   // Stage size for the mobile biomolecules, which is basically the area in

@@ -19,12 +19,12 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Color = require( 'SCENERY/util/Color' );
-  var GradientUtil = require( 'GENE_EXPRESSION_BASICS/common/util/GradientUtil' );
-  var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
-  var RibosomeNode = require( 'GENE_EXPRESSION_BASICS/common/view/RibosomeNode' );
-  var BiomoleculeDragHandler = require( 'GENE_EXPRESSION_BASICS/common/view/BiomoleculeDragHandler' );
-  var Ribosome = require( 'GENE_EXPRESSION_BASICS/common/model/Ribosome' );
-  var MessengerRna = require( 'GENE_EXPRESSION_BASICS/common/model/MessengerRna' );
+  var GradientUtil = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/GradientUtil' );
+  var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
+  var RibosomeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/RibosomeNode' );
+  var BiomoleculeDragHandler = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/BiomoleculeDragHandler' );
+  var Ribosome = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Ribosome' );
+  var MessengerRna = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRna' );
 
 
   /**

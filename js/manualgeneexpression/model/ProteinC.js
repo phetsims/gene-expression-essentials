@@ -8,11 +8,11 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Protein = require( 'GENE_EXPRESSION_BASICS/common/model/Protein' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
+  var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel' );
   var Util = require( 'DOT/Util' );
   var Shape = require( 'KITE/Shape' );
-  var ColorChangingCellNode = require( 'GENE_EXPRESSION_BASICS/multiplecells/view/ColorChangingCellNode' );
+  var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ColorChangingCellNode' );
 
   // constants
   var BASE_COLOR = ColorChangingCellNode.FLORESCENT_FILL_COLOR; // Make the color look like the fluorescent green used in "multiple cells" tab.

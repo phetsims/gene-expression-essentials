@@ -14,9 +14,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var AttachmentState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/AttachmentState' );
-  var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
-  var FollowAttachmentSite = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/FollowAttachmentSite' );
+  var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
+  var FollowAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/FollowAttachmentSite' );
 
   // constants
   var DEFAULT_ATTACH_TIME = 3; // In seconds.

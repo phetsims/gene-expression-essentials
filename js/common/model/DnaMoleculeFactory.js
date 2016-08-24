@@ -11,8 +11,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var DnaMolecule =  require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
+  var DnaMolecule =  require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel' );
 
   var DnaMoleculeFactory = {
 

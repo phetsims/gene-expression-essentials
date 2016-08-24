@@ -12,10 +12,10 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var MessengerRnaFragmentAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/MessengerRnaFragmentAttachmentStateMachine' );
-  var SquareSegment = require( 'GENE_EXPRESSION_BASICS/common/model/SquareSegment' );
+  var MessengerRnaFragmentAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/MessengerRnaFragmentAttachmentStateMachine' );
+  var SquareSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/SquareSegment' );
   var Shape = require( 'KITE/Shape' );
-  var WindingBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/WindingBiomolecule' );
+  var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
 
 
   /**

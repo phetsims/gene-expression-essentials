@@ -16,10 +16,10 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
-  var ProteinB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinB' );
-  var ProteinC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinC' );
-  var ProteinCaptureNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/ProteinCaptureNode' );
+  var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinA' );
+  var ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinB' );
+  var ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinC' );
+  var ProteinCaptureNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/ProteinCaptureNode' );
   var kite = require( 'KITE/kite' );
 
   /**

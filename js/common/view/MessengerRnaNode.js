@@ -14,14 +14,14 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/MobileBiomoleculeNode' );
-  var PlacementHintNode = require( 'GENE_EXPRESSION_BASICS/common/view/PlacementHintNode' );
-  var FadeLabel = require( 'GENE_EXPRESSION_BASICS/common/view/FadeLabel' );
+  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
+  var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
+  var FadeLabel = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/FadeLabel' );
 
   // constants
   // For debug - turn on to show the enclosing shape segments.
   //  var SHOW_SHAPE_SEGMENTS = false; TODO
-  var mRnaString = require( 'string!GENE_EXPRESSION_BASICS/mRna' );
+  var mRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRna' );
 
   /**
    *

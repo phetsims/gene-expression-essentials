@@ -10,20 +10,20 @@ define( function( require ) {
 
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
   var Random = require( 'DOT/Random' );
-  var DnaMolecule = require( 'GENE_EXPRESSION_BASICS/common/model/DnaMolecule' );
-  var GeneA = require( 'GENE_EXPRESSION_BASICS/common/model/GeneA' );
+  var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
+  var GeneA = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneA' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
   var Shape = require( 'KITE/Shape' );
   var Rectangle = require( 'DOT/Rectangle' );
-  var ConstantDtClock = require( 'GENE_EXPRESSION_BASICS/common/model/ConstantDtClock' );
-  var RnaPolymerase = require( 'GENE_EXPRESSION_BASICS/common/model/RnaPolymerase' );
-  var MotionBounds = require( 'GENE_EXPRESSION_BASICS/common/model/motionstrategies/MotionBounds' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
+  var ConstantDtClock = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ConstantDtClock' );
+  var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
+  var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionBounds' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
 
   // constants
   // Length, in terms of base pairs, of the DNA molecule.

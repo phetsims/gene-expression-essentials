@@ -19,11 +19,11 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var ProteinA = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinA' );
-  var ProteinB = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinB' );
-  var ProteinC = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/ProteinC' );
-  var GradientUtil = require( 'GENE_EXPRESSION_BASICS/common/util/GradientUtil' );
-  var FlashingShapeNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/FlashingShapeNode' );
+  var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinA' );
+  var ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinB' );
+  var ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinC' );
+  var GradientUtil = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/GradientUtil' );
+  var FlashingShapeNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/FlashingShapeNode' );
 
   // constants
   var FLASH_COLOR = new Color( 173, 255, 47 );

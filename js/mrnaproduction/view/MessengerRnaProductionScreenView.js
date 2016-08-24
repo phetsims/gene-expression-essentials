@@ -11,16 +11,16 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlacementHintNode = require( 'GENE_EXPRESSION_BASICS/common/view/PlacementHintNode' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/MobileBiomoleculeNode' );
-  var MessengerRnaNode = require( 'GENE_EXPRESSION_BASICS/common/view/MessengerRnaNode' );
+  var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
+  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
+  var MessengerRnaNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MessengerRnaNode' );
   var Property = require( 'AXON/Property' );
-  var DnaMoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/DnaMoleculeNode' );
+  var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
   var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var TranscriptionFactorControlPanel = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/TranscriptionFactorControlPanel' );
-  var PolymeraseAffinityControlPanel = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/PolymeraseAffinityControlPanel' );
-  var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/model/MessengerRnaProductionModel' );
+  var TranscriptionFactorControlPanel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/TranscriptionFactorControlPanel' );
+  var PolymeraseAffinityControlPanel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/PolymeraseAffinityControlPanel' );
+  var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/model/MessengerRnaProductionModel' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -31,7 +31,7 @@ define( function( require ) {
   var INSET = 15;  // Inset for several of the controls.
 
   // strings
-  var negativeTranscriptionFactorString = require( 'string!GENE_EXPRESSION_BASICS/negativeTranscriptionFactor' );
+  var negativeTranscriptionFactorString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactor' );
 
   //TODO  isAncesterOf method used in PNode java
   //function isAncesterOf( node1, node2 ) {

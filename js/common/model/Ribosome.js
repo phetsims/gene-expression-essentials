@@ -12,12 +12,12 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var ShapeUtils = require( 'GENE_EXPRESSION_BASICS/common/model/ShapeUtils' );
+  var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
   var Color = require( 'SCENERY/util/Color' );
-  var MobileBiomolecule = require( 'GENE_EXPRESSION_BASICS/common/model/MobileBiomolecule' );
-  var RibosomeShape = require( 'GENE_EXPRESSION_BASICS/common/model/RibosomeShape' );
-  var RibosomeAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/RibosomeAttachmentStateMachine' );
-  var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_BASICS/common/model/GeneExpressionRibosomeConstant' );
+  var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
+  var RibosomeShape = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RibosomeShape' );
+  var RibosomeAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/RibosomeAttachmentStateMachine' );
+  var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRibosomeConstant' );
 
 
   /**

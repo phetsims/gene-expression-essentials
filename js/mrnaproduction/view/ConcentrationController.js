@@ -14,17 +14,17 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var HorizontalSliderWithLabelsAtEnds = require( 'GENE_EXPRESSION_BASICS/mrnaproduction/view/HorizontalSliderWithLabelsAtEnds' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/MobileBiomoleculeNode' );
-  var CommonConstants = require( 'GENE_EXPRESSION_BASICS/common/model/CommonConstants' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_BASICS/common/model/TranscriptionFactor' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/model/StubGeneExpressionModel' );
+  var HorizontalSliderWithLabelsAtEnds = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/HorizontalSliderWithLabelsAtEnds' );
+  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // strings
-  var concentrationsString = require( 'string!GENE_EXPRESSION_BASICS/concentrations' );
-  var noneString = require( 'string!GENE_EXPRESSION_BASICS/none' );
-  var lowString = require( 'string!GENE_EXPRESSION_BASICS/low' );
+  var concentrationsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentrations' );
+  var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
+  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
 
   /**
    *

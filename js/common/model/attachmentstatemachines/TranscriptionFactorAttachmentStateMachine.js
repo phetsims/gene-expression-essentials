@@ -14,8 +14,8 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
-  var TranscriptionFactorAttachedState = require( 'GENE_EXPRESSION_BASICS/common/model/attachmentstatemachines/TranscriptionFactorAttachedState' );
+  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
+  var TranscriptionFactorAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/TranscriptionFactorAttachedState' );
 
   /**
    * @param {MobileBiomolecule} biomolecule

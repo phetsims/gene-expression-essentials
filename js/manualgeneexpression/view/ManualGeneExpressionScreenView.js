@@ -11,16 +11,16 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlacementHintNode = require( 'GENE_EXPRESSION_BASICS/common/view/PlacementHintNode' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/MobileBiomoleculeNode' );
-  var ProteinCollectionNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/ProteinCollectionNode' );
-  var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_BASICS/manualgeneexpression/view/BiomoleculeToolBoxNode' );
+  var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
+  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
+  var ProteinCollectionNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/ProteinCollectionNode' );
+  var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/BiomoleculeToolBoxNode' );
   var HSlider = require( 'SUN/HSlider' );
   var Property = require( 'AXON/Property' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var DnaMoleculeNode = require( 'GENE_EXPRESSION_BASICS/common/view/DnaMoleculeNode' );
-  var MessengerRnaNode = require( 'GENE_EXPRESSION_BASICS/common/view/MessengerRnaNode' );
+  var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
+  var MessengerRnaNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MessengerRnaNode' );
   var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -30,7 +30,7 @@ define( function( require ) {
   var INSET = 15;
 
   // images
-  var mockupImage = require( 'image!GENE_EXPRESSION_BASICS/GEB-01.png' );
+  var mockupImage = require( 'image!GENE_EXPRESSION_ESSENTIALS/GEB-01.png' );
 
   /**
    * @param {ManualGeneExpressionModel} model

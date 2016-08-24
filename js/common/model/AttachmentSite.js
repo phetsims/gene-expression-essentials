@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var BoundedDoubleProperty = require( 'GENE_EXPRESSION_BASICS/common/model/BoundedDoubleProperty' );
+  var BoundedDoubleProperty = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BoundedDoubleProperty' );
 
   // constants
   var ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
