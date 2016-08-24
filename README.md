@@ -1,4 +1,4 @@
-Gene Expression - The Basics
+Gene Expression Essentials
 ================
 
 "Gene Expression Essentials" is an educational simulation in HTML5, by <a href="http://phet.colorado.edu/" target="_blank">PhET Interactive Simulations</a>
