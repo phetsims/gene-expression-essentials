@@ -43,7 +43,7 @@ define( function( require ) {
     this.addTranscriptionFactor( 11, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_NEG );
   }
 
-  geneExpressionEssentials.register( 'GeneB', GeneB )
+  geneExpressionEssentials.register( 'GeneB', GeneB );
 
   return inherit( Gene, GeneB, {
 

@@ -25,7 +25,7 @@ define( function( require ) {
     Protein.call( this, model, this.createInitialShape(), BASE_COLOR );
   }
 
-  geneExpressionEssentials.register( 'ProteinB', ProteinB )
+  geneExpressionEssentials.register( 'ProteinB', ProteinB );
 
   return inherit( Protein, ProteinB, {
 
