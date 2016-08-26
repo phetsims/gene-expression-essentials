@@ -25,17 +25,10 @@ define( function( require ) {
    * @return {Shape}
    */
   function createShape() {
-    //  var circle = Shape.Double( -WIDTH / 2, -WIDTH / 2, WIDTH, WIDTH );
-    var mouthPath = new Shape().moveTo( 0, 0 );
-    mouthPath.lineTo( WIDTH, WIDTH * 0.8 );
-    mouthPath.lineTo( WIDTH, -WIDTH * 0.8 );
-    mouthPath.close();
-    /* Area overallShape = new Area( circle );
-     overallShape.subtract( new Area( mouthPath.getGeneralPath() ) );
-     return overallShape; *
-     */
-    return mouthPath;
-
+    var mouthShape = new Shape().moveTo( 0, 0 ).
+      arc( 0, 0, WIDTH / 2, Math.PI / 6, 2 * Math.PI - Math.PI /6 ).
+      close();
+    return mouthShape;
   }
 
   /**
