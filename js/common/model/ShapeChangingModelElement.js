@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -25,6 +26,8 @@ define( function( require ) {
       shape: initialShape
     }, props || {} ) );
   }
+
+  geneExpressionEssentials.register( 'ShapeChangingModelElement', ShapeChangingModelElement );
 
   return inherit( PropertySet, ShapeChangingModelElement, {
 

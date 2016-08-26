@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var BiomoleculeCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/BiomoleculeCreatorNode' );
@@ -50,6 +51,7 @@ define( function( require ) {
     );
   }
 
+  geneExpressionEssentials.register( 'MessengerRnaDestroyerCreatorNode', MessengerRnaDestroyerCreatorNode );
 
   return inherit( BiomoleculeCreatorNode, MessengerRnaDestroyerCreatorNode );
 

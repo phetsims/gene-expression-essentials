@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -94,6 +95,8 @@ define( function( require ) {
       labelText.y = bracketBounds.getMaxY() + 20;
     }
   }
+
+  geneExpressionEssentials.register( 'GeneNode', GeneNode );
 
   return inherit( Node, GeneNode );
 } );

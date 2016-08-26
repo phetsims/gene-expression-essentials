@@ -15,6 +15,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentStateMachine' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericUnattachedAndAvailableState' );
   var GenericAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericAttachedState' );
   var GenericMovingTowardsAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericMovingTowardsAttachmentState' );
@@ -36,6 +37,8 @@ define( function( require ) {
     this.unattachedButUnavailableState = new GenericUnattachedButUnavailableState();
     this.setState( this.unattachedAndAvailableState );
   }
+
+  geneExpressionEssentials.register( 'GenericAttachmentStateMachine', GenericAttachmentStateMachine );
 
   return inherit( AttachmentStateMachine, GenericAttachmentStateMachine, {
 

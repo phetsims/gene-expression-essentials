@@ -14,6 +14,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
 
@@ -26,6 +27,8 @@ define( function( require ) {
     ShapeChangingModelElement.call( this, shape );
     this.inFront = inFront;
   }
+
+  geneExpressionEssentials.register( 'DnaStrandSegment', DnaStrandSegment );
 
   return inherit( ShapeChangingModelElement, DnaStrandSegment,
     {

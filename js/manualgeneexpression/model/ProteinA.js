@@ -7,6 +7,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var Shape = require( 'KITE/Shape' );
@@ -23,6 +24,8 @@ define( function( require ) {
     model = model || new StubGeneExpressionModel();
     Protein.call( this, model, this.createInitialShape(), BASE_COLOR );
   }
+
+  geneExpressionEssentials.register( 'ProteinA', ProteinA );
 
   return inherit( Protein, ProteinA, {
 

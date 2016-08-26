@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
@@ -42,6 +43,8 @@ define( function( require ) {
     } );
 
   }
+
+  geneExpressionEssentials.register( 'BiomoleculeDragHandler', BiomoleculeDragHandler );
 
   return inherit( SimpleDragHandler, BiomoleculeDragHandler );
 

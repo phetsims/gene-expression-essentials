@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -23,6 +24,8 @@ define( function( require ) {
     this.baseColor = baseColor;
     this.isPositive = positive;
   }
+
+  geneExpressionEssentials.register( 'TranscriptionFactorConfig', TranscriptionFactorConfig );
 
   return inherit( Object, TranscriptionFactorConfig, {} );
 

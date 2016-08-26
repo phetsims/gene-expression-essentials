@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -51,6 +52,8 @@ define( function( require ) {
     // Reference to the messenger RNA being destroyed.
     this.messengerRnaBeingDestroyed = null;
   }
+
+  geneExpressionEssentials.register( 'MessengerRnaDestroyer', MessengerRnaDestroyer );
 
   return inherit( MobileBiomolecule, MessengerRnaDestroyer, {
 

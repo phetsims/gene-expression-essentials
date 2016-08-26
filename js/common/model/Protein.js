@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericUnattachedAndAvailableState' );
@@ -38,6 +39,7 @@ define( function( require ) {
     this.fullSizeProportion = 0;// private
   }
 
+  geneExpressionEssentials.register( 'Protein', Protein );
   return inherit( MobileBiomolecule, Protein, {
 
     /**

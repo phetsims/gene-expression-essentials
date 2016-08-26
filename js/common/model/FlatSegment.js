@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ShapeSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeSegment' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
@@ -23,6 +24,8 @@ define( function( require ) {
     this.bounds.setMinMax( origin.x, origin.y, origin.x, origin.y );
     this.updateAttachmentSiteLocation();
   }
+
+  geneExpressionEssentials.register( 'FlatSegment', FlatSegment);
 
   return inherit( ShapeSegment, FlatSegment, {
 

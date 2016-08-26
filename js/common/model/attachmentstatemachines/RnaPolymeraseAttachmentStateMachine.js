@@ -22,6 +22,7 @@ define( function( require ) {
   var AttachedAndTranscribingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachedAndTranscribingState' );
   var DnaSeparation = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaSeparation' );
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
 
   // constants
@@ -71,6 +72,8 @@ define( function( require ) {
     this.transcribingAttachmentSite.attachedOrAttachingMolecule = rnaPolymerase;
 
   }
+
+  geneExpressionEssentials.register( 'RnaPolymeraseAttachmentStateMachine', RnaPolymeraseAttachmentStateMachine );
 
   return inherit( GenericAttachmentStateMachine, RnaPolymeraseAttachmentStateMachine, {
 

@@ -10,6 +10,7 @@ define( function( require ) {
 
   // imports
   var Color = require( 'SCENERY/util/Color' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var Vector2 = require('DOT/Vector2');
   var ModelViewTransform2 = require('PHETCOMMON/view/ModelViewTransform2');
 
@@ -50,6 +51,7 @@ define( function( require ) {
   // verify that enum is immutable, without the runtime penalty in production code
   if ( assert ) { Object.freeze( CommonConstants ); }
 
+  geneExpressionEssentials.register( 'CommonConstants', CommonConstants );
 
   return CommonConstants;
 

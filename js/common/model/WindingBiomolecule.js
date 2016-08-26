@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
@@ -63,6 +64,8 @@ define( function( require ) {
     // List of the shape segments that define the outline shape.
     this.shapeSegments = new EnhancedObservableList();
   }
+
+  geneExpressionEssentials.register( 'WindingBiomolecule', WindingBiomolecule );
 
   return inherit( MobileBiomolecule, WindingBiomolecule, {
 

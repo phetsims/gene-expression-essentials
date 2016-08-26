@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var RibosomeTranslatingRnaMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/RibosomeTranslatingRnaMotionStrategy' );
 
   // constants
@@ -32,6 +33,8 @@ define( function( require ) {
     AttachmentState.call( this );
     this.ribosomeAttachmentStateMachine = ribosomeAttachmentStateMachine;
   }
+
+  geneExpressionEssentials.register( 'RibosomeAttachedState', RibosomeAttachedState );
 
   return inherit( AttachmentState, RibosomeAttachedState, {
     /**

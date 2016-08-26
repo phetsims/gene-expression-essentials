@@ -16,6 +16,7 @@ define( function( require ) {
   var MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MoveDirectlyToDestinationMotionStrategy' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var GeneExpressionRnaPolymeraseConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRnaPolymeraseConstant' );
   var MessengerRna = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRna' );
   var Property = require( 'AXON/Property' );
@@ -34,6 +35,8 @@ define( function( require ) {
     this.endOfGene = null;
     this.messengerRna = null;
   }
+
+  geneExpressionEssentials.register( 'AttachedAndTranscribingState', AttachedAndTranscribingState );
 
   return inherit( AttachmentState, AttachedAndTranscribingState, {
 

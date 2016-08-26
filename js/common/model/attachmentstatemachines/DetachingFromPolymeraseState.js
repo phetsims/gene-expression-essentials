@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/WanderingAroundCytoplasmState' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
 
@@ -26,6 +27,8 @@ define( function( require ) {
     this.msgRnaAttachmentStateMachine = msgRnaAttachmentStateMachine; // parent class  reference
     this.detachingCountdownTimer = DETACHING_TIME;
   }
+
+  geneExpressionEssentials.register( 'DetachingFromPolymeraseState', DetachingFromPolymeraseState );
 
   return inherit( AttachmentState, DetachingFromPolymeraseState, {
 

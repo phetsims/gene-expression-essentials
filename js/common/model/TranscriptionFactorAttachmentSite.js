@@ -15,6 +15,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
 
@@ -31,6 +32,8 @@ define( function( require ) {
     // Configuration of TF that attaches to this site.
     this.tfConfig = tfConfig; // private
   }
+
+  geneExpressionEssentials.register( 'TranscriptionFactorAttachmentSite', TranscriptionFactorAttachmentSite );
 
   return inherit( AttachmentSite, TranscriptionFactorAttachmentSite, {
 

@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
 
 
@@ -27,6 +28,7 @@ define( function( require ) {
     this.targetAmount = targetAmount;
   }
 
+  geneExpressionEssentials.register( 'DnaSeparation', DnaSeparation );
   return inherit( Object, DnaSeparation, {
 
     /**

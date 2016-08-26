@@ -10,12 +10,15 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var MeanderToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MeanderToDestinationMotionStrategy' );
   var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/RandomWalkMotionStrategy' );
 
   function GenericUnattachedAndAvailableState() {
     AttachmentState.call( this );
   }
+
+  geneExpressionEssentials.register( 'GenericUnattachedAndAvailableState', GenericUnattachedAndAvailableState );
 
   return inherit( Object, GenericUnattachedAndAvailableState, {
 

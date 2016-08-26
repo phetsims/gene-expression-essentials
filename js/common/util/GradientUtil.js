@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
@@ -17,6 +18,8 @@ define( function( require ) {
   function GradientUtil() {
 
   }
+
+  geneExpressionEssentials.register( 'GradientUtil', GradientUtil );
 
   return inherit( Object, GradientUtil, {}, {
 

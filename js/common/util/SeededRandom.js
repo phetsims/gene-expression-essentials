@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function SeededRandom( seed ) {
@@ -17,6 +18,8 @@ define( function( require ) {
       return x - Math.floor( x );
     };
   }
+
+  geneExpressionEssentials.register( 'SeededRandom', SeededRandom );
 
   return inherit( Object, SeededRandom, {
 

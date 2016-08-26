@@ -11,6 +11,7 @@
     'use strict';
 
     // modules
+    var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
     var inherit = require( 'PHET_CORE/inherit' );
 
     /**
@@ -19,6 +20,7 @@
     function StubGeneExpressionModel() {
     }
 
+    geneExpressionEssentials.register( 'StubGeneExpressionModel', StubGeneExpressionModel );
     return inherit( Object, StubGeneExpressionModel );
   } );
 

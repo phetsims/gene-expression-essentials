@@ -17,6 +17,7 @@ define( function( require ) {
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
   var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/RandomWalkMotionStrategy' );
   var DriftThenTeleportMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/DriftThenTeleportMotionStrategy' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
   // constants
   var RAND = new Random();
@@ -32,6 +33,8 @@ define( function( require ) {
     this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
     this.recycleReturnZones = recycleReturnZones;
   }
+
+  geneExpressionEssentials.register( 'BeingRecycledState', BeingRecycledState );
 
   return inherit( AttachmentState, BeingRecycledState, {
 

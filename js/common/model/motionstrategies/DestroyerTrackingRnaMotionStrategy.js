@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionStrategy' );
@@ -23,6 +24,8 @@ define( function( require ) {
     MotionStrategy.call( this );
     this.messengerRna = messengerRnaDestroyer.getMessengerRnaBeingDestroyed();
   }
+
+  geneExpressionEssentials.register( 'DestroyerTrackingRnaMotionStrategy', DestroyerTrackingRnaMotionStrategy );
 
   return inherit( MotionStrategy, DestroyerTrackingRnaMotionStrategy, {
 

@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -39,6 +40,8 @@ define( function( require ) {
     this.setPosition( initialPosition );
     this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint;// In picometers.
   }
+
+  geneExpressionEssentials.register( 'PointMass', PointMass );
 
   return inherit( Object, PointMass, {
 

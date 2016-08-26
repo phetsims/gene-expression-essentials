@@ -15,6 +15,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Random = require( 'DOT/Random' );
   var GenericAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericAttachedState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var FollowAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/FollowAttachmentSite' );
   var MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MoveDirectlyToDestinationMotionStrategy' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
@@ -35,6 +36,8 @@ define( function( require ) {
     GenericAttachedState.call( this );
     this.transcriptionFactorAttachmentStateMachine = transcriptionFactorAttachmentStateMachine;
   }
+
+  geneExpressionEssentials.register( 'TranscriptionFactorAttachedState', TranscriptionFactorAttachedState );
 
   return inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
 

@@ -14,6 +14,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var GeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionModel' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
@@ -109,6 +110,8 @@ define( function( require ) {
     this.clock = new ConstantDtClock( FRAMES_PER_SECOND, stepEventCallBack );
     this.clockRunning = new Property( true );
   }
+
+  geneExpressionEssentials.register( 'ManualGeneExpressionModel', ManualGeneExpressionModel );
 
   return inherit( GeneExpressionModel, ManualGeneExpressionModel, {
 

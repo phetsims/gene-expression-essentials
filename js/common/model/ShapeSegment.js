@@ -16,6 +16,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -43,6 +44,8 @@ define( function( require ) {
     // Max length of mRNA that this segment can contain.
     this.capacity = Number.MAX_VALUE;
   }
+
+  geneExpressionEssentials.register( 'ShapeSegment', ShapeSegment );
 
   return inherit( Object, ShapeSegment, {
 

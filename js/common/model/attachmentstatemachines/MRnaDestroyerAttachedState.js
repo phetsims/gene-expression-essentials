@@ -13,8 +13,9 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Random = require( 'DOT/Random' );
- var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
   var DoubleRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/DoubleRange' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var MessengerRnaFragment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaFragment' );
   var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/DestroyerTrackingRnaMotionStrategy' );
 
@@ -37,6 +38,8 @@ define( function( require ) {
     this.messengerRnaFragment = null;
     this.targetFragmentLength = 0;
   }
+
+  geneExpressionEssentials.register( 'MRnaDestroyerAttachedState', MRnaDestroyerAttachedState );
 
   return inherit(AttachmentState,MRnaDestroyerAttachedState,{
     /**

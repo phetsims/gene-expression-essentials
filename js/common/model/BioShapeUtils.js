@@ -13,6 +13,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
@@ -25,6 +26,8 @@ define( function( require ) {
   function BioShapeUtils() {
 
   }
+
+  geneExpressionEssentials.register( 'BioShapeUtils', BioShapeUtils );
 
   return inherit( Object, BioShapeUtils, {}, {
 

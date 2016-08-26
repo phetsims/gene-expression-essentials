@@ -19,6 +19,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
@@ -109,6 +110,8 @@ define( function( require ) {
       basePairXPos += CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
     }
   }
+
+  geneExpressionEssentials.register( 'DnaMolecule', DnaMolecule );
 
   return inherit( Object, DnaMolecule, {
 

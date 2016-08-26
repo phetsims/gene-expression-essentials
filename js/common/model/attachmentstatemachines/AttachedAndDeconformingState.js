@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
   var BeingRecycledState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/BeingRecycledState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
 
   // constants
@@ -29,6 +30,7 @@ define( function( require ) {
     this.conformationalChangeAmount = 0;
   }
 
+  geneExpressionEssentials.register( 'AttachedAndDeconformingState', AttachedAndDeconformingState );
 
   return inherit( AttachmentState, AttachedAndDeconformingState, {
       /**

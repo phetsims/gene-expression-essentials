@@ -19,6 +19,7 @@ define( function( require ) {
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MoveDirectlyToDestinationMotionStrategy' );
 
   // constants
@@ -42,6 +43,8 @@ define( function( require ) {
     // Flag that is set upon entry that determines whether transcription occurs.
     this.transcribe = false;
   }
+
+  geneExpressionEssentials.register( 'AttachedToBasePair', AttachedToBasePair );
 
   return inherit( AttachmentState, AttachedToBasePair, {
       detachFromDnaMolecule: function( asm ) {

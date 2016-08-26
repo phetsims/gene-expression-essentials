@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -137,6 +138,8 @@ define( function( require ) {
       lineWidth: 2
     } );
   }
+
+  geneExpressionEssentials.register( 'BiomoleculeToolBoxNode', BiomoleculeToolBoxNode );
 
   return inherit( Panel, BiomoleculeToolBoxNode, {
 

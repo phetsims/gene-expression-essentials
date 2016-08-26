@@ -13,6 +13,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -24,6 +25,8 @@ define( function( require ) {
   function MotionStrategy() {
     this.motionBounds = new MotionBounds();
   }
+
+  geneExpressionEssentials.register( 'MotionStrategy', MotionStrategy );
 
   return inherit( Object, MotionStrategy, {
 

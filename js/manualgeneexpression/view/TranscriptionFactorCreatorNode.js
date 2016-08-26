@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -53,6 +54,8 @@ define( function( require ) {
     );
 
   }
+
+  geneExpressionEssentials.register( 'TranscriptionFactorCreatorNode', TranscriptionFactorCreatorNode );
 
   return inherit( BiomoleculeCreatorNode, TranscriptionFactorCreatorNode );
 

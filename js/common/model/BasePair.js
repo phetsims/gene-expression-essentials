@@ -20,6 +20,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Shape = require( 'KITE/Shape' );
 
@@ -35,6 +36,8 @@ define( function( require ) {
     this.shape = Shape.roundRect( centerLocation.x - BASE_PAIR_WIDTH / 2, centerLocation.y - height / 2, BASE_PAIR_WIDTH,
       height, BASE_PAIR_WIDTH / 5, BASE_PAIR_WIDTH / 5 );//private
   }
+
+  geneExpressionEssentials.register( 'BasePair', BasePair );
 
   return inherit( Object, BasePair, {
 

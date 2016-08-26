@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -25,6 +26,8 @@ define( function( require ) {
     Node.call( this );
 
   }
+
+  geneExpressionEssentials.register( 'ColorChangingCellNode', ColorChangingCellNode );
 
   return inherit( Node, ColorChangingCellNode, {}, {
 

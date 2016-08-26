@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
 
@@ -21,6 +22,8 @@ define( function( require ) {
   function GeneExpressionModel(props) {
     PropertySet.call(this,props);
   }
+
+  geneExpressionEssentials.register( 'GeneExpressionModel', GeneExpressionModel );
 
   return inherit( PropertySet, GeneExpressionModel, {
 

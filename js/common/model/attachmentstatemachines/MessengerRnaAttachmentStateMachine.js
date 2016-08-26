@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentStateMachine' );
   var BeingSynthesizedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/BeingSynthesizedState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var UnattachedAndFadingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/UnattachedAndFadingState' );
   var DetachingFromPolymeraseState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/DetachingFromPolymeraseState' );
   var WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/WanderingAroundCytoplasmState' );
@@ -32,6 +33,8 @@ define( function( require ) {
     this.fadeAwayWhenFormed = false; //private
     this.setState( new BeingSynthesizedState() );
   }
+
+  geneExpressionEssentials.register( 'MessengerRnaAttachmentStateMachine', MessengerRnaAttachmentStateMachine );
 
   return inherit( AttachmentStateMachine, MessengerRnaAttachmentStateMachine, {
 

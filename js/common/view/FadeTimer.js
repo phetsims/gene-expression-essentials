@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Timer = require( 'PHET_CORE/Timer' );
@@ -28,6 +29,8 @@ define( function( require ) {
     } );
     this._intervalId = null; // private
   }
+
+  geneExpressionEssentials.register( 'FadeTimer', FadeTimer );
 
   return inherit( PropertySet, FadeTimer, {
     // Starts the timer. This is a no-op if the timer is already running.

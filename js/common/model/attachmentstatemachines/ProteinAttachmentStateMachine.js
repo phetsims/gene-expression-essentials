@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/StillnessMotionStrategy' );
 
   // private classes
@@ -57,6 +58,8 @@ define( function( require ) {
     this.attachedState = new ProteinAttachedToRibosomeState( this );
 
   }
+
+  geneExpressionEssentials.register( 'ProteinAttachmentStateMachine', ProteinAttachmentStateMachine );
 
   return inherit( GenericAttachmentStateMachine, ProteinAttachmentStateMachine, {} );
 

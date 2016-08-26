@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var TranscriptionFactorConfig = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorConfig' );
@@ -47,6 +48,8 @@ define( function( require ) {
     this.config = config; // private
     this.setPosition( initialPosition );
   }
+
+  geneExpressionEssentials.register( 'TranscriptionFactor', TranscriptionFactor );
 
   return inherit( MobileBiomolecule, TranscriptionFactor, {
 

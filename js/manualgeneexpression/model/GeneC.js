@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var Gene = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Gene' );
@@ -44,6 +45,8 @@ define( function( require ) {
 
 
   }
+
+  geneExpressionEssentials.register( 'GeneC', GeneC );
 
   return inherit( Gene, GeneC, {
 

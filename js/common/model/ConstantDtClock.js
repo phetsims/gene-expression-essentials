@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var EventTimer = require( 'PHET_CORE/EventTimer' );
@@ -35,6 +36,8 @@ define( function( require ) {
     } );
 
   }
+
+  geneExpressionEssentials.register( 'ConstantDtClock', ConstantDtClock );
 
   return inherit( PropertySet, ConstantDtClock, {
     //called from AbstractSugarAndSaltSolutionsModel

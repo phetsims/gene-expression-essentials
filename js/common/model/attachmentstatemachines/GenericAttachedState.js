@@ -15,6 +15,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
   var FollowAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/FollowAttachmentSite' );
 
@@ -25,6 +26,8 @@ define( function( require ) {
   function GenericAttachedState() {
     AttachmentState.call( this );
   }
+
+  geneExpressionEssentials.register( 'GenericAttachedState', GenericAttachedState );
 
   return inherit( AttachmentState, GenericAttachedState, {
 

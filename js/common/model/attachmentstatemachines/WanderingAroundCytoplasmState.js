@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/RandomWalkMotionStrategy' );
 
   /**
@@ -22,6 +23,7 @@ define( function( require ) {
     AttachmentState.call( this );
   }
 
+  geneExpressionEssentials.register( 'WanderingAroundCytoplasmState', WanderingAroundCytoplasmState );
   return inherit( AttachmentState, WanderingAroundCytoplasmState, {
 
     /**

@@ -15,6 +15,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
   // constants
   var DEFAULT_DETACH_TIME = 3; // In seconds.
@@ -23,6 +24,8 @@ define( function( require ) {
   function GenericUnattachedButUnavailableState() {
     AttachmentState.call( this );
   }
+
+  geneExpressionEssentials.register( 'GenericUnattachedButUnavailableState', GenericUnattachedButUnavailableState );
 
   return inherit( AttachmentState, GenericUnattachedButUnavailableState, {
 

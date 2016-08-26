@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
   /**
    * @abstract class
@@ -20,6 +21,8 @@ define( function( require ) {
   function AttachmentState() {
 
   }
+
+  geneExpressionEssentials.register( 'AttachmentState', AttachmentState );
 
   return inherit( Object, AttachmentState, {
 

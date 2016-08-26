@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -70,6 +71,8 @@ define( function( require ) {
     } );
 
   }
+
+  geneExpressionEssentials.register( 'FadeLabel', FadeLabel );
 
   return inherit( Node, FadeLabel, {
 

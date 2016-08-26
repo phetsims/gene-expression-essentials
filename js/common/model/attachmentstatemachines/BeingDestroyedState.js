@@ -1,25 +1,28 @@
 // Copyright 2015, University of Colorado Boulder
-   /**
-   * State where the mRNA is being destroyed.
-   *
-   * @author John Blanco
-   * @author Mohamed Safi
-   *
-   */
-  define( function( require ) {
-    'use strict';
+/**
+ * State where the mRNA is being destroyed.
+ *
+ * @author John Blanco
+ * @author Mohamed Safi
+ *
+ */
+define( function( require ) {
+  'use strict';
 
-    // modules
-    var inherit = require( 'PHET_CORE/inherit' );
-    var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
-    var StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/StillnessMotionStrategy' );
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/StillnessMotionStrategy' );
 
-    /**
-     * @constructor
+  /**
+   * @constructor
    */
   function BeingDestroyedState() {
     AttachmentState.call( this );
   }
+
+  geneExpressionEssentials.register( 'BeingDestroyedState', BeingDestroyedState );
 
   return inherit( AttachmentState, BeingDestroyedState, {
 

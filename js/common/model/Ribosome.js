@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -35,6 +36,8 @@ define( function( require ) {
     this.messengerRnaBeingTranslated = null; // private
 
   }
+
+  geneExpressionEssentials.register( 'Ribosome', Ribosome );
 
   return inherit( MobileBiomolecule, Ribosome, {
       /**

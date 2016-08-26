@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -57,6 +58,7 @@ define( function( require ) {
 
   }
 
+  geneExpressionEssentials.register( 'PlacementHintNode', PlacementHintNode );
 
   return inherit( Node, PlacementHintNode );
 } );

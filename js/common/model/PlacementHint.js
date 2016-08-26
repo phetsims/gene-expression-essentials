@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
 
@@ -29,6 +30,8 @@ define( function( require ) {
       active: false
     } );
   }
+
+  geneExpressionEssentials.register( 'PlacementHint', PlacementHint );
 
   return inherit( ShapeChangingModelElement, PlacementHint, {
 

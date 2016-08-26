@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionStrategy' );
 
@@ -19,6 +20,8 @@ define( function( require ) {
   function StillnessMotionStrategy() {
     MotionStrategy.call( this );
   }
+
+  geneExpressionEssentials.register( 'StillnessMotionStrategy', StillnessMotionStrategy );
 
   return inherit( MotionStrategy, StillnessMotionStrategy, {
 

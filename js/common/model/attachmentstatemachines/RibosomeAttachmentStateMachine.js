@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var RibosomeAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/RibosomeAttachedState' );
   var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRibosomeConstant' );
 
@@ -38,6 +39,8 @@ define( function( require ) {
     // Set up a non-default "attached" state, since the behavior is different from the default.
     this.attachedState = new RibosomeAttachedState( this );
   }
+
+  geneExpressionEssentials.register( 'RibosomeAttachmentStateMachine', RibosomeAttachmentStateMachine );
 
   return inherit( GenericAttachmentStateMachine, RibosomeAttachmentStateMachine, {
 

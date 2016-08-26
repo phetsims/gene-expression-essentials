@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MessengerRnaFragmentAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/MessengerRnaFragmentAttachmentStateMachine' );
   var SquareSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/SquareSegment' );
@@ -35,6 +36,8 @@ define( function( require ) {
 
 
   }
+
+  geneExpressionEssentials.register( 'MessengerRnaFragment', MessengerRnaFragment );
 
   return inherit( WindingBiomolecule, MessengerRnaFragment, {
 

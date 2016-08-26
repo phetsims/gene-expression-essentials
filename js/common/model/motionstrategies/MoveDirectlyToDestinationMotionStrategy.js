@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
@@ -47,6 +48,8 @@ define( function( require ) {
     self.scalarVelocity2D = velocity;
 
   }
+
+  geneExpressionEssentials.register( 'MoveDirectlyToDestinationMotionStrategy', MoveDirectlyToDestinationMotionStrategy );
 
   return inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
 

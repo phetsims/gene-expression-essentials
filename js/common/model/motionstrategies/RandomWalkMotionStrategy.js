@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
@@ -48,6 +49,8 @@ define( function( require ) {
     } );
 
   }
+
+  geneExpressionEssentials.register( 'RandomWalkMotionStrategy', RandomWalkMotionStrategy );
 
   return inherit( MotionStrategy, RandomWalkMotionStrategy, {
 

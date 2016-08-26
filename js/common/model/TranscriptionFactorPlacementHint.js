@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
@@ -22,6 +23,8 @@ define( function( require ) {
     PlacementHint.call( this, transcriptionFactor );
     this.tfConfig = transcriptionFactor.getConfig(); // private
   }
+
+  geneExpressionEssentials.register( 'TranscriptionFactorPlacementHint', TranscriptionFactorPlacementHint );
 
   return inherit( PlacementHint, TranscriptionFactorPlacementHint, {
 

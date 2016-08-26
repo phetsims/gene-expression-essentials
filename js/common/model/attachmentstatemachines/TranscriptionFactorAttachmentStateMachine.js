@@ -15,6 +15,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericAttachmentStateMachine' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var TranscriptionFactorAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/TranscriptionFactorAttachedState' );
 
   /**
@@ -31,6 +32,8 @@ define( function( require ) {
     // to detach completely from the DNA at a given time step.
     this.detachFromDnaThreshold = 1;
   }
+
+  geneExpressionEssentials.register( 'TranscriptionFactorAttachmentStateMachine', TranscriptionFactorAttachmentStateMachine );
 
   return inherit( GenericAttachmentStateMachine, TranscriptionFactorAttachmentStateMachine, {} );
 

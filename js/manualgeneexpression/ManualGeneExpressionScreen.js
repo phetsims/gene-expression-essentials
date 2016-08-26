@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var ManualGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ManualGeneExpressionModel' );
   var ManualGeneExpressionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/ManualGeneExpressionScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -31,6 +32,8 @@ define( function( require ) {
       { backgroundColor: '#ABCBDB' }
     );
   }
+
+  geneExpressionEssentials.register( 'ManualGeneExpressionScreen',ManualGeneExpressionScreen );
 
   return inherit( Screen, ManualGeneExpressionScreen );
 } );

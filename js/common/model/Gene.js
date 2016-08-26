@@ -15,6 +15,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -72,6 +73,8 @@ define( function( require ) {
     // Initialize the placement hint for polymerase.
     this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.location );
   }
+
+  geneExpressionEssentials.register( 'Gene', Gene );
 
   return inherit( Object, Gene, {
 

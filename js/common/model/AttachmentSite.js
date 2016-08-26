@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var BoundedDoubleProperty = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BoundedDoubleProperty' );
@@ -39,6 +40,7 @@ define( function( require ) {
     this.affinityProperty = new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 );
   }
 
+  geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );
 
   return inherit( PropertySet, AttachmentSite, {
 

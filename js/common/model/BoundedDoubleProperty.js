@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Util = require( 'DOT/Util' );
@@ -25,6 +26,8 @@ define( function( require ) {
     Property.call( this, value );
     this.bounds = new DoubleRange( minValue, maxValue );
   }
+
+  geneExpressionEssentials.register( 'BoundedDoubleProperty', BoundedDoubleProperty );
 
   return inherit( Property, BoundedDoubleProperty, {
 

@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -193,6 +194,8 @@ define( function( require ) {
 
     thisNode.addChild( new Panel( contents, { fill: BACKGROUND_COLOR } ) );
   }
+
+  geneExpressionEssentials.register( 'ProteinCollectionNode', ProteinCollectionNode );
 
   return inherit( Node, ProteinCollectionNode );
 

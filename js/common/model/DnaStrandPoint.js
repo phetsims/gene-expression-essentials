@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -31,6 +32,8 @@ define( function( require ) {
       this.strand2YPos = strand2YPos;
     }
   }
+
+  geneExpressionEssentials.register( 'DnaStrandPoint', DnaStrandPoint );
 
   return inherit( Object, DnaStrandPoint,
     {

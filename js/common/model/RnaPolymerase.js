@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var Random = require( 'DOT/Random' );
@@ -57,6 +58,8 @@ define( function( require ) {
     this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // defined by Super class - Ashraf
     this.setPosition( position );
   }
+
+  geneExpressionEssentials.register( 'RnaPolymerase', RnaPolymerase );
 
   return inherit( MobileBiomolecule, RnaPolymerase, {
 

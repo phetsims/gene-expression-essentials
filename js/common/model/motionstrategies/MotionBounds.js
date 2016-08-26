@@ -14,6 +14,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Shape = require( 'KITE/Shape' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -33,6 +34,8 @@ define( function( require ) {
     // more complex bounds to be used.
     this.boundsShape = boundsShape;
   }
+
+  geneExpressionEssentials.register( 'MotionBounds', MotionBounds );
 
   return inherit( Object, MotionBounds, {
 

@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -31,6 +32,8 @@ define( function( require ) {
    */
   function GeneExpressionRibosomeConstant() {
   }
+
+  geneExpressionEssentials.register( 'GeneExpressionRibosomeConstant', GeneExpressionRibosomeConstant );
 
   return inherit( Object, GeneExpressionRibosomeConstant, {}, {
 

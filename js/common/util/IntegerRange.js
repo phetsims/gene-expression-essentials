@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -21,6 +22,8 @@ define( function( require ) {
     this.minValue = minValue | 0; // private
     this.maxValue = maxValue | 0; // private
   }
+
+  geneExpressionEssentials.register( 'IntegerRange', IntegerRange );
 
   return inherit( Object, IntegerRange, {
 

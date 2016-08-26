@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -37,6 +38,8 @@ define( function( require ) {
     // its geometric center.
     this.destinationOffset = new Vector2( 0, 0 );
   }
+
+  geneExpressionEssentials.register( 'AttachmentStateMachine', AttachmentStateMachine );
 
   return inherit( Object, AttachmentStateMachine, {
 
