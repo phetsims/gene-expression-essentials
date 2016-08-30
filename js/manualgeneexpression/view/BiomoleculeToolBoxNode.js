@@ -41,7 +41,7 @@ define( function( require ) {
    */
   function RowLabel( text ) {
     var thisNode = this;
-    MultiLineText.call( thisNode, text, { font: new PhetFont( { size: 15, weight: 'bold' } ) } );
+    MultiLineText.call( thisNode, text, { font: new PhetFont( { size: 15 } ) } );
   }
 
   inherit( MultiLineText, RowLabel );
@@ -135,7 +135,8 @@ define( function( require ) {
 
     Panel.call( thisNode, contentNode, {
       fill: new Color( 250, 250, 250 ),
-      lineWidth: 2
+      lineWidth: 1,
+      align: 'left'
     } );
   }
 

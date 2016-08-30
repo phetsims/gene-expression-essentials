@@ -23,7 +23,7 @@ define( function( require ) {
   var GeneB = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/GeneC' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var Shape = require( 'KITE/Shape' );
+  var Rectangle = require( 'DOT/Rectangle' );
   var ConstantDtClock = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ConstantDtClock' );
   var Property = require( 'AXON/Property' );
   var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
@@ -32,6 +32,8 @@ define( function( require ) {
   var ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinC' );
   var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionBounds' );
   var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
+  var Util = require( 'DOT/Util' );
+  var Shape = require( 'KITE/Shape' );
 
   // constants
   // Stage size for the mobile biomolecules, which is basically the area in
@@ -102,7 +104,7 @@ define( function( require ) {
 
     // Rectangle that describes the "protein capture area".  When a protein is
     // dropped by the user over this area, it is considered to be captured.
-    this.proteinCaptureArea = Shape.rectangle( 0, 0, 1, 1 );
+    this.proteinCaptureArea = new Rectangle( 0, 0, 1, 1 );
 
 
     //Wire up to the clock so we can update when it ticks
@@ -150,7 +152,7 @@ define( function( require ) {
      * @param {Rectangle} newCaptureAreaBounds
      */
     setProteinCaptureArea: function( newCaptureAreaBounds ) {
-      this.proteinCaptureArea.setFrame( newCaptureAreaBounds );
+      this.protienCaptureArea = newCaptureAreaBounds;
     },
 
     /**
@@ -167,7 +169,7 @@ define( function( require ) {
      */
     switchToGeneRelative: function( i ) {
       var genes = this.dnaMolecule.getGenes();
-      var index = this.clamp( 0, genes.indexOf( this.activeGene.get() ) + i, genes.length - 1 );
+      var index = Util.clamp( 0, genes.indexOf( this.activeGene.get() ) + i, genes.length - 1 );
       this.activeGene.set( genes[ index ] );
     },
 
@@ -201,7 +203,7 @@ define( function( require ) {
 
           if ( wasUserControlled ) {
             // The user dropped this biomolecule.
-            if ( self.proteinCaptureArea.bounds.containsPoint( mobileBiomolecule.getPosition() ) && mobileBiomolecule instanceof Protein ) {
+            if ( self.proteinCaptureArea.containsPoint( mobileBiomolecule.getPosition() ) && mobileBiomolecule instanceof Protein ) {
               // The user has dropped this protein in the
               // capture area.  So, like, capture it.
               self.captureProtein( mobileBiomolecule );
