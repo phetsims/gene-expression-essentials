@@ -329,14 +329,11 @@ define( function( require ) {
           continue;
         }
         else if ( shapeSegment.isFlat() ) {
-
           // Position the contained points in a flat line.
           this.positionPointsInLine( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getUpperLeftCornerPos() );
         }
         else {
-
-          // Segment must be square, so position the points within it
-          // using the spring algorithm.
+          // Segment must be square, so position the points within it using the spring algorithm.
           this.randomizePointPositionsInRectangle( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
           this.runSpringAlgorithm( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
         }

@@ -510,7 +510,7 @@ define( function( require ) {
       var attachLocation = biomolecule.getPosition();
 
       // Sort the collection so that the best site is at the top of the list.
-      potentialAttachmentSites = _.sortBy( potentialAttachmentSites, function( attachmentSite ) {
+      potentialAttachmentSites.sort( function( attachmentSite1, attachmentSite2 ) {
 
         // The comparison is based on a combination of the affinity and the
         // distance, much like gravitational attraction.  The exponent
@@ -519,12 +519,20 @@ define( function( require ) {
         // value of 100 means it is pretty much entirely distance.  A value
         // of 2 is how gravity works, so it appears kind of natural.  Tweak
         // as needed.
-        var as1Factor = attachmentSite.getAffinity() / Math.pow( attachLocation.distance(
-            attachmentSite.location ), exponent );
-        return as1Factor;
+        var as1Factor = attachmentSite1.getAffinity() / Math.pow( attachLocation.distance( attachmentSite1.locationProperty.get() ), exponent );
+        var as2Factor = attachmentSite2.getAffinity() / Math.pow( attachLocation.distance( attachmentSite2.locationProperty.get() ), exponent );
+
+        if ( as2Factor > as1Factor ){
+          return 1;
+        }
+
+        if ( as2Factor < as1Factor ){
+          return -1;
+        }
+        return 0;
       } );
 
-      potentialAttachmentSites = potentialAttachmentSites.reverse();
+      //potentialAttachmentSites = potentialAttachmentSites.reverse();
 
       // Return the optimal attachment site.
       return potentialAttachmentSites[ 0 ];

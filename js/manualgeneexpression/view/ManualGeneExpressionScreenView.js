@@ -47,7 +47,7 @@ define( function( require ) {
     ScreenView.call( this );
     var self = this;
 
-    var viewPortOffset = new Vector2( 0, 0 );
+    this.viewPortOffset = new Vector2( 0, 0 );
     var biomoleculeToolBoxNodeList = []; // Array of BiomoleculeToolBoxNode
     // Set up the model-canvas transform.
     // IMPORTANT NOTES: The multiplier factors for the 2nd point can be
@@ -187,7 +187,7 @@ define( function( require ) {
     // whenever it changes.
     model.activeGene.link( function( gene ) {
         //terminateActivitiesWithoutFinishing();
-      viewPortOffset.setXY( -self.mvt.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
+      self.viewPortOffset.setXY( -self.mvt.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
         // Perform an animation that will put the selected gene in the
         // center of the view port.
         //backgroundCellLayer.animateToPositionScaleRotation( viewportOffset.getX(), viewportOffset.getY(), 1, 0, GENE_TO_GENE_ANIMATION_TIME );

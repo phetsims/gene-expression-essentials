@@ -122,7 +122,8 @@ define( function( require ) {
      */
     getModelPosition: function( point ) {
       var canvasPosition = this.canvas.globalToLocalPoint( point );
-      return this.mvt.viewToModelPosition( canvasPosition );
+      var adjustedCanvasPos = canvasPosition.minus( this.canvas.viewPortOffset );
+      return this.mvt.viewToModelPosition( adjustedCanvasPos );
     },
 
     debugPoint: function( canvas, pt ) {

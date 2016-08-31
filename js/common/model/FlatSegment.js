@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function FlatSegment( origin ) {
     ShapeSegment.call( this );
-    this.bounds.setMinMax( origin.x, origin.y, origin.x, origin.y );
+    this.bounds.setMinMax( origin.x, origin.y, origin.x, origin.y ); // make sure bounds height and width is zero
     this.updateAttachmentSiteLocation();
   }
 

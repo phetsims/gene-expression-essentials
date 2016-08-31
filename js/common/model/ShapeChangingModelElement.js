@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Vector2 = require( 'DOT/Vector2' );
 
 
   /**
@@ -92,8 +93,8 @@ define( function( require ) {
         // is defined by the center of the shape's bounds.  Override if
         // some other behavior is required.
         var center = this.getCenter();
-        this.translate( x - center.x,
-          y - center.y );
+        this.translate( new Vector2( x - center.x,
+          y - center.y ) );
       }
     },
 
