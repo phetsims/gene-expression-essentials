@@ -19,8 +19,6 @@ define( function( require ) {
   var MASS = 0.25; // In kg.  Arbitrarily chosen to get the desired behavior.
 
   //sratch Vector2 instances used for intermediate computations - To reduce Garbage overhead
-  var ACCELERATION_VECTOR = new Vector2();
-  var VELOCITY_VECTOR = new Vector2();
 
 
   /**
@@ -136,13 +134,7 @@ define( function( require ) {
 
       // The original code is here -> this.velocity.set( this.velocity.plus( this.acceleration.timesScalar( deltaTime ) ) );
       // code modified for performance reason
-      ACCELERATION_VECTOR.x = this.acceleration.x * deltaTime;
-      ACCELERATION_VECTOR.y = this.acceleration.y * deltaTime;
-
-      VELOCITY_VECTOR.x = this.velocity.x + ACCELERATION_VECTOR.x;
-      VELOCITY_VECTOR.y = this.velocity.y + ACCELERATION_VECTOR.y;
-
-      this.velocity.setXY( VELOCITY_VECTOR.x, VELOCITY_VECTOR.y );
+      this.velocity.add( this.acceleration.times( deltaTime ) );
       this.position.setXY( this.position.x + this.velocity.x * deltaTime, this.position.y + this.velocity.y * deltaTime );
     },
 
