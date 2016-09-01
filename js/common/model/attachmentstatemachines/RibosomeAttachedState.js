@@ -74,10 +74,11 @@ define( function( require ) {
      */
     entered: function( asm ) {
       var ribosome = this.ribosomeAttachmentStateMachine.ribosome;
-      var proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
+      //var proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
       ribosome.initiateTranslation();
       ribosome.setMotionStrategy( new RibosomeTranslatingRnaMotionStrategy( ribosome ) );
-      proteinBeingSynthesized = ribosome.getMessengerRnaBeingTranslated().getProteinPrototype().createInstance();
+      var proteinBeingSynthesized = ribosome.getMessengerRnaBeingTranslated().getProteinPrototype().createInstance();
+      this.ribosomeAttachmentStateMachine.proteinBeingSynthesized = proteinBeingSynthesized;
       proteinBeingSynthesized.setAttachmentPointPosition( ribosome.getProteinAttachmentPoint() );
       ribosome.getModel().addMobileBiomolecule( proteinBeingSynthesized );
 

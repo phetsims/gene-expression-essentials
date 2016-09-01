@@ -14,6 +14,7 @@ define( function( require ) {
   var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var BASE_COLOR = new Color( 255, 99, 71 );
@@ -62,8 +63,8 @@ define( function( require ) {
     setAttachmentPointPositionXY: function( attachmentPointLocationX, attachmentPointLocationY ) {
       // Note: This is specific to this protein's shape, and will need to be
       // adjusted if the protein's shape algorithm changes.
-      this.setPosition( attachmentPointLocationX, attachmentPointLocationY +
-                                                  ( FULL_GROWN_WIDTH / 2 * this.getFullSizeProportion() ) );
+      this.setPosition( new Vector2( attachmentPointLocationX, attachmentPointLocationY +
+                                                  ( FULL_GROWN_WIDTH / 2 * this.getFullSizeProportion() ) ) );
     },
 
     /**

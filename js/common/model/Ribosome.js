@@ -60,7 +60,7 @@ define( function( require ) {
         var attachmentSite = null;
         var messengerRnaList = this.model.getMessengerRnaList();
         for ( var i = 0; i < messengerRnaList.length; i++ ) {
-          var messengerRna = messengerRnaList[ 1 ];
+          var messengerRna = messengerRnaList.get( i );
           attachmentSite = messengerRna.considerProposalFromByRibosome( this );
           if ( attachmentSite !== null ) {
             // Proposal accepted.
@@ -164,7 +164,7 @@ define( function( require ) {
         newAttachmentPoint = newAttachmentPoint || new Vector2();
         newAttachmentPoint.x = this.getPosition().x + GeneExpressionRibosomeConstant.OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.x;
         newAttachmentPoint.y = this.getPosition().y + GeneExpressionRibosomeConstant.OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.y;
-        newAttachmentPoint;
+        return newAttachmentPoint;
       },
 
       initiateTranslation: function() {

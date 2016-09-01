@@ -328,7 +328,7 @@ define( function( require ) {
      * @param {Ribosome} ribosome
      */
     initiateTranslation: function( ribosome ) {
-      assert && assert( this.mapRibosomeToShapeSegment.containsKey( ribosome ) ); // State checking.
+      assert && assert( this.mapRibosomeToShapeSegment.contains( ribosome ) ); // State checking.
 
       // Set the capacity of the first segment to the size of the channel
       // through which it will be pulled plus the leader length.
@@ -364,7 +364,7 @@ define( function( require ) {
      * @return
      */
     getProportionOfRnaTranslated: function( ribosome ) {
-      assert && assert( this.mapRibosomeToShapeSegment.containsKey( ribosome ) ); // Makes no sense if ribosome isn't attached.
+      assert && assert( this.mapRibosomeToShapeSegment.contains( ribosome ) ); // Makes no sense if ribosome isn't attached.
       var translatedLength = 0;
       var segmentInRibosomeChannel = this.mapRibosomeToShapeSegment.get( ribosome );
 
@@ -394,7 +394,7 @@ define( function( require ) {
      * @returns {AttachmentSite}
      */
     considerProposalFromByRibosome: function( ribosome ) {
-      assert && assert( !this.mapRibosomeToShapeSegment.containsKey( ribosome ) ); // Shouldn't get redundant proposals from a ribosome.
+      assert && assert( !this.mapRibosomeToShapeSegment.contains( ribosome ) ); // Shouldn't get redundant proposals from a ribosome.
       var returnValue = null;
 
       // Can't consider proposal if currently being destroyed.
