@@ -16,9 +16,6 @@ define( function( require ) {
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var ProteinCollectionNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/ProteinCollectionNode' );
   var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/BiomoleculeToolBoxNode' );
-  var HSlider = require( 'SUN/HSlider' );
-  var Property = require( 'AXON/Property' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
   var MessengerRnaNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MessengerRnaNode' );
@@ -31,9 +28,6 @@ define( function( require ) {
   // constants
   // Inset for several of the controls.
   var INSET = 15;
-
-  // images
-  var mockupImage = require( 'image!GENE_EXPRESSION_ESSENTIALS/GEB-01.png' );
 
   // strings
   var nextGeneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/nextGene' );
