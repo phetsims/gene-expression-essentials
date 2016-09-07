@@ -22,9 +22,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var GradientUtil = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/GradientUtil' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
-  var RibosomeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/RibosomeNode' );
   var BiomoleculeDragHandler = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/BiomoleculeDragHandler' );
-  var Ribosome = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Ribosome' );
   var MessengerRna = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRna' );
 
 
@@ -140,12 +138,6 @@ define( function( require ) {
      * @param {Object} options
      */
     getPathByMobileBioMoleculeType: function( mobileBiomolecule, options ) {
-
-      if ( mobileBiomolecule instanceof  Ribosome ) {
-        //kiet shapes dont support CAG operations, so for Ribosome a specialized Node is created which
-        // internally maintains two shapes and uses transformations to get the desired ribosome shape
-        return new RibosomeNode( mobileBiomolecule, options );
-      }
 
       // override the computeShapeBounds based on Molecule  to optimize performance - Ashraf TODO verify
       var path = new Path( new Shape(), options );

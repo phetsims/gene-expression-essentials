@@ -28,8 +28,8 @@ define( function( require ) {
      * @param {Array} points Set of points to connect.
      * @return Shape that the provided points define.
      */
-    createRoundedShapeFromPoints: function( points ) {
-      var shape = new Shape();
+    createRoundedShapeFromPoints: function( points, existingShape ) {
+      var shape = existingShape || new Shape();
       shape.moveToPoint( points[ 0 ] );
       for ( var i = 0; i < points.length; i++ ) {
         var segmentStartPoint = points[ i ];

@@ -16,7 +16,6 @@ define( function( require ) {
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
   var Color = require( 'SCENERY/util/Color' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
-  var RibosomeShape = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RibosomeShape' );
   var RibosomeAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/RibosomeAttachmentStateMachine' );
   var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRibosomeConstant' );
 
@@ -109,22 +108,22 @@ define( function( require ) {
         var translation = Matrix3.translation( 0, GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
         var topSubunitShape = ShapeUtils.createRoundedShapeFromPoints( topSubunitPointList ).transformed( translation );
 
-
         // Draw the bottom portion, which in this sim is the smaller subunit.
+        var startPointY = topSubunitShape.bounds.minY;
         var bottomSubunitPointList = [
           // Define the shape with a series of points.
-          new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.5 ),
-          new Vector2( 0, GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.45 ),
-          new Vector2( GeneExpressionRibosomeConstant.WIDTH * 0.45, GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.5 ),
-          new Vector2( GeneExpressionRibosomeConstant.WIDTH * 0.45, -GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.5 ),
-          new Vector2( 0, -GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.45 ),
-          new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, -GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT * 0.5 )
+          new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, startPointY ),
+          new Vector2( 0, startPointY ),
+          new Vector2( GeneExpressionRibosomeConstant.WIDTH * 0.45, startPointY ),
+          new Vector2( GeneExpressionRibosomeConstant.WIDTH * 0.45, startPointY - GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT ),
+          new Vector2( 0, startPointY - GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT ),
+          new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, startPointY - GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT )
         ];
 
         var bottomSubunitTranslation = Matrix3.translation( 0, -GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
-        var bottomSubunitShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList ).transformed( bottomSubunitTranslation );
+        var ribosomeShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList, topSubunitShape ).transformed( bottomSubunitTranslation );
 
-        return new RibosomeShape( topSubunitShape, bottomSubunitShape );
+        return ribosomeShape;
       },
 
       /**
@@ -182,11 +181,11 @@ define( function( require ) {
        *
        * @param {ModelViewTransform2} mvt
        */
-      centeredShape: function( ribosomeShape, mvt ) {
+      /*centeredShape: function( ribosomeShape, mvt ) {
         var centeredTop = this.centerShapePart( ribosomeShape.topShape, mvt );
         var centeredBottom = this.centerShapePart( ribosomeShape.bottomShape, mvt );
         return new RibosomeShape( centeredTop, centeredBottom );
-      },
+      },*/
 
       /**
        *
