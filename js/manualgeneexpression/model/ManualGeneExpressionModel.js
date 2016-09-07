@@ -217,7 +217,7 @@ define( function( require ) {
       mobileBiomolecule.existenceStrengthProperty.link( function( existenceStrength ) {
         if ( existenceStrength === 0 ) {
           self.removeMobileBiomolecule( mobileBiomolecule );
-          mobileBiomolecule.existenceStrength.removeObserver( this );
+          mobileBiomolecule.existenceStrengthProperty.unlink( this );
         }
       } );
 

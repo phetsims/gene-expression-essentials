@@ -107,7 +107,7 @@ define( function( require ) {
      * @param {AttachmentState} attachmentState
      */
     setState: function( attachmentState ) {
-          this.attachmentState = attachmentState;
+      this.attachmentState = attachmentState;
       this.attachmentState.entered( this );
     },
 

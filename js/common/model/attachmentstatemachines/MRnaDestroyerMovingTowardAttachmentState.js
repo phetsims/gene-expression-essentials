@@ -12,7 +12,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
+  var GenericMovingTowardsAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericMovingTowardsAttachmentState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
   /**
@@ -21,20 +21,20 @@ define( function( require ) {
    * @param  {RnaDestroyerAttachmentStateMachine} rnaDestroyerAttachmentStateMachine
    */
   function MRnaDestroyerMovingTowardAttachmentState( rnaDestroyerAttachmentStateMachine ) {
-    AttachmentState.call( this );
+    GenericMovingTowardsAttachmentState.call( this );
     this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine;
   }
 
   geneExpressionEssentials.register( 'MRnaDestroyerMovingTowardAttachmentState', MRnaDestroyerMovingTowardAttachmentState );
 
-  return inherit( AttachmentState, MRnaDestroyerMovingTowardAttachmentState, {
+  return inherit( GenericMovingTowardsAttachmentState, MRnaDestroyerMovingTowardAttachmentState, {
 
     /**
      * @Override
      * @param {AttachmentStateMachine} asm
      */
     entered: function( asm ) {
-      AttachmentState.prototype.entered.call( this );
+      //GenericMovingTowardsAttachmentState.prototype.entered.call( this );
       asm.biomolecule.movableByUser = false;
     }
 

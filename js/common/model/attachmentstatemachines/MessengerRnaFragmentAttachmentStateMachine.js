@@ -13,6 +13,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
   var AttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentStateMachine' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/StillnessMotionStrategy' );
@@ -23,7 +24,7 @@ define( function( require ) {
 
 
   // private classes
-  var AttachedToDestroyerState = inherit( AttachmentStateMachine,
+  var AttachedToDestroyerState = inherit( AttachmentState,
 
     /**
      * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
@@ -48,7 +49,7 @@ define( function( require ) {
     } );
 
 
-  var UnattachedAndFadingState = inherit( AttachmentStateMachine,
+  var UnattachedAndFadingState = inherit( AttachmentState,
 
     /**
      * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
