@@ -14,6 +14,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var GeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionModel' );
@@ -104,7 +105,7 @@ define( function( require ) {
 
     // Rectangle that describes the "protein capture area".  When a protein is
     // dropped by the user over this area, it is considered to be captured.
-    this.proteinCaptureArea = new Rectangle( 0, 0, 1, 1 );
+    this.proteinCaptureArea = new Bounds2( 0, 0, 1, 1 );
 
 
     //Wire up to the clock so we can update when it ticks
@@ -152,7 +153,7 @@ define( function( require ) {
      * @param {Rectangle} newCaptureAreaBounds
      */
     setProteinCaptureArea: function( newCaptureAreaBounds ) {
-      this.protienCaptureArea = newCaptureAreaBounds;
+      this.proteinCaptureArea.set( newCaptureAreaBounds );
     },
 
     /**
