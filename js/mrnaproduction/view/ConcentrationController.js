@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -55,6 +56,8 @@ define( function( require ) {
     } ) );
 
   }
+
+  geneExpressionEssentials.register( 'ConcentrationController', ConcentrationController );
 
   return inherit( Node, ConcentrationController, {} );
 } );

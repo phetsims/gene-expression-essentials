@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -265,6 +266,8 @@ define( function( require ) {
 
 
   }
+
+  geneExpressionEssentials.register( 'MessengerRnaProductionScreenView', MessengerRnaProductionScreenView );
 
   return inherit( ScreenView, MessengerRnaProductionScreenView, {} );
 

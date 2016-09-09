@@ -51,11 +51,12 @@ define( function( require ) {
    */
   function ProteinAttachmentStateMachine( biomolecule ) {
     GenericAttachmentStateMachine.call( this, biomolecule );
-    this.setState( new ProteinAttachedToRibosomeState( this ) );
+
 
     // Set up a new "attached" state, since the behavior is different from
     // the default.
     this.attachedState = new ProteinAttachedToRibosomeState( this );
+    this.setState( this.attachedState );
 
   }
 

@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -82,6 +83,8 @@ define( function( require ) {
       lineWidth: 2
     } );
   }
+
+  geneExpressionEssentials.register( 'TranscriptionFactorControlPanel', TranscriptionFactorControlPanel );
 
   return inherit( Panel, TranscriptionFactorControlPanel );
 

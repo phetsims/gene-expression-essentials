@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
   var Random = require( 'DOT/Random' );
@@ -105,6 +106,8 @@ define( function( require ) {
     this.reset();
 
   }
+
+  geneExpressionEssentials.register( 'MessengerRnaProductionModel', MessengerRnaProductionModel );
 
   return inherit( Object, MessengerRnaProductionModel, {
 

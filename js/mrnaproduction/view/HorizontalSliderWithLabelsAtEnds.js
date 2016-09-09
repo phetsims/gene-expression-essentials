@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var HSlider = require( 'SUN/HSlider' );
@@ -21,7 +22,7 @@ define( function( require ) {
   //constants
   //var OVERALL_WIDTH = 150;
   var LABEL_FONT = new PhetFont( { size: 12, weight: 'bold' } );
-  var INTER_ELEMENT_SPACING = new PhetFont( { size: 5, weight: 'bold' } );
+  var INTER_ELEMENT_SPACING = 5;
 
   /**
    *
@@ -60,6 +61,7 @@ define( function( require ) {
   }
 
 
+  geneExpressionEssentials.register( 'HorizontalSliderWithLabelsAtEnds', HorizontalSliderWithLabelsAtEnds );
   return inherit( Node, HorizontalSliderWithLabelsAtEnds, {} );
 } );
 

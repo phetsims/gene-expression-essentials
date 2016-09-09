@@ -7,6 +7,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/model/MessengerRnaProductionModel' );
   var MessengerRnaProductionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/MessengerRnaProductionScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
