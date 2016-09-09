@@ -22,18 +22,20 @@ define( function( require ) {
    */
   function ManualGeneExpressionScreen() {
 
-    //If this is a single-screen sim, then no icon is necessary.
-    //If there are multiple screens, then the icon must be provided here.
-    var icon = null;
+    var options = {
+      name: geneExpressionEssentialsTitleString, //TODO use screen name, not sim name
+      backgroundColor: '#ABCBDB'
+      //TODO add homeScreenIcon
+    };
 
-    Screen.call( this, geneExpressionEssentialsTitleString, icon,
+    Screen.call( this,
       function() { return new ManualGeneExpressionModel();},
       function( model ) { return new ManualGeneExpressionScreenView( model ); },
-      { backgroundColor: '#ABCBDB' }
+      options
     );
   }
 
-  geneExpressionEssentials.register( 'ManualGeneExpressionScreen',ManualGeneExpressionScreen );
+  geneExpressionEssentials.register( 'ManualGeneExpressionScreen', ManualGeneExpressionScreen );
 
   return inherit( Screen, ManualGeneExpressionScreen );
 } );

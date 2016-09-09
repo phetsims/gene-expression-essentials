@@ -13,26 +13,27 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var geneExpressionEssentialsNameString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene-expression-essentials.name' );
+  var geneExpressionEssentialsTitleString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene-expression-essentials.title' );
 
   /**
    * @constructor
    */
   function MessengerRnaProductionScreen() {
 
-    //If this is a single-screen sim, then no icon is necessary.
-    //If there are multiple screens, then the icon must be provided here.
-    var icon = null;
-    Screen.call( this, geneExpressionEssentialsNameString, icon,
-      function() {
-        return new MessengerRnaProductionModel();
-      },
-      function( model ) {
-        return new MessengerRnaProductionScreenView( model );
-      },
-      { backgroundColor: '#ABCBDB' }
+    var options = {
+      name: geneExpressionEssentialsTitleString, //TODO use screen name, not sim name
+      backgroundColor: '#ABCBDB'
+      //TODO add homeScreenIcon
+    };
+
+    Screen.call( this,
+      function() { return new MessengerRnaProductionModel(); },
+      function( model ) { return new MessengerRnaProductionScreenView( model ); },
+      options
     );
   }
+
+  geneExpressionEssentials.register( 'MessengerRnaProductionScreen', MessengerRnaProductionScreen );
 
   return inherit( Screen, MessengerRnaProductionScreen );
 } );
