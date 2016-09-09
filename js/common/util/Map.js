@@ -47,8 +47,9 @@ define( function( require ) {
     },
 
     remove: function( key ) {
-      delete this.values[ this.keys.indexOf( key ) ];
-      delete this.keys[ this.keys.indexOf( key ) ];
+      var index = this.keys.indexOf( key );
+      this.values.splice( index, 1 );
+      this.keys.splice( index, 1 );
     },
 
     keySet: function() {
@@ -62,9 +63,10 @@ define( function( require ) {
       this.values = [];
     },
 
-    //TODO
     isEmpty: function() {
-
+      if ( this.keys.length === 0 && this.values.length === 0 ){
+        return true;
+      }
       return false;
     }
   } );
