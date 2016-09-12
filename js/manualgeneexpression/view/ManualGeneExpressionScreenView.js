@@ -26,11 +26,13 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
+  var GENE_TO_GENE_ANIMATION_TIME = 1000; // In milliseconds.
   // Inset for several of the controls.
   var INSET = 15;
 
   // strings
   var nextGeneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/nextGene' );
+  var previousGeneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/previousGene' );
 
   /**
    * @param {ManualGeneExpressionModel} model
@@ -176,72 +178,52 @@ define( function( require ) {
       lineWidth: 1
     } );
 
+    nextGeneButton.x = self.layoutBounds.width - nextGeneButton.width - 20;
+    nextGeneButton.y = self.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
 
-    // Monitor the active gene and move the view port to be centered on it
-    // whenever it changes.
-    model.activeGene.link( function( gene ) {
-        //terminateActivitiesWithoutFinishing();
-      self.viewPortOffset.setXY( -self.mvt.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
-        // Perform an animation that will put the selected gene in the
-        // center of the view port.
-        //backgroundCellLayer.animateToPositionScaleRotation( viewportOffset.getX(), viewportOffset.getY(), 1, 0, GENE_TO_GENE_ANIMATION_TIME );
+    // Add buttons for moving to next and previous genes.
+    var previousGeneButton = new RectangularPushButton( {
+      content: new Text( previousGeneString, { font: 20 } ),
+      listener: function() {
+        model.previousGene() ;
+      },
+      baseColor: 'green',
+      //fireOnDown: true,
+      stroke: 'black',
+      lineWidth: 1
+    } );
 
-        //final PTransformActivity animateToActiveGene =
-          //modelRootNode.animateToPositionScaleRotation( viewportOffset.getX(), viewportOffset.getY(), 1, 0, GENE_TO_GENE_ANIMATION_TIME );
-        //animateToActiveGene.setDelegate( new PActivityDelegateAdapter() {
-        //@Override public void activityFinished( PActivity activity ) {
-      // Update the position of the protein capture area in the model, since a transformation of the
-      // model-to-view relationship just occurred.
+    previousGeneButton.x = 20;
+    previousGeneButton.y = self.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
+
+    var modelRootNodeAnimator = new TWEEN.Tween( { x: self.modelRootNode.x } ).easing( TWEEN.Easing.Cubic.InOut ).onUpdate( function() {
+      self.modelRootNode.x = this.x;
+    } ).onComplete( function() {
+      self.modelRootNode.visible = true;
+      self.modelRootNode.pickable = null;
       var boundsInControlNode = proteinCollectionNode.getBounds();
       var boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
       var boundsInModel = self.mvt.viewToModelBounds( boundsAfterTransform );
 
       model.setProteinCaptureArea( boundsInModel );
       model.addOffLimitsMotionSpace( boundsInModel );
+
+    } );
+    // Monitor the active gene and move the view port to be centered on it whenever it changes.
+
+    model.activeGene.link( function( gene ) {
+      nextGeneButton.enabled = !( gene === model.dnaMolecule.getLastGene() );
+      previousGeneButton.enabled = !( gene === model.dnaMolecule.getGenes()[ 0 ] );
+      //this.isLastGeneActive = this.activeGene === this.dnaMolecule.getLastGene();
+      self.viewPortOffset.setXY( -self.mvt.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
+      modelRootNodeAnimator.stop().to( { x: self.viewPortOffset.x }, GENE_TO_GENE_ANIMATION_TIME ).start( phet.joist.elapsedTime );
     } );
 
 
-    //final HTMLImageButtonNode nextGeneButton = new HTMLImageButtonNode( GeneExpressionBasicsResources.Strings.NEXT_GENE, GRAY_ARROW ) {{
-    //  setTextPosition( TextPosition.LEFT );
-    //  setFont( new PhetFont( 20 ) );
-    //  setOffset( STAGE_SIZE.getWidth() - getFullBoundsReference().width - 20, mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().getY() ) + 90 );
-    //  setBackground( Color.GREEN );
-    //  addActionListener( new ActionListener() {
-    //    public void actionPerformed( ActionEvent e ) {
-    //      model.nextGene();
-    //    }
-    //  } );
-    //  model.isLastGeneActive.addObserver( new VoidFunction1<Boolean>() {
-    //    public void apply( Boolean lastGeneActive ) {
-    //      setEnabled( !lastGeneActive );
-    //    }
-    //  } );
-    //}};
-    frontControlsLayer.addChild( nextGeneButton );
-    //final HTMLImageButtonNode previousGeneButton = new HTMLImageButtonNode( GeneExpressionBasicsResources.Strings.PREVIOUS_GENE, flipX( GRAY_ARROW ) ) {{
-    //  setTextPosition( TextPosition.RIGHT );
-    //  setFont( new PhetFont( 20 ) );
-    //  setOffset( 20, mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().getY() ) + 90 );
-    //  setBackground( Color.GREEN );
-    //  addActionListener( new ActionListener() {
-    //    public void actionPerformed( ActionEvent e ) {
-    //      model.previousGene();
-    //    }
-    //  } );
-    //  model.isFirstGeneActive.addObserver( new VoidFunction1<Boolean>() {
-    //    public void apply( Boolean firstGeneActive ) {
-    //      setEnabled( !firstGeneActive );
-    //    }
-    //  } );
-    //}};
-    //frontControlsLayer.addChild( previousGeneButton );
 
-    //Show the mock-up and a slider to change its transparency
-    //var mockupOpacityProperty = new Property( 0 );
-    //var image = new Image( mockupImage, { pickable: false } );
-    //mockupOpacityProperty.linkAttribute( image, 'opacity' );
-    //this.addChild( image );
-    //this.addChild( new HSlider( mockupOpacityProperty, { min: 0, max: 1 }, { top: 10, left: 500 } ) );
+    frontControlsLayer.addChild( nextGeneButton );
+    frontControlsLayer.addChild( previousGeneButton );
+
 
     // Create and add the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {

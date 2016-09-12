@@ -14,7 +14,10 @@
     "requirejs": "~2.1.8"
   },
   "phet": {
-    "requirejsNamespace": "GENE_EXPRESSION_ESSENTIALS"
+    "requirejsNamespace": "GENE_EXPRESSION_ESSENTIALS",
+    "preload": [
+      "../sherpa/lib/Tween-r12.js"
+    ]
   }
 }
 
