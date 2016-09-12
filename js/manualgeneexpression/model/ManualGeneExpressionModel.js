@@ -24,7 +24,6 @@ define( function( require ) {
   var GeneB = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/GeneC' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var Rectangle = require( 'DOT/Rectangle' );
   var ConstantDtClock = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ConstantDtClock' );
   var Property = require( 'AXON/Property' );
   var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );

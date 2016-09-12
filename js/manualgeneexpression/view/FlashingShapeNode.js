@@ -38,7 +38,7 @@ define( function( require ) {
 
     var self = this;
     // Variables used to implement the flashing behavior.
-    var transitionCountdown = 0;
+    this.transitionCountdown = 0;
 
     this.flashingNode = flashingNode;
     this.flashColor = flashColor;
@@ -50,31 +50,23 @@ define( function( require ) {
 
     var time = 0;
     this.timerListener = function() {
-      if ( flashingNode.fill === flashColor ) {
+      self.timerHandle = null;
+      if ( self.flashingNode.fill === self.flashColor ) {
         // Flash is on, so turn flash off.
-        flashingNode.fill = normalColor;
+        self.flashingNode.fill = self.normalColor;
         time = offTime;
       }
       else {
         // Flash is off, so turn flash on.
-        flashingNode.fill = flashColor;
+        self.flashingNode.fill = self.flashColor;
         time = onTime;
       }
-      transitionCountdown--;
-      if ( transitionCountdown > 0 ) {
+      self.transitionCountdown--;
+      if ( self.transitionCountdown > 0 ) {
         // Set timer for next transition.
-        self.stop();
         self.timerHandle = Timer.setTimeout( self.timerListener, time );
       }
-      else {
-        // Done flashing.
-        self.stop();
-      }
     };
-
-    // Set up the timer.
-    this.timerListener();
-
 
   }
 
@@ -105,7 +97,7 @@ define( function( require ) {
       if ( this.flashOnAtStart !== this.flashOnAtEnd ) {
         this.transitionCountdown -= 1;
       }
-      this.timerHandle = Timer.setTimeout( this.timerListener, 0 );
+      this.timerListener();
     },
 
     /**
