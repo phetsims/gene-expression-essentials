@@ -368,19 +368,18 @@ define( function( require ) {
       var bottomYPos = CommonConstants.DNA_MOLECULE_Y_POS - 2000;
 
       // Get the nominal bounds for this gene.
-      var boundsShape = Shape.rectangle( this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
+      var bounds = new Bounds2( this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
         bottomYPos,
-        BIOMOLECULE_STAGE_WIDTH,
-        BIOMOLECULE_STAGE_HEIGHT );
+        this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2 + BIOMOLECULE_STAGE_WIDTH,
+        bottomYPos + BIOMOLECULE_STAGE_HEIGHT );
 
       // Subtract off any off limits areas.
       _.forEach( this.offLimitsMotionSpaces, function( offLimitMotionSpace ) {
-        if ( boundsShape.bounds.intersectsBounds( offLimitMotionSpace ) ) {
+        if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {
           // bounds.subtract( new Area( offLimitMotionSpace ) ); TODO
         }
       } );
-
-      return new MotionBounds( boundsShape );
+      return new MotionBounds( bounds );
     }
 
   } );

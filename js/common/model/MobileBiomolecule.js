@@ -198,7 +198,8 @@ define( function( require ) {
      * @param  {MotionBounds} motionBounds
      */
     setMotionBounds: function( motionBounds ) {
-      this.motionBounds = motionBounds;
+      this.motionBounds.set( motionBounds.bounds );
+      this.motionBoundsProperty.notifyObserversStatic();
     },
 
     /**

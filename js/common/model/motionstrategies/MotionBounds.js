@@ -1,9 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
-/**
- /**
- * Class that defines the bounds within which some shape or point is allowed to
- * move.  The shape can be anything, and does not need to be rectangular.
- * <p/>
+
+ /*
+ * Class that defines the bounds within which some shape or point is allowed to move.
  * If the bounds are not set, they are assumed to be infinite.
  *
  * @author John Blanco
@@ -14,30 +12,32 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Shape = require( 'KITE/Shape' );
   var Matrix3 = require( 'DOT/Matrix3' );
 
 
   /**
-   * @param {Shape} boundsShape
+   * @param {Bounds2} bounds
    * @constructor
    */
-  function MotionBounds( boundsShape ) {
+  function MotionBounds( bounds ) {
 
-    if ( !boundsShape ) {
-      boundsShape = Shape.rectangle( Number.MIN_VALUE, Number.MIN_VALUE, Number.MAX_VALUE, Number.MAX_VALUE );
+    if ( !bounds ) {
+      bounds = new Bounds2( Number.MIN_VALUE, Number.MIN_VALUE, Number.MAX_VALUE, Number.MAX_VALUE );
     }
 
-    // Use a shape, rather than a rectangle, for the bounds.  This allows
-    // more complex bounds to be used.
-    this.boundsShape = boundsShape;
+    this.bounds = bounds;
   }
 
   geneExpressionEssentials.register( 'MotionBounds', MotionBounds );
 
   return inherit( Object, MotionBounds, {
+
+    set: function( bounds ){
+      this.bounds.set( bounds );
+    },
 
     /**
      * @param {Shape} p
@@ -47,7 +47,7 @@ define( function( require ) {
       if ( p.x ) {
         return this.inBoundsByPoint( p );
       }
-      return this.boundsShape === null || this.boundsShape.bounds.containsBounds( p.bounds );
+      return this.bounds === null || this.bounds.containsBounds( p.bounds );
     },
 
     /**
@@ -55,14 +55,14 @@ define( function( require ) {
      * @returns {boolean}
      */
     inBoundsByPoint: function( p ) {
-      return this.boundsShape === null || this.boundsShape.bounds.containsPoint( p );
+      return this.bounds === null || this.bounds.containsPoint( p );
     },
 
     /**
      * return Bounds
      */
     getBounds: function() {
-      return this.boundsShape.bounds;
+      return this.bounds;
     },
 
 

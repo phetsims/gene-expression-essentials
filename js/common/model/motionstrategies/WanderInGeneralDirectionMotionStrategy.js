@@ -81,7 +81,7 @@ define( function( require ) {
 
       // Make sure that current motion will not cause the model element to
       // move outside of the motion bounds.
-      if ( !this.motionBounds.testIfInMotionBounds( shape, this.currentMotionVector, dt ) ) {
+      if ( !this.motionBounds.testIfInMotionBoundsWithDelta( shape, this.currentMotionVector, dt ) ) {
 
         // The current motion vector would take this element out of bounds,
         // so it needs to "bounce".

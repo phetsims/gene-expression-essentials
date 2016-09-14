@@ -449,6 +449,7 @@ define( function( require ) {
      */
     considerProposalFromBiomolecule: function( biomolecule, maxAttachDistance, getAttachSiteForBasePair, isOkayToAttach,
                                                getAttachmentSite ) {
+
       var potentialAttachmentSites = [];
       for ( var i = 0; i < this.basePairs.length; i++ ) {
         // See if the base pair is within the max attachment distance.

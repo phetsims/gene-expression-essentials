@@ -109,7 +109,7 @@ define( function( require ) {
 
       // Determine movement for drift.
       var xyMovement;
-      if ( this.motionBounds.testIfInMotionBounds( shape, this.velocityXY, dt ) ) {
+      if ( this.motionBounds.testIfInMotionBoundsWithDelta( shape, this.velocityXY, dt ) ) {
         xyMovement = this.velocityXY.timesScalar( dt );
       }
       else {
