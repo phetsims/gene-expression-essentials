@@ -29,6 +29,12 @@ define( function( require ) {
 
   return inherit( Protein, ProteinB, {
 
+    /**
+     * @returns {ProteinB}
+     */
+    createInstance: function() {
+      return new ProteinB( this.model );
+    },
 
     /**
      * //protected
@@ -45,10 +51,20 @@ define( function( require ) {
     setAttachmentPointPosition: function( attachmentPointLocation ) {
       // Note: This is specific to this protein's shape, and will need to be
       // adjusted if the protein's shape algorithm changes.
-      this.setPosition( attachmentPointLocation.x + FULL_GROWN_WIDTH * 0.12 * this.getFullSizeProportion(),
-        attachmentPointLocation.y + FULL_GROWN_WIDTH * 0.45 * this.getFullSizeProportion() );
+      this.setAttachmentPointPositionXY( attachmentPointLocation.x, attachmentPointLocation.y );
     },
 
+    /**
+     *
+     * @param {number} attachmentPointLocationX
+     * @param {number} attachmentPointLocationY
+     */
+    setAttachmentPointPositionXY: function( attachmentPointLocationX, attachmentPointLocationY ) {
+      // Note: This is specific to this protein's shape, and will need to be
+      // adjusted if the protein's shape algorithm changes.
+      this.setPosition( new Vector2( attachmentPointLocationX + FULL_GROWN_WIDTH * 0.12 * this.getFullSizeProportion(),
+        attachmentPointLocationY + FULL_GROWN_WIDTH * 0.45 * this.getFullSizeProportion() ) );
+    },
     /**
      * @returns {Shape}
      */

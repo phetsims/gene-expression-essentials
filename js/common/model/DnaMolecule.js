@@ -621,7 +621,7 @@ define( function( require ) {
       var gene = this.getGeneContainingBasePair( i );
       if ( gene !== null ) {
         // Base pair is in a gene.  See if site is available.
-        return gene.getPolymeraseAttachmentSite( i );
+        return gene.getPolymeraseAttachmentSiteByIndex( i );
       }
       else {
         // Base pair is not contained within a gene, so use the default.

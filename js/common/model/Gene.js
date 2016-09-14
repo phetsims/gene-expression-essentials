@@ -156,7 +156,7 @@ define( function( require ) {
 
       // There is currently nothing special about this site, so return a
       // default affinity site.
-      return this.dnaMolecule.createDefaultAffinityAttachmentSite(
+      return this.dnaMolecule.createDefaultAffinityAttachmentSiteByDouble(
         this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) );
     },
 
@@ -172,7 +172,6 @@ define( function( require ) {
     },
 
     updateAffinities: function() {
-
       // Update the affinity of the polymerase attachment site based upon the
       // state of the transcription factors.
       if ( this.transcriptionFactorsSupportTranscription() ) {
@@ -220,7 +219,7 @@ define( function( require ) {
       var numPositiveTranscriptionFactorsNeeded = 0;
       _.forEach( this.transcriptionFactorMap.values, function( transcriptionFactor ) {
         if ( transcriptionFactor.getConfig().isPositive ) {
-          numPositiveTranscriptionFactorsNeeded++;
+          numPositiveTranscriptionFactorsNeeded += 1;
         }
       } );
 
@@ -230,9 +229,11 @@ define( function( require ) {
       _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
         if ( transcriptionFactorAttachmentSite.attachedOrAttachingMolecule !== null ) {
           var tf = transcriptionFactorAttachmentSite.attachedOrAttachingMolecule;
-          if ( tf.getPosition().distance( transcriptionFactorAttachmentSite.location ) === 0 &&
+          // there is a very slight difference in the y direction and to mitigate that we add 0.0001 factor
+          // empirically determined
+          if ( tf.getPosition().distance( transcriptionFactorAttachmentSite.location ) < 0.001 &&
                tf.isPositive() ) {
-            numPositiveTranscriptionFactorsAttached++;
+            numPositiveTranscriptionFactorsAttached += 1;
           }
         }
       } );
