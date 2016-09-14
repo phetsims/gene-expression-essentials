@@ -1,15 +1,15 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- *  Primary model for the manual gene expression tab.
- * <p/>
- * The point (0,0) in model space is at the leftmost edge of the DNA strand, and
- * at the vertical center of the strand.
+ * Primary model for the manual gene expression tab.
+ * The point (0,0) in model space is at the leftmost edge of the DNA strand, and at the vertical center of the strand.
  *
  * @author Sharfudeen Ashraf
  * @author Mohamed Safi
  * @author John Blanco
  */
+
+
 define( function( require ) {
   'use strict';
 
@@ -33,13 +33,10 @@ define( function( require ) {
   var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionBounds' );
   var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
   var Util = require( 'DOT/Util' );
-  var Shape = require( 'KITE/Shape' );
 
   // constants
-  // Stage size for the mobile biomolecules, which is basically the area in
-  // which the molecules can move.  These are empirically determined such
-  // that the molecules don't move off of the screen when looking at a given
-  // gene.
+  // Stage size for the mobile biomolecules, which is basically the area in which the molecules can move. These are
+  // empirically determined such that the molecules don't move off of the screen when looking at a given gene.
   var BIOMOLECULE_STAGE_WIDTH = 10000; // In picometers.
   var BIOMOLECULE_STAGE_HEIGHT = 6700; // In picometers.
 
