@@ -37,7 +37,6 @@ define( function( require ) {
     start: function() {
       var self = this;
       if ( !this.isRunning ) {
-        var self = this;
         self._intervalId = Timer.setInterval( function() {
           self.listener();
         }, this.interval );
