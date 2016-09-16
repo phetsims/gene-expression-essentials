@@ -38,8 +38,8 @@ define( function( require ) {
    * @constructor
    */
   function AffinityController( leftNode, rightNode, affinityProperty ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
     var captionNode = new Text( affinityString, new PhetFont( { size: 14, weight: 'bold' } ) );
     var arrowTail = new Vector2( 0, 0 );
     var arrowTip = new Vector2( ARROW_LENGTH, 0 );
@@ -63,7 +63,7 @@ define( function( require ) {
       1,
       lowString,
       highString );
-    thisNode.addChild( new VBox( {
+    self.addChild( new VBox( {
       children: [ captionNode, affinityKey, horizontalSlider ],
       spacing: 10
     } ) );

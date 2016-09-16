@@ -65,8 +65,8 @@ define( function( require ) {
    * @constructor
    */
   function IntegerBox( value ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     var valueText = new Text( value, { font: READOUT_FONT } );
     var boxBounds = Shape.rectangle( 0, 0, valueText.bounds.width * 2, valueText.bounds.height );
@@ -76,9 +76,9 @@ define( function( require ) {
       stroke: Color.BLACK
     } );
 
-    thisNode.addChild( box );
+    self.addChild( box );
     centerFullBoundsOnPoint( valueText, box.bounds.getCenterX(), box.bounds.getCenterY() );
-    thisNode.addChild( valueText );
+    self.addChild( valueText );
 
   }
 
@@ -92,17 +92,17 @@ define( function( require ) {
    * @constructor
    */
   function CollectionCountIndicator( model ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
-    thisNode.collectionCompleteNode = new Text( collectionCompleteString, { font: new PhetFont( 20 ) } );
-    if ( thisNode.collectionCompleteNode.bounds.width > MAX_CONTENT_WIDTH ) {
+    self.collectionCompleteNode = new Text( collectionCompleteString, { font: new PhetFont( 20 ) } );
+    if ( self.collectionCompleteNode.bounds.width > MAX_CONTENT_WIDTH ) {
       // Scale to fit.
-      thisNode.collectionCompleteNode.scale( MAX_CONTENT_WIDTH / thisNode.collectionCompleteNode.bounds.width );
+      self.collectionCompleteNode.scale( MAX_CONTENT_WIDTH / self.collectionCompleteNode.bounds.width );
     }
 
     function countChangeUpdater() {
-      thisNode.updateCount( model );
+      self.updateCount( model );
     }
 
     model.proteinACollectedProperty.link( countChangeUpdater );
@@ -117,7 +117,7 @@ define( function( require ) {
      * @param {ManualGeneExpressionModel} model
      */
     updateCount: function( model ) {
-      var thisNode = this;
+      var self = this;
       var numProteinTypesCollected = 0;
       if ( model.proteinACollected > 0 ) {
         numProteinTypesCollected++;
@@ -128,7 +128,7 @@ define( function( require ) {
       if ( model.proteinCCollected > 0 ) {
         numProteinTypesCollected++;
       }
-      thisNode.removeAllChildren();
+      self.removeAllChildren();
 
       var hBox = new HBox( {
         children: [ new Text( proteinCountCaptionPart1String, { font: READOUT_FONT } ),
@@ -147,18 +147,18 @@ define( function( require ) {
       }
 
       // Offset the collection complete indicator so that it will be centered when it is shown.
-      var dx = collectedQuantityIndicator.bounds.getCenterX() - thisNode.collectionCompleteNode.bounds.getCenterX();
-      var dy = collectedQuantityIndicator.bounds.getCenterY() - thisNode.collectionCompleteNode.bounds.getCenterY();
-      thisNode.collectionCompleteNode.setTranslation( dx, dy );
+      var dx = collectedQuantityIndicator.bounds.getCenterX() - self.collectionCompleteNode.bounds.getCenterX();
+      var dy = collectedQuantityIndicator.bounds.getCenterY() - self.collectionCompleteNode.bounds.getCenterY();
+      self.collectionCompleteNode.setTranslation( dx, dy );
 
       // Add both nodes, so that the overall size of the node is consistent, but
       // only show one of them based upon whether the collection is complete.
-      thisNode.addChild( collectedQuantityIndicator );
-      thisNode.addChild( thisNode.collectionCompleteNode );
+      self.addChild( collectedQuantityIndicator );
+      self.addChild( self.collectionCompleteNode );
 
       // Set the visibility.
       collectedQuantityIndicator.setVisible( numProteinTypesCollected !== NUM_PROTEIN_TYPES );
-      thisNode.collectionCompleteNode.setVisible( numProteinTypesCollected === NUM_PROTEIN_TYPES );
+      self.collectionCompleteNode.setVisible( numProteinTypesCollected === NUM_PROTEIN_TYPES );
     }
   } );
 
@@ -169,8 +169,8 @@ define( function( require ) {
    * @constructor
    */
   function ProteinCollectionNode( model, mvt ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     // Create the title and scale it if needed.
     var title = new MultiLineText( yourProteinCollectionString, {
@@ -192,7 +192,7 @@ define( function( require ) {
         new CollectionCountIndicator( model ) ], spacing: 5
     } );
 
-    thisNode.addChild( new Panel( contents, { fill: BACKGROUND_COLOR } ) );
+    self.addChild( new Panel( contents, { fill: BACKGROUND_COLOR } ) );
   }
 
   geneExpressionEssentials.register( 'ProteinCollectionNode', ProteinCollectionNode );

@@ -54,44 +54,44 @@ define( function( require ) {
   function MessengerRnaProductionScreenView( model ) {
 
     ScreenView.call( this );
-    var thisView = this;
-    thisView.model = model;
-    thisView.clockRunning = new Property( false );
-    thisView.negativeTranscriptionFactorEnabled = new Property( false );
-    var viewPortPosition = new Vector2( thisView.layoutBounds.width * 0.48, thisView.layoutBounds.height * 0.64 );
+    var self = this;
+    self.model = model;
+    self.clockRunning = new Property( false );
+    self.negativeTranscriptionFactorEnabled = new Property( false );
+    var viewPortPosition = new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.64 );
 
     // Set up the model-canvas transform.
     // IMPORTANT NOTES: The multiplier factors for the 2nd point can be
     // adjusted to shift the center right or left, and the scale factor
     // can be adjusted to zoom in or out (smaller numbers zoom out, larger
     // ones zoom in).
-    thisView.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    self.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO, viewPortPosition, 0.2 ); // "Zoom factor" - smaller zooms out, larger zooms in.
 
 
     // Set up the root node for all model objects.  Nodes placed under
     // this one will scroll when the user moves along the DNA strand.
-    thisView.modelRootNode = new Node();
-    thisView.addChild( thisView.modelRootNode );
+    self.modelRootNode = new Node();
+    self.addChild( self.modelRootNode );
 
 
     // Add some layers for enforcing some z-order relationships needed in
     // order to keep things looking good.
     var dnaLayer = new Node();
-    thisView.modelRootNode.addChild( dnaLayer );
+    self.modelRootNode.addChild( dnaLayer );
     var biomoleculeToolBoxLayer = new Node();
-    thisView.modelRootNode.addChild( biomoleculeToolBoxLayer );
+    self.modelRootNode.addChild( biomoleculeToolBoxLayer );
     var messengerRnaLayer = new Node();
-    thisView.modelRootNode.addChild( messengerRnaLayer );
+    self.modelRootNode.addChild( messengerRnaLayer );
     var topBiomoleculeLayer = new Node();
-    thisView.modelRootNode.addChild( topBiomoleculeLayer );
+    self.modelRootNode.addChild( topBiomoleculeLayer );
     var placementHintLayer = new Node();
-    thisView.modelRootNode.addChild( placementHintLayer );
+    self.modelRootNode.addChild( placementHintLayer );
     var controlsNode = new Node();
-    thisView.addChild( controlsNode );
+    self.addChild( controlsNode );
 
     // Add the representation of the DNA strand.
-    var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), thisView.mvt, 5, false );
+    var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 5, false );
     dnaLayer.addChild( dnaMoleculeNode );
 
     // Add the placement hints that go on the DNA molecule.  These exist on
@@ -99,7 +99,7 @@ define( function( require ) {
     // are attached to the DNA strand.
     model.getDnaMolecule().getGenes().forEach( function( gene ) {
       gene.getPlacementHints().forEach( function( placementHint ) {
-        placementHintLayer.addChild( new PlacementHintNode( thisView.mvt, placementHint ) );
+        placementHintLayer.addChild( new PlacementHintNode( self.mvt, placementHint ) );
       } );
     } );
 
@@ -137,7 +137,7 @@ define( function( require ) {
     // Add the check box for showing/hiding the control panel for the
     // negative transcription factor.
     var negativeFactorEnabledCheckBox = new CheckBox( new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ) } ),
-      thisView.negativeTranscriptionFactorEnabled, {
+      self.negativeTranscriptionFactorEnabled, {
         boxWidth: 20
       } );
     controlsNode.addChild( negativeFactorEnabledCheckBox );
@@ -145,19 +145,19 @@ define( function( require ) {
 
     // Only show the control for the negative transcription factor if it
     // is enabled.
-    thisView.negativeTranscriptionFactorEnabled.link( function( enabled ) {
+    self.negativeTranscriptionFactorEnabled.link( function( enabled ) {
       negativeTranscriptionFactorControlPanel.setVisible( enabled );
       if ( !enabled ) {
         // When the negative transcription factor control is
         // hidden, there should be no negative factors.
-        thisView.model.negativeTranscriptionFactorCount.reset();
+        self.model.negativeTranscriptionFactorCount.reset();
       }
     } );
 
 
     // Add the floating clock control.
     // var modelClock = thisView.model.getClock(); //commented to pass lint
-    thisView.clockRunning.link( function( isRunning ) {
+    self.clockRunning.link( function( isRunning ) {
       // modelClock.setRunning(isRunning); //TODO
     } );
 
@@ -178,7 +178,7 @@ define( function( require ) {
     // Add the Reset All button.
     var resetAllButton = new ResetAllButton( {
       listener: function() {
-        thisView.model.reset();
+        self.model.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
@@ -190,7 +190,7 @@ define( function( require ) {
     // Lay out the controls.
 
     positiveTranscriptionFactorControlPanel.x = INSET;
-    positiveTranscriptionFactorControlPanel.y = thisView.layoutBounds.height - positiveTranscriptionFactorControlPanel.bounds.height - INSET;
+    positiveTranscriptionFactorControlPanel.y = self.layoutBounds.height - positiveTranscriptionFactorControlPanel.bounds.height - INSET;
 
     polymeraseAffinityControlPanel.x = positiveTranscriptionFactorControlPanel.bounds.getMaxX() + 10;
     polymeraseAffinityControlPanel.y = positiveTranscriptionFactorControlPanel.bounds.getMinY();
@@ -198,7 +198,7 @@ define( function( require ) {
     negativeTranscriptionFactorControlPanel.x = polymeraseAffinityControlPanel.bounds.getMaxX() + 10;
     negativeTranscriptionFactorControlPanel.y = polymeraseAffinityControlPanel.bounds.getMinY();
     var middleXOfUnusedSpace = ( negativeTranscriptionFactorControlPanel.bounds.getMaxX() +
-                                 thisView.layoutBounds.width ) / 2;
+                                 self.layoutBounds.width ) / 2;
 
     resetAllButton.x = middleXOfUnusedSpace - resetAllButton.bounds.width / 2;
     resetAllButton.y = positiveTranscriptionFactorControlPanel.bounds.getMaxY() - resetAllButton.bounds.height;
@@ -213,7 +213,7 @@ define( function( require ) {
 //        // others are handled as special cases.
     model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
 
-      var biomoleculeNode = new MobileBiomoleculeNode( thisView.mvt, addedBiomolecule );
+      var biomoleculeNode = new MobileBiomoleculeNode( self.mvt, addedBiomolecule );
 
       // On this tab, users can't directly interact with individual biomolecules.
       biomoleculeNode.setPickable( false );
@@ -252,7 +252,7 @@ define( function( require ) {
     // Watch for and handle comings and goings of messenger RNA.
     model.messengerRnaList.addItemAddedListener( function( addedMessengerRna ) {
 
-      var messengerRnaNode = new MessengerRnaNode( thisView.mvt, addedMessengerRna );
+      var messengerRnaNode = new MessengerRnaNode( self.mvt, addedMessengerRna );
       messengerRnaLayer.addChild( messengerRnaNode );
 
       model.messengerRnaList.addItemRemovedListener( function( removedMessengerRna ) {

@@ -37,11 +37,11 @@ define( function( require ) {
     start: function() {
       var self = this;
       if ( !this.isRunning ) {
-        var thisTimer = this;
-        thisTimer._intervalId = Timer.setInterval( function() {
+        var self = this;
+        self._intervalId = Timer.setInterval( function() {
           self.listener();
         }, this.interval );
-        thisTimer.isRunning = true;
+        self.isRunning = true;
       }
     },
 

@@ -31,8 +31,8 @@ define( function( require ) {
    * @constructor
    */
   function BackgroundCellNode( options ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
     options = _.extend( {
       size: DEFAULT_SIZE,
       rotationAngle: 0
@@ -57,7 +57,7 @@ define( function( require ) {
     cellInteriorPaint.addColorStop( 2, CELL_INTERIOR_COLOR.brighterColor( 0.25 ) );
 
     cellBody.fill = cellInteriorPaint;
-    thisNode.addChild( cellBody );
+    self.addChild( cellBody );
   }
 
 

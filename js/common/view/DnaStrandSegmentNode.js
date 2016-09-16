@@ -26,10 +26,10 @@ define( function( require ) {
    * @constructor
    */
   function DnaStrandSegmentNode( dnaStrandSegment, mvt, strandSegmentStroke, color ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
     var pathNode = new Path( new Shape(), { lineWidth: strandSegmentStroke, stroke: color } );
-    thisNode.addChild( pathNode );
+    self.addChild( pathNode );
     var defaultBounds = new Bounds2( 0, 0, 0, 0 );
 
     //override computeShapeBounds to improve performance

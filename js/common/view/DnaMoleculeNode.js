@@ -34,8 +34,8 @@ define( function( require ) {
    * @constructor
    */
   function DnaMoleculeNode( dnaMolecule, mvt, backboneStrokeWidth, showGeneBracketLabels ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     // Layers for supporting the 3D look by allowing the "twist" to be depicted.
     this.dnaBackboneBackLayer = new Node();
@@ -44,11 +44,11 @@ define( function( require ) {
     // Add the layers onto which the various nodes that represent parts of
     // the dna, the hints, etc. are placed.
     var geneBackgroundLayer = new Node();
-    thisNode.addChild( geneBackgroundLayer );
-    thisNode.addChild( this.dnaBackboneBackLayer );
+    self.addChild( geneBackgroundLayer );
+    self.addChild( this.dnaBackboneBackLayer );
     var basePairLayer = new Node();
-    thisNode.addChild( basePairLayer );
-    thisNode.addChild( this.dnaBackboneFrontLayer );
+    self.addChild( basePairLayer );
+    self.addChild( this.dnaBackboneFrontLayer );
 
     // Put the gene backgrounds and labels behind everything.
     for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
@@ -58,12 +58,12 @@ define( function( require ) {
 
     // Add the first backbone strand.
     _.each( dnaMolecule.getStrand1Segments(), function( dnaStrandSegment ) {
-      thisNode.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_1_COLOR );
+      self.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_1_COLOR );
     } );
 
     // Add the other backbone strand.
     _.each( dnaMolecule.getStrand2Segments(), function( dnaStrandSegment ) {
-      thisNode.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_2_COLOR );
+      self.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_2_COLOR );
     } );
 
     // Add the base pairs.

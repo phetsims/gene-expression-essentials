@@ -30,8 +30,8 @@ define( function( require ) {
    * @constructor
    */
   function PlacementHintNode( mvt, placementHint ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     // Create a transparent color based on the base color of the molecule.
     var transparentColor = new Color( placementHint.getBaseColor().getRed(), placementHint.getBaseColor().getGreen(),
@@ -43,7 +43,7 @@ define( function( require ) {
     } );
 
     var path = new Path( new Shape(), pathStyleOptions );
-    thisNode.addChild( path );
+    self.addChild( path );
 
     // Update the shape whenever it changes.
     placementHint.addShapeChangeObserver( function( shape ) {

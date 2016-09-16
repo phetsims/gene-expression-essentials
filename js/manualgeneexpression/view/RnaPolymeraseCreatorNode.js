@@ -34,8 +34,8 @@ define( function( require ) {
    * @constructor
    */
   function RnaPolymeraseCreatorNode( biomoleculeBoxNode ) {
-    var thisNode = this;
-    BiomoleculeCreatorNode.call( thisNode, new MobileBiomoleculeNode( SCALING_MVT, new RnaPolymerase() ),
+    var self = this;
+    BiomoleculeCreatorNode.call( self, new MobileBiomoleculeNode( SCALING_MVT, new RnaPolymerase() ),
       biomoleculeBoxNode.canvas,
       biomoleculeBoxNode.mvt,
 

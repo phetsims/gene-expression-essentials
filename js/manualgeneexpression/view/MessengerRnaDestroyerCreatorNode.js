@@ -33,8 +33,8 @@ define( function( require ) {
    * @constructor
    */
   function MessengerRnaDestroyerCreatorNode( biomoleculeBoxNode ) {
-    var thisNode = this;
-    BiomoleculeCreatorNode.call( thisNode,
+    var self = this;
+    BiomoleculeCreatorNode.call( self,
       new MobileBiomoleculeNode( SCALING_MVT, new MessengerRnaDestroyer( new StubGeneExpressionModel() ) ),
       biomoleculeBoxNode.canvas,
       biomoleculeBoxNode.mvt,

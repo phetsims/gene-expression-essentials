@@ -37,17 +37,17 @@ define( function( require ) {
    * @constructor
    */
   function DriftThenTeleportMotionStrategy( wanderDirection, destinationZones, motionBoundsProperty ) {
-    var thisDriftThenTeleportMotionStrategy = this;
-    MotionStrategy.call( thisDriftThenTeleportMotionStrategy );
+    var self = this;
+    MotionStrategy.call( self );
     motionBoundsProperty.link( function( motionBounds ) {
-      thisDriftThenTeleportMotionStrategy.motionBounds = motionBounds;
+      self.motionBounds = motionBounds;
     } );
 
     // List of valid places where the item can teleport.
-    thisDriftThenTeleportMotionStrategy.destinationZones = destinationZones;
-    thisDriftThenTeleportMotionStrategy.preFadeCountdown = PRE_FADE_DRIFT_TIME;
-    thisDriftThenTeleportMotionStrategy.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY );
-    thisDriftThenTeleportMotionStrategy.velocityZ = -1 / FADE_AND_DRIFT_TIME;
+    self.destinationZones = destinationZones;
+    self.preFadeCountdown = PRE_FADE_DRIFT_TIME;
+    self.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY );
+    self.velocityZ = -1 / FADE_AND_DRIFT_TIME;
   }
 
   geneExpressionEssentials.register( 'DriftThenTeleportMotionStrategy', DriftThenTeleportMotionStrategy );

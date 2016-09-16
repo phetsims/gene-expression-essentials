@@ -33,15 +33,15 @@ define( function( require ) {
    * @constructor
    */
   function WanderInGeneralDirectionMotionStrategy( generalDirection, motionBoundsProperty ) {
-    var thisWanderInGeneralDirectionMotionStrategy = this;
-    MotionStrategy.call( thisWanderInGeneralDirectionMotionStrategy );
-    thisWanderInGeneralDirectionMotionStrategy.directionChangeCountdown = 0;
-    thisWanderInGeneralDirectionMotionStrategy.currentMotionVector = new Vector2( 0, 0 );
+    var self = this;
+    MotionStrategy.call( self );
+    self.directionChangeCountdown = 0;
+    self.currentMotionVector = new Vector2( 0, 0 );
     motionBoundsProperty.link( function( motionBounds ) {
-      thisWanderInGeneralDirectionMotionStrategy.motionBounds = motionBounds;
+      self.motionBounds = motionBounds;
     } );
 
-    thisWanderInGeneralDirectionMotionStrategy.generalDirection = generalDirection;
+    self.generalDirection = generalDirection;
 
   }
 

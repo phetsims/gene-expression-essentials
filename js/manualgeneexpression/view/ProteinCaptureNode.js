@@ -51,8 +51,8 @@ define( function( require ) {
    * @constructor
    */
   function ProteinCaptureNode( model, proteinClassName, transform, size ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     var proteinShape = Shape.rectangle( -10, -10, 20, 20 ); // Arbitrary initial shape.
     var fullBaseColor = Color.PINK; // Arbitrary initial color.
@@ -64,7 +64,7 @@ define( function( require ) {
 
     // Add the background node.  This is invisible, and exists only to
     // make the node a specific size.
-    thisNode.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ), {
+    self.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ), {
       fill: new Color( 0, 0, 0, 0 )
     } ) );
 
@@ -72,18 +72,18 @@ define( function( require ) {
     // until the protein is captured, and turn off once it is captured.
     var flashingCaptureNodeShape = proteinShape.transformed( Matrix3.scaling( SCALE_FOR_FLASH_NODE, SCALE_FOR_FLASH_NODE ) );
     var flashingCaptureNode = new FlashingShapeNode( flashingCaptureNodeShape, FLASH_COLOR, 350, 350, 4, false, true );
-    thisNode.addChild( flashingCaptureNode );
+    self.addChild( flashingCaptureNode );
 
     // Add the node that will represent the spot where the protein can
     // be captured, which is a black shape (signifying emptiness)
     // until a protein is captured, then it changes to look filled in.
     var captureAreaNode = new Path( proteinShape );
-    thisNode.addChild( captureAreaNode );
+    self.addChild( captureAreaNode );
     var gradientPaint = GradientUtil.createGradientPaint( proteinShape, fullBaseColor );
 
     // Add the node that represents a count of the collected type.
     var countNode = new Text( '', { font: new PhetFont( { size: 18, weight: 'bold' } ) } );
-    thisNode.addChild( countNode );
+    self.addChild( countNode );
     model.getCollectedCounterForProteinType( proteinClassName ).link( function( proteinCaptureCount ) {
       countNode.text = proteinCaptureCount;
       countNode.x = ( captureAreaNode.bounds.getCenterX() - countNode.bounds.width / 2);

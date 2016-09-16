@@ -37,8 +37,8 @@ define( function( require ) {
    * @constructor
    */
   function ConcentrationController( transcriptionFactorConfig, tfLevelProperty, min, max ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     var captionNode = new Text( concentrationsString, new PhetFont( { size: 14, weight: 'bold' } ) );
 
@@ -46,7 +46,7 @@ define( function( require ) {
       new TranscriptionFactor( new StubGeneExpressionModel(), transcriptionFactorConfig ) );
 //            molecule.setPickable( false );//TODO
 //            molecule.setChildrenPickable( false ); TODO
-    thisNode.addChild( new VBox( {
+    self.addChild( new VBox( {
       spacing: 5, children: [ captionNode, molecule,
         new HorizontalSliderWithLabelsAtEnds( tfLevelProperty,
           min,

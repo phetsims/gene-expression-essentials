@@ -49,7 +49,7 @@ define( function( require ) {
    * @constructor
    */
   function PolymeraseAffinityControlPanel( tfConfig, minHeight, polymeraseAffinityProperty ) {
-    var thisNode = this;
+    var self = this;
 
 
     var titleNode = new Text( rnaPolymeraseString, TITLE_FONT );
@@ -100,7 +100,7 @@ define( function( require ) {
       }
     );
 
-    Panel.call( thisNode, contents, {
+    Panel.call( self, contents, {
       fill: new Color( 250, 250, 250 ),
       lineWidth: 2
     } );

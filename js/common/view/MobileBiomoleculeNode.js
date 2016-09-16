@@ -34,8 +34,8 @@ define( function( require ) {
    * @constructor
    */
   function MobileBiomoleculeNode( mvt, mobileBiomolecule, outlineStroke ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
     outlineStroke = outlineStroke || 1;
 
     var path = this.getPathByMobileBioMoleculeType( mobileBiomolecule, {
@@ -43,7 +43,7 @@ define( function( require ) {
       lineWidth: outlineStroke
     } );
 
-    thisNode.addChild( path );
+    self.addChild( path );
 
     // Update the shape whenever it changes.
     mobileBiomolecule.addShapeChangeObserver( function( shape ) {
@@ -112,7 +112,7 @@ define( function( require ) {
     } );
 
     // Drag handling.
-    thisNode.addInputListener( new BiomoleculeDragHandler( mobileBiomolecule, thisNode, mvt ) );
+    self.addInputListener( new BiomoleculeDragHandler( mobileBiomolecule, self, mvt ) );
 
 
     // Interactivity control.

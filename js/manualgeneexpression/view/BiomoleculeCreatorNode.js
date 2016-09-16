@@ -32,12 +32,12 @@ define( function( require ) {
    * @constructor
    */
   function BiomoleculeCreatorNode( appearanceNode, canvas, mvt, moleculeCreator, moleculeDestroyer, enclosingToolBoxNode ) {
-    var thisNode = this;
-    Node.call( thisNode, { cursor: 'pointer' } );
-    thisNode.canvas = canvas;
-    thisNode.mvt = mvt;
-    thisNode.appearanceNode = appearanceNode;
-    thisNode.biomolecule = null;
+    var self = this;
+    Node.call( self, { cursor: 'pointer' } );
+    self.canvas = canvas;
+    self.mvt = mvt;
+    self.appearanceNode = appearanceNode;
+    self.biomolecule = null;
 
 
     // Appearance Node is a bioMolecule Node which has its own DragHandler, since the node
@@ -45,30 +45,30 @@ define( function( require ) {
     // otherwise the DragHandler of the BioMolecule takes over the Input Listener of the creator Node - Ashraf
 
     appearanceNode.pickable = false;
-    thisNode.mouseArea = appearanceNode.bounds;
-    thisNode.touchArea = appearanceNode.bounds;
+    self.mouseArea = appearanceNode.bounds;
+    self.touchArea = appearanceNode.bounds;
 
 
-    thisNode.addInputListener( new SimpleDragHandler( {
+    self.addInputListener( new SimpleDragHandler( {
 
       // Allow moving a finger (touch) across this node to interact with it
       allowTouchSnag: true,
       start: function( event, trail ) {
         //Set the node to look faded out so that something is still
         // visible.  This acts a a legend in the tool box.
-        thisNode.pickable = false;
-        thisNode.appearanceNode.opacity = 0.3;
+        self.pickable = false;
+        self.appearanceNode.opacity = 0.3;
 
         // Convert the canvas position to the corresponding location in the model.
-        var modelPos = thisNode.getModelPosition( event.pointer.point );
+        var modelPos = self.getModelPosition( event.pointer.point );
         //   thisNode.debugPoint(thisNode.canvas,modelPos); TODO Debug
 
         // Create the corresponding biomolecule and add it to the model.
-        thisNode.biomolecule = moleculeCreator( modelPos );
-        thisNode.biomolecule.userControlled = true;
+        self.biomolecule = moleculeCreator( modelPos );
+        self.biomolecule.userControlled = true;
 
         // Add an observer to watch for this model element to be returned.
-        var finalBiomolecule = thisNode.biomolecule;
+        var finalBiomolecule = self.biomolecule;
         var userControlledPropertyObserver = function( userControlled ) {
           if ( !userControlled ) {
             // The user has released this biomolecule.  If it  was dropped above the return bounds (which are
@@ -77,28 +77,28 @@ define( function( require ) {
             if ( enclosingToolBoxNode.bounds.containsPoint( mvt.modelToViewPosition( finalBiomolecule.getPosition() ) ) ) {
               moleculeDestroyer( finalBiomolecule );
               finalBiomolecule.userControlledProperty.unlink( userControlledPropertyObserver );
-              thisNode.appearanceNode.opacity = 1;
-              thisNode.pickable = true;
+              self.appearanceNode.opacity = 1;
+              self.pickable = true;
             }
           }
         };
 
-        thisNode.biomolecule.userControlledProperty.link( userControlledPropertyObserver );
+        self.biomolecule.userControlledProperty.link( userControlledPropertyObserver );
       },
 
       translate: function( translationParams ) {
-        thisNode.biomolecule.setPosition( thisNode.biomolecule.getPosition().plus( mvt.viewToModelDelta( translationParams.delta ) ) );
+        self.biomolecule.setPosition( self.biomolecule.getPosition().plus( mvt.viewToModelDelta( translationParams.delta ) ) );
       },
 
       end: function( event ) {
-        thisNode.biomolecule.userControlled = false;
-        thisNode.biomolecule = null;
+        self.biomolecule.userControlled = false;
+        self.biomolecule = null;
       }
 
     } ) );
 
     // Add the main node with which the user will interact.
-    thisNode.addChild( appearanceNode );
+    self.addChild( appearanceNode );
 
   }
 

@@ -29,13 +29,13 @@ define( function( require ) {
    * @constructor
    */
   function FadeLabel( text, initiallyVisible, existenceStrengthProperty ) {
-    var thisLabel = this;
-    Node.call( thisLabel );
+    var self = this;
+    Node.call( self );
     this.fadeDelta = 0;
     var opacity = 0;
 
     var label = new Text( text, { font: FONT } );
-    thisLabel.addChild( label );
+    self.addChild( label );
 
     if ( !initiallyVisible ) {
       opacity = 0;
@@ -46,23 +46,23 @@ define( function( require ) {
 
     // Create the timers that will be used for fading in and out.
     this.fadeInTimer = new FadeTimer( TIMER_DELAY, function() {
-      opacity = Math.min( opacity + thisLabel.fadeDelta, existenceStrengthProperty.get() );
+      opacity = Math.min( opacity + self.fadeDelta, existenceStrengthProperty.get() );
       updateTransparency();
       if ( opacity >= 1 ) {
-        thisLabel.fadeInTimer.stop();
+        self.fadeInTimer.stop();
       }
     } );
 
     this.fadeOutTimer = new FadeTimer( TIMER_DELAY, function() {
-      opacity = Math.min( Math.max( opacity - thisLabel.fadeDelta, 0 ), existenceStrengthProperty.get() );
+      opacity = Math.min( Math.max( opacity - self.fadeDelta, 0 ), existenceStrengthProperty.get() );
       updateTransparency();
       if ( opacity <= 0 ) {
-        thisLabel.fadeOutTimer.stop();
+        self.fadeOutTimer.stop();
       }
     } );
 
     function updateTransparency() {
-      thisLabel.opacity = Math.min( existenceStrengthProperty.get(), opacity );
+      self.opacity = Math.min( existenceStrengthProperty.get(), opacity );
     }
 
     // Update if existence strength changes.

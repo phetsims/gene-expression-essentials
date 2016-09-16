@@ -122,13 +122,13 @@ define( function( require ) {
    * @constructor
    */
   function FlashingShapeNode( shape, flashColor, onTime, offTime, numFlashes, visibleAtStart, visibleAtEnd ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     var flashingNode = new Path( shape, {
       fill: visibleAtStart ? flashColor : INVISIBLE_COLOR
     } );
-    thisNode.addChild( flashingNode );
+    self.addChild( flashingNode );
     this.flashController = new FlashController( flashingNode, INVISIBLE_COLOR, flashColor, onTime, offTime, numFlashes, visibleAtStart, visibleAtEnd );
 
   }

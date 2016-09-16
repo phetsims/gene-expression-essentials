@@ -45,7 +45,7 @@ define( function( require ) {
    * @constructor
    */
   function TranscriptionFactorControlPanel( model, transcriptionFactorConfig, affinityProperty ) {
-    var thisNode = this;
+    var self = this;
 
     var titleText;
     var tfLevelProperty;
@@ -78,7 +78,7 @@ define( function( require ) {
     } );
 
 
-    Panel.call( thisNode, contentNode, {
+    Panel.call( self, contentNode, {
       fill: new Color( 250, 250, 250 ),
       lineWidth: 2
     } );

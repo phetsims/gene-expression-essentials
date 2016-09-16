@@ -33,8 +33,8 @@ define( function( require ) {
    * @constructor
    */
   function RibosomeCreatorNode( biomoleculeBoxNode ) {
-    var thisNode = this;
-    BiomoleculeCreatorNode.call( thisNode, new MobileBiomoleculeNode( SCALING_MVT, new Ribosome( new StubGeneExpressionModel() ) ),
+    var self = this;
+    BiomoleculeCreatorNode.call( self, new MobileBiomoleculeNode( SCALING_MVT, new Ribosome( new StubGeneExpressionModel() ) ),
       biomoleculeBoxNode.canvas,
       biomoleculeBoxNode.mvt,
 

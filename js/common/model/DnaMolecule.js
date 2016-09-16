@@ -192,30 +192,30 @@ define( function( require ) {
      * otherwise deforming the nominal double-helix shape.
      */
     updateStrandSegments: function() {
-      var thisMolecule = this;
+      var self = this;
       // Set the shadow points to the nominal, non-deformed positions.
       _.forEach( this.strandPointsShadow, function( dnaStrandPoint ) {
-        dnaStrandPoint.strand1YPos = thisMolecule.getDnaStrandYPosition( dnaStrandPoint.xPos, 0 );
-        dnaStrandPoint.strand2YPos = thisMolecule.getDnaStrandYPosition( dnaStrandPoint.xPos, CommonConstants.INTER_STRAND_OFFSET );
+        dnaStrandPoint.strand1YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, 0 );
+        dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, CommonConstants.INTER_STRAND_OFFSET );
       } );
 
       // Move the shadow points to account for any separations.
       _.forEach( this.separations, function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
         var separationWindowXIndexRange = new IntegerRange( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
-                                                                          thisMolecule.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
-          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - thisMolecule.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0 );
+                                                                          self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
+          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0 );
         for ( var i = separationWindowXIndexRange.getMin(); i < separationWindowXIndexRange.getMax(); i++ ) {
           var windowCenterX = ( separationWindowXIndexRange.getMin() + separationWindowXIndexRange.getMax() ) / 2;
-          if ( i >= 0 && i < thisMolecule.strandPointsShadow.length ) {
+          if ( i >= 0 && i < self.strandPointsShadow.length ) {
 
             // Perform a windowing algorithm that weights the separation
             // at 1 in the center, 0 at the edges, and linear
             // graduations in between.  By
             var separationWeight = 1 - Math.abs( 2 * ( i - windowCenterX ) / separationWindowXIndexRange.getLength() );
-            thisMolecule.strandPointsShadow[ i ].strand1YPos = ( 1 - separationWeight ) * thisMolecule.strandPointsShadow[ i ].strand1YPos +
+            self.strandPointsShadow[ i ].strand1YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand1YPos +
                                                                separationWeight * separation.getAmount() / 2;
-            thisMolecule.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * thisMolecule.strandPointsShadow[ i ].strand2YPos -
+            self.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand2YPos -
                                                                separationWeight * separation.getAmount() / 2;
           }
         }

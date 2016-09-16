@@ -30,8 +30,8 @@ define( function( require ) {
    * @constructor
    */
   function ProteinCollectionArea( model, mvt ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     // Get a transform that performs only the scaling portion of the mvt.
     var scaleVector = mvt.getMatrix().getScaleVector();
@@ -56,7 +56,7 @@ define( function( require ) {
     }
 
     // Add the collection area, which is a set of collection nodes.
-    thisNode.addChild( new HBox( {
+    self.addChild( new HBox( {
       children: [ new ProteinCaptureNode( model, 'ProteinA', transform, captureNodeBackgroundSize ),
         new ProteinCaptureNode( model, 'ProteinB', transform, captureNodeBackgroundSize ),
         new ProteinCaptureNode( model, 'ProteinC', transform, captureNodeBackgroundSize ) ],

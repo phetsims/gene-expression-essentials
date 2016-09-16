@@ -40,8 +40,8 @@ define( function( require ) {
    * Convenience class for creating row labels.
    */
   function RowLabel( text ) {
-    var thisNode = this;
-    MultiLineText.call( thisNode, text, { font: new PhetFont( { size: 15 } ) } );
+    var self = this;
+    MultiLineText.call( self, text, { font: new PhetFont( { size: 15 } ) } );
   }
 
   inherit( MultiLineText, RowLabel );

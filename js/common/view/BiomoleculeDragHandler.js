@@ -22,8 +22,8 @@ define( function( require ) {
    * @constructor
    */
   function BiomoleculeDragHandler( biomolecule, node, mvt ) {
-    var thisHandler = this;
-    SimpleDragHandler.call( thisHandler, {
+    var self = this;
+    SimpleDragHandler.call( self, {
       allowTouchSnag: true,
 
       start: function( event, trail ) {

@@ -23,16 +23,16 @@ define( function( require ) {
    */
   function ConstantDtClock( framesPerSecond, eventCallBack ) {
 
-    var thisClock = this;
-    thisClock.simulationTimeChange = 1 / framesPerSecond;
-    thisClock.lastSimulationTime = 0.0;
-    thisClock.simulationTime = 0.0;
-    thisClock.eventCallBack = eventCallBack;
+    var self = this;
+    self.simulationTimeChange = 1 / framesPerSecond;
+    self.lastSimulationTime = 0.0;
+    self.simulationTime = 0.0;
+    self.eventCallBack = eventCallBack;
     // The clock for this simulation.
     // The simulation time change (dt) on each clock tick is constant,
     var constantEventModel = new EventTimer.ConstantEventModel( framesPerSecond );
     this.eventTimer = new EventTimer( constantEventModel, function( timeElapsed ) {
-      thisClock.constantStep( timeElapsed );
+      self.constantStep( timeElapsed );
     } );
 
   }

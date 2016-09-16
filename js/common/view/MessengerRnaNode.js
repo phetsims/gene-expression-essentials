@@ -31,16 +31,16 @@ define( function( require ) {
    * @constructor
    */
   function MessengerRnaNode( mvt, messengerRna ) {
-    var thisNode = this;
-    MobileBiomoleculeNode.call( thisNode, mvt, messengerRna, 2 );
+    var self = this;
+    MobileBiomoleculeNode.call( self, mvt, messengerRna, 2 );
 
     // Add placement hints that show where ribosomes and mRNA destroyers could be attached.
-    thisNode.addChild( new PlacementHintNode( mvt, messengerRna.ribosomePlacementHint ) );
-    thisNode.addChild( new PlacementHintNode( mvt, messengerRna.mRnaDestroyerPlacementHint ) );
+    self.addChild( new PlacementHintNode( mvt, messengerRna.ribosomePlacementHint ) );
+    self.addChild( new PlacementHintNode( mvt, messengerRna.mRnaDestroyerPlacementHint ) );
 
     // Add the label. This fades in during synthesis, then fades out.
     var label = new FadeLabel( mRnaString, false, messengerRna.existenceStrengthProperty );
-    thisNode.addChild( label );
+    self.addChild( label );
     messengerRna.beingSynthesizedProperty.link( function( beingSynthesized ) {
       if ( beingSynthesized ) {
         label.startFadeIn( 3000 ); // Fade time chosen empirically.

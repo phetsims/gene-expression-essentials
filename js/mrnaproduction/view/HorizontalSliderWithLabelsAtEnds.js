@@ -35,8 +35,8 @@ define( function( require ) {
    * @constructor
    */
   function HorizontalSliderWithLabelsAtEnds( doubleProperty, min, max, leftLabel, rightLabel ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     var leftLabelNode = new Text( leftLabel, LABEL_FONT );
     var rightLabelNode = new Text( rightLabel, LABEL_FONT );
@@ -53,7 +53,7 @@ define( function( require ) {
     //    };
 
     var sliderNode = new HSlider( doubleProperty, { min: min, max: max }, sliderOptions );
-    thisNode.addChild( new HBox( {
+    self.addChild( new HBox( {
       children: [ leftLabelNode, sliderNode, rightLabelNode ],
       spacing: INTER_ELEMENT_SPACING
     } ) );

@@ -28,13 +28,13 @@ define( function( require ) {
    * @constructor
    */
   function SpacerNode( width, height ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
     width = width || MIN_DIMENSION;
     height = height || MIN_DIMENSION;
 
-    thisNode.spacer = new Path( Shape.rectangle( 0, 0, width, height ), { fill: Color.BLACK } );
-    thisNode.addChild( thisNode.spacer );
+    self.spacer = new Path( Shape.rectangle( 0, 0, width, height ), { fill: Color.BLACK } );
+    self.addChild( self.spacer );
 
   }
 
