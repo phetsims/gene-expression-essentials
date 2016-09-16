@@ -22,7 +22,7 @@ define( function( require ) {
   // constants
   // For debug - turn on to show the enclosing shape segments.
   //  var SHOW_SHAPE_SEGMENTS = false; TODO
-  var mRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRna' );
+  var quotedMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/quotedMRna' );
 
   /**
    *
@@ -39,7 +39,7 @@ define( function( require ) {
     self.addChild( new PlacementHintNode( mvt, messengerRna.mRnaDestroyerPlacementHint ) );
 
     // Add the label. This fades in during synthesis, then fades out.
-    var label = new FadeLabel( mRnaString, false, messengerRna.existenceStrengthProperty );
+    var label = new FadeLabel( quotedMRnaString, false, messengerRna.existenceStrengthProperty );
     self.addChild( label );
     messengerRna.beingSynthesizedProperty.link( function( beingSynthesized ) {
       if ( beingSynthesized ) {

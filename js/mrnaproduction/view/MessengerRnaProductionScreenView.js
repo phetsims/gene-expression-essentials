@@ -55,24 +55,24 @@ define( function( require ) {
 
     ScreenView.call( this );
     var self = this;
-    self.model = model;
-    self.clockRunning = new Property( false );
-    self.negativeTranscriptionFactorEnabled = new Property( false );
-    var viewPortPosition = new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.64 );
+    this.model = model;
+    this.clockRunning = new Property( false );
+    this.negativeTranscriptionFactorEnabled = new Property( false );
+    var viewPortPosition = new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.4 );
 
     // Set up the model-canvas transform.
     // IMPORTANT NOTES: The multiplier factors for the 2nd point can be
     // adjusted to shift the center right or left, and the scale factor
     // can be adjusted to zoom in or out (smaller numbers zoom out, larger
     // ones zoom in).
-    self.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO, viewPortPosition, 0.2 ); // "Zoom factor" - smaller zooms out, larger zooms in.
 
 
     // Set up the root node for all model objects.  Nodes placed under
     // this one will scroll when the user moves along the DNA strand.
-    self.modelRootNode = new Node();
-    self.addChild( self.modelRootNode );
+    this.modelRootNode = new Node();
+    this.addChild( this.modelRootNode );
 
 
     // Add some layers for enforcing some z-order relationships needed in
@@ -91,7 +91,7 @@ define( function( require ) {
     self.addChild( controlsNode );
 
     // Add the representation of the DNA strand.
-    var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 5, false );
+    var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.mvt, 5, false );
     dnaLayer.addChild( dnaMoleculeNode );
 
     // Add the placement hints that go on the DNA molecule.  These exist on

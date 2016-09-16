@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var ManualGeneExpressionScreen = require('GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/ManualGeneExpressionScreen');
-  //var MessengerRnaProductionScreen = require('GENE_EXPRESSION_ESSENTIALS/mrnaproduction/MessengerRnaProductionScreen');
+  var MessengerRnaProductionScreen = require('GENE_EXPRESSION_ESSENTIALS/mrnaproduction/MessengerRnaProductionScreen');
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
@@ -30,7 +30,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( geneExpressionEssentialsTitleString, [ new ManualGeneExpressionScreen() ], simOptions );
+    var sim = new Sim( geneExpressionEssentialsTitleString, [ new ManualGeneExpressionScreen(), new MessengerRnaProductionScreen() ], simOptions );
     sim.start();
   } );
 } );

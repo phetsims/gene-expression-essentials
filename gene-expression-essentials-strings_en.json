@@ -23,8 +23,8 @@
   "affinities": {
     "value": "Affinities"
   },
-  "screen.cellGeneExpression": {
-    "value": "Cell Gene Expression"
+  "expression": {
+    "value": "Expression"
   },
   "biomoleculeToolbox": {
     "value": "Biomolecule Toolbox"
@@ -56,8 +56,11 @@
   "positiveTranscriptionFactor": {
     "value": "Positive Transcription Factor"
   },
-  "mRna": {
+  "quotedMRna": {
     "value": "\"mRNA\""
+  },
+  "mRna": {
+    "value": "mRNA"
   },
   "many": {
     "value": "Many"
@@ -104,9 +107,6 @@
   "imageCaption": {
     "value": "This image shows E. Coli cells expressing green fluorescent protein (GFP). Note that though the cells are genetically identical, they are expressing differing amounts of the protein."
   },
-  "screen.messengerRnaProduction": {
-    "value": "Messenger RNA Production"
-  },
   "proteinCountCaptionPart2": {
     "value": "of 3 protein types."
   },
@@ -136,9 +136,6 @@
   },
   "fast": {
     "value": "fast"
-  },
-  "screen.multipleCells": {
-    "value": "Multiple Cells"
   },
   "polymerase": {
     "value": "Polymerase"

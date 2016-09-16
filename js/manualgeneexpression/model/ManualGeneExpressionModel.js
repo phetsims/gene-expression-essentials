@@ -24,7 +24,6 @@ define( function( require ) {
   var GeneB = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/GeneC' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var ConstantDtClock = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ConstantDtClock' );
   var Property = require( 'AXON/Property' );
   var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
   var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinA' );
@@ -42,8 +41,6 @@ define( function( require ) {
 
   // Size of the DNA strand.
   var NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
-  var FRAMES_PER_SECOND = 30;
-
 
   /**
    * Main constructor for ManualGeneExpressionModel, which contains all of the model logic for the entire sim screen.
@@ -65,9 +62,6 @@ define( function( require ) {
     // List of mRNA molecules in the sim.  These are kept separate because they
     // are treated a bit differently than the other mobile biomolecules.
     this.messengerRnaList = new ObservableArray();
-
-    // Clock that drives all time-dependent behavior in this model.
-    this.clock = null;// = new ConstantDtClock( 30.0 );
 
     // The gene that the user is focusing on, other gene activity is
     // suspended.  Start with the 0th gene in the DNA (leftmost).
@@ -102,11 +96,6 @@ define( function( require ) {
     // Rectangle that describes the "protein capture area".  When a protein is
     // dropped by the user over this area, it is considered to be captured.
     this.proteinCaptureArea = new Bounds2( 0, 0, 1, 1 );
-
-
-    //Wire up to the clock so we can update when it ticks
-    var stepEventCallBack = this.stepInTime.bind( this );
-    this.clock = new ConstantDtClock( FRAMES_PER_SECOND, stepEventCallBack );
     this.clockRunning = new Property( true );
   }
 
@@ -116,17 +105,21 @@ define( function( require ) {
 
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
-      // step one frame, assuming 60fps
       if ( this.clockRunning ) {
-        this.clock.step( dt );
+        this.stepInTime( dt );
       }
     },
 
-    /**
-     * @returns {ConstantDtClock}
-     */
-    getClock: function() {
-      return this.clock;
+    stepInTime: function( dt ) {
+      this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
+        mobileBiomolecule.stepInTime( dt );
+      } );
+
+      this.messengerRnaList.forEach( function( messengerRna ) {
+        messengerRna.stepInTime( dt );
+      } );
+
+      this.dnaMolecule.stepInTime( dt );
     },
 
     /**
@@ -339,18 +332,6 @@ define( function( require ) {
       }
       // Add the new one to the list.
       this.offLimitsMotionSpaces.push( newOffLimitsSpace );
-    },
-
-    stepInTime: function( dt ) {
-      this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
-        mobileBiomolecule.stepInTime( dt );
-      } );
-
-      this.messengerRnaList.forEach( function( messengerRna ) {
-        messengerRna.stepInTime( dt );
-      } );
-
-      this.dnaMolecule.stepInTime( dt );
     },
 
     /**

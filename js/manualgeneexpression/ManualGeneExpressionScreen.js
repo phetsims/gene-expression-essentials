@@ -15,7 +15,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var geneExpressionEssentialsTitleString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene-expression-essentials.title' );
+  var expressionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/expression' );
 
   /**
    * @constructor
@@ -23,7 +23,7 @@ define( function( require ) {
   function ManualGeneExpressionScreen() {
 
     var options = {
-      name: geneExpressionEssentialsTitleString, //TODO use screen name, not sim name
+      name: expressionString,
       backgroundColor: '#ABCBDB'
       //TODO add homeScreenIcon
     };

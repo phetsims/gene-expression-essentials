@@ -14,7 +14,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var geneExpressionEssentialsTitleString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene-expression-essentials.title' );
+  var mRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRna' );
 
   /**
    * @constructor
@@ -22,7 +22,7 @@ define( function( require ) {
   function MessengerRnaProductionScreen() {
 
     var options = {
-      name: geneExpressionEssentialsTitleString, //TODO use screen name, not sim name
+      name: mRnaString,
       backgroundColor: '#ABCBDB'
       //TODO add homeScreenIcon
     };
