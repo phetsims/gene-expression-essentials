@@ -8,28 +8,29 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CheckBox = require( 'SUN/CheckBox' );
+  var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var MessengerRnaNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MessengerRnaNode' );
-  var Property = require( 'AXON/Property' );
-  var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var TranscriptionFactorControlPanel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/TranscriptionFactorControlPanel' );
-  var PolymeraseAffinityControlPanel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/PolymeraseAffinityControlPanel' );
   var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/model/MessengerRnaProductionModel' );
-  var CheckBox = require( 'SUN/CheckBox' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  // var FloatingClockControlNode;//TODO
+  var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
+  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var PolymeraseAffinityControlPanel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/PolymeraseAffinityControlPanel' );
+  var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var ScreenView = require( 'JOIST/ScreenView' );
+  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var TranscriptionFactorControlPanel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/TranscriptionFactorControlPanel' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var INSET = 15;  // Inset for several of the controls.
+  var INSET = 10;  // Inset for several of the controls.
 
   // strings
   var negativeTranscriptionFactorString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactor' );
@@ -56,7 +57,6 @@ define( function( require ) {
     ScreenView.call( this );
     var self = this;
     this.model = model;
-    this.clockRunning = new Property( false );
     this.negativeTranscriptionFactorEnabled = new Property( false );
     var viewPortPosition = new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.4 );
 
@@ -78,17 +78,17 @@ define( function( require ) {
     // Add some layers for enforcing some z-order relationships needed in
     // order to keep things looking good.
     var dnaLayer = new Node();
-    self.modelRootNode.addChild( dnaLayer );
+    this.modelRootNode.addChild( dnaLayer );
     var biomoleculeToolBoxLayer = new Node();
-    self.modelRootNode.addChild( biomoleculeToolBoxLayer );
+    this.modelRootNode.addChild( biomoleculeToolBoxLayer );
     var messengerRnaLayer = new Node();
-    self.modelRootNode.addChild( messengerRnaLayer );
+    this.modelRootNode.addChild( messengerRnaLayer );
     var topBiomoleculeLayer = new Node();
-    self.modelRootNode.addChild( topBiomoleculeLayer );
+    this.modelRootNode.addChild( topBiomoleculeLayer );
     var placementHintLayer = new Node();
-    self.modelRootNode.addChild( placementHintLayer );
+    this.modelRootNode.addChild( placementHintLayer );
     var controlsNode = new Node();
-    self.addChild( controlsNode );
+    this.addChild( controlsNode );
 
     // Add the representation of the DNA strand.
     var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.mvt, 5, false );
@@ -102,12 +102,6 @@ define( function( require ) {
         placementHintLayer.addChild( new PlacementHintNode( self.mvt, placementHint ) );
       } );
     } );
-
-
-    // Add motion bounds indicator, if turned on.
-    //if ( SHOW_MOTION_BOUNDS ) {
-    //    topBiomoleculeLayer.addChild( new PhetPPath( mvt.modelToView( model.moleculeMotionBounds.getBounds() ), new BasicStroke( 2 ), Color.RED ) );
-    //}
 
 
     // Get a reference to the gene being controlled.
@@ -155,75 +149,64 @@ define( function( require ) {
     } );
 
 
-    // Add the floating clock control.
-    // var modelClock = thisView.model.getClock(); //commented to pass lint
-    self.clockRunning.link( function( isRunning ) {
-      // modelClock.setRunning(isRunning); //TODO
+    // Add play/pause button.
+    var playPauseButton = new PlayPauseButton( model.clockRunning, {
+      radius: 23,
+      touchAreaDilation: 5
     } );
+    this.addChild( playPauseButton );
 
-    //TODO
-    //var floatingClockControlNode = new FloatingClockControlNode( thisView.clockRunning, null,
-    //                                                                                        model.getClock(), null,
-    //                                                                                        new Property<Color>( Color.white ) );
-    //controlsNode.addChild( floatingClockControlNode );
-
-    // Make sure that the floating clock control sees the change when the
-    // clock gets started.
-    //thisView.model.getClock().addClockListener( new edu.colorado.phet.common.phetcommon.model.clock.ClockAdapter() {
-    //    @Override public void clockStarted( edu.colorado.phet.common.phetcommon.model.clock.ClockEvent clockEvent ) {
-    //        clockRunning.set( true );
-    //    }
-    //} );
+    var stepButton = new StepForwardButton( {
+      playingProperty: model.clockRunning,
+      listener: function() {  },//TODO
+      radius: 15,
+      touchAreaDilation: 5
+    } );
+    this.addChild( stepButton );
 
     // Add the Reset All button.
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         self.model.reset();
       },
-      right: this.layoutBounds.maxX - 10,
-      bottom: this.layoutBounds.maxY - 10
+      right: this.layoutBounds.maxX - INSET,
+      bottom: this.layoutBounds.maxY - INSET
     } );
-    //this.addChild( resetAllButton );//TODO
     controlsNode.addChild( resetAllButton );
 
 
     // Lay out the controls.
 
-    positiveTranscriptionFactorControlPanel.x = INSET;
-    positiveTranscriptionFactorControlPanel.y = self.layoutBounds.height - positiveTranscriptionFactorControlPanel.bounds.height - INSET;
+    positiveTranscriptionFactorControlPanel.left = INSET;
+    positiveTranscriptionFactorControlPanel.bottom = self.layoutBounds.maxY - INSET;
 
-    polymeraseAffinityControlPanel.x = positiveTranscriptionFactorControlPanel.bounds.getMaxX() + 10;
-    polymeraseAffinityControlPanel.y = positiveTranscriptionFactorControlPanel.bounds.getMinY();
+    polymeraseAffinityControlPanel.left = positiveTranscriptionFactorControlPanel.right + INSET;
+    polymeraseAffinityControlPanel.bottom = positiveTranscriptionFactorControlPanel.bottom;
 
-    negativeTranscriptionFactorControlPanel.x = polymeraseAffinityControlPanel.bounds.getMaxX() + 10;
-    negativeTranscriptionFactorControlPanel.y = polymeraseAffinityControlPanel.bounds.getMinY();
-    var middleXOfUnusedSpace = ( negativeTranscriptionFactorControlPanel.bounds.getMaxX() +
-                                 self.layoutBounds.width ) / 2;
+    negativeTranscriptionFactorControlPanel.left = polymeraseAffinityControlPanel.right + INSET;
+    negativeTranscriptionFactorControlPanel.bottom = polymeraseAffinityControlPanel.bottom;
+    negativeFactorEnabledCheckBox.left = negativeTranscriptionFactorControlPanel.right + INSET;
+    negativeFactorEnabledCheckBox.centerY = resetAllButton.centerY;
 
-    resetAllButton.x = middleXOfUnusedSpace - resetAllButton.bounds.width / 2;
-    resetAllButton.y = positiveTranscriptionFactorControlPanel.bounds.getMaxY() - resetAllButton.bounds.height;
-    negativeFactorEnabledCheckBox.x = middleXOfUnusedSpace - negativeFactorEnabledCheckBox.bounds.width / 2;
-    negativeFactorEnabledCheckBox.y = resetAllButton.bounds.getMinY() - negativeFactorEnabledCheckBox.bounds.height - 10;
-    //floatingClockControlNode.setOffset( middleXOfUnusedSpace - floatingClockControlNode.getFullBoundsReference().width / 2,
-    //                                    negativeFactorEnabledCheckBox.getFullBoundsReference().getMinY() - floatingClockControlNode.getFullBoundsReference().height - 10 );
+    playPauseButton.bottom = negativeFactorEnabledCheckBox.top - 2 * INSET;
+    playPauseButton.centerX = negativeFactorEnabledCheckBox.centerX - INSET;
 
+    stepButton.centerY = playPauseButton.centerY;
+    stepButton.left = playPauseButton.right + INSET;
 
-    // Watch for and handle comings and goings of biomolecules in the model.
-//        // Most, but not all, of the biomolecules are handled by this.  A few
-//        // others are handled as special cases.
-    model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
-
+    function addBiomoleculeView( addedBiomolecule ){
       var biomoleculeNode = new MobileBiomoleculeNode( self.mvt, addedBiomolecule );
 
       // On this tab, users can't directly interact with individual biomolecules.
       biomoleculeNode.setPickable( false );
+      topBiomoleculeLayer.addChild( biomoleculeNode );
       //biomoleculeNode.setChildrenPickable( false );
 
 
       // Add a listener that moves the child on to a lower layer when
       // it connects to the DNA so that we see the desired overlap
       // behavior.
-      addedBiomolecule.attachedToDnaProperty.link( function( attachedToDna ) {
+      /*addedBiomolecule.attachedToDnaProperty.lazyLink( function( attachedToDna ) {
 
         if ( attachedToDna ) {
           topBiomoleculeLayer.removeChild( biomoleculeNode );
@@ -233,7 +216,7 @@ define( function( require ) {
           dnaLayer.removeChild( biomoleculeNode );
           topBiomoleculeLayer.addChild( biomoleculeNode );
         }
-      } );
+      } );*/ // TODO
 
       model.mobileBiomoleculeList.addItemRemovedListener( function( removedBiomolecule ) {
         if ( removedBiomolecule === addedBiomolecule ) {
@@ -245,7 +228,17 @@ define( function( require ) {
           //}
         }
       } );
+    }
 
+    model.mobileBiomoleculeList.forEach( function( bioMolecule ){
+      addBiomoleculeView( bioMolecule );
+    });
+
+    // Watch for and handle comings and goings of biomolecules in the model.
+//        // Most, but not all, of the biomolecules are handled by this.  A few
+//        // others are handled as special cases.
+    model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
+      addBiomoleculeView( addedBiomolecule );
     } );
 
 

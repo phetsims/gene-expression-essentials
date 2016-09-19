@@ -132,6 +132,7 @@ define( function( require ) {
               this.rnaPolymeraseAttachmentStateMachine.setState( this.rnaPolymeraseAttachmentStateMachine.movingTowardsAttachmentState );
               biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.locationProperty,
                 biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), VELOCITY_ON_DNA ) );
+              this.rnaPolymeraseAttachmentStateMachine.attachmentSite = attachmentSite;
 
               // Update the detachment threshold.  It gets lower over
               // time to increase the probability of detachment.

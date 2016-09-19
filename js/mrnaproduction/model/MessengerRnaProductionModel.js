@@ -43,6 +43,7 @@ define( function( require ) {
 
   function MessengerRnaProductionModel() {
     var self = this;
+    this.clockRunning = new Property( true );
 
     // DNA strand, which is where the genes reside, where the polymerase does
     // its transcription, and where a lot of the action takes place.
@@ -51,7 +52,7 @@ define( function( require ) {
 
     // The one gene that is on this DNA strand.
     // Add the gene to the DNA molecule.  There is only one gene in this model.
-    this.gene = new GeneA( self.dnaMolecule, Math.round( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.45 ) );
+    this.gene = new GeneA( self.dnaMolecule, Math.round( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) );
     this.dnaMolecule.addGene( self.gene );
 
     // List of mobile biomolecules in the model, excluding mRNA.
@@ -108,6 +109,31 @@ define( function( require ) {
   geneExpressionEssentials.register( 'MessengerRnaProductionModel', MessengerRnaProductionModel );
 
   return inherit( Object, MessengerRnaProductionModel, {
+      // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
+      step: function( dt ) {
+        if ( dt > 0.2 ) {
+          return;
+        }
+
+        if ( this.clockRunning ) {
+          this.stepInTime( dt );
+        }
+      },
+
+      stepInTime: function( dt ) { // TODO step or stepInTime
+
+        // Step all the contained biomolecules.
+
+        this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
+          mobileBiomolecule.stepInTime( dt );
+        } );
+        this.messengerRnaList.forEach( function( messengerRna ) {
+          messengerRna.stepInTime( dt );
+        } );
+
+
+        this.dnaMolecule.stepInTime( dt );
+      },
 
       setupMotionBounds: function() {
 
@@ -193,20 +219,9 @@ define( function( require ) {
         var testShapeBounds = testShape.bounds;
         this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
           var mobileBioMoleculeShape = mobileBiomolecule.getShape();
-          if ( mobileBioMoleculeShape.bounds.intersects( testShapeBounds ) ) {
+          if ( mobileBioMoleculeShape.intersectsBounds( testShapeBounds ) ) {
 
-            // Bounds overlap, see if actual shapes overlap.
-            //var testShapeArea = new Area( testShape );
-            //var biomoleculeArea = new Area( mobileBiomolecule.getShape() );
-            //biomoleculeArea.intersect( testShapeArea );
-            var intersectedShape = mobileBioMoleculeShape.bounds.intersection( testShapeBounds );
-
-            if ( !intersectedShape.isEmpty() ) {
-
-              // The biomolecule overlaps with the test shape, so add it
-              // to the list.
               overlappingBiomolecules.push( mobileBiomolecule );
-            }
           }
         } );
 
@@ -281,25 +296,6 @@ define( function( require ) {
           this.addMobileBiomolecule( rnaPolymerase );
         }
       },
-
-      /**
-       * @param {number} dt
-       */
-      stepInTime: function( dt ) { // TODO step or stepInTime
-
-        // Step all the contained biomolecules.
-
-        this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
-          mobileBiomolecule.stepInTime( dt );
-        } );
-        this.messengerRnaList.forEach( function( messengerRna ) {
-          messengerRna.stepInTime( dt );
-        } );
-
-
-        this.dnaMolecule.stepInTime( dt );
-      },
-
 
       /**
        * Generate a random, valid, initial location, including the Z dimension.

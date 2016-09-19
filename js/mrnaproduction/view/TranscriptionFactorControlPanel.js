@@ -18,6 +18,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Color = require( 'SCENERY/util/Color' );
   var Vector2 = require( 'DOT/Vector2' );
+  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/model/MessengerRnaProductionModel' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
@@ -61,7 +62,7 @@ define( function( require ) {
     }
 
 
-    var titleNode = new Text( titleText, TITLE_FONT );
+    var titleNode = new MultiLineText( titleText, TITLE_FONT );
 
 
     var transcriptionFactorNode = new MobileBiomoleculeNode( CommonConstants.TRANSCRIPTION_FACTOR_MVT,
