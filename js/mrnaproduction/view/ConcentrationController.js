@@ -44,8 +44,8 @@ define( function( require ) {
 
     var molecule = new MobileBiomoleculeNode( CommonConstants.TRANSCRIPTION_FACTOR_MVT,
       new TranscriptionFactor( new StubGeneExpressionModel(), transcriptionFactorConfig ) );
-//            molecule.setPickable( false );//TODO
-//            molecule.setChildrenPickable( false ); TODO
+    molecule.setPickable( false );
+
     self.addChild( new VBox( {
       spacing: 5, children: [ captionNode, molecule,
         new HorizontalSliderWithLabelsAtEnds( tfLevelProperty,

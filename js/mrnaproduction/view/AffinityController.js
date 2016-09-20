@@ -54,8 +54,7 @@ define( function( require ) {
       children: [ leftNode, arrowNode, rightNode ],
       spacing: 10
     } );
-    //affinityKey.setPickable( false ); //TODO
-    //affinityKey.setChildrenPickable( false );
+    affinityKey.setPickable( false );
 
     var horizontalSlider = new HorizontalSliderWithLabelsAtEnds(
       affinityProperty,
