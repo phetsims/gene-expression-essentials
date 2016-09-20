@@ -12,7 +12,6 @@ define( function( require ) {
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Panel = require( 'SUN/Panel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
