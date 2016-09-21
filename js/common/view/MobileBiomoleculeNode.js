@@ -89,15 +89,14 @@ define( function( require ) {
     // Update the "closeness" whenever it changes.
     mobileBiomolecule.zPositionProperty.link( function( zPosition ) {
       assert && assert( zPosition >= -1 && zPosition <= 0 ); // Parameter checking.
-
       // The further back the biomolecule is, the more
       // transparent it is in order to make it look more distant.
       path.opacity = Math.min( 1 + zPosition, mobileBiomolecule.existenceStrength );
 
       // Also, as it goes further back, this node is scaled down
       // a bit, also to make it look further away.
-      path.scale( 1 );
-      path.scale( 1 + 0.15 * zPosition );
+      path.setScaleMagnitude( 1 );
+      path.setScaleMagnitude( 1 + 0.15 * zPosition );
     } );
 
     // If a polymerase molecule attaches to the DNA strand, move it to
