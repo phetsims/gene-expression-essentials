@@ -206,26 +206,30 @@ define( function( require ) {
       // Add a listener that moves the child on to a lower layer when
       // it connects to the DNA so that we see the desired overlap
       // behavior.
-      /*addedBiomolecule.attachedToDnaProperty.lazyLink( function( attachedToDna ) {
+      addedBiomolecule.attachedToDnaProperty.lazyLink( function( attachedToDna ) {
 
         if ( attachedToDna ) {
-          topBiomoleculeLayer.removeChild( biomoleculeNode );
+          if ( topBiomoleculeLayer.hasChild( biomoleculeNode ) ) {
+            topBiomoleculeLayer.removeChild( biomoleculeNode );
+          }
           dnaLayer.addChild( biomoleculeNode );
         }
         else {
-          dnaLayer.removeChild( biomoleculeNode );
+          if ( dnaLayer.hasChild( biomoleculeNode ) ) {
+            dnaLayer.removeChild( biomoleculeNode );
+          }
           topBiomoleculeLayer.addChild( biomoleculeNode );
         }
-      } );*/ // TODO
+      } );
 
       model.mobileBiomoleculeList.addItemRemovedListener( function( removedBiomolecule ) {
         if ( removedBiomolecule === addedBiomolecule ) {
-          //if ( isAncesterOf( topBiomoleculeLayer, biomoleculeNode ) ) { //TODO
-          //  topBiomoleculeLayer.removeChild( biomoleculeNode );
-          //}
-          //else if ( isAncestorOf( dnaLayer, biomoleculeNode ) ) { //TODO
-          //  dnaLayer.removeChild( biomoleculeNode );
-          //}
+          if ( topBiomoleculeLayer.hasChild( biomoleculeNode ) ){
+            topBiomoleculeLayer.removeChild( biomoleculeNode );
+          }
+          else if ( dnaLayer.hasChild( biomoleculeNode ) ) {
+            dnaLayer.removeChild( biomoleculeNode );
+          }
         }
       } );
     }
