@@ -71,7 +71,7 @@ define( function( require ) {
 
           // Detach from the DNA.
           attachmentSite.attachedOrAttachingMolecule = null;
-          attachmentSite = null;
+          this.rnaPolymeraseAttachmentStateMachine.attachmentSite = null;
           if ( recycleMode ) {
             this.rnaPolymeraseAttachmentStateMachine.setState(
               new BeingRecycledState( this.rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) );

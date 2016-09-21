@@ -139,6 +139,7 @@ define( function( require ) {
 
             // Set up the state to move to the new attachment site.
             this.transcriptionFactorAttachmentStateMachine.setState( movingTowardsAttachmentState );
+            this.transcriptionFactorAttachmentStateMachine.attachmentSite = attachmentSite;
             biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.locationProperty,
               biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), VELOCITY_ON_DNA ) );
 

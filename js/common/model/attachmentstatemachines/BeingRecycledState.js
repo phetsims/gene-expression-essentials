@@ -49,7 +49,7 @@ define( function( require ) {
 
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
       var unattachedAndAvailableState = this.rnaPolymeraseAttachmentStateMachine.unattachedAndAvailableState;
-      if ( this.pointContainedInBoundsList( asm.biomolecule.getPosition(),
+      if ( this.rnaPolymeraseAttachmentStateMachine.pointContainedInBoundsList( asm.biomolecule.getPosition(),
           this.recycleReturnZones ) ) {
 
         // The motion strategy has returned the biomolecule to the

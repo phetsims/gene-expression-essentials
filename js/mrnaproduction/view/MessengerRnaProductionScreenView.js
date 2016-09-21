@@ -238,9 +238,8 @@ define( function( require ) {
       addBiomoleculeView( bioMolecule );
     });
 
-    // Watch for and handle comings and goings of biomolecules in the model.
-//        // Most, but not all, of the biomolecules are handled by this.  A few
-//        // others are handled as special cases.
+    // Watch for and handle comings and goings of biomolecules in the model. Most, but not all, of the biomolecules are
+    // handled by this. A few others are handled as special cases.
     model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
       addBiomoleculeView( addedBiomolecule );
     } );
