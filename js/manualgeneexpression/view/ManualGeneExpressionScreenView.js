@@ -55,11 +55,6 @@ define( function( require ) {
       new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.64 ),
       0.1 ); // "Zoom factor" - smaller zooms out, larger zooms in.
 
-    // Add a background layer where the cell(s) that make up the background
-    // will reside.
-    this.backgroundCellLayer = new Node();
-    self.addChild( this.backgroundCellLayer );
-
     // Set up the node where all controls that need to be below the
     // biomolecules should be placed.  This node and its children will
     // stay in one place and not scroll.
@@ -201,7 +196,7 @@ define( function( require ) {
     } ).onComplete( function() {
       self.modelRootNode.visible = true;
       self.modelRootNode.pickable = null;
-      var boundsInControlNode = proteinCollectionNode.getBounds();
+      var boundsInControlNode = proteinCollectionNode.getBounds().copy();
       var boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
       var boundsInModel = self.mvt.viewToModelBounds( boundsAfterTransform );
 
@@ -236,7 +231,7 @@ define( function( require ) {
       right:  this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
     } );
-    this.addChild( resetAllButton );
+    frontControlsLayer.addChild( resetAllButton );
   }
 
   geneExpressionEssentials.register( 'ManualGeneExpressionScreenView', ManualGeneExpressionScreenView );
