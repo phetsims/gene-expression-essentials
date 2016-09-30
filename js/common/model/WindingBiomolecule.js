@@ -211,7 +211,7 @@ define( function( require ) {
 
       if ( currentPoint !== null ) {
         while ( currentPoint.getNextPointMass() !== null &&
-                currentPoint.getNextPointMass().getTargetDistanceToPreviousPoint() + currentLength < lengthRange.getMax() ) {
+                currentPoint.getNextPointMass().getTargetDistanceToPreviousPoint() + currentLength < lengthRange.max ) {
           currentPoint = currentPoint.getNextPointMass();
           currentLength += currentPoint.getTargetDistanceToPreviousPoint();
         }

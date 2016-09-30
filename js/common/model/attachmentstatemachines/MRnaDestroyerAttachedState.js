@@ -54,7 +54,7 @@ define( function( require ) {
       if ( this.messengerRnaFragment === null ) {
         this.messengerRnaFragment = new MessengerRnaFragment( biomolecule.getModel(), biomolecule.getPosition() );
         biomolecule.getModel().addMobileBiomolecule( this.messengerRnaFragment );
-        this.targetFragmentLength = MRNA_FRAGMENT_LENGTH_RANGE.getMin() +
+        this.targetFragmentLength = MRNA_FRAGMENT_LENGTH_RANGE.min +
                                     RAND.nextDouble() * MRNA_FRAGMENT_LENGTH_RANGE.getLength();
       }
       this.messengerRnaFragment.addLength( RNA_DESTRUCTION_RATE * dt );

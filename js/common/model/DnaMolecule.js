@@ -254,7 +254,7 @@ define( function( require ) {
           // Update the shape of this segment.
           var strand1ShapePoints = [];
           var strand2ShapePoints = [];
-          for ( var k = pointIndexRange.getMin(); k <= pointIndexRange.getMax(); k++ ) {
+          for ( var k = pointIndexRange.min; k <= pointIndexRange.max; k++ ) {
             //for performance reasons using object literals instead of Vector instances
             strand1ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand1YPos } );
             strand2ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand2YPos } );
