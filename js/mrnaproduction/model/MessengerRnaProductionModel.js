@@ -85,7 +85,7 @@ define( function( require ) {
     // make transcription more likely to occur.
     var polymeraseSize = new RnaPolymerase().getShape().bounds;
     var firstGene = self.dnaMolecule.getGenes()[ 0 ];
-    var recycleZoneCenterX = self.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().getMin() ) +
+    var recycleZoneCenterX = self.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().min ) +
                              ( RAND.nextDouble() - 0.5 ) * 2000;
     var recycleZoneHeight = polymeraseSize.getHeight() * 1.2;
     var recycleZoneWidth = polymeraseSize.getWidth() * 4;

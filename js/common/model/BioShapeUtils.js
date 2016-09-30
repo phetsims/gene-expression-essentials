@@ -17,7 +17,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
-  var SeededRandom = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/SeededRandom' );
+  var Random = require( 'DOT/Random' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Vector2 = require( 'DOT/Vector2' );
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
@@ -49,7 +49,9 @@ define( function( require ) {
       var undistortedShapeBounds = undistortedShape.bounds;
       var undistortedShapeCenter = undistortedShapeBounds.getCenter();
 
-      var rand = new SeededRandom( randomNumberSeed ); // seed not used
+      var rand = new Random( {
+        seed: randomNumberSeed
+      });
       // Alter the positions of the points that define the shape in order to
       // define a distorted version of the shape.
       var alteredPoints = [];
@@ -87,7 +89,9 @@ define( function( require ) {
      */
     createRandomShapeFromPoints: function( points, seed ) {
       var path = new Shape();
-      var rand = new SeededRandom( seed );
+      var rand = new Random( {
+        seed: seed
+      });
       path.moveToPoint( points[ 0 ] );
       for ( var i = 0; i < points.length; i++ ) {
         var segmentStartPoint = points[ i ];
@@ -115,7 +119,9 @@ define( function( require ) {
      */
     createRandomShape: function( size, seed ) {
       var pointList = [];
-      var rand = new SeededRandom( seed );
+      var rand = new Random( {
+        seed: seed
+      });
       // Create a series of points that will enclose a space.
       for ( var angle = 0; angle < 1.9 * Math.PI; angle += Math.PI / 10 + rand.nextDouble() * Math.PI / 10 ) {
         pointList.push( Vector2.createPolar( 0.5 + rand.nextDouble(), angle ) );
@@ -206,7 +212,9 @@ define( function( require ) {
       assert && assert( variationFactor >= 0 && variationFactor <= 1 ); // Catch incorrect uses when debugging.
       variationFactor = Util.clamp( variationFactor, 0, 1 ); // Prevent them at run time.
 
-      var rand = new SeededRandom( seed );
+      var rand = new Random( {
+        seed: seed
+      });
 
       // Use variables names that are typical when working with ellipses.
       var a = bounds.getWidth() / 2;
@@ -252,7 +260,9 @@ define( function( require ) {
       var pointList = [];
 
       // Random number generator used for deviation from the perfect geometric shape.
-      var rand = new SeededRandom( seed );
+      var rand = new Random( {
+        seed: seed
+      } );
 
 
       // Variables needed for the calculations.

@@ -32,10 +32,10 @@ define( function( require ) {
   /**
    *
    * @param {DnaMolecule} dnaMolecule    - The DNA molecule within which this gene exists.
-   * @param {IntegerRange} regulatoryRegion  - The range, in terms of base pairs on the
+   * @param {Range} regulatoryRegion  - The range, in terms of base pairs on the
    *                               DNA strand, where this region exists.
    * @param {Color} regulatoryRegionColor
-   * @param {IntegerRange} transcribedRegion   - The range, in terms of base pairs on the
+   * @param {Range} transcribedRegion   - The range, in terms of base pairs on the
    *                               DNA strand, where this region exists.
    * @param {Color} transcribedRegionColor
    * @constructor
@@ -51,7 +51,7 @@ define( function( require ) {
     // Create the attachment site for polymerase.  It is always at the end
     // of the regulatory region.
     this.polymeraseAttachmentSite = new AttachmentSite( new Vector2(
-      dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.getMax() ), CommonConstants.DNA_MOLECULE_Y_POS ), 1 );
+      dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.max ), CommonConstants.DNA_MOLECULE_Y_POS ), 1 );
 
     // Placement hint for polymerase.  There is always only one.
     this.rnaPolymerasePlacementHint = new PlacementHint( new RnaPolymerase() );
@@ -106,7 +106,7 @@ define( function( require ) {
      * @returns {number}
      */
     getStartX: function() {
-      return this.dnaMolecule.getBasePairXOffsetByIndex( this.regulatoryRegion.getMin() );
+      return this.dnaMolecule.getBasePairXOffsetByIndex( this.regulatoryRegion.min );
     },
 
     /**
@@ -114,12 +114,12 @@ define( function( require ) {
      * @returns {number}
      */
     getEndX: function() {
-      return this.dnaMolecule.getBasePairXOffsetByIndex( this.transcribedRegion.getMax() );
+      return this.dnaMolecule.getBasePairXOffsetByIndex( this.transcribedRegion.max );
     },
 
     /**
      *
-     * @returns {IntegerRange}
+     * @returns {Range}
      */
     getRegulatoryRegion: function() {
       return this.regulatoryRegion;
@@ -127,7 +127,7 @@ define( function( require ) {
 
     /**
      *
-     * @returns {IntegerRange|*}
+     * @returns {Range|*}
      */
     getTranscribedRegion: function() {
       return this.transcribedRegion;
@@ -147,7 +147,7 @@ define( function( require ) {
      * @return {AttachmentSite}
      */
     getPolymeraseAttachmentSiteByIndex: function( basePairIndex ) {
-      if ( basePairIndex === this.regulatoryRegion.getMax() ) {
+      if ( basePairIndex === this.regulatoryRegion.max ) {
 
         // This is the last base pair within the regulatory region, which
         // is where the polymerase would begin transcription.
@@ -194,7 +194,7 @@ define( function( require ) {
     addTranscriptionFactor: function( basePairOffset, tfConfig ) {
       this.transcriptionFactorMap.put( basePairOffset, new TranscriptionFactor( null, tfConfig ) );
       var position = new Vector2( this.dnaMolecule.getBasePairXOffsetByIndex(
-        basePairOffset + this.regulatoryRegion.getMin() ), CommonConstants.DNA_MOLECULE_Y_POS );
+        basePairOffset + this.regulatoryRegion.min ), CommonConstants.DNA_MOLECULE_Y_POS );
       this.transcriptionFactorPlacementHints.push( new TranscriptionFactorPlacementHint(
         new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, position ) ) );
       this.transcriptionFactorAttachmentSites.push( new TranscriptionFactorAttachmentSite( position, tfConfig, 1 ) );

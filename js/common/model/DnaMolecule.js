@@ -26,12 +26,12 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
-  var IntegerRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/IntegerRange' );
+  var Range = require( 'DOT/Range' );
   var BasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BasePair' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var DnaStrandSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandSegment' );
   var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
-    var StubGeneExpressionModel = require('GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel');
+  var StubGeneExpressionModel = require('GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel');
 
   // constants
   // Distance within which transcription factors may attach.
@@ -202,11 +202,11 @@ define( function( require ) {
       // Move the shadow points to account for any separations.
       _.forEach( this.separations, function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
-        var separationWindowXIndexRange = new IntegerRange( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
+        var separationWindowXIndexRange = new Range( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
                                                                           self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
           Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0 );
-        for ( var i = separationWindowXIndexRange.getMin(); i < separationWindowXIndexRange.getMax(); i++ ) {
-          var windowCenterX = ( separationWindowXIndexRange.getMin() + separationWindowXIndexRange.getMax() ) / 2;
+        for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
+          var windowCenterX = ( separationWindowXIndexRange.min + separationWindowXIndexRange.max ) / 2;
           if ( i >= 0 && i < self.strandPointsShadow.length ) {
 
             // Perform a windowing algorithm that weights the separation
@@ -233,14 +233,14 @@ define( function( require ) {
         // bounds for the strand1 and strand2 segments are the same, which
         // should be a safe assumption.
         var bounds = strand1Segment.getShape().bounds;
-        var pointIndexRange = new IntegerRange( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
+        var pointIndexRange = new Range( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
           Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0 );
 
         // Check to see if any of the points within the identified range
         // have changed and, if so, update the corresponding segment shape
         // in the strands.  If the points for either strand has changed,
         // both are updated.
-        for ( var j = pointIndexRange.getMin(); j <= pointIndexRange.getMax(); j++ ) {
+        for ( var j = pointIndexRange.min; j <= pointIndexRange.max; j++ ) {
           if ( !this.strandPoints[ j ].equals( this.strandPointsShadow[ j ] ) ) {
 
             // The point has changed.  Update it, mark the change.

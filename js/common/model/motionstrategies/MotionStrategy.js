@@ -19,7 +19,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
-  var DoubleRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/DoubleRange' );
+  var Range = require( 'DOT/Range' );
   var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionBounds' );
 
   function MotionStrategy() {
@@ -127,8 +127,8 @@ define( function( require ) {
     /**
      * Utility function for determining the distance between two ranges.
      * private static
-     * @param {DoubleRange} r1
-     * @param {DoubleRange} r2
+     * @param {Range} r1
+     * @param {Range} r2
      * @return {number}
      */
     calculateDistanceBetweenRanges: function( r1, r2 ) {
@@ -138,11 +138,11 @@ define( function( require ) {
         // Ranges overlap, so there is no distance between them.
         distance = 0;
       }
-      else if ( r1.getMax() < r2.getMin() ) {
-        distance = r2.getMin() - r1.getMax();
+      else if ( r1.max < r2.min ) {
+        distance = r2.min - r1.max;
       }
       else {
-        distance = r1.getMin() - r2.getMax();
+        distance = r1.min - r2.max;
       }
       return distance;
     },
@@ -150,12 +150,12 @@ define( function( require ) {
     /**
      * Utility function for determining if ranges overlap.
      * private static boolean
-     * @param {DoubleRange} r1
-     * @param {DoubleRange} r2
+     * @param {Range} r1
+     * @param {Range} r2
      * @returns {boolean}
      */
     rangesOverlap: function( r1, r2 ) {
-      return !( r1.getMin() > r2.getMax() || r1.getMax() < r2.getMin() );
+      return !( r1.min > r2.max || r1.max < r2.min );
     },
 
     /**
@@ -169,9 +169,9 @@ define( function( require ) {
      * @return {number}
      */
     getMinZ: function( shape, positionXY ) {
-      var shapeYRange = new DoubleRange( positionXY.y - shape.bounds.height / 2,
+      var shapeYRange = new Range( positionXY.y - shape.bounds.height / 2,
         positionXY.y + shape.bounds.height / 2 );
-      var dnaYRange = new DoubleRange( CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2,
+      var dnaYRange = new Range( CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2,
         CommonConstants.DNA_MOLECULE_Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 );
       var minZ = -1;
       var distanceToEdgeOfDna = this.calculateDistanceBetweenRanges( shapeYRange, dnaYRange );

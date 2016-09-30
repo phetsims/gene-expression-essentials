@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Random = require( 'DOT/Random' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
-  var DoubleRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/DoubleRange' );
+  var Range = require( 'DOT/Range' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var MessengerRnaFragment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaFragment' );
   var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/DestroyerTrackingRnaMotionStrategy' );
@@ -25,7 +25,7 @@ define( function( require ) {
   var RNA_DESTRUCTION_RATE = 750; // Picometers per second.
 
   // Range of lengths for mRNA fragments.
-  var MRNA_FRAGMENT_LENGTH_RANGE = new DoubleRange( 100, 400 ); // In picometers.
+  var MRNA_FRAGMENT_LENGTH_RANGE = new Range( 100, 400 ); // In picometers.
 
   /**
    *
