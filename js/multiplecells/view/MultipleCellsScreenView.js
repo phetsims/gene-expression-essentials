@@ -1,4 +1,19 @@
 // Copyright 2015, University of Colorado Boulder
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ScreenView = require( 'SUPERTYPE' );
+
+  function MultipleCellsScreenView() {
+    ScreenView.call( this );
+  }
+
+  return inherit( ScreenView, MultipleCellsScreenView, {
+    //TODO prototypes
+  } );
+} );
 //package edu.colorado.phet.geneexpressionbasics.multiplecells.view;
 //
 //import java.awt.BasicStroke;
