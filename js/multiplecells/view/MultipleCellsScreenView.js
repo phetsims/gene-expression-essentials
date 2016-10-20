@@ -34,7 +34,7 @@ define( function( require ) {
     // ones zoom in).
     this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      new Vector2( this.layoutBounds.width * 0.455, self.layoutBounds.height * 0.34 ),
+      new Vector2( this.layoutBounds.width * 0.455, self.layoutBounds.height * 0.56 ),
       1E8 ); // "Zoom factor" - smaller zooms out, larger zooms in.
 
     var cellLayer = new Node();
@@ -49,9 +49,19 @@ define( function( require ) {
         if ( removedCell === addedCell ) {
           cellLayer.removeChild( cellNode );
           model.visibleCellList.removeItemRemovedListener( removalListener );
+          cellLayer.setScaleMagnitude( 1 );
+          var scaleFactor = Math.min( ( self.layoutBounds.width * 0.3 ) / cellLayer.width , 1 );
+          cellLayer.setScaleMagnitude( scaleFactor );
+          cellLayer.centerX = self.layoutBounds.width / 2;
+          cellLayer.centerY = self.layoutBounds.height / 2;
         }
       } );
-
+      cellLayer.setScaleMagnitude( 1 );
+      var scaleFactor = Math.min( ( self.layoutBounds.width * 0.3 ) / cellLayer.width , 1 );
+      cellLayer.setScaleMagnitude( scaleFactor );
+      cellLayer.centerX = self.layoutBounds.width / 2;
+      cellLayer.centerY = self.layoutBounds.height / 2;
+      console.log(cellLayer.bounds);
     }
 
     // Set up an observer of the list of cells in the model so that the
