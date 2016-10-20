@@ -61,7 +61,6 @@ define( function( require ) {
       cellLayer.setScaleMagnitude( scaleFactor );
       cellLayer.centerX = self.layoutBounds.width / 2;
       cellLayer.centerY = self.layoutBounds.height / 2;
-      console.log(cellLayer.bounds);
     }
 
     // Set up an observer of the list of cells in the model so that the
@@ -118,7 +117,7 @@ define( function( require ) {
     // Add the Reset All button.
     var resetAllButton = new ResetAllButton( {
       listener: function() {
-        self.model.reset();
+        model.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
