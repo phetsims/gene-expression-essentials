@@ -312,7 +312,7 @@ define( function( require ) {
       var untranslatedAndUnrotatedShape = ShapeUtils.createRoundedShapeFromPoints( pointList );
 
       // Rotate and translate.
-      var untranslatedShape = untranslatedAndUnrotatedShape.transformed( Matrix3.rotation( rotationAngle ) );
+      var untranslatedShape = untranslatedAndUnrotatedShape.transformed( Matrix3.rotation2( rotationAngle ) );
       var finalShape = untranslatedShape.transformed( Matrix3.translation( center.x, center.x ) );
 
       return finalShape;

@@ -15,6 +15,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
   var Random = require( 'DOT/Random' );
@@ -59,11 +60,22 @@ define( function( require ) {
       DEFAULT_MRNA_DEGRADATION_RATE //mRNA degradation
     ];
 
-    this.objectCounts[6] = ribosomeCount
+    this.objectCounts[6] = ribosomeCount;
   }
 
+  geneExpressionEssentials.register( 'CellProteinSynthesisSimulator', CellProteinSynthesisSimulator );
   return inherit( Object, CellProteinSynthesisSimulator, {
 
+    /**
+     * Sets the number of transcription factors
+     *
+     * @param tfCount number of transcription factors
+     */
+    setTranscriptionFactorCount: function( tfCount ) {
+      // Parameter checking.
+      assert && assert( TRANSCRIPTION_FACTOR_COUNT_RANGE.contains( tfCount ) );
+      this.objectCounts[1] = tfCount;
+    },
     /**
      * Sets the number of polymerases
      *
@@ -117,14 +129,14 @@ define( function( require ) {
     *
     * @param dt the length of this step through time
     */
-    /*stepInTime( dt ) {
-    double accumulatedTime = 0.0;
-    double timeIncrement = -1.0;
-    while ( accumulatedTime < dt && timeIncrement != 0.0 ) {
-      timeIncrement = simulateOneReaction( dt - accumulatedTime );
-      accumulatedTime += timeIncrement;
-    }
-  }*/ //TODO
+    stepInTime: function( dt ) {
+      var accumulatedTime = 0.0;
+      var timeIncrement = -1.0;
+      while ( accumulatedTime < dt && timeIncrement !== 0.0 ) {
+        timeIncrement = this.simulateOneReaction( dt - accumulatedTime );
+        accumulatedTime += timeIncrement;
+      }
+    },
 
     /**
     * Simulates one reaction if the wait time before that reaction occurs is less than
@@ -135,7 +147,7 @@ define( function( require ) {
     */
     simulateOneReaction: function( maxTime ) {
       var a = this.calculateA();
-      var a0 = _.sum( a );
+      var a0 = this.sum( a );
 
       var r1 = this.random.nextDouble();
       var r2 = this.random.nextDouble();
@@ -152,6 +164,14 @@ define( function( require ) {
       }
       this.conductReaction( mu );
       return tau;
+    },
+
+    sum: function( array ){
+      var total = 0;
+      for ( var i = 0; i< array.length; i++ ){
+        total += array[i];
+      }
+      return total;
     },
 
     calculateA: function() {
@@ -223,6 +243,10 @@ define( function( require ) {
           break;
         case 9:
           this.objectCounts[5]--;
+          break;
+        default:
+          assert && assert( false, 'Unhandled mu value' );
+          break;
       }
     },
 
@@ -236,7 +260,7 @@ define( function( require ) {
     }
 
   }, {// Statics
-    DefaultTransciptionFactorCount: DEFAULT_TRANSCRIPTION_FACTOR_COUNT,
+    DefaultTranscriptionFactorCount: DEFAULT_TRANSCRIPTION_FACTOR_COUNT,
     DefaultProteinDegradationRate: DEFAULT_PROTEIN_DEGRADATION_RATE,
     DefaultTFAssociationProbability: DEFAULT_TF_ASSOCIATION_PROBABILITY,
     DefaultPolymeraseAssociationProbability: DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY,

@@ -105,7 +105,7 @@
     "value": "{0} ({1})"
   },
   "imageCaption": {
-    "value": "This image shows E. Coli cells expressing green fluorescent protein (GFP). Note that though the cells are genetically identical, they are expressing differing amounts of the protein."
+    "value": "This image shows E. Coli cells expressing green fluorescent protein (GFP). Note that though \n the cells are genetically identical, they are expressing differing amounts of the protein."
   },
   "proteinCountCaptionPart2": {
     "value": "of 3 protein types."
@@ -139,5 +139,8 @@
   },
   "polymerase": {
     "value": "Polymerase"
+  },
+  "multipleCells": {
+    "value": "Multiple Cells"
   }
 }

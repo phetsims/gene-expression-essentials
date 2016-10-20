@@ -5,10 +5,11 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'Axon/Property' );
+  var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Range = require( 'DOT/Range' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -77,6 +78,7 @@ define( function( require ) {
   }
 
 
+  geneExpressionEssentials.register( 'ControllerNode', ControllerNode );
   return inherit( Node, ControllerNode, {
     /*dispose: function() {
       this.controlIsotopeDispose();

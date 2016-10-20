@@ -6,6 +6,7 @@ define( function( require ) {
   // modules
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
   var Dimension2 = require('DOT/Dimension2');
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var CellProteinSynthesisSimulator  = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/model/CellProteinSynthesisSimulator' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
@@ -36,17 +37,19 @@ define( function( require ) {
 
   }
 
+  geneExpressionEssentials.register( 'Cell', Cell );
+
   return inherit( ShapeChangingModelElement, Cell, {
 
     stepInTime: function( dt ){
       // NOTE: Multiplying time step, because it was necessary to get the model to run at the needed rate.
-      this.proteinSynthesisSimulator.stepInTime( dt * 1000 );
+      this.proteinSynthesisSimulator.stepInTime( dt * 1000 );//TODO Check why 1000
       this.proteinCount.set(this. proteinSynthesisSimulator.getProteinCount() );
     },
 
     // Static function for creating the shape of the cell.
     createShape: function( size, initialPosition, rotationAngle, seed ) {
-      return BioShapeUtils.createEColiLikeShape( initialPosition, size.getWidth(), size.getHeight(), rotationAngle, seed );
+      return BioShapeUtils.createEColiLikeShape( initialPosition, size.width, size.height, rotationAngle, seed );
     },
 
     //-------------------------------------------------------------------------
@@ -86,6 +89,8 @@ define( function( require ) {
 
     //----------- End of pass-through methods ---------------------------------
   }, {//Statics
-    DefaultCellSize: DEFAULT_CELL_SIZE
+    DefaultCellSize: DEFAULT_CELL_SIZE,
+    ProteinLevelWhereColorChangeStarts: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_STARTS,
+    ProteinLevelWhereColorChangeCompletes: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES
   } );
 } );
