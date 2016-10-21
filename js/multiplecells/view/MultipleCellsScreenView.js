@@ -40,14 +40,20 @@ define( function( require ) {
     var cellLayer = new Node();
     this.addChild( cellLayer );
 
+    var cellNodes = [];
 
-    function addCellView( addedCell ){
-      var cellNode = new ColorChangingCellNode( addedCell, self.mvt );
-      cellLayer.addChild( cellNode );
+    for( var i = 0; i < model.cellList.length; i++  ){
+      var cellNode = new ColorChangingCellNode( model.cellList[ i ], self.mvt );
+      cellNodes.push( cellNode );
+    }
+
+    function addCellView( addedCellIndex ){
+      cellLayer.addChild( cellNodes[ addedCellIndex ] );
 
       model.visibleCellList.addItemRemovedListener( function removalListener( removedCell ) {
-        if ( removedCell === addedCell ) {
-          cellLayer.removeChild( cellNode );
+        var removedCellIndex = model.cellList.indexOf( removedCell );
+        if ( removedCellIndex === addedCellIndex ) {
+          cellLayer.removeChild( cellNodes[ addedCellIndex ] );
           model.visibleCellList.removeItemRemovedListener( removalListener );
           cellLayer.setScaleMagnitude( 1 );
           var scaleFactor = Math.min( ( self.layoutBounds.width * 0.3 ) / cellLayer.width , 1 );
@@ -66,11 +72,11 @@ define( function( require ) {
     // Set up an observer of the list of cells in the model so that the
     // view representations can come and go as needed.
     model.visibleCellList.addItemAddedListener( function( addedCell ) {
-      addCellView( addedCell );
+      addCellView( model.cellList.indexOf( addedCell ) );
     } );
 
     model.visibleCellList.forEach( function( cell ) {
-      addCellView( cell );
+      addCellView( model.cellList.indexOf( cell ) );
     } );
 
     /*var plot = new XYPlot({
