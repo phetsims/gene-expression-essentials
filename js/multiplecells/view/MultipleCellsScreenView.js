@@ -170,10 +170,61 @@ define( function( require ) {
       concentrationControllers
     );
 
+    var affinityControllers = [
+      {
+        label: 'Positive Transcription Factor',
+        controlProperty: model.transcriptionFactorAssociationProbabilityProperty,
+        minValue: CellProteinSynthesisSimulator.TFAssociationProbabilityRange.min,
+        maxValue: CellProteinSynthesisSimulator.TFAssociationProbabilityRange.max,
+        minLabel: 'Low',
+        maxLabel: 'High',
+        logScale: true
+      },
+      {
+        label: 'Polymerase',
+        controlProperty: model.polymeraseAssociationProbabilityProperty,
+        minValue: CellProteinSynthesisSimulator.PolymeraseAssociationProbabilityRange.min,
+        maxValue: CellProteinSynthesisSimulator.PolymeraseAssociationProbabilityRange.max,
+        minLabel: 'Low',
+        maxLabel: 'High',
+        logScale: false
+      }
+    ];
+
+    var affinityControlPanel = new ControlPanelNode(
+      'Affinities',
+      affinityControllers
+    );
+
+    var degradationControllers = [
+      {
+        label: 'Protein',
+        controlProperty: model.proteinDegradationRateProperty,
+        minValue: CellProteinSynthesisSimulator.ProteinDegradationRange.min,
+        maxValue: CellProteinSynthesisSimulator.ProteinDegradationRange.max,
+        minLabel: 'slow',
+        maxLabel: 'fast',
+        logScale: false
+      }
+    ];
+
+    var degradationControlPanel = new ControlPanelNode(
+      'Degradation',
+      degradationControllers
+    );
+
     this.addChild( concentrationControlPanel );
+    this.addChild( affinityControlPanel );
+    this.addChild( degradationControlPanel );
 
     concentrationControlPanel.right = this.layoutBounds.maxX - 10;
     concentrationControlPanel.top = this.layoutBounds.minY + 10;
+
+    affinityControlPanel.right = concentrationControlPanel.right;
+    affinityControlPanel.top = concentrationControlPanel.bottom + 10;
+
+    degradationControlPanel.right = affinityControlPanel.right;
+    degradationControlPanel.top = affinityControlPanel.bottom + 10;
 
     var cellNumberControllerPanel = new Panel( cellNumberController );
     this.addChild( cellNumberControllerPanel );
