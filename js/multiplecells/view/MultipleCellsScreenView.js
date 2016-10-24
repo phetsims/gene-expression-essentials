@@ -3,7 +3,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CellProteinSynthesisSimulator = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/model/CellProteinSynthesisSimulator' );
   var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ControllerNode' );
+  var ControlPanelNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ControlPanelNode' );
   var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ColorChangingCellNode' );
   var FluorescentCellsPictureDialog = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/FluorescentCellsPictureDialog' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -139,9 +141,39 @@ define( function( require ) {
       1,
       MultipleCellsModel.MaxCells,
       'One',
-      'Many',
-      100
+      'Many'
     );
+
+    var concentrationControllers = [
+      {
+        label: 'Positive Transcription Factor',
+        controlProperty: model.transcriptionFactorLevelProperty,
+        minValue: CellProteinSynthesisSimulator.TranscriptionFactorCountRange.min,
+        maxValue: CellProteinSynthesisSimulator.TranscriptionFactorCountRange.max,
+        minLabel: 'Low',
+        maxLabel: 'High',
+        logScale: true
+      },
+      {
+        label: 'mRna Destroyer',
+        controlProperty: model.mRnaDegradationRateProperty,
+        minValue: CellProteinSynthesisSimulator.MRNADegradationRateRange.min,
+        maxValue: CellProteinSynthesisSimulator.MRNADegradationRateRange.max,
+        minLabel: 'Low',
+        maxLabel: 'High',
+        logScale: true
+      }
+    ];
+
+    var concentrationControlPanel = new ControlPanelNode(
+      'Concentrations',
+      concentrationControllers
+    );
+
+    this.addChild( concentrationControlPanel );
+
+    concentrationControlPanel.right = this.layoutBounds.maxX - 10;
+    concentrationControlPanel.top = this.layoutBounds.minY + 10;
 
     var cellNumberControllerPanel = new Panel( cellNumberController );
     this.addChild( cellNumberControllerPanel );

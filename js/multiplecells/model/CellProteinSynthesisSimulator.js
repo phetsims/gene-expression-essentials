@@ -264,6 +264,8 @@ define( function( require ) {
     DefaultProteinDegradationRate: DEFAULT_PROTEIN_DEGRADATION_RATE,
     DefaultTFAssociationProbability: DEFAULT_TF_ASSOCIATION_PROBABILITY,
     DefaultPolymeraseAssociationProbability: DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY,
-    DefaultMRNADegradationRate: DEFAULT_MRNA_DEGRADATION_RATE
+    DefaultMRNADegradationRate: DEFAULT_MRNA_DEGRADATION_RATE,
+    MRNADegradationRateRange: MRNA_DEGRADATION_RATE_RANGE,
+    TranscriptionFactorCountRange: TRANSCRIPTION_FACTOR_COUNT_RANGE
   } );
 } );
