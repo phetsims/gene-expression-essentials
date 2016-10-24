@@ -25,6 +25,19 @@ define( function( require ) {
 
   //strings
   var showRealCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/showRealCells' );
+  var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
+  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
+  var proteinString = require( 'string!GENE_EXPRESSION_ESSENTIALS/protein' );
+  var slowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/slow' );
+  var fastString = require( 'string!GENE_EXPRESSION_ESSENTIALS/fast' );
+  var degradationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/degradation' );
+  var positiveTranscriptionFactorString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactor' );
+  var mRnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRnaDestroyer' );
+  var oneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/one' );
+  var manyString = require( 'string!GENE_EXPRESSION_ESSENTIALS/many' );
+  var polymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/polymerase' );
+  var concentrationsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentrations' );
+  var affinitiesString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinities' );
 
   function MultipleCellsScreenView( model ) {
     ScreenView.call( this );
@@ -140,76 +153,76 @@ define( function( require ) {
       model.numberOfVisibleCellsProperty,
       1,
       MultipleCellsModel.MaxCells,
-      'One',
-      'Many'
+      oneString,
+      manyString
     );
 
     var concentrationControllers = [
       {
-        label: 'Positive Transcription Factor',
+        label: positiveTranscriptionFactorString,
         controlProperty: model.transcriptionFactorLevelProperty,
         minValue: CellProteinSynthesisSimulator.TranscriptionFactorCountRange.min,
         maxValue: CellProteinSynthesisSimulator.TranscriptionFactorCountRange.max,
-        minLabel: 'Low',
-        maxLabel: 'High',
+        minLabel: lowString,
+        maxLabel: highString,
         logScale: true
       },
       {
-        label: 'mRna Destroyer',
+        label: mRnaDestroyerString,
         controlProperty: model.mRnaDegradationRateProperty,
         minValue: CellProteinSynthesisSimulator.MRNADegradationRateRange.min,
         maxValue: CellProteinSynthesisSimulator.MRNADegradationRateRange.max,
-        minLabel: 'Low',
-        maxLabel: 'High',
+        minLabel: lowString,
+        maxLabel: highString,
         logScale: true
       }
     ];
 
     var concentrationControlPanel = new ControlPanelNode(
-      'Concentrations',
+      concentrationsString,
       concentrationControllers
     );
 
     var affinityControllers = [
       {
-        label: 'Positive Transcription Factor',
+        label: positiveTranscriptionFactorString,
         controlProperty: model.transcriptionFactorAssociationProbabilityProperty,
         minValue: CellProteinSynthesisSimulator.TFAssociationProbabilityRange.min,
         maxValue: CellProteinSynthesisSimulator.TFAssociationProbabilityRange.max,
-        minLabel: 'Low',
-        maxLabel: 'High',
+        minLabel: lowString,
+        maxLabel: highString,
         logScale: true
       },
       {
-        label: 'Polymerase',
+        label: polymeraseString,
         controlProperty: model.polymeraseAssociationProbabilityProperty,
         minValue: CellProteinSynthesisSimulator.PolymeraseAssociationProbabilityRange.min,
         maxValue: CellProteinSynthesisSimulator.PolymeraseAssociationProbabilityRange.max,
-        minLabel: 'Low',
-        maxLabel: 'High',
+        minLabel: lowString,
+        maxLabel: highString,
         logScale: false
       }
     ];
 
     var affinityControlPanel = new ControlPanelNode(
-      'Affinities',
+      affinitiesString,
       affinityControllers
     );
 
     var degradationControllers = [
       {
-        label: 'Protein',
+        label: proteinString,
         controlProperty: model.proteinDegradationRateProperty,
         minValue: CellProteinSynthesisSimulator.ProteinDegradationRange.min,
         maxValue: CellProteinSynthesisSimulator.ProteinDegradationRange.max,
-        minLabel: 'slow',
-        maxLabel: 'fast',
+        minLabel: slowString,
+        maxLabel: fastString,
         logScale: false
       }
     ];
 
     var degradationControlPanel = new ControlPanelNode(
-      'Degradation',
+      degradationString,
       degradationControllers
     );
 

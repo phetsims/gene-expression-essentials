@@ -17,9 +17,6 @@
   "ribosome": {
     "value": "Ribosome"
   },
-  "averageProteinLevelVsTime": {
-    "value": "Average Protein Level vs. Time"
-  },
   "affinities": {
     "value": "Affinities"
   },
@@ -50,9 +47,6 @@
   "previousGene": {
     "value": "Previous Gene"
   },
-  "averageProteinLevel": {
-    "value": "Average Protein Level"
-  },
   "positiveTranscriptionFactor": {
     "value": "Positive Transcription Factor"
   },
@@ -62,32 +56,20 @@
   "mRna": {
     "value": "mRNA"
   },
+  "mRnaDestroyer": {
+    "value": "mRNA Destroyer"
+  },
   "many": {
     "value": "Many"
   },
   "none": {
     "value": "None"
   },
-  "units.s": {
-    "value": "s"
-  },
-  "zoomOut": {
-    "value": "Zoom Out"
-  },
-  "cells": {
-    "value": "Cells"
-  },
   "transcribedRegion": {
     "value": "Transcribed\nRegion"
   },
-  "lots": {
-    "value": "Lots"
-  },
   "nextGene": {
     "value": "Next Gene"
-  },
-  "zoomIn": {
-    "value": "Zoom In"
   },
   "negativeTranscriptionFactorHtml": {
     "value": "Negative Transcription\nFactor"
@@ -101,9 +83,6 @@
   "affinity": {
     "value": "Affinity"
   },
-  "pattern.0value.1units": {
-    "value": "{0} ({1})"
-  },
   "imageCaption": {
     "value": "This image shows E. Coli cells expressing green fluorescent protein (GFP). Note that though \n the cells are genetically identical, they are expressing differing amounts of the protein."
   },
@@ -113,17 +92,11 @@
   "rnaPolymerase": {
     "value": "RNA Polymerase"
   },
-  "close": {
-    "value": "Close"
-  },
   "proteinCountCaptionPart1": {
     "value": "You have:"
   },
   "showRealCells": {
     "value": "Show Real Cells"
-  },
-  "time": {
-    "value": "Time"
   },
   "high": {
     "value": "High"

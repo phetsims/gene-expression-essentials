@@ -8,8 +8,6 @@ define( function( require ) {
   var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ControllerNode' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -37,7 +35,7 @@ define( function( require ) {
           label,
           controllerNode
         ]
-      })
+      });
     }
 
     var contentNode = new VBox( {
