@@ -25,10 +25,10 @@ define( function( require ) {
   var AffinityController = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/AffinityController' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
-  var SpacerNode = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/SpacerNode' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
+  var Spacer = require( 'SCENERY/nodes/Spacer' );
 
   // constants
   var TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
@@ -93,8 +93,8 @@ define( function( require ) {
     var  growthAmount = minHeight - dummyControlPanel.height - 40;
 
     // Create the spacers used to make the panel meet the min size.
-    var topSpacer = new SpacerNode( SpacerNode.MIN_DIMENSION, growthAmount * 0.25 );
-    var bottomSpacer = new SpacerNode( SpacerNode.MIN_DIMENSION, growthAmount * 0.75 );
+    var topSpacer = new Spacer( 0, growthAmount * 0.25 );
+    var bottomSpacer = new Spacer( 0, growthAmount * 0.75 );
 
     var contents = new VBox( {
         children: [ titleNode, topSpacer,
