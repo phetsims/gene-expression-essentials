@@ -98,11 +98,12 @@ define( function( require ) {
      * @Override
      * @param translationVector
      */
-    translate: function( translationVector ) {
+    translate: function( x, y ) {
 
       // Translate the current shape user the superclass facility.
-      WindingBiomolecule.prototype.translate.call( this, translationVector );
+      WindingBiomolecule.prototype.translate.call( this, x, y );
 
+      var translationVector = new Vector2( x, y );
       // Translate each of the shape segments that define the outline shape.
       this.shapeSegments.forEach( function( shapeSegment ) {
         shapeSegment.translate( translationVector );

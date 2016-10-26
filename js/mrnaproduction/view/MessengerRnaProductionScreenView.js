@@ -120,17 +120,16 @@ define( function( require ) {
       gene.getPolymeraseAffinityProperty() );
     controlsNode.addChild( polymeraseAffinityControlPanel );
 
-
     var negativeTranscriptionFactorControlPanel =
       new TranscriptionFactorControlPanel( model,
         MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG,
         gene.getTranscriptionFactorAffinityProperty( MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG ) );
     controlsNode.addChild( negativeTranscriptionFactorControlPanel );
 
-
     // Add the check box for showing/hiding the control panel for the
     // negative transcription factor.
-    var negativeFactorEnabledCheckBox = new CheckBox( new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ) } ),
+    var negativeFactorEnabledCheckBox = new CheckBox(
+      new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ), maxWidth: 275 } ),
       self.negativeTranscriptionFactorEnabled, {
         boxWidth: 20
       } );

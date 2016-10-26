@@ -25,7 +25,8 @@ define( function( require ) {
     Node.call( this ); // Call super constructor.
 
     options = _.extend( {
-      logScale: false
+      logScale: false,
+      trackSize: new Dimension2( 80, 5 )
     }, options );
 
     var range;
@@ -61,10 +62,14 @@ define( function( require ) {
       }
     } );
 
-    var tickLabelOptions = { font: new PhetFont( 12 ), pickable: false };
+    var tickLabelOptions = {
+      font: new PhetFont( 12 ),
+      pickable: false,
+      maxWidth: 50
+    };
 
     var slider = new HSlider( passThroughController, range, {
-      trackSize: new Dimension2( 80, 5 ),
+      trackSize: options.trackSize,
       thumbSize: new Dimension2( 15, 30 ),
       majorTickLength: 15,
       tickLabelSpacing: 0

@@ -10,12 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Dimension2 = require( 'DOT/Dimension2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var HorizontalSliderWithLabelsAtEnds = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/HorizontalSliderWithLabelsAtEnds' );
+  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ControllerNode' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
@@ -40,7 +41,10 @@ define( function( require ) {
     var self = this;
     Node.call( self );
 
-    var captionNode = new Text( concentrationsString, new PhetFont( { size: 14, weight: 'bold' } ) );
+    var captionNode = new Text( concentrationsString, {
+      font: new PhetFont( { size: 14, weight: 'bold' } ),
+      maxWidth: 180
+    } );
 
     var molecule = new MobileBiomoleculeNode( CommonConstants.TRANSCRIPTION_FACTOR_MVT,
       new TranscriptionFactor( new StubGeneExpressionModel(), transcriptionFactorConfig ) );
@@ -48,11 +52,13 @@ define( function( require ) {
 
     self.addChild( new VBox( {
       spacing: 5, children: [ captionNode, molecule,
-        new HorizontalSliderWithLabelsAtEnds( tfLevelProperty,
+        new ControllerNode( tfLevelProperty,
           min,
           max,
           noneString,
-          lowString ) ]
+          lowString, {
+            trackSize: new Dimension2( 130, 5 )
+          } ) ]
     } ) );
 
   }
