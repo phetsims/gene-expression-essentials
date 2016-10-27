@@ -57,7 +57,10 @@ define( function( require ) {
     var regulatoryRegionNode = new Path( regRegionShape, { fill: gene.getRegulatoryRegionColor() } );
     self.addChild( regulatoryRegionNode );
 
-    var regulatoryRegionCaption = new MultiLineText( regulatoryRegionString, { font: REGION_LABEL_FONT } );
+    var regulatoryRegionCaption = new MultiLineText( regulatoryRegionString, {
+      font: REGION_LABEL_FONT,
+      maxWidth: 100
+    } );
     regulatoryRegionCaption.x = regulatoryRegionNode.bounds.getCenterX() - regulatoryRegionCaption.bounds.width / 2;
     regulatoryRegionCaption.y = regulatoryRegionNode.bounds.getMaxY();
     self.addChild( regulatoryRegionCaption );
@@ -71,7 +74,10 @@ define( function( require ) {
     var transcribedRegionNode = new Path( transcribedRegionShape, { fill: gene.getTranscribedRegionColor() } );
     self.addChild( transcribedRegionNode );
 
-    var transcribedRegionCaption = new MultiLineText( transcribedRegionString, { font: REGION_LABEL_FONT } );
+    var transcribedRegionCaption = new MultiLineText( transcribedRegionString, {
+      font: REGION_LABEL_FONT,
+      maxWidth: 100
+    } );
     transcribedRegionCaption.x = transcribedRegionNode.bounds.getCenterX() - transcribedRegionCaption.bounds.width / 2;
     transcribedRegionCaption.y = transcribedRegionNode.bounds.getMaxY();
     self.addChild( transcribedRegionCaption );
@@ -88,7 +94,10 @@ define( function( require ) {
       self.addChild( new Path( bracketPath, { lineWidth: 2, stroke: Color.BLACK } ) );
 
       // And the textual label for the gene.
-      var labelText = new Text( label, { font: GENE_LABEL_FONT } );
+      var labelText = new Text( label, {
+        font: GENE_LABEL_FONT,
+        maxWidth: 150
+      } );
       self.addChild( labelText );
       var bracketBounds = bracketPath.bounds;
       labelText.x = bracketBounds.getCenterX() - labelText.bounds.width / 2;
