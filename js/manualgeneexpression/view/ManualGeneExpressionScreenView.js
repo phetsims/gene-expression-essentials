@@ -237,7 +237,7 @@ define( function( require ) {
     } );
     // Monitor the active gene and move the view port to be centered on it whenever it changes.
 
-    model.activeGene.link( function( gene ) {
+    model.activeGeneProperty.link( function( gene ) {
       nextGeneButton.enabled = !( gene === model.dnaMolecule.getLastGene() );
       previousGeneButton.enabled = !( gene === model.dnaMolecule.getGenes()[ 0 ] );
       //this.isLastGeneActive = this.activeGene === this.dnaMolecule.getLastGene();

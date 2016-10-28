@@ -74,7 +74,7 @@ define( function( require ) {
 
     {
 
-      CONFORMATIONAL_CHANGE_RATE: 1 // Proportion per second
+      CONFORMATIONAL_CHANGE_RATE: CONFORMATIONAL_CHANGE_RATE
 
     } );
 

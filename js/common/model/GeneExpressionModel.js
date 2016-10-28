@@ -12,20 +12,18 @@ define( function( require ) {
   //modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
 
 
   /**
    * @abstract
    * @constructor
    */
-  function GeneExpressionModel(props) {
-    PropertySet.call(this,props);
+  function GeneExpressionModel() {
   }
 
   geneExpressionEssentials.register( 'GeneExpressionModel', GeneExpressionModel );
 
-  return inherit( PropertySet, GeneExpressionModel, {
+  return inherit( Object, GeneExpressionModel, {
 
     /**
      * Get the DNA molecule.

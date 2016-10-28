@@ -66,12 +66,12 @@ define( function( require ) {
     // The gene that the user is focusing on, other gene activity is
     // suspended.  Start with the 0th gene in the DNA (leftmost).
     // Initialize variables that are dependent upon the DNA.
-    this.activeGene = new Property( this.dnaMolecule.getGenes()[ 0 ] );
+    this.activeGeneProperty = new Property( this.dnaMolecule.getGenes()[ 0 ] );
 
     // Properties that keep track of whether the first or last gene is
     // currently active, which means that the user is viewing it.
-    this.isFirstGeneActive = this.activeGene === this.dnaMolecule.getGenes()[ 0 ];
-    this.isLastGeneActive = this.activeGene === this.dnaMolecule.getLastGene();
+    //this.isFirstGeneActive = this.activeGeneProperty.get() === this.dnaMolecule.getGenes()[ 0 ];
+    //this.isLastGeneActive = this.activeGeneProperty.get() === this.dnaMolecule.getLastGene();
 
     // List of areas where biomolecules should not be allowed.  These are
     // generally populated by the view in order to keep biomolecules from
@@ -79,12 +79,11 @@ define( function( require ) {
     this.offLimitsMotionSpaces = [];
 
     // Properties that track how many of the various proteins have been collected.
-    GeneExpressionModel.call( this, {
-      proteinACollected: 0,
-      proteinBCollected: 0,
-      proteinCCollected: 0
-    } );
+    GeneExpressionModel.call( this );
 
+    this.proteinACollectedProperty = new Property( 0 );
+    this.proteinBCollectedProperty = new Property( 0 );
+    this.proteinCCollectedProperty = new Property( 0 );
 
     // Map of the protein collection count properties to the protein types,
     // used to obtain the count property based on the type of protein.
@@ -163,12 +162,12 @@ define( function( require ) {
      */
     switchToGeneRelative: function( i ) {
       var genes = this.dnaMolecule.getGenes();
-      var index = Util.clamp( 0, genes.indexOf( this.activeGene.get() ) + i, genes.length - 1 );
-      this.activeGene.set( genes[ index ] );
+      var index = Util.clamp( 0, genes.indexOf( this.activeGeneProperty.get() ) + i, genes.length - 1 );
+      this.activeGeneProperty.set( genes[ index ] );
     },
 
     activateGene: function( i ) {
-      this.activeGene.set( this.dnaMolecule.getGenes()[ i ] );
+      this.activeGeneProperty.set( this.dnaMolecule.getGenes()[ i ] );
     },
 
     /**
@@ -261,13 +260,13 @@ define( function( require ) {
      */
     captureProtein: function( protein ) {
       if ( protein instanceof ProteinA ) {
-        this.proteinACollected = this.proteinACollected + 1;
+        this.proteinACollectedProperty.set( this.proteinACollectedProperty.get() + 1 );
       }
       if ( protein instanceof ProteinB ) {
-        this.proteinBCollected = this.proteinBCollected + 1;
+        this.proteinBCollectedProperty.set( this.proteinBCollectedProperty.get() + 1 );
       }
       if ( protein instanceof ProteinC ) {
-        this.proteinCCollected = this.proteinCCollected + 1;
+        this.proteinCCollectedProperty.set( this.proteinCCollectedProperty.get() + 1 );
       }
       this.mobileBiomoleculeList.remove( protein );
     },
@@ -350,9 +349,9 @@ define( function( require ) {
       var bottomYPos = CommonConstants.DNA_MOLECULE_Y_POS - 2000;
 
       // Get the nominal bounds for this gene.
-      var bounds = new Bounds2( this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
+      var bounds = new Bounds2( this.activeGeneProperty.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
         bottomYPos,
-        this.activeGene.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2 + BIOMOLECULE_STAGE_WIDTH,
+        this.activeGeneProperty.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2 + BIOMOLECULE_STAGE_WIDTH,
         bottomYPos + BIOMOLECULE_STAGE_HEIGHT );
 
       // Subtract off any off limits areas.

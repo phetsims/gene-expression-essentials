@@ -22,6 +22,7 @@ define( function( require ) {
   var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/MessengerRnaAttachmentStateMachine' );
   var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
   var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
+  var Property = require( 'AXON/Property' );
   var Ribosome = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Ribosome' );
   var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaDestroyer' );
 
@@ -53,7 +54,7 @@ define( function( require ) {
 
     // Externally visible indicator for whether this mRNA is being synthesized.
     // Assumes that it is being synthesized when created.
-    self.addProperty( 'beingSynthesized', true );
+    this.beingSynthesizedProperty = new Property( true );
 
     // Protein prototype, used to keep track of protein that should be
     // synthesized from this particular strand of mRNA.

@@ -87,13 +87,13 @@ define( function( require ) {
 
     function countChangeUpdater() {
       var numProteinTypesCollected = 0;
-      if ( model.proteinACollected > 0 ) {
+      if ( model.proteinACollectedProperty.get() > 0 ) {
         numProteinTypesCollected++;
       }
-      if ( model.proteinBCollected > 0 ) {
+      if ( model.proteinBCollectedProperty.get() > 0 ) {
         numProteinTypesCollected++;
       }
-      if ( model.proteinCCollected > 0 ) {
+      if ( model.proteinCCollectedProperty.get() > 0 ) {
         numProteinTypesCollected++;
       }
       countReadoutText.setText( numProteinTypesCollected );
