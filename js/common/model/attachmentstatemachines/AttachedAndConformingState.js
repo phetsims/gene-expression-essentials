@@ -62,7 +62,7 @@ define( function( require ) {
         var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
 
         // Prevent user interaction.
-        asm.biomolecule.movableByUser = false;
+        asm.biomolecule.movableByUserProperty.set( false );
 
         // Insert the DNA strand separator.
         dnaStrandSeparation.setXPos( rnaPolymerase.getPosition().x );

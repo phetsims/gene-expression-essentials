@@ -75,7 +75,7 @@ define( function( require ) {
       biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( biomolecule.getDetachDirection(),
         biomolecule.motionBoundsProperty ) );
       this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold = 1; // Reset this threshold.
-      asm.biomolecule.attachedToDna = false; // Update externally visible state indication.
+      asm.biomolecule.attachedToDnaProperty.set( false ); // Update externally visible state indication.
     },
 
     /**
@@ -159,7 +159,7 @@ define( function( require ) {
      */
     entered: function( enclosingStateMachine ) {
       enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
-      enclosingStateMachine.biomolecule.attachedToDna = true; // Update externally visible state indication.
+      enclosingStateMachine.biomolecule.attachedToDnaProperty.set( true ); // Update externally visible state indication.
     }
 
 

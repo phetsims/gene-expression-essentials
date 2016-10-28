@@ -28,7 +28,7 @@ define( function( require ) {
 
       start: function( event, trail ) {
         // The user is moving this, so they have control.
-        biomolecule.userControlled = true;
+        biomolecule.userControlledProperty.set( true );
       },
 
       translate: function( translationParams ) {
@@ -38,7 +38,7 @@ define( function( require ) {
 
       end: function( event ) {
         // The user is no longer moving this, so they have relinquished control.
-        biomolecule.userControlled = false;
+        biomolecule.userControlledProperty.set( false );
       }
     } );
 

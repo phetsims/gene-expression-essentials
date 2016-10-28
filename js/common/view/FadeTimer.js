@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Timer = require( 'PHET_CORE/Timer' );
 
   /**
@@ -24,32 +24,30 @@ define( function( require ) {
   function FadeTimer( interval, listener ) {
     this.interval = interval; // milliseconds
     this.listener = listener;
-    PropertySet.call( this, {
-      isRunning: false
-    } );
+    this.isRunningProperty = new Property( false );
     this._intervalId = null; // private
   }
 
   geneExpressionEssentials.register( 'FadeTimer', FadeTimer );
 
-  return inherit( PropertySet, FadeTimer, {
+  return inherit( Object, FadeTimer, {
     // Starts the timer. This is a no-op if the timer is already running.
     start: function() {
       var self = this;
-      if ( !this.isRunning ) {
+      if ( !this.isRunningProperty.get() ) {
         self._intervalId = Timer.setInterval( function() {
           self.listener();
         }, this.interval );
-        self.isRunning = true;
+        self.isRunningProperty.set( true );
       }
     },
 
     // Stops the timer. This is a no-op if the timer is already stopped.
     stop: function() {
-      if ( this.isRunning ) {
+      if ( this.isRunningProperty.get() ) {
         Timer.clearInterval( this._intervalId );
         this._intervalId = null;
-        this.isRunning = false;
+        this.isRunningProperty.set( false );
       }
     },
 

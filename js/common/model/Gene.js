@@ -370,7 +370,7 @@ define( function( require ) {
         if ( !this.transcriptionFactorsBlockTranscription() ) {
 
           // Activate the polymerase hint.
-          this.rnaPolymerasePlacementHint.active = true;
+          this.rnaPolymerasePlacementHint.activeProperty.set( true );
 
           // Also activate any unoccupied positive transcription factor
           // hints in order to convey to the user that these are needed
@@ -402,9 +402,9 @@ define( function( require ) {
     },
 
     deactivateHints: function() {
-      this.rnaPolymerasePlacementHint.active = false;
+      this.rnaPolymerasePlacementHint.activeProperty.set( false );
       _.forEach( this.transcriptionFactorPlacementHints, function( transcriptionFactorPlacementHint ) {
-        transcriptionFactorPlacementHint.active = false;
+        transcriptionFactorPlacementHint.activeProperty.set( false );
       } );
     },
 

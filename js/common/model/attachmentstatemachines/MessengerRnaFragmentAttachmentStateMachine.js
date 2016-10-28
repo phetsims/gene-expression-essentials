@@ -74,7 +74,7 @@ define( function( require ) {
        */
       stepInTime: function( asm, dt ) {
         var biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
-        biomolecule.existenceStrength= Math.max( biomolecule.existenceStrength - dt / FADE_OUT_TIME, 0 );
+        biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
       }
 
     } );

@@ -65,7 +65,7 @@ define( function( require ) {
 
         // Create the corresponding biomolecule and add it to the model.
         self.biomolecule = moleculeCreator( modelPos );
-        self.biomolecule.userControlled = true;
+        self.biomolecule.userControlledProperty.set( true );
 
         // Add an observer to watch for this model element to be returned.
         var finalBiomolecule = self.biomolecule;
@@ -91,7 +91,7 @@ define( function( require ) {
       },
 
       end: function( event ) {
-        self.biomolecule.userControlled = false;
+        self.biomolecule.userControlledProperty.set( false );
         self.biomolecule = null;
       }
 

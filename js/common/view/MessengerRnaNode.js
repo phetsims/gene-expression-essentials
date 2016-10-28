@@ -52,7 +52,7 @@ define( function( require ) {
 
     // Update the label position as the shape changes.
     messengerRna.shapeProperty.link( function( shape ) {
-      var shapeBounds = messengerRna.shape.bounds;
+      var shapeBounds = shape.bounds;
       var upperRightCornerPos = mvt.modelToViewPosition( new Vector2( shapeBounds.maxX, shapeBounds.maxY ) );
       label.x = upperRightCornerPos.x;
       label.y = upperRightCornerPos.y;

@@ -64,7 +64,7 @@ define( function( require ) {
         // Check for molecules that are in the way.
         var molecules = asm.biomolecule.getModel().getOverlappingBiomolecules( asm.biomolecule.getShape() );
         _.forEach( molecules, function( molecule ) {
-          if ( molecule.getPosition().x > asm.biomolecule.getPosition().x && molecule.attachedToDna ) {
+          if ( molecule.getPosition().x > asm.biomolecule.getPosition().x && molecule.attachedToDnaProperty.get() ) {
 
             // This molecule is blocking transcription, so bump it off
             // of the DNA strand.
@@ -90,7 +90,7 @@ define( function( require ) {
         var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
 
         // Prevent user interaction.
-        asm.biomolecule.movableByUser = false;
+        asm.biomolecule.movableByUserProperty.set( false );
 
         // Determine the gene that is being transcribed.
         var geneToTranscribe = biomolecule.getModel().getDnaMolecule().getGeneAtLocation( biomolecule.getPosition() );

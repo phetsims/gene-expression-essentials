@@ -98,7 +98,7 @@ define( function( require ) {
       mRnaDestroyer.setMotionStrategy( new DestroyerTrackingRnaMotionStrategy( mRnaDestroyer ) );
 
       // Turn off user interaction while mRNA is being destroyed.
-      asm.biomolecule.movableByUser = false;
+      asm.biomolecule.movableByUserProperty.set( false );
     }
 
   });

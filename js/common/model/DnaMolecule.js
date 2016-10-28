@@ -556,12 +556,12 @@ define( function( require ) {
         var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
         var transform = Matrix3.translation( translationVector.x, translationVector.y );
         var translatedShape = biomolecule.getShape().transformed( transform );
-        var inBounds = biomolecule.motionBounds.inBounds( translatedShape );
+        var inBounds = biomolecule.motionBoundsProperty.get().inBounds( translatedShape );
         var overlapsOtherMolecules = false;
         var list = self.model.getOverlappingBiomolecules( translatedShape );
         for ( var i = 0; i < list.length; i++ ) {
           var mobileBiomolecule = list[ i ];
-          if ( mobileBiomolecule.attachedToDna && mobileBiomolecule !== biomolecule ) {
+          if ( mobileBiomolecule.attachedToDnaProperty.get() && mobileBiomolecule !== biomolecule ) {
             overlapsOtherMolecules = true;
             break;
           }

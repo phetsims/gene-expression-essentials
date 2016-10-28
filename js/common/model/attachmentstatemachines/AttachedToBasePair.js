@@ -55,7 +55,7 @@ define( function( require ) {
           new WanderInGeneralDirectionMotionStrategy( this.rnaPolymeraseAttachmentStateMachine.biomolecule.getDetachDirection(),
             this.rnaPolymeraseAttachmentStateMachine.biomolecule.motionBoundsProperty ) );
         this.rnaPolymeraseAttachmentStateMachine.detachFromDnaThreshold.reset(); // Reset this threshold.
-        asm.biomolecule.attachedToDna = false; // Update externally visible state indication.
+        asm.biomolecule.attachedToDnaProperty.set( false ); // Update externally visible state indication.
       },
 
       /**
@@ -159,13 +159,11 @@ define( function( require ) {
                           randValue < attachmentSite.getAffinity();
 
         // Allow user interaction.
-        asm.biomolecule.movableByUser = true;
+        asm.biomolecule.movableByUserProperty.set( true );
 
         // Indicate attachment to DNA.
-        asm.biomolecule.attachedToDna = true;
+        asm.biomolecule.attachedToDnaProperty.set( true );
 
-        // Update externally visible state information.
-        asm.biomolecule.attachedToDna = true; // Update externally visible state indication.
       }
 
     },

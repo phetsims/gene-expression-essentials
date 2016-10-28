@@ -52,7 +52,7 @@ define( function( require ) {
      */
     entered: function( enclosingStateMachine ) {
       // Allow user interaction.
-      enclosingStateMachine.biomolecule.movableByUser = true;
+      enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
     }
 
   } );

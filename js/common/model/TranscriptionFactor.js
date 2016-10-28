@@ -86,7 +86,7 @@ define( function( require ) {
 
       for ( var i = 0; i < moleculesShapes.length; i++ ) {
         var biomolecule = moleculesShapes[ i ];
-        if ( biomolecule !== this && biomolecule.attachedToDna ) {
+        if ( biomolecule !== this && biomolecule.attachedToDnaProperty.get() ) {
           this.attachmentStateMachine.forceImmediateUnattachedButUnavailable();
           break;
         }

@@ -318,8 +318,8 @@ define( function( require ) {
     },
 
     deactivateAllHints: function() {
-      this.ribosomePlacementHint.active = false;
-      this.mRnaDestroyerPlacementHint.active = false;
+      this.ribosomePlacementHint.activeProperty.set( false );
+      this.mRnaDestroyerPlacementHint.activeProperty.set( false );
     },
 
     /**

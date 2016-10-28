@@ -54,7 +54,7 @@ define( function( require ) {
         new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty ) );
 
       // Allow user interaction.
-      enclosingStateMachine.biomolecule.movableByUser = true;
+      enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
     }
   } );
 
