@@ -405,7 +405,7 @@ define( function( require ) {
         // See if the attachment site at the leading edge of the mRNA is
         // available.
         var leadingEdgeAttachmentSite = this.shapeSegments.get( 0 ).attachmentSite;
-        if ( leadingEdgeAttachmentSite.attachedOrAttachingMolecule === null &&
+        if ( leadingEdgeAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
              leadingEdgeAttachmentSite.locationProperty.get().distance(
                ribosome.getEntranceOfRnaChannelPos() ) < RIBOSOME_CONNECTION_DISTANCE ) {
 
@@ -438,7 +438,7 @@ define( function( require ) {
         // See if the attachment site at the leading edge of the mRNA is
         // available.
         var leadingEdgeAttachmentSite = this.shapeSegments.get( 0 ).attachmentSite;
-        if ( leadingEdgeAttachmentSite.attachedOrAttachingMolecule === null &&
+        if ( leadingEdgeAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
              leadingEdgeAttachmentSite.locationProperty.get().distance(
                messengerRnaDestroyer.getPosition() ) < MRNA_DESTROYER_CONNECT_DISTANCE ) {
 

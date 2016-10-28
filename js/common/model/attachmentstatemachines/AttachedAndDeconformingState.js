@@ -43,7 +43,7 @@ define( function( require ) {
 
         // Verify that state is consistent.
         assert && assert( asm.attachmentSite !== null );
-        assert && assert( asm.attachmentSite.attachedOrAttachingMolecule === biomolecule );
+        assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
 
         var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
         var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
@@ -70,7 +70,7 @@ define( function( require ) {
           this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndWanderingState;
 
           // Detach from the DNA.
-          attachmentSite.attachedOrAttachingMolecule = null;
+          attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
           this.rnaPolymeraseAttachmentStateMachine.attachmentSite = null;
           if ( recycleMode ) {
             this.rnaPolymeraseAttachmentStateMachine.setState(

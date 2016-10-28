@@ -457,7 +457,7 @@ define( function( require ) {
         if ( attachmentSiteLocation.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
           // In range.  Add it to the list if it is available.
           var potentialAttachmentSite = getAttachSiteForBasePair( i );
-          if ( potentialAttachmentSite.attachedOrAttachingMolecule === null ) {
+          if ( potentialAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null ) {
             potentialAttachmentSites.push( potentialAttachmentSite );
           }
         }
@@ -472,20 +472,20 @@ define( function( require ) {
             var matchingSite = getAttachmentSite( gene );
 
             // Found a matching site on a gene.
-            if ( matchingSite.attachedOrAttachingMolecule === null ) {
+            if ( matchingSite.attachedOrAttachingMoleculeProperty.get() === null ) {
 
               // The site is unoccupied, so add it to the list of  potential sites.
               potentialAttachmentSites.push( matchingSite );
             }
             else if ( !matchingSite.isMoleculeAttached() ) {
-              var thisDistance = biomolecule.getPosition().distance( matchingSite.location );
-              var thatDistance = matchingSite.attachedOrAttachingMolecule.getPosition().distance(
-                matchingSite.location );
+              var thisDistance = biomolecule.getPosition().distance( matchingSite.locationProperty.get() );
+              var thatDistance = matchingSite.attachedOrAttachingMoleculeProperty.get().getPosition().distance(
+                matchingSite.locationProperty.get() );
               if ( thisDistance < thatDistance ) {
 
                 // The other molecule is not yet attached, and this one is closer, so force the other molecule to
                 // abort its pending attachment.
-                matchingSite.attachedOrAttachingMolecule.forceAbortPendingAttachment();
+                matchingSite.attachedOrAttachingMoleculeProperty.get().forceAbortPendingAttachment();
 
                 // Add this site to the list of potential sites.
                 potentialAttachmentSites.push( matchingSite );
@@ -553,7 +553,7 @@ define( function( require ) {
     eliminateInvalidAttachmentSites: function( biomolecule, potentialAttachmentSites ) {
       var self = this;
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
-        var translationVector = attachmentSite.location.minus( biomolecule.getPosition() );
+        var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
         var transform = Matrix3.translation( translationVector.x, translationVector.y );
         var translatedShape = biomolecule.getShape().transformed( transform );
         var inBounds = biomolecule.motionBounds.inBounds( translatedShape );
@@ -579,7 +579,7 @@ define( function( require ) {
      */
     eliminateOverlappingAttachmentSitesNew: function( biomolecule, potentialAttachmentSites ) {
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
-        var translationVector = attachmentSite.location.minus( biomolecule.getPosition() );
+        var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
         var transform = Matrix3.translation( translationVector.x, translationVector.y );
         var translatedShape = biomolecule.getShape().transformed( transform );
         return biomolecule.motionBoundsProperty.get().inBounds( translatedShape );
@@ -646,14 +646,14 @@ define( function( require ) {
       if ( basePairIndex !== 0 ) {
         potentialSite = this.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex - 1,
           transcriptionFactor.getConfig() );
-        if ( potentialSite.attachedOrAttachingMolecule === null ) {
+        if ( potentialSite.attachedOrAttachingMoleculeProperty.get() === null ) {
           attachmentSites.push( potentialSite );
         }
       }
       if ( basePairIndex !== this.basePairs.length - 1 ) {
         potentialSite = this.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex + 1,
           transcriptionFactor.getConfig() );
-        if ( potentialSite.attachedOrAttachingMolecule === null ) {
+        if ( potentialSite.attachedOrAttachingMoleculeProperty.get() === null ) {
           attachmentSites.push( potentialSite );
         }
       }
@@ -677,13 +677,13 @@ define( function( require ) {
       var potentialSite;
       if ( basePairIndex !== 0 ) {
         potentialSite = this.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex - 1 );
-        if ( potentialSite.attachedOrAttachingMolecule === null ) {
+        if ( potentialSite.attachedOrAttachingMoleculeProperty.get() === null ) {
           attachmentSites.push( potentialSite );
         }
       }
       if ( basePairIndex !== this.basePairs.length - 1 ) {
         potentialSite = this.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex + 1 );
-        if ( potentialSite.attachedOrAttachingMolecule === null ) {
+        if ( potentialSite.attachedOrAttachingMoleculeProperty.get() === null ) {
           attachmentSites.push( potentialSite );
         }
       }

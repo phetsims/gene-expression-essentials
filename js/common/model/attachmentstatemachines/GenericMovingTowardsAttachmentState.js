@@ -32,8 +32,8 @@ define( function( require ) {
 
       // Calculate the location where this biomolecule must be in order
       // to attach to the attachment site.
-      var destination = new Vector2( gsm.attachmentSite.location.x - gsm.destinationOffset.x,
-        gsm.attachmentSite.location.y - gsm.destinationOffset.y );
+      var destination = new Vector2( gsm.attachmentSite.locationProperty.get().x - gsm.destinationOffset.x,
+        gsm.attachmentSite.locationProperty.get().y - gsm.destinationOffset.y );
 
     //   console.log("Bio Molecule Position " + gsm.biomolecule.getPosition()+" destination " + destination + "offset  "+gsm.destinationOffset);
 

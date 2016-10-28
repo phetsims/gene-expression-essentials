@@ -57,7 +57,7 @@ define( function( require ) {
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.attachmentSite !== null ) {
-        this.attachmentSite.attachedOrAttachingMolecule = null;
+        this.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       }
       this.attachmentSite = null;
       this.setState( new WanderingAroundCytoplasmState() );

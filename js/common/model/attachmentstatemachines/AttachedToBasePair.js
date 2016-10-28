@@ -48,7 +48,7 @@ define( function( require ) {
 
   return inherit( AttachmentState, AttachedToBasePair, {
       detachFromDnaMolecule: function( asm ) {
-        asm.attachmentSite.attachedOrAttachingMolecule = null;
+        asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
         asm.attachmentSite = null;
         asm.setState( this.rnaPolymeraseAttachmentStateMachine.unattachedButUnavailableState );
         this.rnaPolymeraseAttachmentStateMachine.biomolecule.setMotionStrategy(
@@ -122,11 +122,11 @@ define( function( require ) {
 
               // Move to an adjacent base pair.  Firs, clear the
               // previous attachment site.
-              attachmentSite.attachedOrAttachingMolecule = null;
+              attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
 
               // Set a new attachment site.
               attachmentSite = attachmentSites[ 0 ];
-              attachmentSite.attachedOrAttachingMolecule = biomolecule;
+              attachmentSite.attachedOrAttachingMoleculeProperty.set( biomolecule );
 
               // Set up the state to move to the new attachment site.
               this.rnaPolymeraseAttachmentStateMachine.setState( this.rnaPolymeraseAttachmentStateMachine.movingTowardsAttachmentState );

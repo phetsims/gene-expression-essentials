@@ -71,7 +71,7 @@ define( function( require ) {
     this.polymeraseAffinityProperty = new Property( 1.0 );
 
     // Initialize the placement hint for polymerase.
-    this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.location );
+    this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.locationProperty.get() );
   }
 
   geneExpressionEssentials.register( 'Gene', Gene );
@@ -227,11 +227,11 @@ define( function( require ) {
       // Count the number of positive transcription factors attached.
       var numPositiveTranscriptionFactorsAttached = 0;
       _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
-        if ( transcriptionFactorAttachmentSite.attachedOrAttachingMolecule !== null ) {
-          var tf = transcriptionFactorAttachmentSite.attachedOrAttachingMolecule;
+        if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() !== null ) {
+          var tf = transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get();
           // there is a very slight difference in the y direction and to mitigate that we add 0.0001 factor
           // empirically determined
-          if ( tf.getPosition().distance( transcriptionFactorAttachmentSite.location ) < 0.001 &&
+          if ( tf.getPosition().distance( transcriptionFactorAttachmentSite.locationProperty.get() ) < 0.001 &&
                tf.isPositive() ) {
             numPositiveTranscriptionFactorsAttached += 1;
           }
@@ -249,8 +249,8 @@ define( function( require ) {
     transcriptionFactorsBlockTranscription: function() {
       for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
         var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
-        if ( transcriptionFactorAttachmentSite.attachedOrAttachingMolecule !== null ) {
-          if ( !(transcriptionFactorAttachmentSite.attachedOrAttachingMolecule ).isPositive() ) {
+        if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() !== null ) {
+          if ( !(transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() ).isPositive() ) {
             return true;
           }
         }
@@ -285,8 +285,8 @@ define( function( require ) {
         var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
         if ( transcriptionFactorAttachmentSite.configurationMatches( tfConfig ) ) {
           // Found matching site.  Is it available and in the right place?
-          if ( transcriptionFactorAttachmentSite.attachedOrAttachingMolecule === null &&
-               Math.abs( transcriptionFactorAttachmentSite.location.x -
+          if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
+               Math.abs( transcriptionFactorAttachmentSite.locationProperty.get().x -
                          this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) ) <
                CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2 ) {
 
@@ -376,7 +376,7 @@ define( function( require ) {
           // hints in order to convey to the user that these are needed
           // for transcription to start.
           _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
-            if ( transcriptionFactorAttachmentSite.attachedOrAttachingMolecule === null &&
+            if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
                  transcriptionFactorAttachmentSite.getTfConfig().isPositive ) {
               self.activateTranscriptionFactorHint( transcriptionFactorAttachmentSite.getTfConfig() );
             }

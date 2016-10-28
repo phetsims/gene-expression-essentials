@@ -69,7 +69,7 @@ define( function( require ) {
     this.recycleReturnZones = [];
 
     // Initialize the attachment site used when transcribing.
-    this.transcribingAttachmentSite.attachedOrAttachingMolecule = rnaPolymerase;
+    this.transcribingAttachmentSite.attachedOrAttachingMoleculeProperty.set( rnaPolymerase );
 
   }
 

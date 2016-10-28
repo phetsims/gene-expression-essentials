@@ -111,7 +111,7 @@ define( function( require ) {
 
         // Free up the initial attachment site by hooking up to a somewhat
         // fictional attachment site instead.
-        attachmentSite.attachedOrAttachingMolecule = null;
+        attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
         transcribingAttachmentSite.attachedOrAttachingMolecule = asm.biomolecule;
         this.rnaPolymeraseAttachmentStateMachine.attachmentSite = transcribingAttachmentSite;
       }
