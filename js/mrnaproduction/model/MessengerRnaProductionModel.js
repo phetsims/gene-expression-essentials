@@ -43,7 +43,7 @@ define( function( require ) {
 
   function MessengerRnaProductionModel() {
     var self = this;
-    this.clockRunning = new Property( true );
+    this.clockRunningProperty = new Property( true );
 
     // DNA strand, which is where the genes reside, where the polymerase does
     // its transcription, and where a lot of the action takes place.
@@ -115,12 +115,12 @@ define( function( require ) {
           return;
         }
 
-        if ( this.clockRunning ) {
+        if ( this.clockRunningProperty.get() ) {
           this.stepInTime( dt );
         }
       },
 
-      stepInTime: function( dt ) { // TODO step or stepInTime
+      stepInTime: function( dt ) {
 
         // Step all the contained biomolecules.
 

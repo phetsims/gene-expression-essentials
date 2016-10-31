@@ -149,15 +149,15 @@ define( function( require ) {
 
 
     // Add play/pause button.
-    var playPauseButton = new PlayPauseButton( model.clockRunning, {
+    var playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
       radius: 23,
       touchAreaDilation: 5
     } );
     this.addChild( playPauseButton );
 
     var stepButton = new StepForwardButton( {
-      playingProperty: model.clockRunning,
-      listener: function() {  },//TODO
+      playingProperty: model.clockRunningProperty,
+      listener: function() { model.stepInTime( 0.016 ) },
       radius: 15,
       touchAreaDilation: 5
     } );
