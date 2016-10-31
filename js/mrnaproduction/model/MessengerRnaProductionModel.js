@@ -63,13 +63,13 @@ define( function( require ) {
     this.messengerRnaList = new ObservableArray();
 
     // Properties that control the quantity of transcription factors.
-    this.positiveTranscriptionFactorCount = new Property( 0 );
-    this.positiveTranscriptionFactorCount.link( function( count ) {
+    this.positiveTranscriptionFactorCountProperty = new Property( 0 );
+    this.positiveTranscriptionFactorCountProperty.link( function( count ) {
       self.setTranscriptionFactorCount( TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS, count );
     } );
 
-    this.negativeTranscriptionFactorCount = new Property( 0 );
-    this.negativeTranscriptionFactorCount.link( function( count ) {
+    this.negativeTranscriptionFactorCountProperty = new Property( 0 );
+    this.negativeTranscriptionFactorCountProperty.link( function( count ) {
       self.setTranscriptionFactorCount( TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG, count );
 
     } );
@@ -275,8 +275,8 @@ define( function( require ) {
       },
 
       reset: function() {
-        this.positiveTranscriptionFactorCount.reset();
-        this.negativeTranscriptionFactorCount.reset();
+        this.positiveTranscriptionFactorCountProperty.reset();
+        this.negativeTranscriptionFactorCountProperty.reset();
         this.mobileBiomoleculeList.clear();
         this.messengerRnaList.clear();
         this.dnaMolecule.reset();

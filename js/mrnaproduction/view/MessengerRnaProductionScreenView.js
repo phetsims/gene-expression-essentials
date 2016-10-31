@@ -143,7 +143,7 @@ define( function( require ) {
       if ( !enabled ) {
         // When the negative transcription factor control is
         // hidden, there should be no negative factors.
-        self.model.negativeTranscriptionFactorCount.reset();
+        self.model.negativeTranscriptionFactorCountProperty.reset();
       }
     } );
 
@@ -167,6 +167,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         self.model.reset();
+        self.negativeTranscriptionFactorEnabled.reset();
       },
       right: this.layoutBounds.maxX - INSET,
       bottom: this.layoutBounds.maxY - INSET

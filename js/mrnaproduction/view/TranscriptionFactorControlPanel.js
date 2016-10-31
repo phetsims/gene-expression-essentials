@@ -52,12 +52,12 @@ define( function( require ) {
     if ( transcriptionFactorConfig.isPositive ) {
       transcriptionFactorConfig = MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG;
       titleText = positiveTranscriptionFactorHtmlString;
-      tfLevelProperty = model.positiveTranscriptionFactorCount;
+      tfLevelProperty = model.positiveTranscriptionFactorCountProperty;
     }
     else {
       transcriptionFactorConfig = MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG;
       titleText = negativeTranscriptionFactorHtmlString;
-      tfLevelProperty = model.negativeTranscriptionFactorCount;
+      tfLevelProperty = model.negativeTranscriptionFactorCountProperty;
     }
 
 
