@@ -157,7 +157,7 @@ define( function( require ) {
 
     var stepButton = new StepForwardButton( {
       playingProperty: model.clockRunningProperty,
-      listener: function() { model.stepInTime( 0.016 ) },
+      listener: function() { model.stepInTime( 0.016 ); },
       radius: 15,
       touchAreaDilation: 5
     } );

@@ -29,7 +29,7 @@ define( function( require ) {
     ShapeChangingModelElement.call( this, biomolecule.getShape() );
 
     // Property that tracks whether or not the hint is should be visible to the user.
-    this.activeProperty = new Property( false )
+    this.activeProperty = new Property( false );
   }
 
   geneExpressionEssentials.register( 'PlacementHint', PlacementHint );
