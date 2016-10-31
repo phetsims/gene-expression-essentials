@@ -57,6 +57,8 @@ define( function( require ) {
 
     // List of mobile biomolecules in the model, excluding mRNA.
     this.mobileBiomoleculeList = new ObservableArray();
+    this.positiveTranscriptionFactorList = [];
+    this.negativeTranscriptionFactorList = [];
 
     // List of mRNA molecules in the sim.  These are kept separate because they
     // are treated a bit differently than the other mobile biomolecules.
@@ -65,13 +67,20 @@ define( function( require ) {
     // Properties that control the quantity of transcription factors.
     this.positiveTranscriptionFactorCountProperty = new Property( 0 );
     this.positiveTranscriptionFactorCountProperty.link( function( count ) {
-      self.setTranscriptionFactorCount( TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS, count );
+      self.setTranscriptionFactorCount(
+        TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS,
+        count,
+        self.positiveTranscriptionFactorList
+      );
     } );
 
     this.negativeTranscriptionFactorCountProperty = new Property( 0 );
     this.negativeTranscriptionFactorCountProperty.link( function( count ) {
-      self.setTranscriptionFactorCount( TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG, count );
-
+      self.setTranscriptionFactorCount(
+        TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG,
+        count,
+        self.negativeTranscriptionFactorList
+      );
     } );
 
 
@@ -251,7 +260,6 @@ define( function( require ) {
         // zero, which it will do since it is fading out.
         messengerRna.existenceStrengthProperty.link( function( existenceStrength ) {
           if ( existenceStrength <= 0 ) {
-
             // It's "gone", so remove it from the model.
             self.messengerRnaList.remove( messengerRna );
             messengerRna.existenceStrengthProperty.unlink( self );
@@ -277,6 +285,8 @@ define( function( require ) {
       reset: function() {
         this.positiveTranscriptionFactorCountProperty.reset();
         this.negativeTranscriptionFactorCountProperty.reset();
+        this.positiveTranscriptionFactorList = [];
+        this.negativeTranscriptionFactorList = [];
         this.mobileBiomoleculeList.clear();
         this.messengerRnaList.clear();
         this.dnaMolecule.reset();
@@ -316,46 +326,26 @@ define( function( require ) {
       /**
        * @param {TranscriptionFactorConfig} tcConfig
        * @param {number} targetCount
+       * @param {Array} transcriptionFactorList
        */
-      setTranscriptionFactorCount: function( tcConfig, targetCount ) {
-        var self = this;
+      setTranscriptionFactorCount: function( tcConfig, targetCount, transcriptionFactorList ) {
 
-        // Count the transcription factors that match this configuration.
-        var currentLevel = 0;
-        self.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
-          if ( mobileBiomolecule instanceof TranscriptionFactor && mobileBiomolecule.getConfig() === tcConfig ) {
-            currentLevel++;
-          }
-        } );
-
-        if ( targetCount > currentLevel ) {
-          // Add some.
-          for ( var i = currentLevel; i < targetCount; i++ ) {
-            var transcriptionFactor = new TranscriptionFactor( self, tcConfig, new Vector2( 0, 0 ) );
-            transcriptionFactor.setPosition3D( self.generateInitialLocation3D( transcriptionFactor ) );
+        if ( transcriptionFactorList.length < targetCount ) {
+          while ( transcriptionFactorList.length < targetCount ) {
+            var transcriptionFactor = new TranscriptionFactor( this, tcConfig, new Vector2( 0, 0 ) );
+            transcriptionFactor.setPosition3D( this.generateInitialLocation3D( transcriptionFactor ) );
             transcriptionFactor.set3DMotionEnabled( true );
-            self.addMobileBiomolecule( transcriptionFactor );
+            this.addMobileBiomolecule( transcriptionFactor );
+            transcriptionFactorList.push( transcriptionFactor );
           }
         }
-        else if ( targetCount < currentLevel ) {
-          // Remove some.
-          self.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
-            if ( mobileBiomolecule instanceof TranscriptionFactor ) {
-              if ( mobileBiomolecule.getConfig() === tcConfig ) { // TODO equal
-                // Remove this one.
-                mobileBiomolecule.forceDetach();
-                self.removeMobileBiomolecule( mobileBiomolecule );
-                currentLevel--;
-                if ( currentLevel === targetCount ) {
-                  return false;
-                }
-              }
-            }
-          } );
-
+        else if ( transcriptionFactorList.length > targetCount ) {
+          while ( transcriptionFactorList.length > targetCount ) {
+            var mobileBiomolecule = transcriptionFactorList.pop();
+            mobileBiomolecule.forceDetach();
+            this.removeMobileBiomolecule( mobileBiomolecule );
+          }
         }
-
-
       }
     },
     {
