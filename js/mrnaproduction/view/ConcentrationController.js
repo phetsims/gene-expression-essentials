@@ -32,8 +32,8 @@ define( function( require ) {
    *
    * @param {TranscriptionFactorConfig} transcriptionFactorConfig
    * @param {Property} tfLevelProperty
-   * @param {Number} min
-   * @param {Number} max
+   * @param {number} min
+   * @param {number} max
    *
    * @constructor
    */

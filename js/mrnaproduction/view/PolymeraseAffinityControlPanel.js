@@ -45,7 +45,7 @@ define( function( require ) {
   /**
    *
    * @param {TranscriptionFactorConfig} tfConfig
-   * @param {Number} minHeight
+   * @param {number} minHeight
    * @param {Property} affinityProperty
    * @constructor
    */

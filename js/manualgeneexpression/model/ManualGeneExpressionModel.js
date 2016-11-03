@@ -149,7 +149,7 @@ define( function( require ) {
     },
 
     /**
-     * @param {String} proteinType
+     * @param {string} proteinType
      * @returns {Property}
      */
     getCollectedCounterForProteinType: function( proteinType ) {
