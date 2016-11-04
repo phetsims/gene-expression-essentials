@@ -16,13 +16,13 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var ProteinLevelChartNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ProteinLevelChartNode' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
-  var XYPlot = require( 'GRIDDLE/XYPlot' );
 
   //strings
   var showRealCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/showRealCells' );
@@ -95,24 +95,7 @@ define( function( require ) {
       addCellView( model.cellList.indexOf( cell ) );
     } );
 
-    var plot = new XYPlot({
-      width: 500,
-      height: 150,
-      minX: 0,
-      maxX: 30,
-      minY: 0,
-      maxY: 14,
-      showVerticalIntermediateLines: false,
-      showXAxisTickMarkLabels: true,
-      showHorizontalIntermediateLines: false,
-      showYAxisTickMarkLabels: false,
-      step: 2,
-      tickLabelFont: new PhetFont( 12 ),
-      lineDash: [ 2, 1 ],
-      showAxis: false
 
-    } );
-    this.addChild( plot );
 
     this.createFluorescentCellsPictureDialog = function() {
       this.fluorescentCellsPictureDialog = new FluorescentCellsPictureDialog(); // @private
@@ -131,8 +114,10 @@ define( function( require ) {
     showRealCellsButton.top = this.layoutBounds.minY + 10;
     this.addChild( showRealCellsButton );
 
-    plot.top = showRealCellsButton.top;
-    plot.left = showRealCellsButton.right + 10;
+    var proteinLevelChartNode = new ProteinLevelChartNode();
+    this.addChild( proteinLevelChartNode );
+    proteinLevelChartNode.top = showRealCellsButton.top;
+    proteinLevelChartNode.left = showRealCellsButton.right + 10;
     // Add play/pause button.
     var playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
       radius: 23,

@@ -5,6 +5,9 @@
   "low": {
     "value": "Low"
   },
+  "lots": {
+    "value": "Lots"
+  },
   "regulatoryRegion": {
     "value": "Regulatory\nRegion"
   },
@@ -64,6 +67,15 @@
   },
   "none": {
     "value": "None"
+  },
+  "averageProteinLevel": {
+    "value": "Average Protein Level"
+  },
+  "averageProteinLevelVsTime": {
+    "value": "Average Protein Level vs. Time"
+  },
+  "time": {
+    "value": "Time (s)"
   },
   "transcribedRegion": {
     "value": "Transcribed\nRegion"

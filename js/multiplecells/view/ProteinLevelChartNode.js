@@ -1,4 +1,121 @@
 // Copyright 2015, University of Colorado Boulder
+
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ColorChangingCellNode' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Panel = require( 'SUN/Panel' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var XYPlot = require( 'GRIDDLE/XYPlot' );
+
+  // constants
+  var PLOT_WIDTH = 400;
+  var PLOT_HEIGHT = 120;
+  var COLOR_KEY_WIDTH = 20;
+
+  // strings
+  var lotsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/lots' );
+  var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
+  var averageProteinLevelString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevel' );
+  var averageProteinLevelVsTimeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevelVsTime' );
+  var timeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/time' );
+
+  function ProteinLevelChartNode() {
+
+    var contentNode = new Node();
+    var plot = new XYPlot({
+      width: PLOT_WIDTH,
+      height: PLOT_HEIGHT,
+      minX: 0,
+      maxX: 30,
+      minY: 0,
+      maxY: 14,
+      showVerticalIntermediateLines: false,
+      showXAxisTickMarkLabels: true,
+      showHorizontalIntermediateLines: false,
+      showYAxisTickMarkLabels: false,
+      step: 2,
+      tickLabelFont: new PhetFont( 12 ),
+      lineDash: [ 2, 1 ],
+      showAxis: false
+
+    } );
+
+    contentNode.addChild( plot );
+
+    // graph title
+    var titleNode = new Text( averageProteinLevelVsTimeString, {
+      font: new PhetFont( { size: 16, weight: 'bold' } )
+    } );
+
+    contentNode.addChild( titleNode );
+    titleNode.centerX = plot.centerX;
+    titleNode.bottom = plot.top - 10;
+
+    // x axis label
+    var xLabel = new Text( timeString, {
+      font: new PhetFont( { size: 12 } )
+    } );
+
+    contentNode.addChild( xLabel );
+    xLabel.centerX = plot.centerX;
+    xLabel.top = plot.bottom + 10;
+    // y axis label
+    var proteinLevelColorKey = new Rectangle( plot.left, plot.top, COLOR_KEY_WIDTH, PLOT_HEIGHT, {
+      fill: new LinearGradient( plot.left, plot.top, plot.left + COLOR_KEY_WIDTH, plot.top + PLOT_HEIGHT )
+        .addColorStop( 0, ColorChangingCellNode.FlorescentFillColor )
+        .addColorStop( 1, ColorChangingCellNode.NominalFillColor ),
+      stroke: '#000',
+      lineWidth: 1
+    } );
+    contentNode.addChild( proteinLevelColorKey );
+
+    proteinLevelColorKey.top = plot.top;
+    proteinLevelColorKey.right = plot.left - 5;
+
+    var lotsNode = new Text( lotsString, {
+      font: new PhetFont( 12 )
+    } );
+    contentNode.addChild( lotsNode );
+    lotsNode.centerY = proteinLevelColorKey.top;
+    lotsNode.right = proteinLevelColorKey.left - 5;
+
+    var noneNode = new Text( noneString, {
+      font: new PhetFont( 12 )
+    } );
+    contentNode.addChild( noneNode );
+    noneNode.centerY = proteinLevelColorKey.bottom;
+    noneNode.right = proteinLevelColorKey.left - 5;
+
+    var yLabelNode = new Text( averageProteinLevelString, {
+      font: new PhetFont( 13 )
+    } );
+    yLabelNode.setRotation( 3 * Math.PI / 2 );
+
+    yLabelNode.centerY = proteinLevelColorKey.centerY;
+    yLabelNode.right = contentNode.left - 5;
+
+    contentNode.addChild( yLabelNode );
+    Panel.call( this, contentNode, {
+      fill: 'gray',
+      xMargin: 10,
+      yMargin: 10
+
+    } );
+  }
+
+  geneExpressionEssentials.register( 'ProteinLevelChartNode', ProteinLevelChartNode );
+  return inherit( Panel, ProteinLevelChartNode, {
+    //TODO prototypes
+  } );
+} );
 //package edu.colorado.phet.geneexpressionbasics.multiplecells.view;
 //
 //import java.awt.BasicStroke;

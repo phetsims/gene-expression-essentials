@@ -48,7 +48,10 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'ColorChangingCellNode', ColorChangingCellNode );
 
-  return inherit( Node, ColorChangingCellNode, {} );
+  return inherit( Node, ColorChangingCellNode, {}, {
+    NominalFillColor: NOMINAL_FILL_COLOR,
+    FlorescentFillColor: FLORESCENT_FILL_COLOR
+  } );
 
 
 } );
