@@ -10,15 +10,18 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var XYDataSeries = require( 'GRIDDLE/XYDataSeries' );
   var XYPlot = require( 'GRIDDLE/XYPlot' );
 
   // constants
   var PLOT_WIDTH = 400;
   var PLOT_HEIGHT = 120;
   var COLOR_KEY_WIDTH = 20;
+  var TIME_SPAN = 30;
 
   // strings
   var lotsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/lots' );
@@ -27,26 +30,37 @@ define( function( require ) {
   var averageProteinLevelVsTimeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevelVsTime' );
   var timeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/time' );
 
-  function ProteinLevelChartNode() {
+  function ProteinLevelChartNode( averageProteinLevelProperty ) {
 
     var contentNode = new Node();
+    this.simRunningTime = 0;
+    this.timeOffset = 0;
+    this.averageProteinLevelProperty = averageProteinLevelProperty;
     var plot = new XYPlot({
       width: PLOT_WIDTH,
       height: PLOT_HEIGHT,
       minX: 0,
       maxX: 30,
       minY: 0,
-      maxY: 14,
+      maxY: 170,
       showVerticalIntermediateLines: false,
       showXAxisTickMarkLabels: true,
       showHorizontalIntermediateLines: false,
       showYAxisTickMarkLabels: false,
-      step: 2,
+      stepX: 2,
+      stepY: 25,
       tickLabelFont: new PhetFont( 12 ),
       lineDash: [ 2, 1 ],
       showAxis: false
-
     } );
+
+    this.dataSeries = new XYDataSeries( {
+      color: PhetColorScheme.RED_COLORBLIND,
+      stroke: PhetColorScheme.RED_COLORBLIND,
+      lineWidth: 2
+    } );
+
+    plot.addSeries( this.dataSeries, true );
 
     contentNode.addChild( plot );
 
@@ -113,7 +127,21 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'ProteinLevelChartNode', ProteinLevelChartNode );
   return inherit( Panel, ProteinLevelChartNode, {
-    //TODO prototypes
+    addDataPoint: function( dt ) {
+      this.simRunningTime = this.simRunningTime + dt;
+      if ( this.simRunningTime - this.timeOffset > TIME_SPAN ) {
+        // If the end of the chart has been reached, clear it.
+        this.dataSeries.clear();
+      }
+      if ( this.dataSeries.getLength() === 0 ) {
+        // This is the first data added after the most recent
+        // clear, so record the time offset.
+        this.timeOffset = this.simRunningTime;
+      }
+      // Add the data to the chart.
+      this.dataSeries.addPoint( this.simRunningTime - this.timeOffset, this.averageProteinLevelProperty.get() );
+
+    }
   } );
 } );
 //package edu.colorado.phet.geneexpressionbasics.multiplecells.view;

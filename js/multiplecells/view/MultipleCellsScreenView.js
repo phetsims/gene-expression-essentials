@@ -114,10 +114,10 @@ define( function( require ) {
     showRealCellsButton.top = this.layoutBounds.minY + 10;
     this.addChild( showRealCellsButton );
 
-    var proteinLevelChartNode = new ProteinLevelChartNode();
-    this.addChild( proteinLevelChartNode );
-    proteinLevelChartNode.top = showRealCellsButton.top;
-    proteinLevelChartNode.left = showRealCellsButton.right + 10;
+    this.proteinLevelChartNode = new ProteinLevelChartNode( model.averageProteinLevelProperty );
+    this.addChild( this.proteinLevelChartNode );
+    this.proteinLevelChartNode.top = showRealCellsButton.top;
+    this.proteinLevelChartNode.left = showRealCellsButton.right + 10;
     // Add play/pause button.
     var playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
       radius: 23,
@@ -261,6 +261,7 @@ define( function( require ) {
       if( !this.fluorescentCellsPictureDialog ) {
         this.createFluorescentCellsPictureDialog();
       }
+      this.proteinLevelChartNode.addDataPoint( dt );
     }
   } );
 } );
