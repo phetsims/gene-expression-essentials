@@ -26,7 +26,7 @@ define( function( require ) {
 
     options = _.extend( {
       logScale: false,
-      trackSize: new Dimension2( 80, 5 )
+      trackSize: new Dimension2( 100, 5 )
     }, options );
 
     var range;
@@ -85,8 +85,5 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'ControllerNode', ControllerNode );
   return inherit( Node, ControllerNode, {
-    /*dispose: function() {
-      this.controlIsotopeDispose();
-    }*/
   } );
 } );

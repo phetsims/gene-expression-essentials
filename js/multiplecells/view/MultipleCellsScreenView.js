@@ -6,6 +6,7 @@ define( function( require ) {
   var CellProteinSynthesisSimulator = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/model/CellProteinSynthesisSimulator' );
   var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ControllerNode' );
   var ControlPanelNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ControlPanelNode' );
+  var Color = require( 'SCENERY/util/Color' );
   var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ColorChangingCellNode' );
   var FluorescentCellsPictureDialog = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/FluorescentCellsPictureDialog' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -43,18 +44,96 @@ define( function( require ) {
   function MultipleCellsScreenView( model ) {
     ScreenView.call( this );
     var self = this;
+    this.model = model;
     // Set up the model-canvas transform.
-    // IMPORTANT NOTES: The multiplier factors for the 2nd point can be
-    // adjusted to shift the center right or left, and the scale factor
-    // can be adjusted to zoom in or out (smaller numbers zoom out, larger
-    // ones zoom in).
+    // IMPORTANT NOTES: The multiplier factors for the 2nd point can be adjusted to shift the center right or left, and
+    // the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom in).
+
     this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( this.layoutBounds.width * 0.455, self.layoutBounds.height * 0.56 ),
       1E8 ); // "Zoom factor" - smaller zooms out, larger zooms in.
 
+    this.createFluorescentCellsPictureDialog = function() {
+      this.fluorescentCellsPictureDialog = new FluorescentCellsPictureDialog(); // @private
+    };
+
+    var buttonContent = new Text( showRealCellsString, { font: new PhetFont( 18 ) } );
+    var showRealCellsButton = new RectangularPushButton( {
+      content: buttonContent,
+      touchAreaXDilation: 7,
+      touchAreaYDilation: 7,
+      baseColor: 'yellow',
+      listener: function() {
+        self.fluorescentCellsPictureDialog.show();
+      }
+    } );
+
+    showRealCellsButton.left = this.layoutBounds.minX + 10;
+    showRealCellsButton.top = this.layoutBounds.minY + 10;
+    this.addChild( showRealCellsButton );
+
+    this.proteinLevelChartNode = new ProteinLevelChartNode( model.averageProteinLevelProperty );
+    this.addChild( this.proteinLevelChartNode );
+    this.proteinLevelChartNode.top = showRealCellsButton.top;
+    this.proteinLevelChartNode.left = showRealCellsButton.right + 10;
+
+    // Add the Reset All button.
+    var resetAllButton = new ResetAllButton( {
+      listener: function() {
+        model.reset();
+        concentrationControlPanel.expandedProperty.reset();
+        affinityControlPanel.expandedProperty.reset();
+        degradationControlPanel.expandedProperty.reset();
+        self.proteinLevelChartNode.reset();
+      },
+      right: this.layoutBounds.maxX - 10,
+      bottom: this.layoutBounds.maxY - 10
+    } );
+    this.addChild( resetAllButton );
+
+    // Add play/pause button.
+    var playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
+      radius: 23,
+      touchAreaDilation: 5
+    } );
+    this.addChild( playPauseButton );
+
+    var stepButton = new StepForwardButton( {
+      playingProperty: model.clockRunningProperty,
+      listener: function() {
+        model.stepInTime( 0.016 );
+        self.proteinLevelChartNode.addDataPoint( 0.016 );
+      },
+      radius: 15,
+      touchAreaDilation: 5
+    } );
+    this.addChild( stepButton );
+
+    playPauseButton.bottom = resetAllButton.bottom;
+    stepButton.centerY = playPauseButton.centerY;
+
     var cellLayer = new Node();
     this.addChild( cellLayer );
+
+    var cellNumberController = new ControllerNode(
+      model.numberOfVisibleCellsProperty,
+      1,
+      MultipleCellsModel.MaxCells,
+      oneString,
+      manyString
+    );
+
+    var cellNumberControllerPanel = new Panel( cellNumberController, {
+      cornerRadius: 5,
+      xMargin: 10,
+      yMargin: 10,
+      fill: new Color( 220, 236, 255 )
+    } );
+
+    this.addChild( cellNumberControllerPanel );
+    cellNumberControllerPanel.bottom = resetAllButton.bottom;
+    cellNumberControllerPanel.centerX = self.layoutBounds.width / 2 ;
 
     var cellNodes = [];
 
@@ -74,19 +153,21 @@ define( function( require ) {
           cellLayer.setScaleMagnitude( 1 );
           var scaleFactor = Math.min( ( self.layoutBounds.width * 0.3 ) / cellLayer.width , 1 );
           cellLayer.setScaleMagnitude( scaleFactor );
-          cellLayer.centerX = self.layoutBounds.width / 2;
-          cellLayer.centerY = self.layoutBounds.height / 2;
+          cellLayer.centerX = self.layoutBounds.width / 2 ;
+          cellLayer.centerY = self.proteinLevelChartNode.bottom +
+                          ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / 2;
         }
       } );
       cellLayer.setScaleMagnitude( 1 );
       var scaleFactor = Math.min( ( self.layoutBounds.width * 0.3 ) / cellLayer.width , 1 );
       cellLayer.setScaleMagnitude( scaleFactor );
       cellLayer.centerX = self.layoutBounds.width / 2;
-      cellLayer.centerY = self.layoutBounds.height / 2;
+      //cellLayer.top = self.proteinLevelChartNode.bottom + 10;
+      cellLayer.centerY =  self.proteinLevelChartNode.bottom +
+                           ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / 2;
     }
 
-    // Set up an observer of the list of cells in the model so that the
-    // view representations can come and go as needed.
+    // Set up an observer of the list of cells in the model so that the view representations can come and go as needed.
     model.visibleCellList.addItemAddedListener( function( addedCell ) {
       addCellView( model.cellList.indexOf( addedCell ) );
     } );
@@ -94,69 +175,6 @@ define( function( require ) {
     model.visibleCellList.forEach( function( cell ) {
       addCellView( model.cellList.indexOf( cell ) );
     } );
-
-
-
-    this.createFluorescentCellsPictureDialog = function() {
-      this.fluorescentCellsPictureDialog = new FluorescentCellsPictureDialog(); // @private
-    };
-
-    var buttonContent = new Text( showRealCellsString, { font: new PhetFont( 18 ) } );
-    var showRealCellsButton = new RectangularPushButton( {
-      content: buttonContent,
-      touchAreaXDilation: 7,
-      touchAreaYDilation: 7,
-      listener: function() {
-        self.fluorescentCellsPictureDialog.show();
-      }
-    } );
-    showRealCellsButton.left = this.layoutBounds.minX + 10;
-    showRealCellsButton.top = this.layoutBounds.minY + 10;
-    this.addChild( showRealCellsButton );
-
-    this.proteinLevelChartNode = new ProteinLevelChartNode( model.averageProteinLevelProperty );
-    this.addChild( this.proteinLevelChartNode );
-    this.proteinLevelChartNode.top = showRealCellsButton.top;
-    this.proteinLevelChartNode.left = showRealCellsButton.right + 10;
-    // Add play/pause button.
-    var playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
-      radius: 23,
-      touchAreaDilation: 5
-    } );
-    this.addChild( playPauseButton );
-
-    var stepButton = new StepForwardButton( {
-      playingProperty: model.clockRunningProperty,
-      listener: function() {  },//TODO
-      radius: 15,
-      touchAreaDilation: 5
-    } );
-    this.addChild( stepButton );
-
-    // Add the Reset All button.
-    var resetAllButton = new ResetAllButton( {
-      listener: function() {
-        model.reset();
-        concentrationControlPanel.expandedProperty.reset();
-        affinityControlPanel.expandedProperty.reset();
-        degradationControlPanel.expandedProperty.reset();
-      },
-      right: this.layoutBounds.maxX - 10,
-      bottom: this.layoutBounds.maxY - 10
-    } );
-    this.addChild( resetAllButton );
-
-    playPauseButton.bottom = resetAllButton.bottom;
-    stepButton.centerY = playPauseButton.centerY;
-    //TODO X Position of these buttons
-
-    var cellNumberController = new ControllerNode(
-      model.numberOfVisibleCellsProperty,
-      1,
-      MultipleCellsModel.MaxCells,
-      oneString,
-      manyString
-    );
 
     var concentrationControllers = [
       {
@@ -240,12 +258,10 @@ define( function( require ) {
     degradationControlPanel.right = affinityControlPanel.right;
     degradationControlPanel.top = affinityControlPanel.bottom + 10;
 
-    var cellNumberControllerPanel = new Panel( cellNumberController );
-    this.addChild( cellNumberControllerPanel );
-    cellNumberControllerPanel.bottom = resetAllButton.bottom;
-    cellNumberControllerPanel.centerX = cellLayer.centerX;
-
-
+    playPauseButton.bottom = resetAllButton.bottom;
+    stepButton.centerY = playPauseButton.centerY;
+    stepButton.right = degradationControlPanel.left - 20;
+    playPauseButton.right = stepButton.left - 10;
   }
 
   geneExpressionEssentials.register( 'MultipleCellsScreenView', MultipleCellsScreenView );
@@ -264,7 +280,10 @@ define( function( require ) {
       if( !this.fluorescentCellsPictureDialog ) {
         this.createFluorescentCellsPictureDialog();
       }
-      this.proteinLevelChartNode.addDataPoint( dt );
+
+      if ( this.model.clockRunningProperty.get() ){
+        this.proteinLevelChartNode.addDataPoint( dt );
+      }
     }
   } );
 } );

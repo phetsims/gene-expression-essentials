@@ -138,6 +138,17 @@ define( function( require ) {
   return inherit( Object, MultipleCellsModel, {
 
     step: function( dt ) {
+
+      if ( dt > 0.2 ) {
+        return;
+      }
+
+      if ( this.clockRunningProperty.get() ) {
+        this.stepInTime( dt );
+      }
+    },
+
+    stepInTime: function( dt ) {
       // Step each of the cells.
       // Update the average protein level. Note that only the visible cells are used for this calculation. This helps
       // convey the concept that the more cells there are, the more even the average level is.
