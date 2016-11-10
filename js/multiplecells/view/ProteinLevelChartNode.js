@@ -118,7 +118,7 @@ define( function( require ) {
 
     contentNode.addChild( yLabelNode );
     Panel.call( this, contentNode, {
-      fill: 'gray',
+      fill: 'lightgrey',
       xMargin: 10,
       yMargin: 10
 
