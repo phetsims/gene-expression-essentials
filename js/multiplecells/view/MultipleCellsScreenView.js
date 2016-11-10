@@ -137,6 +137,9 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
+        concentrationControlPanel.expandedProperty.reset();
+        affinityControlPanel.expandedProperty.reset();
+        degradationControlPanel.expandedProperty.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10

@@ -8,6 +8,7 @@ define( function( require ) {
   var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/view/ControllerNode' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -18,7 +19,11 @@ define( function( require ) {
 
     for( var i = 0; i < controllers.length; i++ ){
       var controller = controllers[ i ];
-      var label = new Text( controller.label );
+      var label = new Text( controller.label, {
+        font: new PhetFont( {
+          size: 13
+        } )
+      } );
       var controllerNode = new ControllerNode(
         controller.controlProperty,
         controller.minValue,
@@ -44,17 +49,22 @@ define( function( require ) {
     } );
 
 
-    this.expandedProperty = new Property( true );
+    this.expandedProperty = new Property( false );
     AccordionBox.call( this, contentNode, {
-      titleNode: new Text( title ),
+      titleNode: new Text( title, {
+        font: new PhetFont( { size: 16, weight: 'bold' })
+      } ),
       titleAlignX: 'left',
       contentAlign: 'center',
       fill: new Color( 220, 236, 255 ),
-      //contentXMargin: 8,
-      //contentYMargin: 4,
+      buttonXMargin: 10,
+      buttonYMargin: 10,
+      //contentXMargin: 10,
+      contentYMargin: 10,
       expandedProperty: this.expandedProperty,
       buttonTouchAreaXDilation: 5,
-      buttonTouchAreaYDilation: 5
+      buttonTouchAreaYDilation: 5,
+      minWidth: 200
     } );
   }
 
