@@ -44,7 +44,7 @@ define( function( require ) {
     stepInTime: function( dt ){
       // NOTE: Multiplying time step, because it was necessary to get the model to run at the needed rate.
       this.proteinSynthesisSimulator.stepInTime( dt * 1000 );//TODO Check why 1000
-      this.proteinCount.set(this. proteinSynthesisSimulator.getProteinCount() );
+      this.proteinCount.set(this.proteinSynthesisSimulator.getProteinCount() );
     },
 
     // Static function for creating the shape of the cell.

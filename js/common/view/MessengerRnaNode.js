@@ -51,7 +51,7 @@ define( function( require ) {
     } );
 
     // Update the label position as the shape changes.
-    messengerRna.shapeProperty.link( function( shape ) {
+    messengerRna.shapeProperty.lazyLink( function( shape ) {
       var shapeBounds = shape.bounds;
       var upperRightCornerPos = mvt.modelToViewPosition( new Vector2( shapeBounds.maxX, shapeBounds.maxY ) );
       label.x = upperRightCornerPos.x;
