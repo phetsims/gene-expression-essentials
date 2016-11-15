@@ -44,6 +44,9 @@
   "slow": {
     "value": "slow"
   },
+  "cells": {
+    "value": "Cells"
+  },
   "yourProteinCollection": {
     "value": "Your Protein\nCollection"
   },

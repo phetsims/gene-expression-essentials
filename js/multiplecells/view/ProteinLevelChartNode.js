@@ -66,7 +66,8 @@ define( function( require ) {
 
     // graph title
     var titleNode = new Text( averageProteinLevelVsTimeString, {
-      font: new PhetFont( { size: 16, weight: 'bold' } )
+      font: new PhetFont( { size: 16, weight: 'bold' } ),
+      maxWidth: PLOT_WIDTH
     } );
 
     contentNode.addChild( titleNode );
@@ -75,7 +76,8 @@ define( function( require ) {
 
     // x axis label
     var xLabel = new Text( timeString, {
-      font: new PhetFont( { size: 12 } )
+      font: new PhetFont( { size: 12 } ),
+      maxWidth: PLOT_WIDTH
     } );
 
     contentNode.addChild( xLabel );
@@ -95,21 +97,24 @@ define( function( require ) {
     proteinLevelColorKey.right = plot.left - 5;
 
     var lotsNode = new Text( lotsString, {
-      font: new PhetFont( 12 )
+      font: new PhetFont( 12 ),
+      maxWidth: 50
     } );
     contentNode.addChild( lotsNode );
     lotsNode.centerY = proteinLevelColorKey.top;
     lotsNode.right = proteinLevelColorKey.left - 5;
 
     var noneNode = new Text( noneString, {
-      font: new PhetFont( 12 )
+      font: new PhetFont( 12 ),
+      maxWidth: 50
     } );
     contentNode.addChild( noneNode );
     noneNode.centerY = proteinLevelColorKey.bottom;
     noneNode.right = proteinLevelColorKey.left - 5;
 
     var yLabelNode = new Text( averageProteinLevelString, {
-      font: new PhetFont( 13 )
+      font: new PhetFont( 13 ),
+      maxWidth: PLOT_HEIGHT + 10
     } );
     yLabelNode.setRotation( 3 * Math.PI / 2 );
 

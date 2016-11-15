@@ -40,6 +40,7 @@ define( function( require ) {
   var polymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/polymerase' );
   var concentrationsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentrations' );
   var affinitiesString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinities' );
+  var cellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/cells' );
 
   function MultipleCellsScreenView( model ) {
     ScreenView.call( this );
@@ -58,7 +59,10 @@ define( function( require ) {
       this.fluorescentCellsPictureDialog = new FluorescentCellsPictureDialog(); // @private
     };
 
-    var buttonContent = new Text( showRealCellsString, { font: new PhetFont( 18 ) } );
+    var buttonContent = new Text( showRealCellsString, {
+      font: new PhetFont( 18 ),
+      maxWidth: 140
+    } );
     var showRealCellsButton = new RectangularPushButton( {
       content: buttonContent,
       touchAreaXDilation: 7,
@@ -124,7 +128,19 @@ define( function( require ) {
       manyString
     );
 
-    var cellNumberControllerPanel = new Panel( cellNumberController, {
+    var cellNumberControllerNode = new Node();
+    cellNumberControllerNode.addChild( cellNumberController );
+
+    var cellNumberLabel = new Text( cellsString, {
+      font: new PhetFont( { size: 15, weight: "bold" } ),
+      maxWidth: 100
+    } );
+
+    cellNumberControllerNode.addChild( cellNumberLabel );
+    cellNumberLabel.centerX = cellNumberController.centerX;
+    cellNumberLabel.bottom = cellNumberController.top - 5;
+
+    var cellNumberControllerPanel = new Panel( cellNumberControllerNode, {
       cornerRadius: 5,
       xMargin: 10,
       yMargin: 10,
