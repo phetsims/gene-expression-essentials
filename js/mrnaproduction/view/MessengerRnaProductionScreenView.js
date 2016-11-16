@@ -189,7 +189,7 @@ define( function( require ) {
     negativeFactorEnabledCheckBox.centerY = resetAllButton.centerY;
 
     playPauseButton.bottom = negativeFactorEnabledCheckBox.top - 2 * INSET;
-    playPauseButton.centerX = negativeFactorEnabledCheckBox.centerX - INSET;
+    playPauseButton.centerX = negativeFactorEnabledCheckBox.centerX;
 
     stepButton.centerY = playPauseButton.centerY;
     stepButton.left = playPauseButton.right + INSET;
