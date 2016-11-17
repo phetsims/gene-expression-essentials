@@ -132,7 +132,7 @@ define( function( require ) {
     cellNumberControllerNode.addChild( cellNumberController );
 
     var cellNumberLabel = new Text( cellsString, {
-      font: new PhetFont( { size: 15, weight: "bold" } ),
+      font: new PhetFont( { size: 15, weight: 'bold' } ),
       maxWidth: 100
     } );
 
