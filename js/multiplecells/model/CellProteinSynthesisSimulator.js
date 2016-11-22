@@ -1,252 +1,274 @@
 // Copyright 2015, University of Colorado Boulder
-//package edu.colorado.phet.geneexpressionbasics.multiplecells.model;
-//
-//import java.util.Random;
-//
-//import edu.colorado.phet.common.phetcommon.util.DoubleRange;
-//import edu.colorado.phet.common.phetcommon.util.IntegerRange;
-//
-///**
-// * This class defines a synthetic cell.  The central dogma is simulated as a
-// * Markov process for a single protein.
-// * <p/>
-// * Transcription  Translation
-// * DNA   ->    RNA       ->    Protein
-// * <p/>
-// * Simulated using the algorithm from Gillespie, 1977
-// *
-// * @Author George A. Emanuel
-// */
-//
-//public class CellProteinSynthesisSimulator {
-//
-//    public static final int DEFAULT_TRANSCRIPTION_FACTOR_COUNT = 2000;
-//    public static final IntegerRange TRANSCRIPTION_FACTOR_COUNT_RANGE = new IntegerRange( DEFAULT_TRANSCRIPTION_FACTOR_COUNT / 10, DEFAULT_TRANSCRIPTION_FACTOR_COUNT * 10 );
-//    public static final double DEFAULT_TF_ASSOCIATION_PROBABILITY = 2.5E-6;
-//    public static final DoubleRange TF_ASSOCIATION_PROBABILITY_RANGE = new DoubleRange( DEFAULT_TF_ASSOCIATION_PROBABILITY / 10, DEFAULT_TF_ASSOCIATION_PROBABILITY * 10 );
-//    public static final double DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY = 9.5E-7;
-//    public static final DoubleRange POLYMERASE_ASSOCIATION_PROBABILITY_RANGE = new DoubleRange( 0.0, 2 * DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY );
-//    public static final double DEFAULT_PROTEIN_DEGRADATION_RATE = 0.0004f;
-//    public static final DoubleRange PROTEIN_DEGRADATION_RANGE = new DoubleRange( DEFAULT_PROTEIN_DEGRADATION_RATE * 0.7, DEFAULT_PROTEIN_DEGRADATION_RATE * 1.3 );
-//    public static final double DEFAULT_MRNA_DEGRADATION_RATE = 0.01;
-//    public static final DoubleRange MRNA_DEGRADATION_RATE_RANGE = new DoubleRange( DEFAULT_MRNA_DEGRADATION_RATE / 1000, DEFAULT_MRNA_DEGRADATION_RATE * 1000 );
-//
-//    private final Random _random = new Random();
-//
-//    private final int[] _objectCounts = {
-//            20, //gene count
-//            DEFAULT_TRANSCRIPTION_FACTOR_COUNT, //free transcription factor count
-//            5000, //polymerase count
-//            0, //gene, transcription factor complex count
-//            0, //gene, TF, polymerase count
-//            0, //mRNA count
-//            2000, //ribosome count
-//            0, //mRNA, ribosome complex count
-//            0 //protein count
-//    };
-//
-//    private final double[] _reactionProbabilities = {
-//            DEFAULT_TF_ASSOCIATION_PROBABILITY, //gene, TF association
-//            0.0009f, //gene-TF degradation
-//            DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY, //gene-TF-polymerase association
-//            0.00085f, //gene-TF-polymerase degradation
-//            0.003f, //transcription
-//            0.001f, //mRNA-ribosome association
-//            0.0009f, //mRNA-ribosome degradation
-//            0.0009f, //translation
-//            DEFAULT_PROTEIN_DEGRADATION_RATE, //protein degradation
-//            DEFAULT_MRNA_DEGRADATION_RATE //mRNA degradation
-//    };
-//
-//    public CellProteinSynthesisSimulator( int ribosomeCount ) {
-//        _objectCounts[6] = ribosomeCount;
-//    }
-//
-//    /**
-//     * Sets the number of transcription factors
-//     *
-//     * @param tfCount number of transcription factors
-//     */
-//    public void setTranscriptionFactorCount( int tfCount ) {
-//        // Parameter checking.
-//        assert TRANSCRIPTION_FACTOR_COUNT_RANGE.contains( tfCount );
-//        _objectCounts[1] = tfCount;
-//    }
-//
-//    /**
-//     * Sets the number of polymerases
-//     *
-//     * @param polymeraseCount number of polymerases
-//     */
-//    public void setPolymeraseCount( int polymeraseCount ) {
-//        _objectCounts[2] = polymeraseCount;
-//    }
-//
-//    /**
-//     * Sets the rate that transcription factors associate with genes
-//     *
-//     * @param newRate
-//     */
-//    public void setGeneTranscriptionFactorAssociationRate( double newRate ) {
-//        assert TF_ASSOCIATION_PROBABILITY_RANGE.contains( newRate );
-//        _reactionProbabilities[0] = newRate;
-//    }
-//
-//    /**
-//     * Sets the rate constant for the polymerase to bind to the gene
-//     *
-//     * @param newRate the rate for polymerase binding
-//     */
-//    public void setPolymeraseAssociationRate( double newRate ) {
-//        assert POLYMERASE_ASSOCIATION_PROBABILITY_RANGE.contains( newRate );
-//        _reactionProbabilities[2] = newRate;
-//    }
-//
-//    /**
-//     * Sets the rate constant for RNA/ribosome association
-//     *
-//     * @param newRate the rate at which RNA binds to a ribosome
-//     */
-//    public void setRNARibosomeAssociationRate( double newRate ) {
-//        _reactionProbabilities[5] = newRate;
-//    }
-//
-//    public void setProteinDegradationRate( double proteinDegradationRate ) {
-//        assert PROTEIN_DEGRADATION_RANGE.contains( proteinDegradationRate );
-//        _reactionProbabilities[8] = proteinDegradationRate;
-//    }
-//
-//    public void setMrnaDegradationRate( double mrnaDegradationRate ) {
-//        assert MRNA_DEGRADATION_RATE_RANGE.contains( mrnaDegradationRate );
-//        _reactionProbabilities[9] = mrnaDegradationRate;
-//    }
-//
-//    /**
-//     * Moves forward one time step of specified length
-//     *
-//     * @param dt the length of this step through time
-//     */
-//    public void stepInTime( double dt ) {
-//        double accumulatedTime = 0.0;
-//        double timeIncrement = -1.0;
-//        while ( accumulatedTime < dt && timeIncrement != 0.0 ) {
-//            timeIncrement = simulateOneReaction( dt - accumulatedTime );
-//            accumulatedTime += timeIncrement;
-//        }
-//    }
-//
-//    /**
-//     * Simulates one reaction if the wait time before that reaction occurs is less than
-//     * maxTime
-//     *
-//     * @param maxTime the maximum of time to wait for this reaction to occur
-//     * @return the amount of time evolved in the system
-//     */
-//    double simulateOneReaction( double maxTime ) {
-//        double[] a = calculateA();
-//        double a0 = sum( a );
-//
-//        double r1 = _random.nextDouble();
-//        double r2 = _random.nextDouble();
-//        double tau = ( 1 / a0 ) * Math.log( 1 / r1 );
-//        if ( tau > maxTime ) { return 0.0; }
-//
-//        int mu = 0;
-//        double sumSoFar = a[0];
-//        while ( sumSoFar < r2 * a0 ) {
-//            mu++;
-//            sumSoFar += a[mu];
-//        }
-//        conductReaction( mu );
-//        return tau;
-//    }
-//
-//    private double sum( double[] toSum ) {
-//        double sum = 0.0;
-//        for ( double aToSum : toSum ) {
-//            sum += aToSum;
-//        }
-//        return sum;
-//    }
-//
-//    private double[] calculateA() {
-//        double[] h = new double[_reactionProbabilities.length];
-//
-//        h[0] = _objectCounts[0] * _objectCounts[1];
-//        h[1] = _objectCounts[3];
-//        h[2] = _objectCounts[2] * _objectCounts[3];
-//        h[3] = _objectCounts[4];
-//        h[4] = _objectCounts[4];
-//        h[5] = _objectCounts[5] * _objectCounts[6];
-//        h[6] = _objectCounts[7];
-//        h[7] = _objectCounts[7];
-//        h[8] = _objectCounts[8];
-//        h[9] = _objectCounts[5];
-//
-//        for ( int i = 0; i < h.length; i++ ) {
-//            h[i] *= _reactionProbabilities[i];
-//        }
-//        return h;
-//    }
-//
-//    private void conductReaction( int mu ) {
-//        switch( mu ) {
-//            case 0:
-//                _objectCounts[0]--;
-//                _objectCounts[1]--;
-//                _objectCounts[3]++;
-//                break;
-//            case 1:
-//                _objectCounts[0]++;
-//                _objectCounts[1]++;
-//                _objectCounts[3]--;
-//                break;
-//            case 2:
-//                _objectCounts[3]--;
-//                _objectCounts[2]--;
-//                _objectCounts[4]++;
-//                break;
-//            case 3:
-//                _objectCounts[3]++;
-//                _objectCounts[2]++;
-//                _objectCounts[4]--;
-//                break;
-//            case 4:
-//                _objectCounts[0]++;
-//                _objectCounts[1]++;
-//                _objectCounts[2]++;
-//                _objectCounts[4]--;
-//                _objectCounts[5]++;
-//                break;
-//            case 5:
-//                _objectCounts[5]--;
-//                _objectCounts[6]--;
-//                _objectCounts[7]++;
-//                break;
-//            case 6:
-//                _objectCounts[5]++;
-//                _objectCounts[6]++;
-//                _objectCounts[7]--;
-//                break;
-//            case 7:
-//                _objectCounts[6]++;
-//                _objectCounts[7]--;
-//                _objectCounts[8]++;
-//                break;
-//            case 8:
-//                _objectCounts[8]--;
-//                break;
-//            case 9:
-//                _objectCounts[5]--;
-//        }
-//    }
-//
-//    /**
-//     * Get the number of proteins currently in this cell.
-//     *
-//     * @return protein count
-//     */
-//    public int getProteinCount() {
-//        return _objectCounts[8];
-//    }
-//}
+
+
+/**
+ * This class defines a synthetic cell. The central dogma is simulated as a Markov process for a single protein.
+ * Transcription  Translation
+ * DNA   ->    RNA       ->    Protein
+ * Simulated using the algorithm from Gillespie, 1977
+ *
+ * @Author George A. Emanuel
+ * @Author Aadish Gupta
+ */
+
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Range = require( 'DOT/Range' );
+  var Random = require( 'DOT/Random' );
+
+  var DEFAULT_TRANSCRIPTION_FACTOR_COUNT = 2000;
+  var TRANSCRIPTION_FACTOR_COUNT_RANGE = new Range( DEFAULT_TRANSCRIPTION_FACTOR_COUNT / 10, DEFAULT_TRANSCRIPTION_FACTOR_COUNT * 10 );
+  var DEFAULT_TF_ASSOCIATION_PROBABILITY = 2.5E-6;
+  var TF_ASSOCIATION_PROBABILITY_RANGE = new Range( DEFAULT_TF_ASSOCIATION_PROBABILITY / 10, DEFAULT_TF_ASSOCIATION_PROBABILITY * 10 );
+  var DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY = 9.5E-7;
+  var POLYMERASE_ASSOCIATION_PROBABILITY_RANGE = new Range( 0.0, 2 * DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY );
+  var DEFAULT_PROTEIN_DEGRADATION_RATE = 0.0004;
+  var PROTEIN_DEGRADATION_RANGE = new Range( DEFAULT_PROTEIN_DEGRADATION_RATE * 0.7, DEFAULT_PROTEIN_DEGRADATION_RATE * 1.3 );
+  var DEFAULT_MRNA_DEGRADATION_RATE = 0.01;
+  var MRNA_DEGRADATION_RATE_RANGE = new Range( DEFAULT_MRNA_DEGRADATION_RATE / 1000, DEFAULT_MRNA_DEGRADATION_RATE * 1000 );
+
+
+  function CellProteinSynthesisSimulator(  ribosomeCount ) {
+    this.random = new Random();
+
+    this.objectCounts = [
+      20, //gene count
+      DEFAULT_TRANSCRIPTION_FACTOR_COUNT, //free transcription factor count
+      5000, //polymerase count
+      0, //gene, transcription factor complex count
+      0, //gene, TF, polymerase count
+      0, //mRNA count
+      2000, //ribosome count
+      0, //mRNA, ribosome complex count
+      0 //protein count
+    ];
+
+    this.reactionProbabilities = [
+      DEFAULT_TF_ASSOCIATION_PROBABILITY, //gene, TF association
+      0.0009, //gene-TF degradation
+      DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY, //gene-TF-polymerase association
+      0.00085, //gene-TF-polymerase degradation
+      0.003, //transcription
+      0.001, //mRNA-ribosome association
+      0.0009, //mRNA-ribosome degradation
+      0.0009, //translation
+      DEFAULT_PROTEIN_DEGRADATION_RATE, //protein degradation
+      DEFAULT_MRNA_DEGRADATION_RATE //mRNA degradation
+    ];
+
+    this.objectCounts[6] = ribosomeCount;
+  }
+
+  geneExpressionEssentials.register( 'CellProteinSynthesisSimulator', CellProteinSynthesisSimulator );
+  return inherit( Object, CellProteinSynthesisSimulator, {
+
+    /**
+     * Sets the number of transcription factors
+     *
+     * @param tfCount number of transcription factors
+     */
+    setTranscriptionFactorCount: function( tfCount ) {
+      // Parameter checking.
+      assert && assert( TRANSCRIPTION_FACTOR_COUNT_RANGE.contains( tfCount ) );
+      this.objectCounts[1] = tfCount;
+    },
+    /**
+     * Sets the number of polymerases
+     *
+     * @param polymeraseCount number of polymerases
+     */
+    setPolymeraseCount: function( polymeraseCount ) {
+      this.objectCounts[ 2 ] = polymeraseCount;
+    },
+
+    /**
+    * Sets the rate that transcription factors associate with genes
+    *
+    * @param newRate
+    */
+    setGeneTranscriptionFactorAssociationRate: function( newRate ) {
+      assert && assert( TF_ASSOCIATION_PROBABILITY_RANGE.contains( newRate ) );
+      this.reactionProbabilities[0] = newRate;
+    },
+
+    /**
+    * Sets the rate constant for the polymerase to bind to the gene
+    *
+    * @param newRate the rate for polymerase binding
+    */
+    setPolymeraseAssociationRate: function( newRate ) {
+      assert && assert( POLYMERASE_ASSOCIATION_PROBABILITY_RANGE.contains( newRate ) );
+      this.reactionProbabilities[2] = newRate;
+    },
+
+    /**
+    * Sets the rate constant for RNA/ribosome association
+    *
+    * @param newRate the rate at which RNA binds to a ribosome
+    */
+    setRNARibosomeAssociationRate: function( newRate ) {
+      this.reactionProbabilities[ 5 ] = newRate;
+    },
+
+    setProteinDegradationRate: function( proteinDegradationRate ) {
+    assert && assert( PROTEIN_DEGRADATION_RANGE.contains( proteinDegradationRate ) );
+      this.reactionProbabilities[8] = proteinDegradationRate;
+    },
+
+    setMrnaDegradationRate: function( mrnaDegradationRate ) {
+    assert && assert( MRNA_DEGRADATION_RATE_RANGE.contains( mrnaDegradationRate ) );
+      this.reactionProbabilities[9] = mrnaDegradationRate;
+    },
+
+    /**
+    * Moves forward one time step of specified length
+    *
+    * @param dt the length of this step through time
+    */
+    stepInTime: function( dt ) {
+      var accumulatedTime = 0.0;
+      var timeIncrement = -1.0;
+      while ( accumulatedTime < dt && timeIncrement !== 0.0 ) {
+        timeIncrement = this.simulateOneReaction( dt - accumulatedTime );
+        accumulatedTime += timeIncrement;
+      }
+    },
+
+    /**
+    * Simulates one reaction if the wait time before that reaction occurs is less than
+    * maxTime
+    *
+    * @param maxTime the maximum of time to wait for this reaction to occur
+    * @return the amount of time evolved in the system
+    */
+    simulateOneReaction: function( maxTime ) {
+      var a = this.calculateA();
+      var a0 = this.sum( a );
+
+      var r1 = this.random.nextDouble();
+      var r2 = this.random.nextDouble();
+      var tau = ( 1 / a0 ) * Math.log( 1 / r1 );
+      if ( tau > maxTime ) {
+        return 0.0;
+      }
+
+      var mu = 0;
+      var sumSoFar = a[0];
+      while ( sumSoFar < r2 * a0 ) {
+        mu++;
+        sumSoFar += a[mu];
+      }
+      this.conductReaction( mu );
+      return tau;
+    },
+
+    sum: function( array ){
+      var total = 0;
+      for ( var i = 0; i< array.length; i++ ){
+        total += array[i];
+      }
+      return total;
+    },
+
+    calculateA: function() {
+      var h = [
+        this.objectCounts[0] * this.objectCounts[1],
+        this.objectCounts[3],
+        this.objectCounts[2] * this.objectCounts[3],
+        this.objectCounts[4],
+        this.objectCounts[4],
+        this.objectCounts[5] * this.objectCounts[6],
+        this.objectCounts[7],
+        this.objectCounts[7],
+        this.objectCounts[8],
+        this.objectCounts[5]
+      ];
+
+      for ( var i = 0; i < h.length; i++ ) {
+        h[i] *= this.reactionProbabilities[i];
+      }
+      return h;
+    },
+
+    conductReaction: function( mu ) {
+      switch( mu ) {
+        case 0:
+          this.objectCounts[0]--;
+          this.objectCounts[1]--;
+          this.objectCounts[3]++;
+          break;
+        case 1:
+          this.objectCounts[0]++;
+          this.objectCounts[1]++;
+          this.objectCounts[3]--;
+          break;
+        case 2:
+          this.objectCounts[3]--;
+          this.objectCounts[2]--;
+          this.objectCounts[4]++;
+          break;
+        case 3:
+          this.objectCounts[3]++;
+          this.objectCounts[2]++;
+          this.objectCounts[4]--;
+          break;
+        case 4:
+          this.objectCounts[0]++;
+          this.objectCounts[1]++;
+          this.objectCounts[2]++;
+          this.objectCounts[4]--;
+          this.objectCounts[5]++;
+          break;
+        case 5:
+          this.objectCounts[5]--;
+          this.objectCounts[6]--;
+          this.objectCounts[7]++;
+          break;
+        case 6:
+          this.objectCounts[5]++;
+          this.objectCounts[6]++;
+          this.objectCounts[7]--;
+          break;
+        case 7:
+          this.objectCounts[6]++;
+          this.objectCounts[7]--;
+          this.objectCounts[8]++;
+          break;
+        case 8:
+          this.objectCounts[8]--;
+          break;
+        case 9:
+          this.objectCounts[5]--;
+          break;
+        default:
+          assert && assert( false, 'Unhandled mu value' );
+          break;
+      }
+    },
+
+    /**
+    * Get the number of proteins currently in this cell.
+    *
+    * @return protein count
+    */
+    getProteinCount: function() {
+      return this.objectCounts[8];
+    }
+
+  }, {// Statics
+    DefaultTranscriptionFactorCount: DEFAULT_TRANSCRIPTION_FACTOR_COUNT,
+    DefaultProteinDegradationRate: DEFAULT_PROTEIN_DEGRADATION_RATE,
+    DefaultTFAssociationProbability: DEFAULT_TF_ASSOCIATION_PROBABILITY,
+    DefaultPolymeraseAssociationProbability: DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY,
+    DefaultMRNADegradationRate: DEFAULT_MRNA_DEGRADATION_RATE,
+    MRNADegradationRateRange: MRNA_DEGRADATION_RATE_RANGE,
+    PolymeraseAssociationProbabilityRange: POLYMERASE_ASSOCIATION_PROBABILITY_RANGE,
+    ProteinDegradationRange: PROTEIN_DEGRADATION_RANGE,
+    TFAssociationProbabilityRange: TF_ASSOCIATION_PROBABILITY_RANGE,
+    TranscriptionFactorCountRange: TRANSCRIPTION_FACTOR_COUNT_RANGE
+  } );
+} );

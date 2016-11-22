@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Random = require( 'DOT/Random' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
-  var DoubleRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/DoubleRange' );
+  var Range = require( 'DOT/Range' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var MessengerRnaFragment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaFragment' );
   var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/DestroyerTrackingRnaMotionStrategy' );
@@ -25,7 +25,7 @@ define( function( require ) {
   var RNA_DESTRUCTION_RATE = 750; // Picometers per second.
 
   // Range of lengths for mRNA fragments.
-  var MRNA_FRAGMENT_LENGTH_RANGE = new DoubleRange( 100, 400 ); // In picometers.
+  var MRNA_FRAGMENT_LENGTH_RANGE = new Range( 100, 400 ); // In picometers.
 
   /**
    *
@@ -54,7 +54,7 @@ define( function( require ) {
       if ( this.messengerRnaFragment === null ) {
         this.messengerRnaFragment = new MessengerRnaFragment( biomolecule.getModel(), biomolecule.getPosition() );
         biomolecule.getModel().addMobileBiomolecule( this.messengerRnaFragment );
-        this.targetFragmentLength = MRNA_FRAGMENT_LENGTH_RANGE.getMin() +
+        this.targetFragmentLength = MRNA_FRAGMENT_LENGTH_RANGE.min +
                                     RAND.nextDouble() * MRNA_FRAGMENT_LENGTH_RANGE.getLength();
       }
       this.messengerRnaFragment.addLength( RNA_DESTRUCTION_RATE * dt );
@@ -98,7 +98,7 @@ define( function( require ) {
       mRnaDestroyer.setMotionStrategy( new DestroyerTrackingRnaMotionStrategy( mRnaDestroyer ) );
 
       // Turn off user interaction while mRNA is being destroyed.
-      asm.biomolecule.movableByUser = false;
+      asm.biomolecule.movableByUserProperty.set( false );
     }
 
   });

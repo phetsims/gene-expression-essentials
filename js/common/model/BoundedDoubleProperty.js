@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Util = require( 'DOT/Util' );
-  var DoubleRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/DoubleRange' );
+  var Range = require( 'DOT/Range' );
 
   /**
    * Constraint value between min and max value
@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function BoundedDoubleProperty( value, minValue, maxValue ) {
     Property.call( this, value );
-    this.bounds = new DoubleRange( minValue, maxValue );
+    this.bounds = new Range( minValue, maxValue );
   }
 
   geneExpressionEssentials.register( 'BoundedDoubleProperty', BoundedDoubleProperty );
@@ -36,7 +36,7 @@ define( function( require ) {
      * @public
      */
     set: function( value ) {
-      var boundedValue = Util.clamp( value, this.bounds.getMin(), this.bounds.getMax() );
+      var boundedValue = Util.clamp( value, this.bounds.min, this.bounds.max );
       Property.prototype.set.call( this, boundedValue );
     }
 

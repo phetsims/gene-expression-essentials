@@ -50,28 +50,34 @@ define( function( require ) {
     var highlightStartY = mvt.modelToViewY( dnaMolecule.getLeftEdgePos().y ) - highlightHeight / 2;
 
     // Add the highlight for the regulatory region.
-    var regRegionHighlightStartX = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().getMin() ) );
-    var regRegionWidth = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().getMax() ) ) - regRegionHighlightStartX;
+    var regRegionHighlightStartX = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().min ) );
+    var regRegionWidth = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().max ) ) - regRegionHighlightStartX;
     var regRegionShape = Shape.roundRect( regRegionHighlightStartX, highlightStartY, regRegionWidth, highlightHeight,
       RECT_ROUNDING, RECT_ROUNDING );
     var regulatoryRegionNode = new Path( regRegionShape, { fill: gene.getRegulatoryRegionColor() } );
     self.addChild( regulatoryRegionNode );
 
-    var regulatoryRegionCaption = new MultiLineText( regulatoryRegionString, { font: REGION_LABEL_FONT } );
+    var regulatoryRegionCaption = new MultiLineText( regulatoryRegionString, {
+      font: REGION_LABEL_FONT,
+      maxWidth: 100
+    } );
     regulatoryRegionCaption.x = regulatoryRegionNode.bounds.getCenterX() - regulatoryRegionCaption.bounds.width / 2;
     regulatoryRegionCaption.y = regulatoryRegionNode.bounds.getMaxY();
     self.addChild( regulatoryRegionCaption );
 
     // Add the highlight for the transcribed region.
-    var transcribedRegionHighlightStartX = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().getMin() ) );
-    var transcribedRegionWidth = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().getMax() ) ) - transcribedRegionHighlightStartX;
+    var transcribedRegionHighlightStartX = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().min ) );
+    var transcribedRegionWidth = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().max ) ) - transcribedRegionHighlightStartX;
     var transcribedRegionShape = Shape.roundRect( transcribedRegionHighlightStartX, highlightStartY,
       transcribedRegionWidth, highlightHeight, RECT_ROUNDING, RECT_ROUNDING );
 
     var transcribedRegionNode = new Path( transcribedRegionShape, { fill: gene.getTranscribedRegionColor() } );
     self.addChild( transcribedRegionNode );
 
-    var transcribedRegionCaption = new MultiLineText( transcribedRegionString, { font: REGION_LABEL_FONT } );
+    var transcribedRegionCaption = new MultiLineText( transcribedRegionString, {
+      font: REGION_LABEL_FONT,
+      maxWidth: 100
+    } );
     transcribedRegionCaption.x = transcribedRegionNode.bounds.getCenterX() - transcribedRegionCaption.bounds.width / 2;
     transcribedRegionCaption.y = transcribedRegionNode.bounds.getMaxY();
     self.addChild( transcribedRegionCaption );
@@ -88,7 +94,10 @@ define( function( require ) {
       self.addChild( new Path( bracketPath, { lineWidth: 2, stroke: Color.BLACK } ) );
 
       // And the textual label for the gene.
-      var labelText = new Text( label, { font: GENE_LABEL_FONT } );
+      var labelText = new Text( label, {
+        font: GENE_LABEL_FONT,
+        maxWidth: 150
+      } );
       self.addChild( labelText );
       var bracketBounds = bracketPath.bounds;
       labelText.x = bracketBounds.getCenterX() - labelText.bounds.width / 2;

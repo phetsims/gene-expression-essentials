@@ -46,7 +46,7 @@ define( function( require ) {
      * @Override
      */
     detach: function() {
-      this.attachmentSite.attachedOrAttachingMolecule = null;
+      this.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       this.attachmentSite = null;
       this.forceImmediateUnattachedButUnavailable();
     },
@@ -56,7 +56,7 @@ define( function( require ) {
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.attachmentSite !== null ) {
-        this.attachmentSite.attachedOrAttachingMolecule = null;
+        this.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       }
       this.attachmentSite = null;
       this.setState( this.unattachedAndAvailableState );
@@ -67,7 +67,7 @@ define( function( require ) {
      */
     forceImmediateUnattachedButUnavailable: function() {
       if ( this.attachmentSite !== null ) {
-        this.attachmentSite.attachedOrAttachingMolecule = null;
+        this.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       }
       this.attachmentSite = null;
       this.biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( this.biomolecule.getDetachDirection(),

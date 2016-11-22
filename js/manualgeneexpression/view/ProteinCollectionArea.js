@@ -47,9 +47,9 @@ define( function( require ) {
     // that the capture nodes can be properly laid out.
     var captureNodeBackgroundSize = new Dimension2( 0, 0 );
 
-    var protienTypes = [ ProteinA, ProteinB, ProteinC ];
-    for ( var i = 0; i < protienTypes.length; i++ ) {
-      var protein = new protienTypes[ i ]();
+    var proteinTypes = [ ProteinA, ProteinB, ProteinC ];
+    for ( var i = 0; i < proteinTypes.length; i++ ) {
+      var protein = new proteinTypes[ i ]();
       var proteinShapeBounds = protein.getFullyGrownShape().transformed( transform ).getStrokedBounds( new kite.LineStyles( { lineWidth: 1 } ) );
       captureNodeBackgroundSize.width = ( Math.max( proteinShapeBounds.width * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.width ) );
       captureNodeBackgroundSize.height = ( Math.max( proteinShapeBounds.height * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.height ) );

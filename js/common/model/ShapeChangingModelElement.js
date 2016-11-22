@@ -12,8 +12,7 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var Vector2 = require( 'DOT/Vector2' );
+  var Property = require( 'AXON/Property' );
 
 
   /**
@@ -21,16 +20,15 @@ define( function( require ) {
    * @param {Shape} initialShape
    * @constructor
    */
-  function ShapeChangingModelElement( initialShape, props ) {
-    PropertySet.call( this, _.extend( {
-      // Shape property, which is not public because it should only be changed by descendants of the class.
-      shape: initialShape
-    }, props || {} ) );
+  function ShapeChangingModelElement( initialShape ) {
+    // Shape property, which is not public because it should only be changed by descendants of the class.
+    this.shapeProperty = new Property( initialShape );
+
   }
 
   geneExpressionEssentials.register( 'ShapeChangingModelElement', ShapeChangingModelElement );
 
-  return inherit( PropertySet, ShapeChangingModelElement, {
+  return inherit( Object, ShapeChangingModelElement, {
 
     /**
      *
@@ -93,8 +91,7 @@ define( function( require ) {
         // is defined by the center of the shape's bounds.  Override if
         // some other behavior is required.
         var center = this.getCenter();
-        this.translate( new Vector2( x - center.x,
-          y - center.y ) );
+        this.translate( x - center.x, y - center.y  );
       }
     },
 
@@ -103,9 +100,9 @@ define( function( require ) {
      * the kite version gives NAN in such cases. This is a WorkAround. Needs Fixing. TODO
      */
     getCenter: function() {
-      var center = this.shape.bounds.getCenter();
+      var center = this.shapeProperty.get().bounds.getCenter();
       if ( !_.isFinite( center.x ) ) {
-        return this.shape.subpaths[ 0 ].points[ 0 ];
+        return this.shapeProperty.get().subpaths[ 0 ].points[ 0 ];
       }
       return center;
     },

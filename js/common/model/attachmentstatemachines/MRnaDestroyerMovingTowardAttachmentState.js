@@ -35,7 +35,7 @@ define( function( require ) {
      */
     entered: function( asm ) {
       //GenericMovingTowardsAttachmentState.prototype.entered.call( this );
-      asm.biomolecule.movableByUser = false;
+      asm.biomolecule.movableByUserProperty.set( false );
     }
 
   } );

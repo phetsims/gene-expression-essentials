@@ -38,16 +38,17 @@ define( function( require ) {
    */
   function DriftThenTeleportMotionStrategy( wanderDirection, destinationZones, motionBoundsProperty ) {
     var self = this;
-    MotionStrategy.call( self );
+    MotionStrategy.call( this );
     motionBoundsProperty.link( function( motionBounds ) {
       self.motionBounds = motionBounds;
     } );
 
+    this.random = new Random();
     // List of valid places where the item can teleport.
-    self.destinationZones = destinationZones;
-    self.preFadeCountdown = PRE_FADE_DRIFT_TIME;
-    self.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY );
-    self.velocityZ = -1 / FADE_AND_DRIFT_TIME;
+    this.destinationZones = destinationZones;
+    this.preFadeCountdown = PRE_FADE_DRIFT_TIME;
+    this.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY );
+    this.velocityZ = -1 / FADE_AND_DRIFT_TIME;
   }
 
   geneExpressionEssentials.register( 'DriftThenTeleportMotionStrategy', DriftThenTeleportMotionStrategy );
@@ -63,7 +64,8 @@ define( function( require ) {
     generateRandomLocationInBounds: function( destinationZones, shape ) {
 
       // Randomly choose one of the destination zones.
-      var destinationBounds = destinationZones.get( Random.nextInt( destinationZones.length ) );
+      var index = this.random.nextInt( destinationZones.length );
+      var destinationBounds = destinationZones[ index ];
 
       // Generate a random valid location within the chosen zone.
       var reducedBoundsWidth = destinationBounds.getWidth() - shape.bounds.getWidth();
@@ -73,8 +75,8 @@ define( function( require ) {
         return new Vector2( destinationBounds.getCenterX(), destinationBounds.getCenterY() );
       }
       else {
-        return new Vector2( destinationBounds.x + shape.bounds.getWidth() / 2 + Random.nextDouble() * reducedBoundsWidth,
-          destinationBounds.x + shape.bounds.getHeight() / 2 + Random.nextDouble() * reducedBoundsHeight );
+        return new Vector2( destinationBounds.x + shape.bounds.getWidth() / 2 + this.random.nextDouble() * reducedBoundsWidth,
+          destinationBounds.x + shape.bounds.getHeight() / 2 + this.random.nextDouble() * reducedBoundsHeight );
       }
     },
 

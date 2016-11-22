@@ -81,7 +81,7 @@ define( function( require ) {
      * @param {number} time // in millseconds
      */
     startFadeIn: function( time ) {
-      if ( this.fadeOutTimer.isRunning ) {
+      if ( this.fadeOutTimer.isRunningProperty.get() ) {
         this.fadeOutTimer.stop();
       }
       this.fadeDelta = TIMER_DELAY / time;
@@ -93,7 +93,7 @@ define( function( require ) {
      * @param {number} time // in millseconds
      */
     startFadeOut: function( time ) {
-      if ( this.fadeInTimer.isRunning ) {
+      if ( this.fadeInTimer.isRunningProperty.get() ) {
         this.fadeInTimer.stop();
       }
       this.fadeDelta = TIMER_DELAY / time;

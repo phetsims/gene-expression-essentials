@@ -18,10 +18,10 @@ define( function( require ) {
   var EnhancedObservableList = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/EnhancedObservableList' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
-  var DoubleRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/DoubleRange' );
+  var Range = require( 'DOT/Range' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var PointMass = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PointMass' );
-  var SeededRandom = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/SeededRandom' );
+  var Random = require( 'DOT/Random' );
 
 
   // constants
@@ -174,14 +174,14 @@ define( function( require ) {
     /**
      * Get the first shape-defining point enclosed in the provided length range.
      *
-     * @param {DoubleRange} lengthRange
+     * @param {Range} lengthRange
      * @return {PointMass}
      */
     getFirstEnclosedPoint: function( lengthRange ) {
       var currentPoint = this.firstShapeDefiningPoint;
       var currentLength = 0;
       while ( currentPoint !== null ) {
-        if ( currentLength >= lengthRange.getMin() && currentLength < lengthRange.getMax() ) {
+        if ( currentLength >= lengthRange.min && currentLength < lengthRange.max ) {
 
           // We've found the first point.
           break;
@@ -195,14 +195,14 @@ define( function( require ) {
     /**
      * Get the last shape-defining point enclosed in the provided length range.
      *
-     * @param  {DoubleRange} lengthRange
+     * @param  {Range} lengthRange
      * @return {PointMass}
      */
     getLastEnclosedPoint: function( lengthRange ) {
       var currentPoint = this.firstShapeDefiningPoint;
       var currentLength = 0;
       while ( currentPoint !== null ) {
-        if ( currentLength >= lengthRange.getMin() && currentLength < lengthRange.getMax() ) {
+        if ( currentLength >= lengthRange.min && currentLength < lengthRange.max ) {
           break;
         }
         currentPoint = currentPoint.getNextPointMass();
@@ -211,7 +211,7 @@ define( function( require ) {
 
       if ( currentPoint !== null ) {
         while ( currentPoint.getNextPointMass() !== null &&
-                currentPoint.getNextPointMass().getTargetDistanceToPreviousPoint() + currentLength < lengthRange.getMax() ) {
+                currentPoint.getNextPointMass().getTargetDistanceToPreviousPoint() + currentLength < lengthRange.max ) {
           currentPoint = currentPoint.getNextPointMass();
           currentLength += currentPoint.getTargetDistanceToPreviousPoint();
         }
@@ -288,7 +288,7 @@ define( function( require ) {
         var shapeSegment = this.shapeSegments.get( i );
         var lengthRange;
         if ( shapeSegment !== this.getLastShapeSegment() ) {
-          lengthRange = new DoubleRange( handledLength, handledLength + shapeSegment.getContainedLength() );
+          lengthRange = new Range( handledLength, handledLength + shapeSegment.getContainedLength() );
         }
         else {
 
@@ -297,7 +297,7 @@ define( function( require ) {
           // this isn't done, accumulation of floating point errors can
           // cause the last point to fall outside of the range, and it
           // won't get positioned.  Which is bad.
-          lengthRange = new DoubleRange( handledLength, Number.MAX_VALUE ); //TODO Double POSITIVE
+          lengthRange = new Range( handledLength, Number.MAX_VALUE ); //TODO Double POSITIVE
 
           // Watch for unexpected conditions and spit out warning if found.
           var totalShapeSegmentLength = this.getTotalLengthInShapeSegments();
@@ -399,7 +399,9 @@ define( function( require ) {
       // Position the last point at the lower right.
       lastPoint.setPosition( bounds.getMaxX(), bounds.getMinY() );
 
-      var seededRandom = new SeededRandom( 8 );
+      var seededRandom = new Random( {
+        seed: 8
+      });
       var currentPoint = firstPoint;
       do {
 

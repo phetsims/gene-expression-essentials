@@ -20,10 +20,12 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Color = require( 'SCENERY/util/Color' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var TranscriptionFactorCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/TranscriptionFactorCreatorNode' );
   var RnaPolymeraseCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/RnaPolymeraseCreatorNode' );
   var RibosomeCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/RibosomeCreatorNode' );
   var MessengerRnaDestroyerCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/MessengerRnaDestroyerCreatorNode' );
+  var Spacer = require( 'SCENERY/nodes/Spacer' );
 
   // constants
   var TITLE_FONT = new PhetFont( { size: 20, weight: 'bold' } );
@@ -40,11 +42,12 @@ define( function( require ) {
    * Convenience class for creating row labels.
    */
   function RowLabel( text ) {
-    var self = this;
-    MultiLineText.call( self, text, { font: new PhetFont( { size: 15 } ) } );
+    return new MultiLineText( text, {
+      font: new PhetFont( { size: 15 } ),
+      maxWidth: 150
+    } );
   }
 
-  inherit( MultiLineText, RowLabel );
 
   /**
    *
@@ -63,7 +66,29 @@ define( function( require ) {
     self.biomoleculeCreatorNodeList = [];
 
     // Add the title.
-    var toolBoxTitleNode = new Text( biomoleculeToolboxString, TITLE_FONT );
+    var toolBoxTitleNode = new Text( biomoleculeToolboxString, {
+      font: TITLE_FONT,
+      maxWidth: 200
+    } );
+
+    var positiveTranscriptionFactorLabel = new RowLabel( positiveTranscriptionFactorHtmlString );
+    var positiveTranscriptionFactorLabelWidth = positiveTranscriptionFactorLabel.width;
+    var rnaPolymeraseLabel = new RowLabel( rnaPolymeraseString );
+    var rnaPolymeraseLabelWidth = rnaPolymeraseLabel.width;
+    var ribosomeLabel = new RowLabel( ribosomeString );
+    var ribosomeLabelWidth = ribosomeLabel.width;
+    var mrnaDestroyerLabel = new RowLabel( mrnaDestroyerString );
+    var mrnaDestroyerLabelWidth = mrnaDestroyerLabel.width;
+    var negativeTranscriptionFactorLabel = new RowLabel( negativeTranscriptionFactorHtmlString );
+    var negativeTranscriptionFactorLabelWidth = negativeTranscriptionFactorLabel.width;
+
+    var maxWidth = _.max( [
+      positiveTranscriptionFactorLabelWidth,
+      rnaPolymeraseLabelWidth,
+      ribosomeLabelWidth,
+      mrnaDestroyerLabelWidth,
+      negativeTranscriptionFactorLabelWidth
+    ] );
 
     //  Positive transcription factor(s).
     var transcriptionFactors = gene.getTranscriptionFactorConfigs();
@@ -73,7 +98,9 @@ define( function( require ) {
       tfConfig = transcriptionFactors[ i ];
       if ( tfConfig.isPositive ) {
         var positiveTranscriptionBox = new HBox( {
-          children: [ new RowLabel( positiveTranscriptionFactorHtmlString ),
+          children: [
+            positiveTranscriptionFactorLabel,
+            new Spacer( maxWidth - positiveTranscriptionFactorLabelWidth, 0 ),
             self.addCreatorNode( new TranscriptionFactorCreatorNode( self, tfConfig ) )
           ],
           spacing: 10
@@ -84,7 +111,9 @@ define( function( require ) {
 
     // Polymerase.
     var polymeraseBox = new HBox( {
-      children: [ new RowLabel( rnaPolymeraseString ),
+      children: [
+        rnaPolymeraseLabel,
+        new Spacer( maxWidth - rnaPolymeraseLabelWidth, 0 ),
         self.addCreatorNode( new RnaPolymeraseCreatorNode( self ) ),
         self.addCreatorNode( new RnaPolymeraseCreatorNode( self ) )
       ],
@@ -93,15 +122,23 @@ define( function( require ) {
 
     // Ribosomes.
     var ribosomeBox = new HBox( {
-      children: [ new RowLabel( ribosomeString ), self.addCreatorNode( new RibosomeCreatorNode( self ) ),
-        self.addCreatorNode( new RibosomeCreatorNode( self ) ) ],
+      children: [
+        ribosomeLabel,
+        new Spacer( maxWidth - ribosomeLabelWidth, 0 ),
+        self.addCreatorNode( new RibosomeCreatorNode( self ) ),
+        self.addCreatorNode( new RibosomeCreatorNode( self ) )
+      ],
       spacing: 10
     } );
 
     // mRNA destroyer.
     var mRnaDestroyerBox = new HBox( {
-      children: [ new RowLabel( mrnaDestroyerString ), self.addCreatorNode( new MessengerRnaDestroyerCreatorNode( self ) ),
-        self.addCreatorNode( new MessengerRnaDestroyerCreatorNode( self ) ) ],
+      children: [
+        mrnaDestroyerLabel,
+        new Spacer( maxWidth - mrnaDestroyerLabelWidth, 0 ),
+        self.addCreatorNode( new MessengerRnaDestroyerCreatorNode( self ) ),
+        self.addCreatorNode( new MessengerRnaDestroyerCreatorNode( self ) )
+      ],
       spacing: 10
     } );
 
@@ -115,7 +152,9 @@ define( function( require ) {
       tfConfig = transcriptionFactors[ i ];
       if ( !tfConfig.isPositive ) {
         var negativeTranscriptionBox = new HBox( {
-          children: [ new RowLabel( negativeTranscriptionFactorHtmlString ),
+          children: [
+            negativeTranscriptionFactorLabel,
+            new Spacer( maxWidth - negativeTranscriptionFactorLabelWidth, 0 ),
             self.addCreatorNode( new TranscriptionFactorCreatorNode( self, tfConfig ) )
           ],
           spacing: 10
@@ -124,24 +163,32 @@ define( function( require ) {
       }
     }
 
-    var childrenNodesArray = [ toolBoxTitleNode ];
+    var childrenNodesArray = [ ];
     childrenNodesArray = childrenNodesArray.concat( positiveTranscriptBoxNodes );
     childrenNodesArray.push( polymeraseBox );
     childrenNodesArray.push( ribosomeBox );
     childrenNodesArray.push( mRnaDestroyerBox );
     childrenNodesArray = childrenNodesArray.concat( negativeTranscriptionBox );
     // Create the content of this control panel.
-    var contentNode = new VBox( {
+    var contentNode = new Node();
+    contentNode.addChild( toolBoxTitleNode );
+    var childrenNode = new VBox( {
       children: childrenNodesArray,
       spacing: 10,
       align: 'left'
     } );
+    contentNode.addChild( childrenNode );
+    childrenNode.top = toolBoxTitleNode.bottom + 10;
+    toolBoxTitleNode.centerX = childrenNode.centerX;
 
 
     Panel.call( self, contentNode, {
+      xMargin: 10,
+      yMargin: 10,
       fill: new Color( 250, 250, 250 ),
       lineWidth: 1,
-      align: 'left'
+      align: 'center',
+      resize: false
     } );
   }
 

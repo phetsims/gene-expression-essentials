@@ -35,7 +35,7 @@ define( function( require ) {
       if ( gsm.attachmentSite !== null ) {
 
         // A proposal was accepted.  Mark the attachment site as being in use.
-        gsm.attachmentSite.attachedOrAttachingMolecule = gsm.biomolecule;
+        gsm.attachmentSite.attachedOrAttachingMoleculeProperty.set( gsm.biomolecule );
 
         // Start moving towards the site.
         gsm.biomolecule.setMotionStrategy( new MeanderToDestinationMotionStrategy( gsm.attachmentSite.locationProperty,
@@ -54,7 +54,7 @@ define( function( require ) {
         new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty ) );
 
       // Allow user interaction.
-      enclosingStateMachine.biomolecule.movableByUser = true;
+      enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
     }
   } );
 

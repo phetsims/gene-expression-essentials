@@ -59,7 +59,7 @@ define( function( require ) {
       enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
 
       // Prevent user interaction.
-      enclosingStateMachine.biomolecule.movableByUser = false;
+      enclosingStateMachine.biomolecule.movableByUserProperty.set( false );
     }
 
 

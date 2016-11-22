@@ -26,12 +26,12 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
-  var IntegerRange = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/IntegerRange' );
+  var Range = require( 'DOT/Range' );
   var BasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BasePair' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var DnaStrandSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandSegment' );
   var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
-    var StubGeneExpressionModel = require('GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel');
+  var StubGeneExpressionModel = require('GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel');
 
   // constants
   // Distance within which transcription factors may attach.
@@ -202,11 +202,11 @@ define( function( require ) {
       // Move the shadow points to account for any separations.
       _.forEach( this.separations, function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
-        var separationWindowXIndexRange = new IntegerRange( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
+        var separationWindowXIndexRange = new Range( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
                                                                           self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
           Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0 );
-        for ( var i = separationWindowXIndexRange.getMin(); i < separationWindowXIndexRange.getMax(); i++ ) {
-          var windowCenterX = ( separationWindowXIndexRange.getMin() + separationWindowXIndexRange.getMax() ) / 2;
+        for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
+          var windowCenterX = ( separationWindowXIndexRange.min + separationWindowXIndexRange.max ) / 2;
           if ( i >= 0 && i < self.strandPointsShadow.length ) {
 
             // Perform a windowing algorithm that weights the separation
@@ -233,14 +233,14 @@ define( function( require ) {
         // bounds for the strand1 and strand2 segments are the same, which
         // should be a safe assumption.
         var bounds = strand1Segment.getShape().bounds;
-        var pointIndexRange = new IntegerRange( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
+        var pointIndexRange = new Range( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
           Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0 );
 
         // Check to see if any of the points within the identified range
         // have changed and, if so, update the corresponding segment shape
         // in the strands.  If the points for either strand has changed,
         // both are updated.
-        for ( var j = pointIndexRange.getMin(); j <= pointIndexRange.getMax(); j++ ) {
+        for ( var j = pointIndexRange.min; j <= pointIndexRange.max; j++ ) {
           if ( !this.strandPoints[ j ].equals( this.strandPointsShadow[ j ] ) ) {
 
             // The point has changed.  Update it, mark the change.
@@ -254,7 +254,7 @@ define( function( require ) {
           // Update the shape of this segment.
           var strand1ShapePoints = [];
           var strand2ShapePoints = [];
-          for ( var k = pointIndexRange.getMin(); k <= pointIndexRange.getMax(); k++ ) {
+          for ( var k = pointIndexRange.min; k <= pointIndexRange.max; k++ ) {
             //for performance reasons using object literals instead of Vector instances
             strand1ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand1YPos } );
             strand2ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand2YPos } );
@@ -457,7 +457,7 @@ define( function( require ) {
         if ( attachmentSiteLocation.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
           // In range.  Add it to the list if it is available.
           var potentialAttachmentSite = getAttachSiteForBasePair( i );
-          if ( potentialAttachmentSite.attachedOrAttachingMolecule === null ) {
+          if ( potentialAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null ) {
             potentialAttachmentSites.push( potentialAttachmentSite );
           }
         }
@@ -472,20 +472,20 @@ define( function( require ) {
             var matchingSite = getAttachmentSite( gene );
 
             // Found a matching site on a gene.
-            if ( matchingSite.attachedOrAttachingMolecule === null ) {
+            if ( matchingSite.attachedOrAttachingMoleculeProperty.get() === null ) {
 
               // The site is unoccupied, so add it to the list of  potential sites.
               potentialAttachmentSites.push( matchingSite );
             }
             else if ( !matchingSite.isMoleculeAttached() ) {
-              var thisDistance = biomolecule.getPosition().distance( matchingSite.location );
-              var thatDistance = matchingSite.attachedOrAttachingMolecule.getPosition().distance(
-                matchingSite.location );
+              var thisDistance = biomolecule.getPosition().distance( matchingSite.locationProperty.get() );
+              var thatDistance = matchingSite.attachedOrAttachingMoleculeProperty.get().getPosition().distance(
+                matchingSite.locationProperty.get() );
               if ( thisDistance < thatDistance ) {
 
                 // The other molecule is not yet attached, and this one is closer, so force the other molecule to
                 // abort its pending attachment.
-                matchingSite.attachedOrAttachingMolecule.forceAbortPendingAttachment();
+                matchingSite.attachedOrAttachingMoleculeProperty.get().forceAbortPendingAttachment();
 
                 // Add this site to the list of potential sites.
                 potentialAttachmentSites.push( matchingSite );
@@ -553,15 +553,15 @@ define( function( require ) {
     eliminateInvalidAttachmentSites: function( biomolecule, potentialAttachmentSites ) {
       var self = this;
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
-        var translationVector = attachmentSite.location.minus( biomolecule.getPosition() );
+        var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
         var transform = Matrix3.translation( translationVector.x, translationVector.y );
         var translatedShape = biomolecule.getShape().transformed( transform );
-        var inBounds = biomolecule.motionBounds.inBounds( translatedShape );
+        var inBounds = biomolecule.motionBoundsProperty.get().inBounds( translatedShape );
         var overlapsOtherMolecules = false;
         var list = self.model.getOverlappingBiomolecules( translatedShape );
         for ( var i = 0; i < list.length; i++ ) {
           var mobileBiomolecule = list[ i ];
-          if ( mobileBiomolecule.attachedToDna && mobileBiomolecule !== biomolecule ) {
+          if ( mobileBiomolecule.attachedToDnaProperty.get() && mobileBiomolecule !== biomolecule ) {
             overlapsOtherMolecules = true;
             break;
           }
@@ -579,7 +579,7 @@ define( function( require ) {
      */
     eliminateOverlappingAttachmentSitesNew: function( biomolecule, potentialAttachmentSites ) {
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
-        var translationVector = attachmentSite.location.minus( biomolecule.getPosition() );
+        var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
         var transform = Matrix3.translation( translationVector.x, translationVector.y );
         var translatedShape = biomolecule.getShape().transformed( transform );
         return biomolecule.motionBoundsProperty.get().inBounds( translatedShape );
@@ -646,14 +646,14 @@ define( function( require ) {
       if ( basePairIndex !== 0 ) {
         potentialSite = this.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex - 1,
           transcriptionFactor.getConfig() );
-        if ( potentialSite.attachedOrAttachingMolecule === null ) {
+        if ( potentialSite.attachedOrAttachingMoleculeProperty.get() === null ) {
           attachmentSites.push( potentialSite );
         }
       }
       if ( basePairIndex !== this.basePairs.length - 1 ) {
         potentialSite = this.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex + 1,
           transcriptionFactor.getConfig() );
-        if ( potentialSite.attachedOrAttachingMolecule === null ) {
+        if ( potentialSite.attachedOrAttachingMoleculeProperty.get() === null ) {
           attachmentSites.push( potentialSite );
         }
       }
@@ -677,13 +677,13 @@ define( function( require ) {
       var potentialSite;
       if ( basePairIndex !== 0 ) {
         potentialSite = this.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex - 1 );
-        if ( potentialSite.attachedOrAttachingMolecule === null ) {
+        if ( potentialSite.attachedOrAttachingMoleculeProperty.get() === null ) {
           attachmentSites.push( potentialSite );
         }
       }
       if ( basePairIndex !== this.basePairs.length - 1 ) {
         potentialSite = this.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex + 1 );
-        if ( potentialSite.attachedOrAttachingMolecule === null ) {
+        if ( potentialSite.attachedOrAttachingMoleculeProperty.get() === null ) {
           attachmentSites.push( potentialSite );
         }
       }

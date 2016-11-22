@@ -8,11 +8,14 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var ProteinCollectionNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/ProteinCollectionNode' );
   var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/BiomoleculeToolBoxNode' );
@@ -54,11 +57,6 @@ define( function( require ) {
       Vector2.ZERO,
       new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.64 ),
       0.1 ); // "Zoom factor" - smaller zooms out, larger zooms in.
-
-    // Add a background layer where the cell(s) that make up the background
-    // will reside.
-    this.backgroundCellLayer = new Node();
-    self.addChild( this.backgroundCellLayer );
 
     // Set up the node where all controls that need to be below the
     // biomolecules should be placed.  This node and its children will
@@ -167,12 +165,26 @@ define( function( require ) {
 
 
     // Add buttons for moving to next and previous genes.
+    var nextGeneButtonContent = new HBox({
+      children: [
+        new Text( nextGeneString, {
+          font: new PhetFont( { size: 18 } ),
+          maxWidth: 120
+        } ),
+        new ArrowNode( 0, 0, 20, 0, {
+          headHeight: 8,
+          headWidth: 10,
+          tailWidth: 5
+        } )
+      ],
+      spacing: 5
+    });
     var nextGeneButton = new RectangularPushButton( {
-      content: new Text( nextGeneString, { font: 20 } ),
+      content: nextGeneButtonContent,
       listener: function() {
         model.nextGene() ;
       },
-      baseColor: 'green',
+      baseColor: 'yellow',
       //fireOnDown: true,
       stroke: 'black',
       lineWidth: 1
@@ -182,12 +194,26 @@ define( function( require ) {
     nextGeneButton.y = self.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
 
     // Add buttons for moving to next and previous genes.
+    var previousGeneButtonContent = new HBox({
+      children: [
+        new ArrowNode( 0, 0, -20, 0, {
+          headHeight: 8,
+          headWidth: 10,
+          tailWidth: 5
+        } ),
+        new Text( previousGeneString, {
+          font: new PhetFont( { size: 18 } ),
+          maxWidth: 120
+        } ),
+      ],
+      spacing: 5
+    });
     var previousGeneButton = new RectangularPushButton( {
-      content: new Text( previousGeneString, { font: 20 } ),
+      content: previousGeneButtonContent,
       listener: function() {
         model.previousGene() ;
       },
-      baseColor: 'green',
+      baseColor: 'yellow',
       //fireOnDown: true,
       stroke: 'black',
       lineWidth: 1
@@ -201,7 +227,7 @@ define( function( require ) {
     } ).onComplete( function() {
       self.modelRootNode.visible = true;
       self.modelRootNode.pickable = null;
-      var boundsInControlNode = proteinCollectionNode.getBounds();
+      var boundsInControlNode = proteinCollectionNode.getBounds().copy();
       var boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
       var boundsInModel = self.mvt.viewToModelBounds( boundsAfterTransform );
 
@@ -211,7 +237,7 @@ define( function( require ) {
     } );
     // Monitor the active gene and move the view port to be centered on it whenever it changes.
 
-    model.activeGene.link( function( gene ) {
+    model.activeGeneProperty.link( function( gene ) {
       nextGeneButton.enabled = !( gene === model.dnaMolecule.getLastGene() );
       previousGeneButton.enabled = !( gene === model.dnaMolecule.getGenes()[ 0 ] );
       //this.isLastGeneActive = this.activeGene === this.dnaMolecule.getLastGene();
@@ -236,7 +262,7 @@ define( function( require ) {
       right:  this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
     } );
-    this.addChild( resetAllButton );
+    frontControlsLayer.addChild( resetAllButton );
   }
 
   geneExpressionEssentials.register( 'ManualGeneExpressionScreenView', ManualGeneExpressionScreenView );

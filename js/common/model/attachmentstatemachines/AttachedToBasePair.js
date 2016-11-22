@@ -48,14 +48,14 @@ define( function( require ) {
 
   return inherit( AttachmentState, AttachedToBasePair, {
       detachFromDnaMolecule: function( asm ) {
-        asm.attachmentSite.attachedOrAttachingMolecule = null;
+        asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
         asm.attachmentSite = null;
         asm.setState( this.rnaPolymeraseAttachmentStateMachine.unattachedButUnavailableState );
         this.rnaPolymeraseAttachmentStateMachine.biomolecule.setMotionStrategy(
           new WanderInGeneralDirectionMotionStrategy( this.rnaPolymeraseAttachmentStateMachine.biomolecule.getDetachDirection(),
             this.rnaPolymeraseAttachmentStateMachine.biomolecule.motionBoundsProperty ) );
         this.rnaPolymeraseAttachmentStateMachine.detachFromDnaThreshold.reset(); // Reset this threshold.
-        asm.biomolecule.attachedToDna = false; // Update externally visible state indication.
+        asm.biomolecule.attachedToDnaProperty.set( false ); // Update externally visible state indication.
       },
 
       /**
@@ -122,16 +122,17 @@ define( function( require ) {
 
               // Move to an adjacent base pair.  Firs, clear the
               // previous attachment site.
-              attachmentSite.attachedOrAttachingMolecule = null;
+              attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
 
               // Set a new attachment site.
               attachmentSite = attachmentSites[ 0 ];
-              attachmentSite.attachedOrAttachingMolecule = biomolecule;
+              attachmentSite.attachedOrAttachingMoleculeProperty.set( biomolecule );
 
               // Set up the state to move to the new attachment site.
               this.rnaPolymeraseAttachmentStateMachine.setState( this.rnaPolymeraseAttachmentStateMachine.movingTowardsAttachmentState );
               biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.locationProperty,
                 biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), VELOCITY_ON_DNA ) );
+              this.rnaPolymeraseAttachmentStateMachine.attachmentSite = attachmentSite;
 
               // Update the detachment threshold.  It gets lower over
               // time to increase the probability of detachment.
@@ -158,13 +159,11 @@ define( function( require ) {
                           randValue < attachmentSite.getAffinity();
 
         // Allow user interaction.
-        asm.biomolecule.movableByUser = true;
+        asm.biomolecule.movableByUserProperty.set( true );
 
         // Indicate attachment to DNA.
-        asm.biomolecule.attachedToDna = true;
+        asm.biomolecule.attachedToDnaProperty.set( true );
 
-        // Update externally visible state information.
-        asm.biomolecule.attachedToDna = true; // Update externally visible state indication.
       }
 
     },

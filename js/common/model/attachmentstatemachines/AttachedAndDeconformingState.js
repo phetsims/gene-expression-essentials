@@ -43,7 +43,7 @@ define( function( require ) {
 
         // Verify that state is consistent.
         assert && assert( asm.attachmentSite !== null );
-        assert && assert( asm.attachmentSite.attachedOrAttachingMolecule === biomolecule );
+        assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
 
         var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
         var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
@@ -63,15 +63,15 @@ define( function( require ) {
           rnaPolymerase.getModel().getDnaMolecule().removeSeparation( dnaStrandSeparation );
 
           // Update externally visible state indication.
-          asm.biomolecule.attachedToDna = false;
+          asm.biomolecule.attachedToDnaProperty.set( false );
 
           // Make sure that we enter the correct initial state upon the
           // next attachment.
           this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndWanderingState;
 
           // Detach from the DNA.
-          attachmentSite.attachedOrAttachingMolecule = null;
-          attachmentSite = null;
+          attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
+          this.rnaPolymeraseAttachmentStateMachine.attachmentSite = null;
           if ( recycleMode ) {
             this.rnaPolymeraseAttachmentStateMachine.setState(
               new BeingRecycledState( this.rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) );
@@ -88,7 +88,7 @@ define( function( require ) {
        */
       entered: function( asm ) {
         // Prevent user interaction.
-        asm.biomolecule.movableByUser = false;
+        asm.biomolecule.movableByUserProperty.set( false );
         this.conformationalChangeAmount = 1;
       }
 

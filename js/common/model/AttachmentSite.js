@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var BoundedDoubleProperty = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BoundedDoubleProperty' );
 
   // constants
@@ -25,16 +25,15 @@ define( function( require ) {
    * @constructor
    */
   function AttachmentSite( initialLocation, initialAffinity ) {
-    PropertySet.call( this, {
+
       // Location of this attachment site.  It is a property so that it can be
       // followed in the event that the biomolecule upon which it exists is
       // moving.
-      location: initialLocation,
+      this.locationProperty = new Property( initialLocation );
 
       // A property that tracks which if any biomolecule is attached to or moving
       // towards attachment with this site.
-      attachedOrAttachingMolecule: null
-    } );
+      this.attachedOrAttachingMoleculeProperty = new Property( null );
 
     // Property that represents the affinity of the attachment site.
     this.affinityProperty = new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 );
@@ -42,7 +41,7 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );
 
-  return inherit( PropertySet, AttachmentSite, {
+  return inherit( Object, AttachmentSite, {
 
     get affinity() {
       return this.getAffinity();
@@ -62,8 +61,8 @@ define( function( require ) {
      * @public
      */
     isMoleculeAttached: function() {
-      return this.attachedOrAttachingMolecule !== null &&
-             this.location.distance( this.attachedOrAttachingMolecule.getPosition() ) < ATTACHED_THRESHOLD;
+      return this.attachedOrAttachingMoleculeProperty.get() !== null &&
+             this.locationProperty.get().distance( this.attachedOrAttachingMoleculeProperty.get().getPosition() ) < ATTACHED_THRESHOLD;
     },
 
     /**
@@ -77,7 +76,9 @@ define( function( require ) {
 
       var otherAttachmentSite = obj;
 
-      return (this.affinity === otherAttachmentSite.affinity) && this.location.equals( otherAttachmentSite.location );
+      return (this.affinity === otherAttachmentSite.affinity) && this.locationProperty.get().equals(
+          otherAttachmentSite.locationProperty.get()
+        );
     }
 
 

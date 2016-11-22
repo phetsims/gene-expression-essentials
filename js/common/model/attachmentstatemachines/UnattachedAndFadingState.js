@@ -41,8 +41,8 @@ define( function( require ) {
         this.preFadeCountdown -= dt;
       }
       else {
-        var biomolecule = this.messengerRnaAttachmentStateMachine;
-        biomolecule.existenceStrength = Math.max( biomolecule.existenceStrength - dt / FADE_OUT_TIME, 0 );
+        var biomolecule = this.messengerRnaAttachmentStateMachine.biomolecule;
+        biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
       }
     },
 

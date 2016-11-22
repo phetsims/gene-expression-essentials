@@ -63,7 +63,7 @@ define( function( require ) {
 
       // Set the gradient paint.
       if ( _.isFinite( centeredShape.bounds.centerX ) ) {
-        path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.color );
+        path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.colorProperty.get() );
       }
 
     } );
@@ -82,22 +82,21 @@ define( function( require ) {
     // Update its existence strength (i.e. fade level) whenever it changes.
     mobileBiomolecule.existenceStrengthProperty.link( function( existenceStrength ) {
       assert && assert( existenceStrength >= 0 && existenceStrength <= 1 ); // Bounds checking.
-      path.opacity = Math.min( Number( existenceStrength ), 1 + mobileBiomolecule.zPosition );
+      path.opacity = Math.min( Number( existenceStrength ), 1 + mobileBiomolecule.zPositionProperty.get() );
 
     } );
 
     // Update the "closeness" whenever it changes.
     mobileBiomolecule.zPositionProperty.link( function( zPosition ) {
       assert && assert( zPosition >= -1 && zPosition <= 0 ); // Parameter checking.
-
       // The further back the biomolecule is, the more
       // transparent it is in order to make it look more distant.
-      path.opacity = Math.min( 1 + zPosition, mobileBiomolecule.existenceStrength );
+      path.opacity = Math.min( 1 + zPosition, mobileBiomolecule.existenceStrengthProperty.get() );
 
       // Also, as it goes further back, this node is scaled down
       // a bit, also to make it look further away.
-      path.scale( 1 );
-      path.scale( 1 + 0.15 * zPosition );
+      path.setScaleMagnitude( 1 );
+      path.setScaleMagnitude( 1 + 0.15 * zPosition );
     } );
 
     // If a polymerase molecule attaches to the DNA strand, move it to

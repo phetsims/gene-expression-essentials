@@ -69,13 +69,13 @@ define( function( require ) {
      */
     detachFromDnaMolecule: function( asm ) {
       var biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
-      asm.attachmentSite.attachedOrAttachingMolecule = null;
+      asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       asm.attachmentSite = null;
       asm.setState( this.transcriptionFactorAttachmentStateMachine.unattachedButUnavailableState );
       biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( biomolecule.getDetachDirection(),
         biomolecule.motionBoundsProperty ) );
       this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold = 1; // Reset this threshold.
-      asm.biomolecule.attachedToDna = false; // Update externally visible state indication.
+      asm.biomolecule.attachedToDnaProperty.set( false ); // Update externally visible state indication.
     },
 
     /**
@@ -131,14 +131,15 @@ define( function( require ) {
           else {
 
             // Clear the previous attachment site.
-            attachmentSite.attachedOrAttachingMolecule = null;
+            attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
 
             // Set a new attachment site.
             attachmentSite = attachmentSites[ 0 ];
-            attachmentSite.attachedOrAttachingMolecule = biomolecule;
+            attachmentSite.attachedOrAttachingMoleculeProperty.set( biomolecule );
 
             // Set up the state to move to the new attachment site.
             this.transcriptionFactorAttachmentStateMachine.setState( movingTowardsAttachmentState );
+            this.transcriptionFactorAttachmentStateMachine.attachmentSite = attachmentSite;
             biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.locationProperty,
               biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), VELOCITY_ON_DNA ) );
 
@@ -158,7 +159,7 @@ define( function( require ) {
      */
     entered: function( enclosingStateMachine ) {
       enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
-      enclosingStateMachine.biomolecule.attachedToDna = true; // Update externally visible state indication.
+      enclosingStateMachine.biomolecule.attachedToDnaProperty.set( true ); // Update externally visible state indication.
     }
 
 

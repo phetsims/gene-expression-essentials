@@ -57,7 +57,7 @@ define( function( require ) {
         new Vector2( -0.5, 1 ), enclosingStateMachine.biomolecule.motionBoundsProperty ) );
 
       // Update externally visible state.
-      this.msgRnaAttachmentStateMachine.messengerRna.beingSynthesized = false;
+      this.msgRnaAttachmentStateMachine.messengerRna.beingSynthesizedProperty.set( false );
     }
 
   } );

@@ -1,101 +1,71 @@
 // Copyright 2015, University of Colorado Boulder
-//package edu.colorado.phet.geneexpressionbasics.multiplecells.view;
-//import java.awt.Dimension;
-//import java.awt.Font;
-//import java.awt.Frame;
-//import java.awt.GridBagConstraints;
-//import java.awt.GridBagLayout;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//import java.awt.image.BufferedImage;
-//import javax.swing.BorderFactory;
-//import javax.swing.ImageIcon;
-//import javax.swing.JButton;
-//import javax.swing.JLabel;
-//import javax.swing.JPanel;
-//import javax.swing.JTextPane;
-//import javax.swing.text.SimpleAttributeSet;
-//import javax.swing.text.StyleConstants;
-//import edu.colorado.phet.common.phetcommon.application.PaintImmediateDialog;
-//import edu.colorado.phet.common.phetcommon.view.util.PhetFont;
-//import edu.colorado.phet.geneexpressionbasics.GeneExpressionBasicsResources;
-///**
-// * Shows a picture of real cells containing fluorescent protein.
-// */
-//public class FluorescentCellsPictureDialog extends PaintImmediateDialog {
-//    //----------------------------------------------------------------------------
-//    // Class Data
-//    //----------------------------------------------------------------------------
-//    private static final Font CAPTION_FONT = new PhetFont( 14 );
-//    private static final Font ATTRIBUTION_FONT = new PhetFont( 12 );
-//    //----------------------------------------------------------------------------
-//    // Constructors
-//    //----------------------------------------------------------------------------
-//    /**
-//     * Constructor.
-//     */
-//    public FluorescentCellsPictureDialog( Frame parentFrame ) {
-//        super( parentFrame, true );
-//        setResizable( false );
-//        // Picture
-//        BufferedImage image = GeneExpressionBasicsResources.Images.ECOLI;
-//        final JLabel picture = new JLabel( new ImageIcon( image ) );
-//        picture.setSize( image.getWidth(), image.getHeight() );
-//        // Caption
-//        JTextPane captionTextPane = new JTextPane() {{
-//            SimpleAttributeSet left = new SimpleAttributeSet();
-//            StyleConstants.setAlignment( left, StyleConstants.ALIGN_LEFT );
-//            getStyledDocument().setParagraphAttributes( 0, 0, left, false );
-//            setOpaque( false );
-//            setEditable( false );
-//            setPreferredSize( new Dimension( picture.getWidth(), getFontMetrics( CAPTION_FONT ).getHeight() * 3 + getFontMetrics( CAPTION_FONT ).getDescent() ) );
-//            setFont( CAPTION_FONT );
-//            setText( GeneExpressionBasicsResources.Strings.IMAGE_CAPTION );
-//        }};
-//        // Attribution
-//        JTextPane attributionTextPane = new JTextPane() {{
-//            SimpleAttributeSet center = new SimpleAttributeSet();
-//            StyleConstants.setAlignment( center, StyleConstants.ALIGN_CENTER );
-//            getStyledDocument().setParagraphAttributes( 0, 0, center, false );
-//            setOpaque( false );
-//            setEditable( false );
-//            setFont( ATTRIBUTION_FONT );
-//            // Don't allow translation of the image attribution.
-//            setText( "Image Copyright Dennis Kunkel Microscopy, Inc." );
-//        }};
-//        // Close button
-//        JButton closeButton = new JButton( GeneExpressionBasicsResources.Strings.CLOSE );
-//        closeButton.addActionListener( new ActionListener() {
-//            public void actionPerformed( ActionEvent event ) {
-//                FluorescentCellsPictureDialog.this.dispose();
-//            }
-//        } );
-//        // Panel
-//        JPanel panel = new JPanel( new GridBagLayout() );
-//        panel.setBorder( BorderFactory.createEmptyBorder( 10, 10, 10, 10 ) ); // top, left, bottom, right
-//        GridBagConstraints constraints = new GridBagConstraints();
-//        constraints.gridx = 0;
-//        constraints.gridy = 0;
-//        constraints.insets.top = 5;
-//        constraints.insets.bottom = 5;
-//        panel.add( picture, constraints );
-//        constraints.gridy++;
-//        panel.add( captionTextPane, constraints );
-//        constraints.gridy++;
-//        panel.add( attributionTextPane, constraints );
-//        constraints.gridy++;
-//        constraints.insets.top = 15;
-//        constraints.insets.bottom = 15;
-//        panel.add( closeButton, constraints );
-//        // Add to the dialog
-//        getContentPane().add( panel );
-//        pack();
-//    }
-//    @Override
-//    public void setVisible( boolean visible ) {
-//        super.setVisible( visible );
-//        if ( visible ) {
-//            pack(); // pack after making visible because this dialog contains a JTextArea
-//        }
-//    }
-//}
+
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var ButtonListener = require( 'SCENERY/input/ButtonListener' );
+  var Dialog = require( 'JOIST/Dialog' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
+  var Property = require( 'AXON/Property' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
+  // images
+  var ecoliImage = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/ecoli.jpg' );
+
+  //strings
+  var imageCaptionString = require('string!GENE_EXPRESSION_ESSENTIALS/imageCaption');
+
+  function FluorescentCellsPictureDialog() {
+    var self = this;
+
+    var imageNode = new Image( ecoliImage );
+    imageNode.scale( 0.75 );
+    var children = [
+      imageNode,
+      new MultiLineText( imageCaptionString ),
+      new Text( 'Image Copyright Dennis Kunkel Microscopy, Inc.' )
+    ];
+
+    var content = new LayoutBox( { orientation: 'vertical', align: 'center', spacing: 10, children: children } );
+
+    Dialog.call( this, content, {
+      modal: true,
+      hasCloseButton: true,
+
+      // focusable so it can be dismissed
+      focusable: true
+
+    } );
+
+    // close it on a click
+    this.addInputListener( new ButtonListener( {
+      fire: self.hide.bind( self )
+    } ) );
+
+    this.shownProperty = new Property( false );
+
+    this.shownProperty.lazyLink( function( shown ) {
+      if ( shown ) {
+        Dialog.prototype.show.call( self );
+      }
+      else {
+        Dialog.prototype.hide.call( self );
+      }
+    } );
+  }
+
+  geneExpressionEssentials.register( 'FluorescentCellsPictureDialog', FluorescentCellsPictureDialog );
+  return inherit( Dialog, FluorescentCellsPictureDialog, {
+    hide: function() {
+      this.shownProperty.value = false;
+    },
+    show: function() {
+      this.shownProperty.value = true;
+    }
+  } );
+} );

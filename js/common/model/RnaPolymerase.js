@@ -77,7 +77,7 @@ define( function( require ) {
      * @param {number} changeFactor
      */
     changeConformation: function( changeFactor ) {
-      var newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( shapePoints, changeFactor, 259 ); // Seed value chosen by trial and error.
+      var newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( shapePoints, changeFactor, 45 ); // Seed value chosen by trial and error.
       var translation = Matrix3.translation( this.getPosition().x, this.getPosition().y );
       var newTranslatedShape = newUntranslatedShape.transformed( translation );
       this.shapeProperty.set( newTranslatedShape );

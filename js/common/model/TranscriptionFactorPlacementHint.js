@@ -43,7 +43,7 @@ define( function( require ) {
      */
     activateIfConfigMatch: function( transcriptionFactorConfig ) {
       if ( this.tfConfig === transcriptionFactorConfig ) {
-        this.active = true;
+        this.activeProperty.set( true );
       }
     }
 

@@ -22,6 +22,7 @@ define( function( require ) {
   var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/MessengerRnaAttachmentStateMachine' );
   var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
   var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
+  var Property = require( 'AXON/Property' );
   var Ribosome = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Ribosome' );
   var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaDestroyer' );
 
@@ -53,7 +54,7 @@ define( function( require ) {
 
     // Externally visible indicator for whether this mRNA is being synthesized.
     // Assumes that it is being synthesized when created.
-    self.addProperty( 'beingSynthesized', true );
+    this.beingSynthesizedProperty = new Property( true );
 
     // Protein prototype, used to keep track of protein that should be
     // synthesized from this particular strand of mRNA.
@@ -98,11 +99,12 @@ define( function( require ) {
      * @Override
      * @param translationVector
      */
-    translate: function( translationVector ) {
+    translate: function( x, y ) {
 
       // Translate the current shape user the superclass facility.
-      WindingBiomolecule.prototype.translate.call( this, translationVector );
+      WindingBiomolecule.prototype.translate.call( this, x, y );
 
+      var translationVector = new Vector2( x, y );
       // Translate each of the shape segments that define the outline shape.
       this.shapeSegments.forEach( function( shapeSegment ) {
         shapeSegment.translate( translationVector );
@@ -316,8 +318,8 @@ define( function( require ) {
     },
 
     deactivateAllHints: function() {
-      this.ribosomePlacementHint.active = false;
-      this.mRnaDestroyerPlacementHint.active = false;
+      this.ribosomePlacementHint.activeProperty.set( false );
+      this.mRnaDestroyerPlacementHint.activeProperty.set( false );
     },
 
     /**
@@ -403,7 +405,7 @@ define( function( require ) {
         // See if the attachment site at the leading edge of the mRNA is
         // available.
         var leadingEdgeAttachmentSite = this.shapeSegments.get( 0 ).attachmentSite;
-        if ( leadingEdgeAttachmentSite.attachedOrAttachingMolecule === null &&
+        if ( leadingEdgeAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
              leadingEdgeAttachmentSite.locationProperty.get().distance(
                ribosome.getEntranceOfRnaChannelPos() ) < RIBOSOME_CONNECTION_DISTANCE ) {
 
@@ -436,7 +438,7 @@ define( function( require ) {
         // See if the attachment site at the leading edge of the mRNA is
         // available.
         var leadingEdgeAttachmentSite = this.shapeSegments.get( 0 ).attachmentSite;
-        if ( leadingEdgeAttachmentSite.attachedOrAttachingMolecule === null &&
+        if ( leadingEdgeAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
              leadingEdgeAttachmentSite.locationProperty.get().distance(
                messengerRnaDestroyer.getPosition() ) < MRNA_DESTROYER_CONNECT_DISTANCE ) {
 
