@@ -35,10 +35,7 @@ define( function( require ) {
 
     Dialog.call( this, content, {
       modal: true,
-      hasCloseButton: true,
-
-      // focusable so it can be dismissed
-      focusable: true
+      hasCloseButton: true
 
     } );
 
