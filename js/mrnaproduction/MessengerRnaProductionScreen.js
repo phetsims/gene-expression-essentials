@@ -12,6 +12,8 @@ define( function( require ) {
   var MessengerRnaProductionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/mrnaproduction/view/MessengerRnaProductionScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var mRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRna' );
@@ -23,7 +25,7 @@ define( function( require ) {
 
     var options = {
       name: mRnaString,
-      backgroundColor: '#ABCBDB'
+      backgroundColorProperty: new Property( Color.toColor( '#ABCBDB' ) )
       //TODO add homeScreenIcon
     };
 

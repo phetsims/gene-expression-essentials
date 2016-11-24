@@ -13,6 +13,8 @@ define( function( require ) {
   var ManualGeneExpressionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/view/ManualGeneExpressionScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var expressionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/expression' );
@@ -24,7 +26,7 @@ define( function( require ) {
 
     var options = {
       name: expressionString,
-      backgroundColor: '#ABCBDB'
+      backgroundColorProperty: new Property( Color.toColor( '#ABCBDB' ) )
       //TODO add homeScreenIcon
     };
 
