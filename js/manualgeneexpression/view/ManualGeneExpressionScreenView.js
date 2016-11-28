@@ -268,16 +268,5 @@ define( function( require ) {
   geneExpressionEssentials.register( 'ManualGeneExpressionScreenView', ManualGeneExpressionScreenView );
 
   return inherit( ScreenView, ManualGeneExpressionScreenView, {
-    debugPoint: function( canvas, pt ) {
-      var cirlceNode = new Circle( 15, {
-        fill: 'red'
-      } );
-
-      canvas.addChild( cirlceNode );
-
-      cirlceNode.x = pt.x;
-      cirlceNode.y = pt.y;
-    }
-
   } );
 } );

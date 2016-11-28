@@ -28,18 +28,25 @@ define( function( require ) {
   function DnaStrandSegmentNode( dnaStrandSegment, mvt, strandSegmentStroke, color ) {
     var self = this;
     Node.call( self );
-    var pathNode = new Path( new Shape(), { lineWidth: strandSegmentStroke, stroke: color } );
+    var pathNode = new Path( mvt.modelToViewShape( dnaStrandSegment.getShape() ), { lineWidth: strandSegmentStroke, stroke: color } );
     self.addChild( pathNode );
-    var defaultBounds = new Bounds2( 0, 0, 0, 0 );
+    //var defaultBounds = new Bounds2( 0, 0, 0, 0 );
 
     //override computeShapeBounds to improve performance
-    pathNode.computeShapeBounds = function() {
-      return defaultBounds;
-    };
+    //pathNode.computeShapeBounds = function() {
+    //  return defaultBounds;
+    //};
 
-    dnaStrandSegment.addShapeChangeObserver( function( newShape ) {
+    /*dnaStrandSegment.addShapeChangeObserver( function( newShape ) {
       newShape = mvt.modelToViewShape( newShape );
       pathNode.setShape( newShape );
+    } );*/
+
+    dnaStrandSegment.shapeProperty.lazyLink( function( newShape, oldShape ) {
+      //console.log( newShape.bounds );
+      //console.log( oldShape.bounds );
+     newShape = mvt.modelToViewShape( newShape );
+     pathNode.setShape( newShape );
     } );
   }
 

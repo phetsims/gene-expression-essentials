@@ -73,7 +73,7 @@ define( function( require ) {
         } );
 
         // If we've reached the end of the gene, detach.
-        if ( biomolecule.getPosition().equalsEpsilon( this.endOfGene,BIO_MOLECULE_POSITION_COMPARISON_EPSILON ) ) {
+        if ( biomolecule.getPosition().equalsEpsilon( this.endOfGene, BIO_MOLECULE_POSITION_COMPARISON_EPSILON ) ) {
           attachedState = attachedAndDeconformingState;
           this.rnaPolymeraseAttachmentStateMachine.setState( attachedState );
           this.messengerRna.releaseFromPolymerase();
