@@ -13,8 +13,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
-  var Bounds2 = require( 'DOT/Bounds2' );
 
   /**
    *
@@ -30,21 +28,9 @@ define( function( require ) {
     Node.call( self );
     var pathNode = new Path( mvt.modelToViewShape( dnaStrandSegment.getShape() ), { lineWidth: strandSegmentStroke, stroke: color } );
     self.addChild( pathNode );
-    //var defaultBounds = new Bounds2( 0, 0, 0, 0 );
 
-    //override computeShapeBounds to improve performance
-    //pathNode.computeShapeBounds = function() {
-    //  return defaultBounds;
-    //};
-
-    /*dnaStrandSegment.addShapeChangeObserver( function( newShape ) {
-      newShape = mvt.modelToViewShape( newShape );
-      pathNode.setShape( newShape );
-    } );*/
 
     dnaStrandSegment.shapeProperty.lazyLink( function( newShape, oldShape ) {
-      //console.log( newShape.bounds );
-      //console.log( oldShape.bounds );
      newShape = mvt.modelToViewShape( newShape );
      pathNode.setShape( newShape );
     } );
