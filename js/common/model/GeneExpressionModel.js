@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Base class for the models used in this simulation.  All models must extend
- * from a common class so that the sam biomolecules can be used within each.
+ * Base class for the models used in this simulation. All models must extend from a common class so that the same
+ * biomolecules can be used within each.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -31,27 +31,25 @@ define( function( require ) {
      * @return {DnaMolecule} - DNA molecule, null if none exists.
      */
     getDnaMolecule: function() {
-      throw new Error( 'getDnaMolecule should be implemented in descendant classes of GeneExpressionModel ' );
+      assert && assert( false, 'getDnaMolecule should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
-     * Add a mobile biomolecule to the model.  The model must send out the
-     * appropriate notifications.
+     * Add a mobile biomolecule to the model. The model must send out the appropriate notifications.
      *
      * @param {MobileBiomolecule} mobileBiomolecule
      */
     addMobileBiomolecule: function( mobileBiomolecule ) {
-      throw new Error( 'addMobileBiomolecule should be implemented in descendant classes of GeneExpressionModel .' );
+      assert && assert( false, 'addMobileBiomolecule should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
-     * Add the specified messenger RNA strand to the model.  The model must
-     * send out the appropriate notifications.
+     * Add the specified messenger RNA strand to the model. The model must send out the appropriate notifications.
      *
      * @param {MessengerRna} messengerRna
      */
     addMessengerRna: function( messengerRna ) {
-      throw new Error( 'addMessengerRna should be implemented in descendant classes of GeneExpressionModel .' );
+      assert && assert( false, 'addMessengerRna should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
@@ -60,17 +58,16 @@ define( function( require ) {
      * @param {MessengerRna} messengerRnaBeingDestroyed
      */
     removeMessengerRna: function( messengerRnaBeingDestroyed ) {
-      throw new Error( 'removeMessengerRna should be implemented in descendant classes of GeneExpressionModel .' );
+      assert && assert( false, 'removeMessengerRna should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
-     * Get a list of all messenger RNA strands that are currently in
-     * existence.
+     * Get a list of all messenger RNA strands that are currently in existence.
      *
      * @return {Array<MessengerRna>}
      */
     getMessengerRnaList: function() {
-      throw new Error( 'getMessengerRnaList should be implemented in descendant classes of GeneExpressionModel .' );
+      assert && assert( false, 'getMessengerRnaList should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
@@ -80,7 +77,7 @@ define( function( require ) {
      * @return {Array<MobileBiomolecule>}
      */
     getOverlappingBiomolecules: function( testShape ) {
-      throw new Error( 'getOverlappingBiomolecules should be implemented in descendant classes of GeneExpressionModel .' );
+      assert && assert( false, 'getOverlappingBiomolecules should be implemented in descendant classes of GeneExpressionModel' );
     }
 
   } );

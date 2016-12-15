@@ -1,16 +1,11 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * This class models a molecule of DNA in the model.  It includes the shape of
- * the two "backbone" strands of the DNA and the individual base pairs, defines
- * where the various genes reside, and retains other information about the DNA
- * molecule.  This is an important and central object in the model for this
- * simulation.
- *
- * A big simplifying assumption that this class makes is that molecules that
- * attach to the DNA do so to individual base pairs.  In reality, biomolecules
- * attach to groups of base pairs, the exact configuration of which dictate
- * where biomolecules attach. This was unnecessarily complicated for the needs
- * of this sim.
+ * This class models a molecule of DNA in the model. It includes the shape of the two "backbone" strands of the DNA and
+ * the individual base pairs, defines where the various genes reside, and retains other information about the DNA
+ * molecule. This is an important and central object in the model for this simulation.
+ * A big simplifying assumption that this class makes is that molecules that attach to the DNA do so to individual base
+ * pairs. In reality, biomolecules attach to groups of base pairs, the exact configuration of which dictate where
+ * biomolecules attach. This was unnecessarily complicated for the needs of this sim.
 
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -41,32 +36,27 @@ define( function( require ) {
   var RNA_POLYMERASE_ATTACHMENT_DISTANCE = 400;
 
   /**
-   * @param {GeneExpressionModel} model //  The gene expression model within which this DNA strand exists.
-   * Needed for evaluation of biomolecule interaction.
-   *
+   * @param {GeneExpressionModel} model - The gene expression model within which this DNA strand exists.
    * @param {number} numBasePairs - number of base pairs in the strand
-   *
-   * @param {number} leftEdgeXOffset - x position in model space of the left side of
-   * the molecule.  Y position is assumed to be zero.
-   *
-   * @param {boolean} pursueAttachments - flag that controls whether the DNA strand
-   * actively pulls in transcription factors and polymerase, or just lets them drift into place.
+   * @param {number} leftEdgeXOffset - x position in model space of the left side of the molecule. Y position is assumed
+   * to be zero.
+   * @param {boolean} pursueAttachments - flag that controls whether the DNA strand actively pulls in transcription
+   * factors and polymerase, or just lets them drift into place.
    *
    * @constructor
    */
   function DnaMolecule( model, numBasePairs, leftEdgeXOffset, pursueAttachments ) {
       this.model = model || new StubGeneExpressionModel();
     this.leftEdgeXOffset = leftEdgeXOffset;
-    this.pursueAttachments = pursueAttachments; // Flag that controls active pursual of transcription factors and polymerase.
+    this.pursueAttachments = pursueAttachments;
     this.moleculeLength = numBasePairs * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
     this.numberOfTwists = this.moleculeLength / CommonConstants.LENGTH_PER_TWIST;
 
     // Points that, when connected, define the shape of the DNA strands.
     this.strandPoints = []; // Array of DnaStrandPoint
 
-    // Shadow of the points that define the strand shapes, used for rapid
-    // evaluation of any shape changes.
-    // Create a shadow of the shape-defining points.  This will be used for detecting shape changes.
+    // Shadow of the points that define the strand shapes, used for rapid evaluation of any shape changes. Create a
+    // shadow of the shape-defining points. This will be used for detecting shape changes.
     this.strandPointsShadow = [];
 
     // The backbone strands that are portrayed in the view, which consist of lists of shapes.
@@ -139,7 +129,7 @@ define( function( require ) {
 
     /**
      * Initialize the DNA stand segment lists.
-     * private
+     * @private
      */
     initializeStrandSegments: function() {
       var self = this;
@@ -169,10 +159,8 @@ define( function( require ) {
     },
 
     /**
-     * Get the Y position in model space for a DNA strand for the given X
-     * position and offset.  The offset acts like a "phase difference", thus
-     * allowing this method to be used to get location information for both
-     * DNA strands.
+     * Get the Y position in model space for a DNA strand for the given X position and offset. The offset acts like a
+     * "phase difference", thus allowing this method to be used to get location information for both DNA strands.
      *
      * @param {number} xPos
      * @param {number} offset
@@ -183,12 +171,11 @@ define( function( require ) {
     },
 
     /**
-     * private
-     * Update the strand segment shapes based on things that might have
-     * changed, such as biomolecules attaching and separating the strands or
-     * otherwise deforming the nominal double-helix shape.
+     * @private
+     * Update the strand segment shapes based on things that might have changed, such as biomolecules attaching and
+     * separating the strands or otherwise deforming the nominal double-helix shape.
      */
-    updateStrandSegments: function( updateSeperation ) {
+    updateStrandSegments: function( updateSeparation ) {
       var self = this;
       // Set the shadow points to the nominal, non-deformed positions.
       _.forEach( this.strandPointsShadow, function( dnaStrandPoint ) {
@@ -196,7 +183,7 @@ define( function( require ) {
         dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, CommonConstants.INTER_STRAND_OFFSET );
       } );
 
-      if ( updateSeperation ) {
+      if ( updateSeparation ) {
         // Move the shadow points to account for any separations.
         _.forEach( this.separations, function( separation ) {
           var windowWidth = separation.getAmount(); // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
@@ -207,9 +194,8 @@ define( function( require ) {
             var windowCenterX = ( separationWindowXIndexRange.min + separationWindowXIndexRange.max ) / 2;
             if ( i >= 0 && i < self.strandPointsShadow.length ) {
 
-              // Perform a windowing algorithm that weights the separation
-              // at 1 in the center, 0 at the edges, and linear
-              // graduations in between.  By
+              // Perform a windowing algorithm that weights the separation at 1 in the center, 0 at the edges, and linear
+              // graduations in between.
               var separationWeight = 1 - Math.abs( 2 * ( i - windowCenterX ) / separationWindowXIndexRange.getLength() );
               self.strandPointsShadow[ i ].strand1YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand1YPos +
                                                          separationWeight * separation.getAmount() / 2;
@@ -220,25 +206,21 @@ define( function( require ) {
         } );
       }
 
-      // See if any of the points have moved and, if so, update the
-      // corresponding shape segment.
+      // See if any of the points have moved and, if so, update the corresponding shape segment.
       var numSegments = this.strand1Segments.length;
       for ( var i = 0; i < numSegments; i++ ) {
         var segmentChanged = false;
         var strand1Segment = this.strand1Segments[ i ];
         var strand2Segment = this.strand2Segments[ i ];
 
-        // Determine the bounds of the current segment.  Assumes that the
-        // bounds for the strand1 and strand2 segments are the same, which
-        // should be a safe assumption.
+        // Determine the bounds of the current segment. Assumes that the bounds for the strand1 and strand2 segments are
+        // the same, which should be a safe assumption.
         var bounds = strand1Segment.getShape().bounds;
         var pointIndexRange = new Range( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
           Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0 );
 
-        // Check to see if any of the points within the identified range
-        // have changed and, if so, update the corresponding segment shape
-        // in the strands.  If the points for either strand has changed,
-        // both are updated.
+        // Check to see if any of the points within the identified range have changed and, if so, update the
+        // corresponding segment shape in the strands. If the points for either strand has changed, both are updated.
         for ( var j = pointIndexRange.min; j <= pointIndexRange.max; j++ ) {
           if ( !this.strandPoints[ j ].equals( this.strandPointsShadow[ j ] ) ) {
 
@@ -283,9 +265,8 @@ define( function( require ) {
     },
 
     /**
-     * Add a gene to the DNA strand.  Adding a gene essentially defines it,
-     * since in this sim, the base pairs don't actually encode anything, so
-     * adding the gene essentially delineates where it is on the strand.
+     * Add a gene to the DNA strand. Adding a gene essentially defines it, since in this sim, the base pairs don't
+     * actually encode anything, so adding the gene essentially delineates where it is on the strand.
      *
      * @param {Gene} geneToAdd Gene to add to the DNA strand.
      */
@@ -294,9 +275,8 @@ define( function( require ) {
     },
 
     /**
-     * Get the X position of the specified base pair.  The first base pair at
-     * the left side of the DNA molecule is base pair 0, and it goes up from
-     * there.
+     * Get the X position of the specified base pair. The first base pair at the left side of the DNA molecule is base
+     * pair 0, and it goes up from there.
      *
      * @param {number} basePairNumber
      * @returns {number}
@@ -380,8 +360,8 @@ define( function( require ) {
     },
 
     /**
-     * Get the position in model space of the leftmost edge of the DNA strand.
-     * The Y position is in the vertical center of the strand.
+     * Get the position in model space of the leftmost edge of the DNA strand. The Y position is in the vertical center
+     * of the strand.
      *
      * @returns {Vector2}
      */
@@ -391,11 +371,9 @@ define( function( require ) {
 
 
     /**
-     * Consider an attachment proposal from a transcription factor instance.
-     * To determine whether or not to accept or reject this proposal, the base
-     * pairs are scanned in order to determine whether there is an appropriate
-     * and available attachment site within the attachment distance.
-     * or Consider an attachment proposal from an instance of RNA polymerase.
+     * Consider an attachment proposal from a transcription factor instance. To determine whether or not to accept or
+     * reject this proposal, the base pairs are scanned in order to determine whether there is an appropriate and
+     * available attachment site within the attachment distance
      *
      * @param {TranscriptionFactor} transcriptionFactor
      * @return {AttachmentSite}
@@ -438,8 +416,7 @@ define( function( require ) {
 
     /**
      * @private
-     * Consider a proposal from a biomolecule.  This is the generic version
-     * that avoids duplicated code.
+     * Consider a proposal from a biomolecule. This is the generic version that avoids duplicated code.
      * @param {MobileBiomolecule} biomolecule
      * @param {number} maxAttachDistance
      * @param {Function<Integer>} getAttachSiteForBasePair
@@ -463,9 +440,8 @@ define( function( require ) {
         }
       }
 
-      // If there aren't any potential attachment sites in range, check for
-      // a particular set of conditions under which the DNA provides an
-      // attachment site anyways.
+      // If there aren't any potential attachment sites in range, check for a particular set of conditions under which
+      // the DNA provides an attachment site anyways.
       if ( potentialAttachmentSites.length === 0 && this.pursueAttachments ) {
         _.forEach( this.genes, function( gene ) {
           if ( isOkayToAttach( gene ) ) {
@@ -496,10 +472,9 @@ define( function( require ) {
 
         } );
 
-      }// if
+      }
 
-      // Eliminate sites that would put the molecule out of bounds or
-      // would overlap with other attached biomolecules.
+      // Eliminate sites that would put the molecule out of bounds or would overlap with other attached biomolecules.
       potentialAttachmentSites = this.eliminateInvalidAttachmentSites( biomolecule, potentialAttachmentSites );
       if ( potentialAttachmentSites.length === 0 ) {
 
@@ -513,13 +488,10 @@ define( function( require ) {
       // Sort the collection so that the best site is at the top of the list.
       potentialAttachmentSites.sort( function( attachmentSite1, attachmentSite2 ) {
 
-        // The comparison is based on a combination of the affinity and the
-        // distance, much like gravitational attraction.  The exponent
-        // effectively sets the relative weighting of one versus another.
-        // An exponent value of zero means only the affinity matters, a
-        // value of 100 means it is pretty much entirely distance.  A value
-        // of 2 is how gravity works, so it appears kind of natural.  Tweak
-        // as needed.
+        // The comparison is based on a combination of the affinity and the distance, much like gravitational attraction.
+        // The exponent effectively sets the relative weighting of one versus another. An exponent value of zero means
+        // only the affinity matters, a value of 100 means it is pretty much entirely distance. A value of 2 is how
+        // gravity works, so it appears kind of natural. Tweak as needed.
         var as1Factor = attachmentSite1.getAffinity() / Math.pow( attachLocation.distance( attachmentSite1.locationProperty.get() ), exponent );
         var as2Factor = attachmentSite2.getAffinity() / Math.pow( attachLocation.distance( attachmentSite2.locationProperty.get() ), exponent );
 
@@ -533,22 +505,18 @@ define( function( require ) {
         return 0;
       } );
 
-      //potentialAttachmentSites = potentialAttachmentSites.reverse();
-
       // Return the optimal attachment site.
       return potentialAttachmentSites[ 0 ];
     },
 
     /**
      * @private
-     * Take a list of attachment sites and eliminate any of them that, if the
-     * given molecule attaches, it would end up out of bounds or overlapping
-     * with another biomolecule that is already attached to the DNA strand.
+     * Take a list of attachment sites and eliminate any of them that, if the given molecule attaches, it would end up
+     * out of bounds or overlapping with another biomolecule that is already attached to the DNA strand.
      *
-     * @param  {MobileBiomolecule} biomolecule     -         The biomolecule that is potentially going to
-     *                                 attach to the provided list of attachment sites.
-     * @param {Array} potentialAttachmentSites -  Attachment sites where the given
-     *                                 biomolecule could attach.
+     * @param  {MobileBiomolecule} biomolecule - The biomolecule that is potentially going to attach to the provided
+     * list of attachment sites.
+     * @param {Array} potentialAttachmentSites - Attachment sites where the given biomolecule could attach.
      */
     eliminateInvalidAttachmentSites: function( biomolecule, potentialAttachmentSites ) {
       var self = this;
@@ -604,7 +572,7 @@ define( function( require ) {
       }
       else {
         // Base pair is not contained within a gene, so use the default.
-        attachmentSite = this.createDefaultAffinityAttachmentSiteByInt( i );
+        attachmentSite = this.createDefaultAffinityAttachmentSite( i );
       }
 
       return attachmentSite;
@@ -625,15 +593,14 @@ define( function( require ) {
       }
       else {
         // Base pair is not contained within a gene, so use the default.
-        return this.createDefaultAffinityAttachmentSiteByInt( i );
+        return this.createDefaultAffinityAttachmentSite( i );
       }
     },
 
     /**
-     * Get the two base pair attachment sites that are next to the provided
-     * one, i.e. the one before it on the DNA strand and the one after it.  If
-     * at one end of the strand, only one site will be returned.  Occupied
-     * sites are not returned.
+     * Get the two base pair attachment sites that are next to the provided one, i.e. the one before it on the DNA
+     * strand and the one after it. If at one end of the strand, only one site will be returned. Occupied sites are not
+     * returned.
      *
      * @param {TranscriptionFactor} transcriptionFactor
      * @param {AttachmentSite} attachmentSite
@@ -662,10 +629,9 @@ define( function( require ) {
     },
 
     /**
-     * Get the two base pair attachment sites that are next to the provided
-     * one, i.e. the one before it on the DNA strand and the one after it.  If
-     * at one end of the strand, only one site will be returned.  Occupied
-     * sites are not returned.
+     * Get the two base pair attachment sites that are next to the provided one, i.e. the one before it on the DNA
+     * strand and the one after it. If at one end of the strand, only one site will be returned. Occupied sites are not
+     * returned.
      *
      * @param {RnaPolymerase} rnaPolymerase
      * @param  {AttachmentSite} attachmentSite
@@ -688,8 +654,7 @@ define( function( require ) {
         }
       }
 
-      // Eliminate sites that would put the molecule out of bounds or
-      // would overlap with other attached biomolecules.
+      // Eliminate sites that would put the molecule out of bounds or would overlap with other attached biomolecules.
       return this.eliminateInvalidAttachmentSites( rnaPolymerase, attachmentSites );
     },
 
@@ -726,46 +691,23 @@ define( function( require ) {
       return (x | 0) === x;
     },
 
-    /**
-     * Handles overloaded createDefaultAffinityAttachmentSite by Data type
-     * @param value
-     * @returns {*}
-     */
-
 
     /**
-     * Create an attachment site instance with the default affinity for all
-     * DNA-attaching biomolecules at the specified x offset.
+     * Create an attachment site instance with the default affinity for all DNA-attaching biomolecules at the specified
+     * x offset.
      *
      * @param {number} xOffset
      * @return
      */
-    createDefaultAffinityAttachmentSiteByDouble: function( xOffset ) {
+    createDefaultAffinityAttachmentSite: function( xOffset ) {
       return new AttachmentSite( new Vector2( this.getNearestBasePairXOffset( xOffset ),
         CommonConstants.DNA_MOLECULE_Y_POS ), CommonConstants.DEFAULT_AFFINITY );
     },
 
-
-    /**
-     * Create an attachment site instance with the default affinity for all
-     * DNA-attaching biomolecules at the specified x offset.
-     *
-     * @param {number} xOffset
-     * @return
-     */
-    createDefaultAffinityAttachmentSiteByInt: function( xOffset ) {
-
-      //    console.log("this.getBasePairXOffsetByIndex( xOffset ) "+ xOffset + "   "+ this.getBasePairXOffsetByIndex( xOffset ));
-
-      return new AttachmentSite( new Vector2( this.getBasePairXOffsetByIndex( xOffset ),
-        CommonConstants.DNA_MOLECULE_Y_POS ), CommonConstants.DEFAULT_AFFINITY );
-    },
-
-
     /**
      * Get a reference to the gene that contains the given location.
      *
-     * @param {Vector} location
+     * @param {Vector2} location
      * @return {Gene} Gene at the location, null if no gene exists.
      */
     getGeneAtLocation: function( location ) {

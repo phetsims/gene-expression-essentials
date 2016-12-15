@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Biomolecule that is a represented as a wound up strand.  Generally, this
- * refers to some sort of RNA.  The complicated part of this is the algorithm
- * that is used to wind the strand.
+ * Biomolecule that is a represented as a wound up strand. Generally, this refers to some sort of RNA. The complicated
+ * part of this is the algorithm that is used to wind the strand.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -25,14 +24,12 @@ define( function( require ) {
 
 
   // constants
-  // Color used by this molecule.  Since mRNA is depicted as a line and not
-  // as a closed shape, a transparent color is used.  This enables reuse of
-  // generic biomolecule classes.
+  // Color used by this molecule. Since mRNA is depicted as a line and not as a closed shape, a transparent color is used.
+  // This enables reuse of generic biomolecule classes.
   var NOMINAL_COLOR = new Color( 0, 0, 0, 0 );
 
-  // Standard distance between points that define the shape.  This is done to
-  // keep the number of points reasonable and make the shape-defining
-  // algorithm consistent.
+  // Standard distance between points that define the shape. This is done to keep the number of points reasonable and
+  // make the shape-defining algorithm consistent.
   var INTER_POINT_DISTANCE = CommonConstants.INTER_POINT_DISTANCE;
 
   /**
@@ -58,11 +55,9 @@ define( function( require ) {
   return inherit( MobileBiomolecule, WindingBiomolecule, {
 
     /**
-     * Position a set of points within a rectangle.  The first point stays at the
-     * upper left, the last point stays at the lower right, and the points in
-     * between are initially positioned randomly, then a spring algorithm is
-     * run to position them such that each point is the appropriate distance
-     * from the previous and next points.
+     * Position a set of points within a rectangle. The first point stays at the upper left, the last point stays at the
+     * lower right, and the points in between are initially positioned randomly, then a spring algorithm is run to position
+     * them such that each point is the appropriate distance from the previous and next points.
      *
      * @private static
      * @param {PointMass} firstPoint
@@ -87,9 +82,8 @@ define( function( require ) {
       // Position the last point at the lower right.
       lastPoint.setPosition( bounds.getMaxX(), bounds.getMinY() );
 
-      // Run an algorithm that treats each pair of points as though there
-      // is a spring between them, but doesn't allow the first or last
-      // points to be moved.
+      // Run an algorithm that treats each pair of points as though there is a spring between them, but doesn't allow the
+      // first or last points to be moved.
       var currentPoint = firstPoint;
       while ( currentPoint !== null ) {
         currentPoint.clearVelocity();
@@ -110,34 +104,22 @@ define( function( require ) {
           if ( currentPoint.getNextPointMass() !== null ) {
             var nextPoint = currentPoint.getNextPointMass();
 
-            // This is not the last point on the list, so go ahead and
-            // run the spring algorithm on it.
-            //var prevPosition = previousPoint.getPosition();
-            //var currentPosition = currentPoint.getPosition();
-            // refactored previousPoint.minus( currentPoint ); to the code below in order to avoid creating new Vector2 instances (found too many Vector2 instance at this place during profiling)
-            var vectorToPreviousPoint = previousPoint.getPosition().minus( currentPoint.getPosition() );
+            // This is not the last point on the list, so go ahead and run the spring algorithm on it.
 
-            //vectorToPreviousPoint.x = prevPosition.x - currentPosition.x;
-            //vectorToPreviousPoint.y = prevPosition.y - currentPosition.y;
+            var vectorToPreviousPoint = previousPoint.getPosition().minus( currentPoint.getPosition() );
 
             if ( vectorToPreviousPoint.magnitude() === 0 ) {
 
-              // This point is sitting on top of the previous point,
-              // so create an arbitrary vector away from it.
+              // This point is sitting on top of the previous point, so create an arbitrary vector away from it.
               vectorToPreviousPoint = new Vector2( 1, 1 );
             }
             var scalarForceDueToPreviousPoint = ( -springConstant ) * ( currentPoint.getTargetDistanceToPreviousPoint() - currentPoint.distance( previousPoint ) );
             var forceDueToPreviousPoint = vectorToPreviousPoint.normalized().times( scalarForceDueToPreviousPoint );
             var vectorToNextPoint = nextPoint.getPosition().minus( currentPoint.getPosition() );
 
-            //vectorToNextPoint = nextPoint.getPosition().minus( currentPoint.getPosition() );
-            //vectorToNextPoint.x = nextPosition.x - currentPosition.x;
-            //vectorToNextPoint.y = nextPosition.y - currentPosition.y;
-
             if ( vectorToNextPoint.magnitude() === 0 ) {
 
-              // This point is sitting on top of the next point,
-              // so create an arbitrary vector away from it.
+              // This point is sitting on top of the next point, so create an arbitrary vector away from it.
               vectorToNextPoint = new Vector2( -1, -1 );
             }
 
@@ -146,20 +128,6 @@ define( function( require ) {
             var dampingForce = currentPoint.getVelocity().times( -dampingConstant );
             var totalForce = forceDueToPreviousPoint.plus( forceDueToNextPoint ).plus( dampingForce );
             var acceleration = totalForce.times( 1 / pointMass );
-            //var forceDueToNextPoint = vectorToNextPoint.normalized().timesScalar( scalarForceDueToNextPoint );
-            //vectorToNextPoint.normalize();
-            //forceDueToNextPoint.x = vectorToNextPoint.x * scalarForceDueToNextPoint;
-            //forceDueToNextPoint.y = vectorToNextPoint.y * scalarForceDueToNextPoint;
-
-            //var currentVelocity = currentPoint.getVelocity();
-
-            // var dampingForce = currentPoint.getVelocity().timesScalar( -dampingConstant );
-            //dampingForce.x = currentVelocity.x * ( -dampingConstant );
-            //dampingForce.y = currentVelocity.y * ( -dampingConstant );
-
-            //var totalForce = forceDueToPreviousPoint.plus( forceDueToNextPoint ).plus( dampingForce );
-            //totalForce.x = forceDueToPreviousPoint.x + forceDueToNextPoint.x + dampingForce.x;
-            //totalForce.y = forceDueToPreviousPoint.y + forceDueToNextPoint.y + dampingForce.y;
 
             //var acceleration = totalForce.timesScalar( 1 / pointMass ); // The acceleration vector is used internally by currentPoit, so cant reuse a scratch instance
             currentPoint.setAcceleration( acceleration );
@@ -225,15 +193,15 @@ define( function( require ) {
     },
 
     /**
-     * Add the specified amount of mRNA length to the tail end of the mRNA.
-     * Adding a length will cause the winding algorithm to be re-run.
+     * Add the specified amount of mRNA length to the tail end of the mRNA. Adding a length will cause the winding
+     * algorithm to be re-run.
      *
      * @param {number} length - Length of mRNA to add in picometers.
      */
     addLength: function( length ) {
 
-      // Add the length to the set of shape-defining points.  This may add
-      // a new point, or simply reposition the current last point.
+      // Add the length to the set of shape-defining points. This may add a new point, or simply reposition the current
+      // last point.
       if ( this.firstShapeDefiningPoint === this.lastShapeDefiningPoint ) {
 
         // This is the first length added to the strand, so put it on.
@@ -243,14 +211,13 @@ define( function( require ) {
         var prevDistance = this.lastShapeDefiningPoint.getTargetDistanceToPreviousPoint();
         if ( prevDistance + length <= INTER_POINT_DISTANCE ) {
 
-          // No need to add a new point - just set the distance of the
-          // current last point to be further away from the previous.
+          // No need to add a new point - just set the distance of the current last point to be further away from the
+          // previous.
           this.lastShapeDefiningPoint.setTargetDistanceToPreviousPoint( prevDistance + length );
         }
         else {
 
-          // Set the last point to be at the prescribed inter-point
-          // distance, and then add a new point.
+          // Set the last point to be at the prescribed inter-point distance, and then add a new point.
           this.lastShapeDefiningPoint.setTargetDistanceToPreviousPoint( INTER_POINT_DISTANCE );
           this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), length - ( INTER_POINT_DISTANCE - prevDistance ) );
         }
@@ -267,23 +234,20 @@ define( function( require ) {
       // Realign the segments, since some growth probably occurred.
       this.realignSegmentsFromEnd();
 
-      // Now that the points and shape segments are updated, run the
-      // algorithm that winds the points through the shapes to produce the
-      // shape of the strand that will be presented to the user.
+      // Now that the points and shape segments are updated, run the algorithm that winds the points through the shapes
+      // to produce the shape of the strand that will be presented to the user.
       this.windPointsThroughSegments();
     },
 
     /**
-     * This is the "winding algorithm" that positions the points that define
-     * the shape of the mRNA within the shape segments.  The combination of
-     * this algorithm and the shape segments allow the mRNA to look reasonable
-     * when it is being synthesized and when it is being transcribed.
+     * This is the "winding algorithm" that positions the points that define the shape of the mRNA within the shape
+     * segments. The combination of this algorithm and the shape segments allow the mRNA to look reasonable when it is
+     * being synthesized and when it is being transcribed.
      */
     windPointsThroughSegments: function() {
       var handledLength = 0;
 
-      // Loop through the shape segments positioning the shape-defining
-      // points within them.
+      // Loop through the shape segments positioning the shape-defining points within them.
       for ( var i = 0; i < this.shapeSegments.length; i++ ) {
         var shapeSegment = this.shapeSegments.get( i );
         var lengthRange;
@@ -292,19 +256,16 @@ define( function( require ) {
         }
         else {
 
-          // This is the last segment, so set the max to be infinite in
-          // order to be sure that the last point is always included.  If
-          // this isn't done, accumulation of floating point errors can
-          // cause the last point to fall outside of the range, and it
-          // won't get positioned.  Which is bad.
+          // This is the last segment, so set the max to be infinite in order to be sure that the last point is always
+          // included. If this isn't done, accumulation of floating point errors can cause the last point to fall outside
+          // of the range, and it won't get positioned.  Which is bad.
           lengthRange = new Range( handledLength, Number.MAX_VALUE ); //TODO Double POSITIVE
 
           // Watch for unexpected conditions and spit out warning if found.
           var totalShapeSegmentLength = this.getTotalLengthInShapeSegments();
           if ( Math.abs( this.getLength() - totalShapeSegmentLength ) > 1 ) {
 
-            // If this message appears, something may well be wrong
-            // with the way the shape segments are being updated.
+            // If this message appears, something may well be wrong with the way the shape segments are being updated.
             console.log( ' Warning: Larger than expected difference between mRNA length and shape segment length.' );
           }
         }
@@ -347,9 +308,8 @@ define( function( require ) {
     },
 
     /**
-     * Position a series of point masses in a straight line.  The distances
-     * between the point masses are set to be their target distances.  This is
-     * generally used when positioning the point masses in a flat shape segment.
+     * Position a series of point masses in a straight line. The distances between the point masses are set to be their
+     * target distances. This is generally used when positioning the point masses in a flat shape segment.
      *
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
@@ -374,9 +334,8 @@ define( function( require ) {
     },
 
     /**
-     * Randomly position a set of points inside a rectangle.  The first point
-     * is positioned at the upper left, the last at the lower right, and all
-     * points in between are randomly placed.
+     * Randomly position a set of points inside a rectangle. The first point is positioned at the upper left, the last at
+     * the lower right, and all points in between are randomly placed.
      *
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
@@ -413,9 +372,8 @@ define( function( require ) {
     },
 
     /**
-     * Realign all the segments, making sure that the end of one connects to
-     * the beginning of another, using the last segment on the list as the
-     * starting point.
+     * Realign all the segments, making sure that the end of one connects to the beginning of another, using the last
+     * segment on the list as the starting point.
      */
     realignSegmentsFromEnd: function() {
       var copyOfShapeSegments = [].concat( this.shapeSegments.getArray() );
@@ -424,8 +382,8 @@ define( function( require ) {
 
       for ( var i = 0; i < copyOfShapeSegments.length - 1; i++ ) {
 
-        // Assumes that the shape segments attach to one another in such
-        // a way that they chain from the upper left to the lower right.
+        // Assumes that the shape segments attach to one another in such a way that they chain from the upper left to the
+        // lower right.
         copyOfShapeSegments[ i + 1 ].setLowerRightCornerPos( copyOfShapeSegments[ i ].getUpperLeftCornerPos() );
       }
     },
@@ -440,8 +398,7 @@ define( function( require ) {
     },
 
     /**
-     * Add a point to the end of the list of shape defining points.  Note that
-     * this will alter the last point on the list.
+     * Add a point to the end of the list of shape defining points. Note that this will alter the last point on the list.
      *
      * @param {Vector2} position
      * @param {number} targetDistanceToPreviousPoint
@@ -469,9 +426,8 @@ define( function( require ) {
     },
 
     /**
-     * Get the length of the strand.  The length is calculated by adding up
-     * the intended distances between the points, and does not account for
-     * curvature.
+     * Get the length of the strand. The length is calculated by adding up the intended distances between the points, and
+     * does not account for curvature.
      *
      * @return {number} length in picometers
      */
@@ -504,8 +460,8 @@ define( function( require ) {
     },
 
     /**
-     * Realign the positions of all segments starting from the given segment
-     * and working forward and backward through the segment list.
+     * Realign the positions of all segments starting from the given segment and working forward and backward through the
+     * segment list.
      *
      * @param {ShapeSegment} segmentToAlignFrom
      */
@@ -533,9 +489,5 @@ define( function( require ) {
         previousSegment = this.shapeSegments.getPreviousItem( currentSegment );
       }
     }
-
-
   } );
-
-
 } );

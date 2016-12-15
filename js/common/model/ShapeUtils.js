@@ -9,21 +9,13 @@ define( function( require ) {
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Shape = require( 'KITE/Shape' );
 
-  /* not intended for instantiation */
-  function ShapeUtils() {
-
-  }
-
-  geneExpressionEssentials.register( 'ShapeUtils', ShapeUtils );
-
-  return inherit( Object, ShapeUtils, {}, {
+  var ShapeUtils = {
 
     /**
-     * Creates a rounded shape from a set of points.  The points must be in an
-     * order that, if connected by straight lines, would form a closed shape.
+     * Creates a rounded shape from a set of points. The points must be in an order that, if connected by straight lines,
+     * would form a closed shape.
      *
      * @param {Array} points Set of points to connect.
      * @return Shape that the provided points define.
@@ -43,11 +35,9 @@ define( function( require ) {
       return shape;
     },
 
-
     /**
-     * Extrapolates a control point given three input points.  The resulting
-     * control point is for the segment from point y to point z, and the
-     * resulting curve would reasonably connect to point x.
+     * Extrapolates a control point given three input points. The resulting control point is for the segment from point y
+     * to point z, and the resulting curve would reasonably connect to point x.
      *
      * @param {Vector2} x Location where the line is "coming from".
      * @param {Vector2} y Beginning of line segment.
@@ -67,12 +57,14 @@ define( function( require ) {
       var xy025 = { x: 0.25 * xy.x, y: 0.25 * xy.y }; // xy*0.25
       var yz025 = { x: 0.25 * yz.x, y: 0.25 * yz.y }; // xy*0.25
 
-      // return y.plus( xy.timesScalar( 0.25 ).plus( yz.timesScalar( 0.25 ) ) );
       var xy025Plusyz025 = { x: xy025.x + yz025.x, y: xy025.y + yz025.y };
       return { x: y.x + xy025Plusyz025.x, y: y.y + xy025Plusyz025.y };
     }
 
 
-  } );
+  };
 
+  geneExpressionEssentials.register( 'ShapeUtils', ShapeUtils );
+
+  return ShapeUtils;
 } );

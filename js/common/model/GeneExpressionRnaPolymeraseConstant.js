@@ -9,7 +9,6 @@ define( function( require ) {
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -17,25 +16,16 @@ define( function( require ) {
   var WIDTH = 340;   // picometers
   var HEIGHT = 480;  // picometers
 
-  // Offset from the center of the molecule to the location where mRNA
-  // should emerge when transcription is occurring.  This is determined
-  // empirically, and may need to change if the shape is changed.
+  // Offset from the center of the molecule to the location where mRNA should emerge when transcription is occurring.
+  // This is determined empirically, and may need to change if the shape is changed.
   var MESSENGER_RNA_GENERATION_OFFSET = new Vector2( -WIDTH * 0.4, HEIGHT * 0.4 );
 
-  /**
-   *
-   * @constructor
-   */
-  function GeneExpressionRnaPolymeraseConstant() {
-  }
-
-  geneExpressionEssentials.register( 'GeneExpressionRnaPolymeraseConstant', GeneExpressionRnaPolymeraseConstant );
-
-  return inherit( Object, GeneExpressionRnaPolymeraseConstant, {}, {
-
+  var GeneExpressionRnaPolymeraseConstant = {
     WIDTH : WIDTH,
     HEIGHT : HEIGHT,
     MESSENGER_RNA_GENERATION_OFFSET : MESSENGER_RNA_GENERATION_OFFSET
 
-  } );
+  };
+  geneExpressionEssentials.register( 'GeneExpressionRnaPolymeraseConstant', GeneExpressionRnaPolymeraseConstant );
+  return GeneExpressionRnaPolymeraseConstant;
 } );

@@ -87,17 +87,16 @@ define( function( require ) {
     setPositionByXY: function( x, y ) {
       if ( x !== this.getPosition().x || y !== this.getPosition().y ) {
 
-        // This default implementation assumes that the position indicator
-        // is defined by the center of the shape's bounds.  Override if
-        // some other behavior is required.
+        // This default implementation assumes that the position indicator is defined by the center of the shape's bounds.
+        // Override if some other behavior is required.
         var center = this.getCenter();
         this.translate( x - center.x, y - center.y  );
       }
     },
 
     /**
-     * The Java version of shape.bounds returns the center even if the shape has only a single point
-     * the kite version gives NAN in such cases. This is a WorkAround. Needs Fixing. TODO
+     * The Java version of shape.bounds returns the center even if the shape has only a single point the kite version
+     * gives NAN in such cases. This is a WorkAround. Needs Fixing. TODO
      */
     getCenter: function() {
       var center = this.shapeProperty.get().bounds.getCenter();
@@ -113,8 +112,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getPosition: function() {
-      // Assumes that the center of the shape is the position.  Override if
-      // other behavior is needed.
+      // Assumes that the center of the shape is the position.  Override if other behavior is needed.
       return this.getCenter();
     }
 

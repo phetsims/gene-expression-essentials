@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Class with one x position and two y positions, used for defining the
- * two strands that comprise the backbone of one DNA molecule.
+ * Class with one x position and two y positions, used for defining the two strands that comprise the backbone of one
+ * DNA molecule.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco

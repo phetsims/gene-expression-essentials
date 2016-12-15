@@ -1,11 +1,9 @@
 // Copyright 2015, University of Colorado Boulder
 /**
  /**
- * This class defines a segment of the DNA strand.  It is needed because the
- * DNA molecule needs to look like it is 3D, but we are only modeling it as
- * 2D, so in order to create the appearance of a twist between the two
- * strands, we need to track which segments are in front and which are in
- * back.
+ * This class defines a segment of the DNA strand. It is needed because the DNA molecule needs to look like it is 3D,
+ * but we are only modeling it as 2D, so in order to create the appearance of a twist between the two strands, we need
+ * to track which segments are in front and which are in back.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco

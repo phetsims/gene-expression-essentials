@@ -1,7 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Class that defines a square segment, which is one in which the mRNA
- * can be (and generally is) curled up.
+ * Class that defines a square segment, which is one in which the mRNA can be (and generally is) curled up.
  * @author Mohamed Safi
  */
 define( function( require ) {
@@ -19,9 +18,8 @@ define( function( require ) {
    * @constructor
    */
   function SquareSegment( origin ) {
-   // Maintain an explicit value for the length of the mRNA contained
-    // within this segment even though the bounds essentially define
-    // said length.  This helps to avoid floating point issues.
+    // Maintain an explicit value for the length of the mRNA contained within this segment even though the bounds
+    // essentially define said length.  This helps to avoid floating point issues.
     this.containedLength = 0;
     ShapeSegment.call( this );
 
@@ -57,8 +55,7 @@ define( function( require ) {
     addByLength: function( length ) {
       this.containedLength += length;
 
-      // Grow the bounds up and to the left to accommodate the
-      // additional length.
+      // Grow the bounds up and to the left to accommodate the additional length.
       var sideGrowthAmount = this.calculateSideLength() - this.bounds.getWidth();
       assert && assert(length >= 0 && sideGrowthAmount >= 0); //
       this.bounds.set( Bounds2.rect( this.bounds.x - sideGrowthAmount,
@@ -102,6 +99,7 @@ define( function( require ) {
       // This should never be called for square shape segments, since
       // translation should only occur based around flat segments.
       // assert false;
+      //TODO
     },
 
     /**
@@ -110,7 +108,7 @@ define( function( require ) {
      * @param {EnhancedObservableList} shapeSegmentList
      */
     advanceAndRemove: function( length, shapeSegmentList ) {
-
+      //TODO
     },
 
     /**
@@ -118,13 +116,10 @@ define( function( require ) {
      *  Determine the length of a side as a function of the contained length of mRNA.
      * @returns {number}
      */
-
     calculateSideLength: function() {
       var desiredDiagonalLength = Math.pow( this.containedLength, 0.7 ); // Power value was empirically determined.
       return Math.sqrt( 2 * desiredDiagonalLength * desiredDiagonalLength );
     }
 
   } );
-
-
 } );

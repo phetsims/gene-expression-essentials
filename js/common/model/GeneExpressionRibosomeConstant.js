@@ -9,7 +9,6 @@ define( function( require ) {
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
   var WIDTH = 430;                  // In nanometers.
@@ -18,25 +17,15 @@ define( function( require ) {
   var TOP_SUBUNIT_HEIGHT = OVERALL_HEIGHT * TOP_SUBUNIT_HEIGHT_PROPORTION;
   var BOTTOM_SUBUNIT_HEIGHT = OVERALL_HEIGHT * ( 1 - TOP_SUBUNIT_HEIGHT_PROPORTION );
 
-  // Offset from the center position to the entrance of the translation
-  // channel.  May require some tweaking if the shape changes.
+  // Offset from the center position to the entrance of the translation channel. May require some tweaking if the shape
+  // changes.
   var OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE = new Vector2( WIDTH / 2, -OVERALL_HEIGHT * 0.20 );
 
-  // Offset from the center position to the point from which the protein
-  // emerges.  May require some tweaking if the overall shape changes.
+  // Offset from the center position to the point from which the protein emerges. May require some tweaking if the overall
+  // shape changes.
   var OFFSET_TO_PROTEIN_OUTPUT_CHANNEL = new Vector2( WIDTH * 0.4, OVERALL_HEIGHT * 0.55 );
 
-  /**
-   *
-   * @constructor
-   */
-  function GeneExpressionRibosomeConstant() {
-  }
-
-  geneExpressionEssentials.register( 'GeneExpressionRibosomeConstant', GeneExpressionRibosomeConstant );
-
-  return inherit( Object, GeneExpressionRibosomeConstant, {}, {
-
+  var GeneExpressionRibosomeConstant = {
     WIDTH: WIDTH,
     OVERALL_HEIGHT: OVERALL_HEIGHT,
     TOP_SUBUNIT_HEIGHT_PROPORTION: TOP_SUBUNIT_HEIGHT_PROPORTION,
@@ -46,5 +35,9 @@ define( function( require ) {
     OFFSET_TO_PROTEIN_OUTPUT_CHANNEL: OFFSET_TO_PROTEIN_OUTPUT_CHANNEL,
     OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE: OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE
 
-  } );
+  };
+
+  geneExpressionEssentials.register( 'GeneExpressionRibosomeConstant', GeneExpressionRibosomeConstant );
+
+  return GeneExpressionRibosomeConstant;
 } );
