@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * This class represents a "placement hint" in the model, which is a location
- * where a biomolecule of the provided type can be placed and which will be
- * "hinted" to the user at the appropriate times.
+ * This class represents a "placement hint" in the model, which is a location where a biomolecule of the provided type
+ * can be placed and which will be "hinted" to the user at the appropriate times.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -45,9 +44,8 @@ define( function( require ) {
     },
 
     /**
-     * Determine whether the given biomolecule matches the one that this hint is
-     * meant to represent.  In this base class, type alone indicates a match.
-     * Subclass if greater specificity is needed.
+     * Determine whether the given biomolecule matches the one that this hint is meant to represent. In this base class,
+     * type alone indicates a match. Subclass if greater specificity is needed.
      *
      * @param {MobileBiomolecule} testBiomolecule
      * @return {boolean}
@@ -57,8 +55,7 @@ define( function( require ) {
     },
 
     /**
-     * If the proffered test biomolecule is of the appropriate type, activate
-     * this hint.
+     * If the proffered test biomolecule is of the appropriate type, activate this hint.
      *
      * @param {MobileBiomolecule} testBiomolecule
      */

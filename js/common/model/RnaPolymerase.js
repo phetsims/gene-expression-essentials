@@ -23,9 +23,8 @@ define( function( require ) {
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
 
-  // Set of points that outline the basic, non-distorted shape of this
-  // molecule.  The shape is meant to look like illustrations in "The
-  // Machinery of Life" by David Goodsell.
+  // Set of points that outline the basic, non-distorted shape of this molecule. The shape is meant to look like
+  // illustrations in "The Machinery of Life" by David Goodsell.
   var shapePoints = [ new Vector2( 0, GeneExpressionRnaPolymeraseConstant.HEIGHT / 2 ), // Middle top.
     new Vector2( GeneExpressionRnaPolymeraseConstant.WIDTH / 2, GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 ),
     new Vector2( GeneExpressionRnaPolymeraseConstant.WIDTH * 0.35, -GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 ),
@@ -53,8 +52,7 @@ define( function( require ) {
     model = model || new StubGeneExpressionModel();
     MobileBiomolecule.call( this, model, this.createShape(), NOMINAL_COLOR );
     position = position || new Vector2( 0, 0 );
-    // Copy of the attachment state machine reference from base class, but
-    // with the more specific type.
+    // Copy of the attachment state machine reference from base class, but with the more specific type.
     this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // defined by Super class - Ashraf
     this.setPosition( position );
   }
@@ -77,7 +75,8 @@ define( function( require ) {
      * @param {number} changeFactor
      */
     changeConformation: function( changeFactor ) {
-      var newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( shapePoints, changeFactor, 45 ); // Seed value chosen by trial and error.
+      // Seed value chosen by trial and error.
+      var newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( shapePoints, changeFactor, 45 );
       var translation = Matrix3.translation( this.getPosition().x, this.getPosition().y );
       var newTranslatedShape = newUntranslatedShape.transformed( translation );
       this.shapeProperty.set( newTranslatedShape );

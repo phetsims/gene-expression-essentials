@@ -1,12 +1,9 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Base class for all biomolecules (i.e. rna polymerase, transcription factors,
- * etc.) that move around within the simulation.  This is a very central class
- * within this simulation.  This base class provides the basic infrastructure
- * for defining the shape, the movement, and the attachment behavior (i.e.
- * how one biomolecule interacts with others in the simulation).  The specific,
- * unique behavior for each biomolecule is implemented in the subclasses of
- * this class.
+ * Base class for all biomolecules (i.e. rna polymerase, transcription factors, etc.) that move around within the simulation.
+ * This is a very central class within this simulation. This base class provides the basic infrastructure for defining the
+ * shape, the movement, and the attachment behavior (i.e. how one biomolecule interacts with others in the simulation).
+ * The specific, unique behavior for each biomolecule is implemented in the subclasses of this class.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -35,8 +32,8 @@ define( function( require ) {
   function MobileBiomolecule( model, initialShape, baseColor ) {
     var self = this;
 
-    // Motion strategy that governs how this biomolecule moves.  This changes
-    // as the molecule interacts with other portions of the model.
+    // Motion strategy that governs how this biomolecule moves. This changes as the molecule interacts with other portions
+    // of the model.
     this.motionStrategy = null;
 
     ShapeChangingModelElement.call( self, initialShape );
@@ -71,14 +68,12 @@ define( function( require ) {
     // with anything. Handle changes in user control.
     this.userControlledProperty = new Property( false );
 
-    // Reference to the model in which this biomolecule exists.  This is
-    // needed in case the biomolecule needs to locate or create other
-    // biomolecules.
+    // Reference to the model in which this biomolecule exists. This is needed in case the biomolecule needs to locate or
+    // create other biomolecules.
     self.model = model;
 
-    // Attachment state machine that controls how the molecule interacts with
-    // other model objects (primarily other biomolecules) in terms of
-    // attaching, detaching, etc.
+    // Attachment state machine that controls how the molecule interacts with other model objects (primarily other
+    // biomolecules) in terms of attaching, detaching, etc.
     self.attachmentStateMachine = self.createAttachmentStateMachine();
 
     if ( baseColor ) {
@@ -98,24 +93,21 @@ define( function( require ) {
   return inherit( ShapeChangingModelElement, MobileBiomolecule, {
 
     /**
-     * Method used to set the attachment state machine during construction.
-     * This is overridden in descendant classes in order to supply this base
-     * class with different attachment behavior.
+     * Method used to set the attachment state machine during construction. This is overridden in descendant classes in
+     * order to supply this base class with different attachment behavior.
      *
      * @return {AttachmentStateMachine}
      */
     createAttachmentStateMachine: function() {
-      throw new Error( 'createAttachmentStateMachine should be implemented in descendant classes of MobileBiomolecule ' );
+      assert && assert( false, 'createAttachmentStateMachine should be implemented in descendant classes of MobileBiomolecule' );
     },
 
     /**
-     * Handle the case where the user was controlling this model object (i.e.
-     * dragging it with the mouse) and has released it.  Override this if
-     * unique behavior is needed in a subclass.
+     * Handle the case where the user was controlling this model object (i.e. dragging it with the mouse) and has released
+     * it. Override this if unique behavior is needed in a subclass.
      */
     handleReleasedByUser: function() {
-      // The user has released this node after moving it.  This should cause
-      // any existing or pending attachments to be severed.
+      // The user has released this node after moving it. This should cause any existing or pending attachments to be severed.
       this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
     },
 
@@ -141,12 +133,10 @@ define( function( require ) {
     },
 
     /**
-     * Get the position, including a Z component.  True 3D is not fully
-     * supported in this simulation, but a limited Z axis is used in some cases
-     * to make biomolecules look like they are "off in the distance".
+     * Get the position, including a Z component. True 3D is not fully supported in this simulation, but a limited Z axis
+     * is used in some cases to make biomolecules look like they are "off in the distance".
      *
-     * @return {Vector3} Position in 3D space.  Z values are limited to be from zero to
-     *         negative one, inclusive.
+     * @return {Vector3} Position in 3D space. Z values are limited to be from zero to negative one, inclusive.
      */
     getPosition3D: function() {
       return new Vector3( this.getPosition().x, this.getPosition().y, this.zPositionProperty.get() );
@@ -161,9 +151,8 @@ define( function( require ) {
     },
 
     /**
-     * Turn on/off 3D motion.  Turning it on means that biomolecules will move
-     * in the Z dimension, which is depicted in the view in such a way to make
-     * them look closer or further from the viewer.
+     * Turn on/off 3D motion. Turning it on means that biomolecules will move in the Z dimension, which is depicted in
+     * the view in such a way to make them look closer or further from the viewer.
      *
      * @param {boolean} zMotionEnabled
      */
@@ -172,8 +161,8 @@ define( function( require ) {
     },
 
     /**
-     * Get the direction to move when detaching from other molecules (including
-     * DNA).  Can be changed in subclasses, default is to move up.
+     * Get the direction to move when detaching from other molecules (including DNA). Can be changed in subclasses,
+     * default is to move up.
      *
      * @return {Vector2} Vector indicated the direction.
      */
@@ -206,8 +195,7 @@ define( function( require ) {
     },
 
     /**
-     * Force this biomolecule to detach from anything to which it is
-     * currently attached or to abort any pending attachments.
+     * Force this biomolecule to detach from anything to which it is currently attached or to abort any pending attachments.
      */
     forceDetach: function() {
       if ( this.attachmentStateMachine.isAttached() ) {
@@ -219,43 +207,36 @@ define( function( require ) {
     },
 
     /**
-     * Force this molecule to abort any pending attachment.  This will NOT
-     * cause an attachment that is already consummated to be broken.
+     * Force this molecule to abort any pending attachment. This will NOT cause an attachment that is already consummated
+     * to be broken.
      */
     forceAbortPendingAttachment: function() {
       if ( this.attachmentStateMachine.isMovingTowardAttachment() ) {
         this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
       }
-      else {
-        console.log( ' - Warning: Commanded to abort attachment when attachment not pending.' );
-      }
     },
 
     /**
-     * Command the biomolecule to changes its conformation, which, for the
-     * purposes of this simulation, means that both the color and the shape may
-     * change.  This functionality is needed by some of the biomolecules, mostly
-     * when they attach to something.  The default does nothing, and it is up to
-     * the individual molecules to override in order to implement their specific
-     * conformation change behavior.
+     * Command the biomolecule to changes its conformation, which, for the purposes of this simulation, means that both
+     * the color and the shape may change. This functionality is needed by some of the biomolecules, mostly when they attach
+     * to something. The default does nothing, and it is up to the individual molecules to override in order to implement
+     * their specific conformation change behavior.
      *
-     * @param {number} changeFactor - Value, from 0 to 1, representing the degree of
-     *                     change from the nominal configuration.
+     * @param {number} changeFactor - Value, from 0 to 1, representing the degree of change from the nominal configuration.
      */
     changeConformation: function( changeFactor ) {
       // Should never be called if not implemented.
-      throw new Error( 'changeConformation should be implemented in descendant classes of MobileBiomolecule ' );
+      assert && assert( false, 'changeConformation should be implemented in descendant classes of MobileBiomolecule' );
 
     },
 
     /**
-     * Search for other biomolecules (and perhaps additional model elements) to
-     * which this biomolecule may legitimately attach and, if any are founds,
-     * propose an attachment to them.
+     * Search for other biomolecules (and perhaps additional model elements) to which this biomolecule may legitimately
+     * attach and, if any are founds, propose an attachment to them.
      *
-     * @return Attachment site of accepted attachment, null if no attachments
-     *         were proposed or if all were rejected.
+     * @return Attachment site of accepted attachment, null if no attachments were proposed or if all were rejected.
      */
+
     proposeAttachments: function() {
       return null;
     },
@@ -270,10 +251,11 @@ define( function( require ) {
     /**
      * Get a shape that is positioned such that its center is at point (0, 0).
      *
-     * The Java version of the code has this method of MobileBioMoleculeNode itself. Now finding the
-     * center of the shape is encapsulated into individual BioMolecules so
-     * that composite shapes can apply their special cases.Ex ribosome - Modified by Ashraf
+     * The Java version of the code has this method of MobileBioMoleculeNode itself. Now finding the center of the shape
+     * is encapsulated into individual BioMolecules so that composite shapes can apply their special cases.
+     * Ex ribosome - Modified by Ashraf
      *
+     * @param shape
      * @param {ModelViewTransform2} mvt
      */
     centeredShape: function( shape, mvt ) {
@@ -282,12 +264,7 @@ define( function( require ) {
       var xOffset = shapeBounds.getCenterX();
       var yOffset = shapeBounds.getCenterY();
       var transform = Matrix3.translation( -xOffset, -yOffset );
-      var transformedShape = viewShape.transformed( transform );
-      return transformedShape;
+      return viewShape.transformed( transform );
     }
-
-
   } );
-
-
 } );

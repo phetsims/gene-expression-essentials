@@ -26,10 +26,8 @@ define( function( require ) {
   /**
    * Constructor.
    *
-   * @param {DnaMolecule} dnaMolecule     The DNA molecule within which this gene
-   *                        exists.
-   * @param {number} initialBasePair Location on the DNA strand where this gene
-   *                        starts.
+   * @param {DnaMolecule} dnaMolecule - The DNA molecule within which this gene exists.
+   * @param {number} initialBasePair - Location on the DNA strand where this gene starts.
    * @constructor
    */
   function GeneA( dnaMolecule, initialBasePair ) {
@@ -41,9 +39,8 @@ define( function( require ) {
       TRANSCRIBED_REGION_COLOR
     );
 
-    // Add transcription factors that are specific to this gene.  Location
-    // is withing the regulatory region, and the negative factor should
-    // overlap, and thus block, the positive factor(s).
+    // Add transcription factors that are specific to this gene. Location is withing the regulatory region, and the
+    // negative factor should overlap, and thus block, the positive factor(s).
     this.addTranscriptionFactor( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS );
     this.addTranscriptionFactor( 2, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG );
 
@@ -62,11 +59,8 @@ define( function( require ) {
       }
 
     },
-
     {
-
       NUM_BASE_PAIRS: NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
-
     } );
 
 } );

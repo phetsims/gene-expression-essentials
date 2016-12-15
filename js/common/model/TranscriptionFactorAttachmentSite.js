@@ -1,12 +1,10 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Specialization of the attachment site for transcription factors -
- * associates a transcription factor configuration and a property with the
- * attachment site.
- * <p/>
- * NOTE TO SELF (or other future developers): If any other attachment site is
- * needed that has variable affinity, the class hierarchy should be changed to
- * make this more general.
+ * Specialization of the attachment site for transcription factors - associates a transcription factor configuration and
+ * a property with the attachment site.
+ *
+ * NOTE TO SELF (or other future developers): If any other attachment site is needed that has variable affinity, the
+ * class hierarchy should be changed to make this more general.
  *
  * @author John Blanco
  * @author Mohamed Safi

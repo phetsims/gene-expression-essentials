@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Several utilities for making it easier to create some complex and somewhat
- * random shapes.  This was created initially to make it easier to create the
- * shapes associated with biomolecules, but may have other uses.
+ * Several utilities for making it easier to create some complex and somewhat random shapes. This was created initially
+ * to make it easier to create the shapes associated with biomolecules, but may have other uses.
 
  * @author Sharfudeen Ashraf
  * @author Mohamed Safi
@@ -14,7 +13,6 @@ define( function( require ) {
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
   var Random = require( 'DOT/Random' );
@@ -22,21 +20,13 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
 
-  /* not intended for instantiation */
-  function BioShapeUtils() {
 
-  }
-
-  geneExpressionEssentials.register( 'BioShapeUtils', BioShapeUtils );
-
-  return inherit( Object, BioShapeUtils, {}, {
-
+  var BioShapeUtils = {
     /**
-     * Create a distorted shape from a list of points.  This is useful when
-     * trying to animate some sort of deviation from a basic shape.
-     * <p/>
-     * Note that this works best when the points are centered around the point
-     * (0, 0), and may not work at all otherwise (it has never been tested).
+     * Create a distorted shape from a list of points.  This is useful when trying to animate some sort of deviation
+     * from a basic shape.
+     * Note that this works best when the points are centered around the point (0, 0), and may not work at all otherwise
+     * (it has never been tested).
      *
      * @param {Array<Vector2>} points
      * @param {number} distortionFactor
@@ -51,7 +41,7 @@ define( function( require ) {
 
       var rand = new Random( {
         seed: randomNumberSeed
-      });
+      } );
       // Alter the positions of the points that define the shape in order to
       // define a distorted version of the shape.
       var alteredPoints = [];
@@ -77,9 +67,8 @@ define( function( require ) {
     },
 
     /**
-     * Create a shape based on a set of points.  The points must be in an order
-     * that, if connected by straight lines, would form a closed shape.  Some of
-     * the segments will be straight lines and some will be curved, and which is
+     * Create a shape based on a set of points. The points must be in an order that, if connected by straight lines,
+     * would form a closed shape. Some of the segments will be straight lines and some will be curved, and which is
      * which will be based on a pseudo-random variable.
      *
      * @private
@@ -91,7 +80,7 @@ define( function( require ) {
       var path = new Shape();
       var rand = new Random( {
         seed: seed
-      });
+      } );
       path.moveToPoint( points[ 0 ] );
       for ( var i = 0; i < points.length; i++ ) {
         var segmentStartPoint = points[ i ];
@@ -113,15 +102,15 @@ define( function( require ) {
     },
 
     /**
-     * @param {Dimension2D} size
-     * @param {number} seed -Not Used
+     * @param {Dimension2} size
+     * @param {number} seed
      * @return {Shape}
      */
     createRandomShape: function( size, seed ) {
       var pointList = [];
       var rand = new Random( {
         seed: seed
-      });
+      } );
       // Create a series of points that will enclose a space.
       for ( var angle = 0; angle < 1.9 * Math.PI; angle += Math.PI / 10 + rand.nextDouble() * Math.PI / 10 ) {
         pointList.push( Vector2.createPolar( 0.5 + rand.nextDouble(), angle ) );
@@ -139,8 +128,7 @@ define( function( require ) {
     },
 
     /**
-     * Create a curvy line from a list of points.  The points are assumed to be
-     * in order.
+     * Create a curvy line from a list of points. The points are assumed to be in order.
      *
      * @param {Array<Vector2>} points
      * @return {Shape}
@@ -152,11 +140,11 @@ define( function( require ) {
       var cp1;
 
       var path = new Shape();
-      path.moveTo( points[ 0 ].x,  points[ 0 ].y);
+      path.moveTo( points[ 0 ].x, points[ 0 ].y );
       if ( points.length === 1 || points.length === 2 ) {
         // Can't really create a curve from this, so draw a straight line
         // to the end point and call it good.
-        path.lineTo( points[ points.length - 1 ].x,points[ points.length - 1 ].y );
+        path.lineTo( points[ points.length - 1 ].x, points[ points.length - 1 ].y );
         return path;
       }
       // Create the first curved segment.
@@ -197,12 +185,12 @@ define( function( require ) {
     },
 
     /**
-     * Create a curvy shape that is pretty much within the provided bounds.
-     * Full enclosure within the bounds is not guaranteed.  This was initially
-     * written for the purpose of creating shapes that look like cells, but it
-     * may have other uses.
+     * Create a curvy shape that is pretty much within the provided bounds. Full enclosure within the bounds is not
+     * guaranteed. This was initially written for the purpose of creating shapes that look like cells, but it may have
+     * other uses.
      *
      * @param {Bounds2} bounds
+     * @param {number} variationFactor
      * @param seed
      * @return {Shape}
      */
@@ -214,7 +202,7 @@ define( function( require ) {
 
       var rand = new Random( {
         seed: seed
-      });
+      } );
 
       // Use variables names that are typical when working with ellipses.
       var a = bounds.getWidth() / 2;
@@ -234,9 +222,8 @@ define( function( require ) {
     },
 
     /**
-     * Create a shape that looks roughly like a 2D representation of E. Coli,
-     * which is essentially a rectangle with round ends.  Some randomization is
-     * added to the shape to make it look more like a natural object.
+     * Create a shape that looks roughly like a 2D representation of E. Coli, which is essentially a rectangle with
+     * round ends. Some randomization is added to the shape to make it look more like a natural object.
      *
      * @param {Vector2} center
      * @param {number} width
@@ -275,9 +262,8 @@ define( function( require ) {
       var radius = 0;
       var nextPoint = null;
 
-      // Create a shape that is like E. Coli.  Start at the left side of the
-      // line that defines the top edge and move around the shape in a
-      // clockwise direction.
+      // Create a shape that is like E. Coli. Start at the left side of the line that defines the top edge and move
+      // around the shape in a clockwise direction.
 
       // Add points for the top line.
       for ( var i = 0; i < numPointsPerLineSegment; i++ ) {
@@ -285,23 +271,22 @@ define( function( require ) {
         nextPoint.setXY( nextPoint.x, nextPoint.y + ( rand.nextDouble() - 0.5 ) * height * alterationFactor );
         pointList.push( nextPoint );
       }
-      // Add points that define the right curved edge.  Skip what would be
-      // the first point, because it would overlap with the previous segment.
+      // Add points that define the right curved edge. Skip what would be the first point, because it would overlap with
+      // the previous segment.
       for ( i = 1; i < numPointsPerCurvedSegment; i++ ) {
         angle = -Math.PI / 2 + i * ( Math.PI / ( numPointsPerCurvedSegment - 1 ) );
         radius = curveRadius + ( rand.nextDouble() - 0.5 ) * height * alterationFactor;
         pointList.push( new Vector2( rightCurveCenterX + radius * Math.cos( angle ), radius * Math.sin( angle ) ) );
       }
-      // Add points that define the bottom line.  Skip what would be
-      // the first point, because it would overlap with the previous segment.
+      // Add points that define the bottom line. Skip what would be the first point, because it would overlap with the
+      // previous segment.
       for ( i = 1; i < numPointsPerLineSegment; i++ ) {
         nextPoint = new Vector2( rightCurveCenterX - i * ( lineLength / ( numPointsPerLineSegment - 1 ) ), centerY + height / 2 );
         nextPoint.setXY( nextPoint.x, nextPoint.y + ( rand.nextDouble() - 0.5 ) * height * alterationFactor );
         pointList.push( nextPoint );
       }
-      // Add points that define the left curved side.  Skip what would be
-      // the first point and last points, because the would overlap with the
-      // previous and next segment (respectively).
+      // Add points that define the left curved side. Skip what would be the first point and last points, because the
+      // would overlap with the previous and next segment (respectively).
       for ( i = 1; i < numPointsPerCurvedSegment - 1; i++ ) {
         angle = Math.PI / 2 + i * ( Math.PI / ( numPointsPerCurvedSegment - 1 ) );
         radius = curveRadius + ( rand.nextDouble() - 0.5 ) * height * alterationFactor;
@@ -313,12 +298,9 @@ define( function( require ) {
 
       // Rotate and translate.
       var untranslatedShape = untranslatedAndUnrotatedShape.transformed( Matrix3.rotation2( rotationAngle ) );
-      var finalShape = untranslatedShape.transformed( Matrix3.translation( center.x, center.x ) );
-
-      return finalShape;
+      return untranslatedShape.transformed( Matrix3.translation( center.x, center.x ) );
     }
-
-  } );
-
-
+  };
+  geneExpressionEssentials.register( 'BioShapeUtils', BioShapeUtils );
+  return BioShapeUtils;
 } );
