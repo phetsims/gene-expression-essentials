@@ -1,8 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * This class defines the box on the user interface from which the user can
- * extract various biomolecules and put them into action within the cell.
+ * This class defines the box on the user interface from which the user can extract various biomolecules and put them
+ * into action within the cell.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco

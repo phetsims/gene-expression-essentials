@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Class that represents the collection area, where potentially several
- * different types of protein can be collected.
+ * Class that represents the collection area, where potentially several different types of protein can be collected.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco

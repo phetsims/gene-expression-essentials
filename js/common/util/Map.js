@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * This "map" utility supports HashMap like  functionality by allowing any object to be used as key.
- * Equality is by reference not by value
+ * This "map" utility supports HashMap like  functionality by allowing any object to be used as key. Equality is by
+ * reference not by value
  * This class copied from sugar-and-salt-solutions //TODO
  * @author Sharfudeen Ashraf (For Ghent University)
  */

@@ -24,9 +24,8 @@ define( function( require ) {
   return inherit( Object, GradientUtil, {}, {
 
     /**
-     * Create a gradient paint in order to give a molecule a little depth.
-     * This is public so that it can be used by other nodes that need to
-     * depict biomolecules.
+     * Create a gradient paint in order to give a molecule a little depth. This is public so that it can be used by other
+     * nodes that need to depict biomolecules.
      *
      * @param {Shape} shape;
      * @param {Color} baseColor

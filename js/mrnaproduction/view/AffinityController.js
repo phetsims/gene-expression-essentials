@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * User interface control that can be used to control the affinity between a
- * transcription factor and the DNA.  Presents a node with the transcription
- * factor, an arrow, and a fragment of DNA in order to create the idea that
+ * User interface control that can be used to control the affinity between a transcription factor and the DNA. Presents
+ * a node with the transcription factor, an arrow, and a fragment of DNA in order to create the idea that
  *
  * @author Mohamed Safi
  * @author John Blanco

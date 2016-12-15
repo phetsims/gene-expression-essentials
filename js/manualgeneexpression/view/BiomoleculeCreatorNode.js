@@ -1,9 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * This class defines a node that can be used in the view to create biomolecules
- * in the model.  It is intended for use in control panels.  It is generalized
- * so that the parameters allow it to create any sort of biomolecule.
+ * This class defines a node that can be used in the view to create biomolecules in the model. It is intended for use in
+ * control panels. It is generalized so that the parameters allow it to create any sort of biomolecule.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco

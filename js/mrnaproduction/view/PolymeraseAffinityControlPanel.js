@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Control panel that present a user interface for controlling the affinity
- * of RNA polymerase to DNA plus a transcription factor.
+ * Control panel that present a user interface for controlling the affinity of RNA polymerase to DNA plus a transcription factor.
  *
  * @author Mohamed Safi
  * @author John Blanco

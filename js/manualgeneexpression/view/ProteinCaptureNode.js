@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Class that represents a node for collecting a single protein and a
- * counter of the number of the protein type collected.
+ * Class that represents a node for collecting a single protein and a counter of the number of the protein type collected.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco

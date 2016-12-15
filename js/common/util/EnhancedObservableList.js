@@ -2,9 +2,8 @@
 
 /**
  * /**
- * Class that defines an observable list with some additional methods that
- * make it easier to get next and previous items and to insert items before
- * and after existing items.
+ * Class that defines an observable list with some additional methods that make it easier to get next and previous items
+ * and to insert items before and after existing items.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
