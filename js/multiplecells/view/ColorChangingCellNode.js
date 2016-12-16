@@ -37,6 +37,8 @@ define( function( require ) {
       lineWidth: STROKE
     } );
 
+    cellBody.center = mvt.modelToViewXY( cell.positionX, cell.positionY );
+
     cell.proteinCount.lazyLink( function( proteinCount ) {
         var florescenceAmount = Util.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
         ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );

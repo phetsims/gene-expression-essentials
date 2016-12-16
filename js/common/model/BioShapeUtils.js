@@ -225,13 +225,11 @@ define( function( require ) {
      * Create a shape that looks roughly like a 2D representation of E. Coli, which is essentially a rectangle with
      * round ends. Some randomization is added to the shape to make it look more like a natural object.
      *
-     * @param {Vector2} center
      * @param {number} width
      * @param {number} height
-     * @param {number} rotationAngle
      * @return
      */
-    createEColiLikeShape: function( center, width, height, rotationAngle, seed ) {
+    createEColiLikeShape: function( width, height ) {
       assert && assert( width > height ); // Param checking.  Can't create the needed shape if this isn't true.
 
       // Tweakable parameters that affect number of points used to define the shape.
@@ -248,7 +246,7 @@ define( function( require ) {
 
       // Random number generator used for deviation from the perfect geometric shape.
       var rand = new Random( {
-        seed: seed
+        seed: 45 // empirically determined to make shape look distorted
       } );
 
 
@@ -294,11 +292,7 @@ define( function( require ) {
       }
 
       // Create the unrotated and untranslated shape.
-      var untranslatedAndUnrotatedShape = ShapeUtils.createRoundedShapeFromPoints( pointList );
-
-      // Rotate and translate.
-      var untranslatedShape = untranslatedAndUnrotatedShape.transformed( Matrix3.rotation2( rotationAngle ) );
-      return untranslatedShape.transformed( Matrix3.translation( center.x, center.x ) );
+      return ShapeUtils.createRoundedShapeFromPoints( pointList );
     }
   };
   geneExpressionEssentials.register( 'BioShapeUtils', BioShapeUtils );

@@ -8,6 +8,7 @@ define( function( require ) {
   var Dimension2 = require('DOT/Dimension2');
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var CellProteinSynthesisSimulator  = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/model/CellProteinSynthesisSimulator' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
   var Property = require( 'AXON/Property' );
@@ -22,8 +23,11 @@ define( function( require ) {
   // Protein level at which the color change (towards the florescent color) is complete.
   var PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES = 150;
 
-  function Cell( size, initialPosition, rotationAngle, seed ) {
-    ShapeChangingModelElement.call( this, this.createShape( size, initialPosition, rotationAngle, seed ) );
+  // Default E-Coli like shape for perfomance improvement and we make copy of it and rotate for different instances
+  var E_COLI_LLIKE_SHAPE = BioShapeUtils.createEColiLikeShape( DEFAULT_CELL_SIZE.width, DEFAULT_CELL_SIZE.height );
+
+  function Cell( rotationAngle ) {
+    ShapeChangingModelElement.call( this, this.createShape( rotationAngle ) );
     // This is a separate object in which the protein synthesis is simulated.
     // The reason that this is broken out into a separate class is that it was
     // supplied by someone outside of the PhET project, and this keeps it
@@ -48,8 +52,10 @@ define( function( require ) {
     },
 
     // Static function for creating the shape of the cell.
-    createShape: function( size, initialPosition, rotationAngle, seed ) {
-      return BioShapeUtils.createEColiLikeShape( initialPosition, size.width, size.height, rotationAngle, seed );
+    createShape: function( rotationAngle ) {
+      var ecoliShape = E_COLI_LLIKE_SHAPE.copy();
+      // rotate and return
+      return ecoliShape.transformed( Matrix3.rotation2( rotationAngle ) );
     },
 
     //-------------------------------------------------------------------------

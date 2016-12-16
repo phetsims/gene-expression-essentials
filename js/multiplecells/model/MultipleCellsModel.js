@@ -13,7 +13,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Random = require( 'DOT/Random' );
   var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var MAX_CELLS = 90;
@@ -80,17 +79,12 @@ define( function( require ) {
       var newCell;
       if ( this.cellList.length === 0 ) {
         // The first cell is centered and level.
-        newCell = new Cell( Cell.DefaultCellSize, new Vector2( 0, 0 ), 0, 0 );
+        newCell = new Cell( 0 );
+        newCell.positionX = 0;
+        newCell.positionY = 0;
       }
       else {
-        // Do some randomization of the cell's size and rotation angle.
-        //var cellWidth = Math.max( Cell.DefaultCellSize.width * ( this.sizeAndRotationRandomizer.nextDouble() / 2 + 0.75 ),
-        //  Cell.DefaultCellSize.height * 2 );
-        // Note that the index is used as the seed for the shape in
-        // order to make the cell appearance vary, but be deterministic.
-        newCell = new Cell( Cell.DefaultCellSize, Vector2.ZERO,
-          Math.PI * 2 * this.sizeAndRotationRandomizer.nextDouble(),
-          this.cellList.length );
+        newCell = new Cell( Math.PI * 2 * this.sizeAndRotationRandomizer.nextDouble() );
         this.placeCellInOpenLocation( newCell );
       }
       this.cellList.push( newCell );
@@ -218,15 +212,19 @@ define( function( require ) {
         var radius = ( i + 1 ) * Cell.DefaultCellSize.width * ( this.positionRandomizer.nextDouble() / 2 + .75 );
         for ( var j = 0; j < radius * Math.PI / ( Cell.DefaultCellSize.height * 2 ); j++ ) {
           var angle = this.positionRandomizer.nextDouble() * 2 * Math.PI;
-          cell.setPositionByXY( radius * Math.cos( angle ), radius * Math.sin( angle ) );
-          if ( !bounds.containsPoint( cell.getPosition() ) ) {
+          //cell.setPositionByXY( radius * Math.cos( angle ), radius * Math.sin( angle ) );
+            cell.positionX = radius * Math.cos( angle );
+            cell.positionY = radius * Math.sin( angle );
+          if ( !bounds.containsCoordinates( cell.positionX, cell.positionY ) ) {
             // Not in bounds.
             continue;
           }
           var overlapDetected = false;
           for ( var k = 0; k < this.cellList.length; k++){
             var existingCell = this.cellList[ k ];
-            if ( cell.getShape().bounds.intersectsBounds( existingCell.getShape().bounds ) ){
+            // new bounds
+            if ( cell.getShape().bounds.shifted( cell.positionX, cell.positionY )
+                    .intersectsBounds( existingCell.getShape().bounds.shifted( existingCell.positionX, existingCell.positionY ) ) ){
               overlapDetected = true;
               break;
             }
