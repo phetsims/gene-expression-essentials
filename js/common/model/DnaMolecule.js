@@ -216,12 +216,13 @@ define( function( require ) {
         // Determine the bounds of the current segment. Assumes that the bounds for the strand1 and strand2 segments are
         // the same, which should be a safe assumption.
         var bounds = strand1Segment.getShape().bounds;
-        var pointIndexRange = new Range( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
-          Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0 );
+        var pointIndexRange = new Range( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
+          Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
 
         // Check to see if any of the points within the identified range have changed and, if so, update the
         // corresponding segment shape in the strands. If the points for either strand has changed, both are updated.
-        for ( var j = pointIndexRange.min; j <= pointIndexRange.max; j++ ) {
+
+        for ( var j = pointIndexRange.min; j < pointIndexRange.max; j++ ) {
           if ( !this.strandPoints[ j ].equals( this.strandPointsShadow[ j ] ) ) {
 
             // The point has changed.  Update it, mark the change.
@@ -230,16 +231,23 @@ define( function( require ) {
           }
         }
 
+        if ( !this.strandPoints[ pointIndexRange.max ].equals( this.strandPointsShadow[ pointIndexRange.max ] ) ) {
+          // The point has changed.  Update it, mark the change.
+          segmentChanged = true;
+        }
+
         if ( segmentChanged ) {
 
           // Update the shape of this segment.
           var strand1ShapePoints = [];
           var strand2ShapePoints = [];
-          for ( var k = pointIndexRange.min; k <= pointIndexRange.max; k++ ) {
+          for ( var k = pointIndexRange.min; k < pointIndexRange.max; k++ ) {
             //for performance reasons using object literals instead of Vector instances
             strand1ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand1YPos } );
             strand2ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand2YPos } );
           }
+          strand1ShapePoints.push( { x: this.strandPointsShadow[ pointIndexRange.max ].xPos, y: this.strandPointsShadow[ pointIndexRange.max ].strand1YPos } );
+          strand2ShapePoints.push( { x: this.strandPointsShadow[ pointIndexRange.max ].xPos, y: this.strandPointsShadow[ pointIndexRange.max ].strand2YPos } );
           strand1Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand1ShapePoints ) );
           strand2Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand2ShapePoints ) );
         }
@@ -297,7 +305,6 @@ define( function( require ) {
      * @param {DnaSeparation} separation
      */
     removeSeparation: function( separation ) {
-      this.updateStrandSegments( false );
       if ( !_.contains( this.separations, separation ) ) {
         console.log( ' - Warning: Ignoring attempt to remove separation that can\'t be found.' );
       }
@@ -675,22 +682,6 @@ define( function( require ) {
 
       return geneContainingBasePair;
     },
-
-    /**
-     * @private
-     * True, if number is integer
-     *
-     * @param {number} value
-     * @returns {boolean}
-     */
-    isInteger: function( value ) {
-      if ( isNaN( value ) ) {
-        return false;
-      }
-      var x = parseFloat( value );
-      return (x | 0) === x;
-    },
-
 
     /**
      * Create an attachment site instance with the default affinity for all DNA-attaching biomolecules at the specified
