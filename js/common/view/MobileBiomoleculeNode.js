@@ -34,7 +34,7 @@ define( function( require ) {
    */
   function MobileBiomoleculeNode( mvt, mobileBiomolecule, outlineStroke ) {
     var self = this;
-    Node.call( self );
+    Node.call( self, { cursor: 'pointer' } );
     outlineStroke = outlineStroke || 1;
 
     var path = this.getPathByMobileBioMoleculeType( mobileBiomolecule, {
