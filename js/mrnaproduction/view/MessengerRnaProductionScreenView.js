@@ -54,7 +54,8 @@ define( function( require ) {
    */
   function MessengerRnaProductionScreenView( model ) {
 
-    ScreenView.call( this );
+    // due to odd behavior of flickering on this screen, we run it with preventFit
+    ScreenView.call( this, { preventFit: true } );
     var self = this;
     this.model = model;
     this.negativeTranscriptionFactorEnabled = new Property( false );
