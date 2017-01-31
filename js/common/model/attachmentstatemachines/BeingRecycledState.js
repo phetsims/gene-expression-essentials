@@ -13,14 +13,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Random = require( 'DOT/Random' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
   var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/RandomWalkMotionStrategy' );
   var DriftThenTeleportMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/DriftThenTeleportMotionStrategy' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-
-  // constants
-  var RAND = new Random();
 
   /**
    *
@@ -70,7 +66,7 @@ define( function( require ) {
 
       // Set the motion strategy that will move the polymerase clear of
       // the DNA, then teleport it to a location within the specified bounds.
-      asm.biomolecule.setMotionStrategy( new DriftThenTeleportMotionStrategy( new Vector2( 0, RAND.nextBoolean() ? 1 : -1 ),
+      asm.biomolecule.setMotionStrategy( new DriftThenTeleportMotionStrategy( new Vector2( 0, phet.joist.random.nextBoolean() ? 1 : -1 ),
         this.recycleReturnZones, biomolecule.motionBoundsProperty ) );
     }
 

@@ -12,7 +12,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Random = require( 'DOT/Random' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
   var Range = require( 'DOT/Range' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -20,7 +19,7 @@ define( function( require ) {
   var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/DestroyerTrackingRnaMotionStrategy' );
 
   // constants
-  var RAND = new Random();
+
   // Scalar velocity for transcription.
   var RNA_DESTRUCTION_RATE = 750; // Picometers per second.
 
@@ -55,7 +54,7 @@ define( function( require ) {
         this.messengerRnaFragment = new MessengerRnaFragment( biomolecule.getModel(), biomolecule.getPosition() );
         biomolecule.getModel().addMobileBiomolecule( this.messengerRnaFragment );
         this.targetFragmentLength = MRNA_FRAGMENT_LENGTH_RANGE.min +
-                                    RAND.nextDouble() * MRNA_FRAGMENT_LENGTH_RANGE.getLength();
+                                    phet.joist.random.nextDouble() * MRNA_FRAGMENT_LENGTH_RANGE.getLength();
       }
       this.messengerRnaFragment.addLength( RNA_DESTRUCTION_RATE * dt );
       if ( this.messengerRnaFragment.getLength() >= this.targetFragmentLength ) {

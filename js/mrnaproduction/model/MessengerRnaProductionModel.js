@@ -13,7 +13,6 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
-  var Random = require( 'DOT/Random' );
   var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
   var GeneA = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneA' );
   var ObservableArray = require( 'AXON/ObservableArray' );
@@ -37,9 +36,6 @@ define( function( require ) {
 
   // Number of RNA polymerase molecules present.
   var RNA_POLYMERASE_COUNT = 7;
-
-  // etc.
-  var RAND = new Random();
 
   function MessengerRnaProductionModel() {
     var self = this;
@@ -95,7 +91,7 @@ define( function( require ) {
     var polymeraseSize = new RnaPolymerase().getShape().bounds;
     var firstGene = self.dnaMolecule.getGenes()[ 0 ];
     var recycleZoneCenterX = self.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().min ) +
-                             ( RAND.nextDouble() - 0.5 ) * 2000;
+                             ( phet.joist.random.nextDouble() - 0.5 ) * 2000;
     var recycleZoneHeight = polymeraseSize.getHeight() * 1.2;
     var recycleZoneWidth = polymeraseSize.getWidth() * 4;
     var minX = recycleZoneCenterX - polymeraseSize.getWidth() * 2;
@@ -317,9 +313,9 @@ define( function( require ) {
         var yMin = this.moleculeMotionBounds.getBounds().minY + biomolecule.getShape().bounds.getHeight() / 2;
         var xMax = this.moleculeMotionBounds.getBounds().maxX - biomolecule.getShape().bounds.getWidth() / 2;
         var yMax = this.moleculeMotionBounds.getBounds().maxY - biomolecule.getShape().bounds.getHeight() / 2;
-        var xPos = xMin + RAND.nextDouble() * ( xMax - xMin );
-        var yPos = yMin + RAND.nextDouble() * ( yMax - yMin );
-        var zPos = -RAND.nextDouble(); // Valid z values are from -1 to 0.
+        var xPos = xMin + phet.joist.random.nextDouble() * ( xMax - xMin );
+        var yPos = yMin + phet.joist.random.nextDouble() * ( yMax - yMin );
+        var zPos = -phet.joist.random.nextDouble(); // Valid z values are from -1 to 0.
         return new Vector3( xPos, yPos, zPos );
       },
 

@@ -17,7 +17,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
   var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionStrategy' );
-  var Random = require( 'DOT/Random' );
   var Util = require( 'DOT/Util' );
 
   // constants
@@ -27,7 +26,6 @@ define( function( require ) {
   var MAX_Z_VELOCITY = 0.6; // In normalized units per sec
   var MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
   var MAX_TIME_IN_ONE_DIRECTION = 0.8; // In seconds.
-  var RAND = new Random();
 
   // Vector used for intermediate calculations - Added to avoid excessive creation of Vector3 instances - Ashraf
   var nextLocation3DScratchInVector = new Vector3();
@@ -74,7 +72,7 @@ define( function( require ) {
      * @returns {number}
      */
     generateDirectionChangeCountdownValue: function() {
-      return MIN_TIME_IN_ONE_DIRECTION + RAND.nextDouble() * ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
+      return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() * ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
     },
 
 
@@ -91,11 +89,11 @@ define( function( require ) {
       if ( this.directionChangeCountdown <= 0 ) {
 
         // Time to change direction.
-        var newXYVelocity = MIN_XY_VELOCITY + RAND.nextDouble() * ( MAX_XY_VELOCITY - MIN_XY_VELOCITY );
-        var newXYAngle = Math.PI * 2 * RAND.nextDouble();
+        var newXYVelocity = MIN_XY_VELOCITY + phet.joist.random.nextDouble() * ( MAX_XY_VELOCITY - MIN_XY_VELOCITY );
+        var newXYAngle = Math.PI * 2 * phet.joist.random.nextDouble();
         this.currentMotionVector2D = Vector2.createPolar( newXYVelocity, newXYAngle );
-        this.currentZVelocity = MIN_Z_VELOCITY + RAND.nextDouble() * ( MAX_Z_VELOCITY - MIN_Z_VELOCITY );
-        this.currentZVelocity = RAND.nextBoolean() ? -this.currentZVelocity : this.currentZVelocity;
+        this.currentZVelocity = MIN_Z_VELOCITY + phet.joist.random.nextDouble() * ( MAX_Z_VELOCITY - MIN_Z_VELOCITY );
+        this.currentZVelocity = phet.joist.random.nextBoolean() ? -this.currentZVelocity : this.currentZVelocity;
 
         // Reset the countdown timer.
         this.directionChangeCountdown = this.generateDirectionChangeCountdownValue();

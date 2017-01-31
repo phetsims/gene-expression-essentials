@@ -13,7 +13,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Random = require( 'DOT/Random' );
   var GenericAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericAttachedState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var FollowAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/FollowAttachmentSite' );
@@ -22,7 +21,6 @@ define( function( require ) {
 
 
   // constants
-  var RAND = new Random();
   var VELOCITY_ON_DNA = 200;// Scalar velocity when moving between attachment points on the DNA.
   var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.// Half-life of attachment to a site with affinity of 0.5.
   var DEFAULT_ATTACH_TIME = 0.15; // In seconds.
@@ -90,12 +88,12 @@ define( function( require ) {
       var movingTowardsAttachmentState = this.transcriptionFactorAttachmentStateMachine.movingTowardsAttachmentState;
 
       // Decide whether or not to detach from the current attachment site.
-      if ( RAND.nextDouble() > ( 1 - this.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
+      if ( phet.joist.random.nextDouble() > ( 1 - this.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
 
         // The decision has been made to detach.  Next, decide whether
         // to detach completely from the DNA strand or just jump to an
         // adjacent base pair.
-        if ( RAND.nextDouble() > detachFromDnaThreshold ) {
+        if ( phet.joist.random.nextDouble() > detachFromDnaThreshold ) {
 
           // Detach completely from the DNA.
           this.detachFromDnaMolecule( asm );

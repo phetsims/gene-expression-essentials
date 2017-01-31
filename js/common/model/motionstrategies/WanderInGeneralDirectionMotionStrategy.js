@@ -15,7 +15,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
-  var Random = require( 'DOT/Random' );
   var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionStrategy' );
 
 
@@ -24,7 +23,6 @@ define( function( require ) {
   var MAX_VELOCITY = 500; // In picometers/s
   var MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
   var MAX_TIME_IN_ONE_DIRECTION = 1.25; // In seconds.
-  var RAND = new Random();
 
 
   /**
@@ -55,7 +53,7 @@ define( function( require ) {
      * @returns {number}
      */
     generateDirectionChangeCountdownValue: function() {
-      return MIN_TIME_IN_ONE_DIRECTION + RAND.nextDouble() * ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
+      return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() * ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
     },
 
 
@@ -71,8 +69,8 @@ define( function( require ) {
       if ( this.directionChangeCountdown <= 0 ) {
 
         // Time to change the direction.
-        var newVelocity = MIN_VELOCITY + RAND.nextDouble() * ( MAX_VELOCITY - MIN_VELOCITY );
-        var varianceAngle = ( RAND.nextDouble() - 0.5 ) * Math.PI / 3;
+        var newVelocity = MIN_VELOCITY + phet.joist.random.nextDouble() * ( MAX_VELOCITY - MIN_VELOCITY );
+        var varianceAngle = ( phet.joist.random.nextDouble() - 0.5 ) * Math.PI / 3;
         this.currentMotionVector = this.generalDirection.withMagnitude( newVelocity ).rotated( varianceAngle );
 
         // Reset the countdown timer.

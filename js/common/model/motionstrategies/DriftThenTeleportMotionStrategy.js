@@ -21,7 +21,6 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
-  var Random = require( 'DOT/Random' );
   var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MotionStrategy' );
 
   // constants
@@ -43,7 +42,6 @@ define( function( require ) {
       self.motionBounds = motionBounds;
     } );
 
-    this.random = new Random();
     // List of valid places where the item can teleport.
     this.destinationZones = destinationZones;
     this.preFadeCountdown = PRE_FADE_DRIFT_TIME;
@@ -64,7 +62,7 @@ define( function( require ) {
     generateRandomLocationInBounds: function( destinationZones, shape ) {
 
       // Randomly choose one of the destination zones.
-      var index = this.random.nextInt( destinationZones.length );
+      var index = phet.joist.random.nextInt( destinationZones.length );
       var destinationBounds = destinationZones[ index ];
 
       // Generate a random valid location within the chosen zone.
@@ -75,8 +73,8 @@ define( function( require ) {
         return new Vector2( destinationBounds.getCenterX(), destinationBounds.getCenterY() );
       }
       else {
-        return new Vector2( destinationBounds.x + shape.bounds.getWidth() / 2 + this.random.nextDouble() * reducedBoundsWidth,
-          destinationBounds.x + shape.bounds.getHeight() / 2 + this.random.nextDouble() * reducedBoundsHeight );
+        return new Vector2( destinationBounds.x + shape.bounds.getWidth() / 2 + phet.joist.random.nextDouble() * reducedBoundsWidth,
+          destinationBounds.x + shape.bounds.getHeight() / 2 + phet.joist.random.nextDouble() * reducedBoundsHeight );
       }
     },
 

@@ -18,7 +18,6 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
-  var Random = require( 'DOT/Random' );
 
   var DEFAULT_TRANSCRIPTION_FACTOR_COUNT = 2000;
   var TRANSCRIPTION_FACTOR_COUNT_RANGE = new Range( DEFAULT_TRANSCRIPTION_FACTOR_COUNT / 10, DEFAULT_TRANSCRIPTION_FACTOR_COUNT * 10 );
@@ -33,8 +32,6 @@ define( function( require ) {
 
 
   function CellProteinSynthesisSimulator(  ribosomeCount ) {
-    this.random = new Random();
-
     this.objectCounts = [
       20, //gene count
       DEFAULT_TRANSCRIPTION_FACTOR_COUNT, //free transcription factor count
@@ -149,8 +146,8 @@ define( function( require ) {
       var a = this.calculateA();
       var a0 = this.sum( a );
 
-      var r1 = this.random.nextDouble();
-      var r2 = this.random.nextDouble();
+      var r1 = phet.joist.random.nextDouble();
+      var r2 = phet.joist.random.nextDouble();
       var tau = ( 1 / a0 ) * Math.log( 1 / r1 );
       if ( tau > maxTime ) {
         return 0.0;

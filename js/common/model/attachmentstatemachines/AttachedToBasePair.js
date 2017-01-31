@@ -14,7 +14,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Random = require( 'DOT/Random' );
   var Vector2 = require( 'DOT/Vector2' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/WanderInGeneralDirectionMotionStrategy' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
@@ -23,7 +22,6 @@ define( function( require ) {
   var MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motionstrategies/MoveDirectlyToDestinationMotionStrategy' );
 
   // constants
-  var RAND = new Random();
 
   // Scalar velocity when moving between attachment points on the DNA.
   var VELOCITY_ON_DNA = 200;
@@ -79,12 +77,12 @@ define( function( require ) {
           this.rnaPolymeraseAttachmentStateMachine.setState( attachedState );
           detachFromDnaThreshold.reset(); // Reset this threshold.
         }
-        else if ( RAND.nextDouble() > ( 1 - this.rnaPolymeraseAttachmentStateMachine.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
+        else if ( phet.joist.random.nextDouble() > ( 1 - this.rnaPolymeraseAttachmentStateMachine.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
 
           // The decision has been made to detach.  Next, decide whether
           // to detach completely from the DNA strand or just jump to an
           // adjacent base pair.
-          if ( RAND.nextDouble() > detachFromDnaThreshold.get() ) {
+          if ( phet.joist.random.nextDouble() > detachFromDnaThreshold.get() ) {
 
             // Detach completely from the DNA.
             this.detachFromDnaMolecule( asm );
@@ -152,7 +150,7 @@ define( function( require ) {
        */
       entered: function( asm ) {
         var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
-        var randValue = RAND.nextDouble();
+        var randValue = phet.joist.random.nextDouble();
 
        // Decide right away whether or not to transcribe.
         this.transcribe = attachmentSite.getAffinity() > CommonConstants.DEFAULT_AFFINITY &&

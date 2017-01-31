@@ -20,15 +20,12 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var Random = require( 'DOT/Random' );
   var TranscriptionFactorAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/TranscriptionFactorAttachmentStateMachine' );
 
   // constants
   var WIDTH = 325;   // In nanometers.
   var HEIGHT = 240;  // In nanometers.
   var SIZE = new Dimension2( WIDTH, HEIGHT );
-  var RAND = new Random();
-
 
   /**
    *
@@ -95,7 +92,7 @@ define( function( require ) {
      */
     getDetachDirection: function() {
       // Randomly either up or down when detaching from DNA.
-      return RAND.nextBoolean() ? new Vector2( 0, 1 ) : new Vector2( 0, -1 );
+      return phet.joist.random.nextBoolean() ? new Vector2( 0, 1 ) : new Vector2( 0, -1 );
     },
 
     /**

@@ -13,7 +13,6 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
-  var Random = require( 'DOT/Random' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel' );
   var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -98,7 +97,7 @@ define( function( require ) {
      */
     getDetachDirection: function() {
       // Randomly either up or down when detaching from DNA.
-      return new Random().nextBoolean() ? UP_VECTOR : DOWN_VECTOR;
+      return phet.joist.random.nextBoolean() ? UP_VECTOR : DOWN_VECTOR;
     },
 
     /**
