@@ -14,7 +14,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var multipleCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/multipleCells' );
@@ -26,7 +25,7 @@ define( function( require ) {
 
     var options = {
       name: multipleCellsString,
-      backgroundColorProperty: new Property( Color.toColor( 'black' ) )
+      backgroundColorProperty: new Property( 'black' )
       //TODO add homeScreenIcon
     };
 

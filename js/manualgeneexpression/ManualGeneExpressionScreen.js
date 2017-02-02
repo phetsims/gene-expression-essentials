@@ -14,7 +14,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var expressionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/expression' );
@@ -26,7 +25,7 @@ define( function( require ) {
 
     var options = {
       name: expressionString,
-      backgroundColorProperty: new Property( Color.toColor( '#ABCBDB' ) )
+      backgroundColorProperty: new Property( '#ABCBDB' )
       //TODO add homeScreenIcon
     };
 
