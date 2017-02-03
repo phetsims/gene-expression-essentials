@@ -1,9 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * The generic "attached" state isn't very useful, but is included for
- * ompleteness.  The reason it isn't useful is because the different
- * biomolecules all have their own unique behavior with respect to
- * attaching, and thus define their own attached states.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -19,10 +15,10 @@ define( function( require ) {
 
   // constants
   var DEFAULT_DETACH_TIME = 3; // In seconds.
-  var detachCountdownTime = DEFAULT_DETACH_TIME;
 
   function GenericUnattachedButUnavailableState() {
     AttachmentState.call( this );
+    this.detachCountdownTime = DEFAULT_DETACH_TIME;
   }
 
   geneExpressionEssentials.register( 'GenericUnattachedButUnavailableState', GenericUnattachedButUnavailableState );
@@ -37,9 +33,12 @@ define( function( require ) {
     stepInTime: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
 
+      // Verify that state is consistent
+      assert && assert( gsm.attachmentSite === null );
+
       // See if we've been detached long enough.
-      detachCountdownTime -= dt;
-      if ( detachCountdownTime <= 0 ) {
+      this.detachCountdownTime -= dt;
+      if ( this.detachCountdownTime <= 0 ) {
 
         // Move to the unattached-and-available state.
         gsm.setState( gsm.unattachedAndAvailableState );
@@ -51,7 +50,7 @@ define( function( require ) {
      * @param {AttachmentStateMachine} enclosingStateMachine
      */
     entered: function( enclosingStateMachine ) {
-      detachCountdownTime = DEFAULT_DETACH_TIME;
+      this.detachCountdownTime = DEFAULT_DETACH_TIME;
 
       // Allow user interaction.
       enclosingStateMachine.biomolecule.movableByUserProperty.set( true );

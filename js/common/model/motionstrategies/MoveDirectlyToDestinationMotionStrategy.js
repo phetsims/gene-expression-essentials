@@ -1,6 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
  *
+ * A motion strategy that moves directly to the specified destination
  * @author Mohamed Safi
  *
  */
@@ -34,14 +35,12 @@ define( function( require ) {
     );
     self.velocityVector2D = new Vector2( 0, 0 );
 
-    // Destination to which this motion strategy moves.  Note that it is
-    // potentially a moving target.
+    // Destination to which this motion strategy moves. Note that it is potentially a moving target.
     self.destinationProperty = destinationProperty;
 
-    // Fixed offset from the destination location property used when computing
-    // the actual target destination.  This is useful in cases where something
-    // needs to move such that some point that is not its center is positioned
-    // at the destination.
+    // Fixed offset from the destination location property used when computing the actual target destination. This is
+    // useful in cases where something needs to move such that some point that is not its center is positioned at the
+    // destination.
     self.offsetFromDestinationProperty = destinationOffset;
 
     // Scalar velocity with which the controlled item travels.
@@ -76,7 +75,7 @@ define( function( require ) {
         this.velocityVector2D.setXY( 0, 0 );
       }
       else {
-        this.velocityVector2D.set( destination.minus( currentLocation ).withMagnitude( velocity ) );
+        this.velocityVector2D.set( destination.minus( currentLocation ).setMagnitude( velocity ) );
       }
     },
 
@@ -88,8 +87,7 @@ define( function( require ) {
      * @returns {Vector3}
      */
     getNextLocation3D: function( currentLocation3D, shape, dt ) {
-      // Destination is assumed to always have a Z value of 0, i.e. at the
-      // "surface".
+      // Destination is assumed to always have a Z value of 0, i.e. at the "surface".
       var currentDestination3D = new Vector3( this.destinationProperty.get().x - this.offsetFromDestinationProperty.x,
         this.destinationProperty.get().y - this.offsetFromDestinationProperty.y,
         0 );
@@ -100,8 +98,7 @@ define( function( require ) {
         new Vector2( currentDestination3D.x, currentDestination3D.y ),
         this.scalarVelocity2D );
 
-      // Make the Z velocity such that the front (i.e. z = 0) will be reached
-      // at the same time as the destination in XY space.
+      // Make the Z velocity such that the front (i.e. z = 0) will be reached at the same time as the destination in XY space.
       var distanceToDestination2D = currentLocation2D.distance( this.destinationProperty.get() );
       var zVelocity;
       if ( distanceToDestination2D > 0 ) {
@@ -123,8 +120,7 @@ define( function( require ) {
                      'Destination is causing some portion of shape to move out of bounds.' );
       }
 
-      // Make sure that the current motion won't move the model element past
-      // the destination.
+      // Make sure that the current motion won't move the model element past the destination.
       var distanceToDestination = currentLocation2D.distance( currentDestination2D );
       if ( this.velocityVector2D.magnitude() * dt > distanceToDestination ) {
         return currentDestination3D;

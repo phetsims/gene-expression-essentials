@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * State where the mRNA is detaching from the polymerase.  During this
- * time, it moves generally upwards until either the timer runs out or
- * it is attached to by some biomolecule.
+ * State where the mRNA is detaching from the polymerase. During this time, it moves generally upwards until either the
+ * timer runs out or it is attached to by some biomolecule.
  *
  * @author John Blanco
  * @author Mohamed Safi

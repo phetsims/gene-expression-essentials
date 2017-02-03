@@ -1,13 +1,14 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
- * Attachment state machine for all RNA Polymerase molecules.  This uses the
- * generic behavior for all but the "attached" state, and has several
- * sub-states for the attached site.  See the code for details.
+ * Attachment state machine for all RNA Polymerase molecules. This uses the generic behavior for all but the "attached"
+ * state, and has several sub-states for the attached site.  See the code for details.
  *
  * @author John Blanco
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
@@ -92,12 +93,9 @@ define( function( require ) {
     },
 
     /**
-     * Calculate the probability of detachment from the current base pair
-     * during the provided time interval.  This uses the same mathematics
-     * as is used for calculating probabilities of decay for radioactive
-     * atomic nuclei.
+     * Calculate the probability of detachment from the current base pair during the provided time interval. This uses
+     * the same mathematics as is used for calculating probabilities of decay for radioactive atomic nuclei.
      *
-     * @private method
      * @param {number} affinity
      * @param {number} dt
      * @return {number}

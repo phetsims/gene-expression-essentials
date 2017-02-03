@@ -1,8 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
  /*
- * Class that defines the bounds within which some shape or point is allowed to move.
- * If the bounds are not set, they are assumed to be infinite.
+ * Class that defines the bounds within which some shape or point is allowed to move. If the bounds are not set, they
+ * are assumed to be infinite.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -25,7 +25,9 @@ define( function( require ) {
   function MotionBounds( bounds ) {
 
     if ( !bounds ) {
-      bounds = new Bounds2( Number.MIN_VALUE, Number.MIN_VALUE, Number.MAX_VALUE, Number.MAX_VALUE );
+      // Set up bounds to be infinite, is JS world setting the max values
+      //bounds = new Bounds2( Number.MIN_VALUE, Number.MIN_VALUE, Number.MAX_VALUE, Number.MAX_VALUE );
+      bounds = Bounds2.EVERYTHING;
     }
 
     this.bounds = bounds;
@@ -67,8 +69,8 @@ define( function( require ) {
 
 
     /**
-     * Test whether the given shape will be in or out of the motion bounds if
-     * the given motion vector is applied for the given time.
+     * Test whether the given shape will be in or out of the motion bounds if the given motion vector is applied for the
+     * given time.
      *
      * @param {Shape} shape        - Shape of entity being tested.
      * @param {Vector2 }motionVector - Motion vector of the object in distance/sec
@@ -83,8 +85,8 @@ define( function( require ) {
 
 
     /**
-     * Test whether the given shape will be within the motion bounds if it is
-     * translated such that its center is at the given point.
+     * Test whether the given shape will be within the motion bounds if it is translated such that its center is at the
+     * given point.
      *
      * @param {Shape} shape            - Test shape.
      * @param {Vector2} proposedLocation - Proposed location of the shape's center.

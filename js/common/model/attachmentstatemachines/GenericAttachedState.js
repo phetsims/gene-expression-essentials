@@ -1,9 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * The generic "attached" state isn't very useful, but is included for
- * completeness.  The reason it isn't useful is because the different
- * biomolecules all have their own unique behavior with respect to
- * attaching, and thus define their own attached states.
+ * The generic "attached" state isn't very useful, but is included for completeness. The reason it isn't useful is
+ * because the different biomolecules all have their own unique behavior with respect to attaching, and thus define
+ * their own attached states.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -21,10 +20,11 @@ define( function( require ) {
 
   // constants
   var DEFAULT_ATTACH_TIME = 3; // In seconds.
-  var attachCountdownTime = DEFAULT_ATTACH_TIME;
+
 
   function GenericAttachedState() {
     AttachmentState.call( this );
+    this.attachCountdownTime = DEFAULT_ATTACH_TIME;
   }
 
   geneExpressionEssentials.register( 'GenericAttachedState', GenericAttachedState );
@@ -39,9 +39,13 @@ define( function( require ) {
     stepInTime: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
 
+      // Verify that state is consistent.
+      assert && assert( gsm.attachmentSite !== null );
+      assert && assert( gsm.attachmentSite.attachedOrAttachingMolecule.get() === gsm.biomolecule );
+
       // See if it is time to detach.
-      attachCountdownTime -= dt;
-      if ( attachCountdownTime <= 0 ) {
+      this.attachCountdownTime -= dt;
+      if ( this.attachCountdownTime <= 0 ) {
 
         // Detach.
         gsm.detach();
@@ -55,8 +59,9 @@ define( function( require ) {
      * @param {AttachmentStateMachine} enclosingStateMachine
      */
     entered: function( enclosingStateMachine ) {
-      attachCountdownTime = DEFAULT_ATTACH_TIME;
-      enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
+      this.attachCountdownTime = DEFAULT_ATTACH_TIME;
+      enclosingStateMachine.biomolecule.setMotionStrategy(
+        new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
 
       // Prevent user interaction.
       enclosingStateMachine.biomolecule.movableByUserProperty.set( false );

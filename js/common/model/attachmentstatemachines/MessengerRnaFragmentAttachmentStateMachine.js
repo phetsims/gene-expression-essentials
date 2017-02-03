@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Attachment state machine for messenger RNA fragments.  These fragments
- * start their life as being attached to an mRNA destroyer, and and then
- * released into the cytoplasm to wander and fade.
+ * Attachment state machine for messenger RNA fragments. These fragments start their life as being attached to an mRNA
+ * destroyer, and and then released into the cytoplasm to wander and fade.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -65,6 +64,7 @@ define( function( require ) {
        */
       entered: function( asm ) {
         var biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+        assert && assert( biomolecule.existenceStrengthProperty.get() === 1 );
         biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
       },
 

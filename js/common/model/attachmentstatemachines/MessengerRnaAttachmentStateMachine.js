@@ -40,8 +40,8 @@ define( function( require ) {
 
     /**
      * @Override
-     * Detach from the RNA polymerase.  Note that this should NOT be used to
-     * detach the mRNA from ribosomes or any other biomolecules.
+     * Detach from the RNA polymerase. Note that this should NOT be used to detach the mRNA from ribosomes or any other
+     * biomolecules.
      */
     detach: function() {
       if ( this.fadeAwayWhenFormed ) {
@@ -71,16 +71,15 @@ define( function( require ) {
     },
 
     /**
-     * Signals this state machine that at least one ribosome is now attached
-     * to the mRNA and is thus translating it.
+     * Signals this state machine that at least one ribosome is now attached to the mRNA and is thus translating it.
      */
     attachedToRibosome: function() {
       this.setState( new BeingTranslatedState() );
     },
 
     /**
-     * Signals this state machine that all ribosomes that were translating it
-     * have completed the translation process and have detached.
+     * Signals this state machine that all ribosomes that were translating it have completed the translation process and
+     * have detached.
      */
     allRibosomesDetached: function() {
       this.setState( new WanderingAroundCytoplasmState() );

@@ -13,8 +13,9 @@ define( function( require ) {
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/AttachmentState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
-  function GenericMovingTowardsAttachmentState() {
+  function GenericMovingTowardsAttachmentState( genericAttachmentStateMachine ) {
     AttachmentState.call( this );
+    this.genericAttachmentStateMachine = genericAttachmentStateMachine;
 
   }
 
@@ -29,18 +30,19 @@ define( function( require ) {
      */
     stepInTime: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
+      // Verify that state is consistent
 
-      // Calculate the location where this biomolecule must be in order
-      // to attach to the attachment site.
+      assert && assert( gsm.attachmentSite !== null );
+      assert && assert( gsm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === this.genericAttachmentStateMachine.biomolecule );
+
+      // Calculate the location where this biomolecule must be in order to attach to the attachment site.
       var destination = new Vector2( gsm.attachmentSite.locationProperty.get().x - gsm.destinationOffset.x,
         gsm.attachmentSite.locationProperty.get().y - gsm.destinationOffset.y );
-
-    //   console.log("Bio Molecule Position " + gsm.biomolecule.getPosition()+" destination " + destination + "offset  "+gsm.destinationOffset);
 
       // See if the attachment site has been reached.
       if ( gsm.biomolecule.getPosition().distance( destination ) < AttachmentState.ATTACHED_DISTANCE_THRESHOLD ) {
 
-        // This molecule is now at the attachment site, so consider it // attached.
+        // This molecule is now at the attachment site, so consider it attached.
          gsm.setState( gsm.attachedState );
       }
 

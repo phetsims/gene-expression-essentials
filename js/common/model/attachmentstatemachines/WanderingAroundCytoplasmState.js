@@ -1,7 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * State where the mRNA is wandering around the cell's cytoplasm unattached
- * to anything.
+ * State where the mRNA is wandering around the cell's cytoplasm unattached to anything.
  *
  * @author John Blanco
  * @author Mohamed Safi

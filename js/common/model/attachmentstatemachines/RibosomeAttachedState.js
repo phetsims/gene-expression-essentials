@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
  /**
- * Class that defines what the ribosome does when attached to mRNA, which
- * is essentially to transcribe it.
+ * Class that defines what the ribosome does when attached to mRNA, which is essentially to transcribe it.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -43,14 +42,21 @@ define( function( require ) {
      * @param {number} dt
      */
     stepInTime: function( asm, dt ) {
+
       var proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
       var ribosome = this.ribosomeAttachmentStateMachine.ribosome;
+
+      // verify that state is consistent
+      assert && assert( asm.attachmentSite !== null );
+      assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === ribosome );
 
       // Grow the protein.
       proteinBeingSynthesized.setFullSizeProportion(
         ribosome.getMessengerRnaBeingTranslated().getProportionOfRnaTranslated( ribosome ) );
       proteinAttachmentPointScratchVector = ribosome.getProteinAttachmentPoint( proteinAttachmentPointScratchVector );
-      proteinBeingSynthesized.setAttachmentPointPositionXY( proteinAttachmentPointScratchVector.x, proteinAttachmentPointScratchVector.y );
+      proteinBeingSynthesized.setAttachmentPointPositionXY(
+        proteinAttachmentPointScratchVector.x,
+        proteinAttachmentPointScratchVector.y );
 
       // Advance the translation of the mRNA.
       var translationComplete = ribosome.advanceMessengerRnaTranslation( RNA_TRANSLATION_RATE * dt );

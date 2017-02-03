@@ -32,8 +32,8 @@ define( function( require ) {
      */
     entered: function( enclosingStateMachine ) {
 
-      // Set a motion strategy that will not move this molecule, since
-      // its position will be defined by the destroyer and translators.
+      // Set a motion strategy that will not move this molecule, since its position will be defined by the destroyer and
+      // translators.
       enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
     }
 

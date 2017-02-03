@@ -1,10 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 /**
  * Generic attachment state machine - just implements basic behavior.
- * <p/>
- * This class exists mainly for testing and for quick implementation of
- * biomolecules.  The code analyzer may show that it is unused, but it should
- * be kept around anyway for testing and prototyping of changes.
+ * This class exists mainly for testing and for quick implementation of biomolecules. The code analyzer may show that it
+ * is unused, but it should be kept around anyway for testing and prototyping of changes.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -29,11 +27,11 @@ define( function( require ) {
   function GenericAttachmentStateMachine( biomolecule ) {
     AttachmentStateMachine.call( this, biomolecule );
 
-    // States used by this state machine.  These are often set by subclasses
-    // to non-default values in order to change the default behavior.
+    // States used by this state machine. These are often set by subclasses to non-default values in order to change the
+    // default behavior.
     this.unattachedAndAvailableState = new GenericUnattachedAndAvailableState();
     this.attachedState = new GenericAttachedState();
-    this.movingTowardsAttachmentState = new GenericMovingTowardsAttachmentState();
+    this.movingTowardsAttachmentState = new GenericMovingTowardsAttachmentState( this );
     this.unattachedButUnavailableState = new GenericUnattachedButUnavailableState();
     this.setState( this.unattachedAndAvailableState );
   }
@@ -46,6 +44,7 @@ define( function( require ) {
      * @Override
      */
     detach: function() {
+      assert && assert( this.attachmentSite !== null ); // Verify internal state is consistent
       this.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       this.attachmentSite = null;
       this.forceImmediateUnattachedButUnavailable();

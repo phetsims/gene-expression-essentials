@@ -1,12 +1,9 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Motion strategy where the controlled entity drifts at the front of a Z
- * dimension, then moves to the back of Z space, then moves instantly to a
- * new randomly generated location within a set of possible "destination
- * zones" (hench the "teleport" portion of the name). This was created to use
- * when a polymerase molecule needs to return to the beginning of the
- * transcribed area of a gene when it completes transcription. It may, at some
- * point, have other applications as well.
+ * Motion strategy where the controlled entity drifts at the front of a Z dimension, then moves to the back of Z space,
+ * then moves instantly to a new randomly generated location within a set of possible "destination zones" (hench the
+ * "teleport" portion of the name). This was created to use when a polymerase molecule needs to return to the beginning
+ * of the transcribed area of a gene when it completes transcription. It may, at some point, have other applications as well.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -32,7 +29,7 @@ define( function( require ) {
    *
    * @param {Vector2} wanderDirection
    * @param {array<Rectangle>} destinationZones
-   * @param {Property <MotionBounds>} motionBounds
+   * @param {Property <MotionBounds>} motionBoundsProperty
    * @constructor
    */
   function DriftThenTeleportMotionStrategy( wanderDirection, destinationZones, motionBoundsProperty ) {
@@ -73,8 +70,9 @@ define( function( require ) {
         return new Vector2( destinationBounds.getCenterX(), destinationBounds.getCenterY() );
       }
       else {
-        return new Vector2( destinationBounds.x + shape.bounds.getWidth() / 2 + phet.joist.random.nextDouble() * reducedBoundsWidth,
-          destinationBounds.x + shape.bounds.getHeight() / 2 + phet.joist.random.nextDouble() * reducedBoundsHeight );
+        return new Vector2(
+          destinationBounds.x + shape.bounds.getWidth() / 2 + phet.joist.random.nextDouble() * reducedBoundsWidth,
+          destinationBounds.y + shape.bounds.getHeight() / 2 + phet.joist.random.nextDouble() * reducedBoundsHeight );
       }
     },
 
@@ -87,7 +85,7 @@ define( function( require ) {
      */
     getNextLocation: function( currentLocation, shape, dt ) {
       var location3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.x, 0 ), shape, dt );
-      return new Vector2( location3D.x, location3D.x );
+      return new Vector2( location3D.x, location3D.y );
     },
 
     /**
@@ -104,7 +102,7 @@ define( function( require ) {
 
         // Time to teleport.
         var destination2D = this.generateRandomLocationInBounds( this.destinationZones, shape );
-        return new Vector3( destination2D.x, destination2D.x, -1 );
+        return new Vector3( destination2D.x, destination2D.y, -1 );
       }
 
       // Determine movement for drift.
@@ -128,7 +126,7 @@ define( function( require ) {
       }
 
       return new Vector3( currentLocation.x + xyMovement.x,
-        currentLocation.x + xyMovement.x,
+        currentLocation.y + xyMovement.y,
         Util.clamp( currentLocation.z + zMovement, -1, 0 ) );
     }
 

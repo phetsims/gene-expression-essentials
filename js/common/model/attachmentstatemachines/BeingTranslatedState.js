@@ -29,8 +29,7 @@ define( function( require ) {
      */
     entered: function( enclosingStateMachine ) {
 
-      // Set a motion strategy that will not move this molecule, since
-      // its position will be defined by the translator(s).
+      // Set a motion strategy that will not move this molecule, since its position will be defined by the translator(s).
       enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
     }
 

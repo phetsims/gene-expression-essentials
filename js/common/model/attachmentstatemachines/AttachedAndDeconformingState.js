@@ -65,13 +65,13 @@ define( function( require ) {
           // Update externally visible state indication.
           asm.biomolecule.attachedToDnaProperty.set( false );
 
-          // Make sure that we enter the correct initial state upon the
-          // next attachment.
+          // Make sure that we enter the correct initial state upon the next attachment.
           this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndWanderingState;
 
           // Detach from the DNA.
           attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
-          this.rnaPolymeraseAttachmentStateMachine.attachmentSite = null;
+          attachmentSite = null;
+          this.rnaPolymeraseAttachmentStateMachine.attachmentSite = attachmentSite;
           if ( recycleMode ) {
             this.rnaPolymeraseAttachmentStateMachine.setState(
               new BeingRecycledState( this.rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) );

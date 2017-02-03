@@ -52,10 +52,14 @@ define( function( require ) {
         var attachedState = this.rnaPolymeraseAttachmentStateMachine.attachedState;
         var attachedAndDeconformingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndDeconformingState;
 
-        // Grow the messenger RNA and position it to be attached to the
-        // polymerase.
+        // Verify that state is consistent
+        assert && assert( asm.attachmentSite !== null );
+        assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
+
+        // Grow the messenger RNA and position it to be attached to the polymerase.
         this.messengerRna.addLength( TRANSCRIPTION_VELOCITY * dt );
-        this.messengerRna.setLowerRightPosition( rnaPolymerase.getPosition().x + GeneExpressionRnaPolymeraseConstant.MESSENGER_RNA_GENERATION_OFFSET.x,
+        this.messengerRna.setLowerRightPosition(
+          rnaPolymerase.getPosition().x + GeneExpressionRnaPolymeraseConstant.MESSENGER_RNA_GENERATION_OFFSET.x,
           rnaPolymerase.getPosition().y + GeneExpressionRnaPolymeraseConstant.MESSENGER_RNA_GENERATION_OFFSET.y );
 
         // Move the DNA strand separator.
@@ -94,23 +98,21 @@ define( function( require ) {
 
         // Determine the gene that is being transcribed.
         var geneToTranscribe = biomolecule.getModel().getDnaMolecule().getGeneAtLocation( biomolecule.getPosition() );
+        assert && assert( geneToTranscribe !== null );
 
-        // Set up the motion strategy to move to the end of the transcribed
-        // region of the gene.
+        // Set up the motion strategy to move to the end of the transcribed region of the gene.
         this.endOfGene = new Vector2( geneToTranscribe.getEndX(), CommonConstants.DNA_MOLECULE_Y_POS );
 
         asm.biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( new Property( this.endOfGene.copy() ),
           biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), TRANSCRIPTION_VELOCITY ) );
 
 
-        // Create the mRNA that will be grown as a result of this
-        // transcription.
+        // Create the mRNA that will be grown as a result of this transcription.
         this.messengerRna = new MessengerRna( biomolecule.getModel(), geneToTranscribe.getProteinPrototype(),
           biomolecule.getPosition().plus( GeneExpressionRnaPolymeraseConstant.MESSENGER_RNA_GENERATION_OFFSET ) );
         biomolecule.spawnMessengerRna( this.messengerRna );
 
-        // Free up the initial attachment site by hooking up to a somewhat
-        // fictional attachment site instead.
+        // Free up the initial attachment site by hooking up to a somewhat fictional attachment site instead.
         attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
         transcribingAttachmentSite.attachedOrAttachingMoleculeProperty.set( asm.biomolecule );
         this.rnaPolymeraseAttachmentStateMachine.attachmentSite = transcribingAttachmentSite;

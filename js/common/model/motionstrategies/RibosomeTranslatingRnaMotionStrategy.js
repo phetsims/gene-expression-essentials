@@ -1,8 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 /**
  /**
- * This class defines a very specific motion strategy used by a ribosome to
- * follow the translation attachment point of a strand of mRNA.
+ * This class defines a very specific motion strategy used by a ribosome to follow the translation attachment point of a
+ * strand of mRNA.
  *
  * @author John Blanco
  * @author Mohamed Safi

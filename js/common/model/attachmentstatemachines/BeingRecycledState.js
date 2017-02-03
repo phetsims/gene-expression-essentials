@@ -40,16 +40,17 @@ define( function( require ) {
      * @param {number} dt
      */
     stepInTime: function( asm, dt ) {
+
       // Verify that state is consistent.
       assert && assert(asm.attachmentSite === null);
 
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
       var unattachedAndAvailableState = this.rnaPolymeraseAttachmentStateMachine.unattachedAndAvailableState;
+
       if ( this.rnaPolymeraseAttachmentStateMachine.pointContainedInBoundsList( asm.biomolecule.getPosition(),
           this.recycleReturnZones ) ) {
 
-        // The motion strategy has returned the biomolecule to the
-        // recycle return zone, so this state is complete.
+        // The motion strategy has returned the biomolecule to the recycle return zone, so this state is complete.
         asm.biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
         asm.setState( unattachedAndAvailableState );
       }
@@ -66,7 +67,8 @@ define( function( require ) {
 
       // Set the motion strategy that will move the polymerase clear of
       // the DNA, then teleport it to a location within the specified bounds.
-      asm.biomolecule.setMotionStrategy( new DriftThenTeleportMotionStrategy( new Vector2( 0, phet.joist.random.nextBoolean() ? 1 : -1 ),
+      asm.biomolecule.setMotionStrategy( new DriftThenTeleportMotionStrategy( new Vector2( 0,
+        phet.joist.random.nextBoolean() ? 1 : -1 ),
         this.recycleReturnZones, biomolecule.motionBoundsProperty ) );
     }
 

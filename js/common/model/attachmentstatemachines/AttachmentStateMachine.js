@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Base class for the attachment state machines that define how the various
- * biomolecules attach to one another, how they detach from one another, how
- * they find other biomolecules to attach to, and so forth.
+ * Base class for the attachment state machines that define how the various biomolecules attach to one another, how they
+ * detach from one another, how they find other biomolecules to attach to, and so forth.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -26,16 +25,15 @@ define( function( require ) {
     // Reference to the biomolecule controlled by this state machine.
     this.biomolecule = biomolecule;
 
-    // Attachment point.  When this is non-null, the biomolecule is either
-    // attached to this point or moving towards attachment with it.
+    // Attachment point. When this is non-null, the biomolecule is either attached to this point or moving towards
+    // attachment with it.
     this.attachmentSite = null;
 
-    // Current attachment state.  Changes with each state transition.
+    // Current attachment state. Changes with each state transition.
     this.attachmentState = null;
 
-    // Offset to use when moving towards attachment sites.  This is used when
-    // the molecule attaches to an attachment site at some location other than
-    // its geometric center.
+    // Offset to use when moving towards attachment sites. This is used when the molecule attaches to an attachment site
+    // at some location other than its geometric center.
     this.destinationOffset = new Vector2( 0, 0 );
   }
 
@@ -52,8 +50,7 @@ define( function( require ) {
     },
 
     /**
-     * Find out if the biomolecule using this state machine is currently
-     * attached to anything (i.e. another biomolecule).
+     * Find out if the biomolecule using this state machine is currently attached to anything (i.e. another biomolecule).
      *
      * @return {boolean} true if attached to something, false if not.
      */
@@ -62,8 +59,7 @@ define( function( require ) {
     },
 
     /**
-     * Find out if the biomolecule using this state machine is currently moving
-     * towards attachment with another molecule.
+     * Find out if the biomolecule using this state machine is currently moving towards attachment with another molecule.
      *
      * @return {boolean} true if moving towards attachment, false if already attached or
      *         if no attachment is pending.
@@ -73,9 +69,8 @@ define( function( require ) {
     },
 
     /**
-     * Detach the biomolecule from any current attachments.  This will cause
-     * the molecule to go into the unattached-but-unavailable state for some
-     * period of time, after which it will become available again.
+     * Detach the biomolecule from any current attachments. This will cause the molecule to go into the
+     * unattached-but-unavailable state for some period of time, after which it will become available again.
      */
     detach: function() {
       throw new Error( 'detach should be implemented in descendant classes of AttachmentStateMachine .' );
@@ -83,26 +78,23 @@ define( function( require ) {
 
 
     /**
-     * Move immediately into the unattached-and-available state.  This is
-     * generally done only when the user has grabbed the associated molecule.
-     * Calling this when already in this state is harmless.
+     * Move immediately into the unattached-and-available state. This is generally done only when the user has grabbed
+     * the associated molecule. Calling this when already in this state is harmless.
      */
     forceImmediateUnattachedAndAvailable: function() {
-      console.log( 'AttachmentStateMachine Warning: Unimplemented method called in base class.' );
+      throw new Error( ' forceImmediateUnattachedAndAvailable should be implemented in descendant classes of AttachmentStateMachine .' );
     },
 
     /**
-     * Move immediately into the unattached-but-unavailable state.  This is
-     * generally done only when the user has released the associated molecule
-     * in a place where it needs to move away.
+     * Move immediately into the unattached-but-unavailable state. This is generally done only when the user has released
+     * the associated molecule in a place where it needs to move away.
      */
     forceImmediateUnattachedButUnavailable: function() {
-      console.log( 'AttachmentStateMachine Warning: Unimplemented method called in base class.' );
+      throw new Error( ' forceImmediateUnattachedButUnavailable should be implemented in descendant classes of AttachmentStateMachine .' );
     },
 
     /**
-     * Set a new attachment state.  This calls the "entered" method, so this
-     * should be used instead of directly setting the state.
+     * Set a new attachment state. This calls the "entered" method, so this should be used instead of directly setting the state.
      *
      * @param {AttachmentState} attachmentState
      */

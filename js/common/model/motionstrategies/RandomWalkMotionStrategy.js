@@ -29,7 +29,6 @@ define( function( require ) {
 
   // Vector used for intermediate calculations - Added to avoid excessive creation of Vector3 instances - Ashraf
   var nextLocation3DScratchInVector = new Vector3();
-  var nextLocation3DScratchOutVector = new Vector3();
 
 
   /**
@@ -63,8 +62,8 @@ define( function( require ) {
       nextLocation3DScratchInVector.x = currentLocation.x;
       nextLocation3DScratchInVector.y = currentLocation.y;
       nextLocation3DScratchInVector.z = 0;
-      nextLocation3DScratchOutVector = this.getNextLocation3D( nextLocation3DScratchInVector, shape, dt, nextLocation3DScratchOutVector );
-      return new Vector2( nextLocation3DScratchOutVector.x, nextLocation3DScratchOutVector.y );
+      var location3D = this.getNextLocation3D( nextLocation3DScratchInVector, shape, dt );
+      return new Vector2( location3D.x, location3D.y );
     },
 
     /**
@@ -72,7 +71,8 @@ define( function( require ) {
      * @returns {number}
      */
     generateDirectionChangeCountdownValue: function() {
-      return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() * ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
+      return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() *
+                                         ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
     },
 
 
@@ -81,10 +81,9 @@ define( function( require ) {
      * @param {Vector3} currentLocation
      * @param {Shape} shape
      * @param {number} dt
-     * @param {Vector3} // optional output vector
      * @returns {Vector3}
      */
-    getNextLocation3D: function( currentLocation, shape, dt, outputVector ) {
+    getNextLocation3D: function( currentLocation, shape, dt ) {
       this.directionChangeCountdown -= dt;
       if ( this.directionChangeCountdown <= 0 ) {
 
@@ -114,14 +113,13 @@ define( function( require ) {
       // molecule.
       var minZ = this.getMinZ( shape, currentLocation );
 
-      outputVector = outputVector || new Vector3();
-
       // Calculate the next location based on current motion.
-      outputVector.x = currentLocation.x + this.currentMotionVector2D.x * dt;
-      outputVector.y = currentLocation.y + this.currentMotionVector2D.y * dt;
-      outputVector.z = Util.clamp( currentLocation.z + this.currentZVelocity * dt, minZ, 0 );
+      return new Vector3(
+        currentLocation.x + this.currentMotionVector2D.x * dt,
+        currentLocation.y + this.currentMotionVector2D.y * dt,
+        Util.clamp( currentLocation.z + this.currentZVelocity * dt, minZ, 0 )
+      );
 
-      return outputVector;
     }
 
   } );

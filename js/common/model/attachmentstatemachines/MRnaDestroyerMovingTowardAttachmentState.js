@@ -11,9 +11,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var GenericMovingTowardsAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericMovingTowardsAttachmentState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var GenericMovingTowardsAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachmentstatemachines/GenericMovingTowardsAttachmentState' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    *
@@ -34,7 +34,7 @@ define( function( require ) {
      * @param {AttachmentStateMachine} asm
      */
     entered: function( asm ) {
-      //GenericMovingTowardsAttachmentState.prototype.entered.call( this );
+      GenericMovingTowardsAttachmentState.prototype.entered.call( this, asm );
       asm.biomolecule.movableByUserProperty.set( false );
     }
 

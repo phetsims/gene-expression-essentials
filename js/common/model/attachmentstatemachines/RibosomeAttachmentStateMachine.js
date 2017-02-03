@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * This class defined the attachment state machine for all ribosomes.
- * Ribosomes pretty much only connect to mRNA, so that's what this controls.
+ * This class defined the attachment state machine for all ribosomes. Ribosomes pretty much only connect to mRNA, so
+ * that's what this controls.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -26,11 +26,10 @@ define( function( require ) {
     GenericAttachmentStateMachine.call( this, biomolecule );
 
     // Set up a local reference of the needed type.
-    // Reference back to the ribosome that is controlled by this state machine.
-    this.ribosome = biomolecule;
 
-    // Protein created during translation process, null if no protein is being
-    // synthesized.
+    this.ribosome = biomolecule; // Reference back to the ribosome that is controlled by this state machine.
+
+    // Protein created during translation process, null if no protein is being synthesized.
     this.proteinBeingSynthesized = null;
 
     // Set up offset used when attaching to mRNA.

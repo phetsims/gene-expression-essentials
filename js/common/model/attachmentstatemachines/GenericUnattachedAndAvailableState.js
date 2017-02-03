@@ -30,6 +30,9 @@ define( function( require ) {
     stepInTime: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
 
+      // Verify that state is consistent
+      assert && assert( gsm.attachmentSite === null );
+
       // Make the biomolecule look for attachments.
       gsm.attachmentSite = gsm.biomolecule.proposeAttachments();
       if ( gsm.attachmentSite !== null ) {

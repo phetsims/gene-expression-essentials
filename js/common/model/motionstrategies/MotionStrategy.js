@@ -1,9 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 /**
  /**
- * Base class for motion strategies that can be used to exhibit different sorts
- * of motion.  This class and its subclasses have been written to be very
- * general in order to enable reuse.
+ * Base class for motion strategies that can be used to exhibit different sorts of motion. This class and its subclasses
+ * have been written to be very general in order to enable reuse.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -31,29 +30,27 @@ define( function( require ) {
   return inherit( Object, MotionStrategy, {
 
     /**
-     * Get the next location given the current position.  State information
-     * contained in the motion strategy instance, such as the current motion
-     * vector, will determine the next position.
+     * Get the next location given the current position. State information contained in the motion strategy instance,
+     * such as the current motion vector, will determine the next position.
      *
      * @param {Vector2} currentLocation
-     * @param {Shape} shape           Shape of the controlled item, used in detecting
+     * @param {Shape} shape   Shape of the controlled item, used in detecting
      *                        whether the item would go outside of the motion
      *                        bounds.
      * @param {number} dt
      * @return
      */
     getNextLocation: function( currentLocation, shape, dt ) {
-      throw new Error( 'detach should be implemented in descendant classes of MotionStrategy .' );
+      throw new Error( 'getNextLocation should be implemented in descendant classes of MotionStrategy .' );
     },
 
 
     /**
-     * Get the next location in three dimensions given the current position.
-     * State information contained in the motion strategy instance, such as the
-     * current motion vector, will determine the next position.
+     * Get the next location in three dimensions given the current position. State information contained in the motion
+     * strategy instance, such as the current motion vector, will determine the next position.
      *
      * @param {Vector3} currentLocation
-     * @param {Shape} shape           Shape of the controlled item, used in detecting
+     * @param {Shape} shape   Shape of the controlled item, used in detecting
      *                        whether the item would go outside of the motion
      *                        bounds.
      * @param {number} dt
@@ -76,11 +73,9 @@ define( function( require ) {
     },
 
     /**
-     * This utility method will return a motion vector that reflects a "bounce"
-     * in the x, y, or both directions based on which type of bounce will yield
-     * a next location for the shape that is within the motion bounds.  If no
-     * such vector can be found, a vector to the center of the motion bounds is
-     * returned.
+     * This utility method will return a motion vector that reflects a "bounce" in the x, y, or both directions based on
+     * which type of bounce will yield a next location for the shape that is within the motion bounds. If no such vector
+     * can be found, a vector to the center of the motion bounds is returned.
      *
      * @param {Shape} shape
      * @param {Vector2} originalMotionVector
@@ -89,6 +84,9 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getMotionVectorForBounce: function( shape, originalMotionVector, dt, maxVelocity ) {
+      // Check that this isn't being called inappropriately
+      var currentMotionTransform = this.getMotionTransform( originalMotionVector, dt );
+      assert && assert( !this.motionBounds.inBounds( shape.transformed( currentMotionTransform ) ) );
 
       // Try reversing X direction.
       var reversedXMotionVector = new Vector2( -originalMotionVector.x, originalMotionVector.y );
@@ -111,11 +109,9 @@ define( function( require ) {
         return reversedXYMotionVector;
       }
 
-      // If we reach this point, there is no vector that can be found that
-      // will bounce the molecule back into the motion bounds.  This might be
-      // because the molecule was dropped somewhere out of bounds, or maybe
-      // just that it is stuck to the DNA or something.  So, just return a
-      // vector back to the center of the motion bounds.  That should be a
+      // If we reach this point, there is no vector that can be found that will bounce the molecule back into the motion
+      // bounds. This might be because the molecule was dropped somewhere out of bounds, or maybe just that it is stuck
+      // to the DNA or something. So, just return a vector back to the center of the motion bounds.  That should be a
       // safe bet.
       var centerOfMotionBounds = this.motionBounds.getBounds().getCenter();
       var vectorToMotionBoundsCenter = new Vector2( centerOfMotionBounds.x - shape.bounds.getCenterX(),
@@ -133,7 +129,7 @@ define( function( require ) {
      */
     calculateDistanceBetweenRanges: function( r1, r2 ) {
       var distance;
-      if ( this.rangesOverlap( r1, r2 ) ) {
+      if ( r1.intersects( r2 ) ) {
 
         // Ranges overlap, so there is no distance between them.
         distance = 0;
@@ -147,23 +143,12 @@ define( function( require ) {
       return distance;
     },
 
-    /**
-     * Utility function for determining if ranges overlap.
-     * private static boolean
-     * @param {Range} r1
-     * @param {Range} r2
-     * @returns {boolean}
-     */
-    rangesOverlap: function( r1, r2 ) {
-      return !( r1.min > r2.max || r1.max < r2.min );
-    },
 
     /**
-     * Limit the Z position so that biomolecules don't look transparent when
-     * on top of the DNA, and become less transparent as they get close so
-     * that they don't appear to pop forward when connected to the DNA (or just
+     * Limit the Z position so that biomolecules don't look transparent when on top of the DNA, and become less
+     * transparent as they get close so that they don't appear to pop forward when connected to the DNA (or just
      * wandering above it).
-     * protected
+     *
      * @param {Shape} shape
      * @param {Vector2} positionXY
      * @return {number}
@@ -177,8 +162,8 @@ define( function( require ) {
       var distanceToEdgeOfDna = this.calculateDistanceBetweenRanges( shapeYRange, dnaYRange );
       if ( distanceToEdgeOfDna < shapeYRange.getLength() / 2 ) {
 
-        // Limit the z-dimension so that the biomolecule is at the front
-        // when over the DNA and make a gradient as it gets close to the DNA.
+        // Limit the z-dimension so that the biomolecule is at the front when over the DNA and make a gradient as it
+        // gets close to the DNA.
         minZ = -distanceToEdgeOfDna / ( shapeYRange.getLength() / 2 );
       }
       return minZ;

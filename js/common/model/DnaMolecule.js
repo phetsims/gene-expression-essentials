@@ -175,7 +175,7 @@ define( function( require ) {
      * Update the strand segment shapes based on things that might have changed, such as biomolecules attaching and
      * separating the strands or otherwise deforming the nominal double-helix shape.
      */
-    updateStrandSegments: function( updateSeparation ) {
+    updateStrandSegments: function( ) {
       var self = this;
       // Set the shadow points to the nominal, non-deformed positions.
       _.forEach( this.strandPointsShadow, function( dnaStrandPoint ) {
@@ -183,28 +183,27 @@ define( function( require ) {
         dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, CommonConstants.INTER_STRAND_OFFSET );
       } );
 
-      if ( updateSeparation ) {
-        // Move the shadow points to account for any separations.
-        _.forEach( this.separations, function( separation ) {
-          var windowWidth = separation.getAmount(); // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
-          var separationWindowXIndexRange = new Range( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
-                                                                     self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0,
-            Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) | 0 );
-          for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
-            var windowCenterX = ( separationWindowXIndexRange.min + separationWindowXIndexRange.max ) / 2;
-            if ( i >= 0 && i < self.strandPointsShadow.length ) {
 
-              // Perform a windowing algorithm that weights the separation at 1 in the center, 0 at the edges, and linear
-              // graduations in between.
-              var separationWeight = 1 - Math.abs( 2 * ( i - windowCenterX ) / separationWindowXIndexRange.getLength() );
-              self.strandPointsShadow[ i ].strand1YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand1YPos +
-                                                         separationWeight * separation.getAmount() / 2;
-              self.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand2YPos -
-                                                         separationWeight * separation.getAmount() / 2;
-            }
+      // Move the shadow points to account for any separations.
+      _.forEach( this.separations, function( separation ) {
+        var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
+        var separationWindowXIndexRange = new Range( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
+                                                                   self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
+          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
+        for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
+          var windowCenterX = ( separationWindowXIndexRange.min + separationWindowXIndexRange.max ) / 2;
+          if ( i >= 0 && i < self.strandPointsShadow.length ) {
+
+            // Perform a windowing algorithm that weights the separation at 1 in the center, 0 at the edges, and linear
+            // graduations in between.
+            var separationWeight = 1 - Math.abs( 2 * ( i - windowCenterX ) / separationWindowXIndexRange.getLength() );
+            self.strandPointsShadow[ i ].strand1YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand1YPos +
+                                                       separationWeight * separation.getAmount() / 2;
+            self.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand2YPos -
+                                                       separationWeight * separation.getAmount() / 2;
           }
-        } );
-      }
+        }
+      } );
 
       // See if any of the points have moved and, if so, update the corresponding shape segment.
       var numSegments = this.strand1Segments.length;
@@ -259,7 +258,7 @@ define( function( require ) {
      * @param {number} dt
      */
     stepInTime: function( dt ) {
-      this.updateStrandSegments( true );
+      this.updateStrandSegments();
       _.forEach( this.genes, function( gene ) {
         gene.updateAffinities();
       } );
@@ -305,13 +304,9 @@ define( function( require ) {
      * @param {DnaSeparation} separation
      */
     removeSeparation: function( separation ) {
-      if ( !_.contains( this.separations, separation ) ) {
-        console.log( ' - Warning: Ignoring attempt to remove separation that can\'t be found.' );
-      }
-      else {
-        _.remove( this.separations, function( value ) {
-          return separation === value;
-        } );
+      var index = this.separations.indexOf( separation );
+      if ( index !== -1 ) {
+        this.separations.splice( index, 1 );
       }
     },
 

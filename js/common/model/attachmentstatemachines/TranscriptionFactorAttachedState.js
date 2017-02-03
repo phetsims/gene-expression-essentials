@@ -40,9 +40,8 @@ define( function( require ) {
   return inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
 
     /**
-     * Calculate the probability of detachment from the current base pair
-     * during the provided time interval.  This uses the same mathematics
-     * as is used for calculating probabilities of decay for radioactive
+     * Calculate the probability of detachment from the current base pair during the provided time interval. This uses
+     * the same mathematics as is used for calculating probabilities of decay for radioactive
      * atomic nuclei.
      *
      * @param {number} affinity
@@ -51,11 +50,9 @@ define( function( require ) {
      */
     calculateProbabilityOfDetachment: function( affinity, dt ) {
 
-      // Map affinity to a half life.  Units are in seconds.  This
-      // formula can be tweaked as needed in order to make the half life
-      // longer or shorter.  However, zero affinity should always map to
-      // zero half life, and an affinity of one should always map to an
-      // infinite half life.
+      // Map affinity to a half life. Units are in seconds. This formula can be tweaked as needed in order to make the
+      // half life longer or shorter. However, zero affinity should always map to zero half life, and an affinity of one
+      // should always map to an infinite half life.
       var halfLife = HALF_LIFE_FOR_HALF_AFFINITY * ( affinity / ( 1 - affinity ) );
 
       // Use standard half-life formula to decide on probability of detachment.
@@ -90,9 +87,8 @@ define( function( require ) {
       // Decide whether or not to detach from the current attachment site.
       if ( phet.joist.random.nextDouble() > ( 1 - this.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
 
-        // The decision has been made to detach.  Next, decide whether
-        // to detach completely from the DNA strand or just jump to an
-        // adjacent base pair.
+        // The decision has been made to detach. Next, decide whether to detach completely from the DNA strand or just
+        // jump to an adjacent base pair.
         if ( phet.joist.random.nextDouble() > detachFromDnaThreshold ) {
 
           // Detach completely from the DNA.
@@ -100,26 +96,18 @@ define( function( require ) {
         }
         else {
 
-          // Move to an adjacent base pair.  Start by making a list
-          // of candidate base pairs.
+          // Move to an adjacent base pair. Start by making a list of candidate base pairs.
           var attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesTranscriptionFactor( biomolecule, asm.attachmentSite );
 
-          // Eliminate sites that, if moved to, would put the
-          // biomolecule out of bounds.
-          var clonedAttachmentSites = [].concat( attachmentSites );
-          _.forEach( clonedAttachmentSites, function( site ) {
-            if ( !biomolecule.motionBoundsProperty.get()
-                .testIfInMotionBounds( biomolecule.getShape(), site.locationProperty.get() ) ) {
-
-              _.remove( attachmentSites, function( value ) {
-                return value === site;
-              } );
-
-            }
+          // Eliminate sites that, if moved to, would put the biomolecule out of bounds.
+          //var clonedAttachmentSites = [].concat( attachmentSites );
+          _.remove( attachmentSites, function( site ) {
+              return !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.getShape(),
+                site.locationProperty.get() );
           } );
 
           // Shuffle in order to produce random-ish behavior.
-          attachmentSites = _.shuffle( attachmentSites );
+          attachmentSites = phet.joist.random.shuffle( attachmentSites );
 
           if ( attachmentSites.length === 0 ) {
 
@@ -133,6 +121,7 @@ define( function( require ) {
 
             // Set a new attachment site.
             attachmentSite = attachmentSites[ 0 ];
+            assert && assert( attachmentSite.attachedOrAttachingMoleculeProperty.get() === null );
             attachmentSite.attachedOrAttachingMoleculeProperty.set( biomolecule );
 
             // Set up the state to move to the new attachment site.
@@ -141,8 +130,7 @@ define( function( require ) {
             biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.locationProperty,
               biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), VELOCITY_ON_DNA ) );
 
-            // Update the detachment threshold.  It gets lower over
-            // time to increase the probability of detachment.
+            // Update the detachment threshold. It gets lower over time to increase the probability of detachment.
             // Tweak as needed.
             this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold =
             detachFromDnaThreshold * Math.pow( 0.5, DEFAULT_ATTACH_TIME );

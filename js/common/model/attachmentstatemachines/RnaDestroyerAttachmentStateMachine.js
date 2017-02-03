@@ -1,8 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
  /**
- * This class defined the attachment state machine for the biomolecules that
- * destroy the messenger RNA molecules.
+ * This class defined the attachment state machine for the biomolecules that destroy the messenger RNA molecules.
  *
  * @author John Blanco
  * @author Mohamed Safi

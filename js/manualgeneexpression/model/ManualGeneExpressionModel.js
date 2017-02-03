@@ -51,7 +51,8 @@ define( function( require ) {
     // DNA strand, which is where the genes reside, where the polymerase does
     // its transcription, and where a lot of the action takes place.
     // Initialize the DNA molecule.
-    this.dnaMolecule = new DnaMolecule( this, NUM_BASE_PAIRS_ON_DNA_STRAND, -NUM_BASE_PAIRS_ON_DNA_STRAND * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 4, false );
+    this.dnaMolecule = new DnaMolecule( this, NUM_BASE_PAIRS_ON_DNA_STRAND,
+      -NUM_BASE_PAIRS_ON_DNA_STRAND * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 4, false );
     this.dnaMolecule.addGene( new GeneA( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 4 - GeneA.NUM_BASE_PAIRS / 2 ) );
     this.dnaMolecule.addGene( new GeneB( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 2 - GeneB.NUM_BASE_PAIRS / 2 ) );
     this.dnaMolecule.addGene( new GeneC( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND * 3 / 4 - GeneC.NUM_BASE_PAIRS / 2 ) );
@@ -95,7 +96,6 @@ define( function( require ) {
     // Rectangle that describes the "protein capture area".  When a protein is
     // dropped by the user over this area, it is considered to be captured.
     this.proteinCaptureArea = new Bounds2( 0, 0, 1, 1 );
-    this.clockRunning = new Property( true );
   }
 
   geneExpressionEssentials.register( 'ManualGeneExpressionModel', ManualGeneExpressionModel );
@@ -107,10 +107,7 @@ define( function( require ) {
       if ( dt > 0.2 ) {
         return;
       }
-
-      if ( this.clockRunning ) {
-        this.stepInTime( dt );
-      }
+      this.stepInTime( dt );
     },
 
     stepInTime: function( dt ) {

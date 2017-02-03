@@ -49,6 +49,10 @@ define( function( require ) {
     stepInTime: function( asm, dt ) {
       var biomolecule = this.rnaDestroyerAttachmentStateMachine.biomolecule;
 
+      // Verify that state is consistent.
+      assert && assert( asm.attachmentSite !== null );
+      assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
+
       // Grow the mRNA fragment, release it if it is time to do so.
       if ( this.messengerRnaFragment === null ) {
         this.messengerRnaFragment = new MessengerRnaFragment( biomolecule.getModel(), biomolecule.getPosition() );
@@ -75,10 +79,9 @@ define( function( require ) {
           this.messengerRnaFragment = null;
         }
 
-        // Remove the messenger RNA that is now destroyed from the
-        // model.  There should be no visual representation left to it
-        // at this point.
-        this.rnaDestroyerAttachmentStateMachine.biomolecule.getModel().removeMessengerRna(
+        // Remove the messenger RNA that is now destroyed from the model. There should be no visual representation left
+        // to it at this point.
+        biomolecule.getModel().removeMessengerRna(
           this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.getMessengerRnaBeingDestroyed() );
         this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.clearMessengerRnaBeingDestroyed();
 

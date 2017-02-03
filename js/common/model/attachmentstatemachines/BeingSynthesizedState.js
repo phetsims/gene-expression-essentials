@@ -31,9 +31,8 @@ define( function( require ) {
      */
     entered: function( enclosingStateMachine ) {
 
-      // Set the motion strategy to something that doesn't move the
-      // molecule, since its position will be controlled by the polymerase
-      // that is synthesizing it.
+      // Set the motion strategy to something that doesn't move the molecule, since its position will be controlled by
+      // the polymerase that is synthesizing it.
       enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
     }
 
