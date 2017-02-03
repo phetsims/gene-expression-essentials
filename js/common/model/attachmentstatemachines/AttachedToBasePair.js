@@ -129,7 +129,7 @@ define( function( require ) {
               // Set a new attachment site.
               attachmentSite = attachmentSites[ 0 ];
               // State checking - Make sure site is really available
-              assert && assert( attachmentSite.attachedOrAttachingMoleculeProperty.get() === null );;
+              assert && assert( attachmentSite.attachedOrAttachingMoleculeProperty.get() === null );
               attachmentSite.attachedOrAttachingMoleculeProperty.set( biomolecule );
 
               // Set up the state to move to the new attachment site.
