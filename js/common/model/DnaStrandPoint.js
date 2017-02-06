@@ -49,14 +49,13 @@ define( function( require ) {
       equals: function( o ) {
         if ( this === o ) { return true; }
         if ( o === null || o.constructor.name !== this.constructor.name ) { return false; }
-        var that = o;
-        if ( that.strand1YPos !== this.strand1YPos ) {
+        if ( o.strand1YPos !== this.strand1YPos ) {
           return false;
         }
-        if ( that.strand2YPos !== this.strand2YPos ) {
+        if ( o.strand2YPos !== this.strand2YPos ) {
           return false;
         }
-        return that.xPos === this.xPos;
+        return o.xPos === this.xPos;
       }
 
     } );

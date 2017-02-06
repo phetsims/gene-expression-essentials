@@ -133,7 +133,7 @@ define( function( require ) {
      */
     initializeStrandSegments: function() {
       var self = this;
-      var strand1SegmentPoints = []; //ArrayList<Point2D> TODO
+      var strand1SegmentPoints = [];
       var strand2SegmentPoints = [];
       var segmentStartX = this.strandPoints[ 0 ].xPos;
       var strand1InFront = true;
@@ -421,7 +421,7 @@ define( function( require ) {
      * Consider a proposal from a biomolecule. This is the generic version that avoids duplicated code.
      * @param {MobileBiomolecule} biomolecule
      * @param {number} maxAttachDistance
-     * @param {Function<Integer>} getAttachSiteForBasePair
+     * @param {Function<Number>} getAttachSiteForBasePair
      * @param {Function<Gene>} isOkayToAttach
      * @param {Function<Gene>} getAttachmentSite
      * @returns {*}
@@ -566,18 +566,15 @@ define( function( require ) {
     getTranscriptionFactorAttachmentSiteForBasePairIndex: function( i, tfConfig ) {
       // See if this base pair is inside a gene.
       var gene = this.getGeneContainingBasePair( i );
-      var attachmentSite = null;
 
       if ( gene !== null ) {
         // Base pair is in a gene, so get it from the gene.
-        attachmentSite = gene.getTranscriptionFactorAttachmentSite( i, tfConfig );
+        return gene.getTranscriptionFactorAttachmentSite( i, tfConfig );
       }
       else {
         // Base pair is not contained within a gene, so use the default.
-        attachmentSite = this.createDefaultAffinityAttachmentSite( i );
+        return this.createDefaultAffinityAttachmentSite( i );
       }
-
-      return attachmentSite;
     },
 
 
@@ -698,7 +695,8 @@ define( function( require ) {
      */
     getGeneAtLocation: function( location ) {
       if ( !( location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&
-              location.y >= CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2 && location.y <= CommonConstants.DNA_MOLECULE_Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 ) ) {
+              location.y >= CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2 &&
+              location.y <= CommonConstants.DNA_MOLECULE_Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 ) ) {
         console.log( ' - Warning: Location for gene test is not on DNA molecule.' );
         return null;
       }

@@ -31,8 +31,7 @@ define( function( require ) {
 
 
     dnaStrandSegment.shapeProperty.lazyLink( function( newShape, oldShape ) {
-     newShape = mvt.modelToViewShape( newShape );
-     pathNode.setShape( newShape );
+     pathNode.setShape( mvt.modelToViewShape( newShape ) );
     } );
   }
 

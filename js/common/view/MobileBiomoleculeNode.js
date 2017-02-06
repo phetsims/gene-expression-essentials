@@ -52,8 +52,8 @@ define( function( require ) {
       // Account for the offset.
       var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
 
-      path.x = offset.x;
-      path.y = offset.y;
+      self.x = offset.x;
+      self.y = offset.y;
 
       // For shapes with just one point, the Java Version of GeneralPath's "Bounds" returns a width of
       // zero and height of 1 but kite's shape bounds returns infinity in such cases. Since the MessengerRna starts with
@@ -81,7 +81,7 @@ define( function( require ) {
     // Update its existence strength (i.e. fade level) whenever it changes.
     mobileBiomolecule.existenceStrengthProperty.link( function( existenceStrength ) {
       assert && assert( existenceStrength >= 0 && existenceStrength <= 1 ); // Bounds checking.
-      path.opacity = Math.min( Number( existenceStrength ), 1 + mobileBiomolecule.zPositionProperty.get() );
+      self.setOpacity( Math.min( Number( existenceStrength ), 1 + mobileBiomolecule.zPositionProperty.get() ) );
 
     } );
 
@@ -90,12 +90,12 @@ define( function( require ) {
       assert && assert( zPosition >= -1 && zPosition <= 0 ); // Parameter checking.
       // The further back the biomolecule is, the more
       // transparent it is in order to make it look more distant.
-      path.opacity = Math.min( 1 + zPosition, mobileBiomolecule.existenceStrengthProperty.get() );
+      self.setOpacity( Math.min( 1 + zPosition, mobileBiomolecule.existenceStrengthProperty.get() ) );
 
       // Also, as it goes further back, this node is scaled down
       // a bit, also to make it look further away.
-      path.setScaleMagnitude( 1 );
-      path.setScaleMagnitude( 1 + 0.15 * zPosition );
+      self.setScaleMagnitude( 1 );
+      self.setScaleMagnitude( 1 + 0.15 * zPosition );
     } );
 
     // If a polymerase molecule attaches to the DNA strand, move it to
@@ -103,7 +103,7 @@ define( function( require ) {
     // and the DNA molecule.  Otherwise odd-looking things can happen.
     mobileBiomolecule.attachedToDnaProperty.link( function( attachedToDna ) {
       if ( mobileBiomolecule instanceof RnaPolymerase && attachedToDna ) {
-        path.moveToBack();
+        self.moveToBack();
       }
 
 
@@ -115,12 +115,12 @@ define( function( require ) {
 
     // Interactivity control.
     mobileBiomolecule.movableByUserProperty.link( function( movableByUser ) {
-      path.setPickable( movableByUser );
+      self.setPickable( movableByUser );
     } );
 
     // Move this biomolecule to the top of its layer when grabbed.
     mobileBiomolecule.userControlledProperty.link( function( userControlled ) {
-      path.moveToFront();
+      self.moveToFront();
     } );
 
 

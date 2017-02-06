@@ -34,10 +34,11 @@ define( function( require ) {
     this.fadeDelta = 0;
     var opacity = 0;
 
-    var label = new Text( text, { font: FONT } );
+    var label = new Text( text, { font: FONT, maxWidth: 80 } );
     self.addChild( label );
 
     if ( !initiallyVisible ) {
+      self.setOpacity( 0 );
       opacity = 0;
     }
     else {

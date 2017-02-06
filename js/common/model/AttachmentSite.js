@@ -43,10 +43,6 @@ define( function( require ) {
 
   return inherit( Object, AttachmentSite, {
 
-    get affinity() {
-      return this.getAffinity();
-    },
-
     /**
      * @returns {number}
      */
@@ -76,9 +72,8 @@ define( function( require ) {
 
       var otherAttachmentSite = obj;
 
-      return (this.affinity === otherAttachmentSite.affinity) && this.locationProperty.get().equals(
-          otherAttachmentSite.locationProperty.get()
-        );
+      return (this.affinityProperty.get() === otherAttachmentSite.affinityProperty.get() ) &&
+             this.locationProperty.get().equals( otherAttachmentSite.locationProperty.get() );
     }
 
 
