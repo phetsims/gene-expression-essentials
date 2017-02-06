@@ -26,7 +26,7 @@ define( function( require ) {
   // strings
   var concentrationsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentrations' );
   var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
-  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
+  var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
 
   /**
    *
@@ -56,7 +56,7 @@ define( function( require ) {
           min,
           max,
           noneString,
-          lowString, {
+          highString, {
             trackSize: new Dimension2( 130, 5 )
           } ) ]
     } ) );
