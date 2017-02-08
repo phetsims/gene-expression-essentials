@@ -21,7 +21,7 @@ define( function( require ) {
    * @param  {RnaDestroyerAttachmentStateMachine} rnaDestroyerAttachmentStateMachine
    */
   function MRnaDestroyerMovingTowardAttachmentState( rnaDestroyerAttachmentStateMachine ) {
-    GenericMovingTowardsAttachmentState.call( this );
+    GenericMovingTowardsAttachmentState.call( this, rnaDestroyerAttachmentStateMachine );
     this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine;
   }
 
