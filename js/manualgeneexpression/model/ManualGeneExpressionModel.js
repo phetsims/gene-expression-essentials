@@ -37,7 +37,7 @@ define( function( require ) {
   // Stage size for the mobile biomolecules, which is basically the area in which the molecules can move. These are
   // empirically determined such that the molecules don't move off of the screen when looking at a given gene.
   var BIOMOLECULE_STAGE_WIDTH = 10000; // In picometers.
-  var BIOMOLECULE_STAGE_HEIGHT = 6700; // In picometers.
+  var BIOMOLECULE_STAGE_HEIGHT = 6000; // In picometers.
 
   // Size of the DNA strand.
   var NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
@@ -232,16 +232,6 @@ define( function( require ) {
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         if ( mobileBiomolecule.getShape().bounds.intersectsBounds( testShapeBounds ) ) {
 
-          /*   // Bounds overlap, see if actual shapes overlap.
-           var testShapeArea = new Area( testShape ); //TODO Area
-           var biomoleculeArea = new Area( mobileBiomolecule.getShape() );
-           biomoleculeArea.intersect( testShapeArea );
-           if ( !biomoleculeArea.isEmpty() ) {
-           // The biomolecule overlaps with the test shape, so add it
-           // to the list.
-           overlappingBiomolecules.push( mobileBiomolecule );
-           } */
-
           overlappingBiomolecules.push( mobileBiomolecule );
         }
       } );
@@ -343,7 +333,7 @@ define( function( require ) {
 
       // The bottom bounds are intended to be roughly at the bottom of the
       // viewport.  The value was empirically determined.
-      var bottomYPos = CommonConstants.DNA_MOLECULE_Y_POS - 2000;
+      var bottomYPos = CommonConstants.DNA_MOLECULE_Y_POS - 2100;
 
       // Get the nominal bounds for this gene.
       var bounds = new Bounds2( this.activeGeneProperty.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
