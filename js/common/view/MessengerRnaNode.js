@@ -17,10 +17,10 @@ define( function( require ) {
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
   var FadeLabel = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/FadeLabel' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle');
+  var Bounds2 = require( 'DOT/Bounds2' );
 
   // constants
-  // For debug - turn on to show the enclosing shape segments.
-  //  var SHOW_SHAPE_SEGMENTS = false; TODO
   var quotedMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/quotedMRna' );
 
   /**
@@ -49,12 +49,15 @@ define( function( require ) {
       }
     } );
 
+    var boundingRectangle = new Rectangle( new Bounds2( 0,0,0,0 ) ) ;
+    self.addChild( boundingRectangle );
     // Update the label position as the shape changes.
     messengerRna.shapeProperty.lazyLink( function( shape ) {
       var shapeBounds = shape.bounds;
       var upperRightCornerPos = mvt.modelToViewPosition( new Vector2( shapeBounds.maxX, shapeBounds.maxY ) );
       label.x = upperRightCornerPos.x;
       label.y = upperRightCornerPos.y;
+      boundingRectangle.setRectBounds( mvt.modelToViewBounds( shapeBounds ) );
     } );
 
   }

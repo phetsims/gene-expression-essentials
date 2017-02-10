@@ -30,7 +30,7 @@ define( function( require ) {
    */
   function FadeLabel( text, initiallyVisible, existenceStrengthProperty ) {
     var self = this;
-    Node.call( self );
+    Node.call( self, { pickable: false } );
     this.fadeDelta = 0;
     var opacity = 0;
 

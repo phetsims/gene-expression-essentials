@@ -42,7 +42,7 @@ define( function( require ) {
    */
   function ManualGeneExpressionScreenView( model ) {
 
-    ScreenView.call( this, { preventFit: true } );
+    ScreenView.call( this );
     var self = this;
 
     this.viewPortOffset = new Vector2( 0, 0 );

@@ -52,8 +52,8 @@ define( function( require ) {
       // Account for the offset.
       var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
 
-      self.x = offset.x;
-      self.y = offset.y;
+      path.x = offset.x;
+      path.y = offset.y;
 
       // For shapes with just one point, the Java Version of GeneralPath's "Bounds" returns a width of
       // zero and height of 1 but kite's shape bounds returns infinity in such cases. Since the MessengerRna starts with

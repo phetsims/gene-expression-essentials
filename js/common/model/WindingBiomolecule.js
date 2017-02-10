@@ -62,7 +62,7 @@ define( function( require ) {
      * @private static
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
-     * @param {Rectangle} bounds
+     * @param {Bounds2} bounds
      */
     runSpringAlgorithm: function( firstPoint, lastPoint, bounds ) {
 

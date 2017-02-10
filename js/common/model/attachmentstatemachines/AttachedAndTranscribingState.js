@@ -81,6 +81,7 @@ define( function( require ) {
           attachedState = attachedAndDeconformingState;
           this.rnaPolymeraseAttachmentStateMachine.setState( attachedState );
           this.messengerRna.releaseFromPolymerase();
+          this.messengerRna.movableByUserProperty.set( true );
         }
       },
 
@@ -111,6 +112,7 @@ define( function( require ) {
         this.messengerRna = new MessengerRna( biomolecule.getModel(), geneToTranscribe.getProteinPrototype(),
           biomolecule.getPosition().plus( GeneExpressionRnaPolymeraseConstant.MESSENGER_RNA_GENERATION_OFFSET ) );
         biomolecule.spawnMessengerRna( this.messengerRna );
+        this.messengerRna.movableByUserProperty.set( false );
 
         // Free up the initial attachment site by hooking up to a somewhat fictional attachment site instead.
         attachmentSite.attachedOrAttachingMoleculeProperty.set( null );

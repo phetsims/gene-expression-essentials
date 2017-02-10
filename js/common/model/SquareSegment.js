@@ -96,10 +96,10 @@ define( function( require ) {
      */
     advance: function( length, shapeSegmentList ) {
 
-      // This should never be called for square shape segments, since
-      // translation should only occur based around flat segments.
-      // assert false;
-      //TODO
+      // This should never be called for square shape segments, since translation should only occur based around flat
+      // segments.
+      assert && assert( false, 'This should never be called for square shape segments, since translation should only occur based around flat segments.');
+
     },
 
     /**
@@ -108,7 +108,7 @@ define( function( require ) {
      * @param {EnhancedObservableList} shapeSegmentList
      */
     advanceAndRemove: function( length, shapeSegmentList ) {
-      //TODO
+      assert && assert( false, 'Unimplemented method called on square shape segment' );
     },
 
     /**

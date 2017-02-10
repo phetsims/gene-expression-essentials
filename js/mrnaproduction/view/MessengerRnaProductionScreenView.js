@@ -83,6 +83,7 @@ define( function( require ) {
     var biomoleculeToolBoxLayer = new Node();
     this.modelRootNode.addChild( biomoleculeToolBoxLayer );
     var messengerRnaLayer = new Node();
+    messengerRnaLayer.setPickable( false );
     this.modelRootNode.addChild( messengerRnaLayer );
     var topBiomoleculeLayer = new Node();
     this.modelRootNode.addChild( topBiomoleculeLayer );
