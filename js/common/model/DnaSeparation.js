@@ -12,10 +12,6 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-
-  //private  properties
-  var amount = 0;// Actual amount of separation.  Starts at 0 and is generally grown over time toward target.
-
   /**
    *
    * @param {number} xPos  - X Position in model space where this separation should exist.
@@ -25,6 +21,7 @@ define( function( require ) {
   function DnaSeparation( xPos, targetAmount ) {
     this.xPos = xPos;// X Position in model space.
     this.targetAmount = targetAmount;
+    this.amount = 0;// @private Actual amount of separation. Starts at 0 and is generally grown over time toward target.
   }
 
   geneExpressionEssentials.register( 'DnaSeparation', DnaSeparation );
@@ -51,7 +48,7 @@ define( function( require ) {
      * @returns {number}
      */
     getAmount: function() {
-      return amount;
+      return this.amount;
     },
 
     /**
@@ -59,7 +56,7 @@ define( function( require ) {
      * @param {number} proportion
      */
     setProportionOfTargetAmount: function( proportion ) {
-      amount = this.targetAmount * proportion;
+      this.amount = this.targetAmount * proportion;
     }
 
   } );
