@@ -9,7 +9,6 @@
  * @author John Blanco
  */
 
-
 define( function( require ) {
   'use strict';
 
@@ -74,9 +73,8 @@ define( function( require ) {
     //this.isFirstGeneActive = this.activeGeneProperty.get() === this.dnaMolecule.getGenes()[ 0 ];
     //this.isLastGeneActive = this.activeGeneProperty.get() === this.dnaMolecule.getLastGene();
 
-    // List of areas where biomolecules should not be allowed.  These are
-    // generally populated by the view in order to keep biomolecules from
-    // wandering over the tool boxes and such.
+    // List of areas where biomolecules should not be allowed.  These are generally populated by the view in order to
+    // keep biomolecules from wandering over the tool boxes and such.
     this.offLimitsMotionSpaces = [];
 
     // Properties that track how many of the various proteins have been collected.
