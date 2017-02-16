@@ -26,7 +26,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var DnaStrandSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandSegment' );
   var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
-  var StubGeneExpressionModel = require('GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/StubGeneExpressionModel');
+  var StubGeneExpressionModel = require('GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel');
 
   // constants
   // Distance within which transcription factors may attach.

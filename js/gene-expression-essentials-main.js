@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ManualGeneExpressionScreen = require('GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/ManualGeneExpressionScreen');
-  var MessengerRnaProductionScreen = require('GENE_EXPRESSION_ESSENTIALS/mrnaproduction/MessengerRnaProductionScreen');
-  var MultipleCellsScreen = require( 'GENE_EXPRESSION_ESSENTIALS/multiplecells/MultipleCellsScreen' );
+  var ManualGeneExpressionScreen = require('GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/ManualGeneExpressionScreen');
+  var MessengerRnaProductionScreen = require('GENE_EXPRESSION_ESSENTIALS/mrna-production/MessengerRnaProductionScreen');
+  var MultipleCellsScreen = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/MultipleCellsScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 

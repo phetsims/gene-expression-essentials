@@ -15,7 +15,7 @@ define( function( require ) {
   var Gene = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Gene' );
   var Range = require( 'DOT/Range' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
-  var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manualgeneexpression/model/ProteinA' );
+  var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinA' );
 
   // constants
   var REGULATORY_REGION_COLOR = new Color( 216, 191, 216 );
