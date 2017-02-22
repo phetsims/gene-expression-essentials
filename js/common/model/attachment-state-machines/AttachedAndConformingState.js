@@ -73,10 +73,10 @@ define( function( require ) {
         this.conformationalChangeAmount = 0;
       }
     },
-
     {
       CONFORMATIONAL_CHANGE_RATE: CONFORMATIONAL_CHANGE_RATE
-    } );
+    }
+  );
 } );
 
 
