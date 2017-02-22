@@ -16,7 +16,7 @@ Implementation Notes for Java Version
 # Implementation Notes for Tabs 1 and 2
 
 Gene Expression Basics is a relatively complex simulation as PhET sims go.  The
-model, in particular, is complex due to the complexity of the domain that is
+model, in particular, is quite sophisticated due to the complexity of the domain that is
 being modeled, which is the molecular basis for protein synthesis.  One of the
 main abstractions used in the design of the model code is the “Biomolecule”.
 Everything that moves on the first and second tabs of the simulation is a
