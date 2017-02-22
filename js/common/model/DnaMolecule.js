@@ -1,12 +1,13 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * This class models a molecule of DNA in the model. It includes the shape of the two "backbone" strands of the DNA and
- * the individual base pairs, defines where the various genes reside, and retains other information about the DNA
- * molecule. This is an important and central object in the model for this simulation.
+ * This class models a molecule of DNA. It includes the shape of the two "backbone" strands of the DNA and the
+ * individual base pairs, defines where the various genes reside, and retains other information about the DNA molecule.
+ * This is an important and central object in the model for this simulation.
+ *
  * A big simplifying assumption that this class makes is that molecules that attach to the DNA do so to individual base
  * pairs. In reality, biomolecules attach to groups of base pairs, the exact configuration of which dictate where
  * biomolecules attach. This was unnecessarily complicated for the needs of this sim.
-
+ *
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
@@ -14,19 +15,19 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  var BasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BasePair' );
+  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
+  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
+  var DnaStrandSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandSegment' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  var Matrix3 = require( 'DOT/Matrix3' );
+  var Range = require( 'DOT/Range' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
-  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
-  var Range = require( 'DOT/Range' );
-  var BasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BasePair' );
-  var Matrix3 = require( 'DOT/Matrix3' );
-  var DnaStrandSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandSegment' );
-  var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
-  var StubGeneExpressionModel = require('GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel');
 
   // constants
   // Distance within which transcription factors may attach.
@@ -46,7 +47,7 @@ define( function( require ) {
    * @constructor
    */
   function DnaMolecule( model, numBasePairs, leftEdgeXOffset, pursueAttachments ) {
-      this.model = model || new StubGeneExpressionModel();
+    this.model = model || new StubGeneExpressionModel();
     this.leftEdgeXOffset = leftEdgeXOffset;
     this.pursueAttachments = pursueAttachments;
     this.moleculeLength = numBasePairs * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
@@ -175,7 +176,7 @@ define( function( require ) {
      * Update the strand segment shapes based on things that might have changed, such as biomolecules attaching and
      * separating the strands or otherwise deforming the nominal double-helix shape.
      */
-    updateStrandSegments: function( ) {
+    updateStrandSegments: function() {
       var self = this;
       // Set the shadow points to the nominal, non-deformed positions.
       _.forEach( this.strandPointsShadow, function( dnaStrandPoint ) {
@@ -187,7 +188,7 @@ define( function( require ) {
       // Move the shadow points to account for any separations.
       _.forEach( this.separations, function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
-        var separationWindowXIndexRange = new Range( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
+        var separationWindowXIndexRange = new Range( Math.floor(                            ( separation.getXPos() - ( windowWidth / 2 ) -
                                                                    self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
           Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
         for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
@@ -245,8 +246,14 @@ define( function( require ) {
             strand1ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand1YPos } );
             strand2ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand2YPos } );
           }
-          strand1ShapePoints.push( { x: this.strandPointsShadow[ pointIndexRange.max ].xPos, y: this.strandPointsShadow[ pointIndexRange.max ].strand1YPos } );
-          strand2ShapePoints.push( { x: this.strandPointsShadow[ pointIndexRange.max ].xPos, y: this.strandPointsShadow[ pointIndexRange.max ].strand2YPos } );
+          strand1ShapePoints.push( {
+            x: this.strandPointsShadow[ pointIndexRange.max ].xPos,
+            y: this.strandPointsShadow[ pointIndexRange.max ].strand1YPos
+          } );
+          strand2ShapePoints.push( {
+            x: this.strandPointsShadow[ pointIndexRange.max ].xPos,
+            y: this.strandPointsShadow[ pointIndexRange.max ].strand2YPos
+          } );
           strand1Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand1ShapePoints ) );
           strand2Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand2ShapePoints ) );
         }
@@ -469,11 +476,8 @@ define( function( require ) {
                 potentialAttachmentSites.push( matchingSite );
               }
             }
-
           }
-
         } );
-
       }
 
       // Eliminate sites that would put the molecule out of bounds or would overlap with other attached biomolecules.
@@ -497,11 +501,11 @@ define( function( require ) {
         var as1Factor = attachmentSite1.getAffinity() / Math.pow( attachLocation.distance( attachmentSite1.locationProperty.get() ), exponent );
         var as2Factor = attachmentSite2.getAffinity() / Math.pow( attachLocation.distance( attachmentSite2.locationProperty.get() ), exponent );
 
-        if ( as2Factor > as1Factor ){
+        if ( as2Factor > as1Factor ) {
           return 1;
         }
 
-        if ( as2Factor < as1Factor ){
+        if ( as2Factor < as1Factor ) {
           return -1;
         }
         return 0;
@@ -554,7 +558,6 @@ define( function( require ) {
         var translatedShape = biomolecule.getShape().transformed( transform );
         return biomolecule.motionBoundsProperty.get().inBounds( translatedShape );
       } );
-
     },
 
     /**
@@ -623,7 +626,6 @@ define( function( require ) {
           attachmentSites.push( potentialSite );
         }
       }
-
       return this.eliminateInvalidAttachmentSites( transcriptionFactor, attachmentSites );
     },
 
@@ -671,7 +673,6 @@ define( function( require ) {
           break;
         }
       }
-
       return geneContainingBasePair;
     },
 
@@ -717,12 +718,8 @@ define( function( require ) {
       _.forEach( this.genes, function( gene ) {
         gene.clearAttachmentSites();
       } );
-
-        this.separations = [];
-
+      this.separations = [];
     }
-
   } );
-
 } );
 
