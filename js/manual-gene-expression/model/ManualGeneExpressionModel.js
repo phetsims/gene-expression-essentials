@@ -1,8 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Primary model for the manual gene expression tab.
- * The point (0,0) in model space is at the leftmost edge of the DNA strand, and at the vertical center of the strand.
+ * Primary model for the manual gene expression tab. The point (0,0) in model space is at the leftmost edge of the DNA
+ * strand, and at the vertical center of the strand.
  *
  * @author Sharfudeen Ashraf
  * @author Mohamed Safi
@@ -14,22 +14,22 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var GeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionModel' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
   var GeneA = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneA' );
   var GeneB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneC' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var GeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionModel' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
+  var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
-  var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
+  var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
   var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinA' );
   var ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinB' );
   var ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinC' );
-  var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
-  var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
   var Util = require( 'DOT/Util' );
 
   // constants
@@ -47,25 +47,27 @@ define( function( require ) {
    */
   function ManualGeneExpressionModel() {
 
-    // DNA strand, which is where the genes reside, where the polymerase does
-    // its transcription, and where a lot of the action takes place.
-    // Initialize the DNA molecule.
-    this.dnaMolecule = new DnaMolecule( this, NUM_BASE_PAIRS_ON_DNA_STRAND,
-      -NUM_BASE_PAIRS_ON_DNA_STRAND * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 4, false );
+    // DNA strand, which is where the genes reside, where the polymerase does its transcription, and where a lot of the
+    // action takes place. Initialize the DNA molecule.
+    this.dnaMolecule = new DnaMolecule(
+      this,
+      NUM_BASE_PAIRS_ON_DNA_STRAND,
+      -NUM_BASE_PAIRS_ON_DNA_STRAND * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 4,
+      false
+    );
     this.dnaMolecule.addGene( new GeneA( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 4 - GeneA.NUM_BASE_PAIRS / 2 ) );
     this.dnaMolecule.addGene( new GeneB( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 2 - GeneB.NUM_BASE_PAIRS / 2 ) );
     this.dnaMolecule.addGene( new GeneC( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND * 3 / 4 - GeneC.NUM_BASE_PAIRS / 2 ) );
 
-    // List of mobile biomolecules in the model, excluding mRNA.
+    // list of mobile biomolecules in the model, excluding mRNA
     this.mobileBiomoleculeList = new ObservableArray();
 
-    // List of mRNA molecules in the sim.  These are kept separate because they
-    // are treated a bit differently than the other mobile biomolecules.
+    // list of mRNA molecules in the sim - These are kept separate because they are treated a bit differently than the
+    // other mobile biomolecules.
     this.messengerRnaList = new ObservableArray();
 
-    // The gene that the user is focusing on, other gene activity is
-    // suspended.  Start with the 0th gene in the DNA (leftmost).
-    // Initialize variables that are dependent upon the DNA.
+    // The gene that the user is focusing on, other gene activity is suspended.  Start with the 0th gene in the DNA
+    // (leftmost). Initialize variables that are dependent upon the DNA.
     this.activeGeneProperty = new Property( this.dnaMolecule.getGenes()[ 0 ] );
 
     // Properties that keep track of whether the first or last gene is
@@ -84,15 +86,15 @@ define( function( require ) {
     this.proteinBCollectedProperty = new Property( 0 );
     this.proteinCCollectedProperty = new Property( 0 );
 
-    // Map of the protein collection count properties to the protein types,
-    // used to obtain the count property based on the type of protein.
+    // Map of the protein collection count properties to the protein types, used to obtain the count property based on
+    // the type of protein.
     this.mapProteinClassToCollectedCount = new Map();
     this.mapProteinClassToCollectedCount.put( 'ProteinA', this.proteinACollectedProperty );
     this.mapProteinClassToCollectedCount.put( 'ProteinB', this.proteinBCollectedProperty );
     this.mapProteinClassToCollectedCount.put( 'ProteinC', this.proteinCCollectedProperty );
 
-    // Rectangle that describes the "protein capture area".  When a protein is
-    // dropped by the user over this area, it is considered to be captured.
+    // Rectangle that describes the "protein capture area".  When a protein is dropped by the user over this area, it
+    // is considered to be captured.
     this.proteinCaptureArea = new Bounds2( 0, 0, 1, 1 );
   }
 
@@ -100,7 +102,11 @@ define( function( require ) {
 
   return inherit( GeneExpressionModel, ManualGeneExpressionModel, {
 
-    // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
+    /**
+     * main step function for this model
+     * @param {number} dt
+     * @public
+     */
     step: function( dt ) {
       if ( dt > 0.2 ) {
         return;
@@ -191,7 +197,8 @@ define( function( require ) {
 
           if ( wasUserControlled ) {
             // The user dropped this biomolecule.
-            if ( self.proteinCaptureArea.containsPoint( mobileBiomolecule.getPosition() ) && mobileBiomolecule instanceof Protein ) {
+            if ( self.proteinCaptureArea.containsPoint( mobileBiomolecule.getPosition() ) &&
+                 mobileBiomolecule instanceof Protein ) {
               // The user has dropped this protein in the
               // capture area.  So, like, capture it.
               self.captureProtein( mobileBiomolecule );
@@ -212,8 +219,7 @@ define( function( require ) {
     },
 
     /**
-     * Get a list of all mobile biomolecules that overlap with the provided
-     * shape.
+     * Get a list of all mobile biomolecules that overlap with the provided shape.
      *
      * @param {Shape} testShape - Shape, in model coordinate, to test for overlap.
      * @return {Array} List of molecules that overlap with the provided shape.
@@ -239,8 +245,8 @@ define( function( require ) {
 
 
     /**
-     *  Capture the specified protein, which means that it is actually removed
-     *  from the model and the associated capture count property is incremented.
+     *  Capture the specified protein, which means that it is actually removed from the model and the associated
+     *  capture count property is incremented.
      * @param {Protein} protein
      */
     captureProtein: function( protein ) {
@@ -302,9 +308,8 @@ define( function( require ) {
     },
 
     /**
-     * Add a space where the biomolecules should not be allowed to wander. This
-     * is generally used by the view to prevent biomolecules from moving over
-     * tool boxes and such.
+     * Add a space where the biomolecules should not be allowed to wander. This is generally used by the view to prevent
+     * biomolecules from moving over tool boxes and such.
      *
      * @param newOffLimitsSpace
      */
@@ -313,8 +318,7 @@ define( function( require ) {
 
         var offLimitsMotionSpace = this.offLimitsMotionSpaces[ i ];
         if ( offLimitsMotionSpace.equals( newOffLimitsSpace ) ) {
-          // An equivalent space already exists, so don't bother adding
-          // this one.
+          // An equivalent space already exists, so don't bother adding this one.
           return;
         }
       }
@@ -323,14 +327,12 @@ define( function( require ) {
     },
 
     /**
-     * Get the motion bounds for any biomolecule that is going to be associated
-     * with the currently active gene.  This is used to keep the biomolecules
-     * from wandering outside of the area that the user can see.
+     * Get the motion bounds for any biomolecule that is going to be associated with the currently active gene.  This is
+     * used to keep the biomolecules from wandering outside of the area that the user can see.
      */
     getBoundsForActiveGene: function() {
 
-      // The bottom bounds are intended to be roughly at the bottom of the
-      // viewport.  The value was empirically determined.
+      // The bottom bounds are intended to be roughly at the bottom of the viewport.  The value was empirically determined.
       var bottomYPos = CommonConstants.DNA_MOLECULE_Y_POS - 2100;
 
       // Get the nominal bounds for this gene.
