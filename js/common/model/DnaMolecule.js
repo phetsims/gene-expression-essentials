@@ -37,17 +37,17 @@ define( function( require ) {
   var RNA_POLYMERASE_ATTACHMENT_DISTANCE = 400;
 
   /**
-   * @param {GeneExpressionModel} model - The gene expression model within which this DNA strand exists.
+   * @param {GeneExpressionModel} model - the gene expression model within which this DNA strand exists
    * @param {number} numBasePairs - number of base pairs in the strand
    * @param {number} leftEdgeXOffset - x position in model space of the left side of the molecule. Y position is assumed
-   * to be zero.
+   * to be zero
    * @param {boolean} pursueAttachments - flag that controls whether the DNA strand actively pulls in transcription
-   * factors and polymerase, or just lets them drift into place.
+   * factors and polymerase or just lets them drift into place
    *
    * @constructor
    */
   function DnaMolecule( model, numBasePairs, leftEdgeXOffset, pursueAttachments ) {
-    this.model = model || new StubGeneExpressionModel();
+    this.model = model || new StubGeneExpressionModel(); // support creation without model for control panels and such
     this.leftEdgeXOffset = leftEdgeXOffset;
     this.pursueAttachments = pursueAttachments;
     this.moleculeLength = numBasePairs * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
@@ -56,38 +56,43 @@ define( function( require ) {
     // Points that, when connected, define the shape of the DNA strands.
     this.strandPoints = []; // Array of DnaStrandPoint
 
-    // Shadow of the points that define the strand shapes, used for rapid evaluation of any shape changes. Create a
-    // shadow of the shape-defining points. This will be used for detecting shape changes.
+    // Shadow of the points that define the strand shapes, used for rapid evaluation of any shape changes.
     this.strandPointsShadow = [];
 
-    // The backbone strands that are portrayed in the view, which consist of lists of shapes.
-    // This is done so that the shapes can be colored differently and layered in order to create a "twisted" look.
+    // The backbone strands that are portrayed in the view, which consist of lists of shapes. This is done so that the
+    // shapes can be colored differently and layered in order to create a "twisted" look.
     this.strand1Segments = []; // Array of DnaStrandSegment
     this.strand2Segments = []; // Array of DnaStrandSegment
 
     // Base pairs within the DNA strand.
     this.basePairs = []; // Array of BasePair
 
-    this.genes = [];// Array of Genes on this strand of DNA. // private
+    this.genes = [];// Array of Genes on this strand of DNA.
 
     // List of forced separations between the two strands.
     this.separations = []; // @private - Array.{DnaSeparation}
 
-    // Add the initial set of shape-defining points for each of the two
-    // strands.  Points are spaced the same as the base pairs.
+    // Add the initial set of shape-defining points for each of the two strands.  Points are spaced the same as the
+    // base pairs.
     for ( var i = 0; i < numBasePairs; i++ ) {
       var xPos = leftEdgeXOffset + i * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
-      this.strandPoints.push( new DnaStrandPoint( xPos, this.getDnaStrandYPosition( xPos, 0 ),
-        this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET ) ) );
-      this.strandPointsShadow.push( new DnaStrandPoint( xPos, this.getDnaStrandYPosition( xPos, 0 ),
-        this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET ) ) );
+      this.strandPoints.push( new DnaStrandPoint(
+        xPos,
+        this.getDnaStrandYPosition( xPos, 0 ),
+        this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET )
+      ) );
+      this.strandPointsShadow.push( new DnaStrandPoint(
+        xPos,
+        this.getDnaStrandYPosition( xPos, 0 ),
+        this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET )
+      ) );
     }
 
     // Create the sets of segments that will be observed by the view.
     this.initializeStrandSegments();
 
-    // Add in the base pairs between the backbone strands.  This calculates the distance between the
-    // two strands and puts a line between them in  order to look like the base pair.
+    // Add in the base pairs between the backbone strands.  This calculates the distance between the two strands and
+    // puts a line between them in  order to look like the base pair.
     var basePairXPos = leftEdgeXOffset;
     while ( basePairXPos <= this.strandPoints[ this.strandPoints.length - 1 ].xPos ) {
       var strand1YPos = this.getDnaStrandYPosition( basePairXPos, 0 );
@@ -112,21 +117,24 @@ define( function( require ) {
      */
     getBasePairIndexFromXOffset: function( xOffset ) {
       // assert xOffset >= leftEdgeXOffset && xOffset < leftEdgeXOffset + moleculeLength;
-      xOffset = Util.clamp( xOffset, this.leftEdgeXOffset, this.leftEdgeXOffset + CommonConstants.LENGTH_PER_TWIST * this.numberOfTwists );
-      return (Math.round( ( xOffset - this.leftEdgeXOffset - CommonConstants.INTER_STRAND_OFFSET ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS )) | 0; // make it int
-
+      xOffset = Util.clamp(
+        xOffset,
+        this.leftEdgeXOffset,
+        this.leftEdgeXOffset + CommonConstants.LENGTH_PER_TWIST * this.numberOfTwists
+      );
+      return ( Math.round( ( xOffset - this.leftEdgeXOffset - CommonConstants.INTER_STRAND_OFFSET ) /
+                           CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) ) | 0; // make it int
     },
 
     /**
-     * private
-     * Get the X location of the nearest base pair given an arbitrary x location.
+     * @private
+     * Get the X location of the nearest base pair given an arbitrary X location in model coordinates
      * @param {number} xPos
      * @returns {number}
      */
     getNearestBasePairXOffset: function( xPos ) {
       return this.getBasePairXOffsetByIndex( this.getBasePairIndexFromXOffset( xPos ) );
     },
-
 
     /**
      * Initialize the DNA stand segment lists.
@@ -145,8 +153,13 @@ define( function( require ) {
         if ( xPos - segmentStartX >= ( CommonConstants.LENGTH_PER_TWIST / 2 ) ) {
 
           // Time to add these segments and start a new ones.
-          self.strand1Segments.push( new DnaStrandSegment( BioShapeUtils.createCurvyLineFromPoints( strand1SegmentPoints ), strand1InFront ) );
-          self.strand2Segments.push( new DnaStrandSegment( BioShapeUtils.createCurvyLineFromPoints( strand2SegmentPoints ), !strand1InFront ) );
+          self.strand1Segments.push( new DnaStrandSegment(
+            BioShapeUtils.createCurvyLineFromPoints( strand1SegmentPoints ),
+            strand1InFront
+          ) );
+          self.strand2Segments.push( new DnaStrandSegment(
+            BioShapeUtils.createCurvyLineFromPoints( strand2SegmentPoints ), !strand1InFront )
+          );
           var firstPointOfNextSegment = strand1SegmentPoints[ strand1SegmentPoints.length - 1 ];
           strand1SegmentPoints = []; // clear;
           strand1SegmentPoints.push( firstPointOfNextSegment ); // This point must be on this segment too in order to prevent gaps.
@@ -178,12 +191,12 @@ define( function( require ) {
      */
     updateStrandSegments: function() {
       var self = this;
+
       // Set the shadow points to the nominal, non-deformed positions.
       _.forEach( this.strandPointsShadow, function( dnaStrandPoint ) {
         dnaStrandPoint.strand1YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, 0 );
         dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, CommonConstants.INTER_STRAND_OFFSET );
       } );
-
 
       // Move the shadow points to account for any separations.
       _.forEach( this.separations, function( separation ) {
@@ -221,7 +234,6 @@ define( function( require ) {
 
         // Check to see if any of the points within the identified range have changed and, if so, update the
         // corresponding segment shape in the strands. If the points for either strand has changed, both are updated.
-
         for ( var j = pointIndexRange.min; j < pointIndexRange.max; j++ ) {
           if ( !this.strandPoints[ j ].equals( this.strandPointsShadow[ j ] ) ) {
 
@@ -242,6 +254,7 @@ define( function( require ) {
           var strand1ShapePoints = [];
           var strand2ShapePoints = [];
           for ( var k = pointIndexRange.min; k < pointIndexRange.max; k++ ) {
+
             //for performance reasons using object literals instead of Vector instances
             strand1ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand1YPos } );
             strand2ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand2YPos } );
@@ -261,7 +274,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {number} dt
      */
     stepInTime: function( dt ) {
@@ -365,7 +377,6 @@ define( function( require ) {
       _.forEach( this.genes, function( gene ) {
         gene.deactivateHints();
       } );
-
     },
 
     /**
@@ -377,7 +388,6 @@ define( function( require ) {
     getLeftEdgePos: function() {
       return new Vector2( this.leftEdgeXOffset, CommonConstants.DNA_MOLECULE_Y_POS );
     },
-
 
     /**
      * Consider an attachment proposal from a transcription factor instance. To determine whether or not to accept or
@@ -400,7 +410,6 @@ define( function( require ) {
           return gene.getMatchingSite( transcriptionFactor.getConfig() );
         }
       );
-
     },
 
     /**
