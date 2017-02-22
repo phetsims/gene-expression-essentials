@@ -1,25 +1,22 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * One of sub-states for the attached site
+ * one of sub-states for the attached site
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
- *
- *
  */
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
   // constants
-  var CONFORMATIONAL_CHANGE_RATE = 1; // Proportion per second
+  var CONFORMATIONAL_CHANGE_RATE = 1; // proportion per second
 
   /**
-   *
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
    * @constructor
    */
@@ -30,6 +27,7 @@ define( function( require ) {
   }
 
   geneExpressionEssentials.register( 'AttachedAndConformingState', AttachedAndConformingState );
+
   return inherit( AttachmentState, AttachedAndConformingState, {
 
       /**
@@ -45,7 +43,7 @@ define( function( require ) {
 
         // Verify that state is consistent.
         assert && assert( asm.attachmentSite !== null );
-        assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() ===  biomolecule );
+        assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
 
         this.conformationalChangeAmount = Math.min( this.conformationalChangeAmount +
                                                     CONFORMATIONAL_CHANGE_RATE * dt, 1 );
@@ -74,15 +72,11 @@ define( function( require ) {
         rnaPolymerase.getModel().getDnaMolecule().addSeparation( dnaStrandSeparation );
         this.conformationalChangeAmount = 0;
       }
-
     },
 
     {
-
       CONFORMATIONAL_CHANGE_RATE: CONFORMATIONAL_CHANGE_RATE
-
     } );
-
 } );
 
 
