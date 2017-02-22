@@ -4,8 +4,6 @@
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
- *
- *
  */
 define( function( require ) {
   'use strict';
@@ -16,11 +14,10 @@ define( function( require ) {
   var BeingRecycledState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingRecycledState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
-
   // constants
   var CONFORMATIONAL_CHANGE_RATE = 1;// Proportion per second.
+
   /**
-   *
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
    * @constructor
    */
@@ -33,11 +30,11 @@ define( function( require ) {
   geneExpressionEssentials.register( 'AttachedAndDeconformingState', AttachedAndDeconformingState );
 
   return inherit( AttachmentState, AttachedAndDeconformingState, {
+
       /**
        * @param  {AttachmentStateMachine} asm
        * @param {number} dt
        */
-
       stepInTime: function( asm, dt ) {
         var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
 
@@ -91,14 +88,9 @@ define( function( require ) {
         asm.biomolecule.movableByUserProperty.set( false );
         this.conformationalChangeAmount = 1;
       }
-
     },
-
     {
-
       CONFORMATIONAL_CHANGE_RATE: CONFORMATIONAL_CHANGE_RATE
-
     }
   );
-
 } );
