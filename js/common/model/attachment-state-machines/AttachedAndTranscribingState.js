@@ -4,8 +4,6 @@
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
- *
- *
  */
 define( function( require ) {
   'use strict';
@@ -119,16 +117,10 @@ define( function( require ) {
         transcribingAttachmentSite.attachedOrAttachingMoleculeProperty.set( asm.biomolecule );
         this.rnaPolymeraseAttachmentStateMachine.attachmentSite = transcribingAttachmentSite;
       }
-
     },
-
     {
-
       TRANSCRIPTION_VELOCITY: TRANSCRIPTION_VELOCITY
-
     } );
-
-
 } );
 
 

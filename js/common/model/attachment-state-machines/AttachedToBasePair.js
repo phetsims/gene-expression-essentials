@@ -1,15 +1,12 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Subclass of the "attached" state for polymerase when it is attached to the DNA but is not transcribing. In this state,
- * it is doing a 1D random walk on the DNA strand.
+ * Subclass of the "attached" state for polymerase when it is attached to the DNA but is not transcribing. In this
+ * state, it is doing a 1D random walk on the DNA strand.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
- *
- *
  */
-
 define( function( require ) {
   'use strict';
 
@@ -28,10 +25,9 @@ define( function( require ) {
   var VELOCITY_ON_DNA = 200;
 
   // Time for attachment to a site on the DNA.
-  var DEFAULT_ATTACH_TIME= 0.15; // In seconds.
+  var DEFAULT_ATTACH_TIME = 0.15; // In seconds.
 
   /**
-   *
    * @param {RNAPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
    * @constructor
    */
@@ -46,9 +42,9 @@ define( function( require ) {
   geneExpressionEssentials.register( 'AttachedToBasePair', AttachedToBasePair );
 
   return inherit( AttachmentState, AttachedToBasePair, {
+
       /**
-       *
-       * @param asm
+       * @param  {AttachmentStateMachine} asm
        */
       detachFromDnaMolecule: function( asm ) {
         asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
@@ -80,7 +76,6 @@ define( function( require ) {
 
         // Decide whether to transcribe the DNA. The decision is based on the affinity of the site and the time of
         // attachment.
-
         if ( this.transcribe ) {
           // Begin transcription.
           attachedState = attachedAndConformingState;
@@ -128,6 +123,7 @@ define( function( require ) {
 
               // Set a new attachment site.
               attachmentSite = attachmentSites[ 0 ];
+
               // State checking - Make sure site is really available
               assert && assert( attachmentSite.attachedOrAttachingMoleculeProperty.get() === null );
               attachmentSite.attachedOrAttachingMoleculeProperty.set( biomolecule );
@@ -151,14 +147,13 @@ define( function( require ) {
       },
 
       /**
-       *
        * @param  { AttachmentStateMachine} asm
        */
       entered: function( asm ) {
         var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
         var randValue = phet.joist.random.nextDouble();
 
-       // Decide right away whether or not to transcribe.
+        // Decide right away whether or not to transcribe.
         this.transcribe = attachmentSite.getAffinity() > CommonConstants.DEFAULT_AFFINITY &&
                           randValue < attachmentSite.getAffinity();
 
@@ -167,20 +162,14 @@ define( function( require ) {
 
         // Indicate attachment to DNA.
         asm.biomolecule.attachedToDnaProperty.set( true );
-
       }
-
     },
-
     {
-
       // Scalar velocity when moving between attachment points on the DNA.
       VELOCITY_ON_DNA: VELOCITY_ON_DNA,
 
       // Time for attachment to a site on the DNA.
       DEFAULT_ATTACH_TIME: DEFAULT_ATTACH_TIME
-
-    } );
-
-
+    }
+  );
 } );

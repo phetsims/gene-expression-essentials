@@ -15,7 +15,7 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
   // constants
-  var CONFORMATIONAL_CHANGE_RATE = 1;// Proportion per second.
+  var CONFORMATIONAL_CHANGE_RATE = 1; // Proportion per second.
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
@@ -49,9 +49,10 @@ define( function( require ) {
         var recycleReturnZones = this.rnaPolymeraseAttachmentStateMachine.recycleReturnZones;
         var attachedAndWanderingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndWanderingState;
 
-
-        this.conformationalChangeAmount = Math.max( this.conformationalChangeAmount -
-                                                    CONFORMATIONAL_CHANGE_RATE * dt, 0 );
+        this.conformationalChangeAmount = Math.max(
+          this.conformationalChangeAmount - CONFORMATIONAL_CHANGE_RATE * dt,
+          0
+        );
         biomolecule.changeConformation( this.conformationalChangeAmount );
         dnaStrandSeparation.setProportionOfTargetAmount( this.conformationalChangeAmount );
         if ( this.conformationalChangeAmount === 0 ) {
@@ -84,6 +85,7 @@ define( function( require ) {
        * @param {AttachmentStateMachine} asm
        */
       entered: function( asm ) {
+
         // Prevent user interaction.
         asm.biomolecule.movableByUserProperty.set( false );
         this.conformationalChangeAmount = 1;
