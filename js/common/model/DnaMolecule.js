@@ -93,14 +93,13 @@ define( function( require ) {
 
     // Add in the base pairs between the backbone strands.  This calculates the distance between the two strands and
     // puts a line between them in  order to look like the base pair.
-    var basePairXPos = leftEdgeXOffset;
-    while ( basePairXPos <= this.strandPoints[ this.strandPoints.length - 1 ].xPos ) {
+    for ( i = 0; i < numBasePairs; i++ ) {
+      var basePairXPos = leftEdgeXOffset + i * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
       var strand1YPos = this.getDnaStrandYPosition( basePairXPos, 0 );
       var strand2YPos = this.getDnaStrandYPosition( basePairXPos, CommonConstants.INTER_STRAND_OFFSET );
       var height = Math.abs( strand1YPos - strand2YPos );
       var basePairYPos = ( strand1YPos + strand2YPos ) / 2;
       this.basePairs.push( new BasePair( new Vector2( basePairXPos, basePairYPos ), height ) );
-      basePairXPos += CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
     }
   }
 
@@ -146,7 +145,8 @@ define( function( require ) {
       var strand2SegmentPoints = [];
       var segmentStartX = this.strandPoints[ 0 ].xPos;
       var strand1InFront = true;
-      _.forEach( this.strandPoints, function( dnaStrandPoint ) {
+      for ( var i = 0; i < this.strandPoints.length; i++ ) {
+        var dnaStrandPoint = this.strandPoints[ i ];
         var xPos = dnaStrandPoint.xPos;
         strand1SegmentPoints.push( new Vector2( xPos, dnaStrandPoint.strand1YPos ) );
         strand2SegmentPoints.push( new Vector2( xPos, dnaStrandPoint.strand2YPos ) );
@@ -169,7 +169,16 @@ define( function( require ) {
           segmentStartX = firstPointOfNextSegment.x;
           strand1InFront = !strand1InFront;
         }
-      } );
+      }
+
+      // add the strand for the remaining base segments
+      self.strand1Segments.push( new DnaStrandSegment(
+        BioShapeUtils.createCurvyLineFromPoints( strand1SegmentPoints ),
+        strand1InFront
+      ) );
+      self.strand2Segments.push( new DnaStrandSegment(
+        BioShapeUtils.createCurvyLineFromPoints( strand2SegmentPoints ), !strand1InFront )
+      );
     },
 
     /**
@@ -201,7 +210,7 @@ define( function( require ) {
       // Move the shadow points to account for any separations.
       _.forEach( this.separations, function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
-        var separationWindowXIndexRange = new Range( Math.floor(                            ( separation.getXPos() - ( windowWidth / 2 ) -
+        var separationWindowXIndexRange = new Range( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
                                                                    self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
           Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
         for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
