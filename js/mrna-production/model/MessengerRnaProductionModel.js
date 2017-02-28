@@ -226,7 +226,7 @@ define( function( require ) {
           var mobileBioMoleculeShape = mobileBiomolecule.getShape();
           if ( mobileBioMoleculeShape.bounds.intersectsBounds( testShapeBounds ) ) {
 
-              overlappingBiomolecules.push( mobileBiomolecule );
+            overlappingBiomolecules.push( mobileBiomolecule );
           }
         } );
 
@@ -287,6 +287,7 @@ define( function( require ) {
         this.messengerRnaList.clear();
         this.dnaMolecule.reset();
         this.gene.getPolymeraseAffinityProperty().reset();
+        this.clockRunningProperty.reset();
         this.gene.getTranscriptionFactorAffinityProperty( POSITIVE_TRANSCRIPTION_FACTOR_CONFIG ).reset();
         this.gene.getTranscriptionFactorAffinityProperty( NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG ).reset();
 

@@ -91,25 +91,25 @@ define( function( require ) {
     }
 
     // Hook up the property that controls the number of visible cells.
-    this.numberOfVisibleCellsProperty.link( function( numVisibleCells ){
+    this.numberOfVisibleCellsProperty.link( function( numVisibleCells ) {
       assert && assert( numVisibleCells >= 1 && numVisibleCells <= MAX_CELLS );
       self.setNumVisibleCells( numVisibleCells );
     } );
 
     // Hook up the cell property parameters to the individual cells so that changes are propagated.
     this.transcriptionFactorLevelProperty.link( function( transcriptionFactorLevel ) {
-      self.cellList.forEach( function( cell ){
+      self.cellList.forEach( function( cell ) {
         cell.setTranscriptionFactorCount( transcriptionFactorLevel );
       } );
     } );
 
-    this.polymeraseAssociationProbabilityProperty.link( function( polymeraseAssociationProbability ){
+    this.polymeraseAssociationProbabilityProperty.link( function( polymeraseAssociationProbability ) {
       self.cellList.forEach( function( cell ) {
         cell.setPolymeraseAssociationRate( polymeraseAssociationProbability );
       } );
     } );
 
-    this.transcriptionFactorAssociationProbabilityProperty.link( function( transcriptionFactorAssociationProbability ){
+    this.transcriptionFactorAssociationProbabilityProperty.link( function( transcriptionFactorAssociationProbability ) {
       self.cellList.forEach( function( cell ) {
         cell.setGeneTranscriptionFactorAssociationRate( transcriptionFactorAssociationProbability );
       } );
@@ -149,9 +149,9 @@ define( function( require ) {
 
       var self = this;
       var totalProteinCount = 0;
-      this.cellList.forEach( function( cell ){
+      this.cellList.forEach( function( cell ) {
         cell.stepInTime( dt );
-        if ( self.visibleCellList.contains( cell ) ){
+        if ( self.visibleCellList.contains( cell ) ) {
           totalProteinCount += cell.proteinCount.get();
         }
       } );
@@ -167,6 +167,7 @@ define( function( require ) {
       this.transcriptionFactorAssociationProbabilityProperty.reset();
       this.polymeraseAssociationProbabilityProperty.reset();
       this.mRnaDegradationRateProperty.reset();
+      this.clockRunningProperty.reset();
       this.setNumVisibleCells( this.numberOfVisibleCellsProperty.get() );
 
       // Step the model a bunch of times in order to allow it to reach a
@@ -186,7 +187,7 @@ define( function( require ) {
     setNumVisibleCells: function( numCells ) {
 
       assert && assert( numCells > 0 && numCells <= MAX_CELLS );  // Bounds checking.
-      numCells = Util.clamp( numCells, 1,  MAX_CELLS ); // Defensive programming.
+      numCells = Util.clamp( numCells, 1, MAX_CELLS ); // Defensive programming.
 
       if ( this.visibleCellList.length < numCells ) {
         // Add cells to the visible list.
@@ -213,18 +214,18 @@ define( function( require ) {
         for ( var j = 0; j < radius * Math.PI / ( Cell.DefaultCellSize.height * 2 ); j++ ) {
           var angle = this.positionRandomizer.nextDouble() * 2 * Math.PI;
           //cell.setPositionByXY( radius * Math.cos( angle ), radius * Math.sin( angle ) );
-            cell.positionX = radius * Math.cos( angle );
-            cell.positionY = radius * Math.sin( angle );
+          cell.positionX = radius * Math.cos( angle );
+          cell.positionY = radius * Math.sin( angle );
           if ( !bounds.containsCoordinates( cell.positionX, cell.positionY ) ) {
             // Not in bounds.
             continue;
           }
           var overlapDetected = false;
-          for ( var k = 0; k < this.cellList.length; k++){
+          for ( var k = 0; k < this.cellList.length; k++ ) {
             var existingCell = this.cellList[ k ];
             // new bounds
             if ( cell.getShape().bounds.shifted( cell.positionX, cell.positionY )
-                    .intersectsBounds( existingCell.getShape().bounds.shifted( existingCell.positionX, existingCell.positionY ) ) ){
+                .intersectsBounds( existingCell.getShape().bounds.shifted( existingCell.positionX, existingCell.positionY ) ) ) {
               overlapDetected = true;
               break;
             }
@@ -241,8 +242,7 @@ define( function( require ) {
     }
 
 
-
-  },{
+  }, {
     MaxCells: MAX_CELLS
   } );
 } );
