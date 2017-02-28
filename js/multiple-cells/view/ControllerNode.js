@@ -31,21 +31,21 @@ define( function( require ) {
 
     var range;
     var passThroughController;
-    if ( options.logScale ){
-      range = new Range( Math.log10( minValue ), Math.log10( maxValue ) );
-      passThroughController = new Property( Math.log10( controller.get() ) );
+    if ( options.logScale ) {
+      range = new Range( Math.log( minValue ) / Math.LN10, Math.log( maxValue ) / Math.LN10 );
+      passThroughController = new Property( Math.log( controller.get() ) / Math.LN10 );
     }
-    else{
+    else {
       range = new Range( minValue, maxValue );
       passThroughController = new Property( controller.get() );
     }
 
     // Conversion to exponential.
-    passThroughController.link( function( value ){
+    passThroughController.link( function( value ) {
       if ( options.logScale ) {
         controller.set( Util.clamp( Math.pow( 10, value ), minValue, maxValue ) );
       }
-      else{
+      else {
         controller.set( value );
       }
     } );
@@ -53,11 +53,11 @@ define( function( require ) {
     // Hook up the data flow in the other direction, so that if the
     // controlled value changes (which may occur, for example, when the
     // property is reset) this changes too.
-    controller.link( function( value ){
-      if ( options.logScale ){
-        passThroughController.set( Math.log10( value ) );
+    controller.link( function( value ) {
+      if ( options.logScale ) {
+        passThroughController.set( Math.log( value ) / Math.LN10 );
       }
-      else{
+      else {
         passThroughController.set( value );
       }
     } );
@@ -84,6 +84,5 @@ define( function( require ) {
 
 
   geneExpressionEssentials.register( 'ControllerNode', ControllerNode );
-  return inherit( Node, ControllerNode, {
-  } );
+  return inherit( Node, ControllerNode, {} );
 } );
