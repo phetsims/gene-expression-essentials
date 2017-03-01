@@ -57,17 +57,17 @@ define( function( require ) {
     }
 
     // Add the first backbone strand.
-    _.each( dnaMolecule.getStrand1Segments(), function( dnaStrandSegment ) {
+    dnaMolecule.getStrand1Segments().forEach( function( dnaStrandSegment ) {
       self.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_1_COLOR );
     } );
 
     // Add the other backbone strand.
-    _.each( dnaMolecule.getStrand2Segments(), function( dnaStrandSegment ) {
+    dnaMolecule.getStrand2Segments().forEach( function( dnaStrandSegment ) {
       self.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_2_COLOR );
     } );
 
     // Add the base pairs.
-    _.each( dnaMolecule.getBasePairs(), function( basePair ) {
+    dnaMolecule.getBasePairs().forEach( function( basePair ) {
       basePairLayer.addChild( new Path( mvt.modelToViewShape( basePair.getShape() ), { fill: Color.DARK_GRAY } ) );
     } );
 

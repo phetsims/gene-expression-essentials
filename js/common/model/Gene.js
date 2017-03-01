@@ -199,7 +199,7 @@ define( function( require ) {
 
       // Count the number of positive transcription factors needed to enable transcription.
       var numPositiveTranscriptionFactorsNeeded = 0;
-      _.forEach( this.transcriptionFactorMap.values, function( transcriptionFactor ) {
+      this.transcriptionFactorMap.values.forEach( function( transcriptionFactor ) {
         if ( transcriptionFactor.getConfig().isPositive ) {
           numPositiveTranscriptionFactorsNeeded += 1;
         }
@@ -208,7 +208,7 @@ define( function( require ) {
 
       // Count the number of positive transcription factors attached.
       var numPositiveTranscriptionFactorsAttached = 0;
-      _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
+      this.transcriptionFactorAttachmentSites.forEach( function( transcriptionFactorAttachmentSite ) {
         if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() !== null ) {
           var tf = transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get();
           // there is a very slight difference in the y direction and to mitigate that we add 0.0001 factor
@@ -349,7 +349,7 @@ define( function( require ) {
 
           // Also activate any unoccupied positive transcription factor hints in order to convey to the user that these
           // are needed for transcription to start.
-          _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
+          this.transcriptionFactorAttachmentSites.forEach( function( transcriptionFactorAttachmentSite ) {
             if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
                  transcriptionFactorAttachmentSite.getTfConfig().isPositive ) {
               self.activateTranscriptionFactorHint( transcriptionFactorAttachmentSite.getTfConfig() );
@@ -359,7 +359,7 @@ define( function( require ) {
       }
       else if ( biomolecule instanceof TranscriptionFactor ) {
         // Activate hint that matches this transcription factor.
-        _.forEach( this.transcriptionFactorPlacementHints, function( transcriptionFactorPlacementHint ) {
+        this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
           transcriptionFactorPlacementHint.activateIfMatch( biomolecule );
         } );
       }
@@ -370,14 +370,14 @@ define( function( require ) {
      * @param { TranscriptionFactorConfig } tfConfig
      */
     activateTranscriptionFactorHint: function( tfConfig ) {
-      _.forEach( this.transcriptionFactorPlacementHints, function( transcriptionFactorPlacementHint ) {
+      this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
         transcriptionFactorPlacementHint.activateIfConfigMatch( tfConfig );
       } );
     },
 
     deactivateHints: function() {
       this.rnaPolymerasePlacementHint.activeProperty.set( false );
-      _.forEach( this.transcriptionFactorPlacementHints, function( transcriptionFactorPlacementHint ) {
+      this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
         transcriptionFactorPlacementHint.activeProperty.set( false );
       } );
     },
@@ -388,7 +388,7 @@ define( function( require ) {
      */
     getPlacementHints: function() {
       var placementHints = [ this.rnaPolymerasePlacementHint ];
-      _.forEach( this.transcriptionFactorPlacementHints, function( transcriptionFactorPlacementHint ) {
+      this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
         placementHints.push( transcriptionFactorPlacementHint );
       } );
       return placementHints;
@@ -399,7 +399,7 @@ define( function( require ) {
      */
     clearAttachmentSites: function() {
       this.polymeraseAttachmentSite.attachedOrAttachingMoleculeProperty.set( null );
-      _.forEach( this.transcriptionFactorAttachmentSites, function( transcriptionFactorAttachmentSite ) {
+      this.transcriptionFactorAttachmentSites.forEach( function( transcriptionFactorAttachmentSite ) {
         transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       } );
     },
@@ -420,7 +420,7 @@ define( function( require ) {
      */
     getTranscriptionFactorConfigs: function() {
       var configList = [];
-      _.forEach( this.transcriptionFactorMap.values, function( transcriptionFactor ) {
+      this.transcriptionFactorMap.values.forEach( function( transcriptionFactor ) {
         configList.push( transcriptionFactor.getConfig() );
       } );
       return configList;

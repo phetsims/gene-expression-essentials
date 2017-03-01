@@ -269,7 +269,7 @@ define( function( require ) {
      */
     getProteinCount: function( proteinClassType ) {
       var count = 0;
-      _.forEach( this.mobileBiomoleculeList, function( mobileBiomolecule ) {
+      this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         if ( mobileBiomolecule instanceof proteinClassType ) {
           count++;
         }
@@ -342,7 +342,7 @@ define( function( require ) {
         bottomYPos + BIOMOLECULE_STAGE_HEIGHT );
 
       // Subtract off any off limits areas.
-      _.forEach( this.offLimitsMotionSpaces, function( offLimitMotionSpace ) {
+      this.offLimitsMotionSpaces.forEach( function( offLimitMotionSpace ) {
         if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {
           // bounds.subtract( new Area( offLimitMotionSpace ) ); TODO
         }

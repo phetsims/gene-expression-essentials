@@ -65,7 +65,7 @@ define( function( require ) {
 
         // Check for molecules that are in the way.
         var molecules = asm.biomolecule.getModel().getOverlappingBiomolecules( asm.biomolecule.getShape() );
-        _.forEach( molecules, function( molecule ) {
+        molecules.forEach( function( molecule ) {
           if ( molecule.getPosition().x > asm.biomolecule.getPosition().x && molecule.attachedToDnaProperty.get() ) {
 
             // This molecule is blocking transcription, so bump it off

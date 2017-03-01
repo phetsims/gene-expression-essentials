@@ -202,13 +202,13 @@ define( function( require ) {
       var self = this;
 
       // Set the shadow points to the nominal, non-deformed positions.
-      _.forEach( this.strandPointsShadow, function( dnaStrandPoint ) {
+      this.strandPointsShadow.forEach( function( dnaStrandPoint ) {
         dnaStrandPoint.strand1YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, 0 );
         dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, CommonConstants.INTER_STRAND_OFFSET );
       } );
 
       // Move the shadow points to account for any separations.
-      _.forEach( this.separations, function( separation ) {
+      this.separations.forEach( function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
         var separationWindowXIndexRange = new Range( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
                                                                    self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
@@ -287,7 +287,7 @@ define( function( require ) {
      */
     stepInTime: function( dt ) {
       this.updateStrandSegments();
-      _.forEach( this.genes, function( gene ) {
+      this.genes.forEach( function( gene ) {
         gene.updateAffinities();
       } );
     },
@@ -377,13 +377,13 @@ define( function( require ) {
      * @param {MobileBiomolecule} biomolecule
      */
     activateHints: function( biomolecule ) {
-      _.forEach( this.genes, function( gene ) {
+      this.genes.forEach( function( gene ) {
         gene.activateHints( biomolecule );
       } );
     },
 
     deactivateAllHints: function() {
-      _.forEach( this.genes, function( gene ) {
+      this.genes.forEach( function( gene ) {
         gene.deactivateHints();
       } );
     },
@@ -470,7 +470,7 @@ define( function( require ) {
       // If there aren't any potential attachment sites in range, check for a particular set of conditions under which
       // the DNA provides an attachment site anyways.
       if ( potentialAttachmentSites.length === 0 && this.pursueAttachments ) {
-        _.forEach( this.genes, function( gene ) {
+        this.genes.forEach( function( gene ) {
           if ( isOkayToAttach( gene ) ) {
             var matchingSite = getAttachmentSite( gene );
 
@@ -721,7 +721,7 @@ define( function( require ) {
       }
       var geneAtLocation = null;
       var basePairIndex = this.getBasePairIndexFromXOffset( location.x );
-      _.forEach( this.genes, function( gene ) {
+      this.genes.forEach( function( gene ) {
         if ( gene.containsBasePair( basePairIndex ) ) {
 
           // Found the corresponding gene.
@@ -733,7 +733,7 @@ define( function( require ) {
     },
 
     reset: function() {
-      _.forEach( this.genes, function( gene ) {
+      this.genes.forEach( function( gene ) {
         gene.clearAttachmentSites();
       } );
       this.separations = [];
