@@ -24,12 +24,14 @@ define( function( require ) {
   var BASE_PAIR_WIDTH = 13; // In picometers.  Not sure if this is close to real life, chosen to look decent in view.
 
   /**
-   * @param {Vector2} centerLocation
+   *
+   * @param {number} centerLocationX
+   * @param {number} centerLocationY
    * @param {number} height
    * @constructor
    */
-  function BasePair( centerLocation, height ) {
-    this.shape = Shape.roundRect( centerLocation.x - BASE_PAIR_WIDTH / 2, centerLocation.y - height / 2, BASE_PAIR_WIDTH,
+  function BasePair( centerLocationX, centerLocationY, height ) {
+    this.shape = Shape.roundRect( centerLocationX - BASE_PAIR_WIDTH / 2, centerLocationY - height / 2, BASE_PAIR_WIDTH,
       height, BASE_PAIR_WIDTH / 4, BASE_PAIR_WIDTH / 4 );
   }
 

@@ -99,7 +99,7 @@ define( function( require ) {
       var strand2YPos = this.getDnaStrandYPosition( basePairXPos, CommonConstants.INTER_STRAND_OFFSET );
       var height = Math.abs( strand1YPos - strand2YPos );
       var basePairYPos = ( strand1YPos + strand2YPos ) / 2;
-      this.basePairs.push( new BasePair( new Vector2( basePairXPos, basePairYPos ), height ) );
+      this.basePairs.push( new BasePair( basePairXPos, basePairYPos, height ) );
     }
   }
 
