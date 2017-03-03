@@ -101,7 +101,7 @@ define( function( require ) {
 
     var dnaMoleculeCanvasNode = new DnaMoleculeCanvasNode( model.getDnaMolecule(), self.mvt, 3, {
       canvasBounds: new Bounds2(
-        this.mvt.modelToViewX( -2000 * 34 / 4 ),
+        5589 - 8000,
         380.52,
         5589.392592041497,
         492.52
@@ -251,7 +251,7 @@ define( function( require ) {
     } );
     // Monitor the active gene and move the view port to be centered on it whenever it changes.
 
-    model.activeGeneProperty.link( function( gene ) {
+    model.activeGeneProperty.lazyLink( function( gene ) {
       nextGeneButton.enabled = !( gene === model.dnaMolecule.getLastGene() );
       previousGeneButton.enabled = !( gene === model.dnaMolecule.getGenes()[ 0 ] );
       //this.isLastGeneActive = this.activeGene === this.dnaMolecule.getLastGene();

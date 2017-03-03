@@ -36,7 +36,7 @@ define( function( require ) {
       context.beginPath();
       context.fillStyle = Color.DARK_GRAY.computeCSS();
       context.fillRect(
-        this.mvt.modelToViewY( basePair.x ),
+        this.mvt.modelToViewX( basePair.x ),
         this.mvt.modelToViewY( basePair.y ),
         this.mvt.modelToViewDeltaX( basePair.width ),
         this.mvt.modelToViewDeltaY( basePair.height )
@@ -127,6 +127,7 @@ define( function( require ) {
         //context.closePath();
       }
 
+      debugger;
       for ( i = 0; i < this.model.basePairs.length; i++ ) {
         var basePair = this.model.basePairs[ i ];
         this.drawRect( context, basePair );
