@@ -143,7 +143,7 @@ define( function( require ) {
         if ( xPos - segmentStartX >= ( CommonConstants.LENGTH_PER_TWIST / 2 ) ) {
 
           // Time to add these segments and start a new ones.
-          self.strand1Segments.push( strand2SegmentPoints );
+          self.strand1Segments.push( strand1SegmentPoints );
           self.strand2Segments.push( strand2SegmentPoints );
           var firstPointOfNextSegment = strand1SegmentPoints[ strand1SegmentPoints.length - 1 ];
           strand1SegmentPoints = []; // clear;

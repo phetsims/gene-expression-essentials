@@ -99,7 +99,7 @@ define( function( require ) {
 
     //debugger;
 
-    var dnaMoleculeCanvasNode = new DnaMoleculeCanvasNode( model.getDnaMolecule(), self.mvt, {
+    var dnaMoleculeCanvasNode = new DnaMoleculeCanvasNode( model.getDnaMolecule(), self.mvt, 3, {
       canvasBounds: new Bounds2(
         this.mvt.modelToViewX( -2000 * 34 / 4 ),
         380.52,

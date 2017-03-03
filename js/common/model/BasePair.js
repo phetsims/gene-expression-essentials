@@ -31,8 +31,12 @@ define( function( require ) {
    * @constructor
    */
   function BasePair( centerLocationX, centerLocationY, height ) {
-    this.shape = Shape.roundRect( centerLocationX - BASE_PAIR_WIDTH / 2, centerLocationY - height / 2, BASE_PAIR_WIDTH,
-      height, BASE_PAIR_WIDTH / 4, BASE_PAIR_WIDTH / 4 );
+    this.x = centerLocationX - BASE_PAIR_WIDTH / 2;
+    this.y = centerLocationY - height / 2;
+    this.height = height;
+    this.width = BASE_PAIR_WIDTH;
+    //this.shape = Shape.roundRect( centerLocationX - BASE_PAIR_WIDTH / 2, centerLocationY - height / 2, BASE_PAIR_WIDTH,
+    //  height, BASE_PAIR_WIDTH / 4, BASE_PAIR_WIDTH / 4 );
   }
 
   geneExpressionEssentials.register( 'BasePair', BasePair );
