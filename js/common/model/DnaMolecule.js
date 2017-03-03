@@ -74,33 +74,23 @@ define( function( require ) {
 
     // Add the initial set of shape-defining points for each of the two strands.  Points are spaced the same as the
     // base pairs.
+    // Add in the base pairs between the backbone strands.  This calculates the distance between the two strands and
+    // puts a line between them in  order to look like the base pair.
     for ( var i = 0; i < numBasePairs; i++ ) {
       var xPos = leftEdgeXOffset + i * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
-      this.strandPoints.push( new DnaStrandPoint(
-        xPos,
-        this.getDnaStrandYPosition( xPos, 0 ),
-        this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET )
-      ) );
-      this.strandPointsShadow.push( new DnaStrandPoint(
-        xPos,
-        this.getDnaStrandYPosition( xPos, 0 ),
-        this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET )
-      ) );
+      var strand1YPos = this.getDnaStrandYPosition( xPos, 0 );
+      var strand2YPos = this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET );
+      var height = Math.abs( strand1YPos - strand2YPos );
+      var basePairYPos = ( strand1YPos + strand2YPos ) / 2;
+      this.basePairs.push( new BasePair( xPos, basePairYPos, height ) );
+      this.strandPoints.push( new DnaStrandPoint( xPos, strand1YPos, strand2YPos ) );
+      this.strandPointsShadow.push( new DnaStrandPoint( xPos, strand1YPos, strand2YPos ) );
     }
 
     // Create the sets of segments that will be observed by the view.
     this.initializeStrandSegments();
 
-    // Add in the base pairs between the backbone strands.  This calculates the distance between the two strands and
-    // puts a line between them in  order to look like the base pair.
-    for ( i = 0; i < numBasePairs; i++ ) {
-      var basePairXPos = leftEdgeXOffset + i * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
-      var strand1YPos = this.getDnaStrandYPosition( basePairXPos, 0 );
-      var strand2YPos = this.getDnaStrandYPosition( basePairXPos, CommonConstants.INTER_STRAND_OFFSET );
-      var height = Math.abs( strand1YPos - strand2YPos );
-      var basePairYPos = ( strand1YPos + strand2YPos ) / 2;
-      this.basePairs.push( new BasePair( basePairXPos, basePairYPos, height ) );
-    }
+
   }
 
   geneExpressionEssentials.register( 'DnaMolecule', DnaMolecule );
@@ -153,13 +143,8 @@ define( function( require ) {
         if ( xPos - segmentStartX >= ( CommonConstants.LENGTH_PER_TWIST / 2 ) ) {
 
           // Time to add these segments and start a new ones.
-          self.strand1Segments.push( new DnaStrandSegment(
-            BioShapeUtils.createCurvyLineFromPoints( strand1SegmentPoints ),
-            strand1InFront
-          ) );
-          self.strand2Segments.push( new DnaStrandSegment(
-            BioShapeUtils.createCurvyLineFromPoints( strand2SegmentPoints ), !strand1InFront )
-          );
+          self.strand1Segments.push( strand2SegmentPoints );
+          self.strand2Segments.push( strand2SegmentPoints );
           var firstPointOfNextSegment = strand1SegmentPoints[ strand1SegmentPoints.length - 1 ];
           strand1SegmentPoints = []; // clear;
           strand1SegmentPoints.push( firstPointOfNextSegment ); // This point must be on this segment too in order to prevent gaps.
@@ -172,13 +157,8 @@ define( function( require ) {
       }
 
       // add the strand for the remaining base segments
-      self.strand1Segments.push( new DnaStrandSegment(
-        BioShapeUtils.createCurvyLineFromPoints( strand1SegmentPoints ),
-        strand1InFront
-      ) );
-      self.strand2Segments.push( new DnaStrandSegment(
-        BioShapeUtils.createCurvyLineFromPoints( strand2SegmentPoints ), !strand1InFront )
-      );
+      self.strand1Segments.push( strand1SegmentPoints );
+      self.strand2Segments.push( strand2SegmentPoints );
     },
 
     /**
@@ -199,7 +179,7 @@ define( function( require ) {
      * separating the strands or otherwise deforming the nominal double-helix shape.
      */
     updateStrandSegments: function() {
-      var self = this;
+      /*var self = this;
 
       // Set the shadow points to the nominal, non-deformed positions.
       this.strandPointsShadow.forEach( function( dnaStrandPoint ) {
@@ -279,7 +259,7 @@ define( function( require ) {
           strand1Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand1ShapePoints ) );
           strand2Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand2ShapePoints ) );
         }
-      }
+       }*/
     },
 
     /**

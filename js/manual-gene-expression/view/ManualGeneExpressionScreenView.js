@@ -9,6 +9,7 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -20,6 +21,7 @@ define( function( require ) {
   var ProteinCollectionNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionNode' );
   var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/BiomoleculeToolBoxNode' );
   var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
+  var DnaMoleculeCanvasNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeCanvasNode' );
   var MessengerRnaNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MessengerRnaNode' );
   var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -92,9 +94,22 @@ define( function( require ) {
 
 
     // Add the representation of the DNA strand.
-    var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
-    dnaLayer.addChild( dnaMoleculeNode );
+    //var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
+    //dnaLayer.addChild( dnaMoleculeNode );
 
+    //debugger;
+
+    var dnaMoleculeCanvasNode = new DnaMoleculeCanvasNode( model.getDnaMolecule(), self.mvt, {
+      canvasBounds: new Bounds2(
+        this.mvt.modelToViewX( -2000 * 34 / 4 ),
+        380.52,
+        5589.392592041497,
+        492.52
+      ),
+      fill: 'pink'
+    } );
+
+    dnaLayer.addChild( dnaMoleculeCanvasNode );
     // Add the placement hints that go on the DNA molecule.  These exist on
     // their own layer so that they can be seen above any molecules that
     // are attached to the DNA strand.
