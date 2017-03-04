@@ -127,7 +127,6 @@ define( function( require ) {
         //context.closePath();
       }
 
-      debugger;
       for ( i = 0; i < this.model.basePairs.length; i++ ) {
         var basePair = this.model.basePairs[ i ];
         this.drawRect( context, basePair );
@@ -160,6 +159,10 @@ define( function( require ) {
       //context.moveTo( 5589 - 8000,  380.52 );
       //context.lineTo( 5589, 380.52 );
       //context.closePath();
+    },
+
+    step: function() {
+      this.invalidatePaint();
     }
 
 

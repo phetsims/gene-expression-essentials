@@ -179,7 +179,7 @@ define( function( require ) {
      * separating the strands or otherwise deforming the nominal double-helix shape.
      */
     updateStrandSegments: function() {
-      /*var self = this;
+      var self = this;
 
       // Set the shadow points to the nominal, non-deformed positions.
       this.strandPointsShadow.forEach( function( dnaStrandPoint ) {
@@ -217,9 +217,11 @@ define( function( require ) {
 
         // Determine the bounds of the current segment. Assumes that the bounds for the strand1 and strand2 segments are
         // the same, which should be a safe assumption.
-        var bounds = strand1Segment.getShape().bounds;
-        var pointIndexRange = new Range( Math.floor( ( bounds.getMinX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
-          Math.floor( ( bounds.getMaxX() - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
+        //var bounds = strand1Segment.getShape().bounds;
+        var minX = strand1Segment[ 0 ].x;
+        var maxX = strand1Segment[ strand1Segment.length - 1 ].x;
+        var pointIndexRange = new Range( Math.floor( ( minX - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
+          Math.floor( ( maxX - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
 
         // Check to see if any of the points within the identified range have changed and, if so, update the
         // corresponding segment shape in the strands. If the points for either strand has changed, both are updated.
@@ -256,10 +258,12 @@ define( function( require ) {
             x: this.strandPointsShadow[ pointIndexRange.max ].xPos,
             y: this.strandPointsShadow[ pointIndexRange.max ].strand2YPos
           } );
-          strand1Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand1ShapePoints ) );
-          strand2Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand2ShapePoints ) );
+          //strand1Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand1ShapePoints ) );
+          //strand2Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand2ShapePoints ) );
+          this.strand1Segments[ i ] = strand1ShapePoints;
+          this.strand2Segments[ i ] = strand2ShapePoints;
         }
-       }*/
+      }
     },
 
     /**

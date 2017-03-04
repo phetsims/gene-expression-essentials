@@ -99,7 +99,7 @@ define( function( require ) {
 
     //debugger;
 
-    var dnaMoleculeCanvasNode = new DnaMoleculeCanvasNode( model.getDnaMolecule(), self.mvt, 3, {
+    this.dnaMoleculeCanvasNode = new DnaMoleculeCanvasNode( model.getDnaMolecule(), self.mvt, 3, {
       canvasBounds: new Bounds2(
         5589 - 8000,
         380.52,
@@ -109,7 +109,7 @@ define( function( require ) {
       fill: 'pink'
     } );
 
-    dnaLayer.addChild( dnaMoleculeCanvasNode );
+    dnaLayer.addChild( this.dnaMoleculeCanvasNode );
     // Add the placement hints that go on the DNA molecule.  These exist on
     // their own layer so that they can be seen above any molecules that
     // are attached to the DNA strand.
@@ -282,5 +282,8 @@ define( function( require ) {
   geneExpressionEssentials.register( 'ManualGeneExpressionScreenView', ManualGeneExpressionScreenView );
 
   return inherit( ScreenView, ManualGeneExpressionScreenView, {
+    step: function() {
+      this.dnaMoleculeCanvasNode.step();
+    }
   } );
 } );

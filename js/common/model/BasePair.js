@@ -18,6 +18,7 @@ define( function( require ) {
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
 
   // constants
@@ -31,30 +32,23 @@ define( function( require ) {
    * @constructor
    */
   function BasePair( centerLocationX, centerLocationY, height ) {
+    this.center = new Vector2( centerLocationX, centerLocationY );
     this.x = centerLocationX - BASE_PAIR_WIDTH / 2;
     this.y = centerLocationY - height / 2;
     this.height = height;
     this.width = BASE_PAIR_WIDTH;
-    //this.shape = Shape.roundRect( centerLocationX - BASE_PAIR_WIDTH / 2, centerLocationY - height / 2, BASE_PAIR_WIDTH,
-    //  height, BASE_PAIR_WIDTH / 4, BASE_PAIR_WIDTH / 4 );
   }
 
   geneExpressionEssentials.register( 'BasePair', BasePair );
 
   return inherit( Object, BasePair, {
 
-    /**
-     * @returns {Shape}
-     */
-    getShape: function() {
-      return this.shape;
-    },
 
     /**
      * @returns {Vector2}
      */
     getCenterLocation: function() {
-      return this.shape.bounds.getCenter();
+      return this.center;
     }
 
   } );
