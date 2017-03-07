@@ -17,10 +17,8 @@ define( function( require ) {
   // modules
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var BasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BasePair' );
-  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
-  var DnaStrandSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandSegment' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -213,7 +211,6 @@ define( function( require ) {
       for ( var i = 0; i < numSegments; i++ ) {
         var segmentChanged = false;
         var strand1Segment = this.strand1Segments[ i ];
-        var strand2Segment = this.strand2Segments[ i ];
 
         // Determine the bounds of the current segment. Assumes that the bounds for the strand1 and strand2 segments are
         // the same, which should be a safe assumption.

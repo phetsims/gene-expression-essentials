@@ -13,12 +13,9 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var DnaMoleculeCanvasNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeCanvasNode' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var GeneNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/GeneNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Color = require( 'SCENERY/util/Color' );
-  var GeneNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/GeneNode' );
-  var DnaStrandSegmentNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaStrandSegmentNode' );
 
   // strings
   var geneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene' );
