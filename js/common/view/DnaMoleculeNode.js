@@ -10,6 +10,8 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
+  var DnaMoleculeCanvasNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeCanvasNode' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -17,10 +19,6 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var GeneNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/GeneNode' );
   var DnaStrandSegmentNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaStrandSegmentNode' );
-
-  // constants
-  var STRAND_1_COLOR = new Color( 31, 163, 223 );
-  var STRAND_2_COLOR = new Color( 214, 87, 107 );
 
   // strings
   var geneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene' );
@@ -37,18 +35,21 @@ define( function( require ) {
     var self = this;
     Node.call( self );
 
-    // Layers for supporting the 3D look by allowing the "twist" to be depicted.
-    this.dnaBackboneBackLayer = new Node();
-    this.dnaBackboneFrontLayer = new Node();
 
-    // Add the layers onto which the various nodes that represent parts of
-    // the dna, the hints, etc. are placed.
+    // Add the layers onto which the various nodes that represent parts of the dna, the hints, etc. are placed.
     var geneBackgroundLayer = new Node();
     self.addChild( geneBackgroundLayer );
-    self.addChild( this.dnaBackboneBackLayer );
-    var basePairLayer = new Node();
-    self.addChild( basePairLayer );
-    self.addChild( this.dnaBackboneFrontLayer );
+
+    // Layers for supporting the 3D look by allowing the "twist" to be depicted.
+    this.dnaBackboneLayer = new DnaMoleculeCanvasNode( dnaMolecule, mvt, backboneStrokeWidth, {
+      canvasBounds: new Bounds2(
+        mvt.modelToViewX( dnaMolecule.getLeftEdgeXPos() ),
+        mvt.modelToViewY( dnaMolecule.getTopEdgeYPos() ) - 10,
+        mvt.modelToViewX( dnaMolecule.getRightEdgeXPos() ),
+        mvt.modelToViewY( dnaMolecule.getBottomEdgeYPos() ) + 10
+      )
+    } );
+    self.addChild( this.dnaBackboneLayer );
 
     // Put the gene backgrounds and labels behind everything.
     for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
@@ -56,43 +57,14 @@ define( function( require ) {
         geneString + ( i + 1 ), showGeneBracketLabels ) );
     }
 
-    // Add the first backbone strand.
-    dnaMolecule.getStrand1Segments().forEach( function( dnaStrandSegment ) {
-      self.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_1_COLOR );
-    } );
-
-    // Add the other backbone strand.
-    dnaMolecule.getStrand2Segments().forEach( function( dnaStrandSegment ) {
-      self.addStrand( mvt, dnaStrandSegment, backboneStrokeWidth, STRAND_2_COLOR );
-    } );
-
-    // Add the base pairs.
-    dnaMolecule.getBasePairs().forEach( function( basePair ) {
-      basePairLayer.addChild( new Path( mvt.modelToViewShape( basePair.getShape() ), { fill: Color.DARK_GRAY } ) );
-    } );
-
-
   }
 
   geneExpressionEssentials.register( 'DnaMoleculeNode', DnaMoleculeNode );
 
   return inherit( Node, DnaMoleculeNode, {
 
-    /**
-     *
-     * @param {ModelViewTransform2} mvt
-     * @param {DnaStrandSegment} dnaStrandSegment
-     * @param {number} strandSegmentStroke
-     * @param {Color} color
-     */
-    addStrand: function( mvt, dnaStrandSegment, strandSegmentStroke, color ) {
-      var segmentNode = new DnaStrandSegmentNode( dnaStrandSegment, mvt, strandSegmentStroke, color );
-      if ( dnaStrandSegment.inFront ) {
-        this.dnaBackboneFrontLayer.addChild( segmentNode );
-      }
-      else {
-        this.dnaBackboneBackLayer.addChild( segmentNode );
-      }
+    step: function() {
+      this.dnaBackboneLayer.step();
     }
 
   } );

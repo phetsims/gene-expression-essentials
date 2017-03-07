@@ -9,7 +9,6 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -21,7 +20,7 @@ define( function( require ) {
   var ProteinCollectionNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionNode' );
   var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/BiomoleculeToolBoxNode' );
   var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
-  var DnaMoleculeCanvasNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeCanvasNode' );
+  //var DnaMoleculeCanvasNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeCanvasNode' );
   var MessengerRnaNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MessengerRnaNode' );
   var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -90,24 +89,11 @@ define( function( require ) {
     var frontControlsLayer = new Node();
     self.addChild( frontControlsLayer );
 
-    // BackGround Cell related Code -- TODO
-
-
     // Add the representation of the DNA strand.
     //var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
     //dnaLayer.addChild( dnaMoleculeNode );
 
-    //debugger;
-
-    this.dnaMoleculeCanvasNode = new DnaMoleculeCanvasNode( model.getDnaMolecule(), self.mvt, 3, {
-      canvasBounds: new Bounds2(
-        5589 - 8000,
-        380.52,
-        5589.392592041497,
-        492.52
-      ),
-      fill: 'pink'
-    } );
+    this.dnaMoleculeCanvasNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
 
     dnaLayer.addChild( this.dnaMoleculeCanvasNode );
     // Add the placement hints that go on the DNA molecule.  These exist on

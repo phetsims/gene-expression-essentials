@@ -75,8 +75,8 @@ define( function( require ) {
     this.addChild( controlsNode );
 
     // Add the representation of the DNA strand.
-    var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.mvt, 5, false );
-    dnaLayer.addChild( dnaMoleculeNode );
+    this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.mvt, 5, false );
+    dnaLayer.addChild( this.dnaMoleculeNode );
 
     // Add the placement hints that go on the DNA molecule. These exist on their own layer so that they can be seen
     // above any molecules that are attached to the DNA strand.
@@ -241,6 +241,10 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'MessengerRnaProductionScreenView', MessengerRnaProductionScreenView );
 
-  return inherit( ScreenView, MessengerRnaProductionScreenView, {} );
+  return inherit( ScreenView, MessengerRnaProductionScreenView, {
+    step: function() {
+      this.dnaMoleculeNode.step();
+    }
+  } );
 
 } );

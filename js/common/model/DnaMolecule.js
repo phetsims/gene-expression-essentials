@@ -383,6 +383,48 @@ define( function( require ) {
     },
 
     /**
+     * Get the x-position in model space of the leftmost edge of the DNA strand.
+     *
+     * @returns {Vector2}
+     */
+    getLeftEdgeXPos: function() {
+      return this.leftEdgeXOffset;
+    },
+
+    /**
+     * Get the x-position in model space of the rightmost edge of the DNA strand.
+     *
+     * @returns {Vector2}
+     */
+    getRightEdgeXPos: function() {
+      return this.strandPoints[ this.strandPoints.length - 1 ].xPos;
+    },
+
+    /**
+     * Get the y-position in model space of the topmost point in the edge of the DNA strand.
+     *
+     * @returns {Vector2}
+     */
+    getTopEdgeYPos: function() {
+      // assert statement here
+      var dnaStrand = this.strand1Segments[ 0 ];
+      var index = Math.floor( dnaStrand.length / 2 );
+      return dnaStrand[ index ].y;
+    },
+
+    /**
+     * Get the y-position in model space of the topmost point in the edge of the DNA strand.
+     *
+     * @returns {Vector2}
+     */
+    getBottomEdgeYPos: function() {
+      // assert statement here
+      var dnaStrand = this.strand1Segments[ 1 ];
+      var index = Math.floor( dnaStrand.length / 2 );
+      return dnaStrand[ index ].y;
+    },
+
+    /**
      * Consider an attachment proposal from a transcription factor instance. To determine whether or not to accept or
      * reject this proposal, the base pairs are scanned in order to determine whether there is an appropriate and
      * available attachment site within the attachment distance
