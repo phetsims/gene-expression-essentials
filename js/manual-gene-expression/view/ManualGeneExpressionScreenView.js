@@ -90,12 +90,9 @@ define( function( require ) {
     self.addChild( frontControlsLayer );
 
     // Add the representation of the DNA strand.
-    //var dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
-    //dnaLayer.addChild( dnaMoleculeNode );
+    this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
+    dnaLayer.addChild( this.dnaMoleculeNode );
 
-    this.dnaMoleculeCanvasNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
-
-    dnaLayer.addChild( this.dnaMoleculeCanvasNode );
     // Add the placement hints that go on the DNA molecule.  These exist on
     // their own layer so that they can be seen above any molecules that
     // are attached to the DNA strand.
@@ -204,7 +201,7 @@ define( function( require ) {
         new Text( previousGeneString, {
           font: new PhetFont( { size: 18 } ),
           maxWidth: 120
-        } ),
+        } )
       ],
       spacing: 5
     });
@@ -214,13 +211,16 @@ define( function( require ) {
         model.previousGene() ;
       },
       baseColor: 'yellow',
-      //fireOnDown: true,
       stroke: 'black',
       lineWidth: 1
     } );
 
     previousGeneButton.x = 20;
     previousGeneButton.y = self.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
+
+    // set the position of model root node based on first gene
+    self.modelRootNode.x = -self.mvt.modelToViewX( model.dnaMolecule.getGenes()[ 0 ].getCenterX() )
+                           + self.layoutBounds.width / 2;
 
     var modelRootNodeAnimator = new TWEEN.Tween( { x: self.modelRootNode.x } ).easing( TWEEN.Easing.Cubic.InOut ).onUpdate( function() {
       self.modelRootNode.x = this.x;
@@ -237,10 +237,9 @@ define( function( require ) {
     } );
     // Monitor the active gene and move the view port to be centered on it whenever it changes.
 
-    model.activeGeneProperty.lazyLink( function( gene ) {
+    model.activeGeneProperty.link( function( gene ) {
       nextGeneButton.enabled = !( gene === model.dnaMolecule.getLastGene() );
       previousGeneButton.enabled = !( gene === model.dnaMolecule.getGenes()[ 0 ] );
-      //this.isLastGeneActive = this.activeGene === this.dnaMolecule.getLastGene();
       self.viewPortOffset.setXY( -self.mvt.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
       modelRootNodeAnimator.stop().to( { x: self.viewPortOffset.x }, GENE_TO_GENE_ANIMATION_TIME ).start( phet.joist.elapsedTime );
     } );
@@ -269,7 +268,7 @@ define( function( require ) {
 
   return inherit( ScreenView, ManualGeneExpressionScreenView, {
     step: function() {
-      this.dnaMoleculeCanvasNode.step();
+      this.dnaMoleculeNode.step();
     }
   } );
 } );
