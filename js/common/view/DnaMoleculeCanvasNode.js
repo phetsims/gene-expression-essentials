@@ -106,8 +106,6 @@ define( function( require ) {
      * @param {CanvasRenderingContext2D} context
      */
     paintCanvas: function( context ) {
-
-
       for ( var i = 0; i < this.model.strand1Segments.length; i++ ) {
 
         var strand1Segment = this.model.strand1Segments[ i ];
@@ -162,7 +160,9 @@ define( function( require ) {
     },
 
     step: function() {
-      this.invalidatePaint();
+      if ( this.model.redraw ) {
+        this.invalidatePaint();
+      }
     }
 
 

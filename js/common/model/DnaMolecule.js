@@ -70,6 +70,9 @@ define( function( require ) {
     // List of forced separations between the two strands.
     this.separations = []; // @private - Array.{DnaSeparation}
 
+    // dirty bit which tells the view when to redraw DNA
+    this.redraw = false;
+
     // Add the initial set of shape-defining points for each of the two strands.  Points are spaced the same as the
     // base pairs.
     // Add in the base pairs between the backbone strands.  This calculates the distance between the two strands and
@@ -157,6 +160,8 @@ define( function( require ) {
       // add the strand for the remaining base segments
       self.strand1Segments.push( strand1SegmentPoints );
       self.strand2Segments.push( strand2SegmentPoints );
+
+      this.redraw = true;
     },
 
     /**
@@ -178,6 +183,7 @@ define( function( require ) {
      */
     updateStrandSegments: function() {
       var self = this;
+      this.redraw = false;
 
       // Set the shadow points to the nominal, non-deformed positions.
       this.strandPointsShadow.forEach( function( dnaStrandPoint ) {
@@ -237,7 +243,7 @@ define( function( require ) {
         }
 
         if ( segmentChanged ) {
-
+          this.redraw = true;
           // Update the shape of this segment.
           var strand1ShapePoints = [];
           var strand2ShapePoints = [];
