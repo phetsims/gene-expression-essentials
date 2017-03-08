@@ -17,7 +17,6 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var Property = require( 'AXON/Property' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
   var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
