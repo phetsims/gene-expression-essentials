@@ -115,8 +115,6 @@ define( function( require ) {
 
     var cellLayer = new Node();
     var invisibleCellLayer = new Node(); // for performance improvement load all cells at start of the sim
-    this.addChild( invisibleCellLayer );
-    invisibleCellLayer.visible = false;
     this.addChild( cellLayer );
 
     var cellNumberController = new ControllerNode(
