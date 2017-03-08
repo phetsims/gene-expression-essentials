@@ -246,25 +246,6 @@ define( function( require ) {
      */
     setMotionStrategy: function( motionStrategy ) {
       this.motionStrategy = motionStrategy;
-    },
-
-    /**
-     * Get a shape that is positioned such that its center is at point (0, 0).
-     *
-     * The Java version of the code has this method of MobileBioMoleculeNode itself. Now finding the center of the shape
-     * is encapsulated into individual BioMolecules so that composite shapes can apply their special cases.
-     * Ex ribosome - Modified by Ashraf
-     *
-     * @param shape
-     * @param {ModelViewTransform2} mvt
-     */
-    centeredShape: function( shape, mvt ) {
-      var viewShape = mvt.modelToViewShape( shape );
-      var shapeBounds = viewShape.bounds;
-      var xOffset = shapeBounds.getCenterX();
-      var yOffset = shapeBounds.getCenterY();
-      var transform = Matrix3.translation( -xOffset, -yOffset );
-      return viewShape.transformed( transform );
     }
   } );
 } );

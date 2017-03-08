@@ -28,7 +28,7 @@ define( function( require ) {
   /**
    *
    * @param {ModelViewTransform2} mvt
-   * @param {MobileBioMolecule} mobileBiomolecule
+   * @param {MobileBiomolecule} mobileBiomolecule
    * @param {number} outlineStroke
    * @constructor
    */
@@ -37,7 +37,7 @@ define( function( require ) {
     Node.call( self, { cursor: 'pointer' } );
     outlineStroke = outlineStroke || 1;
 
-    var path = this.getPathByMobileBioMoleculeType( mobileBiomolecule, {
+    var path = self.getPathByMobileBioMoleculeType( mobileBiomolecule, {
       stroke: Color.BLACK,
       lineWidth: outlineStroke
     } );
@@ -47,7 +47,7 @@ define( function( require ) {
     // Update the shape whenever it changes.
     mobileBiomolecule.addShapeChangeObserver( function( shape ) {
       // Create a shape that excludes any offset.
-      var centeredShape = mobileBiomolecule.centeredShape( shape, mvt );
+      var centeredShape = self.centeredShape( shape, mvt );
       path.setShape( centeredShape );
       // Account for the offset.
       var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
@@ -69,7 +69,7 @@ define( function( require ) {
 
     //Update the color whenever it changes.
     mobileBiomolecule.colorProperty.link( function( color ) {
-      var moleculeShape = mobileBiomolecule.centeredShape( mobileBiomolecule.getShape(), mvt );
+      var moleculeShape = self.centeredShape( mobileBiomolecule.getShape(), mvt );
 
       //see the comment above on gradientPaint
       if ( _.isFinite( moleculeShape.bounds.centerX ) ) {
@@ -132,7 +132,7 @@ define( function( require ) {
 
     /**
      *
-     * @param {MobileBioMolecule} mobileBiomolecule
+     * @param {MobileBiomolecule} mobileBiomolecule
      * @param {Object} options
      */
     getPathByMobileBioMoleculeType: function( mobileBiomolecule, options ) {
@@ -154,17 +154,20 @@ define( function( require ) {
     /**
      * Get a shape that is positioned such that its center is at point (0, 0).
      *
-     * @param {Shape} shape
-     * @return {Shape}
+     * The Java version of the code has this method of MobileBioMoleculeNode itself. Now finding the center of the shape
+     * is encapsulated into individual BioMolecules so that composite shapes can apply their special cases.
+     * Ex ribosome - Modified by Ashraf
+     *
+     * @param shape
+     * @param {ModelViewTransform2} mvt
      */
-    getCenteredShape: function( shape ) {
-      var shapeBounds = shape.bounds;
+    centeredShape: function( shape, mvt ) {
+      var viewShape = mvt.modelToViewShape( shape );
+      var shapeBounds = viewShape.bounds;
       var xOffset = shapeBounds.getCenterX();
       var yOffset = shapeBounds.getCenterY();
       var transform = Matrix3.translation( -xOffset, -yOffset );
-      return shape.transformed( transform );
+      return viewShape.transformed( transform );
     }
-
-
   } );
 } );

@@ -64,6 +64,7 @@ define( function( require ) {
       }
     },
 
+    // TODO
     /**
      *
      * @param existingItem
@@ -78,6 +79,7 @@ define( function( require ) {
       this._fireItemAdded( itemToInsert );
     },
 
+    // TODO
     /**
      *
      * @param existingItem

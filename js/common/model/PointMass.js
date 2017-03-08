@@ -130,7 +130,7 @@ define( function( require ) {
 
       // The original code is here -> this.velocity.set( this.velocity.plus( this.acceleration.timesScalar( deltaTime ) ) );
       // code modified for performance reason
-      this.velocity.add( this.acceleration.times( deltaTime ) );
+      this.velocity.add( this.acceleration.timesScalar( deltaTime ) );
       this.position.setXY( this.position.x + this.velocity.x * deltaTime, this.position.y + this.velocity.y * deltaTime );
     },
 
