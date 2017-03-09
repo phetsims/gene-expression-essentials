@@ -57,7 +57,8 @@ define( function( require ) {
     this.dataSeries = new XYDataSeries( {
       color: PhetColorScheme.RED_COLORBLIND,
       stroke: PhetColorScheme.RED_COLORBLIND,
-      lineWidth: 2
+      lineWidth: 2,
+      initialSize: 1800
     } );
 
     plot.addSeries( this.dataSeries, true );
