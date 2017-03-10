@@ -7,6 +7,7 @@ define( function( require ) {
   var ButtonListener = require( 'SCENERY/input/ButtonListener' );
   var Dialog = require( 'JOIST/Dialog' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var HTMLText = require( 'SCENERY/nodes/HTMLText' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
@@ -19,6 +20,7 @@ define( function( require ) {
 
   //strings
   var imageCaptionString = require('string!GENE_EXPRESSION_ESSENTIALS/imageCaption');
+  var imageCaptionNoteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaptionNote' );
 
   function FluorescentCellsPictureDialog() {
     var self = this;
@@ -27,7 +29,8 @@ define( function( require ) {
     imageNode.scale( 0.75 );
     var children = [
       imageNode,
-      new MultiLineText( imageCaptionString ),
+      new HTMLText( imageCaptionString ),
+      new MultiLineText( imageCaptionNoteString ),
       new Text( 'Image Copyright Dennis Kunkel Microscopy, Inc.' )
     ];
 
