@@ -40,12 +40,14 @@ define( function( require ) {
     // Layers for supporting the 3D look by allowing the "twist" to be depicted.
     this.dnaBackboneLayer = new DnaMoleculeCanvasNode( dnaMolecule, mvt, backboneStrokeWidth, {
       canvasBounds: new Bounds2(
-        mvt.modelToViewX( dnaMolecule.getLeftEdgeXPos() ),
-        mvt.modelToViewY( dnaMolecule.getTopEdgeYPos() ) - 10,
-        mvt.modelToViewX( dnaMolecule.getRightEdgeXPos() ),
-        mvt.modelToViewY( dnaMolecule.getBottomEdgeYPos() ) + 10
-      )
+        dnaMolecule.getLeftEdgeXPos(),
+        dnaMolecule.getBottomEdgeYPos() + mvt.viewToModelDeltaY( 10 ),
+        dnaMolecule.getRightEdgeXPos(),
+        dnaMolecule.getTopEdgeYPos() - mvt.viewToModelDeltaY( 10 )
+      ),
+      matrix: mvt.getMatrix()
     } );
+
     self.addChild( this.dnaBackboneLayer );
 
     // Put the gene backgrounds and labels behind everything.

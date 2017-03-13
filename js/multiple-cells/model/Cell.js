@@ -23,7 +23,7 @@ define( function( require ) {
   // Protein level at which the color change (towards the florescent color) is complete.
   var PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES = 150;
 
-  // Default E-Coli like shape for perfomance improvement and we make copy of it and rotate for different instances
+  // Default E-Coli like shape for performance improvement and we make copy of it and rotate for different instances
   var E_COLI_LLIKE_SHAPE = BioShapeUtils.createEColiLikeShape( DEFAULT_CELL_SIZE.width, DEFAULT_CELL_SIZE.height );
 
   function Cell( rotationAngle ) {

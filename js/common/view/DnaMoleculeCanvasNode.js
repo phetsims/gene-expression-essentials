@@ -22,8 +22,9 @@ define( function( require ) {
   function DnaMoleculeCanvasNode( model, mvt, backboneStrokeWidth, options ) {
     this.model = model;
     this.mvt = mvt;
-    this.backboneStrokeWidth = backboneStrokeWidth;
+    this.backboneStrokeWidth = mvt.viewToModelDeltaX( backboneStrokeWidth );
     CanvasNode.call( this, options );
+    //this.setMatrix( mvt.getMatrix() );
     this.invalidatePaint();
   }
 
@@ -36,10 +37,10 @@ define( function( require ) {
       context.beginPath();
       context.fillStyle = Color.DARK_GRAY.computeCSS();
       context.fillRect(
-        this.mvt.modelToViewX( basePair.x ),
-        this.mvt.modelToViewY( basePair.y ),
-        this.mvt.modelToViewDeltaX( basePair.width ),
-        this.mvt.modelToViewDeltaY( basePair.height )
+        basePair.x,
+        basePair.y,
+        basePair.width,
+        basePair.height
       );
 
     },
@@ -47,13 +48,13 @@ define( function( require ) {
     drawCurve: function( context, strandSegment, strokeColor ) {
       var strandSegmentLength = strandSegment.length;
       context.beginPath();
-      context.moveTo( this.mvt.modelToViewX( strandSegment[ 0 ].x ), this.mvt.modelToViewY( strandSegment[ 0 ].y ) );
+      context.moveTo( strandSegment[ 0 ].x, strandSegment[ 0 ].y );
       if ( strandSegmentLength === 1 || strandSegmentLength === 2 ) {
         // Can't really create a curve from this, so draw a straight line
         // to the end point and call it good.
         context.lineTo(
-          this.mvt.modelToViewX( strandSegment[ strandSegmentLength - 1 ].x ),
-          this.mvt.modelToViewY( strandSegment[ strandSegmentLength - 1 ].y )
+          strandSegment[ strandSegmentLength - 1 ].x,
+          strandSegment[ strandSegmentLength - 1 ].y
         );
 
         //context.closePath();
@@ -62,10 +63,10 @@ define( function( require ) {
       // Create the first curved segment.
       var cp1 = ShapeUtils.extrapolateControlPoint( strandSegment[ 2 ], strandSegment[ 1 ], strandSegment[ 0 ] );
       context.quadraticCurveTo(
-        this.mvt.modelToViewX( cp1.x ),
-        this.mvt.modelToViewY( cp1.y ),
-        this.mvt.modelToViewX( strandSegment[ 1 ].x ),
-        this.mvt.modelToViewY( strandSegment[ 1 ].y )
+        cp1.x,
+        cp1.y,
+        strandSegment[ 1 ].x,
+        strandSegment[ 1 ].y
       );
       // Create the middle segments.
       for ( var j = 1; j < strandSegmentLength - 2; j++ ) {
@@ -76,12 +77,12 @@ define( function( require ) {
         var controlPoint1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint );
         var controlPoint2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint );
         context.bezierCurveTo(
-          this.mvt.modelToViewX( controlPoint1.x ),
-          this.mvt.modelToViewY( controlPoint1.y ),
-          this.mvt.modelToViewX( controlPoint2.x ),
-          this.mvt.modelToViewY( controlPoint2.y ),
-          this.mvt.modelToViewX( segmentEndPoint.x ),
-          this.mvt.modelToViewY( segmentEndPoint.y )
+          controlPoint1.x,
+          controlPoint1.y,
+          controlPoint2.x,
+          controlPoint2.y,
+          segmentEndPoint.x,
+          segmentEndPoint.y
         );
       }
       // Create the final curved segment.
@@ -91,10 +92,10 @@ define( function( require ) {
       );
 
       context.quadraticCurveTo(
-        this.mvt.modelToViewX( cp1.x ),
-        this.mvt.modelToViewY( cp1.y ),
-        this.mvt.modelToViewX( strandSegment[ strandSegmentLength - 1 ].x ),
-        this.mvt.modelToViewY( strandSegment[ strandSegmentLength - 1 ].y )
+        cp1.x,
+        cp1.y,
+        strandSegment[ strandSegmentLength - 1 ].x,
+        strandSegment[ strandSegmentLength - 1 ].y
       );
       context.strokeStyle = strokeColor.computeCSS();
       context.lineWidth = this.backboneStrokeWidth;
