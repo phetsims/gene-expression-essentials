@@ -21,7 +21,6 @@ define( function( require ) {
   var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var Range = require( 'DOT/Range' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
   var Util = require( 'DOT/Util' );

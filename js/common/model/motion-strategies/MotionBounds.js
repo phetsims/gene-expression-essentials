@@ -15,8 +15,6 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Matrix3 = require( 'DOT/Matrix3' );
-
 
   /**
    * @param {Bounds2} bounds
