@@ -42,22 +42,11 @@ define( function( require ) {
     },
 
     /**
-     * @param {Shape} p
+     * @param {Bounds2} bounds
      * @returns {boolean}
      */
-    inBounds: function( p ) {
-      if ( p.x ) {
-        return this.inBoundsByPoint( p );
-      }
-      return this.bounds === null || this.bounds.containsBounds( p.bounds );
-    },
-
-    /**
-     * @param {Vector2} p
-     * @returns {boolean}
-     */
-    inBoundsByPoint: function( p ) {
-      return this.bounds === null || this.bounds.containsPoint( p );
+    inBounds: function( bounds ) {
+      return this.bounds === null || this.bounds.containsBounds( bounds );
     },
 
     /**
@@ -78,8 +67,7 @@ define( function( require ) {
      * @return
      */
     testIfInMotionBoundsWithDelta: function( shape, motionVector, dt ) {
-      var motionTransform = Matrix3.translation( motionVector.x * dt, motionVector.y * dt );
-      return this.inBounds( shape.transformed( motionTransform ) );
+      return this.inBounds( shape.bounds.shifted( motionVector.x * dt, motionVector.y * dt ) );
 
     },
 
@@ -95,9 +83,7 @@ define( function( require ) {
     testIfInMotionBounds: function( shape, proposedLocation ) {
       var shapeCenter = shape.bounds.getCenter();
       var translationVector = proposedLocation.minus( shapeCenter );
-      var translation = Matrix3.translation( translationVector.x, translationVector.y );
-      var translatedBounds = shape.transformed( translation );
-      return this.inBounds( translatedBounds );
+      return this.inBounds( shape.bounds.shifted( translationVector.x, translationVector.y ) );
     }
 
 

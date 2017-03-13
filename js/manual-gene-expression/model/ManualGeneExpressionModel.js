@@ -221,17 +221,12 @@ define( function( require ) {
     /**
      * Get a list of all mobile biomolecules that overlap with the provided shape.
      *
-     * @param {Shape} testShape - Shape, in model coordinate, to test for overlap.
-     * @return {Array} List of molecules that overlap with the provided shape.
+     * @param {Bounds2} testShapeBounds - Bounds, in model coordinate, to test for overlap.
+     * @return {Array} List of molecules that overlap with the provided bounds.
      */
-    getOverlappingBiomolecules: function( testShape ) {
+    getOverlappingBiomolecules: function( testShapeBounds ) {
 
       var overlappingBiomolecules = [];
-
-      // Since it is computationally expensive to test overlap with every
-      // shape, we do a fast bounds test first, and then the more expensive
-      // test when necessary.
-      var testShapeBounds = testShape.bounds;
 
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         if ( mobileBiomolecule.getShape().bounds.intersectsBounds( testShapeBounds ) ) {

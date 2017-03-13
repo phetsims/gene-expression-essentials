@@ -73,10 +73,10 @@ define( function( require ) {
     /**
      * Get a list of all messenger biomolecules that overlap with the provided
      * shape.
-     * @param {Shape} testShape
+     * @param {Bounds2} testShapeBounds
      * @return {Array<MobileBiomolecule>}
      */
-    getOverlappingBiomolecules: function( testShape ) {
+    getOverlappingBiomolecules: function( testShapeBounds ) {
       assert && assert( false, 'getOverlappingBiomolecules should be implemented in descendant classes of GeneExpressionModel' );
     }
 

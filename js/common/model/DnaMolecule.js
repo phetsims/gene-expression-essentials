@@ -575,11 +575,10 @@ define( function( require ) {
       var self = this;
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
         var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
-        var transform = Matrix3.translation( translationVector.x, translationVector.y );
-        var translatedShape = biomolecule.getShape().transformed( transform );
-        var inBounds = biomolecule.motionBoundsProperty.get().inBounds( translatedShape );
+        var translatedShapeBounds = biomolecule.getShape().bounds.shifted( translationVector.x, translationVector.y );
+        var inBounds = biomolecule.motionBoundsProperty.get().inBounds( translatedShapeBounds );
         var overlapsOtherMolecules = false;
-        var list = self.model.getOverlappingBiomolecules( translatedShape );
+        var list = self.model.getOverlappingBiomolecules( translatedShapeBounds );
         for ( var i = 0; i < list.length; i++ ) {
           var mobileBiomolecule = list[ i ];
           if ( mobileBiomolecule.attachedToDnaProperty.get() && mobileBiomolecule !== biomolecule ) {
@@ -589,21 +588,6 @@ define( function( require ) {
         }
         return inBounds && !overlapsOtherMolecules;
 
-      } );
-    },
-
-    /**
-     * @private
-     * @param {MobileBiomolecule} biomolecule
-     * @param {Array<AttachmentSite>} potentialAttachmentSites
-     * @returns {Array<AttachmentSite>}
-     */
-    eliminateOverlappingAttachmentSitesNew: function( biomolecule, potentialAttachmentSites ) {
-      return _.filter( potentialAttachmentSites, function( attachmentSite ) {
-        var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
-        var transform = Matrix3.translation( translationVector.x, translationVector.y );
-        var translatedShape = biomolecule.getShape().transformed( transform );
-        return biomolecule.motionBoundsProperty.get().inBounds( translatedShape );
       } );
     },
 

@@ -16,7 +16,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var Range = require( 'DOT/Range' );
   var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
@@ -64,15 +63,6 @@ define( function( require ) {
     },
 
     /**
-     * private method
-     * @param {Vector2} motionVector
-     * @param {number} dt
-     */
-    getMotionTransform: function( motionVector, dt ) {
-      return Matrix3.translation( motionVector.x * dt, motionVector.y * dt );
-    },
-
-    /**
      * This utility method will return a motion vector that reflects a "bounce" in the x, y, or both directions based on
      * which type of bounce will yield a next location for the shape that is within the motion bounds. If no such vector
      * can be found, a vector to the center of the motion bounds is returned.
@@ -85,27 +75,23 @@ define( function( require ) {
      */
     getMotionVectorForBounce: function( shape, originalMotionVector, dt, maxVelocity ) {
       // Check that this isn't being called inappropriately
-      var currentMotionTransform = this.getMotionTransform( originalMotionVector, dt );
-      assert && assert( !this.motionBounds.inBounds( shape.transformed( currentMotionTransform ) ) );
+      assert && assert( !this.motionBounds.inBounds( shape.bounds.shifted( originalMotionVector.x * dt, originalMotionVector.y * dt ) ) );
 
       // Try reversing X direction.
       var reversedXMotionVector = new Vector2( -originalMotionVector.x, originalMotionVector.y );
-      var reverseXMotionTransform = this.getMotionTransform( reversedXMotionVector, dt );
-      if ( this.motionBounds.inBounds( shape.transformed( reverseXMotionTransform ) ) ) {
+      if ( this.motionBounds.inBounds( shape.bounds.shifted( reversedXMotionVector.x * dt, reversedXMotionVector.y * dt ) ) ) {
         return reversedXMotionVector;
       }
 
       // Try reversing Y direction.
       var reversedYMotionVector = new Vector2( originalMotionVector.x, -originalMotionVector.y );
-      var reverseYMotionTransform = this.getMotionTransform( reversedYMotionVector, dt );
-      if ( this.motionBounds.inBounds( shape.transformed( reverseYMotionTransform ) ) ) {
+      if ( this.motionBounds.inBounds( shape.bounds.shifted( reversedYMotionVector.x * dt, reversedYMotionVector * dt ) ) ) {
         return reversedYMotionVector;
       }
 
       // Try reversing both X and Y directions.
       var reversedXYMotionVector = new Vector2( -originalMotionVector.x, -originalMotionVector.y );
-      var reverseXYMotionTransform = this.getMotionTransform( reversedXYMotionVector, dt );
-      if ( this.motionBounds.inBounds( shape.transformed( reverseXYMotionTransform ) ) ) {
+      if ( this.motionBounds.inBounds( shape.bounds.shifted( reversedXYMotionVector.x * dt, reversedXYMotionVector.x * dt ) ) ) {
         return reversedXYMotionVector;
       }
 

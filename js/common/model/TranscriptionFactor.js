@@ -74,7 +74,7 @@ define( function( require ) {
       // directly into the detaching state so that this drifts away from the DNA. This makes it clear the you can't have
       // two transcription factors in the same place on the DNA.
 
-      var moleculesShapes = this.model.getOverlappingBiomolecules( this.getShape() );
+      var moleculesShapes = this.model.getOverlappingBiomolecules( this.getShape().bounds );
 
       for ( var i = 0; i < moleculesShapes.length; i++ ) {
         var biomolecule = moleculesShapes[ i ];
