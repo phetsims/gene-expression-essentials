@@ -142,20 +142,19 @@ define( function( require ) {
 
       setupMotionBounds: function() {
 
-        // The bottom of the bounds, based off center point of the DNA
-        // molecule.  Offset was empirically determined.
-        var minY = CommonConstants.DNA_MOLECULE_Y_POS - 1200;
+        // Bounds, have been empirically determined to keep biomolecules in .
+        var minY = -1854;
 
         // The max Y position is set to make it so that molecules can move
         // outside of the view port, but not way outside.  Its value was
         // empirically determined.
-        var maxY = CommonConstants.DNA_MOLECULE_Y_POS + 1100;
+        var maxY = 1236;
 
         // Figure out the X bounds based on the length of the gene.  This
         // extends a little less in the -x direction than in the +x, since the
         // beginning of the gene is in the center of the view port.
-        var minX = this.gene.getStartX() - 1300;
-        var maxX = this.gene.getEndX() + 400; // Needs to be long enough to allow the polymerase to get to the end.
+        var minX = -2458;
+        var maxX = 2663; // Needs to be long enough to allow the polymerase to get to the end.
 
         // Create the nominal rectangular bounds.
         var bounds = new Bounds2( minX, minY, maxX, maxY );

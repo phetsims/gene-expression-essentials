@@ -33,6 +33,8 @@ define( function( require ) {
   // Distance within which RNA polymerase may attach.
   var RNA_POLYMERASE_ATTACHMENT_DISTANCE = 400;
 
+  var attachmentSiteLocation = new Vector2( 0, 0 );
+
   /**
    * @param {GeneExpressionModel} model - the gene expression model within which this DNA strand exists
    * @param {number} numBasePairs - number of base pairs in the strand
@@ -485,7 +487,7 @@ define( function( require ) {
       var potentialAttachmentSites = [];
       for ( var i = 0; i < this.basePairs.length; i++ ) {
         // See if the base pair is within the max attachment distance.
-        var attachmentSiteLocation = new Vector2( this.basePairs[ i ].getCenterLocation().x, CommonConstants.DNA_MOLECULE_Y_POS );
+        attachmentSiteLocation.setXY( this.basePairs[ i ].getCenterLocation().x, CommonConstants.DNA_MOLECULE_Y_POS );
         if ( attachmentSiteLocation.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
           // In range.  Add it to the list if it is available.
           var potentialAttachmentSite = getAttachSiteForBasePair( i );
