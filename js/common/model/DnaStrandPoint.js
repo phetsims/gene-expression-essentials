@@ -48,7 +48,6 @@ define( function( require ) {
 
       equals: function( o ) {
         if ( this === o ) { return true; }
-        if ( o === null || o.constructor.name !== this.constructor.name ) { return false; } // TODO Remove Constructor Check
         if ( o.strand1YPos !== this.strand1YPos ) {
           return false;
         }

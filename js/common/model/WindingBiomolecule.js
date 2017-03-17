@@ -97,7 +97,7 @@ define( function( require ) {
       var springConstant = 2; // In Newtons/m
       var dampingConstant = 1;
       var pointMass = PointMass.MASS;
-      var dt = 0.025; // In seconds. //TODO get model timestep
+      var dt = 0.025; // In seconds. Fixed time-step is used to have consistency in the MRNA shape
       var numUpdates = 20;
 
 
@@ -208,7 +208,7 @@ define( function( require ) {
      *
      * @param {number} length - Length of mRNA to add in picometers.
      */
-    addLength: function( length ) {
+    addLength: function( length, dt ) {
 
       // Add the length to the set of shape-defining points. This may add a new point, or simply reposition the current
       // last point.
@@ -246,7 +246,7 @@ define( function( require ) {
 
       // Now that the points and shape segments are updated, run the algorithm that winds the points through the shapes
       // to produce the shape of the strand that will be presented to the user.
-      this.windPointsThroughSegments();
+      this.windPointsThroughSegments( dt );
     },
 
     /**
@@ -254,7 +254,7 @@ define( function( require ) {
      * segments. The combination of this algorithm and the shape segments allow the mRNA to look reasonable when it is
      * being synthesized and when it is being transcribed.
      */
-    windPointsThroughSegments: function() {
+    windPointsThroughSegments: function( dt ) {
       var handledLength = 0;
 
       // Loop through the shape segments positioning the shape-defining points within them.
@@ -294,7 +294,7 @@ define( function( require ) {
         else {
           // Segment must be square, so position the points within it using the spring algorithm.
           this.randomizePointPositionsInRectangle( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
-          this.runSpringAlgorithm( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          this.runSpringAlgorithm( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds(), dt );
         }
 
         handledLength += shapeSegment.getContainedLength();
