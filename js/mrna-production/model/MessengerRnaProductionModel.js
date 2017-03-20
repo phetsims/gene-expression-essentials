@@ -41,13 +41,12 @@ define( function( require ) {
     var self = this;
     this.clockRunningProperty = new Property( true );
 
-    // DNA strand, which is where the genes reside, where the polymerase does
-    // its transcription, and where a lot of the action takes place.
+    // DNA strand, which is where the genes reside, where the polymerase does its transcription, and where a lot of the
+    // action takes place.
     this.dnaMolecule = new DnaMolecule( this, NUM_BASE_PAIRS_ON_DNA_STRAND,
       -NUM_BASE_PAIRS_ON_DNA_STRAND * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2, true );
 
-    // The one gene that is on this DNA strand.
-    // Add the gene to the DNA molecule.  There is only one gene in this model.
+    // The one gene that is on this DNA strand. Add the gene to the DNA molecule. There is only one gene in this model.
     this.gene = new GeneA( self.dnaMolecule, Math.round( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) );
     this.dnaMolecule.addGene( self.gene );
 
@@ -56,8 +55,8 @@ define( function( require ) {
     this.positiveTranscriptionFactorList = [];
     this.negativeTranscriptionFactorList = [];
 
-    // List of mRNA molecules in the sim.  These are kept separate because they
-    // are treated a bit differently than the other mobile biomolecules.
+    // List of mRNA molecules in the sim. These are kept separate because they are treated a bit differently than the
+    // other mobile biomolecules.
     this.messengerRnaList = new ObservableArray();
 
     // Properties that control the quantity of transcription factors.
@@ -84,10 +83,9 @@ define( function( require ) {
     this.moleculeMotionBounds = null;
     this.setupMotionBounds();
 
-    // The bounds within which polymerase may be moved when recycled.
-    // Set up the area where RNA polymerase goes when it is recycled.
-    // This is near the beginning of the transcribed region in order to
-    // make transcription more likely to occur.
+    // The bounds within which polymerase may be moved when recycled. Set up the area where RNA polymerase goes when it
+    // is recycled. This is near the beginning of the transcribed region in order to make transcription more likely to
+    // occur.
     var polymeraseSize = new RnaPolymerase().getShape().bounds;
     var firstGene = self.dnaMolecule.getGenes()[ 0 ];
     var recycleZoneCenterX = self.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().min ) +
@@ -144,21 +142,11 @@ define( function( require ) {
 
         // Bounds, have been empirically determined to keep biomolecules in .
         var minY = -1854;
-
-        // The max Y position is set to make it so that molecules can move
-        // outside of the view port, but not way outside.  Its value was
-        // empirically determined.
         var maxY = 1236;
-
-        // Figure out the X bounds based on the length of the gene.  This
-        // extends a little less in the -x direction than in the +x, since the
-        // beginning of the gene is in the center of the view port.
         var minX = -2458;
-        var maxX = 2663; // Needs to be long enough to allow the polymerase to get to the end.
+        var maxX = 2663;
 
-        // Create the nominal rectangular bounds.
         var bounds = new Bounds2( minX, minY, maxX, maxY );
-        //this.moleculeMotionBounds = bounds;
         this.moleculeMotionBounds = new MotionBounds( bounds );
 
       },
@@ -179,12 +167,10 @@ define( function( require ) {
         var self = this;
         self.mobileBiomoleculeList.add( mobileBiomolecule );
 
-        // Set the motion bounds such that the molecules move around above and
-        // on top of the DNA.
+        // Set the motion bounds such that the molecules move around above and on top of the DNA.
         mobileBiomolecule.setMotionBounds( self.moleculeMotionBounds );
 
-        // Hook up an observer that will activate and deactivate placement
-        // hints for this molecule.
+        // Hook up an observer that will activate and deactivate placement hints for this molecule.
         mobileBiomolecule.userControlledProperty.link( function( isUserControlled, wasUserControlled ) {
           if ( isUserControlled ) {
             self.dnaMolecule.activateHints( mobileBiomolecule );
@@ -195,8 +181,7 @@ define( function( require ) {
         } );
 
 
-        // Hook up an observer that will remove this biomolecule from the
-        // model if its existence strength reaches zero.
+        // Hook up an observer that will remove this biomolecule from the model if its existence strength reaches zero.
         mobileBiomolecule.existenceStrengthProperty.link( function existenceObserver( existenceStrength ) {
           if ( existenceStrength === 0 ) {
             self.removeMobileBiomolecule( mobileBiomolecule );
@@ -207,8 +192,7 @@ define( function( require ) {
       },
 
       /**
-       * Get a list of all mobile biomolecules that overlap with the provided
-       * shape.
+       * Get a list of all mobile biomolecules that overlap with the provided shape.
        *
        * @param {Bounds2} testShapeBounds - Bounds, in model coordinate, to test for overlap.
        * @return {Array} List of molecules that overlap with the provided shape.
@@ -243,12 +227,10 @@ define( function( require ) {
         var self = this;
         self.messengerRnaList.push( messengerRna );
 
-        // Since this will never be translated in this model, make it fade
-        // away once it is formed.
+        // Since this will never be translated in this model, make it fade away once it is formed.
         messengerRna.setFadeAwayWhenFormed( true );
 
-        // Remove this from the model once its existence strength reaches
-        // zero, which it will do since it is fading out.
+        // Remove this from the model once its existence strength reaches zero, which it will do since it is fading out.
         messengerRna.existenceStrengthProperty.link( function( existenceStrength ) {
           if ( existenceStrength <= 0 ) {
             // It's "gone", so remove it from the model.
@@ -286,8 +268,8 @@ define( function( require ) {
         this.gene.getTranscriptionFactorAffinityProperty( POSITIVE_TRANSCRIPTION_FACTOR_CONFIG ).reset();
         this.gene.getTranscriptionFactorAffinityProperty( NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG ).reset();
 
-        // Add the polymerase molecules.  These don't come and go, the
-        // concentration of these remains constant in this model.
+        // Add the polymerase molecules. These don't come and go, the concentration of these remains constant in this
+        // model.
         for ( var i = 0; i < RNA_POLYMERASE_COUNT; i++ ) {
           var rnaPolymerase = new RnaPolymerase( this, new Vector2( 0, 0 ) );
           rnaPolymerase.setPosition3D( this.generateInitialLocation3D( rnaPolymerase ) );
@@ -302,7 +284,7 @@ define( function( require ) {
       /**
        * Generate a random, valid, initial location, including the Z dimension.
        * @param {MobileBiomolecule} biomolecule
-       * @returns {e.Vector3}
+       * @returns {Vector3}
        */
       generateInitialLocation3D: function( biomolecule ) {
         var xMin = this.moleculeMotionBounds.getBounds().minX + biomolecule.getShape().bounds.getWidth() / 2;
