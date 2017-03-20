@@ -8,14 +8,18 @@ define( function( require ) {
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/model/MessengerRnaProductionModel' );
   var MessengerRnaProductionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/MessengerRnaProductionScreenView' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var mRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRna' );
+
+  // images
+  var mRnaProductionIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/mrna-production-icon.png' );
 
   /**
    * @constructor
@@ -24,8 +28,8 @@ define( function( require ) {
 
     var options = {
       name: mRnaString,
-      backgroundColorProperty: new Property( '#ABCBDB' )
-      //TODO add homeScreenIcon
+      backgroundColorProperty: new Property( '#ABCBDB' ),
+      homeScreenIcon: new Image( mRnaProductionIcon )
     };
 
     Screen.call( this,

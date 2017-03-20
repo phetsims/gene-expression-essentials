@@ -9,14 +9,18 @@ define( function( require ) {
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var ManualGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ManualGeneExpressionModel' );
   var ManualGeneExpressionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ManualGeneExpressionScreenView' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var expressionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/expression' );
+
+  // images
+  var manualGeneExpressionIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/manual-gene-expression-icon.png' );
 
   /**
    * @constructor
@@ -25,8 +29,8 @@ define( function( require ) {
 
     var options = {
       name: expressionString,
-      backgroundColorProperty: new Property( '#ABCBDB' )
-      //TODO add homeScreenIcon
+      backgroundColorProperty: new Property( '#ABCBDB' ),
+      homeScreenIcon: new Image( manualGeneExpressionIcon )
     };
 
     Screen.call( this,

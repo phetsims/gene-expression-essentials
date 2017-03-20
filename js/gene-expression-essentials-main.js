@@ -20,7 +20,6 @@ define( function( require ) {
 
   var simOptions = {
     credits: {
-      //TODO fill in proper credits, all of these fields are optional, see joist.AboutDialog
       leadDesign: 'Steele Dalton',
       softwareDevelopment: 'Sharfudeen Ashraf, John Blanco, George Emanuel,\n Aadish Gupta',
       team: 'John Blanco, Mike Klymkowsky, Amanda McGarry, Ariel Paul,\n Katherine Perkins, Tom Perkins',
