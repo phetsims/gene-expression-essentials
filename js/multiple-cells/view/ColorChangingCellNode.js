@@ -34,10 +34,10 @@ define( function( require ) {
     var cellBody = new Path( mvt.modelToViewShape( cell.getShape() ), {
       fill: NOMINAL_FILL_COLOR,
       stroke: STROKE_COLOR,
-      lineWidth: STROKE
+      lineWidth: STROKE,
+      boundsMethod: 'unstroked',
+      center: mvt.modelToViewXY( cell.positionX, cell.positionY )
     } );
-
-    cellBody.center = mvt.modelToViewXY( cell.positionX, cell.positionY );
 
     cell.proteinCount.lazyLink( function( proteinCount ) {
         var florescenceAmount = Util.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
