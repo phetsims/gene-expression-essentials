@@ -34,14 +34,9 @@ define( function( require ) {
 
 
     drawRect: function( context, basePair ) {
-      context.beginPath();
-      context.fillStyle = Color.DARK_GRAY.computeCSS();
-      context.fillRect(
-        basePair.x,
-        basePair.y,
-        basePair.width,
-        basePair.height
-      );
+      context.moveTo( basePair.x, basePair.y );
+      context.lineWidth = basePair.width;
+      context.lineTo( basePair.x, basePair.y + basePair.height );
 
     },
 
@@ -123,13 +118,18 @@ define( function( require ) {
           //this.drawCurve( context, strand2Segment, STRAND_2_COLOR );
         }
 
-        //context.closePath();
       }
 
+      context.beginPath();
+
       for ( i = 0; i < this.model.basePairs.length; i++ ) {
+
         var basePair = this.model.basePairs[ i ];
+
         this.drawRect( context, basePair );
       }
+      context.strokeStyle = Color.DARK_GRAY.computeCSS();
+      context.stroke();
 
       for ( i = 0; i < this.model.strand1Segments.length; i++ ) {
 
@@ -147,17 +147,8 @@ define( function( require ) {
           this.drawCurve( context, strand2Segment, STRAND_2_COLOR );
         }
 
-        //context.closePath();
       }
 
-      //context.fillRect(-1208.48, 380, 8000, 200);
-      //context.fillStyle = 'black';
-      //context.strokeStyle = particles[ 0 ].color.darkerColor().getCanvasStyle();
-      //context.lineWidth = 1;
-      //context.beginPath();
-      //context.moveTo( 5589 - 8000,  380.52 );
-      //context.lineTo( 5589, 380.52 );
-      //context.closePath();
     },
 
     step: function() {
