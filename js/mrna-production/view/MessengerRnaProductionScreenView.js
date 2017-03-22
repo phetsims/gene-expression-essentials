@@ -182,8 +182,7 @@ define( function( require ) {
 
       // Add a listener that moves the child on to a lower layer when it connects to the DNA so that we see the desired
       // overlap behavior.
-      addedBiomolecule.attachedToDnaProperty.lazyLink( function( attachedToDna ) {
-
+      var positionBiomolecule = function( attachedToDna ) {
         if ( attachedToDna ) {
           if ( topBiomoleculeLayer.hasChild( biomoleculeNode ) ) {
             topBiomoleculeLayer.removeChild( biomoleculeNode );
@@ -196,9 +195,10 @@ define( function( require ) {
           }
           topBiomoleculeLayer.addChild( biomoleculeNode );
         }
-      } );
+      };
+      addedBiomolecule.attachedToDnaProperty.lazyLink( positionBiomolecule );
 
-      model.mobileBiomoleculeList.addItemRemovedListener( function( removedBiomolecule ) {
+      model.mobileBiomoleculeList.addItemRemovedListener( function removalListener( removedBiomolecule ) {
         if ( removedBiomolecule === addedBiomolecule ) {
           if ( topBiomoleculeLayer.hasChild( biomoleculeNode ) ) {
             topBiomoleculeLayer.removeChild( biomoleculeNode );
@@ -206,6 +206,9 @@ define( function( require ) {
           else if ( dnaLayer.hasChild( biomoleculeNode ) ) {
             dnaLayer.removeChild( biomoleculeNode );
           }
+          addedBiomolecule.attachedToDnaProperty.unlink( positionBiomolecule );
+          biomoleculeNode.dispose();
+          model.mobileBiomoleculeList.removeItemRemovedListener( removalListener );
         }
       } );
     }
@@ -227,9 +230,11 @@ define( function( require ) {
       var messengerRnaNode = new MessengerRnaNode( self.mvt, addedMessengerRna );
       messengerRnaLayer.addChild( messengerRnaNode );
 
-      model.messengerRnaList.addItemRemovedListener( function( removedMessengerRna ) {
+      model.messengerRnaList.addItemRemovedListener( function removalListener( removedMessengerRna ) {
         if ( removedMessengerRna === addedMessengerRna ) {
           messengerRnaLayer.removeChild( messengerRnaNode );
+          messengerRnaNode.dispose();
+          model.messengerRnaList.removeItemAddedListener( removalListener );
         }
 
       } );

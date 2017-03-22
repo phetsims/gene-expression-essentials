@@ -34,25 +34,30 @@ define( function( require ) {
     MobileBiomoleculeNode.call( self, mvt, messengerRna, 2 );
 
     // Add placement hints that show where ribosomes and mRNA destroyers could be attached.
-    self.addChild( new PlacementHintNode( mvt, messengerRna.ribosomePlacementHint ) );
-    self.addChild( new PlacementHintNode( mvt, messengerRna.mRnaDestroyerPlacementHint ) );
+    var ribosomePlacementHintNode = new PlacementHintNode( mvt, messengerRna.ribosomePlacementHint );
+    var mRnaDestroyerPlacementHintNode = new PlacementHintNode( mvt, messengerRna.mRnaDestroyerPlacementHint );
+    self.addChild( ribosomePlacementHintNode );
+    self.addChild( mRnaDestroyerPlacementHintNode );
 
     // Add the label. This fades in during synthesis, then fades out.
     var label = new FadeLabel( quotedMRnaString, false, messengerRna.existenceStrengthProperty );
     self.addChild( label );
-    messengerRna.beingSynthesizedProperty.link( function( beingSynthesized ) {
+
+    function handleBeingSynthesizedChanged( beingSynthesized ) {
       if ( beingSynthesized ) {
         label.startFadeIn( 3000 ); // Fade time chosen empirically.
       }
       else {
         label.startFadeOut( 1000 ); // Fade time chosen empirically.
       }
-    } );
+    }
+
+    messengerRna.beingSynthesizedProperty.link( handleBeingSynthesizedChanged );
 
     var boundingRectangle = new Rectangle( new Bounds2( 0,0,0,0 ) ) ;
     self.addChild( boundingRectangle );
-    // Update the label position as the shape changes.
-    messengerRna.shapeProperty.lazyLink( function( shape ) {
+
+    function handleShapeChanged( shape ) {
       var shapeBounds = messengerRna.bounds;
       var upperRightCornerPos = mvt.modelToViewPosition( new Vector2( shapeBounds.maxX, shapeBounds.maxY ) );
       if ( _.isFinite( upperRightCornerPos.x ) ) {
@@ -60,13 +65,28 @@ define( function( require ) {
         label.y = upperRightCornerPos.y;
         boundingRectangle.setRectBounds( mvt.modelToViewBounds( shapeBounds ) );
       }
+    }
 
-    } );
+    // Update the label position as the shape changes.
+    messengerRna.shapeProperty.lazyLink( handleShapeChanged );
 
+    this.disposeMessengerRnaNode = function() {
+      messengerRna.beingSynthesizedProperty.unlink( handleBeingSynthesizedChanged );
+      messengerRna.shapeProperty.unlink( handleShapeChanged );
+      ribosomePlacementHintNode.dispose();
+      mRnaDestroyerPlacementHintNode.dispose();
+    };
   }
 
   geneExpressionEssentials.register( 'MessengerRnaNode', MessengerRnaNode );
 
-  return inherit( MobileBiomoleculeNode, MessengerRnaNode, {} );
+  return inherit( MobileBiomoleculeNode, MessengerRnaNode, {
+    // @public
+    dispose: function() {
+      this.disposeMessengerRnaNode();
+      Node.prototype.dispose.call( this );
+    }
+
+  } );
 
 } );

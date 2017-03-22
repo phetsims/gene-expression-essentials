@@ -40,22 +40,6 @@ define( function( require ) {
 
     /**
      *
-     * @param {Function} shapeChangeObserver
-     */
-    addShapeChangeObserver: function( shapeChangeObserver ) {
-      this.shapeProperty.link( shapeChangeObserver );
-    },
-
-    /**
-     *
-     * @param {Function} shapeChangeObserver
-     */
-    removeShapeChangeObserver: function( shapeChangeObserver ) {
-      this.shapeProperty.unlink( shapeChangeObserver );
-    },
-
-    /**
-     *
      * @param {number} x
      * @param {number} y
      */

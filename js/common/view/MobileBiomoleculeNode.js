@@ -45,8 +45,7 @@ define( function( require ) {
 
     self.addChild( path );
 
-    // Update the shape whenever it changes.
-    mobileBiomolecule.addShapeChangeObserver( function( shape ) {
+    function handleShapeChanged( shape ) {
       // Create a shape that excludes any offset.
       var centeredShape = self.centeredShape( shape, mobileBiomolecule, mvt );
       path.setShape( centeredShape );
@@ -71,71 +70,91 @@ define( function( require ) {
       if ( _.isFinite( centeredShape.bounds.centerX ) ) {
         path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.colorProperty.get() );
       }
+    }
 
-    } );
+    // Update the shape whenever it changes.
+    mobileBiomolecule.shapeProperty.link( handleShapeChanged );
 
-    //Update the color whenever it changes.
-    mobileBiomolecule.colorProperty.link( function( color ) {
+    function handleColorChanged( color ) {
       var moleculeShape = self.centeredShape( mobileBiomolecule.getShape(), mobileBiomolecule, mvt );
 
       //see the comment above on gradientPaint
       if ( _.isFinite( moleculeShape.bounds.centerX ) ) {
         path.fill = GradientUtil.createGradientPaint( moleculeShape, color );
       }
+    }
 
-    } );
+    //Update the color whenever it changes.
+    mobileBiomolecule.colorProperty.link( handleColorChanged );
 
-    // Update its existence strength (i.e. fade level) whenever it changes.
-    mobileBiomolecule.existenceStrengthProperty.link( function( existenceStrength ) {
+    function handleExistenceStrengthChanged( existenceStrength ) {
       assert && assert( existenceStrength >= 0 && existenceStrength <= 1 ); // Bounds checking.
       self.setOpacity( Math.min( Number( existenceStrength ), 1 + mobileBiomolecule.zPositionProperty.get() ) );
+    }
 
-    } );
+    // Update its existence strength (i.e. fade level) whenever it changes.
+    mobileBiomolecule.existenceStrengthProperty.link( handleExistenceStrengthChanged );
 
-    // Update the "closeness" whenever it changes.
-    mobileBiomolecule.zPositionProperty.link( function( zPosition ) {
+    function handleZPositionChanged( zPosition ) {
       assert && assert( zPosition >= -1 && zPosition <= 0 ); // Parameter checking.
-      // The further back the biomolecule is, the more
-      // transparent it is in order to make it look more distant.
+      // The further back the biomolecule is, the more transparent it is in order to make it look more distant.
       self.setOpacity( Math.min( 1 + zPosition, mobileBiomolecule.existenceStrengthProperty.get() ) );
 
-      // Also, as it goes further back, this node is scaled down
-      // a bit, also to make it look further away.
+      // Also, as it goes further back, this node is scaled down a bit, also to make it look further away.
       self.setScaleMagnitude( 1 );
       self.setScaleMagnitude( 1 + 0.15 * zPosition );
-    } );
+    }
 
-    // If a polymerase molecule attaches to the DNA strand, move it to
-    // the back of its current layer so that nothing can go between it
-    // and the DNA molecule.  Otherwise odd-looking things can happen.
-    mobileBiomolecule.attachedToDnaProperty.link( function( attachedToDna ) {
+    // Update the "closeness" whenever it changes.
+    mobileBiomolecule.zPositionProperty.link( handleZPositionChanged );
+
+    function handleAttachedToDnaChanged( attachedToDna ) {
       if ( mobileBiomolecule instanceof RnaPolymerase && attachedToDna ) {
         self.moveToBack();
       }
+    }
 
+    // If a polymerase molecule attaches to the DNA strand, move it to the back of its current layer so that nothing can
+    // go between it and the DNA molecule. Otherwise odd-looking things can happen.
+    mobileBiomolecule.attachedToDnaProperty.link( handleAttachedToDnaChanged );
 
-    } );
-
+    var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, self, mvt );
     // Drag handling.
-    self.addInputListener( new BiomoleculeDragHandler( mobileBiomolecule, self, mvt ) );
+    self.addInputListener( dragHandler );
 
-
-    // Interactivity control.
-    mobileBiomolecule.movableByUserProperty.link( function( movableByUser ) {
+    function handleMovableByUserChanged( movableByUser ) {
       self.setPickable( movableByUser );
-    } );
+    }
+    // Interactivity control.
+    mobileBiomolecule.movableByUserProperty.link( handleMovableByUserChanged );
 
-    // Move this biomolecule to the top of its layer when grabbed.
-    mobileBiomolecule.userControlledProperty.link( function( userControlled ) {
+    function handleUserControlledChanged( userControlled ) {
       self.moveToFront();
-    } );
+    }
+    // Move this biomolecule to the top of its layer when grabbed.
+    mobileBiomolecule.userControlledProperty.link( handleUserControlledChanged );
 
-
+    this.disposeMobileBiomoleculeNode = function() {
+      mobileBiomolecule.shapeProperty.unlink( handleShapeChanged );
+      mobileBiomolecule.colorProperty.unlink( handleColorChanged );
+      mobileBiomolecule.existenceStrengthProperty.unlink( handleExistenceStrengthChanged );
+      mobileBiomolecule.zPositionProperty.unlink( handleZPositionChanged );
+      mobileBiomolecule.attachedToDnaProperty.unlink( handleAttachedToDnaChanged );
+      self.removeInputListener( dragHandler );
+      mobileBiomolecule.movableByUserProperty.unlink( handleMovableByUserChanged );
+      mobileBiomolecule.userControlledProperty.unlink( handleUserControlledChanged );
+    };
   }
 
   geneExpressionEssentials.register( 'MobileBiomoleculeNode', MobileBiomoleculeNode );
 
   return inherit( Node, MobileBiomoleculeNode, {
+
+    // @public
+    dispose: function() {
+      this.disposeMobileBiomoleculeNode();
+      Node.prototype.dispose.call( this );
+    },
 
     /**
      *

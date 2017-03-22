@@ -45,23 +45,35 @@ define( function( require ) {
     var path = new Path( new Shape(), pathStyleOptions );
     self.addChild( path );
 
-    // Update the shape whenever it changes.
-    placementHint.addShapeChangeObserver( function( shape ) {
+    function handleShapeChanged( shape ) {
       path.setShape( mvt.modelToViewShape( shape ) );
       var offset = mvt.modelToViewPosition( placementHint.getPosition() );
       path.centerX = offset.x;
       path.centerY = offset.y;
-    } );
+    }
+    // Update the shape whenever it changes.
+    placementHint.shapeProperty.link( handleShapeChanged );
 
-    // Listen to the property that indicates whether the hint is active and
-    // only be visible when it is.
-    placementHint.activeProperty.link( function( hintActive ) {
+    function handleActiveChanged( hintActive ) {
       path.visible = hintActive;
-    } );
+    }
 
+    // Listen to the property that indicates whether the hint is active and only be visible when it is.
+    placementHint.activeProperty.link( handleActiveChanged );
+
+    this.disposePlacementHintNode = function() {
+      placementHint.shapeProperty.unlink( handleShapeChanged );
+      placementHint.activeProperty.unlink( handleActiveChanged );
+    };
   }
 
   geneExpressionEssentials.register( 'PlacementHintNode', PlacementHintNode );
 
-  return inherit( Node, PlacementHintNode );
+  return inherit( Node, PlacementHintNode, {
+    // @public
+    dispose: function() {
+      this.disposePlacementHintNode();
+      Node.prototype.dispose.call( this );
+    }
+  } );
 } );
