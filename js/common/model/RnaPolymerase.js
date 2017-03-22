@@ -79,6 +79,7 @@ define( function( require ) {
       var translation = Matrix3.translation( this.getPosition().x, this.getPosition().y );
       var newTranslatedShape = newUntranslatedShape.transformed( translation );
       this.shapeProperty.set( newTranslatedShape );
+      this.bounds = this.shapeProperty.get().bounds.copy();
       this.colorProperty.set( Color.interpolateRGBA( NOMINAL_COLOR, CONFORMED_COLOR, changeFactor ) );
     },
 

@@ -50,7 +50,7 @@ define( function( require ) {
 
     // Separator used to deform the DNA strand when the RNA polymerase is
     // transcribing it. // Create the DNA strand separator.
-    this.dnaStrandSeparation = new DnaSeparation( rnaPolymerase.getPosition().x, rnaPolymerase.getShape().bounds.getHeight() * 0.9 );
+    this.dnaStrandSeparation = new DnaSeparation( rnaPolymerase.getPosition().x, rnaPolymerase.bounds.getHeight() * 0.9 );
 
     // This attachment site is used by the state machine to get the polymerase
     // something to attach to when transcribing.  This is a bit hokey, but was

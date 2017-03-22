@@ -55,12 +55,12 @@ define( function( require ) {
     /**
      * @Override
      * @param {Vector2} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      */
-    getNextLocation: function( currentLocation, shape, dt ) {
-      var nextLocation3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.y, 0 ), shape, dt );
+    getNextLocation: function( currentLocation, bounds, dt ) {
+      var nextLocation3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.y, 0 ), bounds, dt );
       return new Vector2( nextLocation3D.x, nextLocation3D.y );
     },
 
@@ -81,12 +81,12 @@ define( function( require ) {
 
     /**
      * @Override
-     * @param {Vector3} currentLocation
-     * @param {Shape} shape
+     * @param {Vector3} currentLocation3D
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
      */
-    getNextLocation3D: function( currentLocation3D, shape, dt ) {
+    getNextLocation3D: function( currentLocation3D, bounds, dt ) {
       // Destination is assumed to always have a Z value of 0, i.e. at the "surface".
       var currentDestination3D = new Vector3( this.destinationProperty.get().x - this.offsetFromDestinationProperty.x,
         this.destinationProperty.get().y - this.offsetFromDestinationProperty.y,
@@ -111,7 +111,7 @@ define( function( require ) {
 
       // Make sure that current motion will not cause the model element to
       // move outside of the motion bounds.
-      if ( this.motionBounds.inBounds( shape.bounds ) && !this.motionBounds.testIfInMotionBoundsWithDelta( shape, this.velocityVector2D, dt ) ) {
+      if ( this.motionBounds.inBounds( bounds ) && !this.motionBounds.testIfInMotionBoundsWithDelta( bounds, this.velocityVector2D, dt ) ) {
 
         // Not sure what to do in this case, where the destination causes
         // some portion of the shape to go out of bounds.  For now, just

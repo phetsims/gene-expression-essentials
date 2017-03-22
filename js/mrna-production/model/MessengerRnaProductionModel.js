@@ -86,7 +86,7 @@ define( function( require ) {
     // The bounds within which polymerase may be moved when recycled. Set up the area where RNA polymerase goes when it
     // is recycled. This is near the beginning of the transcribed region in order to make transcription more likely to
     // occur.
-    var polymeraseSize = new RnaPolymerase().getShape().bounds;
+    var polymeraseSize = new RnaPolymerase().bounds;
     var firstGene = self.dnaMolecule.getGenes()[ 0 ];
     var recycleZoneCenterX = self.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().min ) +
                              ( phet.joist.random.nextDouble() - 0.5 ) * 2000;
@@ -202,8 +202,7 @@ define( function( require ) {
         var overlappingBiomolecules = [];
 
         this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
-          var mobileBioMoleculeShape = mobileBiomolecule.getShape();
-          if ( mobileBioMoleculeShape.bounds.intersectsBounds( testShapeBounds ) ) {
+          if ( mobileBiomolecule.bounds.intersectsBounds( testShapeBounds ) ) {
 
             overlappingBiomolecules.push( mobileBiomolecule );
           }
@@ -287,10 +286,10 @@ define( function( require ) {
        * @returns {Vector3}
        */
       generateInitialLocation3D: function( biomolecule ) {
-        var xMin = this.moleculeMotionBounds.getBounds().minX + biomolecule.getShape().bounds.getWidth() / 2;
-        var yMin = this.moleculeMotionBounds.getBounds().minY + biomolecule.getShape().bounds.getHeight() / 2;
-        var xMax = this.moleculeMotionBounds.getBounds().maxX - biomolecule.getShape().bounds.getWidth() / 2;
-        var yMax = this.moleculeMotionBounds.getBounds().maxY - biomolecule.getShape().bounds.getHeight() / 2;
+        var xMin = this.moleculeMotionBounds.getBounds().minX + biomolecule.bounds.getWidth() / 2;
+        var yMin = this.moleculeMotionBounds.getBounds().minY + biomolecule.bounds.getHeight() / 2;
+        var xMax = this.moleculeMotionBounds.getBounds().maxX - biomolecule.bounds.getWidth() / 2;
+        var yMax = this.moleculeMotionBounds.getBounds().maxY - biomolecule.bounds.getHeight() / 2;
         var xPos = xMin + phet.joist.random.nextDouble() * ( xMax - xMin );
         var yPos = yMin + phet.joist.random.nextDouble() * ( yMax - yMin );
         var zPos = -phet.joist.random.nextDouble(); // Valid z values are from -1 to 0.

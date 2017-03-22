@@ -208,7 +208,7 @@ define( function( require ) {
      *
      * @param {number} length - Length of mRNA to add in picometers.
      */
-    addLength: function( length, dt ) {
+    addLength: function( length ) {
 
       // Add the length to the set of shape-defining points. This may add a new point, or simply reposition the current
       // last point.
@@ -246,7 +246,7 @@ define( function( require ) {
 
       // Now that the points and shape segments are updated, run the algorithm that winds the points through the shapes
       // to produce the shape of the strand that will be presented to the user.
-      this.windPointsThroughSegments( dt );
+      this.windPointsThroughSegments();
     },
 
     /**
@@ -254,7 +254,7 @@ define( function( require ) {
      * segments. The combination of this algorithm and the shape segments allow the mRNA to look reasonable when it is
      * being synthesized and when it is being transcribed.
      */
-    windPointsThroughSegments: function( dt ) {
+    windPointsThroughSegments: function() {
       var handledLength = 0;
 
       // Loop through the shape segments positioning the shape-defining points within them.
@@ -294,7 +294,7 @@ define( function( require ) {
         else {
           // Segment must be square, so position the points within it using the spring algorithm.
           this.randomizePointPositionsInRectangle( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
-          this.runSpringAlgorithm( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds(), dt );
+          this.runSpringAlgorithm( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
         }
 
         handledLength += shapeSegment.getContainedLength();
@@ -302,6 +302,7 @@ define( function( require ) {
 
       // Update the shape property based on the newly positioned points.
       this.shapeProperty.set( BioShapeUtils.createCurvyLineFromPoints( this.getPointList() ) );
+      this.bounds = this.shapeProperty.get().bounds.copy();
     },
 
     /**

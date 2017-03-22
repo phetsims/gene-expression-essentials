@@ -39,7 +39,7 @@ define( function( require ) {
 
     var pathStyleOptions = _.extend( HINT_STROKE, {
       fill: transparentColor,
-      boundsMethod: 'none'
+      boundsMethod: 'unstroked'
     } );
 
     var path = new Path( new Shape(), pathStyleOptions );
@@ -48,6 +48,9 @@ define( function( require ) {
     // Update the shape whenever it changes.
     placementHint.addShapeChangeObserver( function( shape ) {
       path.setShape( mvt.modelToViewShape( shape ) );
+      var offset = mvt.modelToViewPosition( placementHint.getPosition() );
+      path.centerX = offset.x;
+      path.centerY = offset.y;
     } );
 
     // Listen to the property that indicates whether the hint is active and

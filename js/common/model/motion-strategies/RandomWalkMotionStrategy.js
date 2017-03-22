@@ -54,15 +54,15 @@ define( function( require ) {
     /**
      * @Override
      * @param {Vector2} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      */
-    getNextLocation: function( currentLocation, shape, dt ) {
+    getNextLocation: function( currentLocation, bounds, dt ) {
       nextLocation3DScratchInVector.x = currentLocation.x;
       nextLocation3DScratchInVector.y = currentLocation.y;
       nextLocation3DScratchInVector.z = 0;
-      var location3D = this.getNextLocation3D( nextLocation3DScratchInVector, shape, dt );
+      var location3D = this.getNextLocation3D( nextLocation3DScratchInVector, bounds, dt );
       return new Vector2( location3D.x, location3D.y );
     },
 
@@ -79,11 +79,11 @@ define( function( require ) {
     /**
      * @Override
      * @param {Vector3} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
      */
-    getNextLocation3D: function( currentLocation, shape, dt ) {
+    getNextLocation3D: function( currentLocation, bounds, dt ) {
       this.directionChangeCountdown -= dt;
       if ( this.directionChangeCountdown <= 0 ) {
 
@@ -99,10 +99,10 @@ define( function( require ) {
       }
 
       // Make sure that current motion will not cause the model element to move outside of the motion bounds.
-      if ( !this.motionBounds.testIfInMotionBoundsWithDelta( shape, this.currentMotionVector2D, dt ) ) {
+      if ( !this.motionBounds.testIfInMotionBoundsWithDelta( bounds, this.currentMotionVector2D, dt ) ) {
 
         // The current motion vector would take this element out of bounds, so it needs to "bounce".
-        this.currentMotionVector2D = this.getMotionVectorForBounce( shape, this.currentMotionVector2D, dt, MAX_XY_VELOCITY );
+        this.currentMotionVector2D = this.getMotionVectorForBounce( bounds, this.currentMotionVector2D, dt, MAX_XY_VELOCITY );
 
         // Reset the timer.
         this.directionChangeCountdown = this.generateDirectionChangeCountdownValue();
@@ -111,7 +111,7 @@ define( function( require ) {
       // To prevent odd-looking situations, the Z direction is limited so
       // that biomolecules don't appear transparent when on top of the DNA
       // molecule.
-      var minZ = this.getMinZ( shape, currentLocation );
+      var minZ = this.getMinZ( bounds, currentLocation );
 
       // Calculate the next location based on current motion.
       return new Vector3(

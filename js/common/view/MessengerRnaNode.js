@@ -53,11 +53,14 @@ define( function( require ) {
     self.addChild( boundingRectangle );
     // Update the label position as the shape changes.
     messengerRna.shapeProperty.lazyLink( function( shape ) {
-      var shapeBounds = shape.bounds;
+      var shapeBounds = messengerRna.bounds;
       var upperRightCornerPos = mvt.modelToViewPosition( new Vector2( shapeBounds.maxX, shapeBounds.maxY ) );
-      label.x = upperRightCornerPos.x;
-      label.y = upperRightCornerPos.y;
-      boundingRectangle.setRectBounds( mvt.modelToViewBounds( shapeBounds ) );
+      if ( _.isFinite( upperRightCornerPos.x ) ) {
+        label.x = upperRightCornerPos.x;
+        label.y = upperRightCornerPos.y;
+        boundingRectangle.setRectBounds( mvt.modelToViewBounds( shapeBounds ) );
+      }
+
     } );
 
   }

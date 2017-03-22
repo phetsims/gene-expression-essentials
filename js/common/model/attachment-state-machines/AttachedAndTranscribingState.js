@@ -64,7 +64,7 @@ define( function( require ) {
         dnaStrandSeparation.setXPos( rnaPolymerase.getPosition().x );
 
         // Check for molecules that are in the way.
-        var molecules = asm.biomolecule.getModel().getOverlappingBiomolecules( asm.biomolecule.getShape() );
+        var molecules = asm.biomolecule.getModel().getOverlappingBiomolecules( asm.biomolecule.bounds );
         molecules.forEach( function( molecule ) {
           if ( molecule.getPosition().x > asm.biomolecule.getPosition().x && molecule.attachedToDnaProperty.get() ) {
 

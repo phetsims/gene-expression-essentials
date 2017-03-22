@@ -64,6 +64,7 @@ define( function( require ) {
         var transform = Matrix3.translation( this.getPosition().x, this.getPosition().y );
         var untranslatedShape = this.getUntranslatedShape( fullSizeProportion );
         this.shapeProperty.set( untranslatedShape.transformed( transform ) );
+        this.bounds = this.shapeProperty.get().bounds.copy();
       }
     },
 

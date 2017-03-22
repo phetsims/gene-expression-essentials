@@ -21,6 +21,7 @@ define( function( require ) {
    */
   function TranscriptionFactorPlacementHint( transcriptionFactor ) {
     PlacementHint.call( this, transcriptionFactor );
+    this.setPosition( transcriptionFactor.getPosition() );
     this.tfConfig = transcriptionFactor.getConfig(); // private
   }
 

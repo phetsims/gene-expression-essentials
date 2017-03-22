@@ -98,7 +98,7 @@ define( function( require ) {
     getDestructionChannelLength: function() {
 
       // Since this looks like a circle with a slice out of it, the channel is half of the width.
-      return this.getShape().bounds.getWidth() / 2;
+      return this.bounds.getWidth() / 2;
     },
 
     initiateMessengerRnaDestruction: function() {

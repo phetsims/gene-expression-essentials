@@ -224,8 +224,8 @@ define( function( require ) {
           for ( var k = 0; k < this.cellList.length; k++ ) {
             var existingCell = this.cellList[ k ];
             // new bounds
-            if ( cell.getShape().bounds.shifted( cell.positionX, cell.positionY )
-                .intersectsBounds( existingCell.getShape().bounds.shifted( existingCell.positionX, existingCell.positionY ) ) ) {
+            if ( cell.bounds.shifted( cell.positionX, cell.positionY )
+                .intersectsBounds( existingCell.bounds.shifted( existingCell.positionX, existingCell.positionY ) ) ) {
               overlapDetected = true;
               break;
             }

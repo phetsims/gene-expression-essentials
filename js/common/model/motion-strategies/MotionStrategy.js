@@ -33,13 +33,12 @@ define( function( require ) {
      * such as the current motion vector, will determine the next position.
      *
      * @param {Vector2} currentLocation
-     * @param {Shape} shape   Shape of the controlled item, used in detecting
-     *                        whether the item would go outside of the motion
-     *                        bounds.
+     * @param {Bounds2} bounds   Bounds of the controlled item, used in detecting whether the item would go outside of
+     *                           the motion bounds.
      * @param {number} dt
      * @return
      */
-    getNextLocation: function( currentLocation, shape, dt ) {
+    getNextLocation: function( currentLocation, bounds, dt ) {
       throw new Error( 'getNextLocation should be implemented in descendant classes of MotionStrategy .' );
     },
 
@@ -49,16 +48,16 @@ define( function( require ) {
      * strategy instance, such as the current motion vector, will determine the next position.
      *
      * @param {Vector3} currentLocation
-     * @param {Shape} shape   Shape of the controlled item, used in detecting
-     *                        whether the item would go outside of the motion
-     *                        bounds.
+     * @param {Bounds2} bounds   Bounds of the controlled item, used in detecting
+     *                           whether the item would go outside of the motion
+     *                           bounds.
      * @param {number} dt
      * @return
      */
-    getNextLocation3D: function( currentLocation, shape, dt ) {
+    getNextLocation3D: function( currentLocation, bounds, dt ) {
 
       // Default version does not move in Z direction, override for true 3D motion.
-      var nextLocation2D = this.getNextLocation( new Vector2( currentLocation.x, currentLocation.y ), shape, dt );
+      var nextLocation2D = this.getNextLocation( new Vector2( currentLocation.x, currentLocation.y ), bounds, dt );
       return new Vector3( nextLocation2D.x, nextLocation2D.y, 0 );
     },
 
@@ -67,31 +66,31 @@ define( function( require ) {
      * which type of bounce will yield a next location for the shape that is within the motion bounds. If no such vector
      * can be found, a vector to the center of the motion bounds is returned.
      *
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {Vector2} originalMotionVector
      * @param {number} dt
      * @param {number} maxVelocity
      * @returns {Vector2}
      */
-    getMotionVectorForBounce: function( shape, originalMotionVector, dt, maxVelocity ) {
+    getMotionVectorForBounce: function( bounds, originalMotionVector, dt, maxVelocity ) {
       // Check that this isn't being called inappropriately
-      assert && assert( !this.motionBounds.inBounds( shape.bounds.shifted( originalMotionVector.x * dt, originalMotionVector.y * dt ) ) );
+      assert && assert( !this.motionBounds.inBounds( bounds.shifted( originalMotionVector.x * dt, originalMotionVector.y * dt ) ) );
 
       // Try reversing X direction.
       var reversedXMotionVector = new Vector2( -originalMotionVector.x, originalMotionVector.y );
-      if ( this.motionBounds.inBounds( shape.bounds.shifted( reversedXMotionVector.x * dt, reversedXMotionVector.y * dt ) ) ) {
+      if ( this.motionBounds.inBounds( bounds.shifted( reversedXMotionVector.x * dt, reversedXMotionVector.y * dt ) ) ) {
         return reversedXMotionVector;
       }
 
       // Try reversing Y direction.
       var reversedYMotionVector = new Vector2( originalMotionVector.x, -originalMotionVector.y );
-      if ( this.motionBounds.inBounds( shape.bounds.shifted( reversedYMotionVector.x * dt, reversedYMotionVector * dt ) ) ) {
+      if ( this.motionBounds.inBounds( bounds.shifted( reversedYMotionVector.x * dt, reversedYMotionVector * dt ) ) ) {
         return reversedYMotionVector;
       }
 
       // Try reversing both X and Y directions.
       var reversedXYMotionVector = new Vector2( -originalMotionVector.x, -originalMotionVector.y );
-      if ( this.motionBounds.inBounds( shape.bounds.shifted( reversedXYMotionVector.x * dt, reversedXYMotionVector.x * dt ) ) ) {
+      if ( this.motionBounds.inBounds( bounds.shifted( reversedXYMotionVector.x * dt, reversedXYMotionVector.x * dt ) ) ) {
         return reversedXYMotionVector;
       }
 
@@ -100,8 +99,8 @@ define( function( require ) {
       // to the DNA or something. So, just return a vector back to the center of the motion bounds.  That should be a
       // safe bet.
       var centerOfMotionBounds = this.motionBounds.getBounds().getCenter();
-      var vectorToMotionBoundsCenter = new Vector2( centerOfMotionBounds.x - shape.bounds.getCenterX(),
-        centerOfMotionBounds.y - shape.bounds.getCenterY() );
+      var vectorToMotionBoundsCenter = new Vector2( centerOfMotionBounds.x - bounds.getCenterX(),
+        centerOfMotionBounds.y - bounds.getCenterY() );
       vectorToMotionBoundsCenter.multiplyScalar( maxVelocity / vectorToMotionBoundsCenter.magnitude() );
       return vectorToMotionBoundsCenter;
     },
@@ -135,13 +134,13 @@ define( function( require ) {
      * transparent as they get close so that they don't appear to pop forward when connected to the DNA (or just
      * wandering above it).
      *
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {Vector2} positionXY
      * @return {number}
      */
-    getMinZ: function( shape, positionXY ) {
-      var shapeYRange = new Range( positionXY.y - shape.bounds.height / 2,
-        positionXY.y + shape.bounds.height / 2 );
+    getMinZ: function( bounds, positionXY ) {
+      var shapeYRange = new Range( positionXY.y - bounds.height / 2,
+        positionXY.y + bounds.height / 2 );
       var dnaYRange = new Range( CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2,
         CommonConstants.DNA_MOLECULE_Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 );
       var minZ = -1;

@@ -34,11 +34,11 @@ define( function( require ) {
     /**
      * @Override
      * @param {Vector2} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      */
-    getNextLocation: function( currentLocation, shape, dt ) {
+    getNextLocation: function( currentLocation, bounds, dt ) {
       var ribosomeAttachmentPoint = this.messengerRna.getRibosomeAttachmentLocation( this.ribosome );
       return ribosomeAttachmentPoint.minus( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
     }

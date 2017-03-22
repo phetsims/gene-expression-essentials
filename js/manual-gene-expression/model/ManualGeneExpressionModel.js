@@ -229,7 +229,7 @@ define( function( require ) {
       var overlappingBiomolecules = [];
 
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
-        if ( mobileBiomolecule.getShape().bounds.intersectsBounds( testShapeBounds ) ) {
+        if ( mobileBiomolecule.bounds.intersectsBounds( testShapeBounds ) ) {
 
           overlappingBiomolecules.push( mobileBiomolecule );
         }

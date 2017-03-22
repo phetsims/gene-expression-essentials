@@ -576,7 +576,7 @@ define( function( require ) {
       var self = this;
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
         var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
-        var translatedShapeBounds = biomolecule.getShape().bounds.shifted( translationVector.x, translationVector.y );
+        var translatedShapeBounds = biomolecule.bounds.shifted( translationVector.x, translationVector.y );
         var inBounds = biomolecule.motionBoundsProperty.get().inBounds( translatedShapeBounds );
         var overlapsOtherMolecules = false;
         var list = self.model.getOverlappingBiomolecules( translatedShapeBounds );

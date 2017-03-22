@@ -120,10 +120,10 @@ define( function( require ) {
 
         // Set a new position in model space based on the current motion strategy.
         if ( this.zMotionEnabledProperty.get() ) {
-          this.setPosition3D( this.motionStrategy.getNextLocation3D( this.getPosition3D(), this.getShape(), dt ) );
+          this.setPosition3D( this.motionStrategy.getNextLocation3D( this.getPosition3D(), this.bounds, dt ) );
         }
         else {
-          this.setPosition( this.motionStrategy.getNextLocation( this.getPosition(), this.getShape(), dt ) );
+          this.setPosition( this.motionStrategy.getNextLocation( this.getPosition(), this.bounds, dt ) );
         }
 
         // Update the state of the attachment state machine.

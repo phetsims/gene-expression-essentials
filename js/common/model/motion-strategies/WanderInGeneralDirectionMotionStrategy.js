@@ -60,11 +60,11 @@ define( function( require ) {
     /**
      * @Override
      * @param {Vector2} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      */
-    getNextLocation: function( currentLocation, shape, dt ) {
+    getNextLocation: function( currentLocation, bounds, dt ) {
       this.directionChangeCountdown -= dt;
       if ( this.directionChangeCountdown <= 0 ) {
 
@@ -78,10 +78,10 @@ define( function( require ) {
       }
 
       // Make sure that current motion will not cause the model element to move outside of the motion bounds.
-      if ( !this.motionBounds.testIfInMotionBoundsWithDelta( shape, this.currentMotionVector, dt ) ) {
+      if ( !this.motionBounds.testIfInMotionBoundsWithDelta( bounds, this.currentMotionVector, dt ) ) {
 
         // The current motion vector would take this element out of bounds, so it needs to "bounce".
-        this.currentMotionVector = this.getMotionVectorForBounce( shape, this.currentMotionVector, dt, MAX_VELOCITY );
+        this.currentMotionVector = this.getMotionVectorForBounce( bounds, this.currentMotionVector, dt, MAX_VELOCITY );
 
         // Reset the timer.
         this.directionChangeCountdown = this.generateDirectionChangeCountdownValue();
@@ -93,14 +93,14 @@ define( function( require ) {
     /**
      * @Override
      * @param {Vector3} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
      */
-    getNextLocation3D: function( currentLocation, shape, dt ) {
+    getNextLocation3D: function( currentLocation, bounds, dt ) {
 
       // The 3D version of this motion strategy doesn't move in the z direction.  This may change some day.
-      var nextLocation2D = this.getNextLocation( new Vector2( currentLocation.x, currentLocation.y ), shape, dt );
+      var nextLocation2D = this.getNextLocation( new Vector2( currentLocation.x, currentLocation.y ), bounds, dt );
       return new Vector3( nextLocation2D.x, nextLocation2D.y, currentLocation.z );
     }
 

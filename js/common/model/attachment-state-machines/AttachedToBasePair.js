@@ -105,7 +105,7 @@ define( function( require ) {
             _.remove( attachmentSites, function( site ) {
 
               return site.isMoleculeAttached() || !biomolecule.motionBoundsProperty.get().testIfInMotionBounds(
-                  biomolecule.getShape(), site.locationProperty.get() );
+                  biomolecule.bounds, site.locationProperty.get() );
             } );
 
             // Shuffle in order to produce random-ish behavior.

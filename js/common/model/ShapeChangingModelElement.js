@@ -11,7 +11,6 @@ define( function( require ) {
   //modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var Property = require( 'AXON/Property' );
 
 
@@ -23,6 +22,7 @@ define( function( require ) {
   function ShapeChangingModelElement( initialShape ) {
     // Shape property, which is not public because it should only be changed by descendants of the class.
     this.shapeProperty = new Property( initialShape );
+    this.bounds = this.shapeProperty.get().bounds.copy();
 
   }
 
@@ -60,14 +60,16 @@ define( function( require ) {
      * @param {number} y
      */
     translate: function( x, y ) {
-      var translationTransform = null;
-      if ( _.isFinite( x.x ) ) { // if x is a vector
-        translationTransform = Matrix3.translation( x.x, x.y );
-      }
-      else {
-        translationTransform = Matrix3.translation( x, y );
-      }
-      this.shapeProperty.set( this.shapeProperty.get().transformed( translationTransform ) );
+      //var translationTransform = null;
+      //if ( _.isFinite( x.x ) ) { // if x is a vector
+      //  translationTransform = Matrix3.translation( x.x, x.y );
+      //}
+      //else {
+      //  translationTransform = Matrix3.translation( x, y );
+      //}
+      //this.shapeProperty.set( this.shapeProperty.get().transformed( translationTransform ) );
+      this.bounds.shift( x, y );
+      this.shapeProperty.notifyObserversStatic();
     },
 
 
@@ -99,7 +101,7 @@ define( function( require ) {
      * gives NAN in such cases. This is a WorkAround. Needs Fixing. TODO
      */
     getCenter: function() {
-      var center = this.shapeProperty.get().bounds.getCenter();
+      var center = this.bounds.getCenter();
       if ( !_.isFinite( center.x ) ) {
         return this.shapeProperty.get().subpaths[ 0 ].points[ 0 ];
       }

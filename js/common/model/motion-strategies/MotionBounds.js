@@ -59,13 +59,13 @@ define( function( require ) {
      * Test whether the given shape will be in or out of the motion bounds if the given motion vector is applied for the
      * given time.
      *
-     * @param {Shape} shape        - Shape of entity being tested.
+     * @param {Bounds2} bounds        - bounds of entity being tested.
      * @param {Vector2 }motionVector - Motion vector of the object in distance/sec
      * @param {number} dt           - delta time, i.e. amount of time, in seconds.
      * @return
      */
-    testIfInMotionBoundsWithDelta: function( shape, motionVector, dt ) {
-      return this.inBounds( shape.bounds.shifted( motionVector.x * dt, motionVector.y * dt ) );
+    testIfInMotionBoundsWithDelta: function( bounds, motionVector, dt ) {
+      return this.inBounds( bounds.shifted( motionVector.x * dt, motionVector.y * dt ) );
 
     },
 
@@ -74,14 +74,14 @@ define( function( require ) {
      * Test whether the given shape will be within the motion bounds if it is translated such that its center is at the
      * given point.
      *
-     * @param {Shape} shape            - Test shape.
+     * @param {Bounds2} bounds            - Test bounds.
      * @param {Vector2} proposedLocation - Proposed location of the shape's center.
      * @return - True is in bounds, false if not.
      */
-    testIfInMotionBounds: function( shape, proposedLocation ) {
-      var shapeCenter = shape.bounds.getCenter();
+    testIfInMotionBounds: function( bounds, proposedLocation ) {
+      var shapeCenter = bounds.getCenter();
       var translationVector = proposedLocation.minus( shapeCenter );
-      return this.inBounds( shape.bounds.shifted( translationVector.x, translationVector.y ) );
+      return this.inBounds( bounds.shifted( translationVector.x, translationVector.y ) );
     }
 
 

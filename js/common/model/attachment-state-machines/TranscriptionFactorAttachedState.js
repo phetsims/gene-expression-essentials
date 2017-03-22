@@ -102,7 +102,7 @@ define( function( require ) {
           // Eliminate sites that, if moved to, would put the biomolecule out of bounds.
           //var clonedAttachmentSites = [].concat( attachmentSites );
           _.remove( attachmentSites, function( site ) {
-              return !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.getShape(),
+            return !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.bounds,
                 site.locationProperty.get() );
           } );
 

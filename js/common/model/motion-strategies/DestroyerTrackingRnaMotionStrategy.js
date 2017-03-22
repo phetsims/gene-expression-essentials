@@ -31,11 +31,11 @@ define( function( require ) {
 
     /**
      * @param {Vector2} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      */
-    getNextLocation: function( currentLocation, shape, dt ) {
+    getNextLocation: function( currentLocation, bounds, dt ) {
       var attachmentLocation = this.messengerRna.getDestroyerAttachmentLocation();
       return new Vector2( attachmentLocation.x, attachmentLocation.y );
     }

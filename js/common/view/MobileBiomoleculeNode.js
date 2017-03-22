@@ -23,6 +23,7 @@ define( function( require ) {
   var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
   var BiomoleculeDragHandler = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/BiomoleculeDragHandler' );
   var MessengerRna = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRna' );
+  var MessengerRnaFragment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaFragment' );
 
 
   /**
@@ -47,13 +48,19 @@ define( function( require ) {
     // Update the shape whenever it changes.
     mobileBiomolecule.addShapeChangeObserver( function( shape ) {
       // Create a shape that excludes any offset.
-      var centeredShape = self.centeredShape( shape, mvt );
+      var centeredShape = self.centeredShape( shape, mobileBiomolecule, mvt );
       path.setShape( centeredShape );
       // Account for the offset.
       var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
 
-      path.x = offset.x;
-      path.y = offset.y;
+      if ( mobileBiomolecule instanceof MessengerRna || mobileBiomolecule instanceof MessengerRnaFragment ) {
+        path.x = offset.x;
+        path.y = offset.y;
+      }
+      else {
+        path.centerX = offset.x;
+        path.centerY = offset.y;
+      }
 
       // For shapes with just one point, the Java Version of GeneralPath's "Bounds" returns a width of
       // zero and height of 1 but kite's shape bounds returns infinity in such cases. Since the MessengerRna starts with
@@ -69,7 +76,7 @@ define( function( require ) {
 
     //Update the color whenever it changes.
     mobileBiomolecule.colorProperty.link( function( color ) {
-      var moleculeShape = self.centeredShape( mobileBiomolecule.getShape(), mvt );
+      var moleculeShape = self.centeredShape( mobileBiomolecule.getShape(), mobileBiomolecule, mvt );
 
       //see the comment above on gradientPaint
       if ( _.isFinite( moleculeShape.bounds.centerX ) ) {
@@ -161,13 +168,18 @@ define( function( require ) {
      * @param shape
      * @param {ModelViewTransform2} mvt
      */
-    centeredShape: function( shape, mvt ) {
+    centeredShape: function( shape, mobileBiomolecule, mvt ) {
       var viewShape = mvt.modelToViewShape( shape );
       var shapeBounds = viewShape.bounds;
       var xOffset = shapeBounds.getCenterX();
       var yOffset = shapeBounds.getCenterY();
       var transform = Matrix3.translation( -xOffset, -yOffset );
-      return viewShape.transformed( transform );
+      if ( mobileBiomolecule instanceof MessengerRna || mobileBiomolecule instanceof MessengerRnaFragment ) {
+        return viewShape.transformed( transform );
+      }
+      else {
+        return viewShape;
+      }
     }
   } );
 } );

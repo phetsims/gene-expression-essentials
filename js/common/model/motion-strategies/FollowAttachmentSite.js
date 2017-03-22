@@ -30,11 +30,11 @@ define( function( require ) {
     /**
      * @Override
      * @param {Vector2} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      */
-    getNextLocation: function( currentLocation, shape, dt ) {
+    getNextLocation: function( currentLocation, bounds, dt ) {
       return this.attachmentSite.locationProperty.get();
     }
 

@@ -53,61 +53,61 @@ define( function( require ) {
     /**
      * @private methos
      * @param {array <Rectangle2D>} destinationZones
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @returns {Vector2}
      */
-    generateRandomLocationInBounds: function( destinationZones, shape ) {
+    generateRandomLocationInBounds: function( destinationZones, bounds ) {
 
       // Randomly choose one of the destination zones.
       var index = phet.joist.random.nextInt( destinationZones.length );
       var destinationBounds = destinationZones[ index ];
 
       // Generate a random valid location within the chosen zone.
-      var reducedBoundsWidth = destinationBounds.getWidth() - shape.bounds.getWidth();
-      var reducedBoundsHeight = destinationBounds.getHeight() - shape.bounds.getHeight();
+      var reducedBoundsWidth = destinationBounds.getWidth() - bounds.getWidth();
+      var reducedBoundsHeight = destinationBounds.getHeight() - bounds.getHeight();
       if ( reducedBoundsWidth <= 0 || reducedBoundsHeight <= 0 ) {
         console.log( ' - Warning: Bounds cannot contain shape.' );
         return new Vector2( destinationBounds.getCenterX(), destinationBounds.getCenterY() );
       }
       else {
         return new Vector2(
-          destinationBounds.x + shape.bounds.getWidth() / 2 + phet.joist.random.nextDouble() * reducedBoundsWidth,
-          destinationBounds.y + shape.bounds.getHeight() / 2 + phet.joist.random.nextDouble() * reducedBoundsHeight );
+          destinationBounds.x + bounds.getWidth() / 2 + phet.joist.random.nextDouble() * reducedBoundsWidth,
+          destinationBounds.y + bounds.getHeight() / 2 + phet.joist.random.nextDouble() * reducedBoundsHeight );
       }
     },
 
     /**
      * @Override
      * @param {Vector2} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      */
-    getNextLocation: function( currentLocation, shape, dt ) {
-      var location3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.x, 0 ), shape, dt );
+    getNextLocation: function( currentLocation, bounds, dt ) {
+      var location3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.x, 0 ), bounds, dt );
       return new Vector2( location3D.x, location3D.y );
     },
 
     /**
      * @Override
      * @param {Vector2} currentLocation
-     * @param {Shape} shape
+     * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
      */
-    getNextLocation3D: function( currentLocation, shape, dt ) {
+    getNextLocation3D: function( currentLocation, bounds, dt ) {
 
       // Check if it is time to teleport.  This occurs when back of Z-space is reached.
       if ( currentLocation.z <= -1 ) {
 
         // Time to teleport.
-        var destination2D = this.generateRandomLocationInBounds( this.destinationZones, shape );
+        var destination2D = this.generateRandomLocationInBounds( this.destinationZones, bounds );
         return new Vector3( destination2D.x, destination2D.y, -1 );
       }
 
       // Determine movement for drift.
       var xyMovement;
-      if ( this.motionBounds.testIfInMotionBoundsWithDelta( shape, this.velocityXY, dt ) ) {
+      if ( this.motionBounds.testIfInMotionBoundsWithDelta( bounds, this.velocityXY, dt ) ) {
         xyMovement = this.velocityXY.timesScalar( dt );
       }
       else {
