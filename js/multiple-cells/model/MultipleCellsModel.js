@@ -30,26 +30,21 @@ define( function( require ) {
   function MultipleCellsModel() {
     var self = this;
     this.clockRunningProperty = new Property( true );
-    // List of all cells that are being simulated.  Some of these cells will be
-    // visible to the user at any given time, but some may not.  All are
-    // clocked and their parameters are kept the same in order to keep them
-    // "in sync" with the visible cells.  This prevents large discontinuities
-    // in the protein level when the user adds or removes cells.
+    // List of all cells that are being simulated. Some of these cells will be visible to the user at any given time,
+    // but some may not. All are clocked and their parameters are kept the same in order to keep them "in sync" with the
+    // visible cells. This prevents large discontinuities in the protein level when the user adds or removes cells.
     this.cellList = [];
 
-    // List of cells in the model that should be visible to the user and that
-    // are being used in the average protein level calculation.  It is
-    // observable so that the view can track them coming and going.
+    // List of cells in the model that should be visible to the user and that are being used in the average protein
+    // level calculation. It is observable so that the view can track them coming and going.
     this.visibleCellList = new ObservableArray();
 
-    // Property that controls the number of cells that are visible and that are
-    // being included in the calculation of the average protein level.  This is
-    // intended to be set by clients, such as the view.
+    // Property that controls the number of cells that are visible and that are being included in the calculation of the
+    // average protein level. This is intended to be set by clients, such as the view.
     this.numberOfVisibleCellsProperty = new Property( 1 );
 
-    // Properties used to control the rate at which protein is synthesized and
-    // degraded in the cells.  These are intended to be set by clients, such as
-    // the view.
+    // Properties used to control the rate at which protein is synthesized and degraded in the cells. These are intended
+    // to be set by clients, such as the view.
     this.transcriptionFactorLevelProperty = new Property( CellProteinSynthesisSimulator.DefaultTranscriptionFactorCount );
     this.proteinDegradationRateProperty = new Property( CellProteinSynthesisSimulator.DefaultProteinDegradationRate );
     this.transcriptionFactorAssociationProbabilityProperty = new Property(
@@ -59,14 +54,10 @@ define( function( require ) {
     this.mRnaDegradationRateProperty = new Property(
       CellProteinSynthesisSimulator.DefaultMRNADegradationRate );
 
-    // Property that tracks the average protein level of all the cells.  This
-    // should not be set externally, only internally.  From the external
-    // perspective, it is intended for monitoring and displaying by view
-    // components.
-    this.averageProteinLevelProperty = new Property( 0.0 );
+    // Property that tracks the average protein level of all the cells.
+    this.averageProteinLevelProperty = new Property( 0.0 ); // @public( read-only )
 
-    // Random number generators, used to vary the shape and position of the
-    // cells.  Seeds are chosen based on experimentation.
+    // Random number generators, used to vary the shape and position of the cells. Seeds are chosen empirically.
     this.sizeAndRotationRandomizer = new Random( {
       seed: SIZE_AND_ORIENTATION_RANDOMIZER_SEED
     } );
@@ -170,17 +161,16 @@ define( function( require ) {
       this.clockRunningProperty.reset();
       this.setNumVisibleCells( this.numberOfVisibleCellsProperty.get() );
 
-      // Step the model a bunch of times in order to allow it to reach a
-      // steady state.  The number of times that are needed to reach steady
-      // state was empirically determined.
+      // Step the model a bunch of times in order to allow it to reach a steady state. The number of times that are
+      // needed to reach steady state was empirically determined.
       for ( var i = 0; i < 1000; i++ ) {
         this.step( 0.016 );
       }
     },
 
     /**
-     * Set the number of cells that should be visible to the user and that are
-     * included in the calculation of average protein level.
+     * Set the number of cells that should be visible to the user and that are included in the calculation of average
+     * protein level.
      *
      * @param numCells - target number of cells.
      */
