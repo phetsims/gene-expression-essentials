@@ -104,6 +104,69 @@ define( function( require ) {
       minX + recycleZoneWidth,
       minY + polymeraseSize.getHeight() * 1.2 );
 
+    // Watch for mobileBiomolecule being added and link up the properties.
+    this.mobileBiomoleculeList.addItemAddedListener( function( mobileBiomolecule ) {
+      // Set the motion bounds such that the molecules move around above and on top of the DNA.
+      mobileBiomolecule.setMotionBounds( self.moleculeMotionBounds );
+
+      function handleUserControlledChanged( isUserControlled ) {
+        if ( isUserControlled ) {
+          self.dnaMolecule.activateHints( mobileBiomolecule );
+        }
+        else {
+          self.dnaMolecule.deactivateAllHints();
+        }
+      }
+
+      // Hook up an observer that will activate and deactivate placement hints for this molecule.
+      mobileBiomolecule.userControlledProperty.link( handleUserControlledChanged );
+
+      function handleExistenceStrengthChanged( existenceStrength ) {
+        if ( existenceStrength === 0 ) {
+          self.removeMobileBiomolecule( mobileBiomolecule );
+        }
+      }
+
+      // Hook up an observer that will remove this biomolecule from the model if its existence strength reaches zero.
+      mobileBiomolecule.existenceStrengthProperty.link( handleExistenceStrengthChanged );
+
+      self.mobileBiomoleculeList.addItemRemovedListener( function removalListener( removedMobileBiomolecule ) {
+        if ( removedMobileBiomolecule === mobileBiomolecule ) {
+          mobileBiomolecule.userControlledProperty.unlink( handleUserControlledChanged );
+          mobileBiomolecule.existenceStrengthProperty.unlink( handleExistenceStrengthChanged );
+          self.mobileBiomoleculeList.removeItemRemovedListener( removalListener );
+        }
+
+      } );
+
+    } );
+
+    // Watch for messenger RNA being added and link up the properties.
+    this.messengerRnaList.addItemAddedListener( function( messengerRna ) {
+      // Since this will never be translated in this model, make it fade away once it is formed.
+      messengerRna.setFadeAwayWhenFormed( true );
+
+      function handleExistenceStrengthChanged( existenceStrength ) {
+        if ( existenceStrength <= 0 ) {
+          // It's "gone", so remove it from the model.
+          self.removeMessengerRna( messengerRna );
+        }
+      }
+
+      // Remove this from the model once its existence strength reaches zero, which it will do since it is fading out.
+      messengerRna.existenceStrengthProperty.link( handleExistenceStrengthChanged );
+
+      self.messengerRnaList.addItemRemovedListener( function removalListener( removedMessengerRna ) {
+        if ( removedMessengerRna === messengerRna ) {
+          messengerRna.existenceStrengthProperty.unlink( handleExistenceStrengthChanged );
+          self.messengerRnaList.removeItemRemovedListener( removalListener );
+        }
+
+      } );
+
+    } );
+
+
     // Reset this model in order to set initial state.
     this.reset();
 
@@ -164,31 +227,7 @@ define( function( require ) {
        * @param {MobileBiomolecule} mobileBiomolecule
        */
       addMobileBiomolecule: function( mobileBiomolecule ) {
-        var self = this;
-        self.mobileBiomoleculeList.add( mobileBiomolecule );
-
-        // Set the motion bounds such that the molecules move around above and on top of the DNA.
-        mobileBiomolecule.setMotionBounds( self.moleculeMotionBounds );
-
-        // Hook up an observer that will activate and deactivate placement hints for this molecule.
-        mobileBiomolecule.userControlledProperty.link( function( isUserControlled, wasUserControlled ) {
-          if ( isUserControlled ) {
-            self.dnaMolecule.activateHints( mobileBiomolecule );
-          }
-          else {
-            self.dnaMolecule.deactivateAllHints();
-          }
-        } );
-
-
-        // Hook up an observer that will remove this biomolecule from the model if its existence strength reaches zero.
-        mobileBiomolecule.existenceStrengthProperty.link( function existenceObserver( existenceStrength ) {
-          if ( existenceStrength === 0 ) {
-            self.removeMobileBiomolecule( mobileBiomolecule );
-            mobileBiomolecule.existenceStrengthProperty.unlink( existenceObserver );
-          }
-        } );
-
+        this.mobileBiomoleculeList.add( mobileBiomolecule );
       },
 
       /**
@@ -222,22 +261,7 @@ define( function( require ) {
        * @param {MessengerRna} messengerRna
        */
       addMessengerRna: function( messengerRna ) {
-
-        var self = this;
-        self.messengerRnaList.push( messengerRna );
-
-        // Since this will never be translated in this model, make it fade away once it is formed.
-        messengerRna.setFadeAwayWhenFormed( true );
-
-        // Remove this from the model once its existence strength reaches zero, which it will do since it is fading out.
-        messengerRna.existenceStrengthProperty.link( function( existenceStrength ) {
-          if ( existenceStrength <= 0 ) {
-            // It's "gone", so remove it from the model.
-            self.messengerRnaList.remove( messengerRna );
-            messengerRna.existenceStrengthProperty.unlink( self );
-          }
-        } );
-
+        this.messengerRnaList.add( messengerRna );
       },
 
       /**
