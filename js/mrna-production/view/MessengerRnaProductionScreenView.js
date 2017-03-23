@@ -234,7 +234,7 @@ define( function( require ) {
         if ( removedMessengerRna === addedMessengerRna ) {
           messengerRnaLayer.removeChild( messengerRnaNode );
           messengerRnaNode.dispose();
-          model.messengerRnaList.removeItemAddedListener( removalListener );
+          model.messengerRnaList.removeItemRemovedListener( removalListener );
         }
 
       } );

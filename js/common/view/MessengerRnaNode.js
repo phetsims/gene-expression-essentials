@@ -84,7 +84,7 @@ define( function( require ) {
     // @public
     dispose: function() {
       this.disposeMessengerRnaNode();
-      Node.prototype.dispose.call( this );
+      MobileBiomoleculeNode.prototype.dispose.call( this );
     }
 
   } );
