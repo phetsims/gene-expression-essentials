@@ -1,17 +1,19 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * one of sub-states for the attached site
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   // constants
   var CONFORMATIONAL_CHANGE_RATE = 1; // proportion per second
@@ -22,8 +24,8 @@ define( function( require ) {
    */
   function AttachedAndConformingState( rnaPolymeraseAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
-    this.conformationalChangeAmount = 0;
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; // @public
+    this.conformationalChangeAmount = 0; // @public
   }
 
   geneExpressionEssentials.register( 'AttachedAndConformingState', AttachedAndConformingState );
@@ -72,11 +74,7 @@ define( function( require ) {
         rnaPolymerase.getModel().getDnaMolecule().addSeparation( dnaStrandSeparation );
         this.conformationalChangeAmount = 0;
       }
-    },
-    {
-      CONFORMATIONAL_CHANGE_RATE: CONFORMATIONAL_CHANGE_RATE
-    }
-  );
+  } );
 } );
 
 

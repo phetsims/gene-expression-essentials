@@ -10,6 +10,7 @@ define( function( require ) {
 
   //modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
@@ -21,7 +22,6 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
   var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
 
   // constants
   // Length, in terms of base pairs, of the DNA molecule.
@@ -44,7 +44,7 @@ define( function( require ) {
     // DNA strand, which is where the genes reside, where the polymerase does its transcription, and where a lot of the
     // action takes place.
     this.dnaMolecule = new DnaMolecule( this, NUM_BASE_PAIRS_ON_DNA_STRAND,
-      -NUM_BASE_PAIRS_ON_DNA_STRAND * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2, true );
+      -NUM_BASE_PAIRS_ON_DNA_STRAND * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2, true );
 
     // The one gene that is on this DNA strand. Add the gene to the DNA molecule. There is only one gene in this model.
     this.gene = new GeneA( self.dnaMolecule, Math.round( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) );
@@ -93,12 +93,12 @@ define( function( require ) {
     var recycleZoneHeight = polymeraseSize.getHeight() * 1.2;
     var recycleZoneWidth = polymeraseSize.getWidth() * 4;
     var minX = recycleZoneCenterX - polymeraseSize.getWidth() * 2;
-    var minY = CommonConstants.DNA_MOLECULE_Y_POS + polymeraseSize.getHeight();
+    var minY = GEEConstants.DNA_MOLECULE_Y_POS + polymeraseSize.getHeight();
     this.aboveDnaPolymeraseReturnBounds = new Bounds2( minX,
       minY,
       minX + recycleZoneWidth,
       minY + recycleZoneHeight );
-    minY = CommonConstants.DNA_MOLECULE_Y_POS - polymeraseSize.getHeight() - recycleZoneHeight;
+    minY = GEEConstants.DNA_MOLECULE_Y_POS - polymeraseSize.getHeight() - recycleZoneHeight;
     this.belowDnaPolymeraseReturnBounds = new Bounds2( minX,
       minY,
       minX + recycleZoneWidth,

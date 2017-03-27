@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -18,7 +19,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Color = require( 'SCENERY/util/Color' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -45,7 +45,7 @@ define( function( require ) {
     var self = this;
     Node.call( self );
 
-    var highlightHeight = -mvt.modelToViewDeltaY( CommonConstants.DNA_MOLECULE_DIAMETER * 1.5 );
+    var highlightHeight = -mvt.modelToViewDeltaY( GEEConstants.DNA_MOLECULE_DIAMETER * 1.5 );
     var highlightStartY = mvt.modelToViewY( dnaMolecule.getLeftEdgePos().y ) - highlightHeight / 2;
 
     // Add the highlight for the regulatory region.

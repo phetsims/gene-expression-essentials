@@ -15,7 +15,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MoveDirectlyToDestinationMotionStrategy' );
 
@@ -154,7 +154,7 @@ define( function( require ) {
         var randValue = phet.joist.random.nextDouble();
 
         // Decide right away whether or not to transcribe.
-        this.transcribe = attachmentSite.getAffinity() > CommonConstants.DEFAULT_AFFINITY &&
+        this.transcribe = attachmentSite.getAffinity() > GEEConstants.DEFAULT_AFFINITY &&
                           randValue < attachmentSite.getAffinity();
 
         // Allow user interaction.

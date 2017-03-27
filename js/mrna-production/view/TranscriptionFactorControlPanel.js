@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -26,7 +27,6 @@ define( function( require ) {
   var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
   var AffinityController = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/AffinityController' );
   var ConcentrationController = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/ConcentrationController' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
 
   // constants
   var DNA_SCALE = 0.1;
@@ -67,9 +67,9 @@ define( function( require ) {
     } );
 
 
-    var transcriptionFactorNode = new MobileBiomoleculeNode( CommonConstants.TRANSCRIPTION_FACTOR_MVT,
+    var transcriptionFactorNode = new MobileBiomoleculeNode( GEEConstants.TRANSCRIPTION_FACTOR_MVT,
       new TranscriptionFactor( null, transcriptionFactorConfig ) );
-    var dnaFragmentNode = new DnaMoleculeNode( new DnaMolecule( null, CommonConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ), DNA_MVT, 2, false );
+    var dnaFragmentNode = new DnaMoleculeNode( new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ), DNA_MVT, 2, false );
 
     var concentrationController = new ConcentrationController( transcriptionFactorConfig, tfLevelProperty, 0, MessengerRnaProductionModel.MAX_TRANSCRIPTION_FACTOR_COUNT );
     var affinityController = new AffinityController( transcriptionFactorNode, dnaFragmentNode, affinityProperty );

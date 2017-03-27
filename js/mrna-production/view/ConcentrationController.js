@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -18,7 +19,6 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControllerNode' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -46,7 +46,7 @@ define( function( require ) {
       maxWidth: 180
     } );
 
-    var molecule = new MobileBiomoleculeNode( CommonConstants.TRANSCRIPTION_FACTOR_MVT,
+    var molecule = new MobileBiomoleculeNode( GEEConstants.TRANSCRIPTION_FACTOR_MVT,
       new TranscriptionFactor( new StubGeneExpressionModel(), transcriptionFactorConfig ) );
     molecule.setPickable( false );
 

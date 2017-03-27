@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  *
  * Class that represents RNA polymerase in the model.
@@ -6,10 +7,11 @@
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
@@ -18,30 +20,38 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var RnaPolymeraseAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/RnaPolymeraseAttachmentStateMachine' );
-  var GeneExpressionRnaPolymeraseConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRnaPolymeraseConstant' );
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
 
+  // constants
+
+  // Overall size of the polymerase molecule.
+  var WIDTH = 340;   // picometers
+  var HEIGHT = 480;  // picometers
+
+  // Offset from the center of the molecule to the location where mRNA should emerge when transcription is occurring.
+  // This is determined empirically, and may need to change if the shape is changed.
+  var MESSENGER_RNA_GENERATION_OFFSET = new Vector2( -WIDTH * 0.4, HEIGHT * 0.4 );
+
   // Set of points that outline the basic, non-distorted shape of this molecule. The shape is meant to look like
   // illustrations in "The Machinery of Life" by David Goodsell.
-  var shapePoints = [ new Vector2( 0, GeneExpressionRnaPolymeraseConstant.HEIGHT / 2 ), // Middle top.
-    new Vector2( GeneExpressionRnaPolymeraseConstant.WIDTH / 2, GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 ),
-    new Vector2( GeneExpressionRnaPolymeraseConstant.WIDTH * 0.35, -GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 ),
-    new Vector2( 0, -GeneExpressionRnaPolymeraseConstant.HEIGHT / 2 ), // Middle bottom.
-    new Vector2( -GeneExpressionRnaPolymeraseConstant.WIDTH * 0.35, -GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 ),
-    new Vector2( -GeneExpressionRnaPolymeraseConstant.WIDTH / 2, GeneExpressionRnaPolymeraseConstant.HEIGHT * 0.25 )
+  var shapePoints = [ new Vector2( 0, HEIGHT / 2 ), // Middle top.
+    new Vector2( WIDTH / 2, HEIGHT * 0.25 ),
+    new Vector2( WIDTH * 0.35, -HEIGHT * 0.25 ),
+    new Vector2( 0, -HEIGHT / 2 ), // Middle bottom.
+    new Vector2( -WIDTH * 0.35, -HEIGHT * 0.25 ),
+    new Vector2( -WIDTH / 2, HEIGHT * 0.25 )
   ];
 
   // Colors used by this molecule.
   var NOMINAL_COLOR = new Color( 0, 153, 210 );
   var CONFORMED_COLOR = Color.CYAN;
 
-  // Added  for per reasons, the Java code creates a new Vector instance every time getDetachDirection is called.
+  // Direction vectors when polymerase detaches from DNA
   var UP_VECTOR = new Vector2( 0, 1 );
   var DOWN_VECTOR = new Vector2( 0, -1 );
 
   /**
-   * Default constructor, used mostly when instances are needed in places like control panels.
    *
    * @param {GeneExpressionModel} model
    * @param {Vector2} position
@@ -51,6 +61,7 @@ define( function( require ) {
     model = model || new StubGeneExpressionModel();
     MobileBiomolecule.call( this, model, this.createShape(), NOMINAL_COLOR );
     position = position || new Vector2( 0, 0 );
+    this.messengerRnaGenerationOffset = MESSENGER_RNA_GENERATION_OFFSET;
     // Copy of the attachment state machine reference from base class, but with the more specific type.
     this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // defined by Super class - Ashraf
     this.setPosition( position );

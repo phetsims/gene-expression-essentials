@@ -17,8 +17,8 @@ define( function( require ) {
   // modules
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var BasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BasePair' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
@@ -49,8 +49,8 @@ define( function( require ) {
     this.model = model || new StubGeneExpressionModel(); // support creation without model for control panels and such
     this.leftEdgeXOffset = leftEdgeXOffset;
     this.pursueAttachments = pursueAttachments;
-    this.moleculeLength = numBasePairs * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
-    this.numberOfTwists = this.moleculeLength / CommonConstants.LENGTH_PER_TWIST;
+    this.moleculeLength = numBasePairs * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS;
+    this.numberOfTwists = this.moleculeLength / GEEConstants.LENGTH_PER_TWIST;
 
     // Points that, when connected, define the shape of the DNA strands.
     this.strandPoints = []; // Array of DnaStrandPoint
@@ -79,9 +79,9 @@ define( function( require ) {
     // Add in the base pairs between the backbone strands.  This calculates the distance between the two strands and
     // puts a line between them in  order to look like the base pair.
     for ( var i = 0; i < numBasePairs; i++ ) {
-      var xPos = leftEdgeXOffset + i * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
+      var xPos = leftEdgeXOffset + i * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS;
       var strand1YPos = this.getDnaStrandYPosition( xPos, 0 );
-      var strand2YPos = this.getDnaStrandYPosition( xPos, CommonConstants.INTER_STRAND_OFFSET );
+      var strand2YPos = this.getDnaStrandYPosition( xPos, GEEConstants.INTER_STRAND_OFFSET );
       var height = Math.abs( strand1YPos - strand2YPos );
       var basePairYPos = ( strand1YPos + strand2YPos ) / 2;
       this.basePairs.push( new BasePair( xPos, basePairYPos, height ) );
@@ -111,10 +111,10 @@ define( function( require ) {
       xOffset = Util.clamp(
         xOffset,
         this.leftEdgeXOffset,
-        this.leftEdgeXOffset + CommonConstants.LENGTH_PER_TWIST * this.numberOfTwists
+        this.leftEdgeXOffset + GEEConstants.LENGTH_PER_TWIST * this.numberOfTwists
       );
-      return ( Math.round( ( xOffset - this.leftEdgeXOffset - CommonConstants.INTER_STRAND_OFFSET ) /
-                           CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) ) | 0; // make it int
+      return ( Math.round( ( xOffset - this.leftEdgeXOffset - GEEConstants.INTER_STRAND_OFFSET ) /
+                           GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) ) | 0; // make it int
     },
 
     /**
@@ -142,7 +142,7 @@ define( function( require ) {
         var xPos = dnaStrandPoint.xPos;
         strand1SegmentPoints.push( new Vector2( xPos, dnaStrandPoint.strand1YPos ) );
         strand2SegmentPoints.push( new Vector2( xPos, dnaStrandPoint.strand2YPos ) );
-        if ( xPos - segmentStartX >= ( CommonConstants.LENGTH_PER_TWIST / 2 ) ) {
+        if ( xPos - segmentStartX >= ( GEEConstants.LENGTH_PER_TWIST / 2 ) ) {
 
           // Time to add these segments and start a new ones.
           self.strand1Segments.push( strand1SegmentPoints );
@@ -174,7 +174,7 @@ define( function( require ) {
      * @return {number}
      */
     getDnaStrandYPosition: function( xPos, offset ) {
-      return Math.sin( ( xPos + offset ) / CommonConstants.LENGTH_PER_TWIST * Math.PI * 2 ) * CommonConstants.DNA_MOLECULE_DIAMETER / 2;
+      return Math.sin( ( xPos + offset ) / GEEConstants.LENGTH_PER_TWIST * Math.PI * 2 ) * GEEConstants.DNA_MOLECULE_DIAMETER / 2;
     },
 
     /**
@@ -189,15 +189,15 @@ define( function( require ) {
       // Set the shadow points to the nominal, non-deformed positions.
       this.strandPointsShadow.forEach( function( dnaStrandPoint ) {
         dnaStrandPoint.strand1YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, 0 );
-        dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, CommonConstants.INTER_STRAND_OFFSET );
+        dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, GEEConstants.INTER_STRAND_OFFSET );
       } );
 
       // Move the shadow points to account for any separations.
       this.separations.forEach( function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
         var separationWindowXIndexRange = new Range( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
-                                                                   self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
-          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
+                                                                   self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
+          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
         for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
           var windowCenterX = ( separationWindowXIndexRange.min + separationWindowXIndexRange.max ) / 2;
           if ( i >= 0 && i < self.strandPointsShadow.length ) {
@@ -224,8 +224,8 @@ define( function( require ) {
         //var bounds = strand1Segment.getShape().bounds;
         var minX = strand1Segment[ 0 ].x;
         var maxX = strand1Segment[ strand1Segment.length - 1 ].x;
-        var pointIndexRange = new Range( Math.floor( ( minX - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
-          Math.floor( ( maxX - this.leftEdgeXOffset ) / CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
+        var pointIndexRange = new Range( Math.floor( ( minX - this.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
+          Math.floor( ( maxX - this.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
 
         // Check to see if any of the points within the identified range have changed and, if so, update the
         // corresponding segment shape in the strands. If the points for either strand has changed, both are updated.
@@ -305,8 +305,8 @@ define( function( require ) {
      * @returns {number}
      */
     getBasePairXOffsetByIndex: function( basePairNumber ) {
-      return this.leftEdgeXOffset + CommonConstants.INTER_STRAND_OFFSET +
-             basePairNumber * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS;
+      return this.leftEdgeXOffset + GEEConstants.INTER_STRAND_OFFSET +
+             basePairNumber * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS;
     },
 
     /**
@@ -383,7 +383,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getLeftEdgePos: function() {
-      return new Vector2( this.leftEdgeXOffset, CommonConstants.DNA_MOLECULE_Y_POS );
+      return new Vector2( this.leftEdgeXOffset, GEEConstants.DNA_MOLECULE_Y_POS );
     },
 
     /**
@@ -487,7 +487,7 @@ define( function( require ) {
       var potentialAttachmentSites = [];
       for ( var i = 0; i < this.basePairs.length; i++ ) {
         // See if the base pair is within the max attachment distance.
-        attachmentSiteLocation.setXY( this.basePairs[ i ].getCenterLocation().x, CommonConstants.DNA_MOLECULE_Y_POS );
+        attachmentSiteLocation.setXY( this.basePairs[ i ].getCenterLocation().x, GEEConstants.DNA_MOLECULE_Y_POS );
         if ( attachmentSiteLocation.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
           // In range.  Add it to the list if it is available.
           var potentialAttachmentSite = getAttachSiteForBasePair( i );
@@ -717,7 +717,7 @@ define( function( require ) {
      */
     createDefaultAffinityAttachmentSite: function( xOffset ) {
       return new AttachmentSite( new Vector2( this.getNearestBasePairXOffset( xOffset ),
-        CommonConstants.DNA_MOLECULE_Y_POS ), CommonConstants.DEFAULT_AFFINITY );
+        GEEConstants.DNA_MOLECULE_Y_POS ), GEEConstants.DEFAULT_AFFINITY );
     },
 
     /**
@@ -728,8 +728,8 @@ define( function( require ) {
      */
     getGeneAtLocation: function( location ) {
       if ( !( location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&
-              location.y >= CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2 &&
-              location.y <= CommonConstants.DNA_MOLECULE_Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 ) ) {
+              location.y >= GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2 &&
+              location.y <= GEEConstants.DNA_MOLECULE_Y_POS + GEEConstants.DNA_MOLECULE_DIAMETER / 2 ) ) {
         console.log( ' - Warning: Location for gene test is not on DNA molecule.' );
         return null;
       }

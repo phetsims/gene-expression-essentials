@@ -10,10 +10,10 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
 
   function GradientUtil() {
 
@@ -32,7 +32,7 @@ define( function( require ) {
      */
     createGradientPaint: function( shape, baseColor ) {
       var paint;
-      if ( !CommonConstants.FLORESCENT_FILL_COLOR.equals( baseColor ) ) {
+      if ( !GEEConstants.FLORESCENT_FILL_COLOR.equals( baseColor ) ) {
         var shapeBounds = shape.bounds;
         paint = new LinearGradient( shapeBounds.getMinX(),
           shapeBounds.getCenterY(),

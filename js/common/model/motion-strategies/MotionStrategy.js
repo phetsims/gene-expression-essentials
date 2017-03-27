@@ -12,11 +12,11 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var Range = require( 'DOT/Range' );
   var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
 
@@ -141,8 +141,8 @@ define( function( require ) {
     getMinZ: function( bounds, positionXY ) {
       var shapeYRange = new Range( positionXY.y - bounds.height / 2,
         positionXY.y + bounds.height / 2 );
-      var dnaYRange = new Range( CommonConstants.DNA_MOLECULE_Y_POS - CommonConstants.DNA_MOLECULE_DIAMETER / 2,
-        CommonConstants.DNA_MOLECULE_Y_POS + CommonConstants.DNA_MOLECULE_DIAMETER / 2 );
+      var dnaYRange = new Range( GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2,
+        GEEConstants.DNA_MOLECULE_Y_POS + GEEConstants.DNA_MOLECULE_DIAMETER / 2 );
       var minZ = -1;
       var distanceToEdgeOfDna = this.calculateDistanceBetweenRanges( shapeYRange, dnaYRange );
       if ( distanceToEdgeOfDna < shapeYRange.getLength() / 2 ) {

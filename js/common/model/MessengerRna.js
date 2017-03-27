@@ -10,12 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
   var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRibosomeConstant' );
   var FlatSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/FlatSegment' );
   var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MessengerRnaAttachmentStateMachine' );
@@ -29,10 +29,6 @@ define( function( require ) {
   // Distance within which this will connect to a ribosome.
   var RIBOSOME_CONNECTION_DISTANCE = 400; // picometers
   var MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers
-
-  // Length of the "leader segment", which is the portion of the mRNA that sticks out on the upper left side so that a
-  // ribosome can be attached.
-  var LEADER_LENGTH = CommonConstants.LEADER_LENGTH;
 
   /**
    * Constructor.  This creates the mRNA as a single point, with the intention of growing it.
@@ -68,7 +64,7 @@ define( function( require ) {
 
     // Add the first segment to the shape segment list. This segment will contain the "leader" for the mRNA.
     var segment = new FlatSegment( position );
-    segment.setCapacity( CommonConstants.LEADER_LENGTH );
+    segment.setCapacity( GEEConstants.LEADER_LENGTH );
     this.shapeSegments.add( segment );
 
     // Add the placement hints for the locations where the user can attach a ribosome or an mRNA destroyer.
@@ -250,7 +246,7 @@ define( function( require ) {
 
         // There is no previous segment, which means that the segment to which this ribosome is attached is the leader
         // segment. The attachment point is thus the leader length from its rightmost edge.
-        attachmentPoint = new Vector2( segment.getLowerRightCornerPos().x - LEADER_LENGTH,
+        attachmentPoint = new Vector2( segment.getLowerRightCornerPos().x - GEEConstants.LEADER_LENGTH,
           segment.getLowerRightCornerPos().y );
       }
       else {
@@ -311,7 +307,7 @@ define( function( require ) {
       // length.
       var firstShapeSegment = this.shapeSegments.get( 0 );
       assert && assert( firstShapeSegment.isFlat() );
-      firstShapeSegment.setCapacity( ribosome.getTranslationChannelLength() + LEADER_LENGTH );
+      firstShapeSegment.setCapacity( ribosome.getTranslationChannelLength() + GEEConstants.LEADER_LENGTH );
     },
 
     /**
@@ -327,7 +323,7 @@ define( function( require ) {
       this.segmentWhereDestroyerConnects = this.shapeSegments.get( 0 );
 
       assert && assert( this.segmentWhereDestroyerConnects.isFlat() );
-      this.segmentWhereDestroyerConnects.setCapacity( this.messengerRnaDestroyer.getDestructionChannelLength() + LEADER_LENGTH );
+      this.segmentWhereDestroyerConnects.setCapacity( this.messengerRnaDestroyer.getDestructionChannelLength() + GEEConstants.LEADER_LENGTH );
     },
 
     /**
@@ -453,7 +449,7 @@ define( function( require ) {
       }
 
       // The attachment location is at the right most side of the segment minus the leader length.
-      return new Vector2( this.segmentWhereDestroyerConnects.getLowerRightCornerPos().x - LEADER_LENGTH,
+      return new Vector2( this.segmentWhereDestroyerConnects.getLowerRightCornerPos().x - GEEConstants.LEADER_LENGTH,
         this.segmentWhereDestroyerConnects.getLowerRightCornerPos().y );
     }
 

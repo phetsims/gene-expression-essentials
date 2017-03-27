@@ -10,12 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
   var EnhancedObservableList = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/EnhancedObservableList' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
   var Range = require( 'DOT/Range' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
@@ -27,10 +27,6 @@ define( function( require ) {
   // Color used by this molecule. Since mRNA is depicted as a line and not as a closed shape, a transparent color is used.
   // This enables reuse of generic biomolecule classes.
   var NOMINAL_COLOR = new Color( 0, 0, 0, 0 );
-
-  // Standard distance between points that define the shape. This is done to keep the number of points reasonable and
-  // make the shape-defining algorithm consistent.
-  var INTER_POINT_DISTANCE = CommonConstants.INTER_POINT_DISTANCE;
 
   var vectorToPreviousPoint = new Vector2( 0, 0 );
   var vectorToNextPoint = new Vector2( 0, 0 );
@@ -217,9 +213,9 @@ define( function( require ) {
         // This is the first length added to the strand, so put it on.
         this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), length );
       }
-      else if ( this.lastShapeDefiningPoint.getTargetDistanceToPreviousPoint() < INTER_POINT_DISTANCE ) {
+      else if ( this.lastShapeDefiningPoint.getTargetDistanceToPreviousPoint() < GEEConstants.INTER_POINT_DISTANCE ) {
         var prevDistance = this.lastShapeDefiningPoint.getTargetDistanceToPreviousPoint();
-        if ( prevDistance + length <= INTER_POINT_DISTANCE ) {
+        if ( prevDistance + length <= GEEConstants.INTER_POINT_DISTANCE ) {
 
           // No need to add a new point - just set the distance of the current last point to be further away from the
           // previous.
@@ -228,8 +224,8 @@ define( function( require ) {
         else {
 
           // Set the last point to be at the prescribed inter-point distance, and then add a new point.
-          this.lastShapeDefiningPoint.setTargetDistanceToPreviousPoint( INTER_POINT_DISTANCE );
-          this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), length - ( INTER_POINT_DISTANCE - prevDistance ) );
+          this.lastShapeDefiningPoint.setTargetDistanceToPreviousPoint( GEEConstants.INTER_POINT_DISTANCE );
+          this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), length - ( GEEConstants.INTER_POINT_DISTANCE - prevDistance ) );
         }
       }
       else {

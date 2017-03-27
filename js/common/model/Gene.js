@@ -13,11 +13,11 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
   var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
@@ -46,7 +46,7 @@ define( function( require ) {
 
     // Create the attachment site for polymerase. It is always at the end of the regulatory region.
     this.polymeraseAttachmentSite = new AttachmentSite( new Vector2(
-      dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.max ), CommonConstants.DNA_MOLECULE_Y_POS ), 1 );
+      dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.max ), GEEConstants.DNA_MOLECULE_Y_POS ), 1 );
 
     // Placement hint for polymerase. There is always only one.
     this.rnaPolymerasePlacementHint = new PlacementHint( new RnaPolymerase() );
@@ -165,7 +165,7 @@ define( function( require ) {
         this.polymeraseAttachmentSite.affinityProperty.set( this.polymeraseAffinityProperty.get() );
       }
       else {
-        this.polymeraseAttachmentSite.affinityProperty.set( CommonConstants.DEFAULT_AFFINITY );
+        this.polymeraseAttachmentSite.affinityProperty.set( GEEConstants.DEFAULT_AFFINITY );
       }
     },
 
@@ -179,7 +179,7 @@ define( function( require ) {
     addTranscriptionFactor: function( basePairOffset, tfConfig ) {
       this.transcriptionFactorMap.put( basePairOffset, new TranscriptionFactor( null, tfConfig ) );
       var position = new Vector2( this.dnaMolecule.getBasePairXOffsetByIndex(
-        basePairOffset + this.regulatoryRegion.min ), CommonConstants.DNA_MOLECULE_Y_POS );
+        basePairOffset + this.regulatoryRegion.min ), GEEConstants.DNA_MOLECULE_Y_POS );
       this.transcriptionFactorPlacementHints.push( new TranscriptionFactorPlacementHint(
         new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, position ) ) );
       this.transcriptionFactorAttachmentSites.push( new TranscriptionFactorAttachmentSite( position, tfConfig, 1 ) );
@@ -266,7 +266,7 @@ define( function( require ) {
           if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
                Math.abs( transcriptionFactorAttachmentSite.locationProperty.get().x -
                          this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) ) <
-               CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2 ) {
+               GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2 ) {
 
             // Yes, so this is the site where the given TF should go.
             attachmentSite = transcriptionFactorAttachmentSite;

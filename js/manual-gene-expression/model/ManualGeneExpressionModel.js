@@ -14,8 +14,8 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var GeneA = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneA' );
   var GeneB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneC' );
@@ -52,7 +52,7 @@ define( function( require ) {
     this.dnaMolecule = new DnaMolecule(
       this,
       NUM_BASE_PAIRS_ON_DNA_STRAND,
-      -NUM_BASE_PAIRS_ON_DNA_STRAND * CommonConstants.DISTANCE_BETWEEN_BASE_PAIRS / 4,
+      -NUM_BASE_PAIRS_ON_DNA_STRAND * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS / 4,
       false
     );
     this.dnaMolecule.addGene( new GeneA( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 4 - GeneA.NUM_BASE_PAIRS / 2 ) );
@@ -328,7 +328,7 @@ define( function( require ) {
     getBoundsForActiveGene: function() {
 
       // The bottom bounds are intended to be roughly at the bottom of the viewport.  The value was empirically determined.
-      var bottomYPos = CommonConstants.DNA_MOLECULE_Y_POS - 2100;
+      var bottomYPos = GEEConstants.DNA_MOLECULE_Y_POS - 2100;
 
       // Get the nominal bounds for this gene.
       var bounds = new Bounds2( this.activeGeneProperty.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,

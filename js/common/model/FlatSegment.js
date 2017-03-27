@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ShapeSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeSegment' );
-  var CommonConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/CommonConstants' );
   var SquareSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/SquareSegment' );
 
   /**
@@ -99,7 +99,7 @@ define( function( require ) {
             assert && assert( outputSegment === null );
 
             var newLeaderSegment = new FlatSegment( this.getUpperLeftCornerPos() );
-            newLeaderSegment.setCapacity( CommonConstants.LEADER_LENGTH );
+            newLeaderSegment.setCapacity( GEEConstants.LEADER_LENGTH );
             shapeSegmentList.insertBefore( this, newLeaderSegment );
             outputSegment = newLeaderSegment;
           }
