@@ -12,11 +12,9 @@ define( function( require ) {
 
   // modules
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-
-  // constants
-  var CONFORMATIONAL_CHANGE_RATE = 1; // proportion per second
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
@@ -48,7 +46,7 @@ define( function( require ) {
         assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
 
         this.conformationalChangeAmount = Math.min( this.conformationalChangeAmount +
-                                                    CONFORMATIONAL_CHANGE_RATE * dt, 1 );
+                                                    GEEConstants.CONFORMATIONAL_CHANGE_RATE * dt, 1 );
         biomolecule.changeConformation( this.conformationalChangeAmount );
         dnaStrandSeparation.setProportionOfTargetAmount( this.conformationalChangeAmount );
         if ( this.conformationalChangeAmount === 1 ) {

@@ -1,21 +1,21 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * One of sub-states for the attached site
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
   var BeingRecycledState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingRecycledState' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-
-  // constants
-  var CONFORMATIONAL_CHANGE_RATE = 1; // Proportion per second.
+  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
@@ -50,7 +50,7 @@ define( function( require ) {
         var attachedAndWanderingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndWanderingState;
 
         this.conformationalChangeAmount = Math.max(
-          this.conformationalChangeAmount - CONFORMATIONAL_CHANGE_RATE * dt,
+          this.conformationalChangeAmount - GEEConstants.CONFORMATIONAL_CHANGE_RATE * dt,
           0
         );
         biomolecule.changeConformation( this.conformationalChangeAmount );
@@ -90,9 +90,5 @@ define( function( require ) {
         asm.biomolecule.movableByUserProperty.set( false );
         this.conformationalChangeAmount = 1;
       }
-    },
-    {
-      CONFORMATIONAL_CHANGE_RATE: CONFORMATIONAL_CHANGE_RATE
-    }
-  );
+  } );
 } );

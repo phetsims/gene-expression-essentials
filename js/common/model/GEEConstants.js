@@ -33,6 +33,8 @@ define( function( require ) {
 
     DEFAULT_AFFINITY: 0.05, // Default affinity for any given biomolecule,
 
+    CONFORMATIONAL_CHANGE_RATE: 1, // proportion per second
+
     // Standard distance between points that define the shape. This is done to keep the number of points reasonable
     // and make the shape-defining algorithm consistent.
     INTER_POINT_DISTANCE: INTER_POINT_DISTANCE,
