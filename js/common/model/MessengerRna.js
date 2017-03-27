@@ -16,7 +16,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
   var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
-  var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRibosomeConstant' );
   var FlatSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/FlatSegment' );
   var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MessengerRnaAttachmentStateMachine' );
   var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
@@ -68,13 +67,14 @@ define( function( require ) {
     this.shapeSegments.add( segment );
 
     // Add the placement hints for the locations where the user can attach a ribosome or an mRNA destroyer.
+    var ribosome = new Ribosome( model );
     self.ribosomePlacementHint = new PlacementHint( new Ribosome( model ) );
     self.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) );
 
     this.shapeProperty.link( function() {
       // This hint always sits at the beginning of the RNA strand.
       var currentMRnaFirstPointPosition = self.firstShapeDefiningPoint.getPosition();
-      self.ribosomePlacementHint.setPosition( currentMRnaFirstPointPosition.minus( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE ) );
+      self.ribosomePlacementHint.setPosition( currentMRnaFirstPointPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
       self.mRnaDestroyerPlacementHint.setPosition( currentMRnaFirstPointPosition );
     } );
   }

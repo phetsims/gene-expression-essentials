@@ -15,8 +15,6 @@ define( function( require ) {
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var RibosomeAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/RibosomeAttachedState' );
-  var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRibosomeConstant' );
-
 
   /**
    * @param {MobileBiomolecule} biomolecule
@@ -33,7 +31,7 @@ define( function( require ) {
     this.proteinBeingSynthesized = null;
 
     // Set up offset used when attaching to mRNA.
-    this.setDestinationOffsetByVector( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE);
+    this.setDestinationOffsetByVector( this.ribosome.offsetToTranslationChannelEntrance );
 
     // Set up a non-default "attached" state, since the behavior is different from the default.
     this.attachedState = new RibosomeAttachedState( this );

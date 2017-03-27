@@ -17,8 +17,21 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var RibosomeAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/RibosomeAttachmentStateMachine' );
-  var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRibosomeConstant' );
 
+  // constants
+  var WIDTH = 430;                  // In nanometers.
+  var OVERALL_HEIGHT = 450;         // In nanometers.
+  var TOP_SUBUNIT_HEIGHT_PROPORTION = 0.6;
+  var TOP_SUBUNIT_HEIGHT = OVERALL_HEIGHT * TOP_SUBUNIT_HEIGHT_PROPORTION;
+  var BOTTOM_SUBUNIT_HEIGHT = OVERALL_HEIGHT * ( 1 - TOP_SUBUNIT_HEIGHT_PROPORTION );
+
+  // Offset from the center position to the entrance of the translation channel. May require some tweaking if the shape
+  // changes.
+  var OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE = new Vector2( WIDTH / 2, -OVERALL_HEIGHT * 0.20 );
+
+  // Offset from the center position to the point from which the protein emerges. May require some tweaking if the overall
+  // shape changes.
+  var OFFSET_TO_PROTEIN_OUTPUT_CHANNEL = new Vector2( WIDTH * 0.4, OVERALL_HEIGHT * 0.55 );
 
   /**
    *
@@ -27,6 +40,7 @@ define( function( require ) {
    * @constructor
    */
   function Ribosome( model, position ) {
+    this.offsetToTranslationChannelEntrance = OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE;
     position = position || new Vector2( 0, 0 );
     MobileBiomolecule.call( this, model, this.createShape(), new Color( 205, 155, 29 ) );
     this.setPosition( position );
@@ -94,31 +108,31 @@ define( function( require ) {
         // is based on some drawings seen on the web.
         var topSubunitPointList = [
           // Define the shape with a series of points.  Starts at top left.
-          new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.3, GeneExpressionRibosomeConstant.TOP_SUBUNIT_HEIGHT * 0.9 ),
-          new Vector2( GeneExpressionRibosomeConstant.WIDTH * 0.3, GeneExpressionRibosomeConstant.TOP_SUBUNIT_HEIGHT ),
-          new Vector2( GeneExpressionRibosomeConstant.WIDTH * 0.5, 0 ),
-          new Vector2( GeneExpressionRibosomeConstant.WIDTH * 0.3, -GeneExpressionRibosomeConstant.TOP_SUBUNIT_HEIGHT * 0.4 ),
-          new Vector2( 0, -GeneExpressionRibosomeConstant.TOP_SUBUNIT_HEIGHT * 0.5 ), // Center bottom.
-          new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.3, -GeneExpressionRibosomeConstant.TOP_SUBUNIT_HEIGHT * 0.4 ),
-          new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.5, 0 )
+          new Vector2( -WIDTH * 0.3, TOP_SUBUNIT_HEIGHT * 0.9 ),
+          new Vector2( WIDTH * 0.3, TOP_SUBUNIT_HEIGHT ),
+          new Vector2( WIDTH * 0.5, 0 ),
+          new Vector2( WIDTH * 0.3, -TOP_SUBUNIT_HEIGHT * 0.4 ),
+          new Vector2( 0, -TOP_SUBUNIT_HEIGHT * 0.5 ), // Center bottom.
+          new Vector2( -WIDTH * 0.3, -TOP_SUBUNIT_HEIGHT * 0.4 ),
+          new Vector2( -WIDTH * 0.5, 0 )
         ];
 
-        var translation = Matrix3.translation( 0, GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
+        var translation = Matrix3.translation( 0, OVERALL_HEIGHT / 4 );
         var topSubunitShape = ShapeUtils.createRoundedShapeFromPoints( topSubunitPointList ).transformed( translation );
 
         // Draw the bottom portion, which in this sim is the smaller subunit.
         var startPointY = topSubunitShape.bounds.minY;
         var bottomSubunitPointList = [
           // Define the shape with a series of points.
-          new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, startPointY ),
+          new Vector2( -WIDTH * 0.45, startPointY ),
           new Vector2( 0, startPointY ),
-          new Vector2( GeneExpressionRibosomeConstant.WIDTH * 0.45, startPointY ),
-          new Vector2( GeneExpressionRibosomeConstant.WIDTH * 0.45, startPointY - GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT ),
-          new Vector2( 0, startPointY - GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT ),
-          new Vector2( -GeneExpressionRibosomeConstant.WIDTH * 0.45, startPointY - GeneExpressionRibosomeConstant.BOTTOM_SUBUNIT_HEIGHT )
+          new Vector2( WIDTH * 0.45, startPointY ),
+          new Vector2( WIDTH * 0.45, startPointY - BOTTOM_SUBUNIT_HEIGHT ),
+          new Vector2( 0, startPointY - BOTTOM_SUBUNIT_HEIGHT ),
+          new Vector2( -WIDTH * 0.45, startPointY - BOTTOM_SUBUNIT_HEIGHT )
         ];
 
-        var bottomSubunitTranslation = Matrix3.translation( 0, -GeneExpressionRibosomeConstant.OVERALL_HEIGHT / 4 );
+        var bottomSubunitTranslation = Matrix3.translation( 0, -OVERALL_HEIGHT / 4 );
         var ribosomeShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList, topSubunitShape ).transformed( bottomSubunitTranslation );
 
         return ribosomeShape;
@@ -129,7 +143,7 @@ define( function( require ) {
        * @returns {Vector2}
        */
       getEntranceOfRnaChannelPos: function() {
-        return this.getPosition().plus( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
+        return this.getPosition().plus( OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
       },
 
       /**
@@ -137,7 +151,7 @@ define( function( require ) {
        * @returns {number}
        */
       getTranslationChannelLength: function() {
-        return GeneExpressionRibosomeConstant.WIDTH;
+        return WIDTH;
       },
 
       /**
@@ -159,8 +173,8 @@ define( function( require ) {
        */
       getProteinAttachmentPoint: function( newAttachmentPoint ) {
         newAttachmentPoint = newAttachmentPoint || new Vector2();
-        newAttachmentPoint.x = this.getPosition().x + GeneExpressionRibosomeConstant.OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.x;
-        newAttachmentPoint.y = this.getPosition().y + GeneExpressionRibosomeConstant.OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.y;
+        newAttachmentPoint.x = this.getPosition().x + OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.x;
+        newAttachmentPoint.y = this.getPosition().y + OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.y;
         return newAttachmentPoint;
       },
 
@@ -184,6 +198,5 @@ define( function( require ) {
         var transform = Matrix3.translation( -xOffset, -yOffset );
         return viewShape.transformed( transform );
       }
-    }
-  );
+  } );
 } );

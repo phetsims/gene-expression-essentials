@@ -15,7 +15,6 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
-  var GeneExpressionRibosomeConstant = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionRibosomeConstant' );
 
   /**
    * @param ribosome {Ribosome}
@@ -40,7 +39,7 @@ define( function( require ) {
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       var ribosomeAttachmentPoint = this.messengerRna.getRibosomeAttachmentLocation( this.ribosome );
-      return ribosomeAttachmentPoint.minus( GeneExpressionRibosomeConstant.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
+      return ribosomeAttachmentPoint.minus( this.ribosome.offsetToTranslationChannelEntrance );
     }
 
   } );
