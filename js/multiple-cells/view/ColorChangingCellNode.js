@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Node that represents a cell (as in a biological organism) that changes color as the level of protein within the cell
  * changes. The color change is meant to represent a cell that is expressing a fluorescent protein, something like
@@ -8,6 +9,7 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
+
 define( function( require ) {
   'use strict';
 
@@ -15,9 +17,7 @@ define( function( require ) {
   var Cell = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/Cell' );
   var Color = require( 'SCENERY/util/Color' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-
   var inherit = require( 'PHET_CORE/inherit' );
-
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Util = require( 'DOT/Util' );
@@ -54,7 +54,4 @@ define( function( require ) {
     NominalFillColor: NOMINAL_FILL_COLOR,
     FlorescentFillColor: FLORESCENT_FILL_COLOR
   } );
-
-
 } );
-

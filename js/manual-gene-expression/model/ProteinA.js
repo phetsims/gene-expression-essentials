@@ -1,17 +1,19 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  *
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   //modules
+  var Color = require( 'SCENERY/util/Color' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Shape = require( 'KITE/Shape' );
   var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
+  var Shape = require( 'KITE/Shape' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -19,7 +21,6 @@ define( function( require ) {
   // constants
   var BASE_COLOR = new Color( 255, 99, 71 );
   var FULL_GROWN_WIDTH = 450;
-
 
   function ProteinA( model ) {
     model = model || new StubGeneExpressionModel();
@@ -90,10 +91,5 @@ define( function( require ) {
 
       return shape;
     }
-
-
   } );
-
-
 } );
-

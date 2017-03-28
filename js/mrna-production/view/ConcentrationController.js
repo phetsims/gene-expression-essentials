@@ -6,22 +6,23 @@
  * @author Mohamed Safi
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
+  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControllerNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControllerNode' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var concentrationsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentrations' );
@@ -67,5 +68,3 @@ define( function( require ) {
 
   return inherit( Node, ConcentrationController, {} );
 } );
-
-

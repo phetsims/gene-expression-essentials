@@ -19,9 +19,8 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
 
   // constants
-  // Scaling factor for this node when used as a creator node.  May be
-  // significantly different from the size of the corresponding element
-  // in the model.
+  // Scaling factor for this node when used as a creator node. May be significantly different from the size of the
+  // corresponding element in the model.
   var SCALING_FACTOR = 0.07;
   var SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ),
     new Vector2( 0, 0 ), SCALING_FACTOR );

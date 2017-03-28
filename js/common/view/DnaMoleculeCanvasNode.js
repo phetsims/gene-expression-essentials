@@ -1,10 +1,11 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
- * A isotope layer rendered on canvas.  This exists for performance reasons.
+ * A DNA Backbone Layer rendered on canvas. This exists for performance reasons.
  *
  * @author Aadish Gupta
  */
+
 define( function( require ) {
   'use strict';
 
@@ -156,7 +157,5 @@ define( function( require ) {
         this.invalidatePaint();
       }
     }
-
-
   } );
 } );

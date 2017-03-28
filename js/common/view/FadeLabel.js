@@ -6,16 +6,17 @@
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
+  var FadeTimer = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/FadeTimer' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var FadeTimer = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/FadeTimer' );
 
   // constants
   var FONT = new PhetFont( 14 );
@@ -101,5 +102,4 @@ define( function( require ) {
       this.fadeOutTimer.restart();
     }
   } );
-
 } );

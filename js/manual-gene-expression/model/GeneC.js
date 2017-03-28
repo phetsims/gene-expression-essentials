@@ -1,21 +1,23 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Specific instance of a gene.
  *
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var Gene = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Gene' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinC' );
   var Range = require( 'DOT/Range' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
-  var ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinC' );
 
   // constants
   var REGULATORY_REGION_COLOR = new Color( 216, 191, 216 );
@@ -60,10 +62,6 @@ define( function( require ) {
     }
 
   }, {
-
     NUM_BASE_PAIRS: NUM_BASE_PAIRS
-
   } );
-
-
 } );

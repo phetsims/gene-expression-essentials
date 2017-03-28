@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+// TODO Add to common code
 define( function( require ) {
   'use strict';
 
@@ -19,6 +20,9 @@ define( function( require ) {
    * @param {Property.<number>} controller
    * @param {number} minValue
    * @param {number} maxValue
+   * @param {String} minLabel
+   * @param {String} maxLabel
+   * @param {Object} [options]
    * @constructor
    */
   function ControllerNode( controller, minValue, maxValue, minLabel, maxLabel, options ) {
@@ -50,9 +54,8 @@ define( function( require ) {
       }
     } );
 
-    // Hook up the data flow in the other direction, so that if the
-    // controlled value changes (which may occur, for example, when the
-    // property is reset) this changes too.
+    // Hook up the data flow in the other direction, so that if the controlled value changes (which may occur, for
+    // example, when the property is reset) this changes too.
     controller.link( function( value ) {
       if ( options.logScale ) {
         passThroughController.set( Math.log( value ) / Math.LN10 );
@@ -82,7 +85,7 @@ define( function( require ) {
 
   }
 
-
   geneExpressionEssentials.register( 'ControllerNode', ControllerNode );
+
   return inherit( Node, ControllerNode, {} );
 } );

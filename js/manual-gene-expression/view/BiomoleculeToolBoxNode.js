@@ -7,25 +7,26 @@
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
-  var Panel = require( 'SUN/Panel' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
   var Color = require( 'SCENERY/util/Color' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var TranscriptionFactorCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/TranscriptionFactorCreatorNode' );
-  var RnaPolymeraseCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RnaPolymeraseCreatorNode' );
-  var RibosomeCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RibosomeCreatorNode' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MessengerRnaDestroyerCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/MessengerRnaDestroyerCreatorNode' );
+  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Panel = require( 'SUN/Panel' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RibosomeCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RibosomeCreatorNode' );
+  var RnaPolymeraseCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RnaPolymeraseCreatorNode' );
   var Spacer = require( 'SCENERY/nodes/Spacer' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var TranscriptionFactorCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/TranscriptionFactorCreatorNode' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var TITLE_FONT = new PhetFont( { size: 20, weight: 'bold' } );
@@ -47,7 +48,6 @@ define( function( require ) {
       maxWidth: 150
     } );
   }
-
 
   /**
    *
@@ -204,8 +204,8 @@ define( function( require ) {
     },
 
     /**
-     * Convenience function for making it easy to create a biomolecule creator
-     * node and add it to the content panel at the same time.
+     * Convenience function for making it easy to create a biomolecule creator node and add it to the content panel at
+     * the same time.
      * @param {BiomoleculeCreatorNode} biomoleculeCreatorNode
      * @returns BiomoleculeCreatorNode
      */
@@ -213,8 +213,5 @@ define( function( require ) {
       this.biomoleculeCreatorNodeList.push( biomoleculeCreatorNode );
       return biomoleculeCreatorNode;
     }
-
   } );
-
 } );
-

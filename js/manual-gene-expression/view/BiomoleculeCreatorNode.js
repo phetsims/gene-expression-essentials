@@ -7,6 +7,7 @@
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
@@ -14,7 +15,6 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   /**
@@ -40,7 +40,7 @@ define( function( require ) {
 
 
     // Appearance Node is a bioMolecule Node which has its own DragHandler, since the node
-    // within the creator Node only serves as a iocn, it shouldn't be pickable -
+    // within the creator Node only serves as a icon, it shouldn't be pickable -
     // otherwise the DragHandler of the BioMolecule takes over the Input Listener of the creator Node - Ashraf
 
     appearanceNode.pickable = false;
@@ -60,7 +60,6 @@ define( function( require ) {
 
         // Convert the canvas position to the corresponding location in the model.
         var modelPos = self.getModelPosition( event.pointer.point );
-        //   thisNode.debugPoint(thisNode.canvas,modelPos); TODO Debug
 
         // Create the corresponding biomolecule and add it to the model.
         self.biomolecule = moleculeCreator( modelPos );
@@ -123,20 +122,6 @@ define( function( require ) {
       var canvasPosition = this.canvas.globalToLocalPoint( point );
       var adjustedCanvasPos = canvasPosition.minus( this.canvas.viewPortOffset );
       return this.mvt.viewToModelPosition( adjustedCanvasPos );
-    },
-
-    debugPoint: function( canvas, pt ) {
-      var cirlceNode = new Circle( 15, {
-        fill: 'red'
-      } );
-
-      canvas.addChild( cirlceNode );
-
-      pt = this.mvt.modelToViewPosition( pt );
-
-      cirlceNode.x = pt.x;
-      cirlceNode.y = pt.y;
     }
-
   } );
 } );

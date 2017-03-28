@@ -1,21 +1,23 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Specific instance of a gene.
  *
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Color = require( 'SCENERY/util/Color' );
   var Gene = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Gene' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinB' );
   var Range = require( 'DOT/Range' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
-  var ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinB' );
 
   // constants
   var REGULATORY_REGION_COLOR = new Color( 216, 191, 216 );
@@ -36,8 +38,8 @@ define( function( require ) {
       TRANSCRIBED_REGION_COLOR
     );
 
-    // Add transcription factors that are specific to this gene.  Location
-    // is pretty much arbitrary, just meant to look decent.
+    // Add transcription factors that are specific to this gene. Location is pretty much arbitrary, just meant to look
+    // decent.
     this.addTranscriptionFactor( 6, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_1 );
     this.addTranscriptionFactor( 16, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_2 );
     this.addTranscriptionFactor( 11, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_NEG );

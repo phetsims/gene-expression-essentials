@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * User interface control that can be used to control the affinity between a transcription factor and the DNA. Presents
  * a node with the transcription factor, an arrow, and a fragment of DNA in order to create the idea that
@@ -6,21 +7,22 @@
  * @author Mohamed Safi
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControllerNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControllerNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   //constants
   var ARROW_LENGTH = 30;

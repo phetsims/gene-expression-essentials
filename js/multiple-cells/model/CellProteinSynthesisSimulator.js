@@ -1,6 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
 
-
 /**
  * This class defines a synthetic cell. The central dogma is simulated as a Markov process for a single protein.
  * Transcription  Translation

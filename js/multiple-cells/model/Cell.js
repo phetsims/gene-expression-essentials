@@ -5,13 +5,13 @@ define( function( require ) {
 
   // modules
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
+  var CellProteinSynthesisSimulator = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/CellProteinSynthesisSimulator' );
   var Dimension2 = require('DOT/Dimension2');
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var CellProteinSynthesisSimulator  = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/CellProteinSynthesisSimulator' );
-  var ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
   var Property = require( 'AXON/Property' );
+  var ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
 
   // Default size for a cell.
   var DEFAULT_CELL_SIZE = new Dimension2( 2E-6, 0.75E-6 ); // In meters.
@@ -28,16 +28,14 @@ define( function( require ) {
 
   function Cell( rotationAngle ) {
     ShapeChangingModelElement.call( this, this.createShape( rotationAngle ) );
-    // This is a separate object in which the protein synthesis is simulated.
-    // The reason that this is broken out into a separate class is that it was
-    // supplied by someone outside of the PhET project, and this keeps it
-    // encapsulated and thus easier for the original author to help maintain.
+    // This is a separate object in which the protein synthesis is simulated. The reason that this is broken out into a
+    // separate class is that it was supplied by someone outside of the PhET project, and this keeps it encapsulated and
+    // thus easier for the original author to help maintain.
     this.proteinSynthesisSimulator = new CellProteinSynthesisSimulator( 100 );
 
-    // Property that indicates the current protein count in the cell.  This
-    // should not be set by external users, only monitored.
+    // Property that indicates the current protein count in the cell. This should not be set by external users, only
+    // monitored.
     this.proteinCount = new Property( 0 );
-
 
   }
 
@@ -47,7 +45,7 @@ define( function( require ) {
 
     stepInTime: function( dt ){
       // NOTE: Multiplying time step, because it was necessary to get the model to run at the needed rate.
-      this.proteinSynthesisSimulator.stepInTime( dt * 1000 );//TODO Check why 1000
+      this.proteinSynthesisSimulator.stepInTime( dt * 1000 );
       this.proteinCount.set(this.proteinSynthesisSimulator.getProteinCount() );
     },
 
@@ -58,12 +56,12 @@ define( function( require ) {
       return ecoliShape.transformed( Matrix3.rotation2( rotationAngle ) );
     },
 
-    //-------------------------------------------------------------------------
-    // The following methods are essentially "pass through" methods to the
-    // protein synthesis simulation.  This is kept separate for now.  At some
-    // point, once the protein synthesis stuff is fully debugged, it may make
-    // sense to pull the protein synthesis model into this class.
-    //-------------------------------------------------------------------------
+    /**
+     * The following methods are essentially "pass through" methods to the protein synthesis simulation. This is kept
+     * separate for now. At some point, once the protein synthesis stuff is fully debugged, it may make sense to pull
+     * the protein synthesis model into this class.
+     */
+
 
     setTranscriptionFactorCount: function( tfCount ) {
       this.proteinSynthesisSimulator.setTranscriptionFactorCount( tfCount );

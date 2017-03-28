@@ -69,11 +69,6 @@ define( function( require ) {
     // (leftmost). Initialize variables that are dependent upon the DNA.
     this.activeGeneProperty = new Property( this.dnaMolecule.getGenes()[ 0 ] );
 
-    // Properties that keep track of whether the first or last gene is
-    // currently active, which means that the user is viewing it.
-    //this.isFirstGeneActive = this.activeGeneProperty.get() === this.dnaMolecule.getGenes()[ 0 ];
-    //this.isLastGeneActive = this.activeGeneProperty.get() === this.dnaMolecule.getLastGene();
-
     // List of areas where biomolecules should not be allowed.  These are generally populated by the view in order to
     // keep biomolecules from wandering over the tool boxes and such.
     this.offLimitsMotionSpaces = [];

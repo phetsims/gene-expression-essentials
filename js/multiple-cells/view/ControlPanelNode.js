@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 define( function( require ) {
   'use strict';
 
@@ -70,7 +71,5 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'ControlPanelNode', ControlPanelNode );
 
-  return inherit( AccordionBox, ControlPanelNode, {
-    //TODO prototypes
-  } );
+  return inherit( AccordionBox, ControlPanelNode, {} );
 } );

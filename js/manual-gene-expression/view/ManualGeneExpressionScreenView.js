@@ -4,29 +4,29 @@
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/BiomoleculeToolBoxNode' );
+  var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
-  var ProteinCollectionNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionNode' );
-  var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/BiomoleculeToolBoxNode' );
-  var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
-  //var DnaMoleculeCanvasNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeCanvasNode' );
   var MessengerRnaNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MessengerRnaNode' );
-  var Vector2 = require( 'DOT/Vector2' );
+  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
+  var ProteinCollectionNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionNode' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var ScreenView = require( 'JOIST/ScreenView' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var GENE_TO_GENE_ANIMATION_TIME = 1000; // In milliseconds.
@@ -49,29 +49,24 @@ define( function( require ) {
     this.viewPortOffset = new Vector2( 0, 0 );
     var biomoleculeToolBoxNodeList = []; // Array of BiomoleculeToolBoxNode
     // Set up the model-canvas transform.
-    // IMPORTANT NOTES: The multiplier factors for the 2nd point can be
-    // adjusted to shift the center right or left, and the scale factor
-    // can be adjusted to zoom in or out (smaller numbers zoom out, larger
-    // ones zoom in).
+    // IMPORTANT NOTES: The multiplier factors for the 2nd point can be adjusted to shift the center right or left, and
+    // the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom in).
     this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.64 ),
       0.1 ); // "Zoom factor" - smaller zooms out, larger zooms in.
 
-    // Set up the node where all controls that need to be below the
-    // biomolecules should be placed.  This node and its children will
-    // stay in one place and not scroll.
+    // Set up the node where all controls that need to be below the biomolecules should be placed.  This node and its
+    // children will stay in one place and not scroll.
     var backControlsLayer = new Node();
     self.addChild( backControlsLayer );
 
-    // Set up the root node for all model objects.  Nodes placed under
-    // this one will scroll when the user moves along the DNA strand.
+    // Set up the root node for all model objects. Nodes placed under this one will scroll when the user moves along the
+    // DNA strand.
     this.modelRootNode = new Node();
     self.addChild( this.modelRootNode );
 
-
-    // Add some layers for enforcing some z-order relationships needed in
-    // order to keep things looking good.
+    // Add some layers for enforcing some z-order relationships needed in order to keep things looking good.
     var dnaLayer = new Node();
     this.modelRootNode.addChild( dnaLayer );
     var biomoleculeToolBoxLayer = new Node();
@@ -83,9 +78,8 @@ define( function( require ) {
     var placementHintLayer = new Node();
     this.modelRootNode.addChild( placementHintLayer );
 
-    // Set up the node where all controls that need to be above the
-    // biomolecules should be placed.  This node and its children will
-    // stay in one place and not scroll.
+    // Set up the node where all controls that need to be above the biomolecules should be placed. This node and its
+    // children will stay in one place and not scroll.
     var frontControlsLayer = new Node();
     self.addChild( frontControlsLayer );
 
@@ -93,16 +87,13 @@ define( function( require ) {
     this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
     dnaLayer.addChild( this.dnaMoleculeNode );
 
-    // Add the placement hints that go on the DNA molecule.  These exist on
-    // their own layer so that they can be seen above any molecules that
-    // are attached to the DNA strand.
+    // Add the placement hints that go on the DNA molecule. These exist on their own layer so that they can be seen above
+    // any molecules that are attached to the DNA strand.
     _.each( model.getDnaMolecule().getGenes(), function( gene ) {
       _.each( gene.getPlacementHints(), function( placementHint ) {
         placementHintLayer.addChild( new PlacementHintNode( self.mvt, placementHint ) );
       } );
     } );
-
-    // this.debugPoint( thisView, new Vector2( 0, 0 ) );
 
     // Add the protein collection box.
     var proteinCollectionNode = new ProteinCollectionNode( model, this.mvt );
@@ -116,7 +107,7 @@ define( function( require ) {
     } );
 
     // Watch for and handle comings and goings of biomolecules in the model. Most, but not all, of the biomolecules
-    // are handled by this.  Some  others are handled as special cases.
+    // are handled by this. Some  others are handled as special cases.
     model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
       var biomoleculeNode = new MobileBiomoleculeNode( self.mvt, addedBiomolecule );
       topBiomoleculeLayer.addChild( biomoleculeNode );
@@ -182,7 +173,6 @@ define( function( require ) {
         model.nextGene() ;
       },
       baseColor: 'yellow',
-      //fireOnDown: true,
       stroke: 'black',
       lineWidth: 1
     } );

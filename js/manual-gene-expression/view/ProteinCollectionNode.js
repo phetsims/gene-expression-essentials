@@ -1,31 +1,30 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * A PNode that represents a labeled box where the user can collect protein molecules.
+ * A Node that represents a labeled box where the user can collect protein molecules.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var Color = require( 'SCENERY/util/Color' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
-  var ProteinCollectionArea = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionArea' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
-
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var ProteinCollectionArea = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionArea' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
-  // Total number of protein types that can be collected.
-  var NUM_PROTEIN_TYPES = 3;
+  var NUM_PROTEIN_TYPES = 3;  // Total number of protein types that can be collected.
 
   // Attributes of various aspects of the box.
   var TITLE_FONT = new PhetFont( { size: 18, weight: 'bold' } );
@@ -41,8 +40,8 @@ define( function( require ) {
 
   /**
    * // private
-   * Node that indicates the number of proteins that the user has collected
-   * so far.  This monitors the model and updates automatically.
+   * Node that indicates the number of proteins that the user has collected so far. This monitors the model and updates
+   * automatically.
    * @param {ManualGeneExpressionModel}model
    * @constructor
    */

@@ -6,21 +6,22 @@
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var kite = require( 'KITE/kite' );
+  var Matrix3 = require( 'DOT/Matrix3' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinA' );
   var ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinB' );
   var ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinC' );
   var ProteinCaptureNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCaptureNode' );
-  var kite = require( 'KITE/kite' );
 
   /**
    *
@@ -42,8 +43,7 @@ define( function( require ) {
     assert && assert( scale === Math.abs( scaleVector.y ) ); // This only handles symmetric transform case.
     var transform = Matrix3.scaling( scale, -scale );
 
-    // Figure out the max dimensions of the various protein types so
-    // that the capture nodes can be properly laid out.
+    // Figure out the max dimensions of the various protein types so that the capture nodes can be properly laid out.
     var captureNodeBackgroundSize = new Dimension2( 0, 0 );
 
     var proteinTypes = [ ProteinA, ProteinB, ProteinC ];
@@ -64,8 +64,7 @@ define( function( require ) {
 
   }
 
-
   geneExpressionEssentials.register( 'ProteinCollectionArea', ProteinCollectionArea );
+
   return inherit( Node, ProteinCollectionArea );
-} )
-;
+} );
