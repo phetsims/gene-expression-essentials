@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Base class for individual attachment states, used by the various attachment
  * state machines.
@@ -7,12 +8,13 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @abstract class
@@ -42,13 +44,8 @@ define( function( require ) {
     }
 
   }, {
-
-    // Distance within which a molecule is considered to be attached to an
-    // attachment site.  This essentially avoids floating point issues.
+    // Distance within which a molecule is considered to be attached to an attachment site. This essentially avoids
+    // floating point issues.
     ATTACHED_DISTANCE_THRESHOLD: 1 // In picometers.
-
-
   } );
-
-
 } );

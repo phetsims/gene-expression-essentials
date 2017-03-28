@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Class that represents messenger ribonucleic acid, or mRNA, in the model. This class is fairly complex, due to the
  * need for mRNA to wind up and unwind as it is transcribed, translated, and destroyed.
@@ -6,23 +7,24 @@
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
+  var FlatSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/FlatSegment' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Shape = require( 'KITE/Shape' );
   var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
-  var FlatSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/FlatSegment' );
   var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MessengerRnaAttachmentStateMachine' );
-  var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
+  var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaDestroyer' );
   var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
   var Property = require( 'AXON/Property' );
   var Ribosome = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Ribosome' );
-  var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaDestroyer' );
+  var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
 
   // constants
   // Distance within which this will connect to a ribosome.
@@ -84,7 +86,8 @@ define( function( require ) {
   return inherit( WindingBiomolecule, MessengerRna, {
     /**
      * @Override
-     * @param translationVector
+     * @param {number} x
+     * @param {number} y
      */
     translate: function( x, y ) {
 
@@ -452,6 +455,5 @@ define( function( require ) {
       return new Vector2( this.segmentWhereDestroyerConnects.getLowerRightCornerPos().x - GEEConstants.LEADER_LENGTH,
         this.segmentWhereDestroyerConnects.getLowerRightCornerPos().y );
     }
-
   } );
 } );

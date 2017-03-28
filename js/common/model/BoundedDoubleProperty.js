@@ -12,8 +12,8 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var Util = require( 'DOT/Util' );
   var Range = require( 'DOT/Range' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * Constraint value between min and max value
@@ -39,7 +39,5 @@ define( function( require ) {
       var boundedValue = Util.clamp( value, this.bounds.min, this.bounds.max );
       Property.prototype.set.call( this, boundedValue );
     }
-
   } );
-
 } );

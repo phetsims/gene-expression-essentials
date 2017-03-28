@@ -1,21 +1,22 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
- /**
  * Class that defines what the ribosome does when attached to mRNA, which is essentially to transcribe it.
  *
  * @author John Blanco
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var RibosomeTranslatingRnaMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RibosomeTranslatingRnaMotionStrategy' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var RNA_TRANSLATION_RATE = 750; // Picometers per second. // Scalar velocity for transcription.
@@ -91,9 +92,5 @@ define( function( require ) {
       // Prevent user interaction while translating.
       asm.biomolecule.movableByUserProperty.set( false );
     }
-
-
   } );
-
-
 } );

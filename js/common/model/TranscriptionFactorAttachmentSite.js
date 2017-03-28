@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Specialization of the attachment site for transcription factors - associates a transcription factor configuration and
  * a property with the attachment site.
@@ -9,17 +10,18 @@
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   //modules
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
 
   /**
    *
-   * @param {Vector} initialLocation
+   * @param {Vector2} initialLocation
    * @param {TranscriptionFactorConfig} tfConfig
    * @param {number} initialAffinity
    * @constructor
@@ -28,7 +30,7 @@ define( function( require ) {
     AttachmentSite.call( this, initialLocation, initialAffinity );
 
     // Configuration of TF that attaches to this site.
-    this.tfConfig = tfConfig; // private
+    this.tfConfig = tfConfig; // @private
   }
 
   geneExpressionEssentials.register( 'TranscriptionFactorAttachmentSite', TranscriptionFactorAttachmentSite );
@@ -52,6 +54,5 @@ define( function( require ) {
       return this.tfConfig;
     }
   } );
-
 } );
 

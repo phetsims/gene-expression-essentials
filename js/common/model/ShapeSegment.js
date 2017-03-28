@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * This class defines a shape that encloses a segment of the mRNA. These segments, connected together, are used to define
  * the outline shape of the mRNA strand. The path of the strand within these shape segments is worked out elsewhere.
@@ -9,21 +10,21 @@
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   //modules
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var Property = require( 'AXON/Property' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  // Factor to use to avoid issues with floating point resolution.
-  var FLOATING_POINT_COMP_FACTOR = 1E-7;
+  var FLOATING_POINT_COMP_FACTOR = 1E-7; // Factor to use to avoid issues with floating point resolution.
 
   /**
    *

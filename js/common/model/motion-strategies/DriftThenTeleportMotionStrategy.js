@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Motion strategy where the controlled entity drifts at the front of a Z dimension, then moves to the back of Z space,
  * then moves instantly to a new randomly generated location within a set of possible "destination zones" (hench the
@@ -9,16 +10,17 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
+  var Util = require( 'DOT/Util' );
   var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Util = require( 'DOT/Util' );
-  var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
 
   // constants
   var PRE_FADE_DRIFT_TIME = 1.5; // In seconds.
@@ -129,7 +131,5 @@ define( function( require ) {
         currentLocation.y + xyMovement.y,
         Util.clamp( currentLocation.z + zMovement, -1, 0 ) );
     }
-
   } );
-
 } );

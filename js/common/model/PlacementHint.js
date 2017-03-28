@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * This class represents a "placement hint" in the model, which is a location where a biomolecule of the provided type
  * can be placed and which will be "hinted" to the user at the appropriate times.
@@ -6,6 +7,7 @@
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
@@ -14,7 +16,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
-
 
   /**
    *
@@ -64,8 +65,5 @@ define( function( require ) {
         this.activeProperty.set( true );
       }
     }
-
   } );
-
-
 } );

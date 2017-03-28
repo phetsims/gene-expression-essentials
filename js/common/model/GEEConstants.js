@@ -1,18 +1,20 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * The constants used in DNAMolecule is referred in multiple external places, so a separate constants file is created
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
   // imports
   var Color = require( 'SCENERY/util/Color' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var Vector2 = require( 'DOT/Vector2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var LENGTH_PER_TWIST = 340;// In picometers
@@ -34,6 +36,9 @@ define( function( require ) {
     DEFAULT_AFFINITY: 0.05, // Default affinity for any given biomolecule,
 
     CONFORMATIONAL_CHANGE_RATE: 1, // proportion per second
+
+    VELOCITY_ON_DNA: 200, // Scalar velocity when moving between attachment points on the DNA.
+    DEFAULT_ATTACH_TIME: 0.15, // // Time for attachment to a site on the DNA, in seconds.
 
     // Standard distance between points that define the shape. This is done to keep the number of points reasonable
     // and make the shape-defining algorithm consistent.

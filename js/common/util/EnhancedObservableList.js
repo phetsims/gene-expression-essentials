@@ -1,7 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * /**
  * Class that defines an observable list with some additional methods that make it easier to get next and previous items
  * and to insert items before and after existing items.
  *
@@ -34,7 +33,7 @@ define( function( require ) {
     getNextItem: function( item ) {
       var index = this.indexOf( item );
       if ( index === -1 ) {
-        throw new Error( 'Given item not on list' );
+        throw new Error( 'Given item not in list' );
       }
       if ( index === this.length - 1 ) {
         // The given segment is the last element on the list, so null is returned.
@@ -53,7 +52,7 @@ define( function( require ) {
     getPreviousItem: function( item ) {
       var index = this.indexOf( item );
       if ( index === -1 ) {
-        throw new Error( 'Given item not on list' );
+        throw new Error( 'Given item not in list' );
       }
       if ( index === 0 ) {
         // The given segment is the first element on the list, so null is returned.
@@ -64,38 +63,30 @@ define( function( require ) {
       }
     },
 
-    // TODO
     /**
      *
      * @param existingItem
      * @param itemToInsert
      */
     insertAfter: function( existingItem, itemToInsert ) {
-      if ( !this.contains( existingItem ) ) {
-        throw new Error( 'Given item not on list' );
+      var index = this.indexOf( existingItem );
+      if ( index === -1 ) {
+        throw new Error( 'Given item not in list' );
       }
-      this._array.splice( this.indexOf( existingItem ) + 1, 0, itemToInsert );
-      this.lengthProperty.set( this._array.length );
-      this._fireItemAdded( itemToInsert );
+      this.splice( index + 1, 0, itemToInsert );
     },
 
-    // TODO
     /**
      *
      * @param existingItem
      * @param itemToInsert
      */
     insertBefore: function( existingItem, itemToInsert ) {
-      if ( !this.contains( existingItem ) ) {
-        throw new Error( 'Given item not on list' );
+      var index = this.indexOf( existingItem );
+      if ( index === -1 ) {
+        throw new Error( 'Given item not in list' );
       }
-
-      this._array.splice( this.indexOf( existingItem ), 0, itemToInsert );
-      this.lengthProperty.set( this._array.length );
-      this._fireItemAdded( itemToInsert );
+      this.splice( index, 0, itemToInsert );
     }
-
   } );
-
-
 } );

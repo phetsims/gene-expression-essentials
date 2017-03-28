@@ -1,9 +1,11 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Contains utility  methods for creating different shapes
-
+ *
  * @author Sharfudeen Ashraf
  */
+
 define( function( require ) {
   'use strict';
 
@@ -60,11 +62,7 @@ define( function( require ) {
       var xy025Plusyz025 = { x: xy025.x + yz025.x, y: xy025.y + yz025.y };
       return { x: y.x + xy025Plusyz025.x, y: y.y + xy025Plusyz025.y };
     }
-
-
   };
-
   geneExpressionEssentials.register( 'ShapeUtils', ShapeUtils );
-
   return ShapeUtils;
 } );

@@ -1,13 +1,14 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
- * This class defines a motion strategy that produces a random walk, meaning
- * that items using this strategy will move in one direction for a while, then
- * switch directions and move in another.
+ * This class defines a motion strategy that produces a random walk, meaning that items using this strategy will move in
+ * one direction for a while, then switch directions and move in another.
  *
  * @author John Blanco
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
@@ -121,9 +122,6 @@ define( function( require ) {
       );
 
     }
-
   } );
-
-
 } );
 

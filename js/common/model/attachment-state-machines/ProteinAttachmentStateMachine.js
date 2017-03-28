@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Attachment state machine for all protein molecules. This class controls how protein molecules behave with respect to
  * attachments.
@@ -7,14 +8,15 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/StillnessMotionStrategy' );
 
   // private classes
@@ -53,8 +55,7 @@ define( function( require ) {
     GenericAttachmentStateMachine.call( this, biomolecule );
 
 
-    // Set up a new "attached" state, since the behavior is different from
-    // the default.
+    // Set up a new "attached" state, since the behavior is different from the default.
     this.attachedState = new ProteinAttachedToRibosomeState( this );
     this.setState( this.attachedState );
 

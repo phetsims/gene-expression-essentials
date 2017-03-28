@@ -1,10 +1,12 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Flat segment - has no height, so rRNA contained in this segment is not wound.
  *
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 

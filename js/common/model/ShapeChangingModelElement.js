@@ -1,10 +1,12 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Base class for elements in the model that change shape and/or move around.
  *
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
@@ -12,7 +14,6 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-
 
   /**
    * @abstract
@@ -23,7 +24,6 @@ define( function( require ) {
     // Shape property, which is not public because it should only be changed by descendants of the class.
     this.shapeProperty = new Property( initialShape );
     this.bounds = this.shapeProperty.get().bounds.copy();
-
   }
 
   geneExpressionEssentials.register( 'ShapeChangingModelElement', ShapeChangingModelElement );
@@ -92,7 +92,6 @@ define( function( require ) {
       return center;
     },
 
-
     /**
      *
      * @returns {Vector2}
@@ -101,7 +100,5 @@ define( function( require ) {
       // Assumes that the center of the shape is the position.  Override if other behavior is needed.
       return this.getCenter();
     }
-
   } );
-
 } );

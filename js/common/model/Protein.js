@@ -1,26 +1,26 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Base class for proteins.  Defines the methods used for growing a protein.
  *
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   //modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericUnattachedAndAvailableState' );
-  var ProteinAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/ProteinAttachmentStateMachine' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
+  var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var Property = require( 'AXON/Property' );
+  var ProteinAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/ProteinAttachmentStateMachine' );
 
   // constants
-  // Max value for the growth factor, indicates that it is fully grown.
-  var MAX_GROWTH_FACTOR = 1;
-
+  var MAX_GROWTH_FACTOR = 1; // Max value for the growth factor, indicates that it is fully grown.
 
   /**
    *

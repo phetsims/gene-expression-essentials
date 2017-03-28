@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var GenericAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachedState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var FollowAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/FollowAttachmentSite' );
@@ -21,9 +22,7 @@ define( function( require ) {
 
 
   // constants
-  var VELOCITY_ON_DNA = 200;// Scalar velocity when moving between attachment points on the DNA.
   var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.// Half-life of attachment to a site with affinity of 0.5.
-  var DEFAULT_ATTACH_TIME = 0.15; // In seconds.
 
   /**
    *
@@ -128,12 +127,12 @@ define( function( require ) {
             this.transcriptionFactorAttachmentStateMachine.setState( movingTowardsAttachmentState );
             this.transcriptionFactorAttachmentStateMachine.attachmentSite = attachmentSite;
             biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.locationProperty,
-              biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), VELOCITY_ON_DNA ) );
+              biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), GEEConstants.VELOCITY_ON_DNA ) );
 
             // Update the detachment threshold. It gets lower over time to increase the probability of detachment.
             // Tweak as needed.
             this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold =
-            detachFromDnaThreshold * Math.pow( 0.5, DEFAULT_ATTACH_TIME );
+              detachFromDnaThreshold * Math.pow( 0.5, GEEConstants.DEFAULT_ATTACH_TIME );
           }
         }
       }
@@ -147,10 +146,5 @@ define( function( require ) {
       enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
       enclosingStateMachine.biomolecule.attachedToDnaProperty.set( true ); // Update externally visible state indication.
     }
-
-
-  }, {
-    DEFAULT_ATTACH_TIME: DEFAULT_ATTACH_TIME
   } );
-
 } );

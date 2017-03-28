@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * One of sub-states for the attached site
  *
@@ -7,16 +8,17 @@
  *
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RandomWalkMotionStrategy' );
   var DriftThenTeleportMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/DriftThenTeleportMotionStrategy' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RandomWalkMotionStrategy' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    *
@@ -71,9 +73,6 @@ define( function( require ) {
         phet.joist.random.nextBoolean() ? 1 : -1 ),
         this.recycleReturnZones, biomolecule.motionBoundsProperty ) );
     }
-
   } );
-
-
 } );
 

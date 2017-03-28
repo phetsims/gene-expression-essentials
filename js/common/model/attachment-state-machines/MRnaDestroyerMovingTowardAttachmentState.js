@@ -1,12 +1,13 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
- /**
  *  Use generic state except that interaction is turned off.
  *
  * @author John Blanco
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
@@ -37,7 +38,5 @@ define( function( require ) {
       GenericMovingTowardsAttachmentState.prototype.entered.call( this, asm );
       asm.biomolecule.movableByUserProperty.set( false );
     }
-
   } );
-
 } );

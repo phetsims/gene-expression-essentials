@@ -13,22 +13,20 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Property = require( 'AXON/Property' );
-  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
-  var AttachedToBasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedToBasePair' );
   var AttachedAndConformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndConformingState' );
   var AttachedAndDeconformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndDeconformingState' );
   var AttachedAndTranscribingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndTranscribingState' );
-  var DnaSeparation = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaSeparation' );
+  var AttachedToBasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedToBasePair' );
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  var DnaSeparation = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaSeparation' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-
+  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.  Half-life of attachment to a site with affinity of 0.5.
-
 
   /**
    * @param {RnaPolymerase} rnaPolymerase
@@ -44,27 +42,22 @@ define( function( require ) {
     // RNA polymerase that is being controlled by this state machine.
     this.rnaPolymerase = rnaPolymerase;
 
-    // Set up a new "attached" state, since the behavior is different from
-    // the default.
+    // Set up a new "attached" state, since the behavior is different from the default.
     this.attachedState = this.attachedAndWanderingState;
 
-    // Separator used to deform the DNA strand when the RNA polymerase is
-    // transcribing it. // Create the DNA strand separator.
+    // Separator used to deform the DNA strand when the RNA polymerase is transcribing it.
     this.dnaStrandSeparation = new DnaSeparation( rnaPolymerase.getPosition().x, rnaPolymerase.bounds.getHeight() * 0.9 );
 
-    // This attachment site is used by the state machine to get the polymerase
-    // something to attach to when transcribing.  This is a bit hokey, but was
-    // a lot easier than trying to move to each and every base pair in the DNA
-    // strand.
+    // This attachment site is used by the state machine to get the polymerase something to attach to when transcribing.
+    // This is a bit hokey, but was a lot easier than trying to move to each and every base pair in the DNA strand.
     this.transcribingAttachmentSite = new AttachmentSite( new Vector2( 0, 0 ), 1 );
 
-    // Threshold for the detachment algorithm, used in deciding whether or not
-    // to detach completely from the DNA at a given time step.
+    // Threshold for the detachment algorithm, used in deciding whether or not to detach completely from the DNA at a
+    // given time step.
     this.detachFromDnaThreshold = new Property( 1.0 );
 
-    // A flag that tracks whether this state machine should use the "recycle
-    // mode", which causes the polymerase to return to some new location once
-    // it has completed transcription.
+    // A flag that tracks whether this state machine should use the "recycle mode", which causes the polymerase to
+    // return to some new location once it has completed transcription.
     this.recycleMode = false;
 
     this.recycleReturnZones = [];
@@ -102,7 +95,7 @@ define( function( require ) {
      */
     calculateProbabilityOfDetachment: function( affinity, dt ) {
 
-      // Map affinity to a half life.  Units are in seconds.
+      // Map affinity to a half life. Units are in seconds.
       // Use standard half-life formula to decide on probability of detachment.
       return 1 - Math.exp( -0.693 * dt / this.calculateHalfLifeFromAffinity( affinity ) );
     },
@@ -131,7 +124,5 @@ define( function( require ) {
       }
       return false;
     }
-
   } );
-
 } );

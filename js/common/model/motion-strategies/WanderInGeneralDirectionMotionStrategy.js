@@ -1,11 +1,12 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
- /**
  * A motion strategy where the user moves in a general direction with some random direction changes every once in a while.
  * @author John Blanco
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
@@ -99,12 +100,9 @@ define( function( require ) {
      */
     getNextLocation3D: function( currentLocation, bounds, dt ) {
 
-      // The 3D version of this motion strategy doesn't move in the z direction.  This may change some day.
+      // The 3D version of this motion strategy doesn't move in the z direction. This may change some day.
       var nextLocation2D = this.getNextLocation( new Vector2( currentLocation.x, currentLocation.y ), bounds, dt );
       return new Vector3( nextLocation2D.x, nextLocation2D.y, currentLocation.z );
     }
-
   } );
-
-
 } );

@@ -1,10 +1,12 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Class that defines a separation of the DNA strand. This is used when forcing the DNA strand to separate in certain
  * locations, which happens, for instance, when RNA polymerase is attached and transcribing the DNA.
  *
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 
@@ -58,9 +60,6 @@ define( function( require ) {
     setProportionOfTargetAmount: function( proportion ) {
       this.amount = this.targetAmount * proportion;
     }
-
   } );
-
-
 } );
 

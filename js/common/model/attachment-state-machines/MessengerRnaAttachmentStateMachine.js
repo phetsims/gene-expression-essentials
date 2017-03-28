@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Attachment state machine for messenger RNA.
  *
@@ -6,19 +7,21 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentStateMachine' );
-  var BeingSynthesizedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingSynthesizedState' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var UnattachedAndFadingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/UnattachedAndFadingState' );
-  var DetachingFromPolymeraseState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/DetachingFromPolymeraseState' );
-  var WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/WanderingAroundCytoplasmState' );
-  var BeingTranslatedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingTranslatedState' );
   var BeingDestroyedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingDestroyedState' );
+  var BeingSynthesizedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingSynthesizedState' );
+  var BeingTranslatedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingTranslatedState' );
+  var DetachingFromPolymeraseState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/DetachingFromPolymeraseState' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var UnattachedAndFadingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/UnattachedAndFadingState' );
+  var WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/WanderingAroundCytoplasmState' );
+
 
   /**
    * @param {MessengerRna} messengerRna
@@ -88,9 +91,6 @@ define( function( require ) {
     attachToDestroyer: function() {
       this.setState( new BeingDestroyedState() );
     }
-
   } );
-
-
 } );
 

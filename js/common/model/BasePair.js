@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Model class for the base pair in the DNA molecule. In the real world, a "base pair" is a pair of nitrogenous bases
  * that connects to the DNA backbone on one side and in the center of the DNA strand on the other. For the purposes of
@@ -42,14 +43,11 @@ define( function( require ) {
 
   return inherit( Object, BasePair, {
 
-
     /**
      * @returns {Vector2}
      */
     getCenterLocation: function() {
       return this.center;
     }
-
   } );
-
 } );

@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Class that represents a fragment of messenger ribonucleic acid, or mRNA, in the model. The fragments exist for a short
  * time as mRNA is being destroyed, but can't be translated.
@@ -6,6 +7,7 @@
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
@@ -16,7 +18,6 @@ define( function( require ) {
   var SquareSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/SquareSegment' );
   var Shape = require( 'KITE/Shape' );
   var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
-
 
   /**
    * This creates the mRNA fragment as a single point, with the intention of growing it.
@@ -30,8 +31,6 @@ define( function( require ) {
 
     // Add the first, and in this case only, segment to the shape segment list.
     this.shapeSegments.add( new SquareSegment( position ) ); //TODO
-
-
   }
 
   geneExpressionEssentials.register( 'MessengerRnaFragment', MessengerRnaFragment );
@@ -52,8 +51,5 @@ define( function( require ) {
     createAttachmentStateMachine: function() {
       return new MessengerRnaFragmentAttachmentStateMachine( this );
     }
-
   } );
-
-
 } );

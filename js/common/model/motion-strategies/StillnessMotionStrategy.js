@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Motion strategy that has no motion, i.e. causes the user to be still.
  *
@@ -6,6 +7,7 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
@@ -36,7 +38,5 @@ define( function( require ) {
     getNextLocation: function( currentLocation, bounds, dt ) {
       return currentLocation;
     }
-
   } );
-
 } );

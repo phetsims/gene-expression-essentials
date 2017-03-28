@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Base class for the models used in this simulation. All models must extend from a common class so that the same
  * biomolecules can be used within each.
@@ -6,6 +7,7 @@
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
@@ -79,7 +81,5 @@ define( function( require ) {
     getOverlappingBiomolecules: function( testShapeBounds ) {
       assert && assert( false, 'getOverlappingBiomolecules should be implemented in descendant classes of GeneExpressionModel' );
     }
-
   } );
-
 } );

@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * @author John Blanco
  * @author Mohamed Safi
@@ -45,9 +46,7 @@ define( function( require ) {
         // This molecule is now at the attachment site, so consider it attached.
          gsm.setState( gsm.attachedState );
       }
-
     },
-
 
     /**
      * @param {AttachmentStateMachine} enclosingStateMachine
@@ -56,8 +55,5 @@ define( function( require ) {
       // Allow user interaction.
       enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
     }
-
   } );
-
-
 } );

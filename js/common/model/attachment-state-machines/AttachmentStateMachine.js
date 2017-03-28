@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Base class for the attachment state machines that define how the various biomolecules attach to one another, how they
  * detach from one another, how they find other biomolecules to attach to, and so forth.
@@ -7,6 +8,7 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 

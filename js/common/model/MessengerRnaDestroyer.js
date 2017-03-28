@@ -1,21 +1,23 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Class that represents the small ribosomal subunit in the model.
  *
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
+  var Color = require( 'SCENERY/util/Color' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Shape = require( 'KITE/Shape' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var RnaDestroyerAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/RnaDestroyerAttachmentStateMachine' );
+  var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var WIDTH = 250;   // In nanometers.
@@ -116,7 +118,5 @@ define( function( require ) {
     clearMessengerRnaBeingDestroyed: function() {
       this.messengerRnaBeingDestroyed = null;
     }
-
   } );
-
 } );

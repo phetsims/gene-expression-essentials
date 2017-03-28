@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * The generic "attached" state isn't very useful, but is included for completeness. The reason it isn't useful is
  * because the different biomolecules all have their own unique behavior with respect to attaching, and thus define
@@ -8,15 +9,16 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var FollowAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/FollowAttachmentSite' );
+  var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
 
   // constants
   var DEFAULT_ATTACH_TIME = 3; // In seconds.
@@ -66,9 +68,5 @@ define( function( require ) {
       // Prevent user interaction.
       enclosingStateMachine.biomolecule.movableByUserProperty.set( false );
     }
-
-
   } );
-
-
 } );

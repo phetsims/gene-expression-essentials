@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Motion strategy that moves towards a destination, but it wanders or meanders a bit on the way to look less directed
  * and, in some cases, more natural.
@@ -7,17 +8,18 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector3 = require( 'DOT/Vector3' );
-  var Vector2 = require( 'DOT/Vector2' );
   var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
-  var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RandomWalkMotionStrategy' );
   var MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MoveDirectlyToDestinationMotionStrategy' );
+  var RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RandomWalkMotionStrategy' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Vector3 = require( 'DOT/Vector3' );
 
   /**
    * @param  {Property} destinationProperty
@@ -71,8 +73,5 @@ define( function( require ) {
         return this.directToDestinationMotionStrategy.getNextLocation3D( intermediateLocation, bounds, dt * 0.4 );
       }
     }
-
   } );
-
-
 } );

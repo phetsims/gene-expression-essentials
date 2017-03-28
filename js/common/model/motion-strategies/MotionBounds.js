@@ -1,6 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 
- /*
+/**
  * Class that defines the bounds within which some shape or point is allowed to move. If the bounds are not set, they
  * are assumed to be infinite.
  *
@@ -8,6 +8,7 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
@@ -24,7 +25,6 @@ define( function( require ) {
 
     if ( !bounds ) {
       // Set up bounds to be infinite, is JS world setting the max values
-      //bounds = new Bounds2( Number.MIN_VALUE, Number.MIN_VALUE, Number.MAX_VALUE, Number.MAX_VALUE );
       bounds = Bounds2.EVERYTHING;
     }
 
@@ -66,9 +66,7 @@ define( function( require ) {
      */
     testIfInMotionBoundsWithDelta: function( bounds, motionVector, dt ) {
       return this.inBounds( bounds.shifted( motionVector.x * dt, motionVector.y * dt ) );
-
     },
-
 
     /**
      * Test whether the given shape will be within the motion bounds if it is translated such that its center is at the
@@ -83,10 +81,6 @@ define( function( require ) {
       var translationVector = proposedLocation.minus( shapeCenter );
       return this.inBounds( bounds.shifted( translationVector.x, translationVector.y ) );
     }
-
-
   } );
-
-
 } );
 

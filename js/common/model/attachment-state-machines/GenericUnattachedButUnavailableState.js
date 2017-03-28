@@ -1,17 +1,19 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  *
  * @author John Blanco
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   // constants
   var DEFAULT_DETACH_TIME = 3; // In seconds.
@@ -55,8 +57,5 @@ define( function( require ) {
       // Allow user interaction.
       enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
     }
-
   } );
-
-
 } );

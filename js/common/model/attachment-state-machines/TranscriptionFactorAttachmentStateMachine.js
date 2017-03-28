@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Attachment state machine for all transcription factor molecules. This class controls how transcription factors behave
  * with respect to attaching to and detaching from the DNA molecule, which is the only thing to which the transcription
@@ -8,13 +9,14 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var TranscriptionFactorAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/TranscriptionFactorAttachedState' );
 
   /**
@@ -35,5 +37,4 @@ define( function( require ) {
   geneExpressionEssentials.register( 'TranscriptionFactorAttachmentStateMachine', TranscriptionFactorAttachmentStateMachine );
 
   return inherit( GenericAttachmentStateMachine, TranscriptionFactorAttachmentStateMachine, {} );
-
 } );

@@ -22,7 +22,6 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var GeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
   var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
@@ -88,10 +87,11 @@ define( function( require ) {
 
     // Map of the protein collection count properties to the protein types, used to obtain the count property based on
     // the type of protein.
-    this.mapProteinClassToCollectedCount = new Map();
-    this.mapProteinClassToCollectedCount.put( 'ProteinA', this.proteinACollectedProperty );
-    this.mapProteinClassToCollectedCount.put( 'ProteinB', this.proteinBCollectedProperty );
-    this.mapProteinClassToCollectedCount.put( 'ProteinC', this.proteinCCollectedProperty );
+    this.mapProteinClassToCollectedCount = {
+      'ProteinA': this.proteinACollectedProperty,
+      'ProteinB': this.proteinBCollectedProperty,
+      'ProteinC': this.proteinCCollectedProperty
+    };
 
     // Rectangle that describes the "protein capture area".  When a protein is dropped by the user over this area, it
     // is considered to be captured.
@@ -154,7 +154,7 @@ define( function( require ) {
      * @returns {Property}
      */
     getCollectedCounterForProteinType: function( proteinType ) {
-      return this.mapProteinClassToCollectedCount.get( proteinType );
+      return this.mapProteinClassToCollectedCount[ proteinType ];
     },
 
     /**

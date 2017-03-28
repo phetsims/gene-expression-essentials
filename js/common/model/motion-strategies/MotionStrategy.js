@@ -1,6 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
- /**
  * Base class for motion strategies that can be used to exhibit different sorts of motion. This class and its subclasses
  * have been written to be very general in order to enable reuse.
  *
@@ -8,6 +8,7 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
@@ -15,10 +16,10 @@ define( function( require ) {
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector3 = require( 'DOT/Vector3' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Range = require( 'DOT/Range' );
   var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
+  var Range = require( 'DOT/Range' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Vector3 = require( 'DOT/Vector3' );
 
   function MotionStrategy() {
     this.motionBounds = new MotionBounds();
@@ -153,7 +154,5 @@ define( function( require ) {
       }
       return minZ;
     }
-
   } );
-
 } );

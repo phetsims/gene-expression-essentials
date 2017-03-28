@@ -1,10 +1,12 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  *  Specialization of placement hint for transcription factors.
  *
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 

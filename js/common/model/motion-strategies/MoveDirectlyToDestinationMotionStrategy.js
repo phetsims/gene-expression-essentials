@@ -1,20 +1,22 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  *
  * A motion strategy that moves directly to the specified destination
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
+  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector3 = require( 'DOT/Vector3' );
-  var Util = require( 'DOT/Util' );
-  var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
 
   // constants
   var MAX_Z_VELOCITY = 10; // Max Z velocity in normalized units.
@@ -131,7 +133,5 @@ define( function( require ) {
         currentLocation3D.y + this.velocityVector2D.y * dt,
         Util.clamp( currentLocation3D.z + zVelocity * dt, -1, 0 ) );
     }
-
   } );
-
 } );

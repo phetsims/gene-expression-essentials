@@ -1,22 +1,23 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
- /**
  * Class that defines what the mRNA destroyer does when attached to mRNA.
  *
  * @author John Blanco
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  var Range = require( 'DOT/Range' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var MessengerRnaFragment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaFragment' );
   var DestroyerTrackingRnaMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/DestroyerTrackingRnaMotionStrategy' );
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MessengerRnaFragment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaFragment' );
+  var Range = require( 'DOT/Range' );
 
   // constants
 
@@ -103,7 +104,5 @@ define( function( require ) {
       // Turn off user interaction while mRNA is being destroyed.
       asm.biomolecule.movableByUserProperty.set( false );
     }
-
-  });
-
-});
+  } );
+} );

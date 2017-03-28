@@ -1,16 +1,18 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Class that defines a square segment, which is one in which the mRNA can be (and generally is) curled up.
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   //modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ShapeSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeSegment' );
-  var Bounds2 = require( 'DOT/Bounds2' );
 
   /**
    *
@@ -120,6 +122,5 @@ define( function( require ) {
       var desiredDiagonalLength = Math.pow( this.containedLength, 0.7 ); // Power value was empirically determined.
       return Math.sqrt( 2 * desiredDiagonalLength * desiredDiagonalLength );
     }
-
   } );
 } );

@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Motion strategy that tracks an attachment site and moves to wherever it is.
  *
@@ -6,6 +7,7 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
@@ -37,7 +39,5 @@ define( function( require ) {
     getNextLocation: function( currentLocation, bounds, dt ) {
       return this.attachmentSite.locationProperty.get();
     }
-
   } );
-
 } );

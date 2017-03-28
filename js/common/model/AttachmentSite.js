@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * An attachment site is a single point in model space to which a biomolecule may attach.  Typically, one biomolecule
  * (e.g. a DnaMolecule) owns the attachment site, so if the biomolecule that owns it moves, the attachment site should
@@ -7,14 +8,15 @@
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
+  var BoundedDoubleProperty = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BoundedDoubleProperty' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var BoundedDoubleProperty = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BoundedDoubleProperty' );
 
   // constants
   var ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
@@ -75,8 +77,5 @@ define( function( require ) {
       return (this.affinityProperty.get() === otherAttachmentSite.affinityProperty.get() ) &&
              this.locationProperty.get().equals( otherAttachmentSite.locationProperty.get() );
     }
-
-
   } );
-
 } );

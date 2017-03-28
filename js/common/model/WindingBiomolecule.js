@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Biomolecule that is a represented as a wound up strand. Generally, this refers to some sort of RNA. The complicated
  * part of this is the algorithm that is used to wind the strand.
@@ -6,21 +7,22 @@
  * @author John Blanco
  * @author Mohamed Safi
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
+  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
+  var Color = require( 'SCENERY/util/Color' );
+  var EnhancedObservableList = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/EnhancedObservableList' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Color = require( 'SCENERY/util/Color' );
-  var EnhancedObservableList = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/EnhancedObservableList' );
-  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
-  var Range = require( 'DOT/Range' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var PointMass = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PointMass' );
   var Random = require( 'DOT/Random' );
+  var Range = require( 'DOT/Range' );
+  var Vector2 = require( 'DOT/Vector2' );
 
 
   // constants

@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * This class models a molecule of DNA. It includes the shape of the two "backbone" strands of the DNA and the
  * individual base pairs, defines where the various genes reside, and retains other information about the DNA molecule.
@@ -11,6 +12,7 @@
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */
+
 define( function( require ) {
   'use strict';
 

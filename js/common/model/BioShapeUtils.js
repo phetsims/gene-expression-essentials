@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * Several utilities for making it easier to create some complex and somewhat random shapes. This was created initially
  * to make it easier to create the shapes associated with biomolecules, but may have other uses.
@@ -13,12 +14,12 @@ define( function( require ) {
 
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var Shape = require( 'KITE/Shape' );
-  var Util = require( 'DOT/Util' );
-  var Random = require( 'DOT/Random' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Vector2 = require( 'DOT/Vector2' );
+  var Random = require( 'DOT/Random' );
+  var Shape = require( 'KITE/Shape' );
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
 
   var BioShapeUtils = {
@@ -236,9 +237,8 @@ define( function( require ) {
       var numPointsPerLineSegment = 8;
       var numPointsPerCurvedSegment = 8;
 
-      // Adjustable parameter that affects the degree to which the shape is
-      // altered to make it look somewhat irregular.  Zero means no change
-      // from the perfect geometric shape, 1 means a lot of variation.
+      // Adjustable parameter that affects the degree to which the shape is altered to make it look somewhat irregular.
+      // Zero means no change from the perfect geometric shape, 1 means a lot of variation.
       var alterationFactor = 0.025;
 
       // The list of points that will define the shape.

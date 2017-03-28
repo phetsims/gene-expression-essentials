@@ -1,4 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
+
 /**
  * This class is the model representation of a gene on a DNA molecule. It consists of a regulatory region and a
  * transcribed region, and it keeps track of where the transcription factors and polymerase attaches, and how strong the
@@ -9,23 +10,23 @@
  * @author Mohamed Safi
  *
  */
+
 define( function( require ) {
   'use strict';
 
   // modules
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Map = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/Map' );
   var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
+  var Property = require( 'AXON/Property' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
-  var TranscriptionFactorPlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorPlacementHint' );
+  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
   var TranscriptionFactorAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorAttachmentSite' );
+  var TranscriptionFactorPlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorPlacementHint' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    *
@@ -59,7 +60,7 @@ define( function( require ) {
 
     // Map of transcription factors that interact with this gene to the location, in terms of base pair offset, where
     // the TF attaches.
-    this.transcriptionFactorMap = new Map();
+    this.transcriptionFactorMap = {};
 
     // Property that determines the affinity of the site where polymerase attaches when the transcription factors support
     // transcription.
@@ -177,7 +178,7 @@ define( function( require ) {
      * @param {TranscriptionFactorConfig} tfConfig
      */
     addTranscriptionFactor: function( basePairOffset, tfConfig ) {
-      this.transcriptionFactorMap.put( basePairOffset, new TranscriptionFactor( null, tfConfig ) );
+      this.transcriptionFactorMap[ basePairOffset ] = new TranscriptionFactor( null, tfConfig );
       var position = new Vector2( this.dnaMolecule.getBasePairXOffsetByIndex(
         basePairOffset + this.regulatoryRegion.min ), GEEConstants.DNA_MOLECULE_Y_POS );
       this.transcriptionFactorPlacementHints.push( new TranscriptionFactorPlacementHint(
@@ -199,12 +200,14 @@ define( function( require ) {
 
       // Count the number of positive transcription factors needed to enable transcription.
       var numPositiveTranscriptionFactorsNeeded = 0;
-      this.transcriptionFactorMap.values.forEach( function( transcriptionFactor ) {
-        if ( transcriptionFactor.getConfig().isPositive ) {
-          numPositiveTranscriptionFactorsNeeded += 1;
+      for ( var key in this.transcriptionFactorMap ) {
+        if ( this.transcriptionFactorMap.hasOwnProperty( key ) ) {
+          var transcriptionFactor = this.transcriptionFactorMap[ key ];
+          if ( transcriptionFactor.getConfig().isPositive ) {
+            numPositiveTranscriptionFactorsNeeded += 1;
+          }
         }
-      } );
-
+      }
 
       // Count the number of positive transcription factors attached.
       var numPositiveTranscriptionFactorsAttached = 0;
@@ -420,12 +423,13 @@ define( function( require ) {
      */
     getTranscriptionFactorConfigs: function() {
       var configList = [];
-      this.transcriptionFactorMap.values.forEach( function( transcriptionFactor ) {
-        configList.push( transcriptionFactor.getConfig() );
-      } );
+      for ( var key in this.transcriptionFactorMap ) {
+        if ( this.transcriptionFactorMap.hasOwnProperty( key ) ) {
+          var transcriptionFactor = this.transcriptionFactorMap[ key ];
+          configList.push( transcriptionFactor.getConfig() );
+        }
+      }
       return configList;
     }
-
   } );
-
 } );
