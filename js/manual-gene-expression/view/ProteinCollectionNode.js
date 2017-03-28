@@ -48,7 +48,10 @@ define( function( require ) {
   function CollectionCountIndicator( model ) {
     var contentNode = new Node();
 
-    var collectionCompleteNode = new Text( collectionCompleteString, { font: new PhetFont( 20 ) } );
+    var collectionCompleteNode = new Text( collectionCompleteString, {
+      font: new PhetFont( 20 ),
+      maxWidth: 200
+    } );
     contentNode.addChild( collectionCompleteNode );
 
     var countReadoutText = new Text( 0, {
