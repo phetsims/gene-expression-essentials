@@ -12,7 +12,6 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
   var Random = require( 'DOT/Random' );
-  var Util = require( 'DOT/Util' );
 
   // constants
   var MAX_CELLS = 90;
