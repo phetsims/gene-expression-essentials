@@ -99,7 +99,7 @@ define( function( require ) {
      */
     proposeAttachments: function() {
       // Propose attachment to the DNA.
-      return this.model.getDnaMolecule().considerProposalFromByRnaPolymerase( this );
+      return this.model.getDnaMolecule().considerProposalFromRnaPolymerase( this );
     },
 
     /**

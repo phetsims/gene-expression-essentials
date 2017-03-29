@@ -438,7 +438,7 @@ define( function( require ) {
      * @param {TranscriptionFactor} transcriptionFactor
      * @return {AttachmentSite}
      */
-    considerProposalFromByTranscriptionFactor: function( transcriptionFactor ) {
+    considerProposalFromTranscriptionFactor: function( transcriptionFactor ) {
       var self = this;
       return this.considerProposalFromBiomolecule( transcriptionFactor, TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE,
         function( basePairIndex ) {
@@ -457,7 +457,7 @@ define( function( require ) {
      * @param {RnaPolymerase} rnaPolymerase
      * @returns {AttachmentSite}
      */
-    considerProposalFromByRnaPolymerase: function( rnaPolymerase ) {
+    considerProposalFromRnaPolymerase: function( rnaPolymerase ) {
       var self = this;
       return this.considerProposalFromBiomolecule( rnaPolymerase, RNA_POLYMERASE_ATTACHMENT_DISTANCE,
         function( basePairIndex ) {

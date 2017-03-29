@@ -75,7 +75,7 @@ define( function( require ) {
       var messengerRnaList = this.model.getMessengerRnaList();
       for ( var i = 0; i < messengerRnaList.length; i++ ) {
         var messengerRna = messengerRnaList.get( i );
-        attachmentSite = messengerRna.considerProposalFromByRibosome( this );
+        attachmentSite = messengerRna.considerProposalFromRibosome( this );
         if ( attachmentSite !== null ) {
           // Proposal accepted.
           this.messengerRnaBeingTranslated = messengerRna;

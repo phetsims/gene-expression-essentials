@@ -364,7 +364,7 @@ define( function( require ) {
      * @param {Ribosome} ribosome
      * @returns {AttachmentSite}
      */
-    considerProposalFromByRibosome: function( ribosome ) {
+    considerProposalFromRibosome: function( ribosome ) {
       assert && assert( !this.mapRibosomeToShapeSegment.contains( ribosome ) ); // Shouldn't get redundant proposals from a ribosome.
       var returnValue = null;
 
@@ -395,7 +395,7 @@ define( function( require ) {
      * @param {MessengerRnaDestroyer} messengerRnaDestroyer
      * @returns {AttachmentSite}
      */
-    considerProposalFromByMessengerRnaDestroyer: function( messengerRnaDestroyer ) {
+    considerProposalFromMessengerRnaDestroyer: function( messengerRnaDestroyer ) {
       assert && assert( this.messengerRnaDestroyer !== messengerRnaDestroyer ); // Shouldn't get redundant proposals from same destroyer.
 
       var returnValue = null;

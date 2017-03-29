@@ -103,7 +103,7 @@ define( function( require ) {
      */
     proposeAttachments: function() {
       // Transcription factors only attach to DNA.
-      return this.model.getDnaMolecule().considerProposalFromByTranscriptionFactor( this );
+      return this.model.getDnaMolecule().considerProposalFromTranscriptionFactor( this );
     },
 
     /**

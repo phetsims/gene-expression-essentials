@@ -83,7 +83,7 @@ define( function( require ) {
       var messengerRnaList = this.model.getMessengerRnaList();
       for ( var i = 0; i < messengerRnaList.length; i++ ) {
         var messengerRna = messengerRnaList.get( i );
-        attachmentSite = messengerRna.considerProposalFromByMessengerRnaDestroyer( this );
+        attachmentSite = messengerRna.considerProposalFromMessengerRnaDestroyer( this );
         if ( attachmentSite !== null ) {
           // Proposal accepted.
           this.messengerRnaBeingDestroyed = messengerRna;
