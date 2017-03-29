@@ -84,7 +84,7 @@ define( function( require ) {
     // Hook up the property that controls the number of visible cells.
     this.numberOfVisibleCellsProperty.link( function( numVisibleCells ) {
       assert && assert( numVisibleCells >= 1 && numVisibleCells <= MAX_CELLS );
-      self.setNumVisibleCells( numVisibleCells );
+      self.setNumVisibleCells( Math.floor( numVisibleCells ) );
     } );
 
     // Hook up the cell property parameters to the individual cells so that changes are propagated.
@@ -175,9 +175,7 @@ define( function( require ) {
      * @param numCells - target number of cells.
      */
     setNumVisibleCells: function( numCells ) {
-
       assert && assert( numCells > 0 && numCells <= MAX_CELLS );  // Bounds checking.
-      numCells = Util.clamp( numCells, 1, MAX_CELLS ); // Defensive programming.
 
       if ( this.visibleCellList.length < numCells ) {
         // Add cells to the visible list.
