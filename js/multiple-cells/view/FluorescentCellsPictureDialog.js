@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -27,10 +28,16 @@ define( function( require ) {
 
     var imageNode = new Image( ecoliImage );
     imageNode.scale( 0.75 );
+    var textNode = new Node();
+    var captionTextNode = new HTMLText( imageCaptionString, { maxWidth: 400 } );
+    var noteTextNode = new MultiLineText( imageCaptionNoteString, { maxWidth: 800 } );
+    noteTextNode.centerX = captionTextNode.centerX;
+    noteTextNode.top = captionTextNode.bottom + 3;
+    textNode.addChild( captionTextNode );
+    textNode.addChild( noteTextNode );
     var children = [
       imageNode,
-      new HTMLText( imageCaptionString ),
-      new MultiLineText( imageCaptionNoteString ),
+      textNode,
       new Text( 'Image Copyright Dennis Kunkel Microscopy, Inc.' )
     ];
 

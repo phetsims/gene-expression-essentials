@@ -99,7 +99,7 @@
     "value": "Affinity"
   },
   "imageCaption": {
-    "value": "This image shows <i>Escherichia coli</i> cells expressing green fluorescent protein (GFP)"
+    "value": "This image shows <i>Escherichia coli</i> cells expressing green fluorescent protein (GFP)."
   },
   "imageCaptionNote": {
     "value": "Note that though the cells are genetically identical, they are expressing differing amounts of \n the protein."
