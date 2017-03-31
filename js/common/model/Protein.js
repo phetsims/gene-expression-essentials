@@ -65,6 +65,7 @@ define( function( require ) {
         var untranslatedShape = this.getUntranslatedShape( fullSizeProportion );
         this.shapeProperty.set( untranslatedShape.transformed( transform ) );
         this.bounds = this.shapeProperty.get().bounds.copy();
+        this.setCenter();
       }
     },
 

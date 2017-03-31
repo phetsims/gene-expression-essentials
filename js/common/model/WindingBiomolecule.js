@@ -301,6 +301,7 @@ define( function( require ) {
       // Update the shape property based on the newly positioned points.
       this.shapeProperty.set( BioShapeUtils.createCurvyLineFromPoints( this.getPointList() ) );
       this.bounds = this.shapeProperty.get().bounds.copy();
+      this.setCenter();
     },
 
     /**

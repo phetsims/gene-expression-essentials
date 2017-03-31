@@ -24,6 +24,7 @@ define( function( require ) {
     // Shape property, which is not public because it should only be changed by descendants of the class.
     this.shapeProperty = new Property( initialShape );
     this.bounds = this.shapeProperty.get().bounds.copy();
+    this.setCenter();
   }
 
   geneExpressionEssentials.register( 'ShapeChangingModelElement', ShapeChangingModelElement );
@@ -44,18 +45,10 @@ define( function( require ) {
      * @param {number} y
      */
     translate: function( x, y ) {
-      //var translationTransform = null;
-      //if ( _.isFinite( x.x ) ) { // if x is a vector
-      //  translationTransform = Matrix3.translation( x.x, x.y );
-      //}
-      //else {
-      //  translationTransform = Matrix3.translation( x, y );
-      //}
-      //this.shapeProperty.set( this.shapeProperty.get().transformed( translationTransform ) );
       this.bounds.shift( x, y );
+      this.centerPosition.addXY( x, y );
       this.shapeProperty.notifyObserversStatic();
     },
-
 
     /**
      *
@@ -85,11 +78,15 @@ define( function( require ) {
      * gives NAN in such cases. This is a WorkAround. Needs Fixing. TODO
      */
     getCenter: function() {
+      return this.centerPosition;
+    },
+
+    setCenter: function() {
       var center = this.bounds.getCenter();
       if ( !_.isFinite( center.x ) ) {
-        return this.shapeProperty.get().subpaths[ 0 ].points[ 0 ];
+        center = this.shapeProperty.get().subpaths[ 0 ].points[ 0 ];
       }
-      return center;
+      this.centerPosition = center;
     },
 
     /**

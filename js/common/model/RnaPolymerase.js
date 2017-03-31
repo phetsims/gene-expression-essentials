@@ -90,6 +90,7 @@ define( function( require ) {
       var newTranslatedShape = newUntranslatedShape.transformed( translation );
       this.shapeProperty.set( newTranslatedShape );
       this.bounds = this.shapeProperty.get().bounds.copy();
+      this.setCenter();
       this.colorProperty.set( Color.interpolateRGBA( NOMINAL_COLOR, CONFORMED_COLOR, changeFactor ) );
     },
 
