@@ -53,14 +53,9 @@ define( function( require ) {
     },
 
     extrapolateControlPoint: function( x, y, z ) {
-      var xy = { x: y.x - x.x, y: y.y - x.y }; // y-x
-      var yz = { x: z.x - y.x, y: z.y - y.y }; // z-y
-
-      var xy025 = { x: 0.25 * xy.x, y: 0.25 * xy.y }; // xy*0.25
-      var yz025 = { x: 0.25 * yz.x, y: 0.25 * yz.y }; // xy*0.25
-
-      var xy025Plusyz025 = { x: xy025.x + yz025.x, y: xy025.y + yz025.y };
-      return { x: y.x + xy025Plusyz025.x, y: y.y + xy025Plusyz025.y };
+      var xz_x = 0.25 * ( z.x - x.x );
+      var xz_y = 0.25 * ( z.y - x.y );
+      return { x: y.x + xz_x, y: y.y + xz_y };
     }
   };
   geneExpressionEssentials.register( 'ShapeUtils', ShapeUtils );
