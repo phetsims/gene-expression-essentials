@@ -19,7 +19,7 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/StubGeneExpressionModel' );
   var TranscriptionFactorAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/TranscriptionFactorAttachmentStateMachine' );
   var TranscriptionFactorConfig = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorConfig' );
   var Vector2 = require( 'DOT/Vector2' );

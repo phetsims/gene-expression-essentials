@@ -17,7 +17,7 @@ define( function( require ) {
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Ribosome = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Ribosome' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/StubGeneExpressionModel' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // Scaling factor for this node when used as a creator node. May be significantly different from the size of the

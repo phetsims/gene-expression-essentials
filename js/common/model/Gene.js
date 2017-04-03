@@ -22,7 +22,7 @@ define( function( require ) {
   var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
   var Property = require( 'AXON/Property' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/StubGeneExpressionModel' );
+  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/StubGeneExpressionModel' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
   var TranscriptionFactorAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorAttachmentSite' );
   var TranscriptionFactorPlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactorPlacementHint' );
