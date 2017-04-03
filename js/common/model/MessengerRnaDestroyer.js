@@ -27,8 +27,8 @@ define( function( require ) {
    */
   function createShape() {
     var mouthShape = new Shape().moveTo( 0, 0 ).
-      arc( 0, 0, WIDTH / 2, Math.PI / 6, 2 * Math.PI - Math.PI /6 ).
-      close();
+    arc( 0, 0, WIDTH / 2, Math.PI / 6, 2 * Math.PI - Math.PI / 6 ).
+    close();
     return mouthShape;
   }
 

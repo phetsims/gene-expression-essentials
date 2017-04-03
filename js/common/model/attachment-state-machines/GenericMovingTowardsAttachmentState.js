@@ -43,7 +43,7 @@ define( function( require ) {
       if ( gsm.biomolecule.getPosition().distance( destination ) < AttachmentState.ATTACHED_DISTANCE_THRESHOLD ) {
 
         // This molecule is now at the attachment site, so consider it attached.
-         gsm.setState( gsm.attachedState );
+        gsm.setState( gsm.attachedState );
       }
     },
 

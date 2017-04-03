@@ -34,7 +34,7 @@ define( function( require ) {
 
   return inherit( Object, MotionBounds, {
 
-    set: function( bounds ){
+    set: function( bounds ) {
       this.bounds.set( bounds );
     },
 

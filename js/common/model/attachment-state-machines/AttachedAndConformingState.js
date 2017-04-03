@@ -29,48 +29,48 @@ define( function( require ) {
 
   return inherit( AttachmentState, AttachedAndConformingState, {
 
-      /**
-       * @Override
-       * @param {AttachmentStateMachine} asm
-       * @param {number} dt
-       */
-      stepInTime: function( asm, dt ) {
+    /**
+     * @Override
+     * @param {AttachmentStateMachine} asm
+     * @param {number} dt
+     */
+    stepInTime: function( asm, dt ) {
 
-        var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
-        var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
-        var attachedAndTranscribingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndTranscribingState;
+      var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+      var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
+      var attachedAndTranscribingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndTranscribingState;
 
-        // Verify that state is consistent.
-        assert && assert( asm.attachmentSite !== null );
-        assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
+      // Verify that state is consistent.
+      assert && assert( asm.attachmentSite !== null );
+      assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
 
-        this.conformationalChangeAmount = Math.min( this.conformationalChangeAmount +
-                                                    GEEConstants.CONFORMATIONAL_CHANGE_RATE * dt, 1 );
-        biomolecule.changeConformation( this.conformationalChangeAmount );
-        dnaStrandSeparation.setProportionOfTargetAmount( this.conformationalChangeAmount );
-        if ( this.conformationalChangeAmount === 1 ) {
-          // Conformational change complete, time to start actual transcription.
-          this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndTranscribingState;
-          this.rnaPolymeraseAttachmentStateMachine.setState( this.rnaPolymeraseAttachmentStateMachine.attachedState );
-        }
-      },
-
-      /**
-       * @Override
-       * @param {AttachmentStateMachine} asm
-       */
-      entered: function( asm ) {
-        var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
-        var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
-
-        // Prevent user interaction.
-        asm.biomolecule.movableByUserProperty.set( false );
-
-        // Insert the DNA strand separator.
-        dnaStrandSeparation.setXPos( rnaPolymerase.getPosition().x );
-        rnaPolymerase.getModel().getDnaMolecule().addSeparation( dnaStrandSeparation );
-        this.conformationalChangeAmount = 0;
+      this.conformationalChangeAmount = Math.min( this.conformationalChangeAmount +
+                                                  GEEConstants.CONFORMATIONAL_CHANGE_RATE * dt, 1 );
+      biomolecule.changeConformation( this.conformationalChangeAmount );
+      dnaStrandSeparation.setProportionOfTargetAmount( this.conformationalChangeAmount );
+      if ( this.conformationalChangeAmount === 1 ) {
+        // Conformational change complete, time to start actual transcription.
+        this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndTranscribingState;
+        this.rnaPolymeraseAttachmentStateMachine.setState( this.rnaPolymeraseAttachmentStateMachine.attachedState );
       }
+    },
+
+    /**
+     * @Override
+     * @param {AttachmentStateMachine} asm
+     */
+    entered: function( asm ) {
+      var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
+      var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
+
+      // Prevent user interaction.
+      asm.biomolecule.movableByUserProperty.set( false );
+
+      // Insert the DNA strand separator.
+      dnaStrandSeparation.setXPos( rnaPolymerase.getPosition().x );
+      rnaPolymerase.getModel().getDnaMolecule().addSeparation( dnaStrandSeparation );
+      this.conformationalChangeAmount = 0;
+    }
   } );
 } );
 

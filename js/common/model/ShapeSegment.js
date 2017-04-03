@@ -35,7 +35,7 @@ define( function( require ) {
     this.boundsProperty = new Property( new Bounds2( 0, 0, 0, 0 ) );
 
     // Attachment point where anything that attached to this segment would attach. Affinity is arbitrary in this case.
-    this.attachmentSite = new AttachmentSite( new Vector2(0,0), 1 );
+    this.attachmentSite = new AttachmentSite( new Vector2( 0, 0 ), 1 );
 
     // Max length of mRNA that this segment can contain.
     this.capacity = Number.MAX_VALUE;
@@ -78,7 +78,7 @@ define( function( require ) {
      * @param {Vector2} newLowerRightCornerPos
      */
     setLowerRightCornerPos: function( newLowerRightCornerPos ) {
-      var currentLowerRightCornerPos =  this.getLowerRightCornerPos() ;
+      var currentLowerRightCornerPos = this.getLowerRightCornerPos();
       var delta = newLowerRightCornerPos.minus( currentLowerRightCornerPos );
       var newBounds = this.bounds.transformed( Matrix3.translation( delta.x, delta.y ) );
       this.bounds.set( newBounds );

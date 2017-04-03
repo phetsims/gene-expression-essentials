@@ -152,7 +152,7 @@ define( function( require ) {
 
 
     // Add buttons for moving to next and previous genes.
-    var nextGeneButtonContent = new HBox({
+    var nextGeneButtonContent = new HBox( {
       children: [
         new Text( nextGeneString, {
           font: new PhetFont( { size: 18 } ),
@@ -165,11 +165,11 @@ define( function( require ) {
         } )
       ],
       spacing: 5
-    });
+    } );
     var nextGeneButton = new RectangularPushButton( {
       content: nextGeneButtonContent,
       listener: function() {
-        model.nextGene() ;
+        model.nextGene();
       },
       baseColor: 'yellow',
       stroke: 'black',
@@ -180,7 +180,7 @@ define( function( require ) {
     nextGeneButton.y = self.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
 
     // Add buttons for moving to next and previous genes.
-    var previousGeneButtonContent = new HBox({
+    var previousGeneButtonContent = new HBox( {
       children: [
         new ArrowNode( 0, 0, -20, 0, {
           headHeight: 8,
@@ -193,11 +193,11 @@ define( function( require ) {
         } )
       ],
       spacing: 5
-    });
+    } );
     var previousGeneButton = new RectangularPushButton( {
       content: previousGeneButtonContent,
       listener: function() {
-        model.previousGene() ;
+        model.previousGene();
       },
       baseColor: 'yellow',
       stroke: 'black',
@@ -234,7 +234,6 @@ define( function( require ) {
     } );
 
 
-
     frontControlsLayer.addChild( nextGeneButton );
     frontControlsLayer.addChild( previousGeneButton );
 
@@ -243,11 +242,11 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
-        biomoleculeToolBoxNodeList.forEach( function( biomoleculeToolBoxNode ){
+        biomoleculeToolBoxNodeList.forEach( function( biomoleculeToolBoxNode ) {
           biomoleculeToolBoxNode.reset();
-        });
+        } );
       },
-      right:  this.layoutBounds.maxX - 10,
+      right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
     } );
     frontControlsLayer.addChild( resetAllButton );

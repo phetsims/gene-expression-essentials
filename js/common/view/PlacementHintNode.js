@@ -51,6 +51,7 @@ define( function( require ) {
       path.centerX = offset.x;
       path.centerY = offset.y;
     }
+
     // Update the shape whenever it changes.
     placementHint.shapeProperty.link( handleShapeChanged );
 

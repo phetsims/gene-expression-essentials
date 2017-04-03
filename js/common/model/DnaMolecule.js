@@ -196,7 +196,7 @@ define( function( require ) {
       // Move the shadow points to account for any separations.
       this.separations.forEach( function( separation ) {
         var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
-        var separationWindowXIndexRange = new Range( Math.floor( ( separation.getXPos() - ( windowWidth / 2 ) -
+        var separationWindowXIndexRange = new Range( Math.floor(                            ( separation.getXPos() - ( windowWidth / 2 ) -
                                                                    self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
           Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
         for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {

@@ -58,7 +58,7 @@ define( function( require ) {
 
       // Grow the bounds up and to the left to accommodate the additional length.
       var sideGrowthAmount = this.calculateSideLength() - this.bounds.getWidth();
-      assert && assert(length >= 0 && sideGrowthAmount >= 0); //
+      assert && assert( length >= 0 && sideGrowthAmount >= 0 ); //
       this.bounds.set( Bounds2.rect( this.bounds.x - sideGrowthAmount,
         this.bounds.y,
         this.bounds.getWidth() + sideGrowthAmount,
@@ -99,7 +99,7 @@ define( function( require ) {
 
       // This should never be called for square shape segments, since translation should only occur based around flat
       // segments.
-      assert && assert( false, 'This should never be called for square shape segments, since translation should only occur based around flat segments.');
+      assert && assert( false, 'This should never be called for square shape segments, since translation should only occur based around flat segments.' );
 
     },
 

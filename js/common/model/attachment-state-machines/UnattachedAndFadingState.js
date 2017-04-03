@@ -53,7 +53,7 @@ define( function( require ) {
      */
     entered: function( asm ) {
       // State checking - should be at full strength.
-      assert && assert(  this.messengerRnaAttachmentStateMachine.biomolecule.existenceStrengthProperty.get() === 1 );
+      assert && assert( this.messengerRnaAttachmentStateMachine.biomolecule.existenceStrengthProperty.get() === 1 );
       this.preFadeCountdown = PRE_FADE_TIME;
 
       // Move upwards, away from the DNA and polymerase.

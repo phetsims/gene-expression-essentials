@@ -19,7 +19,7 @@ define( function( require ) {
   var ecoliImage = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/ecoli.jpg' );
 
   //strings
-  var imageCaptionString = require('string!GENE_EXPRESSION_ESSENTIALS/imageCaption');
+  var imageCaptionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaption' );
   var imageCaptionNoteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaptionNote' );
 
   function FluorescentCellsPictureDialog() {

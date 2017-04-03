@@ -35,7 +35,7 @@ define( function( require ) {
     this.simRunningTime = 0;
     this.timeOffset = 0;
     this.averageProteinLevelProperty = averageProteinLevelProperty;
-    var plot = new XYPlot({
+    var plot = new XYPlot( {
       width: PLOT_WIDTH,
       height: PLOT_HEIGHT,
       minX: 0,

@@ -17,7 +17,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle');
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -54,7 +54,7 @@ define( function( require ) {
 
     messengerRna.beingSynthesizedProperty.link( handleBeingSynthesizedChanged );
 
-    var boundingRectangle = new Rectangle( new Bounds2( 0,0,0,0 ) ) ;
+    var boundingRectangle = new Rectangle( new Bounds2( 0, 0, 0, 0 ) );
     self.addChild( boundingRectangle );
 
     function handleShapeChanged( shape ) {

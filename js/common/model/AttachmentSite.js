@@ -27,14 +27,14 @@ define( function( require ) {
    */
   function AttachmentSite( initialLocation, initialAffinity ) {
 
-      // Location of this attachment site.  It is a property so that it can be
-      // followed in the event that the biomolecule upon which it exists is
-      // moving.
-      this.locationProperty = new Property( initialLocation );
+    // Location of this attachment site.  It is a property so that it can be
+    // followed in the event that the biomolecule upon which it exists is
+    // moving.
+    this.locationProperty = new Property( initialLocation );
 
-      // A property that tracks which if any biomolecule is attached to or moving
-      // towards attachment with this site.
-      this.attachedOrAttachingMoleculeProperty = new Property( null );
+    // A property that tracks which if any biomolecule is attached to or moving
+    // towards attachment with this site.
+    this.attachedOrAttachingMoleculeProperty = new Property( null );
 
     // Property that represents the affinity of the attachment site.
     this.affinityProperty = new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 );

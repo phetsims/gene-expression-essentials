@@ -104,7 +104,7 @@ define( function( require ) {
       var zVelocity;
       if ( distanceToDestination2D > 0 ) {
         zVelocity = Math.min( Math.abs( currentLocation3D.z ) / ( currentLocation2D.distance(
-          this.destinationProperty.get() ) / this.scalarVelocity2D ), MAX_Z_VELOCITY );
+            this.destinationProperty.get() )                      / this.scalarVelocity2D ), MAX_Z_VELOCITY );
       }
       else {
         zVelocity = MAX_Z_VELOCITY;

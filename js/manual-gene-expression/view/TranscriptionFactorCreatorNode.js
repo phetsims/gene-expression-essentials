@@ -36,7 +36,7 @@ define( function( require ) {
   function TranscriptionFactorCreatorNode( biomoleculeBoxNode, tfConfig ) {
     var self = this;
     BiomoleculeCreatorNode.call( self, new MobileBiomoleculeNode( SCALING_MVT,
-        new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, new Vector2( 0, 0 ) ) ),
+      new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, new Vector2( 0, 0 ) ) ),
       biomoleculeBoxNode.canvas,
       biomoleculeBoxNode.mvt,
       function( pos ) {

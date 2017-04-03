@@ -39,10 +39,10 @@ define( function( require ) {
     } );
 
     cell.proteinCount.lazyLink( function( proteinCount ) {
-        var florescenceAmount = Util.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
-        ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );
-        var fillColor = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
-        cellBody.fill = fillColor;
+      var florescenceAmount = Util.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
+                                          ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );
+      var fillColor = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
+      cellBody.fill = fillColor;
     } );
     this.addChild( cellBody );
   }

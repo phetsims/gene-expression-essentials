@@ -146,18 +146,18 @@ define( function( require ) {
 
     this.addChild( cellNumberControllerPanel );
     cellNumberControllerPanel.bottom = resetAllButton.bottom;
-    cellNumberControllerPanel.centerX = self.proteinLevelChartNode.centerX ;
+    cellNumberControllerPanel.centerX = self.proteinLevelChartNode.centerX;
 
     var cellNodes = [];
 
-    for( var i = 0; i < model.cellList.length; i++  ){
+    for ( var i = 0; i < model.cellList.length; i++ ) {
       var cellNode = new ColorChangingCellNode( model.cellList[ i ], self.mvt );
       // performance improvement for cell slider but increase load time TODO
       cellNodes.push( cellNode );
       invisibleCellLayer.addChild( cellNode );
     }
 
-    function addCellView( addedCellIndex ){
+    function addCellView( addedCellIndex ) {
       cellLayer.addChild( cellNodes[ addedCellIndex ] );
 
       model.visibleCellList.addItemRemovedListener( function removalListener( removedCell ) {
@@ -167,23 +167,23 @@ define( function( require ) {
           model.visibleCellList.removeItemRemovedListener( removalListener );
           cellLayer.setScaleMagnitude( 1 );
           // var scaleFactor = Math.min( ( self.layoutBounds.width * 0.3 ) / cellLayer.width , 1 );
-          var scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1  );
+          var scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1 );
           cellLayer.setScaleMagnitude( scaleFactor * 0.9 );
           cellLayer.centerX = self.proteinLevelChartNode.centerX;
           //cellLayer.centerX = self.layoutBounds.width / 2 ;
           cellLayer.centerY = self.proteinLevelChartNode.bottom +
-                          ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / 2;
+                              ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / 2;
         }
       } );
       cellLayer.setScaleMagnitude( 1 );
       //var scaleFactor = Math.min( ( self.layoutBounds.width * 0.3 ) / cellLayer.width , 1 );
-        var scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1  );
+      var scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1 );
       cellLayer.setScaleMagnitude( scaleFactor * 0.9 );
       cellLayer.centerX = self.proteinLevelChartNode.centerX;
       //cellLayer.centerX = self.layoutBounds.width / 2;
       //cellLayer.top = self.proteinLevelChartNode.bottom + 10;
-      cellLayer.centerY =  self.proteinLevelChartNode.bottom +
-                           ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / 2;
+      cellLayer.centerY = self.proteinLevelChartNode.bottom +
+                          ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / 2;
 
     }
 
@@ -293,7 +293,7 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      if ( this.model.clockRunningProperty.get() ){
+      if ( this.model.clockRunningProperty.get() ) {
         this.proteinLevelChartNode.addDataPoint( dt );
       }
     }

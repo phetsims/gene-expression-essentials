@@ -162,7 +162,7 @@ define( function( require ) {
       }
     }
 
-    var childrenNodesArray = [ ];
+    var childrenNodesArray = [];
     childrenNodesArray = childrenNodesArray.concat( positiveTranscriptBoxNodes );
     childrenNodesArray.push( polymeraseBox );
     childrenNodesArray.push( ribosomeBox );

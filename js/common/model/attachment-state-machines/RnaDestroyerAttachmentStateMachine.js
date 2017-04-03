@@ -15,7 +15,7 @@ define( function( require ) {
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MRnaDestroyerAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MRnaDestroyerAttachedState' );
-  var MRnaDestroyerMovingTowardAttachmentState= require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MRnaDestroyerMovingTowardAttachmentState' );
+  var MRnaDestroyerMovingTowardAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MRnaDestroyerMovingTowardAttachmentState' );
 
   /**
    *

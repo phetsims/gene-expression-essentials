@@ -5,7 +5,7 @@ define( function( require ) {
   // modules
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
   var CellProteinSynthesisSimulator = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/CellProteinSynthesisSimulator' );
-  var Dimension2 = require('DOT/Dimension2');
+  var Dimension2 = require( 'DOT/Dimension2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -42,10 +42,10 @@ define( function( require ) {
 
   return inherit( ShapeChangingModelElement, Cell, {
 
-    stepInTime: function( dt ){
+    stepInTime: function( dt ) {
       // NOTE: Multiplying time step, because it was necessary to get the model to run at the needed rate.
       this.proteinSynthesisSimulator.stepInTime( dt * 1000 );
-      this.proteinCount.set(this.proteinSynthesisSimulator.getProteinCount() );
+      this.proteinCount.set( this.proteinSynthesisSimulator.getProteinCount() );
     },
 
     // Static function for creating the shape of the cell.

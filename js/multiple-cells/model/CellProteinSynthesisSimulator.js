@@ -29,7 +29,7 @@ define( function( require ) {
   var MRNA_DEGRADATION_RATE_RANGE = new Range( DEFAULT_MRNA_DEGRADATION_RATE / 1000, DEFAULT_MRNA_DEGRADATION_RATE * 1000 );
 
 
-  function CellProteinSynthesisSimulator(  ribosomeCount ) {
+  function CellProteinSynthesisSimulator( ribosomeCount ) {
     this.objectCounts = [
       20, //gene count
       DEFAULT_TRANSCRIPTION_FACTOR_COUNT, //free transcription factor count
@@ -55,7 +55,7 @@ define( function( require ) {
       DEFAULT_MRNA_DEGRADATION_RATE //mRNA degradation
     ];
 
-    this.objectCounts[6] = ribosomeCount;
+    this.objectCounts[ 6 ] = ribosomeCount;
   }
 
   geneExpressionEssentials.register( 'CellProteinSynthesisSimulator', CellProteinSynthesisSimulator );
@@ -69,7 +69,7 @@ define( function( require ) {
     setTranscriptionFactorCount: function( tfCount ) {
       // Parameter checking.
       assert && assert( TRANSCRIPTION_FACTOR_COUNT_RANGE.contains( tfCount ) );
-      this.objectCounts[1] = tfCount;
+      this.objectCounts[ 1 ] = tfCount;
     },
     /**
      * Sets the number of polymerases
@@ -81,49 +81,49 @@ define( function( require ) {
     },
 
     /**
-    * Sets the rate that transcription factors associate with genes
-    *
-    * @param newRate
-    */
+     * Sets the rate that transcription factors associate with genes
+     *
+     * @param newRate
+     */
     setGeneTranscriptionFactorAssociationRate: function( newRate ) {
       assert && assert( TF_ASSOCIATION_PROBABILITY_RANGE.contains( newRate ) );
-      this.reactionProbabilities[0] = newRate;
+      this.reactionProbabilities[ 0 ] = newRate;
     },
 
     /**
-    * Sets the rate constant for the polymerase to bind to the gene
-    *
-    * @param newRate the rate for polymerase binding
-    */
+     * Sets the rate constant for the polymerase to bind to the gene
+     *
+     * @param newRate the rate for polymerase binding
+     */
     setPolymeraseAssociationRate: function( newRate ) {
       assert && assert( POLYMERASE_ASSOCIATION_PROBABILITY_RANGE.contains( newRate ) );
-      this.reactionProbabilities[2] = newRate;
+      this.reactionProbabilities[ 2 ] = newRate;
     },
 
     /**
-    * Sets the rate constant for RNA/ribosome association
-    *
-    * @param newRate the rate at which RNA binds to a ribosome
-    */
+     * Sets the rate constant for RNA/ribosome association
+     *
+     * @param newRate the rate at which RNA binds to a ribosome
+     */
     setRNARibosomeAssociationRate: function( newRate ) {
       this.reactionProbabilities[ 5 ] = newRate;
     },
 
     setProteinDegradationRate: function( proteinDegradationRate ) {
-    assert && assert( PROTEIN_DEGRADATION_RANGE.contains( proteinDegradationRate ) );
-      this.reactionProbabilities[8] = proteinDegradationRate;
+      assert && assert( PROTEIN_DEGRADATION_RANGE.contains( proteinDegradationRate ) );
+      this.reactionProbabilities[ 8 ] = proteinDegradationRate;
     },
 
     setMrnaDegradationRate: function( mrnaDegradationRate ) {
-    assert && assert( MRNA_DEGRADATION_RATE_RANGE.contains( mrnaDegradationRate ) );
-      this.reactionProbabilities[9] = mrnaDegradationRate;
+      assert && assert( MRNA_DEGRADATION_RATE_RANGE.contains( mrnaDegradationRate ) );
+      this.reactionProbabilities[ 9 ] = mrnaDegradationRate;
     },
 
     /**
-    * Moves forward one time step of specified length
-    *
-    * @param dt the length of this step through time
-    */
+     * Moves forward one time step of specified length
+     *
+     * @param dt the length of this step through time
+     */
     stepInTime: function( dt ) {
       var accumulatedTime = 0.0;
       var timeIncrement = -1.0;
@@ -134,12 +134,12 @@ define( function( require ) {
     },
 
     /**
-    * Simulates one reaction if the wait time before that reaction occurs is less than
-    * maxTime
-    *
-    * @param maxTime the maximum of time to wait for this reaction to occur
-    * @return the amount of time evolved in the system
-    */
+     * Simulates one reaction if the wait time before that reaction occurs is less than
+     * maxTime
+     *
+     * @param maxTime the maximum of time to wait for this reaction to occur
+     * @return the amount of time evolved in the system
+     */
     simulateOneReaction: function( maxTime ) {
       var a = this.calculateA();
       var a0 = this.sum( a );
@@ -152,39 +152,39 @@ define( function( require ) {
       }
 
       var mu = 0;
-      var sumSoFar = a[0];
+      var sumSoFar = a[ 0 ];
       while ( sumSoFar < r2 * a0 ) {
         mu++;
-        sumSoFar += a[mu];
+        sumSoFar += a[ mu ];
       }
       this.conductReaction( mu );
       return tau;
     },
 
-    sum: function( array ){
+    sum: function( array ) {
       var total = 0;
-      for ( var i = 0; i< array.length; i++ ){
-        total += array[i];
+      for ( var i = 0; i < array.length; i++ ) {
+        total += array[ i ];
       }
       return total;
     },
 
     calculateA: function() {
       var h = [
-        this.objectCounts[0] * this.objectCounts[1],
-        this.objectCounts[3],
-        this.objectCounts[2] * this.objectCounts[3],
-        this.objectCounts[4],
-        this.objectCounts[4],
-        this.objectCounts[5] * this.objectCounts[6],
-        this.objectCounts[7],
-        this.objectCounts[7],
-        this.objectCounts[8],
-        this.objectCounts[5]
+        this.objectCounts[ 0 ] * this.objectCounts[ 1 ],
+        this.objectCounts[ 3 ],
+        this.objectCounts[ 2 ] * this.objectCounts[ 3 ],
+        this.objectCounts[ 4 ],
+        this.objectCounts[ 4 ],
+        this.objectCounts[ 5 ] * this.objectCounts[ 6 ],
+        this.objectCounts[ 7 ],
+        this.objectCounts[ 7 ],
+        this.objectCounts[ 8 ],
+        this.objectCounts[ 5 ]
       ];
 
       for ( var i = 0; i < h.length; i++ ) {
-        h[i] *= this.reactionProbabilities[i];
+        h[ i ] *= this.reactionProbabilities[ i ];
       }
       return h;
     },
@@ -192,52 +192,52 @@ define( function( require ) {
     conductReaction: function( mu ) {
       switch( mu ) {
         case 0:
-          this.objectCounts[0]--;
-          this.objectCounts[1]--;
-          this.objectCounts[3]++;
+          this.objectCounts[ 0 ]--;
+          this.objectCounts[ 1 ]--;
+          this.objectCounts[ 3 ]++;
           break;
         case 1:
-          this.objectCounts[0]++;
-          this.objectCounts[1]++;
-          this.objectCounts[3]--;
+          this.objectCounts[ 0 ]++;
+          this.objectCounts[ 1 ]++;
+          this.objectCounts[ 3 ]--;
           break;
         case 2:
-          this.objectCounts[3]--;
-          this.objectCounts[2]--;
-          this.objectCounts[4]++;
+          this.objectCounts[ 3 ]--;
+          this.objectCounts[ 2 ]--;
+          this.objectCounts[ 4 ]++;
           break;
         case 3:
-          this.objectCounts[3]++;
-          this.objectCounts[2]++;
-          this.objectCounts[4]--;
+          this.objectCounts[ 3 ]++;
+          this.objectCounts[ 2 ]++;
+          this.objectCounts[ 4 ]--;
           break;
         case 4:
-          this.objectCounts[0]++;
-          this.objectCounts[1]++;
-          this.objectCounts[2]++;
-          this.objectCounts[4]--;
-          this.objectCounts[5]++;
+          this.objectCounts[ 0 ]++;
+          this.objectCounts[ 1 ]++;
+          this.objectCounts[ 2 ]++;
+          this.objectCounts[ 4 ]--;
+          this.objectCounts[ 5 ]++;
           break;
         case 5:
-          this.objectCounts[5]--;
-          this.objectCounts[6]--;
-          this.objectCounts[7]++;
+          this.objectCounts[ 5 ]--;
+          this.objectCounts[ 6 ]--;
+          this.objectCounts[ 7 ]++;
           break;
         case 6:
-          this.objectCounts[5]++;
-          this.objectCounts[6]++;
-          this.objectCounts[7]--;
+          this.objectCounts[ 5 ]++;
+          this.objectCounts[ 6 ]++;
+          this.objectCounts[ 7 ]--;
           break;
         case 7:
-          this.objectCounts[6]++;
-          this.objectCounts[7]--;
-          this.objectCounts[8]++;
+          this.objectCounts[ 6 ]++;
+          this.objectCounts[ 7 ]--;
+          this.objectCounts[ 8 ]++;
           break;
         case 8:
-          this.objectCounts[8]--;
+          this.objectCounts[ 8 ]--;
           break;
         case 9:
-          this.objectCounts[5]--;
+          this.objectCounts[ 5 ]--;
           break;
         default:
           assert && assert( false, 'Unhandled mu value' );
@@ -246,12 +246,12 @@ define( function( require ) {
     },
 
     /**
-    * Get the number of proteins currently in this cell.
-    *
-    * @return protein count
-    */
+     * Get the number of proteins currently in this cell.
+     *
+     * @return protein count
+     */
     getProteinCount: function() {
-      return this.objectCounts[8];
+      return this.objectCounts[ 8 ];
     }
 
   }, {// Statics

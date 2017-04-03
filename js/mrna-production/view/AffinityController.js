@@ -65,7 +65,7 @@ define( function( require ) {
       0,
       1,
       lowString,
-      highString,{
+      highString, {
         trackSize: new Dimension2( 130, 5 )
       } );
     self.addChild( new VBox( {

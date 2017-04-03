@@ -8,18 +8,18 @@
  * @author John Blanco
  */
 define( function( require ) {
-    'use strict';
+  'use strict';
 
-    // modules
-    var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-    var inherit = require( 'PHET_CORE/inherit' );
+  // modules
+  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
-    /**
-     * @constructor
-     */
-    function StubGeneExpressionModel() {
-    }
+  /**
+   * @constructor
+   */
+  function StubGeneExpressionModel() {
+  }
 
-    geneExpressionEssentials.register( 'StubGeneExpressionModel', StubGeneExpressionModel );
-    return inherit( Object, StubGeneExpressionModel );
-  } );
+  geneExpressionEssentials.register( 'StubGeneExpressionModel', StubGeneExpressionModel );
+  return inherit( Object, StubGeneExpressionModel );
+} );

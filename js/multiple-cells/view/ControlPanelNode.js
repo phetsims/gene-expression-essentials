@@ -17,7 +17,7 @@ define( function( require ) {
 
     var controllerNodes = [];
 
-    for( var i = 0; i < controllers.length; i++ ){
+    for ( var i = 0; i < controllers.length; i++ ) {
       var controller = controllers[ i ];
       var label = new Text( controller.label, {
         font: new PhetFont( { size: 13 } ),
@@ -39,7 +39,7 @@ define( function( require ) {
           label,
           controllerNode
         ]
-      });
+      } );
     }
 
     var contentNode = new VBox( {
@@ -51,7 +51,7 @@ define( function( require ) {
     this.expandedProperty = new Property( false );
     AccordionBox.call( this, contentNode, {
       titleNode: new Text( title, {
-        font: new PhetFont( { size: 16, weight: 'bold' }),
+        font: new PhetFont( { size: 16, weight: 'bold' } ),
         maxWidth: 200
       } ),
       titleAlignX: 'left',

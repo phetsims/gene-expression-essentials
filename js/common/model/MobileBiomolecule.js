@@ -145,7 +145,7 @@ define( function( require ) {
      * @param {Vector3} position
      */
     setPosition3D: function( position ) {
-      this.setPosition( new Vector2 ( position.x, position.y ) );
+      this.setPosition( new Vector2( position.x, position.y ) );
       this.zPositionProperty.set( position.z );
     },
 

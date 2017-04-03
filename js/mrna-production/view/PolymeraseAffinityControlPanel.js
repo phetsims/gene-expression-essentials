@@ -52,7 +52,7 @@ define( function( require ) {
     var self = this;
 
 
-    var titleNode = new Text( rnaPolymeraseString,{
+    var titleNode = new Text( rnaPolymeraseString, {
       font: TITLE_FONT,
       maxWidth: 180
     } );
@@ -83,13 +83,13 @@ define( function( require ) {
     // correct size.
     var dummyContents = new VBox( {
         children: [ titleNode,
-         new AffinityController( polymeraseNode, dnaFragmentNode, new Property( 0 ) ),
+          new AffinityController( polymeraseNode, dnaFragmentNode, new Property( 0 ) ),
         ],
         spacing: 20
       }
     );
-    var dummyControlPanel =  new Panel( dummyContents, panelOptions );
-    var  growthAmount = minHeight - dummyControlPanel.height - 40;
+    var dummyControlPanel = new Panel( dummyContents, panelOptions );
+    var growthAmount = minHeight - dummyControlPanel.height - 40;
 
     // Create the spacers used to make the panel meet the min size.
     var topSpacer = new Spacer( 0, growthAmount * 0.25 );

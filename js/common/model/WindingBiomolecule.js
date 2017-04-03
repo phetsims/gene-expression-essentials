@@ -369,7 +369,7 @@ define( function( require ) {
 
       var seededRandom = new Random( {
         seed: 8
-      });
+      } );
       var currentPoint = firstPoint;
       do {
 

@@ -353,7 +353,7 @@ define( function( require ) {
       // Add the length for the segment that is inside the translation channel of this ribosome.
       translatedLength += segmentInRibosomeChannel.getContainedLength() -
                           ( segmentInRibosomeChannel.getLowerRightCornerPos().x -
-                            segmentInRibosomeChannel.attachmentSite.locationProperty.get().x);
+                          segmentInRibosomeChannel.attachmentSite.locationProperty.get().x);
 
       return Math.max( translatedLength / this.getLength(), 0 );
     },
@@ -422,7 +422,7 @@ define( function( require ) {
 
     /*
      * Aborts the destruction process, used if the mRNA destroyer was on its way to the mRNA but the user picked it up
-      * before it got there.
+     * before it got there.
      */
     abortDestruction: function() {
       this.messengerRnaDestroyer = null;

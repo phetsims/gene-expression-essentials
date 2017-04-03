@@ -31,8 +31,8 @@ define( function( require ) {
    * @param {RnaDestroyerAttachmentStateMachine} rnaDestroyerAttachmentStateMachine
    * @constructor
    */
-  function MRnaDestroyerAttachedState(rnaDestroyerAttachmentStateMachine){
-    AttachmentState.call(this);
+  function MRnaDestroyerAttachedState( rnaDestroyerAttachmentStateMachine ) {
+    AttachmentState.call( this );
     this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine;
     this.messengerRnaFragment = null;
     this.targetFragmentLength = 0;
@@ -40,7 +40,7 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'MRnaDestroyerAttachedState', MRnaDestroyerAttachedState );
 
-  return inherit(AttachmentState,MRnaDestroyerAttachedState,{
+  return inherit( AttachmentState, MRnaDestroyerAttachedState, {
     /**
      * @Override
      * @param {AttachmentStateMachine} asm
@@ -56,7 +56,7 @@ define( function( require ) {
       // Grow the mRNA fragment, release it if it is time to do so.
       if ( this.messengerRnaFragment === null ) {
         this.messengerRnaFragment = new MessengerRnaFragment( biomolecule.getModel(), biomolecule.getPosition() );
-        this.messengerRnaFragment.movableByUserProperty.set(false);
+        this.messengerRnaFragment.movableByUserProperty.set( false );
         biomolecule.getModel().addMobileBiomolecule( this.messengerRnaFragment );
         this.targetFragmentLength = MRNA_FRAGMENT_LENGTH_RANGE.min +
                                     phet.joist.random.nextDouble() * MRNA_FRAGMENT_LENGTH_RANGE.getLength();

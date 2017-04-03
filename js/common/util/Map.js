@@ -66,7 +66,7 @@ define( function( require ) {
     },
 
     isEmpty: function() {
-      if ( this.keys.length === 0 && this.values.length === 0 ){
+      if ( this.keys.length === 0 && this.values.length === 0 ) {
         return true;
       }
       return false;

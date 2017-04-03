@@ -112,12 +112,14 @@ define( function( require ) {
     function handleMovableByUserChanged( movableByUser ) {
       self.setPickable( movableByUser );
     }
+
     // Interactivity control.
     mobileBiomolecule.movableByUserProperty.link( handleMovableByUserChanged );
 
     function handleUserControlledChanged( userControlled ) {
       self.moveToFront();
     }
+
     // Move this biomolecule to the top of its layer when grabbed.
     mobileBiomolecule.userControlledProperty.link( handleUserControlledChanged );
 

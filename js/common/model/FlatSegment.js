@@ -26,7 +26,7 @@ define( function( require ) {
     this.updateAttachmentSiteLocation();
   }
 
-  geneExpressionEssentials.register( 'FlatSegment', FlatSegment);
+  geneExpressionEssentials.register( 'FlatSegment', FlatSegment );
 
   return inherit( ShapeSegment, FlatSegment, {
 
@@ -51,7 +51,7 @@ define( function( require ) {
       // Grow the bounds linearly to the left to accommodate the  additional length.
       this.bounds.setMinMax( this.bounds.x - growthAmount,
         this.bounds.y,
-        this.bounds.x+this.bounds.getWidth(),
+        this.bounds.x + this.bounds.getWidth(),
         this.bounds.y );
       this.updateAttachmentSiteLocation();
     },

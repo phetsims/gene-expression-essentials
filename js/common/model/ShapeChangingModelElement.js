@@ -68,7 +68,7 @@ define( function( require ) {
         // This default implementation assumes that the position indicator is defined by the center of the shape's bounds.
         // Override if some other behavior is required.
         var center = this.getCenter();
-        this.translate( x - center.x, y - center.y  );
+        this.translate( x - center.x, y - center.y );
       }
     },
 

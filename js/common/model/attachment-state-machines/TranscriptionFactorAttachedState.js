@@ -102,7 +102,7 @@ define( function( require ) {
           //var clonedAttachmentSites = [].concat( attachmentSites );
           _.remove( attachmentSites, function( site ) {
             return !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.bounds,
-                site.locationProperty.get() );
+              site.locationProperty.get() );
           } );
 
           // Shuffle in order to produce random-ish behavior.

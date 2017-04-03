@@ -64,7 +64,7 @@ define( function( require ) {
       // Note: This is specific to this protein's shape, and will need to be
       // adjusted if the protein's shape algorithm changes.
       this.setPosition( new Vector2( attachmentPointLocationX, attachmentPointLocationY +
-                                                  ( FULL_GROWN_WIDTH / 2 * this.getFullSizeProportion() ) ) );
+                                                               ( FULL_GROWN_WIDTH / 2 * this.getFullSizeProportion() ) ) );
     },
 
     /**
