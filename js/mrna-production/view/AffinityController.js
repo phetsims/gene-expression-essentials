@@ -13,7 +13,7 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControllerNode' );
+  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );

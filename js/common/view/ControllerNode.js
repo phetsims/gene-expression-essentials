@@ -1,6 +1,5 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2017, University of Colorado Boulder
 
-// TODO Add to common code
 define( function( require ) {
   'use strict';
 

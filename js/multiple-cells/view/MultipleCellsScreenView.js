@@ -5,7 +5,7 @@ define( function( require ) {
 
   // modules
   var CellProteinSynthesisSimulator = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/CellProteinSynthesisSimulator' );
-  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControllerNode' );
+  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
   var ControlPanelNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControlPanelNode' );
   var Color = require( 'SCENERY/util/Color' );
   var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ColorChangingCellNode' );
