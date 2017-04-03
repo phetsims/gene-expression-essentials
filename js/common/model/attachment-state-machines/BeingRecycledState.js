@@ -5,8 +5,6 @@
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
- *
- *
  */
 define( function( require ) {
   'use strict';
@@ -20,7 +18,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   *
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
    * @param {Array<Rectangle>} recycleReturnZones
    * @constructor
@@ -48,8 +45,9 @@ define( function( require ) {
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
       var unattachedAndAvailableState = this.rnaPolymeraseAttachmentStateMachine.unattachedAndAvailableState;
 
-      if ( this.rnaPolymeraseAttachmentStateMachine.pointContainedInBoundsList( asm.biomolecule.getPosition(),
-          this.recycleReturnZones ) ) {
+      if ( this.rnaPolymeraseAttachmentStateMachine.pointContainedInBoundsList(
+          asm.biomolecule.getPosition(), this.recycleReturnZones
+        ) ) {
 
         // The motion strategy has returned the biomolecule to the recycle return zone, so this state is complete.
         asm.biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
