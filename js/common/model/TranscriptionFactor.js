@@ -29,7 +29,6 @@ define( function( require ) {
   var SIZE = new Dimension2( WIDTH, HEIGHT );
 
   /**
-   *
    * @param {GeneExpressionModel} model
    * @param {TranscriptionFactorConfig} config
    * @param {Vector2} initialPosition
@@ -59,7 +58,6 @@ define( function( require ) {
       return this.config.isPositive;
     },
 
-
     /**
      * Overridden in order to provide some unique behavior for transcription factors.
      * @returns {TranscriptionFactorAttachmentStateMachine}
@@ -84,7 +82,6 @@ define( function( require ) {
           break;
         }
       }
-
     },
 
     /**

@@ -73,6 +73,7 @@ define( function( require ) {
     self.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) );
 
     this.shapeProperty.link( function() {
+
       // This hint always sits at the beginning of the RNA strand.
       var currentMRnaFirstPointPosition = self.firstShapeDefiningPoint.getPosition();
       self.ribosomePlacementHint.setPosition( currentMRnaFirstPointPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
@@ -83,6 +84,7 @@ define( function( require ) {
   geneExpressionEssentials.register( 'MessengerRna', MessengerRna );
 
   return inherit( WindingBiomolecule, MessengerRna, {
+
     /**
      * @override
      * @param {number} x
@@ -359,7 +361,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {Ribosome} ribosome
      * @returns {AttachmentSite}
      */
@@ -390,7 +391,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {MessengerRnaDestroyer} messengerRnaDestroyer
      * @returns {AttachmentSite}
      */
@@ -410,8 +410,10 @@ define( function( require ) {
 
           // This attachment site is in range and available.
           returnValue = leadingEdgeAttachmentSite;
+
           // Update the attachment state machine.
           this.mRnaAttachmentStateMachine.attachToDestroyer();
+
           // Keep track of the destroyer.
           this.messengerRnaDestroyer = messengerRnaDestroyer;
         }
@@ -438,7 +440,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @returns {Vector2}
      */
     getDestroyerAttachmentLocation: function() {

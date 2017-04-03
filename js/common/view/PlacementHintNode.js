@@ -22,7 +22,6 @@ define( function( require ) {
   var HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
   var HINT_STROKE = { lineWidth: 2, lineJoin: 'bevel', lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
 
-
   /**
    *
    * @param {ModelViewTransform2} mvt
@@ -71,6 +70,7 @@ define( function( require ) {
   geneExpressionEssentials.register( 'PlacementHintNode', PlacementHintNode );
 
   return inherit( Node, PlacementHintNode, {
+
     // @public
     dispose: function() {
       this.disposePlacementHintNode();

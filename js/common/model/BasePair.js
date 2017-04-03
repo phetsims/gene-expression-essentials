@@ -5,6 +5,7 @@
  * that connects to the DNA backbone on one side and in the center of the DNA strand on the other. For the purposes of
  * this simulation, a base pair only needs to represent a structural element of the DNA, and the individual bases are
  * not actually encapsulated here (nor anywhere in this simulation).
+ *
  * In this class the width of an individual base par is a constant, but the height can vary. This is used to create the
  * illusion of a twisted strand of DNA - the shorter base pairs are the ones that are more angled, and the longer ones
  * are the ones that are seen directly from the side.

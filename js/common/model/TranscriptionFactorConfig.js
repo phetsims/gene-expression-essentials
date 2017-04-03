@@ -9,12 +9,11 @@
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   *
    * @param {Shape} shape
    * @param {Vector2} positive
    * @param {Color} baseColor

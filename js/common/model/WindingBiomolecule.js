@@ -23,7 +23,6 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
 
-
   // constants
   // Color used by this molecule. Since mRNA is depicted as a line and not as a closed shape, a transparent color is used.
   // This enables reuse of generic biomolecule classes.
@@ -96,7 +95,6 @@ define( function( require ) {
       var pointMass = PointMass.MASS;
       var dt = 0.025; // In seconds. Fixed time-step is used to have consistency in the MRNA shape
       var numUpdates = 20;
-
 
       for ( var i = 0; i < numUpdates; i++ ) {
         var previousPoint = firstPoint;
@@ -202,7 +200,6 @@ define( function( require ) {
     /**
      * Add the specified amount of mRNA length to the tail end of the mRNA. Adding a length will cause the winding
      * algorithm to be re-run.
-     *
      * @param {number} length - Length of mRNA to add in picometers.
      */
     addLength: function( length ) {

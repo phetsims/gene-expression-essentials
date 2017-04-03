@@ -15,7 +15,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * Constraint value between min and max value
+   * a property with a constrained value
    * @param  {number} value
    * @param {number} minValue
    * @param  {number} maxValue

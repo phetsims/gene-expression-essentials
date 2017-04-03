@@ -36,26 +36,26 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'DnaStrandPoint', DnaStrandPoint );
 
-  return inherit( Object, DnaStrandPoint,
-    {
-      /**
-       * @param {DnaStrandPoint} dnaStrandPoint
-       */
-      set: function( dnaStrandPoint ) {
-        this.xPos = dnaStrandPoint.xPos;
-        this.strand1YPos = dnaStrandPoint.strand1YPos;
-        this.strand2YPos = dnaStrandPoint.strand2YPos;
-      },
+  return inherit( Object, DnaStrandPoint, {
 
-      equals: function( o ) {
-        if ( this === o ) { return true; }
-        if ( o.strand1YPos !== this.strand1YPos ) {
-          return false;
-        }
-        if ( o.strand2YPos !== this.strand2YPos ) {
-          return false;
-        }
-        return o.xPos === this.xPos;
+    /**
+     * @param {DnaStrandPoint} dnaStrandPoint
+     */
+    set: function( dnaStrandPoint ) {
+      this.xPos = dnaStrandPoint.xPos;
+      this.strand1YPos = dnaStrandPoint.strand1YPos;
+      this.strand2YPos = dnaStrandPoint.strand2YPos;
+    },
+
+    equals: function( o ) {
+      if ( this === o ) { return true; }
+      if ( o.strand1YPos !== this.strand1YPos ) {
+        return false;
       }
-    } );
+      if ( o.strand2YPos !== this.strand2YPos ) {
+        return false;
+      }
+      return o.xPos === this.xPos;
+    }
+  } );
 } );

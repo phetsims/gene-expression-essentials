@@ -29,7 +29,6 @@ define( function( require ) {
   return inherit( Object, DnaSeparation, {
 
     /**
-     *
      * @returns {number}
      */
     getXPos: function() {
@@ -37,7 +36,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {number} xPos
      */
     setXPos: function( xPos ) {
@@ -45,7 +43,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @returns {number}
      */
     getAmount: function() {
@@ -53,7 +50,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {number} proportion
      */
     setProportionOfTargetAmount: function( proportion ) {

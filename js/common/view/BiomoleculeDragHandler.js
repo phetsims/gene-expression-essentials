@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- *
+ * drag handler for biomolecules
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */

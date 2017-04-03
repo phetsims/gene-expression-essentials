@@ -55,7 +55,6 @@ define( function( require ) {
       geneBackgroundLayer.addChild( new GeneNode( mvt, dnaMolecule.getGenes()[ i ], dnaMolecule,
         geneString + ( i + 1 ), showGeneBracketLabels ) );
     }
-
   }
 
   geneExpressionEssentials.register( 'DnaMoleculeNode', DnaMoleculeNode );

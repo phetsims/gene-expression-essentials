@@ -24,7 +24,6 @@ define( function( require ) {
   var quotedMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/quotedMRna' );
 
   /**
-   *
    * @param {ModelViewTransform2} mvt
    * @param {MessengerRna} messengerRna
    * @constructor
@@ -81,6 +80,7 @@ define( function( require ) {
   geneExpressionEssentials.register( 'MessengerRnaNode', MessengerRnaNode );
 
   return inherit( MobileBiomoleculeNode, MessengerRnaNode, {
+
     // @public
     dispose: function() {
       this.disposeMessengerRnaNode();

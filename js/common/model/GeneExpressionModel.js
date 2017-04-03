@@ -14,12 +14,12 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-
   /**
    * @abstract
    * @constructor
    */
   function GeneExpressionModel() {
+    // does nothing in base class
   }
 
   geneExpressionEssentials.register( 'GeneExpressionModel', GeneExpressionModel );

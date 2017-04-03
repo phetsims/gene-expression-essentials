@@ -8,7 +8,6 @@
  * @author John Blanco
  * @author Sam Reid
  * @author Mohamed Safi
- *
  */
 define( function( require ) {
   'use strict';

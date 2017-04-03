@@ -1,10 +1,10 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Base class for all biomolecules (i.e. rna polymerase, transcription factors, etc.) that move around within the simulation.
- * This is a very central class within this simulation. This base class provides the basic infrastructure for defining the
- * shape, the movement, and the attachment behavior (i.e. how one biomolecule interacts with others in the simulation).
- * The specific, unique behavior for each biomolecule is implemented in the subclasses of this class.
+ * Base class for all biomolecules (i.e. rna polymerase, transcription factors, etc.) that move around within the
+ * simulation. This is a very central type within this simulation. This base class provides the basic infrastructure for
+ * defining the shape, the movement, and the attachment behavior (i.e. how one biomolecule interacts with others in the
+ * simulation). The specific, unique behavior for each biomolecule is implemented in the subclasses of this class.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -84,7 +84,6 @@ define( function( require ) {
         self.handleReleasedByUser();
       }
     } );
-
   }
 
   geneExpressionEssentials.register( 'MobileBiomolecule', MobileBiomolecule );
@@ -235,7 +234,6 @@ define( function( require ) {
      *
      * @return Attachment site of accepted attachment, null if no attachments were proposed or if all were rejected.
      */
-
     proposeAttachments: function() {
       return null;
     },

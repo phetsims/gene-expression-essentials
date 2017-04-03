@@ -19,7 +19,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   *
    * @param {Vector2} initialLocation
    * @param {TranscriptionFactorConfig} tfConfig
    * @param {number} initialAffinity

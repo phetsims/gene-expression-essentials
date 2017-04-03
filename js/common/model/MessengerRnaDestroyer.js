@@ -21,8 +21,8 @@ define( function( require ) {
   // constants
   var WIDTH = 250;   // In nanometers.
 
-
-  /**  static
+  /**
+   * helper function
    * @return {Shape}
    */
   function createShape() {

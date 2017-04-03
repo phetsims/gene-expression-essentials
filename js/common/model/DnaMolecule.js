@@ -43,7 +43,6 @@ define( function( require ) {
    * to be zero
    * @param {boolean} pursueAttachments - flag that controls whether the DNA strand actively pulls in transcription
    * factors and polymerase or just lets them drift into place
-   *
    * @constructor
    */
   function DnaMolecule( model, numBasePairs, leftEdgeXOffset, pursueAttachments ) {
@@ -92,8 +91,6 @@ define( function( require ) {
 
     // Create the sets of segments that will be observed by the view.
     this.initializeStrandSegments();
-
-
   }
 
   geneExpressionEssentials.register( 'DnaMolecule', DnaMolecule );
@@ -325,20 +322,6 @@ define( function( require ) {
       if ( index !== -1 ) {
         this.separations.splice( index, 1 );
       }
-    },
-
-    /**
-     * @returns {Array <DnaStrandSegment>}
-     */
-    getStrand1Segments: function() {
-      return this.strand1Segments;
-    },
-
-    /**
-     * @returns {Array <DnaStrandSegment>}
-     */
-    getStrand2Segments: function() {
-      return this.strand2Segments;
     },
 
     /**
@@ -589,7 +572,6 @@ define( function( require ) {
           }
         }
         return inBounds && !overlapsOtherMolecules;
-
       } );
     },
 

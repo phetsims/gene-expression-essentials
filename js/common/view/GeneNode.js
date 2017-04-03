@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Class that represents a gene in the view. Since a gene is basically a sequential collection of base pairs, this node
+ * Type that represents a gene in the view. Since a gene is basically a sequential collection of base pairs, this node
  * is basically something that highlights and labels the appropriate areas on the DNA strand.
  *
  * @author Sharfudeen Ashraf
@@ -33,7 +33,6 @@ define( function( require ) {
   var RECT_ROUNDING = 15;
 
   /**
-   *
    * @param {ModelViewTransform2} mvt
    * @param {Gene} gene
    * @param {DnaMolecule} dnaMolecule

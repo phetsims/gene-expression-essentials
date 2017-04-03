@@ -22,7 +22,6 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   /**
-   *
    * @param {ModelViewTransform2} mvt
    * @param {MobileBiomolecule} mobileBiomolecule
    * @param {number} outlineStroke
@@ -146,12 +145,10 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {MobileBiomolecule} mobileBiomolecule
      * @param {Object} options
      */
     getPathByMobileBioMoleculeType: function( mobileBiomolecule, options ) {
-
       var path = new Path( new Shape(), options );
       path.boundsMethod = 'unstroked';
       return path;

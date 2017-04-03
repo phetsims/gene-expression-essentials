@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- *
+ * utilities for creating gradients
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */

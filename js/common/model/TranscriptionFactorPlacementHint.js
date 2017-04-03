@@ -16,7 +16,6 @@ define( function( require ) {
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
 
   /**
-   *
    * @param {TranscriptionFactor} transcriptionFactor
    * @constructor
    */
@@ -40,7 +39,6 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param { TranscriptionFactorConfig } transcriptionFactorConfig
      */
     activateIfConfigMatch: function( transcriptionFactorConfig ) {

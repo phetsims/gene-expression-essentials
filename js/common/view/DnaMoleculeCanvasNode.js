@@ -32,12 +32,10 @@ define( function( require ) {
 
   return inherit( CanvasNode, DnaMoleculeCanvasNode, {
 
-
     drawRect: function( context, basePair ) {
       context.moveTo( basePair.x, basePair.y );
       context.lineWidth = basePair.width;
       context.lineTo( basePair.x, basePair.y + basePair.height );
-
     },
 
     drawCurve: function( context, strandSegment, strokeColor ) {
@@ -45,8 +43,8 @@ define( function( require ) {
       context.beginPath();
       context.moveTo( strandSegment[ 0 ].x, strandSegment[ 0 ].y );
       if ( strandSegmentLength === 1 || strandSegmentLength === 2 ) {
-        // Can't really create a curve from this, so draw a straight line
-        // to the end point and call it good.
+
+        // Can't really create a curve from this, so draw a straight line to the end point and call it good.
         context.lineTo(
           strandSegment[ strandSegmentLength - 1 ].x,
           strandSegment[ strandSegmentLength - 1 ].y
@@ -55,6 +53,7 @@ define( function( require ) {
         //context.closePath();
         return;
       }
+
       // Create the first curved segment.
       var cp1 = ShapeUtils.extrapolateControlPoint( strandSegment[ 2 ], strandSegment[ 1 ], strandSegment[ 0 ] );
       context.quadraticCurveTo(
@@ -63,6 +62,7 @@ define( function( require ) {
         strandSegment[ 1 ].x,
         strandSegment[ 1 ].y
       );
+
       // Create the middle segments.
       for ( var j = 1; j < strandSegmentLength - 2; j++ ) {
         var segmentStartPoint = strandSegment[ j ];
@@ -80,6 +80,7 @@ define( function( require ) {
           segmentEndPoint.y
         );
       }
+
       // Create the final curved segment.
       cp1 = ShapeUtils.extrapolateControlPoint( strandSegment[ strandSegmentLength - 3 ],
         strandSegment[ strandSegmentLength - 2 ],

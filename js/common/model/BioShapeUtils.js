@@ -3,7 +3,7 @@
 /**
  * Several utilities for making it easier to create some complex and somewhat random shapes. This was created initially
  * to make it easier to create the shapes associated with biomolecules, but may have other uses.
-
+ *
  * @author Sharfudeen Ashraf
  * @author Mohamed Safi
  * @author John Blanco
@@ -20,7 +20,6 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
-
   var BioShapeUtils = {
     /**
      * Create a distorted shape from a list of points.  This is useful when trying to animate some sort of deviation
@@ -28,12 +27,13 @@ define( function( require ) {
      * Note that this works best when the points are centered around the point (0, 0), and may not work at all otherwise
      * (it has never been tested).
      *
-     * @param {Array<Vector2>} points
+     * @param {Array.<Vector2>} points
      * @param {number} distortionFactor
      * @param {number} randomNumberSeed
      * @return
      */
     createdDistortedRoundedShapeFromPoints: function( points, distortionFactor, randomNumberSeed ) {
+
       // Determine the center location of the undistorted shape.
       var undistortedShape = ShapeUtils.createRoundedShapeFromPoints( points );
       var undistortedShapeBounds = undistortedShape.bounds;
@@ -42,10 +42,9 @@ define( function( require ) {
       var rand = new Random( {
         seed: randomNumberSeed
       } );
-      // Alter the positions of the points that define the shape in order to
-      // define a distorted version of the shape.
-      var alteredPoints = [];
 
+      // Alter the positions of the points that define the shape in order to define a distorted version of the shape.
+      var alteredPoints = [];
 
       for ( var i = 0; i < points.length; i++ ) {
         var pointAsVector = points[ i ].copy();
@@ -55,15 +54,17 @@ define( function( require ) {
 
       // Create the basis for the new shape.
       var distortedShape = ShapeUtils.createRoundedShapeFromPoints( alteredPoints );
+
       // Determine the center of the new shape.
       var distortedShapeCenter = distortedShape.bounds.getCenter();
+
       // Shift the new shape so that the center is in the same place as the old one.
       var translationMatrix = Matrix3.translation( undistortedShapeCenter.x - distortedShapeCenter.x,
         undistortedShapeCenter.y - distortedShapeCenter.y );
+
       distortedShape = distortedShape.transformed( translationMatrix );
 
       return distortedShape;
-
     },
 
     /**
@@ -72,7 +73,7 @@ define( function( require ) {
      * which will be based on a pseudo-random variable.
      *
      * @private
-     * @param {Array<Vector2>} points
+     * @param {Array.<Vector2>} points
      * @param {number} seed
      * @return {Shape}
      */
@@ -130,7 +131,7 @@ define( function( require ) {
     /**
      * Create a curvy line from a list of points. The points are assumed to be in order.
      *
-     * @param {Array<Vector2>} points
+     * @param {Array.<Vector2>} points
      * @return {Shape}
      */
     createCurvyLineFromPoints: function( points ) {
@@ -170,8 +171,7 @@ define( function( require ) {
     },
 
     /**
-     *
-     * @param {Array<Vector2>} points
+     * @param {Array.<Vector2>} points
      * @returns {Shape}
      */
     createSegmentedLineFromPoints: function( points ) {
@@ -191,7 +191,7 @@ define( function( require ) {
      *
      * @param {Bounds2} bounds
      * @param {number} variationFactor
-     * @param seed
+     * @param {number} seed
      * @return {Shape}
      */
     createCurvyEnclosedShape: function( bounds, variationFactor, seed ) {
@@ -268,6 +268,7 @@ define( function( require ) {
         nextPoint.setXY( nextPoint.x, nextPoint.y + ( rand.nextDouble() - 0.5 ) * height * alterationFactor );
         pointList.push( nextPoint );
       }
+
       // Add points that define the right curved edge. Skip what would be the first point, because it would overlap with
       // the previous segment.
       for ( i = 1; i < numPointsPerCurvedSegment; i++ ) {
@@ -275,6 +276,7 @@ define( function( require ) {
         radius = curveRadius + ( rand.nextDouble() - 0.5 ) * height * alterationFactor;
         pointList.push( new Vector2( rightCurveCenterX + radius * Math.cos( angle ), radius * Math.sin( angle ) ) );
       }
+
       // Add points that define the bottom line. Skip what would be the first point, because it would overlap with the
       // previous segment.
       for ( i = 1; i < numPointsPerLineSegment; i++ ) {
@@ -282,6 +284,7 @@ define( function( require ) {
         nextPoint.setXY( nextPoint.x, nextPoint.y + ( rand.nextDouble() - 0.5 ) * height * alterationFactor );
         pointList.push( nextPoint );
       }
+
       // Add points that define the left curved side. Skip what would be the first point and last points, because the
       // would overlap with the previous and next segment (respectively).
       for ( i = 1; i < numPointsPerCurvedSegment - 1; i++ ) {
@@ -294,6 +297,8 @@ define( function( require ) {
       return ShapeUtils.createRoundedShapeFromPoints( pointList );
     }
   };
+
   geneExpressionEssentials.register( 'BioShapeUtils', BioShapeUtils );
+
   return BioShapeUtils;
 } );

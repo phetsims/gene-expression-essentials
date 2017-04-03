@@ -15,7 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  //constants
+  // constants
   var MASS = 0.25; // In kg.  Arbitrarily chosen to get the desired behavior.
 
   /**
