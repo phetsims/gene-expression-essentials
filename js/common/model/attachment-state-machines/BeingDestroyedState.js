@@ -27,7 +27,7 @@ define( function( require ) {
   return inherit( AttachmentState, BeingDestroyedState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine}  enclosingStateMachine
      */
     entered: function( enclosingStateMachine ) {

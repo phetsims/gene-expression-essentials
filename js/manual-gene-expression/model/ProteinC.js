@@ -40,7 +40,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @returns {ProteinC}
      */
     createInstance: function() {

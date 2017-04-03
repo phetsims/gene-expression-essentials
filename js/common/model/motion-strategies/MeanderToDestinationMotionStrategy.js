@@ -38,7 +38,7 @@ define( function( require ) {
   return inherit( MotionStrategy, MeanderToDestinationMotionStrategy, {
 
     /**
-     * @Override
+     * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt
@@ -50,7 +50,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt

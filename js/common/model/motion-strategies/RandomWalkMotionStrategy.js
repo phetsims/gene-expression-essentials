@@ -29,7 +29,6 @@ define( function( require ) {
   // Vector used for intermediate calculations - Added to avoid excessive creation of Vector3 instances - Ashraf
   var nextLocation3DScratchInVector = new Vector3();
 
-
   /**
    * @param {Property} motionBoundsProperty
    * @constructor
@@ -43,7 +42,6 @@ define( function( require ) {
     motionBoundsProperty.link( function( motionBounds ) {
       self.motionBounds = motionBounds;
     } );
-
   }
 
   geneExpressionEssentials.register( 'RandomWalkMotionStrategy', RandomWalkMotionStrategy );
@@ -51,7 +49,7 @@ define( function( require ) {
   return inherit( MotionStrategy, RandomWalkMotionStrategy, {
 
     /**
-     * @Override
+     * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt
@@ -74,9 +72,8 @@ define( function( require ) {
                                          ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
     },
 
-
     /**
-     * @Override
+     * @override
      * @param {Vector3} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt
@@ -107,9 +104,8 @@ define( function( require ) {
         this.directionChangeCountdown = this.generateDirectionChangeCountdownValue();
       }
 
-      // To prevent odd-looking situations, the Z direction is limited so
-      // that biomolecules don't appear transparent when on top of the DNA
-      // molecule.
+      // To prevent odd-looking situations, the Z direction is limited so that biomolecules don't appear transparent
+      // when on top of the DNA molecule.
       var minZ = this.getMinZ( bounds, currentLocation );
 
       // Calculate the next location based on current motion.
@@ -118,7 +114,6 @@ define( function( require ) {
         currentLocation.y + this.currentMotionVector2D.y * dt,
         Util.clamp( currentLocation.z + this.currentZVelocity * dt, minZ, 0 )
       );
-
     }
   } );
 } );

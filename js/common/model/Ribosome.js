@@ -66,7 +66,7 @@ define( function( require ) {
      * distance, availability, or whatever.
      *
      * This method is called from the attachment state machine framework.
-     * @Override
+     * @override
      * @return {AttachmentSite}
      */
     proposeAttachments: function() {

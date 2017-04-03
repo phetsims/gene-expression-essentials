@@ -53,7 +53,7 @@ define( function( require ) {
 
 
     /**
-     * @Override
+     * @override
      * @returns {ProteinC}
      */
     getProteinPrototype: function() {

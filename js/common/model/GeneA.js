@@ -52,7 +52,7 @@ define( function( require ) {
   return inherit( Gene, GeneA, {
 
       /**
-       * @Override
+       * @override
        * @returns {ProteinA}
        */
       getProteinPrototype: function() {

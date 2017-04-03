@@ -52,7 +52,7 @@ define( function( require ) {
   return inherit( MobileBiomolecule, MessengerRnaDestroyer, {
 
     /**
-     * @Override
+     * @override
      * @returns {RnaDestroyerAttachmentStateMachine}
      */
     createAttachmentStateMachine: function() {
@@ -74,7 +74,7 @@ define( function( require ) {
      *
      * This method is called by the attachment state machine framework.
      *
-     * @Override
+     * @override
      * @return {AttachmentSite}
      */
     proposeAttachments: function() {

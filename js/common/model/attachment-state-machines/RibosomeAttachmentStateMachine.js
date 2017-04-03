@@ -42,7 +42,7 @@ define( function( require ) {
   return inherit( GenericAttachmentStateMachine, RibosomeAttachmentStateMachine, {
 
     /**
-     * @Override
+     * @override
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.ribosome.getMessengerRnaBeingTranslated() !== null ) {

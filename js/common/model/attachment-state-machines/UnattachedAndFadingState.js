@@ -32,7 +32,7 @@ define( function( require ) {
   return inherit( AttachmentState, UnattachedAndFadingState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
      */
@@ -47,7 +47,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine}  asm
      */
     entered: function( asm ) {

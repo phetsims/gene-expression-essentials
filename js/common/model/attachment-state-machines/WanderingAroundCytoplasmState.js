@@ -26,7 +26,7 @@ define( function( require ) {
   return inherit( AttachmentState, WanderingAroundCytoplasmState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      */
     entered: function( enclosingStateMachine ) {

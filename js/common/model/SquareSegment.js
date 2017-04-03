@@ -33,7 +33,7 @@ define( function( require ) {
   return inherit( ShapeSegment, SquareSegment, {
 
     /**
-     * @Override
+     * @override
      * @returns {number}
      */
     getContainedLength: function() {
@@ -41,7 +41,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {number} length
      * @param {EnhancedObservableList} shapeSegmentList
      */
@@ -50,7 +50,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {number} length
      */
     addByLength: function( length ) {
@@ -67,7 +67,7 @@ define( function( require ) {
     },
 
     /**
-     *@Override
+     *@override
      * @param {number} length
      * @param {EnhancedObservableList} shapeSegmentList
      */
@@ -91,7 +91,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {number} length
      * @param {EnhancedObservableList} shapeSegmentList
      */
@@ -104,7 +104,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {number} length
      * @param {EnhancedObservableList} shapeSegmentList
      */

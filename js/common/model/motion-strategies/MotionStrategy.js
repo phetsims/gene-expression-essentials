@@ -41,7 +41,6 @@ define( function( require ) {
       throw new Error( 'getNextLocation should be implemented in descendant classes of MotionStrategy .' );
     },
 
-
     /**
      * Get the next location in three dimensions given the current position. State information contained in the motion
      * strategy instance, such as the current motion vector, will determine the next position.

@@ -33,7 +33,7 @@ define( function( require ) {
   return inherit( AttachmentState, BeingRecycledState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
      */

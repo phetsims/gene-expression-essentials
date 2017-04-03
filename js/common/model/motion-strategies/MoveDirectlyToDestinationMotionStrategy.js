@@ -1,7 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- *
  * A motion strategy that moves directly to the specified destination
  * @author Mohamed Safi
  */
@@ -53,7 +52,7 @@ define( function( require ) {
   return inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
 
     /**
-     * @Override
+     * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt
@@ -80,7 +79,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {Vector3} currentLocation3D
      * @param {Bounds2} bounds
      * @param {number} dt

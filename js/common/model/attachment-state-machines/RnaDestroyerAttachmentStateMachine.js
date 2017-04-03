@@ -40,7 +40,7 @@ define( function( require ) {
   return inherit( GenericAttachmentStateMachine, RnaDestroyerAttachmentStateMachine, {
 
     /**
-     * @Override
+     * @override
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.mRnaDestroyer.getMessengerRnaBeingDestroyed() !== null ) {

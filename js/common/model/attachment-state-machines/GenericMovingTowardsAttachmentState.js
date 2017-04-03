@@ -24,7 +24,7 @@ define( function( require ) {
   return inherit( AttachmentState, GenericMovingTowardsAttachmentState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      * @param {number} dt
      */

@@ -2,9 +2,9 @@
 
 /**
  * Motion strategy where the controlled entity drifts at the front of a Z dimension, then moves to the back of Z space,
- * then moves instantly to a new randomly generated location within a set of possible "destination zones" (hench the
+ * then moves instantly to a new randomly generated location within a set of possible "destination zones" (hence the
  * "teleport" portion of the name). This was created to use when a polymerase molecule needs to return to the beginning
- * of the transcribed area of a gene when it completes transcription. It may, at some point, have other applications as well.
+ * of the transcribed area of a gene when it completes transcription. It may, at some point, have other applications.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -26,10 +26,9 @@ define( function( require ) {
   var PRE_TELEPORT_VELOCITY = 250; // In picometers per second.
 
   /**
-   *
    * @param {Vector2} wanderDirection
-   * @param {array<Rectangle>} destinationZones
-   * @param {Property <MotionBounds>} motionBoundsProperty
+   * @param {Array.<Rectangle>} destinationZones
+   * @param {Property.<MotionBounds>} motionBoundsProperty
    * @constructor
    */
   function DriftThenTeleportMotionStrategy( wanderDirection, destinationZones, motionBoundsProperty ) {
@@ -39,7 +38,7 @@ define( function( require ) {
       self.motionBounds = motionBounds;
     } );
 
-    // List of valid places where the item can teleport.
+    // list of valid places where the item can teleport
     this.destinationZones = destinationZones;
     this.preFadeCountdown = PRE_FADE_DRIFT_TIME;
     this.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY );
@@ -51,8 +50,8 @@ define( function( require ) {
   return inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
 
     /**
-     * @private methos
-     * @param {array <Rectangle2D>} destinationZones
+     * @private
+     * @param {Array.<Rectangle2D>} destinationZones
      * @param {Bounds2} bounds
      * @returns {Vector2}
      */
@@ -77,7 +76,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt
@@ -89,7 +88,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt
@@ -125,9 +124,11 @@ define( function( require ) {
         zMovement = this.velocityZ * dt;
       }
 
-      return new Vector3( currentLocation.x + xyMovement.x,
+      return new Vector3(
+        currentLocation.x + xyMovement.x,
         currentLocation.y + xyMovement.y,
-        Util.clamp( currentLocation.z + zMovement, -1, 0 ) );
+        Util.clamp( currentLocation.z + zMovement, -1, 0 )
+      );
     }
   } );
 } );

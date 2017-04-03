@@ -29,7 +29,7 @@ define( function( require ) {
   return inherit( GenericMovingTowardsAttachmentState, MRnaDestroyerMovingTowardAttachmentState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} asm
      */
     entered: function( asm ) {

@@ -40,7 +40,7 @@ define( function( require ) {
   return inherit( AttachmentStateMachine, MessengerRnaAttachmentStateMachine, {
 
     /**
-     * @Override
+     * @override
      * Detach from the RNA polymerase. Note that this should NOT be used to detach the mRNA from ribosomes or any other
      * biomolecules.
      */
@@ -54,7 +54,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.attachmentSite !== null ) {

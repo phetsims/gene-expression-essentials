@@ -84,7 +84,7 @@ define( function( require ) {
 
   return inherit( WindingBiomolecule, MessengerRna, {
     /**
-     * @Override
+     * @override
      * @param {number} x
      * @param {number} y
      */
@@ -430,7 +430,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @returns {MessengerRnaAttachmentStateMachine}
      */
     createAttachmentStateMachine: function() {

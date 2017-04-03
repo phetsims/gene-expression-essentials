@@ -23,7 +23,7 @@ define( function( require ) {
   return inherit( Object, GenericUnattachedAndAvailableState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      * @param {number} dt
      */

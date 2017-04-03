@@ -37,7 +37,7 @@ define( function( require ) {
     {
 
       /**
-       * @Override
+       * @override
        * @param {AttachmentStateMachine} asm
        */
       entered: function( asm ) {
@@ -94,7 +94,7 @@ define( function( require ) {
   return inherit( AttachmentStateMachine, MessengerRnaFragmentAttachmentStateMachine, {
 
     /**
-     * @Override
+     * @override
      */
     detach: function() {
       this.setState( new UnattachedAndFadingState( this ) );

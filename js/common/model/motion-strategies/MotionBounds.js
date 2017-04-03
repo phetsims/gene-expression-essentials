@@ -52,7 +52,6 @@ define( function( require ) {
       return this.bounds;
     },
 
-
     /**
      * Test whether the given shape will be in or out of the motion bounds if the given motion vector is applied for the
      * given time.

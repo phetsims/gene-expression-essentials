@@ -24,7 +24,7 @@ define( function( require ) {
   return inherit( AttachmentState, BeingTranslatedState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      */
     entered: function( enclosingStateMachine ) {

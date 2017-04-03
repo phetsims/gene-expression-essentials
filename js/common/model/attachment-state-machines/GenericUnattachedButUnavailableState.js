@@ -29,7 +29,7 @@ define( function( require ) {
   return inherit( AttachmentState, GenericUnattachedButUnavailableState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      * @param {number} dt
      */
@@ -49,7 +49,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      */
     entered: function( enclosingStateMachine ) {

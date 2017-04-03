@@ -26,7 +26,7 @@ define( function( require ) {
   return inherit( AttachmentState, BeingSynthesizedState, {
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      */
     entered: function( enclosingStateMachine ) {

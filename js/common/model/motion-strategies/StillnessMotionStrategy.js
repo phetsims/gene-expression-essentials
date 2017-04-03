@@ -27,7 +27,7 @@ define( function( require ) {
 
 
     /**
-     * @Override
+     * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt

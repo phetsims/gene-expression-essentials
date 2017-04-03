@@ -15,13 +15,11 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
   var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
 
-
   // constants
   var MIN_VELOCITY = 100; // In picometers/s
   var MAX_VELOCITY = 500; // In picometers/s
   var MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
   var MAX_TIME_IN_ONE_DIRECTION = 1.25; // In seconds.
-
 
   /**
    * @param  {Vector2} generalDirection
@@ -38,16 +36,14 @@ define( function( require ) {
     } );
 
     self.generalDirection = generalDirection;
-
   }
 
   geneExpressionEssentials.register( 'WanderInGeneralDirectionMotionStrategy', WanderInGeneralDirectionMotionStrategy );
 
   return inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, {
 
-
     /**
-     * private
+     * @private
      * @returns {number}
      */
     generateDirectionChangeCountdownValue: function() {
@@ -55,9 +51,8 @@ define( function( require ) {
                                          ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
     },
 
-
     /**
-     * @Override
+     * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt
@@ -90,7 +85,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {Vector3} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt

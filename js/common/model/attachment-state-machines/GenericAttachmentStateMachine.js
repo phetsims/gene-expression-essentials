@@ -42,7 +42,7 @@ define( function( require ) {
   return inherit( AttachmentStateMachine, GenericAttachmentStateMachine, {
 
     /**
-     * @Override
+     * @override
      */
     detach: function() {
       assert && assert( this.attachmentSite !== null ); // Verify internal state is consistent
@@ -52,7 +52,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.attachmentSite !== null ) {
@@ -63,7 +63,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      */
     forceImmediateUnattachedButUnavailable: function() {
       if ( this.attachmentSite !== null ) {

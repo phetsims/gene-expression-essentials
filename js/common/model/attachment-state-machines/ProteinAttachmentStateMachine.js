@@ -31,7 +31,7 @@ define( function( require ) {
     {
 
       /**
-       * @Override
+       * @override
        * @param {AttachmentStateMachine} asm
        */
       entered: function( asm ) {

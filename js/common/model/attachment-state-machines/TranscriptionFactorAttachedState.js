@@ -71,7 +71,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
      */
@@ -137,7 +137,7 @@ define( function( require ) {
     },
 
     /**
-     * @Override
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      */
     entered: function( enclosingStateMachine ) {

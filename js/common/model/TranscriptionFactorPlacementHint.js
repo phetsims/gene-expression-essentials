@@ -31,7 +31,7 @@ define( function( require ) {
   return inherit( PlacementHint, TranscriptionFactorPlacementHint, {
 
     /**
-     * @Override
+     * @override
      * @param {MobileBiomolecule} testBiomolecule
      * @returns {boolean}
      */
