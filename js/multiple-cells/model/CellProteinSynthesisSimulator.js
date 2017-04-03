@@ -9,7 +9,6 @@
  * @Author George A. Emanuel
  * @Author Aadish Gupta
  */
-
 define( function( require ) {
   'use strict';
 

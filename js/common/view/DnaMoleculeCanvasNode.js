@@ -5,7 +5,6 @@
  *
  * @author Aadish Gupta
  */
-
 define( function( require ) {
   'use strict';
 

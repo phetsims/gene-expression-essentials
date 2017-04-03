@@ -1,5 +1,4 @@
 // Copyright 2015, University of Colorado Boulder
-
 define( function( require ) {
   'use strict';
 

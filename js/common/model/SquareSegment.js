@@ -4,7 +4,6 @@
  * Class that defines a square segment, which is one in which the mRNA can be (and generally is) curled up.
  * @author Mohamed Safi
  */
-
 define( function( require ) {
   'use strict';
 

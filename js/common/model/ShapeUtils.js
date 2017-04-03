@@ -5,7 +5,6 @@
  *
  * @author Sharfudeen Ashraf
  */
-
 define( function( require ) {
   'use strict';
 

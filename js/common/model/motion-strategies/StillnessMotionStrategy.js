@@ -7,7 +7,6 @@
  * @author Mohamed Safi
  *
  */
-
 define( function( require ) {
   'use strict';
 

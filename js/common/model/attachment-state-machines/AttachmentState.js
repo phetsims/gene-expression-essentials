@@ -1,14 +1,11 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Base class for individual attachment states, used by the various attachment
- * state machines.
+ * Base class for individual attachment states, used by the various attachment state machines.
  *
  * @author John Blanco
  * @author Mohamed Safi
- *
  */
-
 define( function( require ) {
   'use strict';
 
@@ -21,7 +18,7 @@ define( function( require ) {
    * @constructor
    */
   function AttachmentState() {
-
+    // does nothing in base type
   }
 
   geneExpressionEssentials.register( 'AttachmentState', AttachmentState );
