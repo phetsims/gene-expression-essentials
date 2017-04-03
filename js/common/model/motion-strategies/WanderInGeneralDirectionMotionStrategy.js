@@ -4,7 +4,6 @@
  * A motion strategy where the user moves in a general direction with some random direction changes every once in a while.
  * @author John Blanco
  * @author Mohamed Safi
- *
  */
 define( function( require ) {
   'use strict';

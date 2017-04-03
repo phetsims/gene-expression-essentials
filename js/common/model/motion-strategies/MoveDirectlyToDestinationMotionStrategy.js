@@ -4,7 +4,6 @@
  *
  * A motion strategy that moves directly to the specified destination
  * @author Mohamed Safi
- *
  */
 define( function( require ) {
   'use strict';

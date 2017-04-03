@@ -16,6 +16,9 @@ define( function( require ) {
   // constants
   var DEFAULT_DETACH_TIME = 3; // In seconds.
 
+  /**
+   * @constructor
+   */
   function GenericUnattachedButUnavailableState() {
     AttachmentState.call( this );
     this.detachCountdownTime = DEFAULT_DETACH_TIME;
