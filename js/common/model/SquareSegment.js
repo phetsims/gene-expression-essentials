@@ -21,7 +21,7 @@ define( function( require ) {
   function SquareSegment( origin ) {
     // Maintain an explicit value for the length of the mRNA contained within this segment even though the bounds
     // essentially define said length.  This helps to avoid floating point issues.
-    this.containedLength = 0;
+    this.containedLength = 0; //@private
     ShapeSegment.call( this );
 
     this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );
@@ -35,6 +35,7 @@ define( function( require ) {
     /**
      * @override
      * @returns {number}
+     * @public
      */
     getContainedLength: function() {
       return this.containedLength;
@@ -43,17 +44,11 @@ define( function( require ) {
     /**
      * @override
      * @param {number} length
-     * @param {EnhancedObservableList} shapeSegmentList
+     * @param {WindingBiomolecule} windingBiomolecule
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
      */
-    add: function( length, shapeSegmentList ) {
-      this.addByLength( length );
-    },
-
-    /**
-     * @override
-     * @param {number} length
-     */
-    addByLength: function( length ) {
+    add: function( length, windingBiomolecule, shapeSegmentList ) {
       this.containedLength += length;
 
       // Grow the bounds up and to the left to accommodate the additional length.
@@ -67,9 +62,9 @@ define( function( require ) {
     },
 
     /**
-     *@override
+     * @override
      * @param {number} length
-     * @param {EnhancedObservableList} shapeSegmentList
+     * @param {Array.<ShapeSegment>} shapeSegmentList
      */
     remove: function( length, shapeSegmentList ) {
       this.containedLength -= length;
@@ -82,10 +77,10 @@ define( function( require ) {
         this.bounds.getWidth() - sideShrinkageAmount,
         this.bounds.getHeight() - sideShrinkageAmount ) );
 
-      // If the length has gotten to zero, remove this segment from
-      // the list.
+      // If the length has gotten to zero, remove this segment from the list.
       if ( this.getContainedLength() <= ShapeSegment.FLOATING_POINT_COMP_FACTOR ) {
-        shapeSegmentList.remove( this );
+        var index = shapeSegmentList.indexOf( this );
+        shapeSegmentList.splice( index, 1 );
       }
       this.updateAttachmentSiteLocation();
     },
@@ -93,29 +88,34 @@ define( function( require ) {
     /**
      * @override
      * @param {number} length
-     * @param {EnhancedObservableList} shapeSegmentList
+     * @param {WindingBiomolecule} windingBiomolecule
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
      */
-    advance: function( length, shapeSegmentList ) {
+    advance: function( length, windingBiomolecule, shapeSegmentList ) {
 
       // This should never be called for square shape segments, since translation should only occur based around flat
       // segments.
-      assert && assert( false, 'This should never be called for square shape segments, since translation should only occur based around flat segments.' );
+      assert && assert( false,
+        'This should never be called for square shape segments, since translation should only occur based around flat segments.' );
 
     },
 
     /**
      * @override
      * @param {number} length
-     * @param {EnhancedObservableList} shapeSegmentList
+     * @param {WindingBiomolecule} windingBiomolecule
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
      */
-    advanceAndRemove: function( length, shapeSegmentList ) {
+    advanceAndRemove: function( length, windingBiomolecule, shapeSegmentList ) {
       assert && assert( false, 'Unimplemented method called on square shape segment' );
     },
 
     /**
-     * @private
-     *  Determine the length of a side as a function of the contained length of mRNA.
+     * Determine the length of a side as a function of the contained length of mRNA.
      * @returns {number}
+     * @private
      */
     calculateSideLength: function() {
       var desiredDiagonalLength = Math.pow( this.containedLength, 0.7 ); // Power value was empirically determined.

@@ -13,7 +13,6 @@ define( function( require ) {
   // modules
   var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
   var Color = require( 'SCENERY/util/Color' );
-  var EnhancedObservableList = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/EnhancedObservableList' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -43,11 +42,11 @@ define( function( require ) {
     MobileBiomolecule.call( this, model, initialShape, NOMINAL_COLOR );
 
     // Add first shape defining point to the point list.
-    this.firstShapeDefiningPoint = new PointMass( position, 0 );
-    this.lastShapeDefiningPoint = this.firstShapeDefiningPoint;
+    this.firstShapeDefiningPoint = new PointMass( position, 0 ); //@protected
+    this.lastShapeDefiningPoint = this.firstShapeDefiningPoint; //@protected
 
     // List of the shape segments that define the outline shape.
-    this.shapeSegments = new EnhancedObservableList();
+    this.shapeSegments = []; //@public
   }
 
   geneExpressionEssentials.register( 'WindingBiomolecule', WindingBiomolecule );
@@ -58,11 +57,10 @@ define( function( require ) {
      * Position a set of points within a rectangle. The first point stays at the upper left, the last point stays at the
      * lower right, and the points in between are initially positioned randomly, then a spring algorithm is run to position
      * them such that each point is the appropriate distance from the previous and next points.
-     *
-     * @private static
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
      * @param {Bounds2} bounds
+     * @private
      */
     runSpringAlgorithm: function( firstPoint, lastPoint, bounds ) {
 
@@ -146,9 +144,9 @@ define( function( require ) {
 
     /**
      * Get the first shape-defining point enclosed in the provided length range.
-     *
      * @param {Range} lengthRange
      * @return {PointMass}
+     * @private
      */
     getFirstEnclosedPoint: function( lengthRange ) {
       var currentPoint = this.firstShapeDefiningPoint;
@@ -167,9 +165,9 @@ define( function( require ) {
 
     /**
      * Get the last shape-defining point enclosed in the provided length range.
-     *
      * @param  {Range} lengthRange
      * @return {PointMass}
+     * @private
      */
     getLastEnclosedPoint: function( lengthRange ) {
       var currentPoint = this.firstShapeDefiningPoint;
@@ -201,6 +199,7 @@ define( function( require ) {
      * Add the specified amount of mRNA length to the tail end of the mRNA. Adding a length will cause the winding
      * algorithm to be re-run.
      * @param {number} length - Length of mRNA to add in picometers.
+     * @public
      */
     addLength: function( length ) {
 
@@ -233,7 +232,7 @@ define( function( require ) {
       }
 
       // Update the shape segments that define the outline shape.
-      this.getLastShapeSegment().add( length, this.shapeSegments );
+      this.getLastShapeSegment().add( length, this, this.shapeSegments );
 
       // Realign the segments, since some growth probably occurred.
       this.realignSegmentsFromEnd();
@@ -247,13 +246,14 @@ define( function( require ) {
      * This is the "winding algorithm" that positions the points that define the shape of the mRNA within the shape
      * segments. The combination of this algorithm and the shape segments allow the mRNA to look reasonable when it is
      * being synthesized and when it is being transcribed.
+     * @protected
      */
     windPointsThroughSegments: function() {
       var handledLength = 0;
 
       // Loop through the shape segments positioning the shape-defining points within them.
       for ( var i = 0; i < this.shapeSegments.length; i++ ) {
-        var shapeSegment = this.shapeSegments.get( i );
+        var shapeSegment = this.shapeSegments[ i ];
         var lengthRange;
         if ( shapeSegment !== this.getLastShapeSegment() ) {
           lengthRange = new Range( handledLength, handledLength + shapeSegment.getContainedLength() );
@@ -301,7 +301,9 @@ define( function( require ) {
     },
 
     /**
+     * Returns the sum of length of all shape segments
      * @returns {number}
+     * @private
      */
     getTotalLengthInShapeSegments: function() {
       var totalShapeSegmentLength = 0;
@@ -320,6 +322,7 @@ define( function( require ) {
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
      * @param {Vector2} origin
+     * @private
      */
     positionPointsInLine: function( firstPoint, lastPoint, origin ) {
       var currentPoint = firstPoint;
@@ -346,6 +349,7 @@ define( function( require ) {
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
      * @param {Rectangle} bounds
+     * @private
      */
     randomizePointPositionsInRectangle: function( firstPoint, lastPoint, bounds ) {
 
@@ -380,9 +384,10 @@ define( function( require ) {
     /**
      * Realign all the segments, making sure that the end of one connects to the beginning of another, using the last
      * segment on the list as the starting point.
+     * @private
      */
     realignSegmentsFromEnd: function() {
-      var copyOfShapeSegments = [].concat( this.shapeSegments.getArray() );
+      var copyOfShapeSegments = this.shapeSegments.slice();
 
       copyOfShapeSegments = copyOfShapeSegments.reverse();
 
@@ -395,19 +400,20 @@ define( function( require ) {
     },
 
     /**
-     *
+     * Returns the last shape segment in the shapeSegments array
      * @returns {ShapeSegment}
+     * @private
      */
     getLastShapeSegment: function() {
-      var lastShapeSegment = this.shapeSegments.get( this.shapeSegments.length - 1 );
+      var lastShapeSegment = this.shapeSegments[ this.shapeSegments.length - 1 ];
       return lastShapeSegment;
     },
 
     /**
      * Add a point to the end of the list of shape defining points. Note that this will alter the last point on the list.
-     *
      * @param {Vector2} position
      * @param {number} targetDistanceToPreviousPoint
+     * @private
      */
     addPointToEnd: function( position, targetDistanceToPreviousPoint ) {
       var newPoint = new PointMass( position, targetDistanceToPreviousPoint );
@@ -420,6 +426,7 @@ define( function( require ) {
     /**
      * Get the points that define the shape as a list.
      * @returns {Array}
+     * @private
      */
     getPointList: function() {
       var pointList = [];
@@ -434,8 +441,8 @@ define( function( require ) {
     /**
      * Get the length of the strand. The length is calculated by adding up the intended distances between the points, and
      * does not account for curvature.
-     *
      * @return {number} length in picometers
+     * @protected
      */
     getLength: function() {
       var length = 0;
@@ -449,8 +456,8 @@ define( function( require ) {
 
     /**
      * Set the position of the lower right end of the mRNA strand.
-     *
      * @param {Vector2} p
+     * @public
      */
     setLowerRightPositionByVector: function( p ) {
       this.getLastShapeSegment().setLowerRightCornerPos( p );
@@ -460,6 +467,7 @@ define( function( require ) {
     /**
      * @param {number} x
      * @param {number} y
+     * @public
      */
     setLowerRightPosition: function( x, y ) {
       this.setLowerRightPositionByVector( new Vector2( x, y ) );
@@ -468,8 +476,8 @@ define( function( require ) {
     /**
      * Realign the positions of all segments starting from the given segment and working forward and backward through the
      * segment list.
-     *
      * @param {ShapeSegment} segmentToAlignFrom
+     * @protected
      */
     realignSegmentsFrom: function( segmentToAlignFrom ) {
       if ( this.shapeSegments.indexOf( segmentToAlignFrom ) === -1 ) {
@@ -479,21 +487,85 @@ define( function( require ) {
 
       // Align segments that follow this one.
       var currentSegment = segmentToAlignFrom;
-      var nextSegment = this.shapeSegments.getNextItem( currentSegment );
+      var nextSegment = this.getNextShapeSegment( currentSegment );
       while ( nextSegment !== null ) {
         nextSegment.setUpperLeftCornerPosition( currentSegment.getLowerRightCornerPos() );
         currentSegment = nextSegment;
-        nextSegment = this.shapeSegments.getNextItem( currentSegment );
+        nextSegment = this.getNextShapeSegment( currentSegment );
       }
 
       // Align segments that precede this one.
       currentSegment = segmentToAlignFrom;
-      var previousSegment = this.shapeSegments.getPreviousItem( currentSegment );
+      var previousSegment = this.getPreviousShapeSegment( currentSegment );
       while ( previousSegment !== null ) {
         previousSegment.setLowerRightCornerPos( currentSegment.getUpperLeftCornerPos() );
         currentSegment = previousSegment;
-        previousSegment = this.shapeSegments.getPreviousItem( currentSegment );
+        previousSegment = this.getPreviousShapeSegment( currentSegment );
       }
+    },
+
+    /**
+     * Returns the next shape segment in the array for the given shape segment
+     * @param {ShapeSegment} shapeSegment
+     * @returns {ShapeSegment}
+     * @public
+     */
+    getNextShapeSegment: function( shapeSegment ) {
+      var index = this.shapeSegments.indexOf( shapeSegment );
+
+      assert && assert( index !== -1, 'Given item not in list' );
+
+      if ( index === this.shapeSegments.length - 1 ) {
+        // The given segment is the last element on the list, so null is returned.
+        return null;
+      }
+      else {
+        return this.shapeSegments[ index + 1 ];
+      }
+    },
+
+    /**
+     * Returns the previous shape segment in the array for the given shape segment
+     * @param {ShapeSegment} shapeSegment
+     * @returns {ShapeSegment}
+     * @public
+     */
+    getPreviousShapeSegment: function( shapeSegment ) {
+      var index = this.shapeSegments.indexOf( shapeSegment );
+
+      assert && assert( index !== -1, 'Given item not in list' );
+
+      if ( index === 0 ) {
+        // The given segment is the first element on the list, so null is returned.
+        return null;
+      }
+      else {
+        return this.shapeSegments[ index - 1 ];
+      }
+    },
+
+    /**
+     * Inserts the new shape segment after the given shape segment in the array
+     * @param {ShapeSegment} existingShapeSegment
+     * @param {ShapeSegment} shapeSegmentToInsert
+     * @public
+     */
+    insertAfterShapeSegment: function( existingShapeSegment, shapeSegmentToInsert ) {
+      var index = this.shapeSegments.indexOf( existingShapeSegment );
+      assert && assert( index !== -1, 'Given item not in list' );
+      this.shapeSegments.splice( index + 1, 0, shapeSegmentToInsert );
+    },
+
+    /**
+     * Inserts the new shape segment before the given shape segment in the array
+     * @param {ShapeSegment} existingShapeSegment
+     * @param {ShapeSegment} shapeSegmentToInsert
+     * @public
+     */
+    insertBeforeShapeSegment: function( existingShapeSegment, shapeSegmentToInsert ) {
+      var index = this.shapeSegments.indexOf( existingShapeSegment );
+      assert && assert( index !== -1, 'Given item not in list' );
+      this.shapeSegments.splice( index, 0, shapeSegmentToInsert );
     }
   } );
 } );

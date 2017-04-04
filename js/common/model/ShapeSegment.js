@@ -32,50 +32,68 @@ define( function( require ) {
   function ShapeSegment() {
 
     // Bounds of this shape segment.
-    this.boundsProperty = new Property( new Bounds2( 0, 0, 0, 0 ) );
+    this.boundsProperty = new Property( new Bounds2( 0, 0, 0, 0 ) );//@private
 
     // Attachment point where anything that attached to this segment would attach. Affinity is arbitrary in this case.
-    this.attachmentSite = new AttachmentSite( new Vector2( 0, 0 ), 1 );
+    this.attachmentSite = new AttachmentSite( new Vector2( 0, 0 ), 1 );//@private
 
     // Max length of mRNA that this segment can contain.
-    this.capacity = Number.MAX_VALUE;
+    this.capacity = Number.MAX_VALUE; //@protected
   }
 
   geneExpressionEssentials.register( 'ShapeSegment', ShapeSegment );
 
   return inherit( Object, ShapeSegment, {
 
-    set bounds( value ) {
-      this.boundsProperty.set( value );
+    /**
+     * Set the bounds
+     * @param {Bounds2} bounds
+     * @public
+     */
+    set bounds( bounds ) {
+      this.boundsProperty.set( bounds );
     },
 
+    /**
+     * Return the bounds
+     * @returns {Bounds2}
+     * @public
+     */
     get bounds() {
       return this.boundsProperty.get();
     },
 
     /**
+     * Sets the capacity
      * @param {number} capacity
+     * @public
      */
     setCapacity: function( capacity ) {
       this.capacity = capacity;
     },
 
     /**
+     * Returns the remaining capacity
      * @returns {number}
+     * @public
      */
     getRemainingCapacity: function() {
       return this.capacity - this.getContainedLength();
     },
 
     /**
+     * Returns the lower right position of the segment
      * @returns {Vector2}
+     * @public
      */
     getLowerRightCornerPos: function() {
       return new Vector2( this.bounds.getMaxX(), this.bounds.getMinY() );
     },
 
     /**
+     * Sets the lower right position of the segment
      * @param {Vector2} newLowerRightCornerPos
+     * @public
      */
     setLowerRightCornerPos: function( newLowerRightCornerPos ) {
       var currentLowerRightCornerPos = this.getLowerRightCornerPos();
@@ -86,14 +104,18 @@ define( function( require ) {
     },
 
     /**
+     * Returns the upper left position of the segment
      * @returns {Vector2}
+     * @public
      */
     getUpperLeftCornerPos: function() {
       return new Vector2( this.bounds.getMinX(), this.bounds.getMaxY() );
     },
 
     /**
+     * Sets the upper left position of the segment
      * @param {Vector2} upperLeftCornerPosition
+     * @public
      */
     setUpperLeftCornerPosition: function( upperLeftCornerPosition ) {
       this.bounds.set( Bounds2.rect( upperLeftCornerPosition.x,
@@ -104,8 +126,9 @@ define( function( require ) {
     },
 
     /**
-     *
+     * Translates the segment
      * @param {Vector2} translationVector
+     * @public
      */
     translate: function( translationVector ) {
       this.bounds.set( Bounds2.rect( this.bounds.x + translationVector.x,
@@ -116,30 +139,38 @@ define( function( require ) {
     },
 
     /**
+     * Returns the bounds
      * @returns {Bounds2}
+     * @public
      */
     getBounds: function() {
       return this.bounds;
     },
 
     /**
+     * Returns wether the shape segment is flat or not. Shape segment is flat if the height is zero
      * @returns {boolean}
+     * @public
      */
     isFlat: function() {
       return this.getBounds().height === 0;
     },
 
+    /**
+     * Updates the Attachment Site Location which is the upper left corner of the segment
+     * @public
+     */
     updateAttachmentSiteLocation: function() {
       this.attachmentSite.locationProperty.set( this.getUpperLeftCornerPos() );
     },
 
     /**
      * Get the length of the mRNA contained by this segment.
-     *
      * @return {number}
+     * @public
      */
     getContainedLength: function() {
-      assert && assert( false, 'getContainedLength should be implemented in descendant classes of ShapeSegment' );
+      throw new Error( 'getContainedLength should be implemented in descendant classes of ShapeSegment' );
     },
 
     /**
@@ -148,10 +179,12 @@ define( function( require ) {
      * segments can be added if needed.
      *
      * @param {number} length
-     * @param {EnhancedObservableList} shapeSegmentList
+     * @param {WindingBiomolecule} windingBiomolecule
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
      */
-    add: function( length, shapeSegmentList ) {
-      assert && assert( false, 'add should be implemented in descendant classes of ShapeSegment' );
+    add: function( length, windingBiomolecule, shapeSegmentList ) {
+      throw new Error( 'add should be implemented in descendant classes of ShapeSegment' );
     },
 
     /**
@@ -160,21 +193,24 @@ define( function( require ) {
      * segment list is also a parameter so that shape segments can be removed if necessary.
      *
      * @param {number} length
-     * @param {EnhancedObservableList} shapeSegmentList
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
      */
     remove: function( length, shapeSegmentList ) {
-      assert && assert( false, 'remove should be implemented in descendant classes of ShapeSegment' );
+      throw new Error( 'remove should be implemented in descendant classes of ShapeSegment' );
     },
 
     /**
      * Advance the mRNA through this shape segment. This is what happens when the mRNA is being translated by a ribosome
      * into a protein. The list of shape segments is also a parameter in case segments need to be added or removed.
      *
-     * @param length
-     * @param {EnhancedObservableList} shapeSegmentList
+     * @param {number} length
+     * @param {WindingBiomolecule} windingBiomolecule
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
      */
-    advance: function( length, shapeSegmentList ) {
-      assert && assert( false, 'advance should be implemented in descendant classes of ShapeSegment' );
+    advance: function( length, windingBiomolecule, shapeSegmentList ) {
+      throw new Error( 'advance should be implemented in descendant classes of ShapeSegment' );
     },
 
 
@@ -182,11 +218,13 @@ define( function( require ) {
      * Advance the mRNA through this segment but also reduce the segment contents by the given length. This is used when
      * the mRNA is being destroyed.
      *
-     * @param length
-     * @param  {EnhancedObservableList} shapeSegmentList
+     * @param {number} length
+     * @param {WindingBiomolecule} windingBiomolecule
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
      */
-    advanceAndRemove: function( length, shapeSegmentList ) {
-      assert && assert( false, 'advance should be implemented in descendant classes of ShapeSegment' );
+    advanceAndRemove: function( length, windingBiomolecule, shapeSegmentList ) {
+      throw new Error( 'advance should be implemented in descendant classes of ShapeSegment' );
     }
   }, {
     FLOATING_POINT_COMP_FACTOR: FLOATING_POINT_COMP_FACTOR

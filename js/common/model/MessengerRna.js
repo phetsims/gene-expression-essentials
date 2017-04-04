@@ -42,35 +42,35 @@ define( function( require ) {
     var self = this;
 
     // Map from ribosomes to the shape segment to which they are attached.
-    self.mapRibosomeToShapeSegment = new Map();
+    self.mapRibosomeToShapeSegment = new Map(); //@private
 
     WindingBiomolecule.call( self, model, new Shape().moveToPoint( position ), position );
 
     // Externally visible indicator for whether this mRNA is being synthesized. Assumes that it is being synthesized
     // when created.
-    this.beingSynthesizedProperty = new Property( true );
+    this.beingSynthesizedProperty = new Property( true ); //@public
 
     // Protein prototype, used to keep track of protein that should be synthesized from this particular strand of mRNA.
-    self.proteinPrototype = proteinPrototype;
+    self.proteinPrototype = proteinPrototype; //@private
 
     // Local reference to the non-generic state machine used by this molecule.
-    self.mRnaAttachmentStateMachine = self.attachmentStateMachine; // private
+    self.mRnaAttachmentStateMachine = self.attachmentStateMachine; // @private
 
     // mRNA destroyer that is destroying this mRNA. Null until and unless destruction has begun.
-    self.messengerRnaDestroyer = null;
+    self.messengerRnaDestroyer = null; //@private
 
     // Shape segment where the mRNA destroyer is connected. This is null until and unless destruction has begun.
-    self.segmentWhereDestroyerConnects = null;
+    self.segmentWhereDestroyerConnects = null; //@private
 
     // Add the first segment to the shape segment list. This segment will contain the "leader" for the mRNA.
     var segment = new FlatSegment( position );
     segment.setCapacity( GEEConstants.LEADER_LENGTH );
-    this.shapeSegments.add( segment );
+    this.shapeSegments.push( segment );
 
     // Add the placement hints for the locations where the user can attach a ribosome or an mRNA destroyer.
     var ribosome = new Ribosome( model );
-    self.ribosomePlacementHint = new PlacementHint( new Ribosome( model ) );
-    self.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) );
+    self.ribosomePlacementHint = new PlacementHint( new Ribosome( model ) ); //@public(read-only)
+    self.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
 
     this.shapeProperty.link( function() {
 
@@ -89,6 +89,7 @@ define( function( require ) {
      * @override
      * @param {number} x
      * @param {number} y
+     * @public
      */
     translate: function( x, y ) {
 
@@ -112,8 +113,8 @@ define( function( require ) {
     /**
      * Command this mRNA strand to fade away when it has become fully formed. This was created for use in the 2nd tab,
      * where mRNA is never translated once it is produced.
-     *
      * @param {boolean} fadeAwayWhenFormed
+     * @public
      */
     setFadeAwayWhenFormed: function( fadeAwayWhenFormed ) {
       // Just pass this through to the state machine.
@@ -128,6 +129,7 @@ define( function( require ) {
      * @param {number} length   - The amount of mRNA to move through the translation channel.
      * @return - true if the mRNA is completely through the channel, indicating, that transcription is complete, and false
      * if not.
+     * @public
      */
     advanceTranslation: function( ribosome, length ) {
 
@@ -138,10 +140,10 @@ define( function( require ) {
 
       // Advance the translation by advancing the position of the mRNA in the segment that corresponds to the translation
       // channel of the ribosome.
-      segmentToAdvance.advance( length, this.shapeSegments );
+      segmentToAdvance.advance( length, this, this.shapeSegments );
 
       // Realign the segments, since they may well have changed shape.
-      if ( this.shapeSegments.contains( segmentToAdvance ) ) {
+      if ( this.shapeSegments.indexOf( segmentToAdvance ) !== -1 ) {
         this.realignSegmentsFrom( segmentToAdvance );
       }
 
@@ -155,9 +157,9 @@ define( function( require ) {
     /**
      * Advance the destruction of the mRNA by the specified length. This pulls the strand into the lead segment much like
      * translation does, but does not move the points into new segment, it just gets rid of them.
-     *
      * @param {number} length
      * @return {boolean}
+     * @public
      */
     advanceDestruction: function( length ) {
 
@@ -171,7 +173,7 @@ define( function( require ) {
       this.reduceLength( length );
 
       // Realign the segments, since they may well have changed shape.
-      if ( this.shapeSegments.contains( this.segmentWhereDestroyerConnects ) ) {
+      if ( this.shapeSegments.indexOf( this.segmentWhereDestroyerConnects ) !== -1 ) {
         this.realignSegmentsFrom( this.segmentWhereDestroyerConnects );
       }
 
@@ -187,8 +189,8 @@ define( function( require ) {
 
     /**
      * Reduce the length of the mRNA. This handles both the shape segments and the shape-defining points.
-     * @private
      * @param {number} reductionAmount
+     * @private
      */
     reduceLength: function( reductionAmount ) {
       if ( reductionAmount >= this.getLength() ) {
@@ -196,12 +198,12 @@ define( function( require ) {
         // Reduce length to be zero.
         this.lastShapeDefiningPoint = this.firstShapeDefiningPoint;
         this.lastShapeDefiningPoint.setNextPointMass( null );
-        this.shapeSegments.clear();
+        this.shapeSegments.length = 0;
       }
       else {
 
         // Remove the length from the shape segments.
-        this.segmentWhereDestroyerConnects.advanceAndRemove( reductionAmount, this.shapeSegments );
+        this.segmentWhereDestroyerConnects.advanceAndRemove( reductionAmount, this, this.shapeSegments );
 
         // Remove the length from the shape defining points.
         for ( var amountRemoved = 0; amountRemoved < reductionAmount; ) {
@@ -224,8 +226,8 @@ define( function( require ) {
 
     /**
      * Create a new version of the protein that should result when this strand of mRNA is translated.
-     *
      * @return {Protein}
+     * @public
      */
     getProteinPrototype: function() {
       return this.proteinPrototype;
@@ -235,9 +237,9 @@ define( function( require ) {
      * Get the point in model space where the entrance of the given ribosome's translation channel should be in order to
      * be correctly attached to this strand of messenger RNA. This allows the ribosome to "follow" the mRNA if it is
      * moving or changing shape.
-     *
      * @param {Ribosome} ribosome
      * @return {Vector2}
+     * @public
      */
     getRibosomeAttachmentLocation: function( ribosome ) {
       if ( !this.mapRibosomeToShapeSegment.contains( ribosome ) ) {
@@ -246,7 +248,7 @@ define( function( require ) {
       }
       var attachmentPoint;
       var segment = this.mapRibosomeToShapeSegment.get( ribosome );
-      if ( this.shapeSegments.getPreviousItem( segment ) === null ) {
+      if ( this.getPreviousShapeSegment( segment ) === null ) {
 
         // There is no previous segment, which means that the segment to which this ribosome is attached is the leader
         // segment. The attachment point is thus the leader length from its rightmost edge.
@@ -264,8 +266,8 @@ define( function( require ) {
     /**
      * Release this mRNA from a ribosome. If this is the only ribosome to which the mRNA is connected, the mRNA will
      * start wandering.
-     *
      * @param {Ribosome} ribosome
+     * @public
      */
     releaseFromRibosome: function( ribosome ) {
       this.mapRibosomeToShapeSegment.remove( ribosome );
@@ -275,8 +277,8 @@ define( function( require ) {
     },
 
     /**
-     * Release this mRNA from the polymerase which is, presumably, transcribing
-     * it.
+     * Release this mRNA from the polymerase which is, presumably, transcribing it.
+     * @public
      */
     releaseFromPolymerase: function() {
       this.mRnaAttachmentStateMachine.detach();
@@ -285,14 +287,19 @@ define( function( require ) {
     /**
      * Activate the placement hint(s) as appropriate for the given biomolecule.
      *
-     * @param {MobileBiomolecule} biomolecule - And instance of the type of biomolecule for which any matching hints
+     * @param {MobileBiomolecule} biomolecule - instance of the type of biomolecule for which any matching hints
      * should be activated.
+     * @public
      */
     activateHints: function( biomolecule ) {
       this.ribosomePlacementHint.activateIfMatch( biomolecule );
       this.mRnaDestroyerPlacementHint.activateIfMatch( biomolecule );
     },
 
+    /**
+     * Deactivate placement hints for all biomolecules
+     * @public
+     */
     deactivateAllHints: function() {
       this.ribosomePlacementHint.activeProperty.set( false );
       this.mRnaDestroyerPlacementHint.activeProperty.set( false );
@@ -301,15 +308,15 @@ define( function( require ) {
     /**
      * Initiate the translation process by setting up the segments as needed. This should only be called after a ribosome
      * that was moving to attach with this mRNA arrives at the attachment point.
-     *
      * @param {Ribosome} ribosome
+     * @public
      */
     initiateTranslation: function( ribosome ) {
       assert && assert( this.mapRibosomeToShapeSegment.contains( ribosome ) ); // State checking.
 
       // Set the capacity of the first segment to the size of the channel through which it will be pulled plus the leader
       // length.
-      var firstShapeSegment = this.shapeSegments.get( 0 );
+      var firstShapeSegment = this.shapeSegments[ 0 ];
       assert && assert( firstShapeSegment.isFlat() );
       firstShapeSegment.setCapacity( ribosome.getTranslationChannelLength() + GEEConstants.LEADER_LENGTH );
     },
@@ -317,14 +324,14 @@ define( function( require ) {
     /**
      * Initiate the destruction of this mRNA strand by setting up the segments as needed. This should only be called
      * after an mRNA destroyer has attached to the front of the mRNA strand. Once initiated, destruction cannot be stopped.
-     *
      * @param {MessengerRnaDestroyer} messengerRnaDestroyer
+     * @public
      */
     initiateDestruction: function( messengerRnaDestroyer ) {
       assert && assert( this.messengerRnaDestroyer === messengerRnaDestroyer ); // Shouldn't get this from unattached destroyers.
 
       // Set the capacity of the first segment to the size of the channel through which it will be pulled plus the leader length.
-      this.segmentWhereDestroyerConnects = this.shapeSegments.get( 0 );
+      this.segmentWhereDestroyerConnects = this.shapeSegments[ 0 ];
 
       assert && assert( this.segmentWhereDestroyerConnects.isFlat() );
       this.segmentWhereDestroyerConnects.setCapacity( this.messengerRnaDestroyer.getDestructionChannelLength() + GEEConstants.LEADER_LENGTH );
@@ -332,9 +339,9 @@ define( function( require ) {
 
     /**
      * Get the proportion of the entire mRNA that has been translated by the given ribosome.
-     *
      * @param {Ribosome} ribosome
-     * @return
+     * @return {number}
+     * @public
      */
     getProportionOfRnaTranslated: function( ribosome ) {
       assert && assert( this.mapRibosomeToShapeSegment.contains( ribosome ) ); // Makes no sense if ribosome isn't attached.
@@ -345,7 +352,7 @@ define( function( require ) {
 
       // Add the length for each segment that precedes this ribosome.
       for ( var i = 0; i < this.shapeSegments.length; i++ ) {
-        var shapeSegment = this.shapeSegments.get( i );
+        var shapeSegment = this.shapeSegments[ i ];
         if ( shapeSegment === segmentInRibosomeChannel ) {
           break;
         }
@@ -361,8 +368,10 @@ define( function( require ) {
     },
 
     /**
+     * Consider proposal from ribosome and if ribosome can attach return the attachment location
      * @param {Ribosome} ribosome
      * @returns {AttachmentSite}
+     * @public
      */
     considerProposalFromRibosome: function( ribosome ) {
       assert && assert( !this.mapRibosomeToShapeSegment.contains( ribosome ) ); // Shouldn't get redundant proposals from a ribosome.
@@ -372,7 +381,7 @@ define( function( require ) {
       if ( this.messengerRnaDestroyer === null ) {
 
         // See if the attachment site at the leading edge of the mRNA is available.
-        var leadingEdgeAttachmentSite = this.shapeSegments.get( 0 ).attachmentSite;
+        var leadingEdgeAttachmentSite = this.shapeSegments[ 0 ].attachmentSite;
         if ( leadingEdgeAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
              leadingEdgeAttachmentSite.locationProperty.get().distance(
                ribosome.getEntranceOfRnaChannelPos() ) < RIBOSOME_CONNECTION_DISTANCE ) {
@@ -384,15 +393,17 @@ define( function( require ) {
           this.mRnaAttachmentStateMachine.attachedToRibosome();
 
           // Enter this connection in the map.
-          this.mapRibosomeToShapeSegment.put( ribosome, this.shapeSegments.get( 0 ) );
+          this.mapRibosomeToShapeSegment.put( ribosome, this.shapeSegments[ 0 ] );
         }
       }
       return returnValue;
     },
 
     /**
+     * Consider proposal from mRnaDestroyer and if it can attach return the attachment location
      * @param {MessengerRnaDestroyer} messengerRnaDestroyer
      * @returns {AttachmentSite}
+     * @public
      */
     considerProposalFromMessengerRnaDestroyer: function( messengerRnaDestroyer ) {
       assert && assert( this.messengerRnaDestroyer !== messengerRnaDestroyer ); // Shouldn't get redundant proposals from same destroyer.
@@ -403,7 +414,7 @@ define( function( require ) {
       if ( this.messengerRnaDestroyer === null ) {
 
         // See if the attachment site at the leading edge of the mRNA is available.
-        var leadingEdgeAttachmentSite = this.shapeSegments.get( 0 ).attachmentSite;
+        var leadingEdgeAttachmentSite = this.shapeSegments[ 0 ].attachmentSite;
         if ( leadingEdgeAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
              leadingEdgeAttachmentSite.locationProperty.get().distance(
                messengerRnaDestroyer.getPosition() ) < MRNA_DESTROYER_CONNECT_DISTANCE ) {
@@ -422,9 +433,10 @@ define( function( require ) {
       return returnValue;
     },
 
-    /*
+    /**
      * Aborts the destruction process, used if the mRNA destroyer was on its way to the mRNA but the user picked it up
      * before it got there.
+     * @public
      */
     abortDestruction: function() {
       this.messengerRnaDestroyer = null;
@@ -434,13 +446,17 @@ define( function( require ) {
     /**
      * @override
      * @returns {MessengerRnaAttachmentStateMachine}
+     * @public
      */
     createAttachmentStateMachine: function() {
       return new MessengerRnaAttachmentStateMachine( this );
     },
 
     /**
+     * Get the point in model space where the entrance of the given destroyer's translation channel should be in order to
+     * be correctly attached to this strand of messenger RNA.
      * @returns {Vector2}
+     * @public
      */
     getDestroyerAttachmentLocation: function() {
       // State checking - shouldn't be called before this is set.

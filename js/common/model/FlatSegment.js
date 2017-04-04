@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Flat segment - has no height, so rRNA contained in this segment is not wound.
+ * Flat segment is inherited from ShapeSegment and has no height, so mRNA contained in this segment is not wound.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -30,13 +30,26 @@ define( function( require ) {
 
   return inherit( ShapeSegment, FlatSegment, {
 
+    /**
+     * @override
+     * For a flat segment, the length of mRNA contained is equal to  the width.
+     * @returns {number}
+     * @public
+     */
     getContainedLength: function() {
-      // For a flat segment, the length of mRNA contained is equal to  the width.
       return this.bounds.getWidth();
     },
 
-    add: function( length, shapeSegmentList ) {
-      assert && assert( this.getContainedLength() <= this.capacity ); // This shouldn't be called if there is no remaining capacity.
+    /**
+     * @override
+     * @param {number} length
+     * @param {WindingBiomolecule} windingBiomolecule
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
+     */
+    add: function( length, windingBiomolecule, shapeSegmentList ) {
+      // This shouldn't be called if there is no remaining capacity.
+      assert && assert( this.getContainedLength() <= this.capacity );
       var growthAmount = length;
       if ( this.getContainedLength() + length > this.capacity ) {
 
@@ -44,8 +57,8 @@ define( function( require ) {
         // the excess in there.
         var newSquareSegment = new SquareSegment( this.getLowerRightCornerPos() );
         growthAmount = this.capacity - this.getContainedLength(); // Clamp growth at remaining capacity.
-        newSquareSegment.add( length - growthAmount, shapeSegmentList );
-        shapeSegmentList.insertAfter( this, newSquareSegment );
+        newSquareSegment.add( length - growthAmount, windingBiomolecule, shapeSegmentList );
+        windingBiomolecule.insertAfterShapeSegment( this, newSquareSegment );
       }
 
       // Grow the bounds linearly to the left to accommodate the  additional length.
@@ -56,26 +69,40 @@ define( function( require ) {
       this.updateAttachmentSiteLocation();
     },
 
+    /**
+     * @override
+     * @param {number} length
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
+     */
     remove: function( length, shapeSegmentList ) {
       this.bounds.setMinMax( this.bounds.x, this.bounds.y, this.bounds.x + this.bounds.getWidth() - length, this.bounds.y );
 
       // If the length has gotten to zero, remove this segment from  the list.
       if ( this.getContainedLength() < ShapeSegment.FLOATING_POINT_COMP_FACTOR ) {
-        shapeSegmentList.remove( this );
+        var index = shapeSegmentList.indexOf( this );
+        shapeSegmentList.splice( index, 1 );
       }
       this.updateAttachmentSiteLocation();
     },
 
-    advance: function( length, shapeSegmentList ) {
-      var outputSegment = shapeSegmentList.getPreviousItem( this );
-      var inputSegment = shapeSegmentList.getNextItem( this );
+    /**
+     * @override
+     * @param {number} length
+     * @param {WindingBiomolecule} windingBiomolecule
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
+     */
+    advance: function( length, windingBiomolecule, shapeSegmentList ) {
+      var outputSegment = windingBiomolecule.getPreviousShapeSegment( this );
+      var inputSegment = windingBiomolecule.getNextShapeSegment( this );
       if ( inputSegment === null ) {
 
         // There is no input segment, meaning that the end of the mRNA strand is contained in THIS segment, so this
         // segment needs to shrink.
         var lengthToAdvance = Math.min( length, this.getContainedLength() );
         this.remove( lengthToAdvance, shapeSegmentList );
-        outputSegment.add( lengthToAdvance, shapeSegmentList );
+        outputSegment.add( lengthToAdvance, windingBiomolecule, shapeSegmentList );
       }
       else if ( inputSegment.getContainedLength() > length ) {
 
@@ -83,7 +110,7 @@ define( function( require ) {
         if ( this.getContainedLength() + length <= this.capacity ) {
 
           // The new length isn't enough to fill up this segment, so this segment just needs to grow.
-          this.add( length, shapeSegmentList );
+          this.add( length, windingBiomolecule, shapeSegmentList );
         }
         else {
           // This segment is full or close enough to being full that it can't accommodate all of the specified length.
@@ -101,11 +128,11 @@ define( function( require ) {
 
             var newLeaderSegment = new FlatSegment( this.getUpperLeftCornerPos() );
             newLeaderSegment.setCapacity( GEEConstants.LEADER_LENGTH );
-            shapeSegmentList.insertBefore( this, newLeaderSegment );
+            windingBiomolecule.insertBeforeShapeSegment( this, newLeaderSegment );
             outputSegment = newLeaderSegment;
           }
           // Add some or all of the length to the output segment.
-          outputSegment.add( length - remainingCapacity, shapeSegmentList );
+          outputSegment.add( length - remainingCapacity, windingBiomolecule, shapeSegmentList );
         }
         // Remove the length from the input segment.
         inputSegment.remove( length, shapeSegmentList );
@@ -116,13 +143,20 @@ define( function( require ) {
         // zero, which will remove it, and then shrink the advancing segment by the remaining amount.
         this.remove( length - inputSegment.getContainedLength(), shapeSegmentList );
         inputSegment.remove( inputSegment.getContainedLength(), shapeSegmentList );
-        outputSegment.add( length, shapeSegmentList );
+        outputSegment.add( length, windingBiomolecule, shapeSegmentList );
       }
       this.updateAttachmentSiteLocation();
     },
 
-    advanceAndRemove: function( length, shapeSegmentList ) {
-      var inputSegment = shapeSegmentList.getNextItem( this );
+    /**
+     * @override
+     * @param {number} length
+     * @param {WindingBiomolecule} windingBiomolecule
+     * @param {Array.<ShapeSegment>} shapeSegmentList
+     * @public
+     */
+    advanceAndRemove: function( length, windingBiomolecule, shapeSegmentList ) {
+      var inputSegment = windingBiomolecule.getNextShapeSegment( this );
       if ( inputSegment === null ) {
 
         // There is no input segment, meaning that the end of the mRNA strand is contained in THIS segment, so this
@@ -144,7 +178,10 @@ define( function( require ) {
       this.updateAttachmentSiteLocation();
     },
 
-    // Set size to be exactly the capacity. Do not create any new segments.
+    /**
+     * Set size to be exactly the capacity. Do not create any new segments.
+     * @private
+     */
     maxOutLength: function() {
       var growthAmount = this.getRemainingCapacity();
       this.bounds.setMinMax( this.bounds.x - growthAmount,

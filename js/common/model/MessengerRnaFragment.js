@@ -29,7 +29,7 @@ define( function( require ) {
     WindingBiomolecule.call( this, model, new Shape().moveToPoint( position ), position );
 
     // Add the first, and in this case only, segment to the shape segment list.
-    this.shapeSegments.add( new SquareSegment( position ) ); //TODO
+    this.shapeSegments.push( new SquareSegment( position ) );
   }
 
   geneExpressionEssentials.register( 'MessengerRnaFragment', MessengerRnaFragment );
@@ -38,14 +38,16 @@ define( function( require ) {
 
     /**
      * Release this mRNA fragment from the destroyer molecule.
+     * @public
      */
     releaseFromDestroyer: function() {
       this.attachmentStateMachine.detach();
     },
 
     /**
-     *
+     * Creates the attachment state machine
      * @returns {MessengerRnaFragmentAttachmentStateMachine}
+     * @public
      */
     createAttachmentStateMachine: function() {
       return new MessengerRnaFragmentAttachmentStateMachine( this );
