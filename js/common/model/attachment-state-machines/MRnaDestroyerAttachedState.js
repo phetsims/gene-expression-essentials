@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Class that defines what the mRNA destroyer does when attached to mRNA.
+ * One of the state for RnaDestroyerAttachmentStateMachine. Destroyer enters this state when it attached to mRNA
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -32,9 +32,9 @@ define( function( require ) {
    */
   function MRnaDestroyerAttachedState( rnaDestroyerAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine;
-    this.messengerRnaFragment = null;
-    this.targetFragmentLength = 0;
+    this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine; //@public
+    this.messengerRnaFragment = null; //@private
+    this.targetFragmentLength = 0; //@private
   }
 
   geneExpressionEssentials.register( 'MRnaDestroyerAttachedState', MRnaDestroyerAttachedState );
@@ -44,6 +44,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
+     * @public
      */
     stepInTime: function( asm, dt ) {
       var biomolecule = this.rnaDestroyerAttachmentStateMachine.biomolecule;
@@ -93,6 +94,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} asm
+     * @public
      */
     entered: function( asm ) {
       var mRnaDestroyer = this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer;

@@ -1,6 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
+ * One of the state for MessengerRnaAttachmentStateMachine
  * @author John Blanco
  * @author Mohamed Safi
  */
@@ -23,8 +24,8 @@ define( function( require ) {
    * @constructor
    */
   function UnattachedAndFadingState( messengerRnaAttachmentStateMachine ) {
-    this.messengerRnaAttachmentStateMachine = messengerRnaAttachmentStateMachine;
-    this.preFadeCountdown = PRE_FADE_TIME;
+    this.messengerRnaAttachmentStateMachine = messengerRnaAttachmentStateMachine; //@public
+    this.preFadeCountdown = PRE_FADE_TIME; //@private
   }
 
   geneExpressionEssentials.register( 'UnattachedAndFadingState', UnattachedAndFadingState );
@@ -35,6 +36,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
+     * @public
      */
     stepInTime: function( asm, dt ) {
       if ( this.preFadeCountdown > 0 ) {
@@ -49,6 +51,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine}  asm
+     * @public
      */
     entered: function( asm ) {
       // State checking - should be at full strength.

@@ -1,6 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * Subclass of the "attached" state.
+ * One of the state for TranscriptionFactorAttachmentStateMachine. Subclass of the "attached" state.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -29,7 +29,7 @@ define( function( require ) {
    */
   function TranscriptionFactorAttachedState( transcriptionFactorAttachmentStateMachine ) {
     GenericAttachedState.call( this );
-    this.transcriptionFactorAttachmentStateMachine = transcriptionFactorAttachmentStateMachine;
+    this.transcriptionFactorAttachmentStateMachine = transcriptionFactorAttachmentStateMachine; //@public
   }
 
   geneExpressionEssentials.register( 'TranscriptionFactorAttachedState', TranscriptionFactorAttachedState );
@@ -44,6 +44,7 @@ define( function( require ) {
      * @param {number} affinity
      * @param {number} dt
      * @return {number}
+     * @public
      */
     calculateProbabilityOfDetachment: function( affinity, dt ) {
 
@@ -58,6 +59,7 @@ define( function( require ) {
 
     /**
      * @param {AttachmentStateMachine} asm
+     * @private
      */
     detachFromDnaMolecule: function( asm ) {
       var biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
@@ -74,6 +76,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
+     * @public
      */
     stepInTime: function( asm, dt ) {
       var attachmentSite = this.transcriptionFactorAttachmentStateMachine.attachmentSite;
@@ -139,6 +142,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
       enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );

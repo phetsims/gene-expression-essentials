@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- *
+ * GenericUnattachedButUnavailableState is a generic state when biomolecule is unattached but unavailable
  * @author John Blanco
  * @author Mohamed Safi
  */
@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function GenericUnattachedButUnavailableState() {
     AttachmentState.call( this );
-    this.detachCountdownTime = DEFAULT_DETACH_TIME;
+    this.detachCountdownTime = DEFAULT_DETACH_TIME; //@private
   }
 
   geneExpressionEssentials.register( 'GenericUnattachedButUnavailableState', GenericUnattachedButUnavailableState );
@@ -32,6 +32,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      * @param {number} dt
+     * @public
      */
     stepInTime: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
@@ -51,6 +52,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
       this.detachCountdownTime = DEFAULT_DETACH_TIME;

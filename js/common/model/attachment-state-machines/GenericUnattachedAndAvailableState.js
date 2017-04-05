@@ -1,6 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
+ * GenericUnattachedAndAvailableState is a generic state when biomolecule is unattached and available
  * @author John Blanco
  * @author Mohamed Safi
  */
@@ -26,6 +27,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      * @param {number} dt
+     * @public
      */
     stepInTime: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
@@ -50,7 +52,9 @@ define( function( require ) {
     },
 
     /**
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
       enclosingStateMachine.biomolecule.setMotionStrategy(

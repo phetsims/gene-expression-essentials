@@ -1,7 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * State where the mRNA is wandering around the cell's cytoplasm unattached to anything.
+ * One of the state of MessengerRnaAttachmentStateMachine. In this state mRNA is wandering around the cell's cytoplasm
+ * unattached to anything.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -28,6 +29,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
       enclosingStateMachine.biomolecule.setMotionStrategy(

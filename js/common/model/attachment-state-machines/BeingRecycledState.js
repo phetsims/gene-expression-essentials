@@ -1,7 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * One of sub-states for the attached site
+ * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this stage when it detached from DNA
+ * and recycle mode is set to true
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -19,13 +20,13 @@ define( function( require ) {
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
-   * @param {Array<Rectangle>} recycleReturnZones
+   * @param {Array<Bounds2>} recycleReturnZones
    * @constructor
    */
   function BeingRecycledState( rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) {
     AttachmentState.call( this );
-    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
-    this.recycleReturnZones = recycleReturnZones;
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; //@public
+    this.recycleReturnZones = recycleReturnZones; //@private
   }
 
   geneExpressionEssentials.register( 'BeingRecycledState', BeingRecycledState );
@@ -36,6 +37,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
+     * @public
      */
     stepInTime: function( asm, dt ) {
 
@@ -56,7 +58,9 @@ define( function( require ) {
     },
 
     /**
+     * @override
      * @param {AttachmentStateMachine} asm
+     * @public
      */
     entered: function( asm ) {
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
@@ -64,8 +68,8 @@ define( function( require ) {
       // Prevent user interaction.
       asm.biomolecule.movableByUserProperty.set( false );
 
-      // Set the motion strategy that will move the polymerase clear of
-      // the DNA, then teleport it to a location within the specified bounds.
+      // Set the motion strategy that will move the polymerase clear of the DNA, then teleport it to a location within
+      // the specified bounds.
       asm.biomolecule.setMotionStrategy( new DriftThenTeleportMotionStrategy( new Vector2( 0,
         phet.joist.random.nextBoolean() ? 1 : -1 ),
         this.recycleReturnZones, biomolecule.motionBoundsProperty ) );

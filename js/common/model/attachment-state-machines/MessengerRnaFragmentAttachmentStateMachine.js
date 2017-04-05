@@ -21,21 +21,18 @@ define( function( require ) {
   // constants
   var FADE_OUT_TIME = 3; // In seconds.
 
-
-  // private classes
+  //------------------------------------------
+  //States for this attachment state machine
+  //------------------------------------------
   var AttachedToDestroyerState = inherit( AttachmentState,
 
     /**
      * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
      */
     function( messengerRnaFragmentAttachmentStateMachine ) {
-
       this.messengerRnaFragmentAttachmentStateMachine = messengerRnaFragmentAttachmentStateMachine;
-
     },
-
     {
-
       /**
        * @override
        * @param {AttachmentStateMachine} asm
@@ -44,9 +41,7 @@ define( function( require ) {
         var biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
         biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
       }
-
     } );
-
 
   var UnattachedAndFadingState = inherit( AttachmentState,
 
@@ -56,10 +51,9 @@ define( function( require ) {
     function( messengerRnaFragmentAttachmentStateMachine ) {
       this.messengerRnaFragmentAttachmentStateMachine = messengerRnaFragmentAttachmentStateMachine;
     },
-
     {
-
       /**
+       * @override
        * @param {AttachmentStateMachine} asm
        */
       entered: function( asm ) {
@@ -67,8 +61,8 @@ define( function( require ) {
         assert && assert( biomolecule.existenceStrengthProperty.get() === 1 );
         biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
       },
-
       /**
+       * @override
        * @param {AttachmentStateMachine} asm
        * @param {number} dt
        */
@@ -76,12 +70,10 @@ define( function( require ) {
         var biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
         biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
       }
-
     } );
 
-
   /**
-   * @param biomolecule {MobileBioMolecule}
+   * @param {MobileBiomolecule} biomolecule
    * @constructor
    */
   function MessengerRnaFragmentAttachmentStateMachine( biomolecule ) {
@@ -95,13 +87,11 @@ define( function( require ) {
 
     /**
      * @override
+     * @public
      */
     detach: function() {
       this.setState( new UnattachedAndFadingState( this ) );
     }
-
   } );
-
-
 } );
 

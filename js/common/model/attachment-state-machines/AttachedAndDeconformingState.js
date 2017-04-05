@@ -1,7 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * One of sub-states for the attached site
+ * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when transcription of mRna
+ * is complete
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -23,7 +24,7 @@ define( function( require ) {
   function AttachedAndDeconformingState( rnaPolymeraseAttachmentStateMachine ) {
     AttachmentState.call( this );
     this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; // @public
-    this.conformationalChangeAmount = 0; // @public
+    this.conformationalChangeAmount = 0; // @private
   }
 
   geneExpressionEssentials.register( 'AttachedAndDeconformingState', AttachedAndDeconformingState );
@@ -31,8 +32,10 @@ define( function( require ) {
   return inherit( AttachmentState, AttachedAndDeconformingState, {
 
     /**
-     * @param  {AttachmentStateMachine} asm
+     * @override
+     * @param {AttachmentStateMachine} asm
      * @param {number} dt
+     * @public
      */
     stepInTime: function( asm, dt ) {
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
@@ -82,9 +85,9 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} asm
+     * @public
      */
     entered: function( asm ) {
-
       // Prevent user interaction.
       asm.biomolecule.movableByUserProperty.set( false );
       this.conformationalChangeAmount = 1;

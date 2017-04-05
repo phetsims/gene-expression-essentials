@@ -1,6 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
+ * One of the state for MessengerRnaAttachmentStateMachine. mRna enters this state when it is being synthesized.
  * @author John Blanco
  * @author Mohamed Safi
  */
@@ -28,6 +29,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
       // Set the motion strategy to something that doesn't move the molecule, since its position will be controlled by

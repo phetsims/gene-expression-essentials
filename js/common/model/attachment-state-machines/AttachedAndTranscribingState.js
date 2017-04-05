@@ -1,7 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * One of sub-states for the attached site
+ * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state after conformation of
+ * RnaPolymerase is complete
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -21,7 +22,8 @@ define( function( require ) {
 
   // constants
   var TRANSCRIPTION_VELOCITY = 1000;// In picometers per second.
-  var BIO_MOLECULE_POSITION_COMPARISON_EPSILON = 0.000001; // Added by Ashraf  - used for doing comparing the position of Biomolecule and endOfGene's position.
+  // used for comparing the position of Biomolecule and endOfGene's position.
+  var BIO_MOLECULE_POSITION_COMPARISON_EPSILON = 0.000001;
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
@@ -29,9 +31,9 @@ define( function( require ) {
    */
   function AttachedAndTranscribingState( rnaPolymeraseAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
-    this.endOfGene = null;
-    this.messengerRna = null;
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; //@public
+    this.endOfGene = null; //@private
+    this.messengerRna = null; //@private
   }
 
   geneExpressionEssentials.register( 'AttachedAndTranscribingState', AttachedAndTranscribingState );
@@ -42,6 +44,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
+     * @public
      */
     stepInTime: function( asm, dt ) {
       var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
@@ -86,6 +89,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} asm
+     * @public
      */
     entered: function( asm ) {
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;

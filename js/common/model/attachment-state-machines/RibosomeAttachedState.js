@@ -1,7 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Class that defines what the ribosome does when attached to mRNA, which is essentially to transcribe it.
+ * One of the state of the RibosomeAttachmentStateMachine. It defined what the ribosome does when attached to mRNA,
+ * which is essentially to transcribe it.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -29,7 +30,7 @@ define( function( require ) {
    */
   function RibosomeAttachedState( ribosomeAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.ribosomeAttachmentStateMachine = ribosomeAttachmentStateMachine;
+    this.ribosomeAttachmentStateMachine = ribosomeAttachmentStateMachine; //@public
   }
 
   geneExpressionEssentials.register( 'RibosomeAttachedState', RibosomeAttachedState );
@@ -39,6 +40,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
+     * @public
      */
     stepInTime: function( asm, dt ) {
 
@@ -76,6 +78,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} asm
+     * @public
      */
     entered: function( asm ) {
       var ribosome = this.ribosomeAttachmentStateMachine.ribosome;

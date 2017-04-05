@@ -25,11 +25,11 @@ define( function( require ) {
     GenericAttachmentStateMachine.call( this, biomolecule );
 
     // Set up a new "attached" state, since the behavior is different from  the default.
-    this.attachedState = new TranscriptionFactorAttachedState( this );
+    this.attachedState = new TranscriptionFactorAttachedState( this ); //@public
 
     // Threshold for the detachment algorithm, used in deciding whether or not to detach completely from the DNA at a
     // given time step.
-    this.detachFromDnaThreshold = 1;
+    this.detachFromDnaThreshold = 1; //@public
   }
 
   geneExpressionEssentials.register( 'TranscriptionFactorAttachmentStateMachine', TranscriptionFactorAttachmentStateMachine );

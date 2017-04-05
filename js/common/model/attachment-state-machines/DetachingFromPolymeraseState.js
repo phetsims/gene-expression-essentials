@@ -1,8 +1,9 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * State where the mRNA is detaching from the polymerase. During this time, it moves generally upwards until either the
- * timer runs out or it is attached to by some biomolecule.
+ * One of the state for MessengerRnaAttachmentStateMachine. mRna enters this state when it is detaching from the
+ * polymerase. During this time, it moves generally upwards until either the timer runs out or it is attached to by some
+ * biomolecule.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -23,8 +24,8 @@ define( function( require ) {
 
   function DetachingFromPolymeraseState( msgRnaAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.msgRnaAttachmentStateMachine = msgRnaAttachmentStateMachine; // parent class  reference
-    this.detachingCountdownTimer = DETACHING_TIME;
+    this.msgRnaAttachmentStateMachine = msgRnaAttachmentStateMachine; //@public
+    this.detachingCountdownTimer = DETACHING_TIME; //@private
   }
 
   geneExpressionEssentials.register( 'DetachingFromPolymeraseState', DetachingFromPolymeraseState );
@@ -35,6 +36,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      * @param {number} dt
+     * @public
      */
     stepInTime: function( enclosingStateMachine, dt ) {
       this.detachingCountdownTimer -= dt;
@@ -48,6 +50,7 @@ define( function( require ) {
     /**
      * @override
      * @param  {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
       // Move upwards, away from the DNA and polymerase.

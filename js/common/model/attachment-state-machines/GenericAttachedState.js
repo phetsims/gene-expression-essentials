@@ -21,10 +21,13 @@ define( function( require ) {
   // constants
   var DEFAULT_ATTACH_TIME = 3; // In seconds.
 
-
+  /**
+   *
+   * @constructor
+   */
   function GenericAttachedState() {
     AttachmentState.call( this );
-    this.attachCountdownTime = DEFAULT_ATTACH_TIME;
+    this.attachCountdownTime = DEFAULT_ATTACH_TIME; //@private
   }
 
   geneExpressionEssentials.register( 'GenericAttachedState', GenericAttachedState );
@@ -35,6 +38,7 @@ define( function( require ) {
      * @override
      * @param  {AttachmentStateMachine} enclosingStateMachine
      * @param {number} dt
+     * @public
      */
     stepInTime: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
@@ -57,6 +61,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
       this.attachCountdownTime = DEFAULT_ATTACH_TIME;

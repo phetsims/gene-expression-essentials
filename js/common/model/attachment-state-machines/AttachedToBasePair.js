@@ -1,8 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Subclass of the "attached" state for polymerase when it is attached to the DNA but is not transcribing. In this
- * state, it is doing a 1D random walk on the DNA strand.
+ * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when it is attached to the
+ * DNA but is not transcribing. In this state, it is doing a 1D random walk on the DNA strand.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -25,10 +25,10 @@ define( function( require ) {
    */
   function AttachedToBasePair( rnaPolymeraseAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; //@public
 
     // Flag that is set upon entry that determines whether transcription occurs.
-    this.transcribe = false;
+    this.transcribe = false; //@private
   }
 
   geneExpressionEssentials.register( 'AttachedToBasePair', AttachedToBasePair );
@@ -36,7 +36,9 @@ define( function( require ) {
   return inherit( AttachmentState, AttachedToBasePair, {
 
     /**
+     * Helper function which detaches RnaPolymerase from the DNA
      * @param  {AttachmentStateMachine} asm
+     * @private
      */
     detachFromDnaMolecule: function( asm ) {
       asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
@@ -53,6 +55,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
+     * @public
      */
     stepInTime: function( asm, dt ) {
 
@@ -139,7 +142,9 @@ define( function( require ) {
     },
 
     /**
+     * @override
      * @param  { AttachmentStateMachine} asm
+     * @public
      */
     entered: function( asm ) {
       var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;

@@ -1,7 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * one of sub-states for the attached site
+ * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when it is attached to DNA
+ * and ready to conform
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -22,7 +23,7 @@ define( function( require ) {
   function AttachedAndConformingState( rnaPolymeraseAttachmentStateMachine ) {
     AttachmentState.call( this );
     this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; // @public
-    this.conformationalChangeAmount = 0; // @public
+    this.conformationalChangeAmount = 0; // @private
   }
 
   geneExpressionEssentials.register( 'AttachedAndConformingState', AttachedAndConformingState );
@@ -33,6 +34,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} asm
      * @param {number} dt
+     * @public
      */
     stepInTime: function( asm, dt ) {
 
@@ -58,6 +60,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} asm
+     * @public
      */
     entered: function( asm ) {
       var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;

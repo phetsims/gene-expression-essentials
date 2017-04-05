@@ -30,10 +30,10 @@ define( function( require ) {
 
     // States used by this state machine. These are often set by subclasses to non-default values in order to change the
     // default behavior.
-    this.unattachedAndAvailableState = new GenericUnattachedAndAvailableState();
-    this.attachedState = new GenericAttachedState();
-    this.movingTowardsAttachmentState = new GenericMovingTowardsAttachmentState( this );
-    this.unattachedButUnavailableState = new GenericUnattachedButUnavailableState();
+    this.unattachedAndAvailableState = new GenericUnattachedAndAvailableState(); //@public
+    this.attachedState = new GenericAttachedState(); //@public
+    this.movingTowardsAttachmentState = new GenericMovingTowardsAttachmentState( this ); //@public
+    this.unattachedButUnavailableState = new GenericUnattachedButUnavailableState(); //@public
     this.setState( this.unattachedAndAvailableState );
   }
 
@@ -43,6 +43,7 @@ define( function( require ) {
 
     /**
      * @override
+     * @public
      */
     detach: function() {
       assert && assert( this.attachmentSite !== null ); // Verify internal state is consistent
@@ -53,6 +54,7 @@ define( function( require ) {
 
     /**
      * @override
+     * @public
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.attachmentSite !== null ) {
@@ -64,6 +66,7 @@ define( function( require ) {
 
     /**
      * @override
+     * @public
      */
     forceImmediateUnattachedButUnavailable: function() {
       if ( this.attachmentSite !== null ) {

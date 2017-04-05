@@ -25,13 +25,13 @@ define( function( require ) {
     GenericAttachmentStateMachine.call( this, biomolecule );
 
     // Set up a local reference of the needed type.
-    this.mRnaDestroyer = biomolecule;
+    this.mRnaDestroyer = biomolecule; //@public
 
     // Set up a non-default "attached" state, since the behavior is different from the default.
-    this.attachedState = new MRnaDestroyerAttachedState( this );
+    this.attachedState = new MRnaDestroyerAttachedState( this ); //@public
 
     // Set up a non-default "moving toward attachment" state, since the behavior is slightly different from the default.
-    this.movingTowardsAttachmentState = new MRnaDestroyerMovingTowardAttachmentState( this );
+    this.movingTowardsAttachmentState = new MRnaDestroyerMovingTowardAttachmentState( this ); //@public
 
   }
 
@@ -41,6 +41,7 @@ define( function( require ) {
 
     /**
      * @override
+     * @public
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.mRnaDestroyer.getMessengerRnaBeingDestroyed() !== null ) {

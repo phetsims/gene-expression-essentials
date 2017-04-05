@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- *  Use generic state except that interaction is turned off.
+ * One of the state for RnaDestroyerAttachmentStateMachine. Use generic state except that interaction is turned off.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function MRnaDestroyerMovingTowardAttachmentState( rnaDestroyerAttachmentStateMachine ) {
     GenericMovingTowardsAttachmentState.call( this, rnaDestroyerAttachmentStateMachine );
-    this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine;
+    this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine; //@public
   }
 
   geneExpressionEssentials.register( 'MRnaDestroyerMovingTowardAttachmentState', MRnaDestroyerMovingTowardAttachmentState );
@@ -31,6 +31,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} asm
+     * @public
      */
     entered: function( asm ) {
       GenericMovingTowardsAttachmentState.prototype.entered.call( this, asm );

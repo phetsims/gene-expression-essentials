@@ -23,18 +23,18 @@ define( function( require ) {
   function AttachmentStateMachine( biomolecule ) {
 
     // Reference to the biomolecule controlled by this state machine.
-    this.biomolecule = biomolecule;
+    this.biomolecule = biomolecule; //@public
 
     // Attachment point. When this is non-null, the biomolecule is either attached to this point or moving towards
     // attachment with it.
-    this.attachmentSite = null;
+    this.attachmentSite = null; //@public
 
     // Current attachment state. Changes with each state transition.
-    this.attachmentState = null;
+    this.attachmentState = null; //@public
 
     // Offset to use when moving towards attachment sites. This is used when the molecule attaches to an attachment site
     // at some location other than its geometric center.
-    this.destinationOffset = new Vector2( 0, 0 );
+    this.destinationOffset = new Vector2( 0, 0 ); //@public
   }
 
   geneExpressionEssentials.register( 'AttachmentStateMachine', AttachmentStateMachine );
@@ -42,7 +42,9 @@ define( function( require ) {
   return inherit( Object, AttachmentStateMachine, {
 
     /**
+     * Step function for the attachment state machine, which in turn calls the step function of attachment state
      * @param {number} dt
+     * @public
      */
     stepInTime: function( dt ) {
       // Step the current state in time.
@@ -51,8 +53,8 @@ define( function( require ) {
 
     /**
      * Find out if the biomolecule using this state machine is currently attached to anything (i.e. another biomolecule).
-     *
      * @return {boolean} true if attached to something, false if not.
+     * @public
      */
     isAttached: function() {
       return this.attachmentSite !== null && this.attachmentSite.isMoleculeAttached();
@@ -60,9 +62,8 @@ define( function( require ) {
 
     /**
      * Find out if the biomolecule using this state machine is currently moving towards attachment with another molecule.
-     *
-     * @return {boolean} true if moving towards attachment, false if already attached or
-     *         if no attachment is pending.
+     * @return {boolean} true if moving towards attachment, false if already attached or if no attachment is pending.
+     * @public
      */
     isMovingTowardAttachment: function() {
       return this.attachmentSite !== null && !this.attachmentSite.isMoleculeAttached();
@@ -71,6 +72,7 @@ define( function( require ) {
     /**
      * Detach the biomolecule from any current attachments. This will cause the molecule to go into the
      * unattached-but-unavailable state for some period of time, after which it will become available again.
+     * @public
      */
     detach: function() {
       throw new Error( 'detach should be implemented in descendant classes of AttachmentStateMachine .' );
@@ -80,6 +82,7 @@ define( function( require ) {
     /**
      * Move immediately into the unattached-and-available state. This is generally done only when the user has grabbed
      * the associated molecule. Calling this when already in this state is harmless.
+     * @public
      */
     forceImmediateUnattachedAndAvailable: function() {
       throw new Error( ' forceImmediateUnattachedAndAvailable should be implemented in descendant classes of AttachmentStateMachine .' );
@@ -88,15 +91,17 @@ define( function( require ) {
     /**
      * Move immediately into the unattached-but-unavailable state. This is generally done only when the user has released
      * the associated molecule in a place where it needs to move away.
+     * @public
      */
     forceImmediateUnattachedButUnavailable: function() {
       throw new Error( ' forceImmediateUnattachedButUnavailable should be implemented in descendant classes of AttachmentStateMachine .' );
     },
 
     /**
-     * Set a new attachment state. This calls the "entered" method, so this should be used instead of directly setting the state.
-     *
+     * Set a new attachment state. This calls the "entered" method of the attachment state, so this should be used
+     * instead of directly setting the state.
      * @param {AttachmentState} attachmentState
+     * @public
      */
     setState: function( attachmentState ) {
       this.attachmentState = attachmentState;
@@ -104,18 +109,11 @@ define( function( require ) {
     },
 
     /**
-     * @param {number} x
-     * @param {number} y
+     * Sets the destination offset for the biomolecule
+     * @param {Vector2} offset
+     * @protected
      */
-    setDestinationOffset: function( x, y ) {
-      this.destinationOffset.setXY( x, y );
-    },
-
-
-    /**
-     * @param {Vector2}  offset
-     */
-    setDestinationOffsetByVector: function( offset ) {
+    setDestinationOffset: function( offset ) {
       this.destinationOffset.setXY( offset.x, offset.y );
     }
 

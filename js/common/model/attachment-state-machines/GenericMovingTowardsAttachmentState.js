@@ -1,6 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
+ * GenericMovingTowardsAttachmentState is the generic moving towards attachment state
  * @author John Blanco
  * @author Mohamed Safi
  */
@@ -15,8 +16,7 @@ define( function( require ) {
 
   function GenericMovingTowardsAttachmentState( genericAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.genericAttachmentStateMachine = genericAttachmentStateMachine;
-
+    this.genericAttachmentStateMachine = genericAttachmentStateMachine; //@public
   }
 
   geneExpressionEssentials.register( 'GenericMovingTowardsAttachmentState', GenericMovingTowardsAttachmentState );
@@ -27,6 +27,7 @@ define( function( require ) {
      * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
      * @param {number} dt
+     * @public
      */
     stepInTime: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
@@ -48,7 +49,9 @@ define( function( require ) {
     },
 
     /**
+     * @override
      * @param {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
       // Allow user interaction.

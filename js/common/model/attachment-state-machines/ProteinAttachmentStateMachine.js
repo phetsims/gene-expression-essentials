@@ -17,8 +17,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/StillnessMotionStrategy' );
 
-  // private classes
-  // Subclass of the "attached" state.
+  //------------------------------------------
+  //States for this attachment state machine
+  //------------------------------------------
   var ProteinAttachedToRibosomeState = inherit( AttachmentState,
 
     /**
@@ -27,9 +28,7 @@ define( function( require ) {
     function( proteinAttachmentStateMachine ) {
       this.proteinAttachmentStateMachine = proteinAttachmentStateMachine;
     },
-
     {
-
       /**
        * @override
        * @param {AttachmentStateMachine} asm
@@ -41,9 +40,7 @@ define( function( require ) {
         // Prevent user interaction while the protein is growing.
         asm.biomolecule.movableByUserProperty.set( false );
       }
-
     } );
-
 
   /**
    * @param biomolecule {MobileBiomolecule}
@@ -51,17 +48,13 @@ define( function( require ) {
    */
   function ProteinAttachmentStateMachine( biomolecule ) {
     GenericAttachmentStateMachine.call( this, biomolecule );
-
-
     // Set up a new "attached" state, since the behavior is different from the default.
-    this.attachedState = new ProteinAttachedToRibosomeState( this );
+    this.attachedState = new ProteinAttachedToRibosomeState( this ); //@public
     this.setState( this.attachedState );
-
   }
 
   geneExpressionEssentials.register( 'ProteinAttachmentStateMachine', ProteinAttachmentStateMachine );
 
   return inherit( GenericAttachmentStateMachine, ProteinAttachmentStateMachine, {} );
-
 } );
 

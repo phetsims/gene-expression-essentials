@@ -26,20 +26,25 @@ define( function( require ) {
   return inherit( Object, AttachmentState, {
 
     /**
+     * Step function for this attachment state and is called by the step function of AttachmentStateMachine
      * @param {AttachmentStateMachine} enclosingStateMachine
      * @param {number} dt
+     * @public
      */
     stepInTime: function( enclosingStateMachine, dt ) {
+
       // By default does nothing, override to implement unique behavior.
     },
 
     /**
+     * This is called whenever biomolecules state changes. This is called when setState function of
+     * AttachmentStateMachine is called
      * @param {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
       // By default does nothing, override to implement unique behavior.
     }
-
   }, {
     // Distance within which a molecule is considered to be attached to an attachment site. This essentially avoids
     // floating point issues.

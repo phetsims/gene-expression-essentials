@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * State where the mRNA is being destroyed.
+ * One of the state for MessengerRnaAttachmentStateMachine. mRna enters this state when it is being destroyed.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -28,7 +28,8 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {AttachmentStateMachine}  enclosingStateMachine
+     * @param {AttachmentStateMachine} enclosingStateMachine
+     * @public
      */
     entered: function( enclosingStateMachine ) {
 

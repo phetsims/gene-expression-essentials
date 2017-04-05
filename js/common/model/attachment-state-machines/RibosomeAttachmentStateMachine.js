@@ -25,16 +25,16 @@ define( function( require ) {
 
     // Set up a local reference of the needed type.
 
-    this.ribosome = biomolecule; // Reference back to the ribosome that is controlled by this state machine.
+    this.ribosome = biomolecule; //@public
 
     // Protein created during translation process, null if no protein is being synthesized.
-    this.proteinBeingSynthesized = null;
+    this.proteinBeingSynthesized = null; //@public
 
     // Set up offset used when attaching to mRNA.
-    this.setDestinationOffsetByVector( this.ribosome.offsetToTranslationChannelEntrance );
+    this.setDestinationOffset( this.ribosome.offsetToTranslationChannelEntrance );
 
     // Set up a non-default "attached" state, since the behavior is different from the default.
-    this.attachedState = new RibosomeAttachedState( this );
+    this.attachedState = new RibosomeAttachedState( this ); //@public
   }
 
   geneExpressionEssentials.register( 'RibosomeAttachmentStateMachine', RibosomeAttachmentStateMachine );
@@ -43,6 +43,7 @@ define( function( require ) {
 
     /**
      * @override
+     * @public
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.ribosome.getMessengerRnaBeingTranslated() !== null ) {

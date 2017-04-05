@@ -29,9 +29,9 @@ define( function( require ) {
     AttachmentStateMachine.call( this, messengerRna );
 
     // Local reference of appropriate type.
-    this.messengerRna = messengerRna; //private;
+    this.messengerRna = messengerRna; //@private;
     // Flag to control whether the mRNA continues to exist once fully formed.
-    this.fadeAwayWhenFormed = false; //private
+    this.fadeAwayWhenFormed = false; //@private
     this.setState( new BeingSynthesizedState() );
   }
 
@@ -43,6 +43,7 @@ define( function( require ) {
      * @override
      * Detach from the RNA polymerase. Note that this should NOT be used to detach the mRNA from ribosomes or any other
      * biomolecules.
+     * @public
      */
     detach: function() {
       if ( this.fadeAwayWhenFormed ) {
@@ -55,6 +56,7 @@ define( function( require ) {
 
     /**
      * @override
+     * @public
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.attachmentSite !== null ) {
@@ -65,7 +67,9 @@ define( function( require ) {
     },
 
     /**
+     * Sets whether mRNA fades away or not when formed
      * @param {boolean} fadeAwayWhenFormed
+     * @public
      */
     setFadeAwayWhenFormed: function( fadeAwayWhenFormed ) {
       this.fadeAwayWhenFormed = fadeAwayWhenFormed;
@@ -73,6 +77,7 @@ define( function( require ) {
 
     /**
      * Signals this state machine that at least one ribosome is now attached to the mRNA and is thus translating it.
+     * @public
      */
     attachedToRibosome: function() {
       this.setState( new BeingTranslatedState() );
@@ -81,11 +86,16 @@ define( function( require ) {
     /**
      * Signals this state machine that all ribosomes that were translating it have completed the translation process and
      * have detached.
+     * @public
      */
     allRibosomesDetached: function() {
       this.setState( new WanderingAroundCytoplasmState() );
     },
 
+    /**
+     * Signals this state machine that destroyer is now attached to the mRNA and is thus being destroyed.
+     * @public
+     */
     attachToDestroyer: function() {
       this.setState( new BeingDestroyedState() );
     }
