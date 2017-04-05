@@ -6,7 +6,7 @@ define( function( require ) {
   var ButtonListener = require( 'SCENERY/input/ButtonListener' );
   var Dialog = require( 'JOIST/Dialog' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var HTMLText = require( 'SCENERY/nodes/HTMLText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
@@ -28,10 +28,12 @@ define( function( require ) {
     var imageNode = new Image( ecoliImage );
     imageNode.scale( 0.75 );
     var textNode = new Node();
-    var captionTextNode = new HTMLText( imageCaptionString, { maxWidth: 400 } );
+    var captionTextNode = new RichText( imageCaptionString, { maxWidth: 400 } );
     var noteTextNode = new MultiLineText( imageCaptionNoteString, { maxWidth: 800 } );
-    noteTextNode.centerX = captionTextNode.centerX;
-    noteTextNode.top = captionTextNode.bottom + 3;
+    if ( captionTextNode.bounds.isFinite() ) {
+      noteTextNode.centerX = captionTextNode.centerX;
+      noteTextNode.top = captionTextNode.bottom + 3;
+    }
     textNode.addChild( captionTextNode );
     textNode.addChild( noteTextNode );
     var children = [
