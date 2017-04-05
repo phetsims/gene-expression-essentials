@@ -2,6 +2,7 @@
 
 /**
  * A motion strategy where the user moves in a general direction with some random direction changes every once in a while.
+ *
  * @author John Blanco
  * @author Mohamed Safi
  */
@@ -29,10 +30,10 @@ define( function( require ) {
   function WanderInGeneralDirectionMotionStrategy( generalDirection, motionBoundsProperty ) {
     var self = this;
     MotionStrategy.call( self );
-    self.directionChangeCountdown = 0;
-    self.currentMotionVector = new Vector2( 0, 0 );
+    self.directionChangeCountdown = 0; // @private
+    self.currentMotionVector = new Vector2( 0, 0 ); // @private
     motionBoundsProperty.link( function( motionBounds ) {
-      self.motionBounds = motionBounds;
+      self.motionBounds = motionBounds; // @private
     } );
 
     self.generalDirection = generalDirection;
@@ -43,8 +44,8 @@ define( function( require ) {
   return inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, {
 
     /**
-     * @private
      * @returns {number}
+     * @private
      */
     generateDirectionChangeCountdownValue: function() {
       return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() *
@@ -57,6 +58,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       this.directionChangeCountdown -= dt;
@@ -90,6 +92,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
+     * @public
      */
     getNextLocation3D: function( currentLocation, bounds, dt ) {
 

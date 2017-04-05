@@ -25,13 +25,13 @@ define( function( require ) {
 
   return inherit( MotionStrategy, StillnessMotionStrategy, {
 
-
     /**
      * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       return currentLocation;

@@ -36,9 +36,9 @@ define( function( require ) {
   function RandomWalkMotionStrategy( motionBoundsProperty ) {
     var self = this;
     MotionStrategy.call( self );
-    self.directionChangeCountdown = 0;
-    self.currentMotionVector2D = new Vector2( 0, 0 );
-    self.currentZVelocity = 0;
+    self.directionChangeCountdown = 0; // @private
+    self.currentMotionVector2D = new Vector2( 0, 0 ); // @private
+    self.currentZVelocity = 0; // @private
     motionBoundsProperty.link( function( motionBounds ) {
       self.motionBounds = motionBounds;
     } );
@@ -54,6 +54,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       nextLocation3DScratchInVector.x = currentLocation.x;
@@ -64,8 +65,8 @@ define( function( require ) {
     },
 
     /**
-     * private method
      * @returns {number}
+     * @private
      */
     generateDirectionChangeCountdownValue: function() {
       return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() *
@@ -78,6 +79,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
+     * @public
      */
     getNextLocation3D: function( currentLocation, bounds, dt ) {
       this.directionChangeCountdown -= dt;

@@ -20,7 +20,7 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
 
   function MotionStrategy() {
-    this.motionBounds = new MotionBounds();
+    this.motionBounds = new MotionBounds(); //@protected
   }
 
   geneExpressionEssentials.register( 'MotionStrategy', MotionStrategy );
@@ -35,7 +35,7 @@ define( function( require ) {
      * @param {Bounds2} bounds   Bounds of the controlled item, used in detecting whether the item would go outside of
      *                           the motion bounds.
      * @param {number} dt
-     * @return
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       throw new Error( 'getNextLocation should be implemented in descendant classes of MotionStrategy .' );
@@ -50,7 +50,8 @@ define( function( require ) {
      *                           whether the item would go outside of the motion
      *                           bounds.
      * @param {number} dt
-     * @return
+     * @return {Vector3}
+     * @public
      */
     getNextLocation3D: function( currentLocation, bounds, dt ) {
 
@@ -69,6 +70,7 @@ define( function( require ) {
      * @param {number} dt
      * @param {number} maxVelocity
      * @returns {Vector2}
+     * @protected
      */
     getMotionVectorForBounce: function( bounds, originalMotionVector, dt, maxVelocity ) {
       // Check that this isn't being called inappropriately
@@ -105,10 +107,10 @@ define( function( require ) {
 
     /**
      * Utility function for determining the distance between two ranges.
-     * private static
      * @param {Range} r1
      * @param {Range} r2
      * @return {number}
+     * @private
      */
     calculateDistanceBetweenRanges: function( r1, r2 ) {
       var distance;
@@ -126,7 +128,6 @@ define( function( require ) {
       return distance;
     },
 
-
     /**
      * Limit the Z position so that biomolecules don't look transparent when on top of the DNA, and become less
      * transparent as they get close so that they don't appear to pop forward when connected to the DNA (or just
@@ -135,6 +136,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {Vector2} positionXY
      * @return {number}
+     * @protected
      */
     getMinZ: function( bounds, positionXY ) {
       var shapeYRange = new Range( positionXY.y - bounds.height / 2,

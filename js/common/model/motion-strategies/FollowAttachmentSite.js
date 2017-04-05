@@ -20,7 +20,7 @@ define( function( require ) {
    */
   function FollowAttachmentSite( attachmentSite ) {
     MotionStrategy.call( this );
-    this.attachmentSite = attachmentSite;
+    this.attachmentSite = attachmentSite; // @private
   }
 
   geneExpressionEssentials.register( 'FollowAttachmentSite', FollowAttachmentSite );
@@ -33,6 +33,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       return this.attachmentSite.locationProperty.get();

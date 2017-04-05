@@ -21,8 +21,8 @@ define( function( require ) {
    */
   function RibosomeTranslatingRnaMotionStrategy( ribosome ) {
     MotionStrategy.call( this );
-    this.ribosome = ribosome;
-    this.messengerRna = ribosome.getMessengerRnaBeingTranslated();
+    this.ribosome = ribosome; // @private
+    this.messengerRna = ribosome.getMessengerRnaBeingTranslated(); // @private
   }
 
   geneExpressionEssentials.register( 'RibosomeTranslatingRnaMotionStrategy', RibosomeTranslatingRnaMotionStrategy );
@@ -35,6 +35,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       var ribosomeAttachmentPoint = this.messengerRna.getRibosomeAttachmentLocation( this.ribosome );

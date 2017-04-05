@@ -26,27 +26,36 @@ define( function( require ) {
       bounds = Bounds2.EVERYTHING;
     }
 
-    this.bounds = bounds;
+    this.bounds = bounds; //@private
   }
 
   geneExpressionEssentials.register( 'MotionBounds', MotionBounds );
 
   return inherit( Object, MotionBounds, {
 
+    /**
+     * Sets the bounds
+     * @param {Bounds2} bounds
+     * @public
+     */
     set: function( bounds ) {
       this.bounds.set( bounds );
     },
 
     /**
+     * Check whether given bounds are in the bounds or not
      * @param {Bounds2} bounds
      * @returns {boolean}
+     * @public
      */
     inBounds: function( bounds ) {
       return this.bounds === null || this.bounds.containsBounds( bounds );
     },
 
     /**
-     * return Bounds
+     * returns bounds
+     * @returns {Bounds2}
+     * @public
      */
     getBounds: function() {
       return this.bounds;
@@ -59,7 +68,8 @@ define( function( require ) {
      * @param {Bounds2} bounds        - bounds of entity being tested.
      * @param {Vector2 }motionVector - Motion vector of the object in distance/sec
      * @param {number} dt           - delta time, i.e. amount of time, in seconds.
-     * @return
+     * @return {boolean}
+     * @public
      */
     testIfInMotionBoundsWithDelta: function( bounds, motionVector, dt ) {
       return this.inBounds( bounds.shifted( motionVector.x * dt, motionVector.y * dt ) );
@@ -71,7 +81,8 @@ define( function( require ) {
      *
      * @param {Bounds2} bounds            - Test bounds.
      * @param {Vector2} proposedLocation - Proposed location of the shape's center.
-     * @return - True is in bounds, false if not.
+     * @return {boolean}
+     * @public
      */
     testIfInMotionBounds: function( bounds, proposedLocation ) {
       var shapeCenter = bounds.getCenter();

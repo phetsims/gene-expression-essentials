@@ -39,10 +39,10 @@ define( function( require ) {
     } );
 
     // list of valid places where the item can teleport
-    this.destinationZones = destinationZones;
-    this.preFadeCountdown = PRE_FADE_DRIFT_TIME;
-    this.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY );
-    this.velocityZ = -1 / FADE_AND_DRIFT_TIME;
+    this.destinationZones = destinationZones; // @private
+    this.preFadeCountdown = PRE_FADE_DRIFT_TIME; // @private
+    this.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY ); // @private
+    this.velocityZ = -1 / FADE_AND_DRIFT_TIME; // @private
   }
 
   geneExpressionEssentials.register( 'DriftThenTeleportMotionStrategy', DriftThenTeleportMotionStrategy );
@@ -50,10 +50,10 @@ define( function( require ) {
   return inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
 
     /**
-     * @private
-     * @param {Array.<Rectangle2D>} destinationZones
+     * @param {Array.<Bounds2>} destinationZones
      * @param {Bounds2} bounds
      * @returns {Vector2}
+     * @private
      */
     generateRandomLocationInBounds: function( destinationZones, bounds ) {
 
@@ -81,6 +81,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       var location3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.x, 0 ), bounds, dt );
@@ -93,6 +94,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
+     * @public
      */
     getNextLocation3D: function( currentLocation, bounds, dt ) {
 

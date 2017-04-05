@@ -27,10 +27,10 @@ define( function( require ) {
    */
   function MeanderToDestinationMotionStrategy( destinationProperty, motionBoundsProperty, destinationOffset ) {
     MotionStrategy.call( this );
-    this.randomWalkMotionStrategy = new RandomWalkMotionStrategy( motionBoundsProperty );
+    this.randomWalkMotionStrategy = new RandomWalkMotionStrategy( motionBoundsProperty ); // @private
     this.directToDestinationMotionStrategy = new MoveDirectlyToDestinationMotionStrategy(
-      destinationProperty, motionBoundsProperty, destinationOffset, 750 );
-    this.destinationProperty = destinationProperty;
+      destinationProperty, motionBoundsProperty, destinationOffset, 750 ); // @private
+    this.destinationProperty = destinationProperty; // @private
   }
 
   geneExpressionEssentials.register( 'MeanderToDestinationMotionStrategy', MeanderToDestinationMotionStrategy );
@@ -43,6 +43,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       var nextLocation3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.y, 0 ), bounds, dt );
@@ -55,6 +56,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
+     * @public
      */
     getNextLocation3D: function( currentLocation, bounds, dt ) {
 

@@ -22,7 +22,7 @@ define( function( require ) {
    */
   function DestroyerTrackingRnaMotionStrategy( messengerRnaDestroyer ) {
     MotionStrategy.call( this );
-    this.messengerRna = messengerRnaDestroyer.getMessengerRnaBeingDestroyed();
+    this.messengerRna = messengerRnaDestroyer.getMessengerRnaBeingDestroyed(); //@private
   }
 
   geneExpressionEssentials.register( 'DestroyerTrackingRnaMotionStrategy', DestroyerTrackingRnaMotionStrategy );
@@ -30,10 +30,12 @@ define( function( require ) {
   return inherit( MotionStrategy, DestroyerTrackingRnaMotionStrategy, {
 
     /**
+     * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       var attachmentLocation = this.messengerRna.getDestroyerAttachmentLocation();

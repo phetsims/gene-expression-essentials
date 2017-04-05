@@ -32,18 +32,18 @@ define( function( require ) {
         self.motionBounds = motionBounds;
       }
     );
-    self.velocityVector2D = new Vector2( 0, 0 );
+    self.velocityVector2D = new Vector2( 0, 0 ); // @private
 
     // Destination to which this motion strategy moves. Note that it is potentially a moving target.
-    self.destinationProperty = destinationProperty;
+    self.destinationProperty = destinationProperty; // @private
 
     // Fixed offset from the destination location property used when computing the actual target destination. This is
     // useful in cases where something needs to move such that some point that is not its center is positioned at the
     // destination.
-    self.offsetFromDestinationProperty = destinationOffset;
+    self.offsetFromDestinationProperty = destinationOffset; //@private
 
     // Scalar velocity with which the controlled item travels.
-    self.scalarVelocity2D = velocity;
+    self.scalarVelocity2D = velocity; //@private
 
   }
 
@@ -57,6 +57,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
+     * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
       var nextLocation3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.y, 0 ), bounds, dt );
@@ -64,10 +65,10 @@ define( function( require ) {
     },
 
     /**
-     * private method
      * @param {Vector2} currentLocation
      * @param {Vector2} destination
      * @param {number} velocity
+     * @private
      */
     updateVelocityVector2D: function( currentLocation, destination, velocity ) {
       if ( currentLocation.distance( destination ) === 0 ) {
@@ -84,6 +85,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
+     * @public
      */
     getNextLocation3D: function( currentLocation3D, bounds, dt ) {
       // Destination is assumed to always have a Z value of 0, i.e. at the "surface".
@@ -108,13 +110,11 @@ define( function( require ) {
         zVelocity = MAX_Z_VELOCITY;
       }
 
-      // Make sure that current motion will not cause the model element to
-      // move outside of the motion bounds.
+      // Make sure that current motion will not cause the model element to move outside of the motion bounds.
       if ( this.motionBounds.inBounds( bounds ) && !this.motionBounds.testIfInMotionBoundsWithDelta( bounds, this.velocityVector2D, dt ) ) {
 
-        // Not sure what to do in this case, where the destination causes
-        // some portion of the shape to go out of bounds.  For now, just
-        // issue a warning an allow it to happen.
+        // Not sure what to do in this case, where the destination causes some portion of the shape to go out of bounds.
+        // For now, just issue a warning an allow it to happen.
         console.log( 'MoveDirectlyToDestinationMotionStrategy - Warning: ' +
                      'Destination is causing some portion of shape to move out of bounds.' );
       }
