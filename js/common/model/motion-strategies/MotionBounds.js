@@ -68,7 +68,7 @@ define( function( require ) {
      * @param {Bounds2} bounds        - bounds of entity being tested.
      * @param {Vector2 }motionVector - Motion vector of the object in distance/sec
      * @param {number} dt           - delta time, i.e. amount of time, in seconds.
-     * @return {boolean}
+     * @returns {boolean}
      * @public
      */
     testIfInMotionBoundsWithDelta: function( bounds, motionVector, dt ) {
@@ -81,7 +81,7 @@ define( function( require ) {
      *
      * @param {Bounds2} bounds            - Test bounds.
      * @param {Vector2} proposedLocation - Proposed location of the shape's center.
-     * @return {boolean}
+     * @returns {boolean}
      * @public
      */
     testIfInMotionBounds: function( bounds, proposedLocation ) {

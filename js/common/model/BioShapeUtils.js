@@ -75,7 +75,7 @@ define( function( require ) {
      * @private
      * @param {Array.<Vector2>} points
      * @param {number} seed
-     * @return {Shape}
+     * @returns {Shape}
      */
     createRandomShapeFromPoints: function( points, seed ) {
       var path = new Shape();
@@ -105,7 +105,7 @@ define( function( require ) {
     /**
      * @param {Dimension2} size
      * @param {number} seed
-     * @return {Shape}
+     * @returns {Shape}
      */
     createRandomShape: function( size, seed ) {
       var pointList = [];
@@ -132,7 +132,7 @@ define( function( require ) {
      * Create a curvy line from a list of points. The points are assumed to be in order.
      *
      * @param {Array.<Vector2>} points
-     * @return {Shape}
+     * @returns {Shape}
      */
     createCurvyLineFromPoints: function( points ) {
       assert && assert( points.length > 0 );
@@ -192,7 +192,7 @@ define( function( require ) {
      * @param {Bounds2} bounds
      * @param {number} variationFactor
      * @param {number} seed
-     * @return {Shape}
+     * @returns {Shape}
      */
     createCurvyEnclosedShape: function( bounds, variationFactor, seed ) {
 

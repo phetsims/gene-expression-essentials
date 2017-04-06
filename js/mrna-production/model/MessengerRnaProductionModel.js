@@ -235,7 +235,7 @@ define( function( require ) {
        * Get a list of all mobile biomolecules that overlap with the provided shape.
        *
        * @param {Bounds2} testShapeBounds - Bounds, in model coordinate, to test for overlap.
-       * @return {Array} List of molecules that overlap with the provided shape.
+       * @returns {Array} List of molecules that overlap with the provided shape.
        */
       getOverlappingBiomolecules: function( testShapeBounds ) {
 

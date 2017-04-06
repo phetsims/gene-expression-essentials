@@ -166,7 +166,7 @@ define( function( require ) {
 
     /**
      * Get the length of the mRNA contained by this segment.
-     * @return {number}
+     * @returns {number}
      * @public
      */
     getContainedLength: function() {

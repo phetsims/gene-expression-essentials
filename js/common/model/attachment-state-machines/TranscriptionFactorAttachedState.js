@@ -43,7 +43,7 @@ define( function( require ) {
      *
      * @param {number} affinity
      * @param {number} dt
-     * @return {number}
+     * @returns {number}
      * @public
      */
     calculateProbabilityOfDetachment: function( affinity, dt ) {

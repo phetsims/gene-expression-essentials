@@ -23,7 +23,7 @@ define( function( require ) {
 
   /**
    * helper function
-   * @return {Shape}
+   * @returns {Shape}
    */
   function createShape() {
     var mouthShape = new Shape().moveTo( 0, 0 ).
@@ -75,7 +75,7 @@ define( function( require ) {
      * This method is called by the attachment state machine framework.
      *
      * @override
-     * @return {AttachmentSite}
+     * @returns {AttachmentSite}
      */
     proposeAttachments: function() {
       var attachmentSite = null;

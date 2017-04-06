@@ -145,7 +145,7 @@ define( function( require ) {
     /**
      * Get the first shape-defining point enclosed in the provided length range.
      * @param {Range} lengthRange
-     * @return {PointMass}
+     * @returns {PointMass}
      * @private
      */
     getFirstEnclosedPoint: function( lengthRange ) {
@@ -166,7 +166,7 @@ define( function( require ) {
     /**
      * Get the last shape-defining point enclosed in the provided length range.
      * @param  {Range} lengthRange
-     * @return {PointMass}
+     * @returns {PointMass}
      * @private
      */
     getLastEnclosedPoint: function( lengthRange ) {
@@ -441,7 +441,7 @@ define( function( require ) {
     /**
      * Get the length of the strand. The length is calculated by adding up the intended distances between the points, and
      * does not account for curvature.
-     * @return {number} length in picometers
+     * @returns {number} length in picometers
      * @protected
      */
     getLength: function() {

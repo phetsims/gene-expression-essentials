@@ -48,7 +48,7 @@ define( function( require ) {
      * type alone indicates a match. Subclass if greater specificity is needed.
      *
      * @param {MobileBiomolecule} testBiomolecule
-     * @return {boolean}
+     * @returns {boolean}
      */
     isMatchingBiomolecule: function( testBiomolecule ) {
       return testBiomolecule instanceof this.biomolecule.constructor;

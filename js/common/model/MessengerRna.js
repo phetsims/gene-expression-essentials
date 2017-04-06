@@ -158,7 +158,7 @@ define( function( require ) {
      * Advance the destruction of the mRNA by the specified length. This pulls the strand into the lead segment much like
      * translation does, but does not move the points into new segment, it just gets rid of them.
      * @param {number} length
-     * @return {boolean}
+     * @returns {boolean}
      * @public
      */
     advanceDestruction: function( length ) {
@@ -226,7 +226,7 @@ define( function( require ) {
 
     /**
      * Create a new version of the protein that should result when this strand of mRNA is translated.
-     * @return {Protein}
+     * @returns {Protein}
      * @public
      */
     getProteinPrototype: function() {
@@ -238,7 +238,7 @@ define( function( require ) {
      * be correctly attached to this strand of messenger RNA. This allows the ribosome to "follow" the mRNA if it is
      * moving or changing shape.
      * @param {Ribosome} ribosome
-     * @return {Vector2}
+     * @returns {Vector2}
      * @public
      */
     getRibosomeAttachmentLocation: function( ribosome ) {
@@ -340,7 +340,7 @@ define( function( require ) {
     /**
      * Get the proportion of the entire mRNA that has been translated by the given ribosome.
      * @param {Ribosome} ribosome
-     * @return {number}
+     * @returns {number}
      * @public
      */
     getProportionOfRnaTranslated: function( ribosome ) {

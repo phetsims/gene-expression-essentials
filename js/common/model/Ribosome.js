@@ -67,7 +67,7 @@ define( function( require ) {
      *
      * This method is called from the attachment state machine framework.
      * @override
-     * @return {AttachmentSite}
+     * @returns {AttachmentSite}
      */
     proposeAttachments: function() {
       var attachmentSite = null;
@@ -158,7 +158,7 @@ define( function( require ) {
      * Advance the translation of the mRNA.
      *
      * @param {number} amount
-     * @return {boolean} - true if translation is complete, false if not.
+     * @returns {boolean} - true if translation is complete, false if not.
      */
     advanceMessengerRnaTranslation: function( amount ) {
       return this.messengerRnaBeingTranslated !== null && this.messengerRnaBeingTranslated.advanceTranslation( this, amount );
@@ -169,7 +169,7 @@ define( function( require ) {
      * be attached.
      *
      * @param {Vector2} newAttachmentPoint // optional output Vector - Added to avoid creating excessive vector2 instances
-     * @return {Vector2}
+     * @returns {Vector2}
      */
     getProteinAttachmentPoint: function( newAttachmentPoint ) {
       newAttachmentPoint = newAttachmentPoint || new Vector2();

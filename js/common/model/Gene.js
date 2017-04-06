@@ -134,7 +134,7 @@ define( function( require ) {
      * @param {number} basePairIndex - Index of the base pair on the DNA strand, NOT the index within this gene. In the
      * real world, affinities are associated with sets of base pairs rather than an individual one, so this is a bit of a
      * simplification.
-     * @return {AttachmentSite}
+     * @returns {AttachmentSite}
      */
     getPolymeraseAttachmentSiteByIndex: function( basePairIndex ) {
       if ( basePairIndex === this.regulatoryRegion.max ) {
@@ -152,7 +152,7 @@ define( function( require ) {
      * Get the attachment site where RNA polymerase would start transcribing the DNA. This is assumes that there is only
      * one such site on the gene.
      *
-     * @return {AttachmentSite}
+     * @returns {AttachmentSite}
      */
     getPolymeraseAttachmentSite: function() {
       return this.polymeraseAttachmentSite;
@@ -187,7 +187,7 @@ define( function( require ) {
     /**
      * Returns true if all positive transcription factors are attached and no negative ones are attached, which indicates
      * that transcription is essentially enabled.
-     * @return {boolean}
+     * @returns {boolean}
      */
     transcriptionFactorsSupportTranscription: function() {
 
@@ -227,7 +227,7 @@ define( function( require ) {
     /**
      * Evaluate if transcription factors are blocking transcription.
      *
-     * @return {boolean} true if there are transcription factors that block transcription.
+     * @returns {boolean} true if there are transcription factors that block transcription.
      */
     transcriptionFactorsBlockTranscription: function() {
       for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
@@ -251,7 +251,7 @@ define( function( require ) {
      * real world, affinities are associated with sets of base pairs rather than an individual one, so this is a bit of a
      * simplification.
      * @param {TranscriptionFactorConfig} tfConfig
-     * @return {AttachmentSite}
+     * @returns {AttachmentSite}
      */
     getTranscriptionFactorAttachmentSite: function( basePairIndex, tfConfig ) {
       // Assume a default affinity site until proven otherwise.
@@ -285,7 +285,7 @@ define( function( require ) {
      * supported on a single gene.
      *
      * @param {TranscriptionFactorConfig} transcriptionFactorConfig
-     * @return {AttachmentSite} attachment site for the config if present on the gene, null if not.
+     * @returns {AttachmentSite} attachment site for the config if present on the gene, null if not.
      */
     getMatchingSite: function( transcriptionFactorConfig ) {
       for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
@@ -302,7 +302,7 @@ define( function( require ) {
      * transcription factor.
      *
      * @param {TranscriptionFactorConfig} tfConfig
-     * @return {Property<number>}
+     * @returns {Property<number>}
      */
     getTranscriptionFactorAffinityProperty: function( tfConfig ) {
       var affinityProperty = null;
@@ -320,7 +320,7 @@ define( function( require ) {
     /**
      * Get the property that controls the affinity of the site where polymerase binds when initiating transcription.
      *
-     * @return {Property<number>}
+     * @returns {Property<number>}
      */
     getPolymeraseAffinityProperty: function() {
       return this.polymeraseAffinityProperty;
@@ -408,7 +408,7 @@ define( function( require ) {
     /**
      * Get an instance (a.k.a. a prototype) of the protein associated with this gene.
      *
-     * @return {Protein}
+     * @returns {Protein}
      */
     getProteinPrototype: function() {
       throw new Error( 'getProteinPrototype should be implemented in descendant classes of Gene .' );
@@ -417,7 +417,7 @@ define( function( require ) {
     /**
      * Get the list of all transcription factors that have high-affinity binding sites on this gene.
      *
-     * @return {Array}
+     * @returns {Array}
      */
     getTranscriptionFactorConfigs: function() {
       var configList = [];

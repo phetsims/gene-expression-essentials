@@ -94,7 +94,7 @@ define( function( require ) {
      * Method used to set the attachment state machine during construction. This is overridden in descendant classes in
      * order to supply this base class with different attachment behavior.
      *
-     * @return {AttachmentStateMachine}
+     * @returns {AttachmentStateMachine}
      */
     createAttachmentStateMachine: function() {
       assert && assert( false, 'createAttachmentStateMachine should be implemented in descendant classes of MobileBiomolecule' );
@@ -134,7 +134,7 @@ define( function( require ) {
      * Get the position, including a Z component. True 3D is not fully supported in this simulation, but a limited Z axis
      * is used in some cases to make biomolecules look like they are "off in the distance".
      *
-     * @return {Vector3} Position in 3D space. Z values are limited to be from zero to negative one, inclusive.
+     * @returns {Vector3} Position in 3D space. Z values are limited to be from zero to negative one, inclusive.
      */
     getPosition3D: function() {
       return new Vector3( this.getPosition().x, this.getPosition().y, this.zPositionProperty.get() );
@@ -162,7 +162,7 @@ define( function( require ) {
      * Get the direction to move when detaching from other molecules (including DNA). Can be changed in subclasses,
      * default is to move up.
      *
-     * @return {Vector2} Vector indicated the direction.
+     * @returns {Vector2} Vector indicated the direction.
      */
     getDetachDirection: function() {
       return new Vector2( 0, 1 );

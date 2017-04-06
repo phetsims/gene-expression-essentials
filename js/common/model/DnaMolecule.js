@@ -169,7 +169,7 @@ define( function( require ) {
      *
      * @param {number} xPos
      * @param {number} offset
-     * @return {number}
+     * @returns {number}
      */
     getDnaStrandYPosition: function( xPos, offset ) {
       return Math.sin( ( xPos + offset ) / GEEConstants.LENGTH_PER_TWIST * Math.PI * 2 ) * GEEConstants.DNA_MOLECULE_DIAMETER / 2;
@@ -418,7 +418,7 @@ define( function( require ) {
      * available attachment site within the attachment distance
      *
      * @param {TranscriptionFactor} transcriptionFactor
-     * @return {AttachmentSite}
+     * @returns {AttachmentSite}
      */
     considerProposalFromTranscriptionFactor: function( transcriptionFactor ) {
       var self = this;
@@ -707,7 +707,7 @@ define( function( require ) {
      * Get a reference to the gene that contains the given location.
      *
      * @param {Vector2} location
-     * @return {Gene} Gene at the location, null if no gene exists.
+     * @returns {Gene} Gene at the location, null if no gene exists.
      */
     getGeneAtLocation: function( location ) {
       if ( !( location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&

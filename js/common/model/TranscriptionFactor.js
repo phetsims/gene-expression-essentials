@@ -52,7 +52,7 @@ define( function( require ) {
      * Get an indication of whether this transcription factor is positive (enhances transcription) or negative
      * (prevents or decreases likelihood of transcription).
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     isPositive: function() {
       return this.config.isPositive;

@@ -50,7 +50,7 @@ define( function( require ) {
      *                           whether the item would go outside of the motion
      *                           bounds.
      * @param {number} dt
-     * @return {Vector3}
+     * @returns {Vector3}
      * @public
      */
     getNextLocation3D: function( currentLocation, bounds, dt ) {
@@ -109,7 +109,7 @@ define( function( require ) {
      * Utility function for determining the distance between two ranges.
      * @param {Range} r1
      * @param {Range} r2
-     * @return {number}
+     * @returns {number}
      * @private
      */
     calculateDistanceBetweenRanges: function( r1, r2 ) {
@@ -135,7 +135,7 @@ define( function( require ) {
      *
      * @param {Bounds2} bounds
      * @param {Vector2} positionXY
-     * @return {number}
+     * @returns {number}
      * @protected
      */
     getMinZ: function( bounds, positionXY ) {

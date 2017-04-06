@@ -45,7 +45,7 @@ define( function( require ) {
      * Create the attachment state machine that will govern the way in which this biomolecule attaches to and detaches
      * from other biomolecules.
      * @override
-     * @return {ProteinAttachmentStateMachine}
+     * @returns {ProteinAttachmentStateMachine}
      */
     createAttachmentStateMachine: function() {
       return new ProteinAttachmentStateMachine( this );

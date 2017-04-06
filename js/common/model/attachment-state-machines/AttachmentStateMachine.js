@@ -53,7 +53,7 @@ define( function( require ) {
 
     /**
      * Find out if the biomolecule using this state machine is currently attached to anything (i.e. another biomolecule).
-     * @return {boolean} true if attached to something, false if not.
+     * @returns {boolean} true if attached to something, false if not.
      * @public
      */
     isAttached: function() {
@@ -62,7 +62,7 @@ define( function( require ) {
 
     /**
      * Find out if the biomolecule using this state machine is currently moving towards attachment with another molecule.
-     * @return {boolean} true if moving towards attachment, false if already attached or if no attachment is pending.
+     * @returns {boolean} true if moving towards attachment, false if already attached or if no attachment is pending.
      * @public
      */
     isMovingTowardAttachment: function() {

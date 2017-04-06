@@ -53,7 +53,7 @@ define( function( require ) {
 
     /**
      * Indicates whether or not a biomolecules is currently attached to this site.
-     * @return {boolean} - true if a biomolecule is fully attached, false if not.  If a molecule is on its way but not
+     * @returns {boolean} - true if a biomolecule is fully attached, false if not.  If a molecule is on its way but not
      * yet at the site, false is returned.
      * @public
      */

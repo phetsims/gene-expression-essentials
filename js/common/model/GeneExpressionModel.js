@@ -29,7 +29,7 @@ define( function( require ) {
     /**
      * Get the DNA molecule.
      *
-     * @return {DnaMolecule} - DNA molecule, null if none exists.
+     * @returns {DnaMolecule} - DNA molecule, null if none exists.
      */
     getDnaMolecule: function() {
       assert && assert( false, 'getDnaMolecule should be implemented in descendant classes of GeneExpressionModel' );
@@ -65,7 +65,7 @@ define( function( require ) {
     /**
      * Get a list of all messenger RNA strands that are currently in existence.
      *
-     * @return {Array<MessengerRna>}
+     * @returns {Array<MessengerRna>}
      */
     getMessengerRnaList: function() {
       assert && assert( false, 'getMessengerRnaList should be implemented in descendant classes of GeneExpressionModel' );
@@ -75,7 +75,7 @@ define( function( require ) {
      * Get a list of all messenger biomolecules that overlap with the provided
      * shape.
      * @param {Bounds2} testShapeBounds
-     * @return {Array<MobileBiomolecule>}
+     * @returns {Array<MobileBiomolecule>}
      */
     getOverlappingBiomolecules: function( testShapeBounds ) {
       assert && assert( false, 'getOverlappingBiomolecules should be implemented in descendant classes of GeneExpressionModel' );
