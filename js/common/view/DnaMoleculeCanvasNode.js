@@ -19,12 +19,18 @@ define( function( require ) {
   var STRAND_1_COLOR = new Color( 31, 163, 223 );
   var STRAND_2_COLOR = new Color( 214, 87, 107 );
 
+  /**
+   * @param {DnaMolecule} model
+   * @param {ModelViewTransform2} mvt
+   * @param {number} backboneStrokeWidth
+   * @param {Object} [options]
+   * @constructor
+   */
   function DnaMoleculeCanvasNode( model, mvt, backboneStrokeWidth, options ) {
-    this.model = model;
-    this.mvt = mvt;
-    this.backboneStrokeWidth = mvt.viewToModelDeltaX( backboneStrokeWidth );
+    this.model = model; // @private
+    this.mvt = mvt; // @private
+    this.backboneStrokeWidth = mvt.viewToModelDeltaX( backboneStrokeWidth ); // @private
     CanvasNode.call( this, options );
-    //this.setMatrix( mvt.getMatrix() );
     this.invalidatePaint();
   }
 
@@ -32,12 +38,25 @@ define( function( require ) {
 
   return inherit( CanvasNode, DnaMoleculeCanvasNode, {
 
+    /**
+     * Draws the base pairs
+     * @param {CanvasRenderingContext2D} context
+     * @param {BasePair}basePair
+     * @private
+     */
     drawRect: function( context, basePair ) {
       context.moveTo( basePair.x, basePair.y );
       context.lineWidth = basePair.width;
       context.lineTo( basePair.x, basePair.y + basePair.height );
     },
 
+    /**
+     * Draws the strand segments
+     * @param {CanvasRenderingContext2D} context
+     * @param {Array.<Vector2>} strandSegment
+     * @param {Color} strokeColor
+     * @private
+     */
     drawCurve: function( context, strandSegment, strokeColor ) {
       var strandSegmentLength = strandSegment.length;
       context.beginPath();
@@ -49,8 +68,6 @@ define( function( require ) {
           strandSegment[ strandSegmentLength - 1 ].x,
           strandSegment[ strandSegmentLength - 1 ].y
         );
-
-        //context.closePath();
         return;
       }
 
@@ -99,59 +116,48 @@ define( function( require ) {
     },
 
     /**
-     * Paints the particles on the canvas node.
+     * @override
+     * Draws the DNA Molecule on canvas which includes helix like strands and base pairs.
      * @param {CanvasRenderingContext2D} context
      */
     paintCanvas: function( context ) {
       for ( var i = 0; i < this.model.strand1Segments.length; i++ ) {
-
         var strand1Segment = this.model.strand1Segments[ i ];
         var strand2Segment = this.model.strand2Segments[ i ];
 
         if ( i % 2 === 0 ) {
           this.drawCurve( context, strand2Segment, STRAND_2_COLOR );
-
-          //this.drawCurve( context, strand1Segment, STRAND_1_COLOR );
         }
         else {
           this.drawCurve( context, strand1Segment, STRAND_1_COLOR );
-          //this.drawRect( context, basePair );
-          //this.drawCurve( context, strand2Segment, STRAND_2_COLOR );
         }
-
       }
-
       context.beginPath();
 
       for ( i = 0; i < this.model.basePairs.length; i++ ) {
-
         var basePair = this.model.basePairs[ i ];
-
         this.drawRect( context, basePair );
       }
+
       context.strokeStyle = Color.DARK_GRAY.computeCSS();
       context.stroke();
 
       for ( i = 0; i < this.model.strand1Segments.length; i++ ) {
-
         strand1Segment = this.model.strand1Segments[ i ];
         strand2Segment = this.model.strand2Segments[ i ];
-
         if ( i % 2 === 0 ) {
-          //this.drawCurve( context, strand2Segment, STRAND_2_COLOR );
-
           this.drawCurve( context, strand1Segment, STRAND_1_COLOR );
         }
         else {
-          //this.drawCurve( context, strand1Segment, STRAND_1_COLOR );
-          //this.drawRect( context, basePair );
           this.drawCurve( context, strand2Segment, STRAND_2_COLOR );
         }
-
       }
-
     },
 
+    /**
+     * Step Function which checks whether to redraw or not
+     * @public
+     */
     step: function() {
       if ( this.model.redraw ) {
         this.invalidatePaint();
