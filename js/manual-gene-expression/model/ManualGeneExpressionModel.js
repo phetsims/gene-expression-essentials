@@ -44,6 +44,7 @@ define( function( require ) {
    * @constructor
    */
   function ManualGeneExpressionModel() {
+    GeneExpressionModel.call( this );
 
     // DNA strand, which is where the genes reside, where the polymerase does its transcription, and where a lot of the
     // action takes place. Initialize the DNA molecule.
@@ -73,8 +74,6 @@ define( function( require ) {
     this.offLimitsMotionSpaces = [];
 
     // Properties that track how many of the various proteins have been collected.
-    GeneExpressionModel.call( this );
-
     this.proteinACollectedProperty = new Property( 0 );
     this.proteinBCollectedProperty = new Property( 0 );
     this.proteinCCollectedProperty = new Property( 0 );
