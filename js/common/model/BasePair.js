@@ -32,11 +32,11 @@ define( function( require ) {
    * @constructor
    */
   function BasePair( centerLocationX, centerLocationY, height ) {
-    this.center = new Vector2( centerLocationX, centerLocationY );
-    this.x = centerLocationX - BASE_PAIR_WIDTH / 2;
-    this.y = centerLocationY - height / 2;
-    this.height = height;
-    this.width = BASE_PAIR_WIDTH;
+    this.center = new Vector2( centerLocationX, centerLocationY ); // @public
+    this.x = centerLocationX - BASE_PAIR_WIDTH / 2; // @public
+    this.y = centerLocationY - height / 2; // @public
+    this.height = height; // @public
+    this.width = BASE_PAIR_WIDTH; // @public
   }
 
   geneExpressionEssentials.register( 'BasePair', BasePair );
@@ -45,6 +45,7 @@ define( function( require ) {
 
     /**
      * @returns {Vector2}
+     * @public
      */
     getCenterLocation: function() {
       return this.center;

@@ -20,9 +20,9 @@ define( function( require ) {
    * @constructor
    */
   function TranscriptionFactorConfig( shape, positive, baseColor ) {
-    this.shape = shape;
-    this.baseColor = baseColor;
-    this.isPositive = positive;
+    this.shape = shape; // @public
+    this.baseColor = baseColor; // @public
+    this.isPositive = positive; // @public
   }
 
   geneExpressionEssentials.register( 'TranscriptionFactorConfig', TranscriptionFactorConfig );

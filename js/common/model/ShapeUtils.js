@@ -19,7 +19,9 @@ define( function( require ) {
      * would form a closed shape.
      *
      * @param {Array} points Set of points to connect.
-     * @return Shape that the provided points define.
+     * @param {Shape} existingShape
+     * @returns Shape that the provided points define.
+     * @public
      */
     createRoundedShapeFromPoints: function( points, existingShape ) {
       var shape = existingShape || new Shape();
@@ -40,17 +42,12 @@ define( function( require ) {
      * Extrapolates a control point given three input points. The resulting control point is for the segment from point y
      * to point z, and the resulting curve would reasonably connect to point x.
      *
-     * @param {Vector2} x Location where the line is "coming from".
-     * @param {Vector2} y Beginning of line segment.
-     * @param {Vector2} z End of line segment.
-     * @return Control point for segment from y to z.
+     * @param {Object} x Location where the line is "coming from".
+     * @param {Object} y Beginning of line segment.
+     * @param {Object} z End of line segment.
+     * @return {Object}
+     * @public
      */
-    extrapolateControlPoint_VectorVersion: function( x, y, z ) {
-      var xy = y.minus( x );
-      var yz = z.minus( y );
-      return y.plus( xy.timesScalar( 0.25 ).plus( yz.timesScalar( 0.25 ) ) );
-    },
-
     extrapolateControlPoint: function( x, y, z ) {
       var xz_x = 0.25 * ( z.x - x.x );
       var xz_y = 0.25 * ( z.y - x.y );

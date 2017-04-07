@@ -44,7 +44,7 @@ define( function( require ) {
     this.setPosition( position );
 
     // Reference to the messenger RNA being destroyed.
-    this.messengerRnaBeingDestroyed = null;
+    this.messengerRnaBeingDestroyed = null; // @private
   }
 
   geneExpressionEssentials.register( 'MessengerRnaDestroyer', MessengerRnaDestroyer );
@@ -54,28 +54,28 @@ define( function( require ) {
     /**
      * @override
      * @returns {RnaDestroyerAttachmentStateMachine}
+     * @public
      */
     createAttachmentStateMachine: function() {
       return new RnaDestroyerAttachmentStateMachine( this );
     },
 
     /**
-     *
      * @param {number} amountToDestroy
      * @returns {boolean}
+     * @public
      */
     advanceMessengerRnaDestruction: function( amountToDestroy ) {
       return this.messengerRnaBeingDestroyed.advanceDestruction( amountToDestroy );
     },
 
     /**
+     * @override
      * Scan for mRNA and propose attachments to any that are found. It is up to the mRNA to accept or refuse based on
      * distance, availability, or whatever.
-     *
      * This method is called by the attachment state machine framework.
-     *
-     * @override
      * @returns {AttachmentSite}
+     * @public
      */
     proposeAttachments: function() {
       var attachmentSite = null;
@@ -93,27 +93,32 @@ define( function( require ) {
     },
 
     /**
-     *
      * @returns {number}
+     * @public
      */
     getDestructionChannelLength: function() {
-
       // Since this looks like a circle with a slice out of it, the channel is half of the width.
       return this.bounds.getWidth() / 2;
     },
 
+    /**
+     * @public
+     */
     initiateMessengerRnaDestruction: function() {
       this.messengerRnaBeingDestroyed.initiateDestruction( this );
     },
 
     /**
-     *
      * @returns {MessengerRna}
+     * @public
      */
     getMessengerRnaBeingDestroyed: function() {
       return this.messengerRnaBeingDestroyed;
     },
 
+    /**
+     * @public
+     */
     clearMessengerRnaBeingDestroyed: function() {
       this.messengerRnaBeingDestroyed = null;
     }

@@ -21,8 +21,8 @@ define( function( require ) {
    */
   function ShapeChangingModelElement( initialShape ) {
     // Shape property, which is not public because it should only be changed by descendants of the class.
-    this.shapeProperty = new Property( initialShape );
-    this.bounds = this.shapeProperty.get().bounds.copy();
+    this.shapeProperty = new Property( initialShape ); //@public
+    this.bounds = this.shapeProperty.get().bounds.copy(); //@public
     this.setCenter();
   }
 
@@ -31,17 +31,17 @@ define( function( require ) {
   return inherit( Object, ShapeChangingModelElement, {
 
     /**
-     *
      * @returns {Shape}
+     * @public
      */
     getShape: function() {
       return this.shapeProperty.get();
     },
 
     /**
-     *
      * @param {number} x
      * @param {number} y
+     * @public
      */
     translate: function( x, y ) {
       this.bounds.shift( x, y );
@@ -50,17 +50,17 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {Vector2} newPos
+     * @public
      */
     setPosition: function( newPos ) {
       this.setPositionByXY( newPos.x, newPos.y );
     },
 
     /**
-     *
      * @param {number} x
      * @param  {number} y
+     * @public
      */
     setPositionByXY: function( x, y ) {
       if ( x !== this.getPosition().x || y !== this.getPosition().y ) {
@@ -73,13 +73,15 @@ define( function( require ) {
     },
 
     /**
-     * The Java version of shape.bounds returns the center even if the shape has only a single point the kite version
-     * gives NAN in such cases. This is a WorkAround. Needs Fixing. TODO
+     * @public
      */
     getCenter: function() {
       return this.centerPosition;
     },
 
+    /**
+     * @public
+     */
     setCenter: function() {
       var center = this.bounds.getCenter();
       if ( !_.isFinite( center.x ) ) {
@@ -89,8 +91,8 @@ define( function( require ) {
     },
 
     /**
-     *
      * @returns {Vector2}
+     * @public
      */
     getPosition: function() {
       // Assumes that the center of the shape is the position.  Override if other behavior is needed.

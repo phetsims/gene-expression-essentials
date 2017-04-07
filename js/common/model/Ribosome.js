@@ -41,33 +41,35 @@ define( function( require ) {
    * @constructor
    */
   function Ribosome( model, position ) {
-    this.offsetToTranslationChannelEntrance = OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE;
+    this.offsetToTranslationChannelEntrance = OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE; // @public
     position = position || new Vector2( 0, 0 );
     MobileBiomolecule.call( this, model, this.createShape(), new Color( 205, 155, 29 ) );
     this.setPosition( position );
 
     // Messenger RNA being translated, null if no translation is in progress.
-    this.messengerRnaBeingTranslated = null; // private
-
+    this.messengerRnaBeingTranslated = null; // @private
   }
 
   geneExpressionEssentials.register( 'Ribosome', Ribosome );
 
   return inherit( MobileBiomolecule, Ribosome, {
+
     /**
      * @returns {MessengerRna}
+     * @public
      */
     getMessengerRnaBeingTranslated: function() {
       return this.messengerRnaBeingTranslated;
     },
 
     /**
+     * @override
      * Scan for mRNA and propose attachments to any that are found. It is up to the mRNA to accept or refuse based on
      * distance, availability, or whatever.
      *
      * This method is called from the attachment state machine framework.
-     * @override
      * @returns {AttachmentSite}
+     * @public
      */
     proposeAttachments: function() {
       var attachmentSite = null;
@@ -80,27 +82,32 @@ define( function( require ) {
           this.messengerRnaBeingTranslated = messengerRna;
           break;
         }
-
       }
       return attachmentSite;
     },
 
+    /**
+     * Release the messenger Rna
+     * @public
+     */
     releaseMessengerRna: function() {
       this.messengerRnaBeingTranslated.releaseFromRibosome( this );
       this.messengerRnaBeingTranslated = null;
     },
 
     /**
+     * @override
      * Overridden in order to hook up unique attachment state machine for this biomolecule.
      * @returns {RibosomeAttachmentStateMachine}
+     * @public
      */
     createAttachmentStateMachine: function() {
       return new RibosomeAttachmentStateMachine( this );
     },
 
     /**
-     * @private
      * @returns {Shape}
+     * @private
      */
     createShape: function() {
 
@@ -139,16 +146,16 @@ define( function( require ) {
     },
 
     /**
-     *
      * @returns {Vector2}
+     * @public
      */
     getEntranceOfRnaChannelPos: function() {
       return this.getPosition().plus( OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
     },
 
     /**
-     *
      * @returns {number}
+     * @public
      */
     getTranslationChannelLength: function() {
       return WIDTH;
@@ -156,9 +163,9 @@ define( function( require ) {
 
     /**
      * Advance the translation of the mRNA.
-     *
      * @param {number} amount
      * @returns {boolean} - true if translation is complete, false if not.
+     * @public
      */
     advanceMessengerRnaTranslation: function( amount ) {
       return this.messengerRnaBeingTranslated !== null && this.messengerRnaBeingTranslated.advanceTranslation( this, amount );
@@ -170,6 +177,7 @@ define( function( require ) {
      *
      * @param {Vector2} newAttachmentPoint // optional output Vector - Added to avoid creating excessive vector2 instances
      * @returns {Vector2}
+     * @public
      */
     getProteinAttachmentPoint: function( newAttachmentPoint ) {
       newAttachmentPoint = newAttachmentPoint || new Vector2();
@@ -178,25 +186,14 @@ define( function( require ) {
       return newAttachmentPoint;
     },
 
+    /**
+     * Initiate translation of Messenger Rna
+     * @public
+     */
     initiateTranslation: function() {
       if ( this.messengerRnaBeingTranslated !== null ) {
         this.messengerRnaBeingTranslated.initiateTranslation( this );
       }
-    },
-
-    /**
-     *
-     * @param {Shape} shape
-     * @param {ModelViewTransform2} mvt
-     * @returns {*}
-     */
-    centerShapePart: function( shape, mvt ) {
-      var viewShape = mvt.modelToViewShape( shape );
-      var shapeBounds = viewShape.bounds;
-      var xOffset = shapeBounds.getCenterX();
-      var yOffset = shapeBounds.getCenterY();
-      var transform = Matrix3.translation( -xOffset, -yOffset );
-      return viewShape.transformed( transform );
     }
   } );
 } );

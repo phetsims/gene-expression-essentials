@@ -20,8 +20,8 @@ define( function( require ) {
    * @constructor
    */
   function DnaSeparation( xPos, targetAmount ) {
-    this.xPos = xPos;// X Position in model space.
-    this.targetAmount = targetAmount;
+    this.xPos = xPos;// X Position in model space. // @private
+    this.targetAmount = targetAmount; // @private
     this.amount = 0;// @private Actual amount of separation. Starts at 0 and is generally grown over time toward target.
   }
 
@@ -30,6 +30,7 @@ define( function( require ) {
 
     /**
      * @returns {number}
+     * @public
      */
     getXPos: function() {
       return this.xPos;
@@ -37,6 +38,7 @@ define( function( require ) {
 
     /**
      * @param {number} xPos
+     * @public
      */
     setXPos: function( xPos ) {
       this.xPos = xPos;
@@ -44,6 +46,7 @@ define( function( require ) {
 
     /**
      * @returns {number}
+     * @public
      */
     getAmount: function() {
       return this.amount;
@@ -51,6 +54,7 @@ define( function( require ) {
 
     /**
      * @param {number} proportion
+     * @public
      */
     setProportionOfTargetAmount: function( proportion ) {
       this.amount = this.targetAmount * proportion;

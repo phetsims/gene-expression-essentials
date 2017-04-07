@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Base class for proteins.  Defines the methods used for growing a protein.
+ * Base class for proteins. Defines the methods used for growing a protein.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -24,7 +24,7 @@ define( function( require ) {
   /**
    *
    * @param {GeneExpressionModel} model
-   * @param {Shape} Shape
+   * @param {Shape} initialShape
    * @param {Color} baseColor
    * @constructor
    */
@@ -32,20 +32,21 @@ define( function( require ) {
     MobileBiomolecule.call( this, model, initialShape, baseColor );
 
     // Property that gets set when this protein is fully formed and released.
-    this.fullGrownProperty = new Property( false );
+    this.fullGrownProperty = new Property( false ); // @public(read-only)
 
     // A value between 0 and 1 that defines how fully developed, or "grown"  this protein is.
-    this.fullSizeProportion = 0;// private
+    this.fullSizeProportion = 0; // @private
   }
 
   geneExpressionEssentials.register( 'Protein', Protein );
   return inherit( MobileBiomolecule, Protein, {
 
     /**
+     * @override
      * Create the attachment state machine that will govern the way in which this biomolecule attaches to and detaches
      * from other biomolecules.
-     * @override
      * @returns {ProteinAttachmentStateMachine}
+     * @public
      */
     createAttachmentStateMachine: function() {
       return new ProteinAttachmentStateMachine( this );
@@ -53,9 +54,9 @@ define( function( require ) {
 
     /**
      * Set the size of this protein by specifying the proportion of its full size.
-     *
      * @param {number} fullSizeProportion - Value between 0 and 1 indicating the proportion of this protein's full grown
      * size that it should be.
+     * @public
      */
     setFullSizeProportion: function( fullSizeProportion ) {
       if ( this.fullSizeProportion !== fullSizeProportion ) {
@@ -69,19 +70,19 @@ define( function( require ) {
     },
 
     /**
-     *
-     * @returns {number|*}
+     * @returns {number}
+     * @public
      */
     getFullSizeProportion: function() {
       return this.fullSizeProportion;
     },
 
     /**
-     *
      * @param {number} growthFactor
+     * @public
      */
     getUntranslatedShape: function( growthFactor ) {
-      assert & assert( false, 'getUntranslatedShape should be implemented in descendant classes of Protein' );
+      throw new Error( 'getUntranslatedShape should be implemented in descendant classes of Protein' );
     },
 
     /**
@@ -89,17 +90,22 @@ define( function( require ) {
      * grown. This is intended for use in creating control panel shapes that match this protein's shape.
      *
      * @return Shape representing the fully developed protein.
+     * @public
      */
     getFullyGrownShape: function() {
       return this.getUntranslatedShape( MAX_GROWTH_FACTOR );
     },
 
+    /**
+     * @public
+     */
     createInstance: function() {
-      assert && assert( false, 'createInstance should be implemented in descendant classes of Protein' );
+      throw new Error( 'createInstance should be implemented in descendant classes of Protein' );
     },
 
     /**
      * Release this protein from the ribosome and allow it to drift around in the cell.
+     * @public
      */
     release: function() {
       this.attachmentStateMachine.setState( new GenericUnattachedAndAvailableState() );
@@ -111,9 +117,10 @@ define( function( require ) {
      * is being synthesized, is at the specified location.
      *
      * @param attachmentPointLocation
+     * @public
      */
     setAttachmentPointPosition: function( attachmentPointLocation ) {
-      assert && assert( false, 'setAttachmentPointPosition should be implemented in descendant classes of Protein' );
+      throw new Error( 'setAttachmentPointPosition should be implemented in descendant classes of Protein' );
     }
   } );
 } );

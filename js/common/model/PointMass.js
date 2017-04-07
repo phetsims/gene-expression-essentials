@@ -25,15 +25,15 @@ define( function( require ) {
    * @constructor
    */
   function PointMass( initialPosition, targetDistanceToPreviousPoint ) {
-    // private
+    // @private
     this.position = new Vector2( 0, 0 );
     this.velocity = new Vector2( 0, 0 );
     this.acceleration = new Vector2( 0, 0 );
     this.previousPointMass = null;
     this.nextPointMass = null;
+    this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint;// In picometers.
 
     this.setPosition( initialPosition );
-    this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint;// In picometers.
   }
 
   geneExpressionEssentials.register( 'PointMass', PointMass );
@@ -43,6 +43,7 @@ define( function( require ) {
     /**
      * @param {number} x
      * @param {number} y
+     * @public
      */
     setPosition: function( x, y ) {
       if ( _.isFinite( x.x ) ) {
@@ -54,6 +55,7 @@ define( function( require ) {
 
     /**
      * @param {Vector2} position
+     * @public
      */
     setPositionByVector: function( position ) {
       this.setPosition( position.x, position.y );
@@ -61,14 +63,15 @@ define( function( require ) {
 
     /**
      * @returns {Vector2}
+     * @public
      */
     getPosition: function() {
       return this.position;
     },
 
     /**
-     * @param {Vector2} velocity
      * @returns {Vector2}
+     * @public
      */
     getVelocity: function() {
       return this.velocity;
@@ -76,6 +79,7 @@ define( function( require ) {
 
     /**
      * @param {Vector2} acceleration
+     * @public
      */
     setAcceleration: function( acceleration ) {
       this.acceleration.set( acceleration );
@@ -83,6 +87,7 @@ define( function( require ) {
 
     /**
      * @returns {PointMass}
+     * @public
      */
     getPreviousPointMass: function() {
       return this.previousPointMass;
@@ -90,6 +95,7 @@ define( function( require ) {
 
     /**
      * @param {PointMass} previousPointMass
+     * @public
      */
     setPreviousPointMass: function( previousPointMass ) {
       this.previousPointMass = previousPointMass;
@@ -97,6 +103,7 @@ define( function( require ) {
 
     /**
      * @returns {PointMass}
+     * @public
      */
     getNextPointMass: function() {
       return this.nextPointMass;
@@ -104,6 +111,7 @@ define( function( require ) {
 
     /**
      * @param {PointMass} nextPointMass
+     * @public
      */
     setNextPointMass: function( nextPointMass ) {
       this.nextPointMass = nextPointMass;
@@ -111,6 +119,7 @@ define( function( require ) {
 
     /**
      * @returns {number}
+     * @public
      */
     getTargetDistanceToPreviousPoint: function() {
       return this.targetDistanceToPreviousPoint;
@@ -119,6 +128,7 @@ define( function( require ) {
     /**
      * @param {PointMass} p
      * @returns {number}
+     * @public
      */
     distance: function( p ) {
       return this.getPosition().distance( p.getPosition() );
@@ -126,26 +136,33 @@ define( function( require ) {
 
     /**
      * @param {number} deltaTime
+     * @public
      */
     update: function( deltaTime ) {
-
-      // The original code is here -> this.velocity.set( this.velocity.plus( this.acceleration.timesScalar( deltaTime ) ) );
-      // code modified for performance reason
       this.velocity.addXY( this.acceleration.x * deltaTime, this.acceleration.y * deltaTime );
       this.position.setXY( this.position.x + this.velocity.x * deltaTime, this.position.y + this.velocity.y * deltaTime );
     },
 
+    /**
+     * @param {Vector2} translationVector
+     * @public
+     */
     translate: function( translationVector ) {
       this.setPosition( this.position.x + translationVector.x, this.position.y + translationVector.y );
     },
 
     /**
      * @param {number} targetDistance
+     * @public
      */
     setTargetDistanceToPreviousPoint: function( targetDistance ) {
       this.targetDistanceToPreviousPoint = targetDistance;
     },
 
+    /**
+     * Set the velocity to 0
+     * @public
+     */
     clearVelocity: function() {
       this.velocity.setXY( 0, 0 );
     }

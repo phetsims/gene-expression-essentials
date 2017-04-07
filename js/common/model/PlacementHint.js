@@ -23,12 +23,12 @@ define( function( require ) {
    */
   function PlacementHint( biomolecule ) {
     // Biomolecule that defines the shape of this hint.
-    this.biomolecule = biomolecule;
+    this.biomolecule = biomolecule; // @public
 
     ShapeChangingModelElement.call( this, biomolecule.getShape() );
 
     // Property that tracks whether or not the hint is should be visible to the user.
-    this.activeProperty = new Property( false );
+    this.activeProperty = new Property( false ); // @public
   }
 
   geneExpressionEssentials.register( 'PlacementHint', PlacementHint );
@@ -37,8 +37,8 @@ define( function( require ) {
 
     /**
      * @returns {Color}
+     * @public
      */
-
     getBaseColor: function() {
       return this.biomolecule.colorProperty.get();
     },
@@ -49,6 +49,7 @@ define( function( require ) {
      *
      * @param {MobileBiomolecule} testBiomolecule
      * @returns {boolean}
+     * @public
      */
     isMatchingBiomolecule: function( testBiomolecule ) {
       return testBiomolecule instanceof this.biomolecule.constructor;
@@ -56,8 +57,8 @@ define( function( require ) {
 
     /**
      * If the proffered test biomolecule is of the appropriate type, activate this hint.
-     *
      * @param {MobileBiomolecule} testBiomolecule
+     * @public
      */
     activateIfMatch: function( testBiomolecule ) {
       if ( this.isMatchingBiomolecule( testBiomolecule ) ) {

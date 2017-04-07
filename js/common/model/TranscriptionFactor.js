@@ -40,7 +40,7 @@ define( function( require ) {
     MobileBiomolecule.call( this, model, config.shape, config.baseColor );
 
     // Configuration used to create this transcription factor, used when comparing factors and creating copies.
-    this.config = config; // private
+    this.config = config; // @private
     this.setPosition( initialPosition );
   }
 
@@ -53,19 +53,26 @@ define( function( require ) {
      * (prevents or decreases likelihood of transcription).
      *
      * @returns {boolean}
+     * @public
      */
     isPositive: function() {
       return this.config.isPositive;
     },
 
     /**
+     * @override
      * Overridden in order to provide some unique behavior for transcription factors.
      * @returns {TranscriptionFactorAttachmentStateMachine}
+     * @public
      */
     createAttachmentStateMachine: function() {
       return new TranscriptionFactorAttachmentStateMachine( this );
     },
 
+    /**
+     * @override
+     * @public
+     */
     handleReleasedByUser: function() {
       MobileBiomolecule.prototype.handleReleasedByUser.call( this );
 
@@ -85,8 +92,9 @@ define( function( require ) {
     },
 
     /**
-     *
+     * @override
      * @returns {Vector2}
+     * @public
      */
     getDetachDirection: function() {
       // Randomly either up or down when detaching from DNA.
@@ -94,8 +102,9 @@ define( function( require ) {
     },
 
     /**
-     *
+     * @override
      * @returns {AttachmentSite}
+     * @public
      */
     proposeAttachments: function() {
       // Transcription factors only attach to DNA.
@@ -103,8 +112,8 @@ define( function( require ) {
     },
 
     /**
-     *
      * @returns {TranscriptionFactorConfig}
+     * @public
      */
     getConfig: function() {
       return this.config;

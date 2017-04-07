@@ -36,33 +36,33 @@ define( function( require ) {
    * @constructor
    */
   function Gene( dnaMolecule, regulatoryRegion, regulatoryRegionColor, transcribedRegion, transcribedRegionColor ) {
-    this.dnaMolecule = dnaMolecule;//private
-    this.regulatoryRegion = regulatoryRegion; //private
-    this.regulatoryRegionColor = regulatoryRegionColor; //private
-    this.transcribedRegion = transcribedRegion; //private
-    this.transcribedRegionColor = transcribedRegionColor;//private
+    this.dnaMolecule = dnaMolecule; // @private
+    this.regulatoryRegion = regulatoryRegion; // @private
+    this.regulatoryRegionColor = regulatoryRegionColor; // @private
+    this.transcribedRegion = transcribedRegion; // @private
+    this.transcribedRegionColor = transcribedRegionColor; // @private
 
 
     // Create the attachment site for polymerase. It is always at the end of the regulatory region.
     this.polymeraseAttachmentSite = new AttachmentSite( new Vector2(
-      dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.max ), GEEConstants.DNA_MOLECULE_Y_POS ), 1 );
+      dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.max ), GEEConstants.DNA_MOLECULE_Y_POS ), 1 ); // @private
 
     // Placement hint for polymerase. There is always only one.
-    this.rnaPolymerasePlacementHint = new PlacementHint( new RnaPolymerase() );
+    this.rnaPolymerasePlacementHint = new PlacementHint( new RnaPolymerase() ); // @private
 
     // Placement hints for transcription factors.
     this.transcriptionFactorPlacementHints = [];
 
     // Attachment sites for transcription factors.
-    this.transcriptionFactorAttachmentSites = [];
+    this.transcriptionFactorAttachmentSites = []; // @private
 
     // Map of transcription factors that interact with this gene to the location, in terms of base pair offset, where
     // the TF attaches.
-    this.transcriptionFactorMap = {};
+    this.transcriptionFactorMap = {}; // @private
 
     // Property that determines the affinity of the site where polymerase attaches when the transcription factors support
     // transcription.
-    this.polymeraseAffinityProperty = new Property( 1.0 );
+    this.polymeraseAffinityProperty = new Property( 1.0 ); //@public
 
     // Initialize the placement hint for polymerase.
     this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.locationProperty.get() );
@@ -73,16 +73,18 @@ define( function( require ) {
   return inherit( Object, Gene, {
 
     /**
-     *
+     * Returns the regulatory region color
      * @returns {Color}
+     * @public
      */
     getRegulatoryRegionColor: function() {
       return this.regulatoryRegionColor;
     },
 
     /**
-     *
+     * Returns ths transcribed region color
      * @returns {Color}
+     * @public
      */
     getTranscribedRegionColor: function() {
       return this.transcribedRegionColor;
@@ -90,38 +92,39 @@ define( function( require ) {
 
     /**
      * @returns {number}
+     * @public
      */
     getCenterX: function() {
       return this.getStartX() + ( this.getEndX() - this.getStartX() ) / 2;
     },
 
     /**
-     *
      * @returns {number}
+     * @public
      */
     getStartX: function() {
       return this.dnaMolecule.getBasePairXOffsetByIndex( this.regulatoryRegion.min );
     },
 
     /**
-     *
      * @returns {number}
+     * @public
      */
     getEndX: function() {
       return this.dnaMolecule.getBasePairXOffsetByIndex( this.transcribedRegion.max );
     },
 
     /**
-     *
      * @returns {Range}
+     * @public
      */
     getRegulatoryRegion: function() {
       return this.regulatoryRegion;
     },
 
     /**
-     *
-     * @returns {Range|*}
+     * @returns {Range}
+     * @public
      */
     getTranscribedRegion: function() {
       return this.transcribedRegion;
@@ -135,6 +138,7 @@ define( function( require ) {
      * real world, affinities are associated with sets of base pairs rather than an individual one, so this is a bit of a
      * simplification.
      * @returns {AttachmentSite}
+     * @public
      */
     getPolymeraseAttachmentSiteByIndex: function( basePairIndex ) {
       if ( basePairIndex === this.regulatoryRegion.max ) {
@@ -153,11 +157,16 @@ define( function( require ) {
      * one such site on the gene.
      *
      * @returns {AttachmentSite}
+     * @public
      */
     getPolymeraseAttachmentSite: function() {
       return this.polymeraseAttachmentSite;
     },
 
+    /**
+     * Update the affinity of attachment sites
+     * @public
+     */
     updateAffinities: function() {
       // Update the affinity of the polymerase attachment site based upon the state of the transcription factors.
       if ( this.transcriptionFactorsSupportTranscription() ) {
@@ -174,6 +183,7 @@ define( function( require ) {
      *
      * @param {number} basePairOffset - Offset WITHIN THIS GENE where the transcription factor's high affinity site will exist.
      * @param {TranscriptionFactorConfig} tfConfig
+     * @protected
      */
     addTranscriptionFactor: function( basePairOffset, tfConfig ) {
       this.transcriptionFactorMap[ basePairOffset ] = new TranscriptionFactor( null, tfConfig );
@@ -188,6 +198,7 @@ define( function( require ) {
      * Returns true if all positive transcription factors are attached and no negative ones are attached, which indicates
      * that transcription is essentially enabled.
      * @returns {boolean}
+     * @public
      */
     transcriptionFactorsSupportTranscription: function() {
 
@@ -228,6 +239,7 @@ define( function( require ) {
      * Evaluate if transcription factors are blocking transcription.
      *
      * @returns {boolean} true if there are transcription factors that block transcription.
+     * @private
      */
     transcriptionFactorsBlockTranscription: function() {
       for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
@@ -252,6 +264,7 @@ define( function( require ) {
      * simplification.
      * @param {TranscriptionFactorConfig} tfConfig
      * @returns {AttachmentSite}
+     * @public
      */
     getTranscriptionFactorAttachmentSite: function( basePairIndex, tfConfig ) {
       // Assume a default affinity site until proven otherwise.
@@ -286,6 +299,7 @@ define( function( require ) {
      *
      * @param {TranscriptionFactorConfig} transcriptionFactorConfig
      * @returns {AttachmentSite} attachment site for the config if present on the gene, null if not.
+     * @public
      */
     getMatchingSite: function( transcriptionFactorConfig ) {
       for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
@@ -303,6 +317,7 @@ define( function( require ) {
      *
      * @param {TranscriptionFactorConfig} tfConfig
      * @returns {Property<number>}
+     * @public
      */
     getTranscriptionFactorAffinityProperty: function( tfConfig ) {
       var affinityProperty = null;
@@ -319,17 +334,17 @@ define( function( require ) {
 
     /**
      * Get the property that controls the affinity of the site where polymerase binds when initiating transcription.
-     *
      * @returns {Property<number>}
+     * @public
      */
     getPolymeraseAffinityProperty: function() {
       return this.polymeraseAffinityProperty;
     },
 
     /**
-     *
      * @param {number} basePairIndex
      * @returns {boolean}
+     * @public
      */
     containsBasePair: function( basePairIndex ) {
       return this.regulatoryRegion.contains( basePairIndex ) || this.transcribedRegion.contains( basePairIndex );
@@ -337,8 +352,8 @@ define( function( require ) {
 
     /**
      * Activate any and all placement hints associated with the given biomolecule.
-     *
      * @param {MobileBiomolecule} biomolecule
+     * @public
      */
     activateHints: function( biomolecule ) {
       var self = this;
@@ -367,8 +382,8 @@ define( function( require ) {
     },
 
     /**
-     * @private
      * @param { TranscriptionFactorConfig } tfConfig
+     * @private
      */
     activateTranscriptionFactorHint: function( tfConfig ) {
       this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
@@ -376,6 +391,10 @@ define( function( require ) {
       } );
     },
 
+    /**
+     * Deactivate Hints for the biomolecules
+     * @public
+     */
     deactivateHints: function() {
       this.rnaPolymerasePlacementHint.activeProperty.set( false );
       this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
@@ -384,8 +403,8 @@ define( function( require ) {
     },
 
     /**
-     *
-     * @returns {Array<PlacementHint>}
+     * @returns {Array.<PlacementHint>}
+     * @public
      */
     getPlacementHints: function() {
       var placementHints = [ this.rnaPolymerasePlacementHint ];
@@ -397,6 +416,7 @@ define( function( require ) {
 
     /**
      * Clear the attachment sites, generally only done as part of a reset operation.
+     * @public
      */
     clearAttachmentSites: function() {
       this.polymeraseAttachmentSite.attachedOrAttachingMoleculeProperty.set( null );
@@ -407,8 +427,8 @@ define( function( require ) {
 
     /**
      * Get an instance (a.k.a. a prototype) of the protein associated with this gene.
-     *
      * @returns {Protein}
+     * @public
      */
     getProteinPrototype: function() {
       throw new Error( 'getProteinPrototype should be implemented in descendant classes of Gene .' );
@@ -416,8 +436,8 @@ define( function( require ) {
 
     /**
      * Get the list of all transcription factors that have high-affinity binding sites on this gene.
-     *
-     * @returns {Array}
+     * @returns {Array.<TranscriptionFactorConfig>}
+     * @public
      */
     getTranscriptionFactorConfigs: function() {
       var configList = [];

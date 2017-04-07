@@ -22,7 +22,7 @@ define( function( require ) {
   function TranscriptionFactorPlacementHint( transcriptionFactor ) {
     PlacementHint.call( this, transcriptionFactor );
     this.setPosition( transcriptionFactor.getPosition() );
-    this.tfConfig = transcriptionFactor.getConfig(); // private
+    this.tfConfig = transcriptionFactor.getConfig(); // @private
   }
 
   geneExpressionEssentials.register( 'TranscriptionFactorPlacementHint', TranscriptionFactorPlacementHint );
@@ -33,6 +33,7 @@ define( function( require ) {
      * @override
      * @param {MobileBiomolecule} testBiomolecule
      * @returns {boolean}
+     * @public
      */
     isMatchingBiomolecule: function( testBiomolecule ) {
       return testBiomolecule instanceof TranscriptionFactor && ( testBiomolecule.getConfig() === this.tfConfig);
@@ -40,6 +41,7 @@ define( function( require ) {
 
     /**
      * @param { TranscriptionFactorConfig } transcriptionFactorConfig
+     * @public
      */
     activateIfConfigMatch: function( transcriptionFactorConfig ) {
       if ( this.tfConfig === transcriptionFactorConfig ) {

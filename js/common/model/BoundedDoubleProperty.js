@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function BoundedDoubleProperty( value, minValue, maxValue ) {
     Property.call( this, value );
-    this.bounds = new Range( minValue, maxValue );
+    this.bounds = new Range( minValue, maxValue ); // @private
   }
 
   geneExpressionEssentials.register( 'BoundedDoubleProperty', BoundedDoubleProperty );

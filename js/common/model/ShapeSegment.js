@@ -1,8 +1,9 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * This class defines a shape that encloses a segment of the mRNA. These segments, connected together, are used to define
- * the outline shape of the mRNA strand. The path of the strand within these shape segments is worked out elsewhere.
+ * This class defines a shape that encloses a segment of the mRNA. These segments, connected together, are used to
+ * define the outline shape of the mRNA strand. The path of the strand within these shape segments is worked out
+ * elsewhere.
  *
  * Shape segments keep track of the length of mRNA that they contain, but the don't explicitly contain references to the
  * points that define the shape.
@@ -32,13 +33,13 @@ define( function( require ) {
   function ShapeSegment() {
 
     // Bounds of this shape segment.
-    this.boundsProperty = new Property( new Bounds2( 0, 0, 0, 0 ) );//@private
+    this.boundsProperty = new Property( new Bounds2( 0, 0, 0, 0 ) ); // @private
 
     // Attachment point where anything that attached to this segment would attach. Affinity is arbitrary in this case.
-    this.attachmentSite = new AttachmentSite( new Vector2( 0, 0 ), 1 );//@private
+    this.attachmentSite = new AttachmentSite( new Vector2( 0, 0 ), 1 ); // @private
 
     // Max length of mRNA that this segment can contain.
-    this.capacity = Number.MAX_VALUE; //@protected
+    this.capacity = Number.MAX_VALUE; // @protected
   }
 
   geneExpressionEssentials.register( 'ShapeSegment', ShapeSegment );

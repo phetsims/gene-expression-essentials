@@ -33,7 +33,7 @@ define( function( require ) {
 
   // Set of points that outline the basic, non-distorted shape of this molecule. The shape is meant to look like
   // illustrations in "The Machinery of Life" by David Goodsell.
-  var shapePoints = [ new Vector2( 0, HEIGHT / 2 ), // Middle top.
+  var SHAPE_POINTS = [ new Vector2( 0, HEIGHT / 2 ), // Middle top.
     new Vector2( WIDTH / 2, HEIGHT * 0.25 ),
     new Vector2( WIDTH * 0.35, -HEIGHT * 0.25 ),
     new Vector2( 0, -HEIGHT / 2 ), // Middle bottom.
@@ -59,9 +59,9 @@ define( function( require ) {
     model = model || new StubGeneExpressionModel();
     MobileBiomolecule.call( this, model, this.createShape(), NOMINAL_COLOR );
     position = position || new Vector2( 0, 0 );
-    this.messengerRnaGenerationOffset = MESSENGER_RNA_GENERATION_OFFSET;
+    this.messengerRnaGenerationOffset = MESSENGER_RNA_GENERATION_OFFSET; // @public
     // Copy of the attachment state machine reference from base class, but with the more specific type.
-    this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // defined by Super class - Ashraf
+    this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // @public
     this.setPosition( position );
   }
 
@@ -70,21 +70,23 @@ define( function( require ) {
   return inherit( MobileBiomolecule, RnaPolymerase, {
 
     /**
+     * @override
      * Overridden to provide attachment behavior that is unique to polymerase.
-     *
      * @returns {RnaPolymeraseAttachmentStateMachine}
+     * @public
      */
     createAttachmentStateMachine: function() {
       return new RnaPolymeraseAttachmentStateMachine( this );
     },
 
     /**
-     *
+     * @override
      * @param {number} changeFactor
+     * @public
      */
     changeConformation: function( changeFactor ) {
       // Seed value chosen by trial and error.
-      var newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( shapePoints, changeFactor, 45 );
+      var newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( SHAPE_POINTS, changeFactor, 45 );
       var translation = Matrix3.translation( this.getPosition().x, this.getPosition().y );
       var newTranslatedShape = newUntranslatedShape.transformed( translation );
       this.shapeProperty.set( newTranslatedShape );
@@ -94,8 +96,9 @@ define( function( require ) {
     },
 
     /**
-     *
+     * @override
      * @returns {AttachmentSite}
+     * @public
      */
     proposeAttachments: function() {
       // Propose attachment to the DNA.
@@ -103,7 +106,7 @@ define( function( require ) {
     },
 
     /**
-     *
+     * @override
      * @returns {Vector2}
      */
     getDetachDirection: function() {
@@ -112,28 +115,28 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {boolean} recycleMode
+     * @public
      */
     setRecycleMode: function( recycleMode ) {
       this.rnaPolymeraseAttachmentStateMachine.setRecycleMode( recycleMode );
     },
 
     /**
-     *
-     * @param {Rectangle} recycleReturnZone
+     * @param {Bounds2} recycleReturnZone
+     * @public
      */
     addRecycleReturnZone: function( recycleReturnZone ) {
       this.rnaPolymeraseAttachmentStateMachine.addRecycleReturnZone( recycleReturnZone );
     },
 
     /**
-     *
      * @returns {Shape}
+     * @public
      */
     createShape: function() {
       // Shape is meant to look like illustrations in "The Machinery of  Life" by David Goodsell.
-      return ShapeUtils.createRoundedShapeFromPoints( shapePoints );
+      return ShapeUtils.createRoundedShapeFromPoints( SHAPE_POINTS );
     }
   } );
 } );

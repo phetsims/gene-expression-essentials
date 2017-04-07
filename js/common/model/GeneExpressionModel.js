@@ -28,57 +28,57 @@ define( function( require ) {
 
     /**
      * Get the DNA molecule.
-     *
      * @returns {DnaMolecule} - DNA molecule, null if none exists.
+     * @public
      */
     getDnaMolecule: function() {
-      assert && assert( false, 'getDnaMolecule should be implemented in descendant classes of GeneExpressionModel' );
+      throw new Error( 'getDnaMolecule should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
      * Add a mobile biomolecule to the model. The model must send out the appropriate notifications.
-     *
      * @param {MobileBiomolecule} mobileBiomolecule
+     * @public
      */
     addMobileBiomolecule: function( mobileBiomolecule ) {
-      assert && assert( false, 'addMobileBiomolecule should be implemented in descendant classes of GeneExpressionModel' );
+      throw new Error( 'addMobileBiomolecule should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
      * Add the specified messenger RNA strand to the model. The model must send out the appropriate notifications.
-     *
      * @param {MessengerRna} messengerRna
+     * @public
      */
     addMessengerRna: function( messengerRna ) {
-      assert && assert( false, 'addMessengerRna should be implemented in descendant classes of GeneExpressionModel' );
+      throw new Error( 'addMessengerRna should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
      * Remove the specified messenger RNA from the model.
-     *
      * @param {MessengerRna} messengerRnaBeingDestroyed
+     * @public
      */
     removeMessengerRna: function( messengerRnaBeingDestroyed ) {
-      assert && assert( false, 'removeMessengerRna should be implemented in descendant classes of GeneExpressionModel' );
+      throw new Error( 'removeMessengerRna should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
      * Get a list of all messenger RNA strands that are currently in existence.
-     *
-     * @returns {Array<MessengerRna>}
+     * @returns {Array.<MessengerRna>}
+     * @public
      */
     getMessengerRnaList: function() {
-      assert && assert( false, 'getMessengerRnaList should be implemented in descendant classes of GeneExpressionModel' );
+      throw new Error( 'getMessengerRnaList should be implemented in descendant classes of GeneExpressionModel' );
     },
 
     /**
-     * Get a list of all messenger biomolecules that overlap with the provided
-     * shape.
+     * Get a list of all messenger biomolecules that overlap with the providedshape.
      * @param {Bounds2} testShapeBounds
-     * @returns {Array<MobileBiomolecule>}
+     * @returns {Array.<MobileBiomolecule>}
+     * @public
      */
     getOverlappingBiomolecules: function( testShapeBounds ) {
-      assert && assert( false, 'getOverlappingBiomolecules should be implemented in descendant classes of GeneExpressionModel' );
+      throw new Error( 'getOverlappingBiomolecules should be implemented in descendant classes of GeneExpressionModel' );
     }
   } );
 } );

@@ -17,7 +17,6 @@ define( function( require ) {
   var Random = require( 'DOT/Random' );
   var Shape = require( 'KITE/Shape' );
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
-  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   var BioShapeUtils = {
@@ -30,7 +29,8 @@ define( function( require ) {
      * @param {Array.<Vector2>} points
      * @param {number} distortionFactor
      * @param {number} randomNumberSeed
-     * @return
+     * @returns {Shape}
+     * @public
      */
     createdDistortedRoundedShapeFromPoints: function( points, distortionFactor, randomNumberSeed ) {
 
@@ -72,10 +72,10 @@ define( function( require ) {
      * would form a closed shape. Some of the segments will be straight lines and some will be curved, and which is
      * which will be based on a pseudo-random variable.
      *
-     * @private
      * @param {Array.<Vector2>} points
      * @param {number} seed
      * @returns {Shape}
+     * @private
      */
     createRandomShapeFromPoints: function( points, seed ) {
       var path = new Shape();
@@ -103,9 +103,11 @@ define( function( require ) {
     },
 
     /**
+     * Calls createRandomShapeFromPoints to create random shape
      * @param {Dimension2} size
      * @param {number} seed
      * @returns {Shape}
+     * @public
      */
     createRandomShape: function( size, seed ) {
       var pointList = [];
@@ -133,6 +135,7 @@ define( function( require ) {
      *
      * @param {Array.<Vector2>} points
      * @returns {Shape}
+     * @public
      */
     createCurvyLineFromPoints: function( points ) {
       assert && assert( points.length > 0 );
@@ -171,63 +174,13 @@ define( function( require ) {
     },
 
     /**
-     * @param {Array.<Vector2>} points
-     * @returns {Shape}
-     */
-    createSegmentedLineFromPoints: function( points ) {
-      assert && assert( points.length > 0 );
-      var path = new Shape();
-      path.moveToPoint( points[ 0 ] );
-      for ( var i = 0; i < points.length; i++ ) {
-        path.lineToPoint( points[ i ] );
-      }
-      return path;
-    },
-
-    /**
-     * Create a curvy shape that is pretty much within the provided bounds. Full enclosure within the bounds is not
-     * guaranteed. This was initially written for the purpose of creating shapes that look like cells, but it may have
-     * other uses.
-     *
-     * @param {Bounds2} bounds
-     * @param {number} variationFactor
-     * @param {number} seed
-     * @returns {Shape}
-     */
-    createCurvyEnclosedShape: function( bounds, variationFactor, seed ) {
-
-      // Limit the variation to the allowed range.
-      assert && assert( variationFactor >= 0 && variationFactor <= 1 ); // Catch incorrect uses when debugging.
-      variationFactor = Util.clamp( variationFactor, 0, 1 ); // Prevent them at run time.
-
-      var rand = new Random( {
-        seed: seed
-      } );
-
-      // Use variables names that are typical when working with ellipses.
-      var a = bounds.getWidth() / 2;
-      var b = bounds.getHeight() / 2;
-
-      var centerOfEllipse = bounds.getCenter();
-      var vectorToEdge = new Vector2();
-      var pointList = [];
-      var numPoints = 8;
-      for ( var angle = 0; angle < 2 * Math.PI; angle += 2 * Math.PI / numPoints ) {
-        var alteredAngle = angle + ( 2 * Math.PI / numPoints * ( rand.nextDouble() - 0.5 ) * variationFactor );
-        vectorToEdge.setXY( a * Math.sin( alteredAngle ), b * Math.cos( alteredAngle ) );
-        pointList.push( centerOfEllipse.plus( vectorToEdge ) );
-      }
-
-      return ShapeUtils.createRoundedShapeFromPoints( pointList );
-    },
-
-    /**
      * Create a shape that looks roughly like a 2D representation of E. Coli, which is essentially a rectangle with
      * round ends. Some randomization is added to the shape to make it look more like a natural object.
      *
      * @param {number} width
      * @param {number} height
-     * @return
+     * @returns {Shape}
+     * @public
      */
     createEColiLikeShape: function( width, height ) {
       assert && assert( width > height ); // Param checking.  Can't create the needed shape if this isn't true.

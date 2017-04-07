@@ -36,17 +36,17 @@ define( function( require ) {
   return inherit( AttachmentSite, TranscriptionFactorAttachmentSite, {
 
     /**
-     *
      * @param {TranscriptionFactorConfig} tfConfig
      * @returns {boolean}
+     * @public
      */
     configurationMatches: function( tfConfig ) {
       return this.tfConfig === tfConfig;
     },
 
     /**
-     *
      * @returns {TranscriptionFactorConfig}
+     * @public
      */
     getTfConfig: function() {
       return this.tfConfig;

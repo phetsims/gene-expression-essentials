@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * An attachment site is a single point in model space to which a biomolecule may attach.  Typically, one biomolecule
+ * An attachment site is a single point in model space to which a biomolecule may attach. Typically, one biomolecule
  * (e.g. a DnaMolecule) owns the attachment site, so if the biomolecule that owns it moves, the attachment site should
  * move with it.
  *
@@ -27,17 +27,15 @@ define( function( require ) {
    */
   function AttachmentSite( initialLocation, initialAffinity ) {
 
-    // Location of this attachment site.  It is a property so that it can be
-    // followed in the event that the biomolecule upon which it exists is
-    // moving.
-    this.locationProperty = new Property( initialLocation );
+    // Location of this attachment site. It is a property so that it can be followed in the event that the biomolecule
+    // upon which it exists is moving.
+    this.locationProperty = new Property( initialLocation ); // @public
 
-    // A property that tracks which if any biomolecule is attached to or moving
-    // towards attachment with this site.
-    this.attachedOrAttachingMoleculeProperty = new Property( null );
+    // A property that tracks which if any biomolecule is attached to or moving towards attachment with this site.
+    this.attachedOrAttachingMoleculeProperty = new Property( null ); // @public
 
     // Property that represents the affinity of the attachment site.
-    this.affinityProperty = new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 );
+    this.affinityProperty = new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 ); // @private
   }
 
   geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );
@@ -45,7 +43,9 @@ define( function( require ) {
   return inherit( Object, AttachmentSite, {
 
     /**
+     * Return the affinity of attachment site
      * @returns {number}
+     * @public
      */
     getAffinity: function() {
       return this.affinityProperty.get();
@@ -63,8 +63,9 @@ define( function( require ) {
     },
 
     /**
-     * @param {Object} obj
+     * @param {AttachmentSite} obj
      * @returns {boolean}
+     * @public
      */
     equals: function( obj ) {
       if ( this === obj ) { return true; }

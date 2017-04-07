@@ -127,7 +127,7 @@ define( function( require ) {
      *
      * @param {Ribosome} ribosome - The ribosome by which the mRNA is being translated.
      * @param {number} length   - The amount of mRNA to move through the translation channel.
-     * @return - true if the mRNA is completely through the channel, indicating, that transcription is complete, and false
+     * @returns - true if the mRNA is completely through the channel, indicating, that transcription is complete, and false
      * if not.
      * @public
      */

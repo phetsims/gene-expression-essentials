@@ -46,33 +46,34 @@ define( function( require ) {
    * @constructor
    */
   function DnaMolecule( model, numBasePairs, leftEdgeXOffset, pursueAttachments ) {
+    // @private
     this.model = model || new StubGeneExpressionModel(); // support creation without model for control panels and such
-    this.leftEdgeXOffset = leftEdgeXOffset;
-    this.pursueAttachments = pursueAttachments;
-    this.moleculeLength = numBasePairs * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS;
-    this.numberOfTwists = this.moleculeLength / GEEConstants.LENGTH_PER_TWIST;
+    this.leftEdgeXOffset = leftEdgeXOffset; // @private
+    this.pursueAttachments = pursueAttachments; // @private
+    this.moleculeLength = numBasePairs * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS; // @private
+    this.numberOfTwists = this.moleculeLength / GEEConstants.LENGTH_PER_TWIST; // @private
 
     // Points that, when connected, define the shape of the DNA strands.
-    this.strandPoints = []; // Array of DnaStrandPoint
+    this.strandPoints = []; // @private
 
     // Shadow of the points that define the strand shapes, used for rapid evaluation of any shape changes.
-    this.strandPointsShadow = [];
+    this.strandPointsShadow = []; // @private
 
     // The backbone strands that are portrayed in the view, which consist of lists of shapes. This is done so that the
     // shapes can be colored differently and layered in order to create a "twisted" look.
-    this.strand1Segments = []; // Array of DnaStrandSegment
-    this.strand2Segments = []; // Array of DnaStrandSegment
+    this.strand1Segments = []; // @public
+    this.strand2Segments = []; // @public
 
     // Base pairs within the DNA strand.
-    this.basePairs = []; // Array of BasePair
+    this.basePairs = []; // @public
 
-    this.genes = [];// Array of Genes on this strand of DNA.
+    this.genes = [];// @private
 
     // List of forced separations between the two strands.
-    this.separations = []; // @private - Array.{DnaSeparation}
+    this.separations = []; // @private
 
     // dirty bit which tells the view when to redraw DNA
-    this.redraw = false;
+    this.redraw = false; // @public
 
     // Add the initial set of shape-defining points for each of the two strands.  Points are spaced the same as the
     // base pairs.
@@ -98,11 +99,11 @@ define( function( require ) {
   return inherit( Object, DnaMolecule, {
 
     /**
-     * private
      * Get the index of the nearest base pair given an X position in model space.
      *
      * @param {number} xOffset
      * @returns {number}
+     * @private
      */
     getBasePairIndexFromXOffset: function( xOffset ) {
       // assert xOffset >= leftEdgeXOffset && xOffset < leftEdgeXOffset + moleculeLength;
@@ -116,17 +117,17 @@ define( function( require ) {
     },
 
     /**
-     * @private
      * Get the X location of the nearest base pair given an arbitrary X location in model coordinates
      * @param {number} xPos
      * @returns {number}
+     * @private
      */
     getNearestBasePairXOffset: function( xPos ) {
       return this.getBasePairXOffsetByIndex( this.getBasePairIndexFromXOffset( xPos ) );
     },
 
     /**
-     * Initialize the DNA stand segment lists.
+     * Initialize the DNA stand segment lists
      * @private
      */
     initializeStrandSegments: function() {
@@ -170,15 +171,16 @@ define( function( require ) {
      * @param {number} xPos
      * @param {number} offset
      * @returns {number}
+     * @private
      */
     getDnaStrandYPosition: function( xPos, offset ) {
       return Math.sin( ( xPos + offset ) / GEEConstants.LENGTH_PER_TWIST * Math.PI * 2 ) * GEEConstants.DNA_MOLECULE_DIAMETER / 2;
     },
 
     /**
-     * @private
      * Update the strand segment shapes based on things that might have changed, such as biomolecules attaching and
      * separating the strands or otherwise deforming the nominal double-helix shape.
+     * @private
      */
     updateStrandSegments: function() {
       var self = this;
@@ -270,6 +272,7 @@ define( function( require ) {
 
     /**
      * @param {number} dt
+     * @public
      */
     stepInTime: function( dt ) {
       this.updateStrandSegments();
@@ -279,7 +282,9 @@ define( function( require ) {
     },
 
     /**
+     * Returns the length of the DNA molecule
      * @returns {number}
+     * @public
      */
     getLength: function() {
       return this.moleculeLength;
@@ -290,6 +295,7 @@ define( function( require ) {
      * actually encode anything, so adding the gene essentially delineates where it is on the strand.
      *
      * @param {Gene} geneToAdd Gene to add to the DNA strand.
+     * @public
      */
     addGene: function( geneToAdd ) {
       this.genes.push( geneToAdd );
@@ -301,6 +307,7 @@ define( function( require ) {
      *
      * @param {number} basePairNumber
      * @returns {number}
+     * @public
      */
     getBasePairXOffsetByIndex: function( basePairNumber ) {
       return this.leftEdgeXOffset + GEEConstants.INTER_STRAND_OFFSET +
@@ -309,6 +316,7 @@ define( function( require ) {
 
     /**
      * @param {DnaSeparation} separation
+     * @public
      */
     addSeparation: function( separation ) {
       this.separations.push( separation );
@@ -316,6 +324,7 @@ define( function( require ) {
 
     /**
      * @param {DnaSeparation} separation
+     * @public
      */
     removeSeparation: function( separation ) {
       var index = this.separations.indexOf( separation );
@@ -325,7 +334,8 @@ define( function( require ) {
     },
 
     /**
-     * @returns {Array <Gene>}
+     * @returns {Array.<Gene>}
+     * @public
      */
     getGenes: function() {
       return this.genes;
@@ -333,20 +343,15 @@ define( function( require ) {
 
     /**
      * @returns {Gene}
+     * @public
      */
     getLastGene: function() {
       return this.genes[ this.genes.length - 1 ];
     },
 
     /**
-     * @returns {Array <BasePair>}
-     */
-    getBasePairs: function() {
-      return this.basePairs;
-    },
-
-    /**
      * @param {MobileBiomolecule} biomolecule
+     * @public
      */
     activateHints: function( biomolecule ) {
       this.genes.forEach( function( gene ) {
@@ -354,6 +359,10 @@ define( function( require ) {
       } );
     },
 
+    /**
+     * Deactivate the hints for the genes
+     * @public
+     */
     deactivateAllHints: function() {
       this.genes.forEach( function( gene ) {
         gene.deactivateHints();
@@ -365,6 +374,7 @@ define( function( require ) {
      * of the strand.
      *
      * @returns {Vector2}
+     * @public
      */
     getLeftEdgePos: function() {
       return new Vector2( this.leftEdgeXOffset, GEEConstants.DNA_MOLECULE_Y_POS );
@@ -372,8 +382,8 @@ define( function( require ) {
 
     /**
      * Get the x-position in model space of the leftmost edge of the DNA strand.
-     *
-     * @returns {Vector2}
+     * @returns {number}
+     * @public
      */
     getLeftEdgeXPos: function() {
       return this.leftEdgeXOffset;
@@ -381,8 +391,8 @@ define( function( require ) {
 
     /**
      * Get the x-position in model space of the rightmost edge of the DNA strand.
-     *
-     * @returns {Vector2}
+     * @returns {number}
+     * @public
      */
     getRightEdgeXPos: function() {
       return this.strandPoints[ this.strandPoints.length - 1 ].xPos;
@@ -390,11 +400,10 @@ define( function( require ) {
 
     /**
      * Get the y-position in model space of the topmost point in the edge of the DNA strand.
-     *
-     * @returns {Vector2}
+     * @returns {number}
+     * @public
      */
     getTopEdgeYPos: function() {
-      // assert statement here
       var dnaStrand = this.strand1Segments[ 0 ];
       var index = Math.floor( dnaStrand.length / 2 );
       return dnaStrand[ index ].y;
@@ -402,8 +411,8 @@ define( function( require ) {
 
     /**
      * Get the y-position in model space of the topmost point in the edge of the DNA strand.
-     *
-     * @returns {Vector2}
+     * @returns {number}
+     * @public
      */
     getBottomEdgeYPos: function() {
       // assert statement here
@@ -419,6 +428,7 @@ define( function( require ) {
      *
      * @param {TranscriptionFactor} transcriptionFactor
      * @returns {AttachmentSite}
+     * @public
      */
     considerProposalFromTranscriptionFactor: function( transcriptionFactor ) {
       var self = this;
@@ -436,8 +446,13 @@ define( function( require ) {
     },
 
     /**
+     * Consider an attachment proposal from a rna polymerase instance. To determine whether or not to accept or
+     * reject this proposal, the base pairs are scanned in order to determine whether there is an appropriate and
+     * available attachment site within the attachment distance
+     *
      * @param {RnaPolymerase} rnaPolymerase
      * @returns {AttachmentSite}
+     * @public
      */
     considerProposalFromRnaPolymerase: function( rnaPolymerase ) {
       var self = this;
@@ -456,14 +471,14 @@ define( function( require ) {
     },
 
     /**
-     * @private
      * Consider a proposal from a biomolecule. This is the generic version that avoids duplicated code.
      * @param {MobileBiomolecule} biomolecule
      * @param {number} maxAttachDistance
      * @param {Function<Number>} getAttachSiteForBasePair
      * @param {Function<Gene>} isOkayToAttach
      * @param {Function<Gene>} getAttachmentSite
-     * @returns {*}
+     * @returns {AttachmentSite}
+     * @private
      */
     considerProposalFromBiomolecule: function( biomolecule, maxAttachDistance, getAttachSiteForBasePair, isOkayToAttach,
                                                getAttachmentSite ) {
@@ -530,8 +545,10 @@ define( function( require ) {
         // The exponent effectively sets the relative weighting of one versus another. An exponent value of zero means
         // only the affinity matters, a value of 100 means it is pretty much entirely distance. A value of 2 is how
         // gravity works, so it appears kind of natural. Tweak as needed.
-        var as1Factor = attachmentSite1.getAffinity() / Math.pow( attachLocation.distance( attachmentSite1.locationProperty.get() ), exponent );
-        var as2Factor = attachmentSite2.getAffinity() / Math.pow( attachLocation.distance( attachmentSite2.locationProperty.get() ), exponent );
+        var as1Factor = attachmentSite1.getAffinity() /
+                        Math.pow( attachLocation.distance( attachmentSite1.locationProperty.get() ), exponent );
+        var as2Factor = attachmentSite2.getAffinity() /
+                        Math.pow( attachLocation.distance( attachmentSite2.locationProperty.get() ), exponent );
 
         if ( as2Factor > as1Factor ) {
           return 1;
@@ -548,13 +565,13 @@ define( function( require ) {
     },
 
     /**
-     * @private
      * Take a list of attachment sites and eliminate any of them that, if the given molecule attaches, it would end up
      * out of bounds or overlapping with another biomolecule that is already attached to the DNA strand.
      *
      * @param  {MobileBiomolecule} biomolecule - The biomolecule that is potentially going to attach to the provided
      * list of attachment sites.
-     * @param {Array} potentialAttachmentSites - Attachment sites where the given biomolecule could attach.
+     * @param {Array.<AttachmentSite>} potentialAttachmentSites
+     * @private
      */
     eliminateInvalidAttachmentSites: function( biomolecule, potentialAttachmentSites ) {
       var self = this;
@@ -576,10 +593,10 @@ define( function( require ) {
     },
 
     /**
-     * @private
      * @param {number} i
      * @param {TranscriptionFactorConfig} tfConfig
      * @returns {AttachmentSite}
+     * @private
      */
     getTranscriptionFactorAttachmentSiteForBasePairIndex: function( i, tfConfig ) {
       // See if this base pair is inside a gene.
@@ -595,11 +612,10 @@ define( function( require ) {
       }
     },
 
-
     /**
-     * @private
      * @param {number} i
      * @returns {AttachmentSite}
+     * @private
      */
     getRnaPolymeraseAttachmentSiteForBasePairIndex: function( i ) {
       // See if this base pair is inside a gene.
@@ -621,7 +637,8 @@ define( function( require ) {
      *
      * @param {TranscriptionFactor} transcriptionFactor
      * @param {AttachmentSite} attachmentSite
-     * @returns {Array <AttachmentSite>}
+     * @returns {Array.<AttachmentSite>}
+     * @public
      */
     getAdjacentAttachmentSitesTranscriptionFactor: function( transcriptionFactor, attachmentSite ) {
       var basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.locationProperty.get().x );
@@ -651,7 +668,8 @@ define( function( require ) {
      *
      * @param {RnaPolymerase} rnaPolymerase
      * @param  {AttachmentSite} attachmentSite
-     * @returns {Array <AttachmentSite>}
+     * @returns {Array.<AttachmentSite>}
+     * @public
      */
     getAdjacentAttachmentSitesRnaPolymerase: function( rnaPolymerase, attachmentSite ) {
       var basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.locationProperty.get().x );
@@ -675,9 +693,9 @@ define( function( require ) {
     },
 
     /**
-     * @private
      * @param {number} basePairIndex
      * @returns {Gene}
+     * @private
      */
     getGeneContainingBasePair: function( basePairIndex ) {
       var geneContainingBasePair = null;
@@ -696,7 +714,8 @@ define( function( require ) {
      * x offset.
      *
      * @param {number} xOffset
-     * @return
+     * @returns {AttachmentSite}
+     * @public
      */
     createDefaultAffinityAttachmentSite: function( xOffset ) {
       return new AttachmentSite( new Vector2( this.getNearestBasePairXOffset( xOffset ),
@@ -708,6 +727,7 @@ define( function( require ) {
      *
      * @param {Vector2} location
      * @returns {Gene} Gene at the location, null if no gene exists.
+     * @public
      */
     getGeneAtLocation: function( location ) {
       if ( !( location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&
@@ -729,6 +749,10 @@ define( function( require ) {
       return geneAtLocation;
     },
 
+    /**
+     * Resets the DNA Molecule
+     * @public
+     */
     reset: function() {
       this.genes.forEach( function( gene ) {
         gene.clearAttachmentSites();

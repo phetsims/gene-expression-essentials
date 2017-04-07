@@ -14,14 +14,13 @@ define( function( require ) {
   var ShapeSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeSegment' );
 
   /**
-   *
    * @param {Vector2} origin
    * @constructor
    */
   function SquareSegment( origin ) {
     // Maintain an explicit value for the length of the mRNA contained within this segment even though the bounds
     // essentially define said length.  This helps to avoid floating point issues.
-    this.containedLength = 0; //@private
+    this.containedLength = 0; // @private
     ShapeSegment.call( this );
 
     this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );

@@ -54,11 +54,11 @@ define( function( require ) {
       /**
        * @override
        * @returns {ProteinA}
+       * @public
        */
       getProteinPrototype: function() {
         return new ProteinA();
       }
-
     },
     {
       NUM_BASE_PAIRS: NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
