@@ -31,7 +31,7 @@ define( function( require ) {
   function FadeLabel( text, initiallyVisible, existenceStrengthProperty ) {
     var self = this;
     Node.call( self, { pickable: false } );
-    this.fadeDelta = 0;
+    this.fadeDelta = 0; // @private
     var opacity = 0;
 
     var label = new Text( text, { font: FONT, maxWidth: 80 } );
@@ -78,8 +78,8 @@ define( function( require ) {
   return inherit( Node, FadeLabel, {
 
     /**
-     *
      * @param {number} time // in millseconds
+     * @public
      */
     startFadeIn: function( time ) {
       if ( this.fadeOutTimer.isRunningProperty.get() ) {
@@ -90,8 +90,8 @@ define( function( require ) {
     },
 
     /**
-     *
      * @param {number} time // in millseconds
+     * @public
      */
     startFadeOut: function( time ) {
       if ( this.fadeInTimer.isRunningProperty.get() ) {

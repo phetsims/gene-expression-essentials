@@ -81,7 +81,9 @@ define( function( require ) {
 
   return inherit( MobileBiomoleculeNode, MessengerRnaNode, {
 
-    // @public
+    /**
+     * @public
+     */
     dispose: function() {
       this.disposeMessengerRnaNode();
       MobileBiomoleculeNode.prototype.dispose.call( this );

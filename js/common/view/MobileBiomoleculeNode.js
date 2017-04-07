@@ -138,7 +138,9 @@ define( function( require ) {
 
   return inherit( Node, MobileBiomoleculeNode, {
 
-    // @public
+    /**
+     * @public
+     */
     dispose: function() {
       this.disposeMobileBiomoleculeNode();
       Node.prototype.dispose.call( this );
@@ -147,6 +149,7 @@ define( function( require ) {
     /**
      * @param {MobileBiomolecule} mobileBiomolecule
      * @param {Object} options
+     * @private
      */
     getPathByMobileBioMoleculeType: function( mobileBiomolecule, options ) {
       var path = new Path( new Shape(), options );
@@ -156,9 +159,9 @@ define( function( require ) {
 
     /**
      * Get a shape that is positioned such that its center is at point (0, 0).
-     *
      * @param shape
      * @param {ModelViewTransform2} mvt
+     * @private
      */
     centeredShape: function( shape, mvt ) {
       var viewShape = mvt.modelToViewShape( shape );

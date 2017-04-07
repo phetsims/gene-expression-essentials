@@ -22,16 +22,20 @@ define( function( require ) {
    * @constructor
    */
   function FadeTimer( interval, listener ) {
-    this.interval = interval; // milliseconds
-    this.listener = listener;
-    this.isRunningProperty = new Property( false );
-    this._intervalId = null; // private
+    this.interval = interval; // milliseconds // @private
+    this.listener = listener; // @private
+    this.isRunningProperty = new Property( false ); // @public
+    this._intervalId = null; // @private
   }
 
   geneExpressionEssentials.register( 'FadeTimer', FadeTimer );
 
   return inherit( Object, FadeTimer, {
-    // Starts the timer. This is a no-op if the timer is already running.
+
+    /**
+     * Starts the timer. This is a no-op if the timer is already running.
+     * @public
+     */
     start: function() {
       var self = this;
       if ( !this.isRunningProperty.get() ) {
@@ -42,7 +46,10 @@ define( function( require ) {
       }
     },
 
-    // Stops the timer. This is a no-op if the timer is already stopped.
+    /**
+     * Stops the timer. This is a no-op if the timer is already stopped.
+     * @public
+     */
     stop: function() {
       if ( this.isRunningProperty.get() ) {
         Timer.clearInterval( this._intervalId );
@@ -51,7 +58,10 @@ define( function( require ) {
       }
     },
 
-    // Convenience function for restarting the timer.
+    /**
+     * Convenience function for restarting the timer.
+     * @public
+     */
     restart: function() {
       this.stop();
       this.start();

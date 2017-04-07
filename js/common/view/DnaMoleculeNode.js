@@ -61,6 +61,9 @@ define( function( require ) {
 
   return inherit( Node, DnaMoleculeNode, {
 
+    /**
+     * @public
+     */
     step: function() {
       this.dnaBackboneLayer.step();
     }

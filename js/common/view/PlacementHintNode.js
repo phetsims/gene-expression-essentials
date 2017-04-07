@@ -71,7 +71,9 @@ define( function( require ) {
 
   return inherit( Node, PlacementHintNode, {
 
-    // @public
+    /**
+     * @private
+     */
     dispose: function() {
       this.disposePlacementHintNode();
       Node.prototype.dispose.call( this );
