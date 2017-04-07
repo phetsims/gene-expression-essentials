@@ -38,17 +38,18 @@ define( function( require ) {
 
     var self = this;
     // Variables used to implement the flashing behavior.
-    this.transitionCountdown = 0;
+    this.transitionCountdown = 0; // @private
 
-    this.flashingNode = flashingNode;
-    this.flashColor = flashColor;
-    this.normalColor = normalColor;
-    this.flashOnAtStart = flashOnAtStart;
-    this.flashOnAtEnd = flashOnAtEnd;
-    this.numFlashes = numFlashes;
-    this.timerHandle = null;
+    this.flashingNode = flashingNode; // @private
+    this.flashColor = flashColor; // @private
+    this.normalColor = normalColor; // @private
+    this.flashOnAtStart = flashOnAtStart; // @private
+    this.flashOnAtEnd = flashOnAtEnd; // @private
+    this.numFlashes = numFlashes; // @private
+    this.timerHandle = null; // @private
 
     var time = 0;
+    // @private
     this.timerListener = function() {
       self.timerHandle = null;
       if ( self.flashingNode.fill === self.flashColor ) {
@@ -67,15 +68,21 @@ define( function( require ) {
         self.timerHandle = Timer.setTimeout( self.timerListener, time );
       }
     };
-
   }
 
   inherit( Object, FlashController, {
 
+    /**
+     * @returns {boolean}
+     * @public
+     */
     isFlashing: function() {
       return this.timerHandle !== null;
     },
 
+    /**
+     * @public
+     */
     stop: function() {
       if ( this.timerHandle ) {
         Timer.clearTimeout( this.timerHandle );
@@ -83,6 +90,9 @@ define( function( require ) {
       this.timerHandle = null;
     },
 
+    /**
+     * @public
+     */
     forceFlashOff: function() {
       if ( this.isFlashing() ) {
         this.stop();
@@ -90,6 +100,9 @@ define( function( require ) {
       this.setFlashOn( false );
     },
 
+    /**
+     * @public
+     */
     restart: function() {
       this.stop();
       this.setFlashOn( this.flashOnAtStart );
@@ -101,13 +114,12 @@ define( function( require ) {
     },
 
     /**
-     * // private
      * @param {boolean} flashOn
+     * @private
      */
     setFlashOn: function( flashOn ) {
       this.flashingNode.fill = flashOn ? this.flashColor : this.normalColor;
     }
-
   } );
 
   /**
@@ -130,21 +142,22 @@ define( function( require ) {
     } );
     self.addChild( flashingNode );
     this.flashController = new FlashController( flashingNode, INVISIBLE_COLOR, flashColor, onTime, offTime, numFlashes, visibleAtStart, visibleAtEnd );
-
   }
-
 
   geneExpressionEssentials.register( 'FlashingShapeNode', FlashingShapeNode );
 
   return inherit( Node, FlashingShapeNode, {
+
+    /**
+     * @public
+     */
     startFlashing: function() {
       this.flashController.restart();
     },
 
-    stopFlashing: function() {
-      this.flashController.stop();
-    },
-
+    /**
+     * @public
+     */
     forceFlashOff: function() {
       this.flashController.forceFlashOff();
     }

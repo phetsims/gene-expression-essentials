@@ -31,43 +31,50 @@ define( function( require ) {
   return inherit( Protein, ProteinB, {
 
     /**
+     * @override
      * @returns {ProteinB}
+     * @public
      */
     createInstance: function() {
       return new ProteinB( this.model );
     },
 
     /**
-     * //protected
+     * @override
      * @param {number} growthFactor
      * @returns {Shape}
+     * @public
      */
     getUntranslatedShape: function( growthFactor ) {
       return this.createShape( growthFactor );
     },
 
     /**
+     * @override
      * @param {Vector2} attachmentPointLocation
+     * @public
      */
     setAttachmentPointPosition: function( attachmentPointLocation ) {
-      // Note: This is specific to this protein's shape, and will need to be
-      // adjusted if the protein's shape algorithm changes.
+      // Note: This is specific to this protein's shape, and will need to be adjusted if the protein's shape algorithm
+      // changes.
       this.setAttachmentPointPositionXY( attachmentPointLocation.x, attachmentPointLocation.y );
     },
 
     /**
-     *
      * @param {number} attachmentPointLocationX
      * @param {number} attachmentPointLocationY
+     * @private
      */
     setAttachmentPointPositionXY: function( attachmentPointLocationX, attachmentPointLocationY ) {
-      // Note: This is specific to this protein's shape, and will need to be
-      // adjusted if the protein's shape algorithm changes.
+      // Note: This is specific to this protein's shape, and will need to be adjusted if the protein's shape algorithm
+      // changes.
       this.setPosition( new Vector2( attachmentPointLocationX + FULL_GROWN_WIDTH * 0.12 * this.getFullSizeProportion(),
         attachmentPointLocationY + FULL_GROWN_WIDTH * 0.45 * this.getFullSizeProportion() ) );
     },
+
     /**
      * @returns {Shape}
+     * @private
      */
     createInitialShape: function() {
       return this.createShape( 0 );
@@ -76,6 +83,7 @@ define( function( require ) {
     /**
      * @param {number} growthFactor
      * @returns {Shape}
+     * @private
      */
     createShape: function( growthFactor ) {
       var currentWidth = Util.clamp( growthFactor, 0.01, 1 ) * FULL_GROWN_WIDTH;
@@ -89,9 +97,5 @@ define( function( require ) {
       path.close();
       return path;
     }
-
-
   } );
-
-
 } );

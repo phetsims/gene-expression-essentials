@@ -88,8 +88,8 @@ define( function( require ) {
 
     // Add the placement hints that go on the DNA molecule. These exist on their own layer so that they can be seen above
     // any molecules that are attached to the DNA strand.
-    _.each( model.getDnaMolecule().getGenes(), function( gene ) {
-      _.each( gene.getPlacementHints(), function( placementHint ) {
+    model.getDnaMolecule().getGenes().forEach( function( gene ) {
+      gene.getPlacementHints().forEach( function( placementHint ) {
         placementHintLayer.addChild( new PlacementHintNode( self.mvt, placementHint ) );
       } );
     } );
@@ -101,7 +101,7 @@ define( function( require ) {
     backControlsLayer.addChild( proteinCollectionNode );
 
     // Add any initial molecules.
-    _.each( model.mobileBiomoleculeList, function( biomolecule ) {
+    model.mobileBiomoleculeList.forEach( function( biomolecule ) {
       topBiomoleculeLayer.addChild( new MobileBiomoleculeNode( self.mvt, biomolecule ) );
     } );
 
@@ -141,7 +141,7 @@ define( function( require ) {
 
 
     // Add the tool boxes from which the various biomolecules can be moved  into the active area of the sim.
-    _.each( model.getDnaMolecule().getGenes(), function( gene ) {
+    model.getDnaMolecule().getGenes().forEach( function( gene ) {
       var biomoleculeToolBoxNode = new BiomoleculeToolBoxNode( model, self, self.mvt, gene );
       biomoleculeToolBoxNode.x = self.mvt.modelToViewX( gene.getCenterX() ) - self.layoutBounds.getWidth() / 2 + INSET;
       biomoleculeToolBoxNode.y = INSET;
@@ -255,6 +255,9 @@ define( function( require ) {
   geneExpressionEssentials.register( 'ManualGeneExpressionScreenView', ManualGeneExpressionScreenView );
 
   return inherit( ScreenView, ManualGeneExpressionScreenView, {
+    /**
+     * @public
+     */
     step: function() {
       this.dnaMoleculeNode.step();
     }

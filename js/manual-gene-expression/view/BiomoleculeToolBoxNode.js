@@ -39,7 +39,7 @@ define( function( require ) {
   var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactorHtml' );
 
   /**
-   * Convenience class for creating row labels.
+   * Convenience function for creating row labels.
    */
   function RowLabel( text ) {
     return new MultiLineText( text, {
@@ -49,7 +49,6 @@ define( function( require ) {
   }
 
   /**
-   *
    * @param {ManualGeneExpressionModel} model
    * @param {ManualGeneExpressionScreenView} canvas
    * @param {ModelViewTransform2} mvt
@@ -59,9 +58,9 @@ define( function( require ) {
   function BiomoleculeToolBoxNode( model, canvas, mvt, gene ) {
     var self = this;
 
-    self.model = model;
-    self.canvas = canvas;
-    self.mvt = mvt;
+    self.model = model; //@private
+    self.canvas = canvas; //@private
+    self.mvt = mvt; //@private
     self.biomoleculeCreatorNodeList = [];
 
     // Add the title.
@@ -141,10 +140,8 @@ define( function( require ) {
       spacing: 10
     } );
 
-
     // Negative transcription factor(s).
     transcriptionFactors = gene.getTranscriptionFactorConfigs();
-
 
     var negativeTranscriptBoxNodes = [];
     for ( i = 0; i < transcriptionFactors.length; i++ ) {
@@ -195,6 +192,9 @@ define( function( require ) {
 
   return inherit( Panel, BiomoleculeToolBoxNode, {
 
+    /**
+     * @public reset the toolbox
+     */
     reset: function() {
       var bioMoleculeCreatorNodeLength = this.biomoleculeCreatorNodeList.length;
       for ( var i = 0; i < bioMoleculeCreatorNodeLength; i++ ) {
@@ -207,6 +207,7 @@ define( function( require ) {
      * the same time.
      * @param {BiomoleculeCreatorNode} biomoleculeCreatorNode
      * @returns BiomoleculeCreatorNode
+     * @private
      */
     addCreatorNode: function( biomoleculeCreatorNode ) {
       this.biomoleculeCreatorNodeList.push( biomoleculeCreatorNode );

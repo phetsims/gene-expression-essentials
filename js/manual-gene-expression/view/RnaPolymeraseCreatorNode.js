@@ -55,5 +55,4 @@ define( function( require ) {
   geneExpressionEssentials.register( 'RnaPolymeraseCreatorNode', RnaPolymeraseCreatorNode );
 
   return inherit( BiomoleculeCreatorNode, RnaPolymeraseCreatorNode );
-
 } );

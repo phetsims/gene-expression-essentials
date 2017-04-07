@@ -48,6 +48,7 @@ define( function( require ) {
 
     // DNA strand, which is where the genes reside, where the polymerase does its transcription, and where a lot of the
     // action takes place. Initialize the DNA molecule.
+    // @private
     this.dnaMolecule = new DnaMolecule(
       this,
       NUM_BASE_PAIRS_ON_DNA_STRAND,
@@ -59,24 +60,24 @@ define( function( require ) {
     this.dnaMolecule.addGene( new GeneC( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND * 3 / 4 - GeneC.NUM_BASE_PAIRS / 2 ) );
 
     // list of mobile biomolecules in the model, excluding mRNA
-    this.mobileBiomoleculeList = new ObservableArray();
+    this.mobileBiomoleculeList = new ObservableArray(); // @public
 
     // list of mRNA molecules in the sim - These are kept separate because they are treated a bit differently than the
     // other mobile biomolecules.
-    this.messengerRnaList = new ObservableArray();
+    this.messengerRnaList = new ObservableArray(); // @public
 
     // The gene that the user is focusing on, other gene activity is suspended.  Start with the 0th gene in the DNA
     // (leftmost). Initialize variables that are dependent upon the DNA.
-    this.activeGeneProperty = new Property( this.dnaMolecule.getGenes()[ 0 ] );
+    this.activeGeneProperty = new Property( this.dnaMolecule.getGenes()[ 0 ] ); // @public(read-only)
 
     // List of areas where biomolecules should not be allowed.  These are generally populated by the view in order to
     // keep biomolecules from wandering over the tool boxes and such.
-    this.offLimitsMotionSpaces = [];
+    this.offLimitsMotionSpaces = []; //@private
 
     // Properties that track how many of the various proteins have been collected.
-    this.proteinACollectedProperty = new Property( 0 );
-    this.proteinBCollectedProperty = new Property( 0 );
-    this.proteinCCollectedProperty = new Property( 0 );
+    this.proteinACollectedProperty = new Property( 0 ); // @public(read-only)
+    this.proteinBCollectedProperty = new Property( 0 ); // @public(read-only)
+    this.proteinCCollectedProperty = new Property( 0 ); // @public(read-only)
 
     // Map of the protein collection count properties to the protein types, used to obtain the count property based on
     // the type of protein.
@@ -88,7 +89,7 @@ define( function( require ) {
 
     // Rectangle that describes the "protein capture area".  When a protein is dropped by the user over this area, it
     // is considered to be captured.
-    this.proteinCaptureArea = new Bounds2( 0, 0, 1, 1 );
+    this.proteinCaptureArea = new Bounds2( 0, 0, 1, 1 ); // @private
   }
 
   geneExpressionEssentials.register( 'ManualGeneExpressionModel', ManualGeneExpressionModel );
@@ -107,6 +108,10 @@ define( function( require ) {
       this.stepInTime( dt );
     },
 
+    /**
+     * @param {number} dt
+     * @private
+     */
     stepInTime: function( dt ) {
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         mobileBiomolecule.stepInTime( dt );
@@ -121,22 +126,31 @@ define( function( require ) {
 
     /**
      * @returns {DnaMolecule}
+     * @public
      */
     getDnaMolecule: function() {
       return this.dnaMolecule;
     },
 
+    /**
+     * Switch to the previous gene
+     * @public
+     */
     previousGene: function() {
       this.switchToGeneRelative( -1 );
     },
 
+    /**
+     * Switch to the next gene
+     * @public
+     */
     nextGene: function() {
       this.switchToGeneRelative( +1 );
     },
 
     /**
-     *
-     * @param {Rectangle} newCaptureAreaBounds
+     * @param {Bounds2} newCaptureAreaBounds
+     * @public
      */
     setProteinCaptureArea: function( newCaptureAreaBounds ) {
       this.proteinCaptureArea.set( newCaptureAreaBounds );
@@ -145,14 +159,15 @@ define( function( require ) {
     /**
      * @param {string} proteinType
      * @returns {Property}
+     * @public
      */
     getCollectedCounterForProteinType: function( proteinType ) {
       return this.mapProteinClassToCollectedCount[ proteinType ];
     },
 
     /**
+     * @param {number} i
      * @private
-     * @param {int} i
      */
     switchToGeneRelative: function( i ) {
       var genes = this.dnaMolecule.getGenes();
@@ -160,20 +175,25 @@ define( function( require ) {
       this.activeGeneProperty.set( genes[ index ] );
     },
 
+    /**
+     * @param {number} i
+     * @private
+     */
     activateGene: function( i ) {
       this.activeGeneProperty.set( this.dnaMolecule.getGenes()[ i ] );
     },
 
     /**
+     * @override
      * @param {MobileBiomolecule} mobileBiomolecule
+     * @public
      */
     addMobileBiomolecule: function( mobileBiomolecule ) {
       var self = this;
       self.mobileBiomoleculeList.add( mobileBiomolecule );
       mobileBiomolecule.setMotionBounds( self.getBoundsForActiveGene() );
 
-      // Hook up an observer that will activate and deactivate placement
-      // hints for this molecule.
+      // Hook up an observer that will activate and deactivate placement hints for this molecule.
       mobileBiomolecule.userControlledProperty.link( function( isUserControlled, wasUserControlled ) {
 
         if ( isUserControlled ) {
@@ -200,22 +220,21 @@ define( function( require ) {
         }
       } );
 
-      // Hook up an observer that will remove this biomolecule from the
-      // model if its existence strength reaches zero.
+      // Hook up an observer that will remove this biomolecule from the model if its existence strength reaches zero.
       mobileBiomolecule.existenceStrengthProperty.link( function( existenceStrength ) {
         if ( existenceStrength === 0 ) {
           self.removeMobileBiomolecule( mobileBiomolecule );
           mobileBiomolecule.existenceStrengthProperty.unlink( this );
         }
       } );
-
     },
 
     /**
      * Get a list of all mobile biomolecules that overlap with the provided shape.
      *
      * @param {Bounds2} testShapeBounds - Bounds, in model coordinate, to test for overlap.
-     * @returns {Array} List of molecules that overlap with the provided bounds.
+     * @returns {Array.<MobileBiomolecule>} List of molecules that overlap with the provided bounds.
+     * @public
      */
     getOverlappingBiomolecules: function( testShapeBounds ) {
 
@@ -233,9 +252,10 @@ define( function( require ) {
 
 
     /**
-     *  Capture the specified protein, which means that it is actually removed from the model and the associated
-     *  capture count property is incremented.
+     * Capture the specified protein, which means that it is actually removed from the model and the associated
+     * capture count property is incremented.
      * @param {Protein} protein
+     * @private
      */
     captureProtein: function( protein ) {
       if ( protein instanceof ProteinA ) {
@@ -251,9 +271,9 @@ define( function( require ) {
     },
 
     /**
-     *
-     * @param {Function} proteinClassType
+     * @param {Protein} proteinClassType
      * @returns {number}
+     * @public
      */
     getProteinCount: function( proteinClassType ) {
       var count = 0;
@@ -267,24 +287,42 @@ define( function( require ) {
 
     /**
      * @param {MobileBiomolecule} mobileBiomolecule
+     * @public
      */
     removeMobileBiomolecule: function( mobileBiomolecule ) {
       this.mobileBiomoleculeList.remove( mobileBiomolecule );
     },
 
+    /**
+     * @param {MessengerRna} messengerRna
+     * @public
+     */
     addMessengerRna: function( messengerRna ) {
       this.messengerRnaList.add( messengerRna );
       messengerRna.setMotionBounds( this.getBoundsForActiveGene() );
     },
 
+    /**
+     * @param {MessengerRna} messengerRnaBeingDestroyed
+     * @public
+     */
     removeMessengerRna: function( messengerRnaBeingDestroyed ) {
       this.messengerRnaList.remove( messengerRnaBeingDestroyed );
     },
 
+    /**
+     * @override
+     * @returns {ObservableArray}
+     * @public
+     */
     getMessengerRnaList: function() {
       return this.messengerRnaList;
     },
 
+    /**
+     * Resets the model to initial state
+     * @public
+     */
     reset: function() {
       this.mobileBiomoleculeList.clear();
       this.messengerRnaList.clear();
@@ -299,7 +337,8 @@ define( function( require ) {
      * Add a space where the biomolecules should not be allowed to wander. This is generally used by the view to prevent
      * biomolecules from moving over tool boxes and such.
      *
-     * @param newOffLimitsSpace
+     * @param {Bounds2} newOffLimitsSpace
+     * @public
      */
     addOffLimitsMotionSpace: function( newOffLimitsSpace ) {
       for ( var i = 0; i < this.offLimitsMotionSpaces.length; i++ ) {
@@ -317,6 +356,7 @@ define( function( require ) {
     /**
      * Get the motion bounds for any biomolecule that is going to be associated with the currently active gene.  This is
      * used to keep the biomolecules from wandering outside of the area that the user can see.
+     * @private
      */
     getBoundsForActiveGene: function() {
 
@@ -337,6 +377,5 @@ define( function( require ) {
       } );
       return new MotionBounds( bounds );
     }
-
   } );
 } );

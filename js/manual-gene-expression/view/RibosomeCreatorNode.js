@@ -49,12 +49,9 @@ define( function( require ) {
 
       biomoleculeBoxNode
     );
-
   }
 
   geneExpressionEssentials.register( 'RibosomeCreatorNode', RibosomeCreatorNode );
 
   return inherit( BiomoleculeCreatorNode, RibosomeCreatorNode );
-
-} )
-;
+} );

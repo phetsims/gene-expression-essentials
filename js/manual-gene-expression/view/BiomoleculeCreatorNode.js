@@ -32,28 +32,25 @@ define( function( require ) {
   function BiomoleculeCreatorNode( appearanceNode, canvas, mvt, moleculeCreator, moleculeDestroyer, enclosingToolBoxNode ) {
     var self = this;
     Node.call( self, { cursor: 'pointer' } );
-    self.canvas = canvas;
-    self.mvt = mvt;
-    self.appearanceNode = appearanceNode;
-    self.biomolecule = null;
+    self.canvas = canvas; // @private
+    self.mvt = mvt; // @private
+    self.appearanceNode = appearanceNode; // @private
+    self.biomolecule = null; // @private
 
-
-    // Appearance Node is a bioMolecule Node which has its own DragHandler, since the node
-    // within the creator Node only serves as a icon, it shouldn't be pickable -
-    // otherwise the DragHandler of the BioMolecule takes over the Input Listener of the creator Node - Ashraf
+    // Appearance Node is a bioMolecule Node which has its own DragHandler, since the node within the creator Node only
+    // serves as a icon, it shouldn't be pickable - otherwise the DragHandler of the BioMolecule takes over the
+    // Input Listener of the creator Node
 
     appearanceNode.pickable = false;
     self.mouseArea = appearanceNode.bounds;
     self.touchArea = appearanceNode.bounds;
-
 
     self.addInputListener( new SimpleDragHandler( {
 
       // Allow moving a finger (touch) across this node to interact with it
       allowTouchSnag: true,
       start: function( event, trail ) {
-        //Set the node to look faded out so that something is still
-        // visible.  This acts a a legend in the tool box.
+        //Set the node to look faded out so that something is still visible. This acts as a legend in the tool box.
         self.pickable = false;
         self.appearanceNode.opacity = 0.3;
 
@@ -68,9 +65,9 @@ define( function( require ) {
         var finalBiomolecule = self.biomolecule;
         var userControlledPropertyObserver = function( userControlled ) {
           if ( !userControlled ) {
-            // The user has released this biomolecule.  If it  was dropped above the return bounds (which are
-            // generally the bounds of the tool box where this creator node resides),then the model element
-            // should be removed from the model.
+            // The user has released this biomolecule.  If it  was dropped above the return bounds (which are generally
+            // the bounds of the tool box where this creator node resides),then the model element should be removed from
+            // the model.
             if ( enclosingToolBoxNode.bounds.containsPoint( mvt.modelToViewPosition( finalBiomolecule.getPosition() ) ) ) {
               moleculeDestroyer( finalBiomolecule );
               finalBiomolecule.userControlledProperty.unlink( userControlledPropertyObserver );
@@ -93,16 +90,18 @@ define( function( require ) {
       }
 
     } ) );
-
     // Add the main node with which the user will interact.
     self.addChild( appearanceNode );
-
   }
 
   geneExpressionEssentials.register( 'BiomoleculeCreatorNode', BiomoleculeCreatorNode );
 
   return inherit( Node, BiomoleculeCreatorNode, {
 
+    /**
+     * Resets the Biomolecules as legends
+     * @public
+     */
     reset: function() {
       if ( this.biomolecule !== null ) {
         this.biomolecule.userControlledProperty.unlink( this.userControlledPropertyObserver );
@@ -113,9 +112,9 @@ define( function( require ) {
     },
 
     /**
-     * Needs to take care ViewPortOffset TODO
-     * @param point
-     * @returns {*}
+     * @param {Vector2} point
+     * @returns {Vector2}
+     * @private
      */
     getModelPosition: function( point ) {
       var canvasPosition = this.canvas.globalToLocalPoint( point );

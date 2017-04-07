@@ -60,7 +60,6 @@ define( function( require ) {
         new ProteinCaptureNode( model, 'ProteinC', transform, captureNodeBackgroundSize ) ],
       spacing: 0
     } ) );
-
   }
 
   geneExpressionEssentials.register( 'ProteinCollectionArea', ProteinCollectionArea );

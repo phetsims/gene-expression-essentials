@@ -145,5 +145,4 @@ define( function( require ) {
   geneExpressionEssentials.register( 'ProteinCollectionNode', ProteinCollectionNode );
 
   return inherit( Node, ProteinCollectionNode );
-
 } );

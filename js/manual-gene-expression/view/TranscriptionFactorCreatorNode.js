@@ -28,7 +28,6 @@ define( function( require ) {
     new Vector2( 0, 0 ), SCALING_FACTOR );
 
   /**
-   *
    * @param {BiomoleculeToolBoxNode} biomoleculeBoxNode
    * @param {TranscriptionFactorConfig} tfConfig
    * @constructor
@@ -51,11 +50,9 @@ define( function( require ) {
       },
       biomoleculeBoxNode
     );
-
   }
 
   geneExpressionEssentials.register( 'TranscriptionFactorCreatorNode', TranscriptionFactorCreatorNode );
 
   return inherit( BiomoleculeCreatorNode, TranscriptionFactorCreatorNode );
-
 } );
