@@ -60,7 +60,6 @@ define( function( require ) {
             trackSize: new Dimension2( 130, 5 )
           } ) ]
     } ) );
-
   }
 
   geneExpressionEssentials.register( 'ConcentrationController', ConcentrationController );

@@ -80,7 +80,6 @@ define( function( require ) {
       spacing: 10
     } );
 
-
     Panel.call( self, contentNode, {
       fill: new Color( 250, 250, 250 ),
       lineWidth: 2,

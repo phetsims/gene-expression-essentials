@@ -248,6 +248,10 @@ define( function( require ) {
   geneExpressionEssentials.register( 'MessengerRnaProductionScreenView', MessengerRnaProductionScreenView );
 
   return inherit( ScreenView, MessengerRnaProductionScreenView, {
+    /**
+     * Step function for this view
+     * @public
+     */
     step: function() {
       this.dnaMoleculeNode.step();
     }

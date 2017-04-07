@@ -105,7 +105,6 @@ define( function( require ) {
     );
 
     Panel.call( self, contents, panelOptions );
-
   }
 
   geneExpressionEssentials.register( 'PolymeraseAffinityControlPanel', PolymeraseAffinityControlPanel );
