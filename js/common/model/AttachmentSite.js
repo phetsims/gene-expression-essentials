@@ -12,9 +12,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BoundedDoubleProperty = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BoundedDoubleProperty' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
 
   // constants
@@ -35,7 +35,7 @@ define( function( require ) {
     this.attachedOrAttachingMoleculeProperty = new Property( null ); // @public
 
     // Property that represents the affinity of the attachment site.
-    this.affinityProperty = new BoundedDoubleProperty( initialAffinity, 0.0, 1.0 ); // @private
+    this.affinityProperty = new NumberProperty( initialAffinity, { range: { min: 0.0, max: 1.0 } } ); // @private
   }
 
   geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );
