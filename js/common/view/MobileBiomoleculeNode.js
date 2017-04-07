@@ -104,7 +104,7 @@ define( function( require ) {
     // go between it and the DNA molecule. Otherwise odd-looking things can happen.
     mobileBiomolecule.attachedToDnaProperty.link( handleAttachedToDnaChanged );
 
-    var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, self, mvt );
+    var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, mvt );
     // Drag handling.
     self.addInputListener( dragHandler );
 

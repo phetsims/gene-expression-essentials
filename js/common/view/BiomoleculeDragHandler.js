@@ -16,11 +16,10 @@ define( function( require ) {
   /**
    *
    * @param {MobileBiomolecule} biomolecule
-   * @param {Node} node
    * @param {ModelViewTransform2} mvt
    * @constructor
    */
-  function BiomoleculeDragHandler( biomolecule, node, mvt ) {
+  function BiomoleculeDragHandler( biomolecule, mvt ) {
     var self = this;
     SimpleDragHandler.call( self, {
       allowTouchSnag: true,
