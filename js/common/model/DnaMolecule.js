@@ -106,7 +106,7 @@ define( function( require ) {
      * @private
      */
     getBasePairIndexFromXOffset: function( xOffset ) {
-      // assert xOffset >= leftEdgeXOffset && xOffset < leftEdgeXOffset + moleculeLength;
+      assert && assert( xOffset >= this.leftEdgeXOffset && xOffset < this.leftEdgeXOffset + this.moleculeLength );
       xOffset = Util.clamp(
         xOffset,
         this.leftEdgeXOffset,
