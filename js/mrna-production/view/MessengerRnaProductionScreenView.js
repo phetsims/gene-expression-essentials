@@ -62,6 +62,7 @@ define( function( require ) {
     // Add some layers for enforcing some z-order relationships needed in order to keep things looking good.
     var dnaLayer = new Node();
     this.modelRootNode.addChild( dnaLayer );
+    dnaLayer.setPickable( false );
     var biomoleculeToolBoxLayer = new Node();
     this.modelRootNode.addChild( biomoleculeToolBoxLayer );
     var messengerRnaLayer = new Node();
