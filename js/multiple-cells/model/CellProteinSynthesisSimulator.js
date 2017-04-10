@@ -28,7 +28,11 @@ define( function( require ) {
   var DEFAULT_MRNA_DEGRADATION_RATE = 0.01;
   var MRNA_DEGRADATION_RATE_RANGE = new Range( DEFAULT_MRNA_DEGRADATION_RATE / 1000, DEFAULT_MRNA_DEGRADATION_RATE * 1000 );
 
-
+  /**
+   *
+   * @param {number} ribosomeCount
+   * @constructor
+   */
   function CellProteinSynthesisSimulator( ribosomeCount ) {
     this.objectCounts = [
       20, //gene count
@@ -63,8 +67,8 @@ define( function( require ) {
 
     /**
      * Sets the number of transcription factors
-     *
-     * @param tfCount number of transcription factors
+     * @param {number} tfCount number of transcription factors
+     * @public
      */
     setTranscriptionFactorCount: function( tfCount ) {
       // Parameter checking.
@@ -73,8 +77,8 @@ define( function( require ) {
     },
     /**
      * Sets the number of polymerases
-     *
-     * @param polymeraseCount number of polymerases
+     * @param {number} polymeraseCount number of polymerases
+     * @public
      */
     setPolymeraseCount: function( polymeraseCount ) {
       this.objectCounts[ 2 ] = polymeraseCount;
@@ -82,8 +86,8 @@ define( function( require ) {
 
     /**
      * Sets the rate that transcription factors associate with genes
-     *
-     * @param newRate
+     * @param {number} newRate
+     * @public
      */
     setGeneTranscriptionFactorAssociationRate: function( newRate ) {
       assert && assert( TF_ASSOCIATION_PROBABILITY_RANGE.contains( newRate ) );
@@ -92,8 +96,8 @@ define( function( require ) {
 
     /**
      * Sets the rate constant for the polymerase to bind to the gene
-     *
-     * @param newRate the rate for polymerase binding
+     * @param {number} newRate the rate for polymerase binding
+     * @public
      */
     setPolymeraseAssociationRate: function( newRate ) {
       assert && assert( POLYMERASE_ASSOCIATION_PROBABILITY_RANGE.contains( newRate ) );
@@ -102,18 +106,26 @@ define( function( require ) {
 
     /**
      * Sets the rate constant for RNA/ribosome association
-     *
-     * @param newRate the rate at which RNA binds to a ribosome
+     * @param {number} newRate the rate at which RNA binds to a ribosome
+     * @public
      */
     setRNARibosomeAssociationRate: function( newRate ) {
       this.reactionProbabilities[ 5 ] = newRate;
     },
 
+    /**
+     * @param {number} proteinDegradationRate
+     * @public
+     */
     setProteinDegradationRate: function( proteinDegradationRate ) {
       assert && assert( PROTEIN_DEGRADATION_RANGE.contains( proteinDegradationRate ) );
       this.reactionProbabilities[ 8 ] = proteinDegradationRate;
     },
 
+    /**
+     * @param {number} mrnaDegradationRate
+     * @public
+     */
     setMrnaDegradationRate: function( mrnaDegradationRate ) {
       assert && assert( MRNA_DEGRADATION_RATE_RANGE.contains( mrnaDegradationRate ) );
       this.reactionProbabilities[ 9 ] = mrnaDegradationRate;
@@ -122,7 +134,8 @@ define( function( require ) {
     /**
      * Moves forward one time step of specified length
      *
-     * @param dt the length of this step through time
+     * @param {number} dt the length of this step through time
+     * @public
      */
     stepInTime: function( dt ) {
       var accumulatedTime = 0.0;
@@ -134,11 +147,11 @@ define( function( require ) {
     },
 
     /**
-     * Simulates one reaction if the wait time before that reaction occurs is less than
-     * maxTime
+     * Simulates one reaction if the wait time before that reaction occurs is less than maxTime
      *
      * @param maxTime the maximum of time to wait for this reaction to occur
      * @return the amount of time evolved in the system
+     * @private
      */
     simulateOneReaction: function( maxTime ) {
       var a = this.calculateA();
@@ -161,6 +174,12 @@ define( function( require ) {
       return tau;
     },
 
+    /**
+     * Calculates sum of the array elements
+     * @param {Array.<number>} array
+     * @returns {number}
+     * @private
+     */
     sum: function( array ) {
       var total = 0;
       for ( var i = 0; i < array.length; i++ ) {
@@ -169,6 +188,10 @@ define( function( require ) {
       return total;
     },
 
+    /**
+     * @returns {Array.<number>}
+     * @private
+     */
     calculateA: function() {
       var h = [
         this.objectCounts[ 0 ] * this.objectCounts[ 1 ],
@@ -189,6 +212,10 @@ define( function( require ) {
       return h;
     },
 
+    /**
+     * @param {number} mu
+     * @private
+     */
     conductReaction: function( mu ) {
       switch( mu ) {
         case 0:
@@ -247,14 +274,14 @@ define( function( require ) {
 
     /**
      * Get the number of proteins currently in this cell.
-     *
      * @return protein count
+     * @public
      */
     getProteinCount: function() {
       return this.objectCounts[ 8 ];
     }
-
-  }, {// Statics
+  }, {
+    // Statics
     DefaultTranscriptionFactorCount: DEFAULT_TRANSCRIPTION_FACTOR_COUNT,
     DefaultProteinDegradationRate: DEFAULT_PROTEIN_DEGRADATION_RATE,
     DefaultTFAssociationProbability: DEFAULT_TF_ASSOCIATION_PROBABILITY,

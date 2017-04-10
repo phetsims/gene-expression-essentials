@@ -288,11 +288,10 @@ define( function( require ) {
   return inherit( ScreenView, MultipleCellsScreenView, {
     /**
      * Step function for the view
-     *
-     * @param  {type} dt description
+     * @param  {number} dt
+     * @public
      */
     step: function( dt ) {
-
       if ( this.model.clockRunningProperty.get() ) {
         this.proteinLevelChartNode.addDataPoint( dt );
       }

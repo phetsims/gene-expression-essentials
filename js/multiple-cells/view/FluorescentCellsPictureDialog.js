@@ -69,9 +69,15 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'FluorescentCellsPictureDialog', FluorescentCellsPictureDialog );
   return inherit( Dialog, FluorescentCellsPictureDialog, {
+    /**
+     * @public
+     */
     hide: function() {
       this.shownProperty.value = false;
     },
+    /**
+     * @public
+     */
     show: function() {
       this.shownProperty.value = true;
     }

@@ -1,4 +1,12 @@
 // Copyright 2015, University of Colorado Boulder
+
+/**
+ * Model element that represents a cell in the multiple-cells tab. The cell has a shape, a protein level, and a number
+ * of parameters that control how it synthesized a protein. Only one protein is synthesized.
+ *
+ * @author John Blanco
+ * @author Aadish Gupta
+ */
 define( function( require ) {
   'use strict';
 
@@ -25,30 +33,41 @@ define( function( require ) {
   // Default E-Coli like shape for performance improvement and we make copy of it and rotate for different instances
   var E_COLI_LLIKE_SHAPE = BioShapeUtils.createEColiLikeShape( DEFAULT_CELL_SIZE.width, DEFAULT_CELL_SIZE.height );
 
+  /**
+   * @param {number} rotationAngle rotation for the cell in model space
+   * @constructor
+   */
   function Cell( rotationAngle ) {
     ShapeChangingModelElement.call( this, this.createShape( rotationAngle ) );
     // This is a separate object in which the protein synthesis is simulated. The reason that this is broken out into a
     // separate class is that it was supplied by someone outside of the PhET project, and this keeps it encapsulated and
     // thus easier for the original author to help maintain.
-    this.proteinSynthesisSimulator = new CellProteinSynthesisSimulator( 100 );
+    this.proteinSynthesisSimulator = new CellProteinSynthesisSimulator( 100 ); // @private
 
     // Property that indicates the current protein count in the cell. This should not be set by external users, only
     // monitored.
-    this.proteinCount = new Property( 0 );
-
+    this.proteinCount = new Property( 0 ); // @public
   }
 
   geneExpressionEssentials.register( 'Cell', Cell );
 
   return inherit( ShapeChangingModelElement, Cell, {
 
+    /**
+     * @param {number} dt
+     * @public
+     */
     stepInTime: function( dt ) {
       // NOTE: Multiplying time step, because it was necessary to get the model to run at the needed rate.
       this.proteinSynthesisSimulator.stepInTime( dt * 1000 );
       this.proteinCount.set( this.proteinSynthesisSimulator.getProteinCount() );
     },
 
-    // Static function for creating the shape of the cell.
+    /**
+     * Static function for creating the shape of the cell.
+     * @param {number} rotationAngle
+     * @returns {Shape}
+     */
     createShape: function( rotationAngle ) {
       var ecoliShape = E_COLI_LLIKE_SHAPE.copy();
       // rotate and return
@@ -56,42 +75,66 @@ define( function( require ) {
     },
 
     /**
-     * The following methods are essentially "pass through" methods to the protein synthesis simulation. This is kept
-     * separate for now. At some point, once the protein synthesis stuff is fully debugged, it may make sense to pull
-     * the protein synthesis model into this class.
+     * The following methods are essentially "pass through" methods to the protein synthesis simulation. This is done to
+     * ProteinSynthesisSimulator complete as a unit in itself
      */
 
-
+    /**
+     * @param {number} tfCount
+     * @public
+     */
     setTranscriptionFactorCount: function( tfCount ) {
       this.proteinSynthesisSimulator.setTranscriptionFactorCount( tfCount );
     },
 
+    /**
+     * @param {number} polymeraseCount
+     * @public
+     */
     setPolymeraseCount: function( polymeraseCount ) {
       this.proteinSynthesisSimulator.setPolymeraseCount( polymeraseCount );
     },
 
+    /**
+     * @param {number} newRate
+     * @public
+     */
     setGeneTranscriptionFactorAssociationRate: function( newRate ) {
       this.proteinSynthesisSimulator.setGeneTranscriptionFactorAssociationRate( newRate );
     },
 
+    /**
+     * @param {number} newRate
+     * @public
+     */
     setPolymeraseAssociationRate: function( newRate ) {
       this.proteinSynthesisSimulator.setPolymeraseAssociationRate( newRate );
     },
 
+    /**
+     * @param {number} newRate
+     * @public
+     */
     setRNARibosomeAssociationRate: function( newRate ) {
       this.proteinSynthesisSimulator.setRNARibosomeAssociationRate( newRate );
     },
 
+    /**
+     * @param {number} newRate
+     * @public
+     */
     setProteinDegradationRate: function( newRate ) {
       this.proteinSynthesisSimulator.setProteinDegradationRate( newRate );
     },
 
+    /**
+     * @param {number} mRnaDegradationRate
+     * @public
+     */
     setMRnaDegradationRate: function( mRnaDegradationRate ) {
       this.proteinSynthesisSimulator.setMrnaDegradationRate( mRnaDegradationRate );
     }
-
-    //----------- End of pass-through methods ---------------------------------
-  }, {//Statics
+  }, { //Statics
     DefaultCellSize: DEFAULT_CELL_SIZE,
     ProteinLevelWhereColorChangeStarts: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_STARTS,
     ProteinLevelWhereColorChangeCompletes: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES

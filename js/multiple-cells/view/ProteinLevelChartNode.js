@@ -132,6 +132,10 @@ define( function( require ) {
 
   geneExpressionEssentials.register( 'ProteinLevelChartNode', ProteinLevelChartNode );
   return inherit( Panel, ProteinLevelChartNode, {
+    /**
+     * @param {number} dt
+     * @public
+     */
     addDataPoint: function( dt ) {
       this.simRunningTime = this.simRunningTime + dt;
       if ( this.simRunningTime - this.timeOffset > TIME_SPAN ) {
@@ -139,15 +143,16 @@ define( function( require ) {
         this.dataSeries.clear();
       }
       if ( this.dataSeries.getLength() === 0 ) {
-        // This is the first data added after the most recent
-        // clear, so record the time offset.
+        // This is the first data added after the most recent clear, so record the time offset.
         this.timeOffset = this.simRunningTime;
       }
       // Add the data to the chart.
       this.dataSeries.addPoint( this.simRunningTime - this.timeOffset, this.averageProteinLevelProperty.get() );
-
     },
 
+    /**
+     * @public
+     */
     reset: function() {
       this.simRunningTime = 0;
       this.timeOffset = 0;

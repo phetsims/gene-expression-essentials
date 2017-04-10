@@ -1,4 +1,11 @@
 // Copyright 2015, University of Colorado Boulder
+
+/**
+ * Primary model for the Multiple Cells tab.
+ *
+ * @author John Blanco
+ * @author Aadish Gupta
+ */
 define( function( require ) {
   'use strict';
 
@@ -25,24 +32,28 @@ define( function( require ) {
 
   var SIZE_AND_ORIENTATION_RANDOMIZER_SEED = 25214903912;
 
+  /**
+   * @constructor
+   */
   function MultipleCellsModel() {
     var self = this;
-    this.clockRunningProperty = new Property( true );
+    this.clockRunningProperty = new Property( true ); // @public
     // List of all cells that are being simulated. Some of these cells will be visible to the user at any given time,
     // but some may not. All are clocked and their parameters are kept the same in order to keep them "in sync" with the
     // visible cells. This prevents large discontinuities in the protein level when the user adds or removes cells.
-    this.cellList = [];
+    this.cellList = []; // @public
 
     // List of cells in the model that should be visible to the user and that are being used in the average protein
     // level calculation. It is observable so that the view can track them coming and going.
-    this.visibleCellList = new ObservableArray();
+    this.visibleCellList = new ObservableArray(); // @public
 
     // Property that controls the number of cells that are visible and that are being included in the calculation of the
     // average protein level. This is intended to be set by clients, such as the view.
-    this.numberOfVisibleCellsProperty = new Property( 1 );
+    this.numberOfVisibleCellsProperty = new Property( 1 ); // @public
 
     // Properties used to control the rate at which protein is synthesized and degraded in the cells. These are intended
     // to be set by clients, such as the view.
+    // @public
     this.transcriptionFactorLevelProperty = new Property( CellProteinSynthesisSimulator.DefaultTranscriptionFactorCount );
     this.proteinDegradationRateProperty = new Property( CellProteinSynthesisSimulator.DefaultProteinDegradationRate );
     this.transcriptionFactorAssociationProbabilityProperty = new Property(
@@ -56,6 +67,7 @@ define( function( require ) {
     this.averageProteinLevelProperty = new Property( 0.0 ); // @public( read-only )
 
     // Random number generators, used to vary the shape and position of the cells. Seeds are chosen empirically.
+    // @private
     this.sizeAndRotationRandomizer = new Random( {
       seed: SIZE_AND_ORIENTATION_RANDOMIZER_SEED
     } );
@@ -120,6 +132,10 @@ define( function( require ) {
   geneExpressionEssentials.register( 'MultipleCellsModel', MultipleCellsModel );
   return inherit( Object, MultipleCellsModel, {
 
+    /**
+     * @param {number} dt
+     * @public
+     */
     step: function( dt ) {
 
       if ( dt > 0.2 ) {
@@ -131,6 +147,10 @@ define( function( require ) {
       }
     },
 
+    /**
+     * @param {number} dt
+     * @public
+     */
     stepInTime: function( dt ) {
       // Step each of the cells.
       // Update the average protein level. Note that only the visible cells are used for this calculation. This helps
@@ -147,8 +167,10 @@ define( function( require ) {
       this.averageProteinLevelProperty.set( totalProteinCount / this.visibleCellList.length );
     },
 
+    /**
+     * @public
+     */
     reset: function() {
-
       // Reset all the cell control parameters.
       this.numberOfVisibleCellsProperty.reset();
       this.transcriptionFactorLevelProperty.reset();
@@ -169,8 +191,8 @@ define( function( require ) {
     /**
      * Set the number of cells that should be visible to the user and that are included in the calculation of average
      * protein level.
-     *
      * @param numCells - target number of cells.
+     * @public
      */
     setNumVisibleCells: function( numCells ) {
       assert && assert( numCells > 0 && numCells <= MAX_CELLS );  // Bounds checking.
@@ -188,7 +210,6 @@ define( function( require ) {
         }
       }
     },
-
     // Find a location for the given cell that doesn't overlap with other cells on the list.
     placeCellInOpenLocation: function( cell ) {
       // Loop, randomly generating positions of increasing distance from the center, until the cell is positioned in a
@@ -199,7 +220,6 @@ define( function( require ) {
         var radius = ( i + 1 ) * Cell.DefaultCellSize.width * ( this.positionRandomizer.nextDouble() / 2 + .75 );
         for ( var j = 0; j < radius * Math.PI / ( Cell.DefaultCellSize.height * 2 ); j++ ) {
           var angle = this.positionRandomizer.nextDouble() * 2 * Math.PI;
-          //cell.setPositionByXY( radius * Math.cos( angle ), radius * Math.sin( angle ) );
           cell.positionX = radius * Math.cos( angle );
           cell.positionY = radius * Math.sin( angle );
           if ( !bounds.containsCoordinates( cell.positionX, cell.positionY ) ) {
@@ -216,8 +236,6 @@ define( function( require ) {
               break;
             }
           }
-
-
           if ( !overlapDetected ) {
             // Found an open spot.
             return;
@@ -226,8 +244,6 @@ define( function( require ) {
       }
       console.log( 'Warning: Exiting placement loop without having found open location.' );
     }
-
-
   }, {
     MaxCells: MAX_CELLS
   } );
