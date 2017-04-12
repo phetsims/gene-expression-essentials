@@ -212,8 +212,7 @@ define( function( require ) {
             // The user dropped this biomolecule.
             if ( self.proteinCaptureArea.containsPoint( mobileBiomolecule.getPosition() ) &&
                  mobileBiomolecule instanceof Protein ) {
-              // The user has dropped this protein in the
-              // capture area.  So, like, capture it.
+              // The user has dropped this protein in the capture area. So capture it.
               self.captureProtein( mobileBiomolecule );
             }
           }
@@ -369,13 +368,14 @@ define( function( require ) {
         this.activeGeneProperty.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2 + BIOMOLECULE_STAGE_WIDTH,
         bottomYPos + BIOMOLECULE_STAGE_HEIGHT );
 
+      var motionBounds = new MotionBounds( bounds );
       // Subtract off any off limits areas.
       this.offLimitsMotionSpaces.forEach( function( offLimitMotionSpace ) {
         if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {
-          // bounds.subtract( new Area( offLimitMotionSpace ) ); TODO
+          motionBounds.addOffLimitMotionSpace( offLimitMotionSpace );
         }
       } );
-      return new MotionBounds( bounds );
+      return motionBounds;
     }
   } );
 } );

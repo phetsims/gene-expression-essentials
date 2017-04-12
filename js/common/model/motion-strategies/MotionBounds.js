@@ -27,6 +27,7 @@ define( function( require ) {
     }
 
     this.bounds = bounds; //@private
+    this.offLimitMotionSpaces = []; //@private
   }
 
   geneExpressionEssentials.register( 'MotionBounds', MotionBounds );
@@ -43,13 +44,38 @@ define( function( require ) {
     },
 
     /**
+     * Add off limit motion space. Bounds does not support subtract so this is workaround
+     * @param {Bounds2} offLimitBounds
+     * @public
+     */
+    addOffLimitMotionSpace: function( offLimitBounds ) {
+      this.offLimitMotionSpaces.push( offLimitBounds );
+    },
+
+    /**
+     * Check whether given bounds intersects with any off limit motion space
+     * @param {Bounds2} bounds
+     * @returns {boolean}
+     * @private
+     */
+    inOffLimitMotionSpace: function( bounds ) {
+      var flag = false;
+      this.offLimitMotionSpaces.forEach( function( offLimitMotionSpace ) {
+        if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {
+          flag = true;
+        }
+      } );
+      return flag;
+    },
+
+    /**
      * Check whether given bounds are in the bounds or not
      * @param {Bounds2} bounds
      * @returns {boolean}
      * @public
      */
     inBounds: function( bounds ) {
-      return this.bounds === null || this.bounds.containsBounds( bounds );
+      return this.bounds === null || ( this.bounds.containsBounds( bounds ) && !this.inOffLimitMotionSpace( bounds ) );
     },
 
     /**
