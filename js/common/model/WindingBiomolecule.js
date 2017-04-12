@@ -263,7 +263,7 @@ define( function( require ) {
           // This is the last segment, so set the max to be infinite in order to be sure that the last point is always
           // included. If this isn't done, accumulation of floating point errors can cause the last point to fall outside
           // of the range, and it won't get positioned.  Which is bad.
-          lengthRange = new Range( handledLength, Number.MAX_VALUE ); //TODO Double POSITIVE
+          lengthRange = new Range( handledLength, Number.MAX_VALUE );
 
           // Watch for unexpected conditions and spit out warning if found.
           var totalShapeSegmentLength = this.getTotalLengthInShapeSegments();

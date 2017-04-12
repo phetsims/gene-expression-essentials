@@ -152,7 +152,6 @@ define( function( require ) {
 
     for ( var i = 0; i < model.cellList.length; i++ ) {
       var cellNode = new ColorChangingCellNode( model.cellList[ i ], self.mvt );
-      // performance improvement for cell slider but increase load time TODO
       cellNodes.push( cellNode );
       invisibleCellLayer.addChild( cellNode );
     }
