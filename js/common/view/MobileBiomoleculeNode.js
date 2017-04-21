@@ -34,7 +34,8 @@ define( function( require ) {
 
     var path = self.getPathByMobileBioMoleculeType( mobileBiomolecule, {
       stroke: Color.BLACK,
-      lineWidth: outlineStroke
+      lineWidth: mvt.viewToModelDeltaX( outlineStroke ),
+      matrix: mvt.getMatrix().copy()
     } );
 
     self.addChild( path );
@@ -164,8 +165,7 @@ define( function( require ) {
      * @private
      */
     centeredShape: function( shape, mvt ) {
-      var viewShape = mvt.modelToViewShape( shape );
-      return viewShape;
+      return shape;
     }
   } );
 } );
