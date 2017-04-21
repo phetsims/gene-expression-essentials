@@ -1,5 +1,5 @@
 {
-  "comment": "# gene-expression-essentials 1.0.0-dev.3 Wed Apr 19 2017 10:15:35 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# gene-expression-essentials 1.0.0-dev.5 Fri Apr 21 2017 11:00:39 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "master"
@@ -9,27 +9,27 @@
     "branch": "master"
   },
   "brand": {
-    "sha": "a4d6573f425ca2240f3b057f5cc8731f982100ff",
+    "sha": "f4b72cac70c41f724ab29eb7510d8bf9a8192901",
     "branch": "master"
   },
   "chipper": {
-    "sha": "45f8a5ee1b332c7872869491fb9f3654fec71460",
+    "sha": "8cd7f43b40b86c789f7e67f56fd0b8a52510577c",
     "branch": "master"
   },
   "dot": {
-    "sha": "f56a44110f1a637055dc8f5004a9daed43b44e0c",
+    "sha": "57936fff9a213e6ff0c17fc2d3c1b2972f2095dd",
     "branch": "master"
   },
   "gene-expression-essentials": {
-    "sha": "dbe1fd2a63d2430d747f111edfc2a8f52304d5a4",
+    "sha": "741578313949aede853353ac51f563b0bedb4ee1",
     "branch": "master"
   },
   "joist": {
-    "sha": "deef1bf3ddd43c2b5761f2335607e3c3dfd2305e",
+    "sha": "06775098c51402473bd3b3871b9e7362f52d94f5",
     "branch": "master"
   },
   "kite": {
-    "sha": "d71444eb55df855a7899b33338dc1d2abc49ce40",
+    "sha": "0cc5b62077af04ac7765ed26ee1a410de8612ae1",
     "branch": "master"
   },
   "phet-core": {
@@ -49,7 +49,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "ae9afb03f1899092434860218ee07f55413d52ba",
+    "sha": "42eaa4ea82477ddf436b2675b278fd7297c27824",
     "branch": "master"
   },
   "sherpa": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "cfea9c5aeaa778e9ce466ac587bf3735820637a8",
+    "sha": "3967c777f10cfdab2feff2626efe9ca6e6b2cc41",
     "branch": "master"
   },
   "tandem": {
