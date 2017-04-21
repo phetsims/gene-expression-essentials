@@ -39,14 +39,29 @@ define( function( require ) {
     self.directionChangeCountdown = 0; // @private
     self.currentMotionVector2D = new Vector2( 0, 0 ); // @private
     self.currentZVelocity = 0; // @private
-    motionBoundsProperty.link( function( motionBounds ) {
+
+    function handleMotionBoundsChanged( motionBounds ) {
       self.motionBounds = motionBounds;
-    } );
+    }
+
+    motionBoundsProperty.link( handleMotionBoundsChanged );
+
+    this.disposeRandomWalkMotionStrategy = function() {
+      motionBoundsProperty.unlink( handleMotionBoundsChanged );
+    };
   }
 
   geneExpressionEssentials.register( 'RandomWalkMotionStrategy', RandomWalkMotionStrategy );
 
   return inherit( MotionStrategy, RandomWalkMotionStrategy, {
+
+    /**
+     * @override
+     * @public
+     */
+    dispose: function() {
+      this.disposeRandomWalkMotionStrategy();
+    },
 
     /**
      * @override

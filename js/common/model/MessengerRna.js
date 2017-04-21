@@ -71,18 +71,32 @@ define( function( require ) {
     self.ribosomePlacementHint = new PlacementHint( new Ribosome( model ) ); //@public(read-only)
     self.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
 
-    this.shapeProperty.link( function() {
-
+    function handleShapeChanged( shape ) {
       // This hint always sits at the beginning of the RNA strand.
       var currentMRnaFirstPointPosition = self.firstShapeDefiningPoint.getPosition();
       self.ribosomePlacementHint.setPosition( currentMRnaFirstPointPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
       self.mRnaDestroyerPlacementHint.setPosition( currentMRnaFirstPointPosition );
-    } );
+    }
+
+    this.shapeProperty.link( handleShapeChanged );
+
+    this.disposeMessengerRna = function() {
+      this.shapeProperty.unlink( handleShapeChanged );
+    };
   }
 
   geneExpressionEssentials.register( 'MessengerRna', MessengerRna );
 
   return inherit( WindingBiomolecule, MessengerRna, {
+
+    /**
+     * @private
+     */
+    dispose: function() {
+      this.mapRibosomeToShapeSegment.clear();
+      this.disposeMessengerRna();
+      WindingBiomolecule.prototype.dispose.call( this );
+    },
 
     /**
      * @override

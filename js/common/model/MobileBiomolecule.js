@@ -79,16 +79,30 @@ define( function( require ) {
       self.colorProperty.set( baseColor );
     }
 
-    self.userControlledProperty.link( function( isUserControlled, wasUserControlled ) {
+    function handleUserControlledChanged( isUserControlled, wasUserControlled ) {
       if ( wasUserControlled && !isUserControlled ) {
         self.handleReleasedByUser();
       }
-    } );
+    }
+
+    self.userControlledProperty.link( handleUserControlledChanged );
+
+    this.disposeMobileBiomolecule = function() {
+      self.userControlledProperty.unlink( handleUserControlledChanged );
+    };
   }
 
   geneExpressionEssentials.register( 'MobileBiomolecule', MobileBiomolecule );
 
   return inherit( ShapeChangingModelElement, MobileBiomolecule, {
+
+    /**
+     * @public
+     */
+    dispose: function() {
+      this.motionStrategy.dispose();
+      this.disposeMobileBiomolecule();
+    },
 
     /**
      * Method used to set the attachment state machine during construction. This is overridden in descendant classes in
@@ -256,6 +270,9 @@ define( function( require ) {
      * @public
      */
     setMotionStrategy: function( motionStrategy ) {
+      if ( this.motionStrategy ) {
+        this.motionStrategy.dispose();
+      }
       this.motionStrategy = motionStrategy;
     }
   } );

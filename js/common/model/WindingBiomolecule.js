@@ -54,6 +54,13 @@ define( function( require ) {
   return inherit( MobileBiomolecule, WindingBiomolecule, {
 
     /**
+     * @public
+     */
+    dispose: function() {
+      MobileBiomolecule.prototype.dispose.call( this );
+    },
+
+    /**
      * Position a set of points within a rectangle. The first point stays at the upper left, the last point stays at the
      * lower right, and the points in between are initially positioned randomly, then a spring algorithm is run to position
      * them such that each point is the appropriate distance from the previous and next points.

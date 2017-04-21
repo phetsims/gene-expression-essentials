@@ -28,6 +28,14 @@ define( function( require ) {
   return inherit( Object, MotionStrategy, {
 
     /**
+     * By default does nothing override for unique behavior
+     * @public
+     */
+    dispose: function() {
+
+    },
+
+    /**
      * Get the next location given the current position. State information contained in the motion strategy instance,
      * such as the current motion vector, will determine the next position.
      *

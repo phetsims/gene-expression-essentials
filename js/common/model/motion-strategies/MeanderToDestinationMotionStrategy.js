@@ -38,6 +38,15 @@ define( function( require ) {
   return inherit( MotionStrategy, MeanderToDestinationMotionStrategy, {
 
     /**
+     * override
+     * @public
+     */
+    dispose: function() {
+      this.randomWalkMotionStrategy.dispose();
+      this.directToDestinationMotionStrategy.dispose();
+    },
+
+    /**
      * @override
      * @param {Vector2} currentLocation
      * @param {Bounds2} bounds

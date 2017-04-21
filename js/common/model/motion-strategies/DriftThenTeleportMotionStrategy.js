@@ -34,9 +34,16 @@ define( function( require ) {
   function DriftThenTeleportMotionStrategy( wanderDirection, destinationZones, motionBoundsProperty ) {
     var self = this;
     MotionStrategy.call( this );
-    motionBoundsProperty.link( function( motionBounds ) {
+
+    function handleMotionBoundsChanged( motionBounds ) {
       self.motionBounds = motionBounds;
-    } );
+    }
+
+    motionBoundsProperty.link( handleMotionBoundsChanged );
+
+    this.disposeDriftThenTeleportMotionStrategy = function() {
+      motionBoundsProperty.unlink( handleMotionBoundsChanged );
+    };
 
     // list of valid places where the item can teleport
     this.destinationZones = destinationZones; // @private
@@ -48,6 +55,14 @@ define( function( require ) {
   geneExpressionEssentials.register( 'DriftThenTeleportMotionStrategy', DriftThenTeleportMotionStrategy );
 
   return inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
+
+    /**
+     * @override
+     * @public
+     */
+    dispose: function() {
+      this.disposeDriftThenTeleportMotionStrategy();
+    },
 
     /**
      * @param {Array.<Bounds2>} destinationZones

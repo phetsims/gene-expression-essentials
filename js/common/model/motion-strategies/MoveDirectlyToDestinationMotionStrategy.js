@@ -28,10 +28,17 @@ define( function( require ) {
   function MoveDirectlyToDestinationMotionStrategy( destinationProperty, motionBoundsProperty, destinationOffset, velocity ) {
     var self = this;
     MotionStrategy.call( self );
-    motionBoundsProperty.link( function( motionBounds ) {
-        self.motionBounds = motionBounds;
-      }
-    );
+
+    function handleMotionBoundsChanged( motionBounds ) {
+      self.motionBounds = motionBounds;
+    }
+
+    motionBoundsProperty.link( handleMotionBoundsChanged );
+
+    this.disposeMoveDirectlyToDestinationMotionStrategy = function() {
+      motionBoundsProperty.unlink( handleMotionBoundsChanged );
+    };
+
     self.velocityVector2D = new Vector2( 0, 0 ); // @private
 
     // Destination to which this motion strategy moves. Note that it is potentially a moving target.
@@ -50,6 +57,14 @@ define( function( require ) {
   geneExpressionEssentials.register( 'MoveDirectlyToDestinationMotionStrategy', MoveDirectlyToDestinationMotionStrategy );
 
   return inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
+
+    /**
+     * @override
+     * @public
+     */
+    dispose: function() {
+      this.disposeMoveDirectlyToDestinationMotionStrategy();
+    },
 
     /**
      * @override

@@ -274,6 +274,7 @@ define( function( require ) {
      * @public
      */
     removeMessengerRna: function( messengerRnaBeingDestroyed ) {
+      messengerRnaBeingDestroyed.dispose();
       this.messengerRnaList.remove( messengerRnaBeingDestroyed );
     },
 

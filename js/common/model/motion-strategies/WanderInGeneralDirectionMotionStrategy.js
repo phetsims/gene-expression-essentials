@@ -32,9 +32,16 @@ define( function( require ) {
     MotionStrategy.call( self );
     self.directionChangeCountdown = 0; // @private
     self.currentMotionVector = new Vector2( 0, 0 ); // @private
-    motionBoundsProperty.link( function( motionBounds ) {
-      self.motionBounds = motionBounds; // @private
-    } );
+
+    function handleMotionBoundsChanged( motionBounds ) {
+      self.motionBounds = motionBounds;
+    }
+
+    motionBoundsProperty.link( handleMotionBoundsChanged );
+
+    this.disposeWanderInGeneralDirectionMotionStrategy = function() {
+      motionBoundsProperty.unlink( handleMotionBoundsChanged );
+    };
 
     self.generalDirection = generalDirection;
   }
@@ -42,6 +49,14 @@ define( function( require ) {
   geneExpressionEssentials.register( 'WanderInGeneralDirectionMotionStrategy', WanderInGeneralDirectionMotionStrategy );
 
   return inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, {
+
+    /**
+     * @override
+     * @public
+     */
+    dispose: function() {
+      this.disposeWanderInGeneralDirectionMotionStrategy();
+    },
 
     /**
      * @returns {number}
