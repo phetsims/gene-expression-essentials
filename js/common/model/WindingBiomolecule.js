@@ -57,6 +57,7 @@ define( function( require ) {
      * @public
      */
     dispose: function() {
+      this.shapeSegments.length = 0;
       MobileBiomolecule.prototype.dispose.call( this );
     },
 
@@ -302,7 +303,7 @@ define( function( require ) {
       }
 
       // Update the shape property based on the newly positioned points.
-      this.shapeProperty.set( BioShapeUtils.createCurvyLineFromPoints( this.getPointList() ) );
+      this.shapeProperty.set( BioShapeUtils.createCurvyLineFromPoints( this.getPointList() ).makeImmutable() );
       this.bounds = this.shapeProperty.get().bounds.copy();
       this.setCenter();
     },

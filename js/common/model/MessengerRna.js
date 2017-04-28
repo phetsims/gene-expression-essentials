@@ -43,7 +43,7 @@ define( function( require ) {
     // Map from ribosomes to the shape segment to which they are attached.
     self.mapRibosomeToShapeSegment = new Map(); //@private
 
-    WindingBiomolecule.call( self, model, new Shape().moveToPoint( position ), position );
+    WindingBiomolecule.call( self, model, new Shape().moveToPoint( position ).makeImmutable(), position );
 
     // Externally visible indicator for whether this mRNA is being synthesized. Assumes that it is being synthesized
     // when created.

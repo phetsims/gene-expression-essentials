@@ -14,7 +14,6 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var RnaPolymeraseAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/RnaPolymeraseAttachmentStateMachine' );
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
@@ -87,10 +86,8 @@ define( function( require ) {
     changeConformation: function( changeFactor ) {
       // Seed value chosen by trial and error.
       var newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( SHAPE_POINTS, changeFactor, 45 );
-      var translation = Matrix3.translation( this.getPosition().x, this.getPosition().y );
-      var newTranslatedShape = newUntranslatedShape.transformed( translation );
-      this.shapeProperty.set( newTranslatedShape );
-      this.bounds = this.shapeProperty.get().bounds.copy();
+      this.shapeProperty.set( newUntranslatedShape );
+      this.bounds = this.shapeProperty.get().bounds.copy().shift( this.getPosition().x, this.getPosition().y );
       this.setCenter();
       this.colorProperty.set( Color.interpolateRGBA( NOMINAL_COLOR, CONFORMED_COLOR, changeFactor ) );
     },

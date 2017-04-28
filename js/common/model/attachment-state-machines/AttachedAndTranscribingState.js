@@ -83,6 +83,8 @@ define( function( require ) {
         this.rnaPolymeraseAttachmentStateMachine.setState( attachedState );
         this.messengerRna.releaseFromPolymerase();
         this.messengerRna.movableByUserProperty.set( true );
+        this.messengerRna = null;
+        this.endOfGene = null;
       }
     },
 

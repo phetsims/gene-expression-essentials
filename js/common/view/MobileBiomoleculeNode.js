@@ -43,6 +43,7 @@ define( function( require ) {
     function handleShapeChanged( shape ) {
       // Create a shape that excludes any offset.
       var centeredShape = self.centeredShape( shape, mvt );
+      path.shape = null;
       path.setShape( centeredShape );
       // Account for the offset.
       var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
@@ -132,6 +133,7 @@ define( function( require ) {
       self.removeInputListener( dragHandler );
       mobileBiomolecule.movableByUserProperty.unlink( handleMovableByUserChanged );
       mobileBiomolecule.userControlledProperty.unlink( handleUserControlledChanged );
+      path.shape = null;
       path.dispose();
     };
   }

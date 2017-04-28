@@ -18,7 +18,6 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var PolymeraseAffinityControlPanel = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/PolymeraseAffinityControlPanel' );
   var Property = require( 'AXON/Property' );
@@ -79,15 +78,6 @@ define( function( require ) {
     // Add the representation of the DNA strand.
     this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.mvt, 5, false );
     dnaLayer.addChild( this.dnaMoleculeNode );
-
-    // Add the placement hints that go on the DNA molecule. These exist on their own layer so that they can be seen
-    // above any molecules that are attached to the DNA strand.
-    model.getDnaMolecule().getGenes().forEach( function( gene ) {
-      gene.getPlacementHints().forEach( function( placementHint ) {
-        placementHintLayer.addChild( new PlacementHintNode( self.mvt, placementHint ) );
-      } );
-    } );
-
 
     // Get a reference to the gene being controlled.
     var gene = model.getDnaMolecule().getGenes()[ 0 ];

@@ -31,6 +31,13 @@ define( function( require ) {
   return inherit( Object, ShapeChangingModelElement, {
 
     /**
+     * @public
+     */
+    dispose: function() {
+      this.shapeProperty.set( null );
+      this.shapeProperty.dispose();
+    },
+    /**
      * @returns {Shape}
      * @public
      */

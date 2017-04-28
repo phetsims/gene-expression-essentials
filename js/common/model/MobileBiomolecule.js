@@ -102,6 +102,7 @@ define( function( require ) {
     dispose: function() {
       this.motionStrategy.dispose();
       this.disposeMobileBiomolecule();
+      ShapeChangingModelElement.prototype.dispose.call( this );
     },
 
     /**

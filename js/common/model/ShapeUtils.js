@@ -35,7 +35,7 @@ define( function( require ) {
         var controlPoint2 = this.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint );
         shape.cubicCurveTo( controlPoint1.x, controlPoint1.y, controlPoint2.x, controlPoint2.y, segmentEndPoint.x, segmentEndPoint.y );
       }
-      return shape;
+      return shape.makeImmutable();
     },
 
     /**

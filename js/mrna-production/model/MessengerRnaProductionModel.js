@@ -259,6 +259,7 @@ define( function( require ) {
      */
     removeMobileBiomolecule: function( mobileBiomolecule ) {
       this.mobileBiomoleculeList.remove( mobileBiomolecule );
+      mobileBiomolecule.dispose();
     },
 
     /**
@@ -274,8 +275,8 @@ define( function( require ) {
      * @public
      */
     removeMessengerRna: function( messengerRnaBeingDestroyed ) {
-      messengerRnaBeingDestroyed.dispose();
       this.messengerRnaList.remove( messengerRnaBeingDestroyed );
+      messengerRnaBeingDestroyed.dispose();
     },
 
     /**
