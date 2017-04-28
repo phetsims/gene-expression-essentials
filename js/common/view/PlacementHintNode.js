@@ -20,7 +20,7 @@ define( function( require ) {
 
   // constants
   var HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
-  var HINT_STROKE = { lineWidth: 2, lineJoin: 'bevel', lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
+  var HINT_STROKE = { lineJoin: 'bevel', lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
 
   /**
    *
@@ -37,15 +37,18 @@ define( function( require ) {
       placementHint.getBaseColor().getBlue(), 0.4 );
 
     var pathStyleOptions = _.extend( HINT_STROKE, {
+      lineWidth: mvt.viewToModelDeltaX( 2 ),
+      lineDash: [ mvt.viewToModelDeltaX( 5 ), mvt.viewToModelDeltaX( 5 ) ],
       fill: transparentColor,
-      boundsMethod: 'unstroked'
+      boundsMethod: 'unstroked',
+      matrix: mvt.getMatrix()
     } );
 
     var path = new Path( new Shape(), pathStyleOptions );
     self.addChild( path );
 
     function handleShapeChanged( shape ) {
-      path.setShape( mvt.modelToViewShape( shape ) );
+      path.setShape( shape );
       var offset = mvt.modelToViewPosition( placementHint.getPosition() );
       path.centerX = offset.x;
       path.centerY = offset.y;

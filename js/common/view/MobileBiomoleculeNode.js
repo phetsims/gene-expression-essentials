@@ -41,10 +41,8 @@ define( function( require ) {
     self.addChild( path );
 
     function handleShapeChanged( shape ) {
-      // Create a shape that excludes any offset.
-      var centeredShape = self.centeredShape( shape, mvt );
       path.shape = null;
-      path.setShape( centeredShape );
+      path.setShape( shape );
       // Account for the offset.
       var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
 
@@ -52,10 +50,10 @@ define( function( require ) {
       // zero and height of 1 but kite's shape bounds returns infinity in such cases. Since the MessengerRna starts with
       // a single point, the Gradient fill code fails as the bounds of the shape at that point is infinity.
       // So the following check is added before calling createGradientPaint - Ashraf
-      if ( _.isFinite( centeredShape.bounds.centerX ) ) {
+      if ( _.isFinite( shape.bounds.centerX ) ) {
         path.centerX = offset.x;
         path.centerY = offset.y;
-        path.fill = GradientUtil.createGradientPaint( centeredShape, mobileBiomolecule.colorProperty.get() );
+        path.fill = GradientUtil.createGradientPaint( shape, mobileBiomolecule.colorProperty.get() );
       }
 
     }
@@ -64,8 +62,7 @@ define( function( require ) {
     mobileBiomolecule.shapeProperty.link( handleShapeChanged );
 
     function handleColorChanged( color ) {
-      var moleculeShape = self.centeredShape( mobileBiomolecule.getShape(), mvt );
-
+      var moleculeShape = mobileBiomolecule.getShape();
       //see the comment above on gradientPaint
       if ( _.isFinite( moleculeShape.bounds.centerX ) ) {
         path.fill = GradientUtil.createGradientPaint( moleculeShape, color );
@@ -159,16 +156,6 @@ define( function( require ) {
       var path = new Path( new Shape(), options );
       path.boundsMethod = 'unstroked';
       return path;
-    },
-
-    /**
-     * Get a shape that is positioned such that its center is at point (0, 0).
-     * @param shape
-     * @param {ModelViewTransform2} mvt
-     * @private
-     */
-    centeredShape: function( shape, mvt ) {
-      return shape;
     }
   } );
 } );
