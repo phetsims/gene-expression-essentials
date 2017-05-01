@@ -1,5 +1,5 @@
 {
-  "comment": "# gene-expression-essentials 1.0.0-dev.9 Mon May 01 2017 11:51:38 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# gene-expression-essentials 1.0.0-dev.10 Mon May 01 2017 12:02:59 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "gene-expression-essentials": {
-    "sha": "7bcdc59c13a6228e5270b0fd1f69e00ada63b72a",
+    "sha": "4b0763c62aafe0a9592b3a5841375359fd2fbbb5",
     "branch": "master"
   },
   "joist": {
