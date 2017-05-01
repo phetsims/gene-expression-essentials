@@ -66,6 +66,7 @@ define( function( require ) {
         this.shapeProperty.set( untranslatedShape.transformed( transform ) );
         this.bounds = this.shapeProperty.get().bounds.copy();
         this.setCenter();
+        this.colorProperty.notifyObserversStatic();
       }
     },
 
