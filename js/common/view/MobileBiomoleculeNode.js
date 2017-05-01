@@ -53,7 +53,6 @@ define( function( require ) {
       if ( _.isFinite( shape.bounds.centerX ) ) {
         path.centerX = offset.x;
         path.centerY = offset.y;
-        path.fill = GradientUtil.createGradientPaint( shape, mobileBiomolecule.colorProperty.get() );
       }
 
     }
