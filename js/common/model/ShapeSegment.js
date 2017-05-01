@@ -128,12 +128,13 @@ define( function( require ) {
 
     /**
      * Translates the segment
-     * @param {Vector2} translationVector
+     * @param {number} x
+     * @param {number} y
      * @public
      */
-    translate: function( translationVector ) {
-      this.bounds.set( Bounds2.rect( this.bounds.x + translationVector.x,
-        this.bounds.y + translationVector.y,
+    translate: function( x, y ) {
+      this.bounds.set( Bounds2.rect( this.bounds.x + x,
+        this.bounds.y + y,
         this.bounds.getWidth(),
         this.bounds.getHeight() ) );
       this.updateAttachmentSiteLocation();

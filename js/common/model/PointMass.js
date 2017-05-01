@@ -144,11 +144,12 @@ define( function( require ) {
     },
 
     /**
-     * @param {Vector2} translationVector
+     * @param {number} x
+     * @param {number} y
      * @public
      */
-    translate: function( translationVector ) {
-      this.setPosition( this.position.x + translationVector.x, this.position.y + translationVector.y );
+    translate: function( x, y ) {
+      this.setPosition( this.position.x + x, this.position.y + y );
     },
 
     /**

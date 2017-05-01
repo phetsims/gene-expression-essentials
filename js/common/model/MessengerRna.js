@@ -109,18 +109,30 @@ define( function( require ) {
       // Translate the current shape user the superclass facility.
       WindingBiomolecule.prototype.translate.call( this, x, y );
 
-      var translationVector = new Vector2( x, y );
       // Translate each of the shape segments that define the outline shape.
       this.shapeSegments.forEach( function( shapeSegment ) {
-        shapeSegment.translate( translationVector );
+        shapeSegment.translate( x, y );
       } );
 
       // Translate each of the points that define the curly mRNA shape.
       var thisPoint = this.firstShapeDefiningPoint;
       while ( thisPoint !== null ) {
-        thisPoint.translate( translationVector );
+        thisPoint.translate( x, y );
         thisPoint = thisPoint.getNextPointMass();
       }
+    },
+
+    /**
+     * @override
+     * @param {number} x
+     * @param  {number} y
+     * @public
+     */
+    setPositionByXY: function( x, y ) {
+      // This default implementation assumes that the position indicator is defined by the center of the shape's bounds.
+      // Override if some other behavior is required.
+      var center = this.getCenter();
+      this.translate( x - center.x, y - center.y );
     },
 
     /**
