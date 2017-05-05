@@ -32,7 +32,6 @@ define( function( require ) {
      * @public
      */
     stepInTime: function( enclosingStateMachine, dt ) {
-
       // By default does nothing, override to implement unique behavior.
     },
 

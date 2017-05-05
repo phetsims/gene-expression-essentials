@@ -1,8 +1,11 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Primary model for the manual gene expression tab. The point (0,0) in model space is at the leftmost edge of the DNA
- * strand, and at the vertical center of the strand.
+ * Primary model for the manual gene expression tab.  This model interacts with the user (via the view) to allow them
+ * to synthesize proteins from the information coded in the DNA strand by manually manipulating the various biomolecules
+ * that are involved in the process.
+ *
+ * The point (0,0) in model space is at the leftmost edge of the DNA strand, and at the vertical center of the strand.
  *
  * @author Sharfudeen Ashraf
  * @author Mohamed Safi
@@ -36,7 +39,7 @@ define( function( require ) {
   var BIOMOLECULE_STAGE_WIDTH = 10000; // In picometers.
   var BIOMOLECULE_STAGE_HEIGHT = 6000; // In picometers.
 
-  // Size of the DNA strand.
+  // size of the DNA strand
   var NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
 
   /**
@@ -46,9 +49,8 @@ define( function( require ) {
   function ManualGeneExpressionModel() {
     GeneExpressionModel.call( this );
 
-    // DNA strand, which is where the genes reside, where the polymerase does its transcription, and where a lot of the
-    // action takes place. Initialize the DNA molecule.
-    // @private
+    // @private {DnaMolecule} - the DNA strand, which is where the genes reside and where the polymerase does its
+    // transcription, and where a lot of the action within this model takes place.
     this.dnaMolecule = new DnaMolecule(
       this,
       NUM_BASE_PAIRS_ON_DNA_STRAND,
@@ -71,7 +73,7 @@ define( function( require ) {
     this.activeGeneProperty = new Property( this.dnaMolecule.getGenes()[ 0 ] ); // @public(read-only)
 
     // List of areas where biomolecules should not be allowed.  These are generally populated by the view in order to
-    // keep biomolecules from wandering over the tool boxes and such.
+    // keep biomolecules from wandering over the tool boxes and collection areas.
     this.offLimitsMotionSpaces = []; //@private
 
     // Properties that track how many of the various proteins have been collected.

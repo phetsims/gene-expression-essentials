@@ -211,21 +211,22 @@ define( function( require ) {
     self.modelRootNode.x = -self.mvt.modelToViewX( model.dnaMolecule.getGenes()[ 0 ].getCenterX() )
                            + self.layoutBounds.width / 2;
 
-    var modelRootNodeAnimator = new TWEEN.Tween( { x: self.modelRootNode.x } ).easing( TWEEN.Easing.Cubic.InOut ).onUpdate( function() {
-      self.modelRootNode.x = this.x;
-    } ).onComplete( function() {
-      self.modelRootNode.visible = true;
-      self.modelRootNode.pickable = null;
-      var boundsInControlNode = proteinCollectionNode.getBounds().copy();
-      var boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
-      var boundsInModel = self.mvt.viewToModelBounds( boundsAfterTransform );
+    var modelRootNodeAnimator = new TWEEN.Tween( { x: self.modelRootNode.x } )
+      .easing( TWEEN.Easing.Cubic.InOut )
+      .onUpdate( function() {
+        self.modelRootNode.x = this.x;
+      } )
+      .onComplete( function() {
+        self.modelRootNode.visible = true;
+        self.modelRootNode.pickable = null;
+        var boundsInControlNode = proteinCollectionNode.getBounds().copy();
+        var boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
+        var boundsInModel = self.mvt.viewToModelBounds( boundsAfterTransform );
+        model.setProteinCaptureArea( boundsInModel );
+        model.addOffLimitsMotionSpace( boundsInModel );
+      } );
 
-      model.setProteinCaptureArea( boundsInModel );
-      model.addOffLimitsMotionSpace( boundsInModel );
-
-    } );
     // Monitor the active gene and move the view port to be centered on it whenever it changes.
-
     model.activeGeneProperty.link( function( gene ) {
       nextGeneButton.enabled = !( gene === model.dnaMolecule.getLastGene() );
       previousGeneButton.enabled = !( gene === model.dnaMolecule.getGenes()[ 0 ] );

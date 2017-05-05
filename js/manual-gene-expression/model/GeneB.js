@@ -33,7 +33,10 @@ define( function( require ) {
     Gene.call( this, dnaMolecule,
       new Range( initialBasePair, initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION ),
       REGULATORY_REGION_COLOR,
-      new Range( initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1, initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1 + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION ),
+      new Range(
+        initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1,
+        initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1 + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
+      ),
       TRANSCRIBED_REGION_COLOR
     );
 
@@ -58,9 +61,9 @@ define( function( require ) {
 
   }, {
 
+    // statics
     NUM_BASE_PAIRS: NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
 
   } );
-
 
 } );

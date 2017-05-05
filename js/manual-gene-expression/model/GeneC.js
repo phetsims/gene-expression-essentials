@@ -38,19 +38,16 @@ define( function( require ) {
       TRANSCRIBED_REGION_COLOR
     );
 
-    // Add transcription factors that are specific to this gene.  Location
-    // is pretty much arbitrary, just meant to look decent.
+    // Add transcription factors that are specific to this gene.  Location is pretty much arbitrary, just meant to look
+    // decent.
     this.addTranscriptionFactor( 6, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_1 );
     this.addTranscriptionFactor( 16, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_2 );
     this.addTranscriptionFactor( 11, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_NEG );
-
-
   }
 
   geneExpressionEssentials.register( 'GeneC', GeneC );
 
   return inherit( Gene, GeneC, {
-
 
     /**
      * @override
@@ -61,6 +58,9 @@ define( function( require ) {
     }
 
   }, {
+
+    // statics
     NUM_BASE_PAIRS: NUM_BASE_PAIRS
+
   } );
 } );

@@ -2,7 +2,8 @@
 
 /**
  * This class defines a node that can be used in the view to create biomolecules in the model. It is intended for use in
- * control panels. It is generalized so that the parameters allow it to create any sort of biomolecule.
+ * panels, often referred to as "tool boxes". It is generalized so that the parameters allow it to create any sort of
+ * biomolecule.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -17,16 +18,16 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   /**
-   *
-   * @param {Path} appearanceNode - Node that represents the appearance of this creator node, generally
-   * looks like the thing being created.
-   * @param canvas - Canvas upon which this node ultimately resides.  This is needed for figuring out where in
-   * model space this node exists.
+   * @param {Path} appearanceNode - Node that represents the appearance of this creator node, generally looks like the
+   * thing being created.
+   * @param canvas - Canvas upon which this node ultimately resides.  This is needed for figuring out where in model
+   * space this node exists.
    * @param {ModelViewTransform2} mvt - Model view transform.
-   * @param {Function<>} moleculeCreator -  Function object that knows how to create the model element and add it to the model.
+   * @param {Function<>} moleculeCreator -  Function object that knows how to create the model element and add it to the
+   * model.
    * @param {Function<>} moleculeDestroyer
    * @param enclosingToolBoxNode - Tool box in which this creator node is  contained.  This is needed in order to
-   determine when the created model element is returned to the tool box.
+   * determine when the created model element is returned to the tool box.
    * @constructor
    */
   function BiomoleculeCreatorNode( appearanceNode, canvas, mvt, moleculeCreator, moleculeDestroyer, enclosingToolBoxNode ) {
