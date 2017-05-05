@@ -70,7 +70,7 @@ define( function( require ) {
             strandSegment[ strandSegmentLength - 1 ].x,
             strandSegment[ strandSegmentLength - 1 ].y
           );
-          return;
+          break;
         }
 
         // Create the first curved segment.
