@@ -2,7 +2,7 @@
 
 /**
  * This class defines a synthetic cell. The central dogma is simulated as a Markov process for a single protein.
- * Transcription  Translation
+ *  Transcription    Translation
  * DNA   ->    RNA       ->    Protein
  * Simulated using the algorithm from Gillespie, 1977
  *
@@ -29,7 +29,6 @@ define( function( require ) {
   var MRNA_DEGRADATION_RATE_RANGE = new Range( DEFAULT_MRNA_DEGRADATION_RATE / 1000, DEFAULT_MRNA_DEGRADATION_RATE * 1000 );
 
   /**
-   *
    * @param {number} ribosomeCount
    * @constructor
    */
@@ -281,7 +280,8 @@ define( function( require ) {
       return this.objectCounts[ 8 ];
     }
   }, {
-    // Statics
+
+    // statics
     DefaultTranscriptionFactorCount: DEFAULT_TRANSCRIPTION_FACTOR_COUNT,
     DefaultProteinDegradationRate: DEFAULT_PROTEIN_DEGRADATION_RATE,
     DefaultTFAssociationProbability: DEFAULT_TF_ASSOCIATION_PROBABILITY,

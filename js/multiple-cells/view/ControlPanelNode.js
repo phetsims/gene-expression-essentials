@@ -13,6 +13,11 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
+  /**
+   * @param {String} title
+   * @param controllers
+   * @constructor
+   */
   function ControlPanelNode( title, controllers ) {
 
     var controllerNodes = [];
@@ -46,7 +51,6 @@ define( function( require ) {
       spacing: 5,
       children: controllerNodes
     } );
-
 
     this.expandedProperty = new Property( false );
     AccordionBox.call( this, contentNode, {

@@ -12,7 +12,7 @@
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var Cell = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/Cell' );
   var Color = require( 'SCENERY/util/Color' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -21,12 +21,17 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Util = require( 'DOT/Util' );
 
-  // constant
+  // constantw
   var NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray
   var FLORESCENT_FILL_COLOR = new Color( 200, 255, 58 );
   var STROKE = 2;
   var STROKE_COLOR = Color.WHITE;
 
+  /**
+   * @param {Cell} cell
+   * @param {ModelViewTransform2} mvt
+   * @constructor
+   */
   function ColorChangingCellNode( cell, mvt ) {
     Node.call( this );
 
@@ -41,8 +46,7 @@ define( function( require ) {
     cell.proteinCount.lazyLink( function( proteinCount ) {
       var florescenceAmount = Util.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
                                           ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );
-      var fillColor = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
-      cellBody.fill = fillColor;
+      cellBody.fill = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
     } );
     this.addChild( cellBody );
   }
@@ -50,6 +54,8 @@ define( function( require ) {
   geneExpressionEssentials.register( 'ColorChangingCellNode', ColorChangingCellNode );
 
   return inherit( Node, ColorChangingCellNode, {}, {
+
+    // statics
     NominalFillColor: NOMINAL_FILL_COLOR,
     FlorescentFillColor: FLORESCENT_FILL_COLOR
   } );

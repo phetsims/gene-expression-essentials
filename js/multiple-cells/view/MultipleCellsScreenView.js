@@ -25,7 +25,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  //strings
+  // strings
   var showRealCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/showRealCells' );
   var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
   var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
@@ -46,14 +46,15 @@ define( function( require ) {
     ScreenView.call( this );
     var self = this;
     this.model = model;
-    // Set up the model-canvas transform.
-    // IMPORTANT NOTES: The multiplier factors for the 2nd point can be adjusted to shift the center right or left, and
-    // the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom in).
 
+    // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
+    // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
+    // in).
     this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( this.layoutBounds.width * 0.455, self.layoutBounds.height * 0.56 ),
-      1E8 ); // "Zoom factor" - smaller zooms out, larger zooms in.
+      1E8 // "zoom factor" - smaller zooms out, larger zooms in
+    );
 
     var buttonContent = new Text( showRealCellsString, {
       font: new PhetFont( 18 ),
@@ -284,7 +285,9 @@ define( function( require ) {
   }
 
   geneExpressionEssentials.register( 'MultipleCellsScreenView', MultipleCellsScreenView );
+
   return inherit( ScreenView, MultipleCellsScreenView, {
+
     /**
      * Step function for the view
      * @param  {number} dt

@@ -24,12 +24,15 @@ define( function( require ) {
 
   var boundingShapeWidth = Cell.DefaultCellSize.width * 20;
   var boundingShapeHeight = boundingShapeWidth * 0.35;
-  var bounds = new Bounds2( -boundingShapeWidth / 2, -boundingShapeHeight / 2,
-    -boundingShapeWidth / 2 + boundingShapeWidth, -boundingShapeHeight / 2 + boundingShapeHeight );
+  var bounds = new Bounds2(
+    -boundingShapeWidth / 2,
+    -boundingShapeHeight / 2,
+    -boundingShapeWidth / 2 + boundingShapeWidth,
+    -boundingShapeHeight / 2 + boundingShapeHeight
+  );
 
   // Seeds for the random number generators.  Values chosen empirically.
   var POSITION_RANDOMIZER_SEED = 226;
-
   var SIZE_AND_ORIENTATION_RANDOMIZER_SEED = 25214903912;
 
   var NOMINAL_TIME_STEP = 1 / 60; // nominal time step for 60fps
@@ -41,6 +44,7 @@ define( function( require ) {
   function MultipleCellsModel() {
     var self = this;
     this.clockRunningProperty = new Property( true ); // @public
+
     // List of all cells that are being simulated. Some of these cells will be visible to the user at any given time,
     // but some may not. All are clocked and their parameters are kept the same in order to keep them "in sync" with the
     // visible cells. This prevents large discontinuities in the protein level when the user adds or removes cells.
@@ -60,11 +64,12 @@ define( function( require ) {
     this.transcriptionFactorLevelProperty = new Property( CellProteinSynthesisSimulator.DefaultTranscriptionFactorCount );
     this.proteinDegradationRateProperty = new Property( CellProteinSynthesisSimulator.DefaultProteinDegradationRate );
     this.transcriptionFactorAssociationProbabilityProperty = new Property(
-      CellProteinSynthesisSimulator.DefaultTFAssociationProbability );
+      CellProteinSynthesisSimulator.DefaultTFAssociationProbability
+    );
     this.polymeraseAssociationProbabilityProperty = new Property(
-      CellProteinSynthesisSimulator.DefaultPolymeraseAssociationProbability );
-    this.mRnaDegradationRateProperty = new Property(
-      CellProteinSynthesisSimulator.DefaultMRNADegradationRate );
+      CellProteinSynthesisSimulator.DefaultPolymeraseAssociationProbability
+    );
+    this.mRnaDegradationRateProperty = new Property( CellProteinSynthesisSimulator.DefaultMRNADegradationRate );
 
     // Property that tracks the average protein level of all the cells.
     this.averageProteinLevelProperty = new Property( 0.0 ); // @public( read-only )
@@ -141,7 +146,6 @@ define( function( require ) {
      */
     step: function( dt ) {
       dt = Math.min( dt, MAX_TIME_STEP );
-
       if ( this.clockRunningProperty.get() ) {
         this.stepInTime( dt );
       }
@@ -210,7 +214,8 @@ define( function( require ) {
         }
       }
     },
-    // Find a location for the given cell that doesn't overlap with other cells on the list.
+
+    // @private - Find a location for the given cell that doesn't overlap with other cells on the list.
     placeCellInOpenLocation: function( cell ) {
       // Loop, randomly generating positions of increasing distance from the center, until the cell is positioned in a
       // place that does not overlap with the existing cells. The overall bounding shape of the collection of cells is
@@ -245,6 +250,8 @@ define( function( require ) {
       console.log( 'Warning: Exiting placement loop without having found open location.' );
     }
   }, {
+
+    // statics
     MaxCells: MAX_CELLS
   } );
 } );

@@ -17,21 +17,26 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // images
-  var ecoliImage = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/ecoli.jpg' );
+  var eColiImage = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/ecoli.jpg' );
 
-  //strings
+  // strings
   var imageCaptionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaption' );
   var imageCaptionNoteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaptionNote' );
 
+  // constants
+  var TEXT_FONT = new PhetFont( 12 );
+
+  /**
+   * @constructor
+   */
   function FluorescentCellsPictureDialog() {
     var self = this;
 
-    var imageNode = new Image( ecoliImage );
-    imageNode.scale( 0.75 );
+    var imageNode = new Image( eColiImage );
+    imageNode.scale( 0.75 ); // scale empirically determined
     var textNode = new Node();
-    var font = new PhetFont( 12 );
-    var captionTextNode = new RichText( imageCaptionString, { font: font, maxWidth: 800 } );
-    var noteTextNode = new MultiLineText( imageCaptionNoteString, { font: font, maxWidth: 800 } );
+    var captionTextNode = new RichText( imageCaptionString, { font: TEXT_FONT, maxWidth: 800 } );
+    var noteTextNode = new MultiLineText( imageCaptionNoteString, { font: TEXT_FONT, maxWidth: 800 } );
     if ( captionTextNode.bounds.isFinite() ) {
       noteTextNode.centerX = captionTextNode.centerX;
       noteTextNode.top = captionTextNode.bottom + 1;
@@ -41,7 +46,7 @@ define( function( require ) {
     var children = [
       imageNode,
       textNode,
-      new Text( 'Image Copyright Dennis Kunkel Microscopy, Inc.', { font: font } )
+      new Text( 'Image Copyright Dennis Kunkel Microscopy, Inc.', { font: TEXT_FONT } )
     ];
 
     var content = new LayoutBox( { orientation: 'vertical', align: 'center', spacing: 10, children: children } );
@@ -49,7 +54,6 @@ define( function( require ) {
     Dialog.call( this, content, {
       modal: true,
       hasCloseButton: true
-
     } );
 
     // close it on a click
@@ -70,13 +74,16 @@ define( function( require ) {
   }
 
   geneExpressionEssentials.register( 'FluorescentCellsPictureDialog', FluorescentCellsPictureDialog );
+
   return inherit( Dialog, FluorescentCellsPictureDialog, {
+
     /**
      * @public
      */
     hide: function() {
       this.shownProperty.value = false;
     },
+
     /**
      * @public
      */

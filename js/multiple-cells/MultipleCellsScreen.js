@@ -1,6 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
+ * main screen view class for the "Multiple Cells" screen
+ *
  * @author Aadish Gupta
  * @author John Blanco
  */

@@ -83,6 +83,7 @@ define( function( require ) {
     contentNode.addChild( xLabel );
     xLabel.centerX = plot.centerX;
     xLabel.top = plot.bottom + 10;
+
     // y axis label
     var proteinLevelColorKey = new Rectangle( plot.left, plot.top, COLOR_KEY_WIDTH, PLOT_HEIGHT, {
       fill: new LinearGradient( plot.left, plot.top, plot.left + COLOR_KEY_WIDTH, plot.top + PLOT_HEIGHT )
@@ -91,6 +92,7 @@ define( function( require ) {
       stroke: '#000',
       lineWidth: 1
     } );
+
     contentNode.addChild( proteinLevelColorKey );
 
     proteinLevelColorKey.top = plot.top;
@@ -126,12 +128,13 @@ define( function( require ) {
       fill: 'lightgrey',
       xMargin: 10,
       yMargin: 10
-
     } );
   }
 
   geneExpressionEssentials.register( 'ProteinLevelChartNode', ProteinLevelChartNode );
+
   return inherit( Panel, ProteinLevelChartNode, {
+
     /**
      * @param {number} dt
      * @public

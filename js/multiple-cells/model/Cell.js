@@ -1,8 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Model element that represents a cell in the multiple-cells screen. The cell has a shape, a protein level, and a
- * number of parameters that control how it synthesized a protein. Only one protein is synthesized.
+ * Model element that represents a cell on the "Multiple Cells" screen. The cell has a shape, a protein level, and a
+ * number of parameters that control how it synthesizes protein molecules. Only one protein is synthesized.
  *
  * @author John Blanco
  * @author Aadish Gupta
@@ -39,6 +39,7 @@ define( function( require ) {
    */
   function Cell( rotationAngle ) {
     ShapeChangingModelElement.call( this, this.createShape( rotationAngle ) );
+
     // This is a separate object in which the protein synthesis is simulated. The reason that this is broken out into a
     // separate class is that it was supplied by someone outside of the PhET project, and this keeps it encapsulated and
     // thus easier for the original author to help maintain.
@@ -58,7 +59,7 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      // NOTE: Multiplying time step, because it was necessary to get the model to run at the needed rate.
+      // NOTE: The time step is multiplied in order to get the model to run at the desired rate.
       this.proteinSynthesisSimulator.step( dt * 1000 );
       this.proteinCount.set( this.proteinSynthesisSimulator.getProteinCount() );
     },
@@ -69,15 +70,15 @@ define( function( require ) {
      * @returns {Shape}
      */
     createShape: function( rotationAngle ) {
-      var ecoliShape = E_COLI_LLIKE_SHAPE.copy();
+      var eColiShape = E_COLI_LLIKE_SHAPE.copy();
       // rotate and return
-      return ecoliShape.transformed( Matrix3.rotation2( rotationAngle ) );
+      return eColiShape.transformed( Matrix3.rotation2( rotationAngle ) );
     },
 
-    /**
-     * The following methods are essentially "pass through" methods to the protein synthesis simulation. This is done to
-     * ProteinSynthesisSimulator complete as a unit in itself
-     */
+    /*-----------------------------------------------------------------------------------------------------------------
+     * The following methods are essentially "pass through" methods to the protein synthesis simulator. This is done to
+     * allow proteinSynthesisSimulator to be a separate type.
+     *---------------------------------------------------------------------------------------------------------------*/
 
     /**
      * @param {number} tfCount
@@ -134,7 +135,9 @@ define( function( require ) {
     setMRnaDegradationRate: function( mRnaDegradationRate ) {
       this.proteinSynthesisSimulator.setMrnaDegradationRate( mRnaDegradationRate );
     }
-  }, { //Statics
+  }, {
+
+    // statics
     DefaultCellSize: DEFAULT_CELL_SIZE,
     ProteinLevelWhereColorChangeStarts: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_STARTS,
     ProteinLevelWhereColorChangeCompletes: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES
