@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Primary model for the Messenger RNA Production tab.
+ * Primary model for the Messenger RNA Production (mRNA) screen.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -9,7 +9,7 @@
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );

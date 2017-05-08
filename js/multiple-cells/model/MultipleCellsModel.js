@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Primary model for the Multiple Cells tab.
+ * Primary model for the Multiple Cells screen.
  *
  * @author John Blanco
  * @author Aadish Gupta

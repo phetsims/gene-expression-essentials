@@ -1,8 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Model element that represents a cell in the multiple-cells tab. The cell has a shape, a protein level, and a number
- * of parameters that control how it synthesized a protein. Only one protein is synthesized.
+ * Model element that represents a cell in the multiple-cells screen. The cell has a shape, a protein level, and a
+ * number of parameters that control how it synthesized a protein. Only one protein is synthesized.
  *
  * @author John Blanco
  * @author Aadish Gupta

@@ -168,7 +168,7 @@ define( function( require ) {
     function addBiomoleculeView( addedBiomolecule ) {
       var biomoleculeNode = new MobileBiomoleculeNode( self.mvt, addedBiomolecule );
 
-      // On this tab, users can't directly interact with individual biomolecules.
+      // On this screen, users can't directly interact with individual biomolecules.
       biomoleculeNode.setPickable( false );
       topBiomoleculeLayer.addChild( biomoleculeNode );
 

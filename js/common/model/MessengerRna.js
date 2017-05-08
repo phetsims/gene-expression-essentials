@@ -136,8 +136,8 @@ define( function( require ) {
     },
 
     /**
-     * Command this mRNA strand to fade away when it has become fully formed. This was created for use in the 2nd tab,
-     * where mRNA is never translated once it is produced.
+     * Command this mRNA strand to fade away when it has become fully formed. This was created for use in the 2nd
+     * screen, where mRNA is never translated once it is produced.
      * @param {boolean} fadeAwayWhenFormed
      * @public
      */

@@ -1,8 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Primary model for the manual gene expression tab.  This model interacts with the user (via the view) to allow them
- * to synthesize proteins from the information coded in the DNA strand by manually manipulating the various biomolecules
+ * Primary model for the 'Expression' screen.  This model interacts with the user (via the view) to allow them to
+ * synthesize proteins from the information coded in the DNA strand by manually manipulating the various biomolecules
  * that are involved in the process.
  *
  * The point (0,0) in model space is at the leftmost edge of the DNA strand, and at the vertical center of the strand.
