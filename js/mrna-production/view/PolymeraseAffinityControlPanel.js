@@ -1,7 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Control panel that present a user interface for controlling the affinity of RNA polymerase to DNA plus a transcription factor.
+ * Control panel that present a user interface for controlling the affinity of RNA polymerase to DNA plus a
+ * transcription factor.
  *
  * @author Mohamed Safi
  * @author John Blanco
@@ -32,17 +33,22 @@ define( function( require ) {
   // constants
   var TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
   var POLYMERASE_SCALE = 0.08;
-  var POLYMERASE_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ),
-    new Vector2( 0, 0 ), POLYMERASE_SCALE );
+  var POLYMERASE_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    new Vector2( 0, 0 ),
+    new Vector2( 0, 0 ),
+    POLYMERASE_SCALE
+  );
   var DNA_AND_TF_SCALE = 0.08;
-  var DNA_AND_TF_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ),
-    new Vector2( 0, 0 ), DNA_AND_TF_SCALE );
+  var DNA_AND_TF_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    new Vector2( 0, 0 ),
+    new Vector2( 0, 0 ),
+    DNA_AND_TF_SCALE
+  );
 
   //strings
   var rnaPolymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/rnaPolymerase' );
 
   /**
-   *
    * @param {TranscriptionFactorConfig} tfConfig
    * @param {number} minHeight
    * @param {Property} polymeraseAffinityProperty
@@ -51,22 +57,30 @@ define( function( require ) {
   function PolymeraseAffinityControlPanel( tfConfig, minHeight, polymeraseAffinityProperty ) {
     var self = this;
 
-
     var titleNode = new Text( rnaPolymeraseString, {
       font: TITLE_FONT,
       maxWidth: 180
     } );
 
-
     // Create the affinity control node.
-    // REVIEW: why do we need to pass a MVT into biomolecule nodes in general? I've found it simpler to apply the transformation to the PNode
-    // itself, and then place mouse-interaction code at a location like this in a double-brace block if it needs to know the transform information.
-    // This way, not every node has to be passed a transform. Are there specific exceptions in this case that prevent that from being useful?
     var polymeraseNode = new MobileBiomoleculeNode( POLYMERASE_MVT, new RnaPolymerase() );
-    var dnaFragmentNode = new DnaMoleculeNode( new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST * 2 + 1, 0.0, true ), DNA_AND_TF_MVT, 2, false ).toDataURLNodeSynchronous();
+    var dnaFragmentNode = new DnaMoleculeNode(
+      new DnaMolecule(
+        null,
+        GEEConstants.BASE_PAIRS_PER_TWIST * 2 + 1,
+        0.0,
+        true
+      ),
+      DNA_AND_TF_MVT,
+      2,
+      false
+    ).toDataURLNodeSynchronous(); // make this into an image in the control panel so another canvas isn't created
     var transcriptionFactorNode = new MobileBiomoleculeNode( DNA_AND_TF_MVT, new TranscriptionFactor( null, tfConfig ) );
+
+    // Set position to be on top of the dna, values empirically determined.
     transcriptionFactorNode.x = 25;
-    transcriptionFactorNode.y = 0; // Set position to be on top of the dna, values empirically determined.
+    transcriptionFactorNode.y = 0;
+
     dnaFragmentNode.addChild( transcriptionFactorNode );
 
     var panelOptions = {
@@ -96,7 +110,9 @@ define( function( require ) {
     var bottomSpacer = new Spacer( 0, growthAmount * 0.75 );
 
     var contents = new VBox( {
-        children: [ titleNode, topSpacer,
+      children: [
+        titleNode,
+        topSpacer,
           new AffinityController( polymeraseNode, dnaFragmentNode, polymeraseAffinityProperty ),
           bottomSpacer
         ],

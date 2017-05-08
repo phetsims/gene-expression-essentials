@@ -49,14 +49,15 @@ define( function( require ) {
 
     // Set up the model-canvas transform.
     this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-      Vector2.ZERO, viewPortPosition, 0.2 ); // "Zoom factor" - smaller zooms out, larger zooms in.
-
+      Vector2.ZERO,
+      viewPortPosition,
+      0.2  // "Zoom factor" - smaller zooms out, larger zooms in.
+    );
 
     // Set up the root node for all model objects. Nodes placed under this one will scroll when the user moves along the
     // DNA strand.
     this.modelRootNode = new Node();
     this.addChild( this.modelRootNode );
-
 
     // Add some layers for enforcing some z-order relationships needed in order to keep things looking good.
     var dnaLayer = new Node();
@@ -83,32 +84,34 @@ define( function( require ) {
     var gene = model.getDnaMolecule().getGenes()[ 0 ];
 
     // Add the nodes that allow the user to control the concentrations and affinities.
-    var positiveTranscriptionFactorControlPanel =
-      new TranscriptionFactorControlPanel( model,
-        MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
-        gene.getTranscriptionFactorAffinityProperty( MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG ) );
+    var positiveTranscriptionFactorControlPanel = new TranscriptionFactorControlPanel(
+      model,
+      MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
+      gene.getTranscriptionFactorAffinityProperty( MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG )
+    );
     controlsNode.addChild( positiveTranscriptionFactorControlPanel );
 
     var polymeraseAffinityControlPanel = new PolymeraseAffinityControlPanel(
       MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
       positiveTranscriptionFactorControlPanel.bounds.height,
-      gene.getPolymeraseAffinityProperty() );
+      gene.getPolymeraseAffinityProperty()
+    );
     controlsNode.addChild( polymeraseAffinityControlPanel );
 
-    var negativeTranscriptionFactorControlPanel =
-      new TranscriptionFactorControlPanel( model,
-        MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG,
-        gene.getTranscriptionFactorAffinityProperty( MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG ) );
+    var negativeTranscriptionFactorControlPanel = new TranscriptionFactorControlPanel(
+      model,
+      MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG,
+      gene.getTranscriptionFactorAffinityProperty( MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG )
+    );
     controlsNode.addChild( negativeTranscriptionFactorControlPanel );
 
     // Add the check box for showing/hiding the control panel for the negative transcription factor.
     var negativeFactorEnabledCheckBox = new CheckBox(
       new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ), maxWidth: 275 } ),
-      self.negativeTranscriptionFactorEnabled, {
-        boxWidth: 20
-      } );
+      self.negativeTranscriptionFactorEnabled,
+      { boxWidth: 20 }
+    );
     controlsNode.addChild( negativeFactorEnabledCheckBox );
-
 
     // Only show the control for the negative transcription factor if it is enabled.
     self.negativeTranscriptionFactorEnabled.link( function( enabled ) {
@@ -119,13 +122,14 @@ define( function( require ) {
       }
     } );
 
-    // Add play/pause button.
+    // Add the play/pause button.
     var playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
       radius: 23,
       touchAreaDilation: 5
     } );
     this.addChild( playPauseButton );
 
+    // Add the step button.
     var stepButton = new StepForwardButton( {
       playingProperty: model.clockRunningProperty,
       listener: function() { model.stepInTime( 0.016 ); },
@@ -144,7 +148,6 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - INSET
     } );
     controlsNode.addChild( resetAllButton );
-
 
     // Lay out the controls.
 
@@ -165,6 +168,7 @@ define( function( require ) {
     stepButton.centerY = playPauseButton.centerY;
     stepButton.left = playPauseButton.right + INSET;
 
+    // define a function for adding views of biomolecules
     function addBiomoleculeView( addedBiomolecule ) {
       var biomoleculeNode = new MobileBiomoleculeNode( self.mvt, addedBiomolecule );
 
@@ -215,7 +219,6 @@ define( function( require ) {
       addBiomoleculeView( addedBiomolecule );
     } );
 
-
     // Watch for and handle comings and goings of messenger RNA.
     model.messengerRnaList.addItemAddedListener( function( addedMessengerRna ) {
 
@@ -228,17 +231,14 @@ define( function( require ) {
           messengerRnaNode.dispose();
           model.messengerRnaList.removeItemRemovedListener( removalListener );
         }
-
       } );
-
     } );
-
-
   }
 
   geneExpressionEssentials.register( 'MessengerRnaProductionScreenView', MessengerRnaProductionScreenView );
 
   return inherit( ScreenView, MessengerRnaProductionScreenView, {
+
     /**
      * Step function for this view
      * @public

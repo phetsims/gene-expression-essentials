@@ -33,12 +33,11 @@ define( function( require ) {
   var DNA_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 0, 0 ), DNA_SCALE );
   var TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
 
-  //strings
+  // strings
   var positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactorHtml' );
   var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactorHtml' );
 
   /**
-   *
    * @param {MessengerRnaProductionModel} model
    * @param {TranscriptionFactorConfig} transcriptionFactorConfig
    * @param {Property} affinityProperty
@@ -60,20 +59,29 @@ define( function( require ) {
       tfLevelProperty = model.negativeTranscriptionFactorCountProperty;
     }
 
-
     var titleNode = new MultiLineText( titleText, {
       font: TITLE_FONT,
       maxWidth: 180
     } );
 
+    var transcriptionFactorNode = new MobileBiomoleculeNode(
+      GEEConstants.TRANSCRIPTION_FACTOR_MVT,
+      new TranscriptionFactor( null, transcriptionFactorConfig )
+    );
+    var dnaFragmentNode = new DnaMoleculeNode(
+      new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ),
+      DNA_MVT,
+      2,
+      false
+    ).toDataURLNodeSynchronous(); // turn into an image so as not to create a canvas layer
 
-    var transcriptionFactorNode = new MobileBiomoleculeNode( GEEConstants.TRANSCRIPTION_FACTOR_MVT,
-      new TranscriptionFactor( null, transcriptionFactorConfig ) );
-    var dnaFragmentNode = new DnaMoleculeNode( new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ), DNA_MVT, 2, false ).toDataURLNodeSynchronous();
-
-    var concentrationController = new ConcentrationController( transcriptionFactorConfig, tfLevelProperty, 0, MessengerRnaProductionModel.MAX_TRANSCRIPTION_FACTOR_COUNT );
+    var concentrationController = new ConcentrationController(
+      transcriptionFactorConfig,
+      tfLevelProperty,
+      0,
+      MessengerRnaProductionModel.MAX_TRANSCRIPTION_FACTOR_COUNT
+    );
     var affinityController = new AffinityController( transcriptionFactorNode, dnaFragmentNode, affinityProperty );
-
 
     var contentNode = new VBox( {
       children: [ titleNode, concentrationController, affinityController ],

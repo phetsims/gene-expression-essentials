@@ -51,14 +51,19 @@ define( function( require ) {
     molecule.setPickable( false );
 
     self.addChild( new VBox( {
-      spacing: 5, children: [ captionNode, molecule,
-        new ControllerNode( tfLevelProperty,
+      spacing: 5,
+      children: [
+        captionNode,
+        molecule,
+        new ControllerNode(
+          tfLevelProperty,
           min,
           max,
           noneString,
-          highString, {
-            trackSize: new Dimension2( 130, 5 )
-          } ) ]
+          highString,
+          { trackSize: new Dimension2( 130, 5 ) }
+        )
+      ]
     } ) );
   }
 

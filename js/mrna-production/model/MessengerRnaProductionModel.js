@@ -25,6 +25,7 @@ define( function( require ) {
   var Vector3 = require( 'DOT/Vector3' );
 
   // constants
+
   // Length, in terms of base pairs, of the DNA molecule.
   var NUM_BASE_PAIRS_ON_DNA_STRAND = 500;
 
@@ -88,7 +89,7 @@ define( function( require ) {
 
     // Motion bounds for the mobile biomolecules.
     this.moleculeMotionBounds = null; // @private
-    this.setupMotionBounds();
+    this.setUpMotionBounds();
 
     // The bounds within which polymerase may be moved when recycled. Set up the area where RNA polymerase goes when it
     // is recycled. This is near the beginning of the transcribed region in order to make transcription more likely to
@@ -101,20 +102,28 @@ define( function( require ) {
     var recycleZoneWidth = polymeraseSize.getWidth() * 4;
     var minX = recycleZoneCenterX - polymeraseSize.getWidth() * 2;
     var minY = GEEConstants.DNA_MOLECULE_Y_POS + polymeraseSize.getHeight();
+
     // @private
-    this.aboveDnaPolymeraseReturnBounds = new Bounds2( minX,
+    this.aboveDnaPolymeraseReturnBounds = new Bounds2(
+      minX,
       minY,
       minX + recycleZoneWidth,
-      minY + recycleZoneHeight );
+      minY + recycleZoneHeight
+    );
+
     minY = GEEConstants.DNA_MOLECULE_Y_POS - polymeraseSize.getHeight() - recycleZoneHeight;
+
     // @private
-    this.belowDnaPolymeraseReturnBounds = new Bounds2( minX,
+    this.belowDnaPolymeraseReturnBounds = new Bounds2(
+      minX,
       minY,
       minX + recycleZoneWidth,
-      minY + polymeraseSize.getHeight() * 1.2 );
+      minY + polymeraseSize.getHeight() * 1.2
+    );
 
     // Watch for mobileBiomolecule being added and link up the properties.
     this.mobileBiomoleculeList.addItemAddedListener( function( mobileBiomolecule ) {
+
       // Set the motion bounds such that the molecules move around above and on top of the DNA.
       mobileBiomolecule.setMotionBounds( self.moleculeMotionBounds );
 
@@ -150,6 +159,7 @@ define( function( require ) {
 
     // Watch for messenger RNA being added and link up the properties.
     this.messengerRnaList.addItemAddedListener( function( messengerRna ) {
+
       // Since this will never be translated in this model, make it fade away once it is formed.
       messengerRna.setFadeAwayWhenFormed( true );
 
@@ -197,6 +207,7 @@ define( function( require ) {
      * @public
      */
     stepInTime: function( dt ) {
+
       // Step all the contained biomolecules.
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         mobileBiomolecule.step( dt );
@@ -210,7 +221,7 @@ define( function( require ) {
     /**
      * @private
      */
-    setupMotionBounds: function() {
+    setUpMotionBounds: function() {
 
       // Bounds, have been empirically determined to keep biomolecules in .
       var minY = -1854;
@@ -361,6 +372,8 @@ define( function( require ) {
       }
     }
   }, {
+
+    // statics
     MAX_TRANSCRIPTION_FACTOR_COUNT: MAX_TRANSCRIPTION_FACTOR_COUNT,
     POSITIVE_TRANSCRIPTION_FACTOR_CONFIG: POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
     NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG: NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG

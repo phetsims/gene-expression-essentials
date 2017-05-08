@@ -1,5 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 /**
+ * main screen view for the 'mRNA' screen
+ *
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */

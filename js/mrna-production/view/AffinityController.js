@@ -23,11 +23,11 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  //constants
+  // constants
   var ARROW_LENGTH = 30;
   var ARROW_HEAD_HEIGHT = 10;
 
-  //strings
+  // strings
   var affinityString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinity' );
   var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
   var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
@@ -65,9 +65,9 @@ define( function( require ) {
       0,
       1,
       lowString,
-      highString, {
-        trackSize: new Dimension2( 130, 5 )
-      } );
+      highString,
+      { trackSize: new Dimension2( 130, 5 ) }
+    );
     self.addChild( new VBox( {
       children: [ captionNode, affinityKey, horizontalSlider ],
       spacing: 10
