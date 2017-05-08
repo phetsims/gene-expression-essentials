@@ -69,7 +69,7 @@ define( function( require ) {
 
     var transcriptionFactorNode = new MobileBiomoleculeNode( GEEConstants.TRANSCRIPTION_FACTOR_MVT,
       new TranscriptionFactor( null, transcriptionFactorConfig ) );
-    var dnaFragmentNode = new DnaMoleculeNode( new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ), DNA_MVT, 2, false );
+    var dnaFragmentNode = new DnaMoleculeNode( new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ), DNA_MVT, 2, false ).toDataURLNodeSynchronous();
 
     var concentrationController = new ConcentrationController( transcriptionFactorConfig, tfLevelProperty, 0, MessengerRnaProductionModel.MAX_TRANSCRIPTION_FACTOR_COUNT );
     var affinityController = new AffinityController( transcriptionFactorNode, dnaFragmentNode, affinityProperty );
