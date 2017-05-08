@@ -29,9 +29,8 @@ define( function( require ) {
   var FLASH_COLOR = new Color( 173, 255, 47 );
   var SCALE_FOR_FLASH_NODE = 1.5;
 
-  // Tweak warning: This is used to make sure that the counters on
-  // the various protein nodes end up horizontally aligned.  This will
-  // need to be adjust if the protein shapes change a lot.
+  // Tweak warning: This is used to make sure that the counters on the various protein nodes end up horizontally
+  // aligned.  This will need to be adjust if the protein shapes change a lot.
   var VERTICAL_DISTANCE_TO_COUNT_NODE = 40;
 
   var proteinStringConstructorMap = {
@@ -40,9 +39,7 @@ define( function( require ) {
     'ProteinC': ProteinC
   };
 
-
   /**
-   *
    * @param {ManualGeneExpressionModel} model
    * @param {string} proteinClassName
    * @param {Matrix3} transform
@@ -88,8 +85,7 @@ define( function( require ) {
     // to signal the user that the protein should be placed here.
     model.mobileBiomoleculeList.addItemAddedListener( function( biomolecule ) {
       if ( biomolecule instanceof proteinStringConstructorMap[ proteinClassName ] ) {
-        var protein = biomolecule;
-        protein.fullGrownProperty.link( function( isFullyFormed, wasFullyFormed ) {
+        biomolecule.fullGrownProperty.link( function( isFullyFormed, wasFullyFormed ) {
           if ( isFullyFormed && !wasFullyFormed ) {
             flashingCaptureNode.startFlashing();
           }
@@ -116,6 +112,7 @@ define( function( require ) {
     model.mobileBiomoleculeList.addItemRemovedListener( function( biomolecule ) {
       if ( biomolecule instanceof proteinStringConstructorMap[ proteinClassName ] &&
            model.getProteinCount( proteinStringConstructorMap[ proteinClassName ] ) === 0 ) {
+
         // Make sure highlight is off.
         flashingCaptureNode.forceFlashOff();
       }
@@ -128,5 +125,6 @@ define( function( require ) {
     //statics
     {
       SCALE_FOR_FLASH_NODE: SCALE_FOR_FLASH_NODE
-    } );
+    }
+  );
 } );

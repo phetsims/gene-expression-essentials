@@ -25,7 +25,7 @@ define( function( require ) {
   // constants
   var NUM_PROTEIN_TYPES = 3;  // Total number of protein types that can be collected.
 
-  // Attributes of various aspects of the box.
+  // attributes of various aspects of the box
   var TITLE_FONT = new PhetFont( { size: 18, weight: 'bold' } );
   var READOUT_FONT = new PhetFont( { size: 18, weight: 'bold' } );
   var BACKGROUND_COLOR = new Color( 255, 250, 205 );
@@ -38,13 +38,37 @@ define( function( require ) {
   var proteinCountCaptionPart2String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart2' );
 
   /**
-   * // private
-   * Node that indicates the number of proteins that the user has collected so far. This monitors the model and updates
-   * automatically.
-   * @param {ManualGeneExpressionModel}model
+   * @param {ManualGeneExpressionModel} model
+   * @param {ModelViewTransform2} mvt
    * @constructor
    */
-  function CollectionCountIndicator( model ) {
+  function ProteinCollectionNode( model, mvt ) {
+    var self = this;
+    Node.call( self );
+
+    // Create the title and scale it if needed.
+    var title = new MultiLineText( yourProteinCollectionString, {
+      fill: Color.BLACK,
+      font: TITLE_FONT,
+      maxWidth: 120
+    } );
+
+    // create the collection area
+    var collectionArea = new ProteinCollectionArea( model, mvt );
+
+    // create the panel
+    self.addChild( new Panel(
+      new VBox( { children: [ title, collectionArea, createCollectionCountIndicator( model ) ], spacing: 5 } ),
+      { fill: BACKGROUND_COLOR, resize: false }
+    ) );
+  }
+
+  /**
+   * helper function to create a node that indicates the number of proteins that the user has collected so far. This
+   * monitors the model and updates automatically.
+   * @param {ManualGeneExpressionModel}model
+   */
+  function createCollectionCountIndicator( model ) {
     var contentNode = new Node();
 
     var collectionCompleteNode = new Text( collectionCompleteString, {
@@ -106,40 +130,6 @@ define( function( require ) {
     model.proteinCCollectedProperty.link( countChangeUpdater );
 
     return contentNode;
-
-  }
-
-  /**
-   *
-   * @param {ManualGeneExpressionModel} model
-   * @param {ModelViewTransform2} mvt
-   * @constructor
-   */
-  function ProteinCollectionNode( model, mvt ) {
-    var self = this;
-    Node.call( self );
-
-    // Create the title and scale it if needed.
-    var title = new MultiLineText( yourProteinCollectionString, {
-        fill: Color.BLACK,
-        font: TITLE_FONT,
-        maxWidth: 120
-      }
-    );
-
-    // Create the collection area.
-    var collectionArea = new ProteinCollectionArea( model, mvt );
-
-    var contents = new VBox( {
-      children: [ title,
-        collectionArea,
-        CollectionCountIndicator( model ) ], spacing: 5
-    } );
-
-    self.addChild( new Panel( contents, {
-      fill: BACKGROUND_COLOR,
-      resize: false
-    } ) );
   }
 
   geneExpressionEssentials.register( 'ProteinCollectionNode', ProteinCollectionNode );

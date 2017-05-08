@@ -19,13 +19,15 @@ define( function( require ) {
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
   var Vector2 = require( 'DOT/Vector2' );
 
-
   // constants
   // Scaling factor for this node when used as a creator node. May be significantly different from the size of the
   // corresponding element in the model.
   var SCALING_FACTOR = 0.07;
-  var SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ),
-    new Vector2( 0, 0 ), SCALING_FACTOR );
+  var SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    new Vector2( 0, 0 ),
+    new Vector2( 0, 0 ),
+    SCALING_FACTOR
+  );
 
   /**
    * @param {BiomoleculeToolBoxNode} biomoleculeBoxNode
@@ -42,11 +44,9 @@ define( function( require ) {
         var transcriptionFactor = new TranscriptionFactor( biomoleculeBoxNode.model, tfConfig, pos );
         biomoleculeBoxNode.model.addMobileBiomolecule( transcriptionFactor );
         return transcriptionFactor;
-
       },
       function( mobileBiomolecule ) {
         biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
-
       },
       biomoleculeBoxNode
     );

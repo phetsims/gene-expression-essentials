@@ -1,6 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
+ * main screen view type for the 'Expression' screen
+ *
  * @author Sharfudeen Ashraf
  * @author John Blanco
  */

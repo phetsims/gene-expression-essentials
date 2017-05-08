@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Class that represents the collection area, where potentially several different types of protein can be collected.
+ * Class that represents the collection area, where several different types of protein can be collected.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -23,7 +23,6 @@ define( function( require ) {
   var ProteinCaptureNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCaptureNode' );
 
   /**
-   *
    * @param {ManualGeneExpressionModel} model
    * @param {ModelViewTransform2} mvt
    * @constructor
@@ -48,9 +47,17 @@ define( function( require ) {
     var proteinTypes = [ ProteinA, ProteinB, ProteinC ];
     for ( var i = 0; i < proteinTypes.length; i++ ) {
       var protein = new proteinTypes[ i ]();
-      var proteinShapeBounds = protein.getFullyGrownShape().transformed( transform ).getStrokedBounds( new kite.LineStyles( { lineWidth: 1 } ) );
-      captureNodeBackgroundSize.width = ( Math.max( proteinShapeBounds.width * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.width ) );
-      captureNodeBackgroundSize.height = ( Math.max( proteinShapeBounds.height * ProteinCaptureNode.SCALE_FOR_FLASH_NODE, captureNodeBackgroundSize.height ) );
+      var proteinShapeBounds = protein.getFullyGrownShape()
+        .transformed( transform )
+        .getStrokedBounds( new kite.LineStyles( { lineWidth: 1 } ) );
+      captureNodeBackgroundSize.width = ( Math.max(
+        proteinShapeBounds.width * ProteinCaptureNode.SCALE_FOR_FLASH_NODE,
+        captureNodeBackgroundSize.width
+      ) );
+      captureNodeBackgroundSize.height = ( Math.max(
+          proteinShapeBounds.height * ProteinCaptureNode.SCALE_FOR_FLASH_NODE,
+          captureNodeBackgroundSize.height )
+      );
     }
 
     // Add the collection area, which is a set of collection nodes.

@@ -22,31 +22,34 @@ define( function( require ) {
   // Scaling factor for this node when used as a creator node. May be significantly different from the size of the
   // corresponding element in the model.
   var SCALING_FACTOR = 0.07;
-  var SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ),
-    new Vector2( 0, 0 ), SCALING_FACTOR );
-
+  var SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    new Vector2( 0, 0 ),
+    new Vector2( 0, 0 ),
+    SCALING_FACTOR
+  );
 
   /**
-   *
    * @param {BiomoleculeToolBoxNode} biomoleculeBoxNode
    * @constructor
    */
   function RibosomeCreatorNode( biomoleculeBoxNode ) {
     var self = this;
-    BiomoleculeCreatorNode.call( self, new MobileBiomoleculeNode( SCALING_MVT, new Ribosome( new StubGeneExpressionModel() ) ),
+    BiomoleculeCreatorNode.call(
+      self,
+      new MobileBiomoleculeNode(
+        SCALING_MVT,
+        new Ribosome( new StubGeneExpressionModel() )
+      ),
       biomoleculeBoxNode.canvas,
       biomoleculeBoxNode.mvt,
-
       function( pos ) {
         var srs = new Ribosome( biomoleculeBoxNode.model, pos );
         biomoleculeBoxNode.model.addMobileBiomolecule( srs );
         return srs;
       },
-
       function( mobileBiomolecule ) {
         biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
       },
-
       biomoleculeBoxNode
     );
   }
