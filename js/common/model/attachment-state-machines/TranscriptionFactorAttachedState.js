@@ -78,7 +78,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( asm, dt ) {
+    step: function( asm, dt ) {
       var attachmentSite = this.transcriptionFactorAttachmentStateMachine.attachmentSite;
       var detachFromDnaThreshold = this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold;
       var biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;

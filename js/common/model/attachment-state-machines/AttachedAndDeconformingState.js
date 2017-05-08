@@ -37,7 +37,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( asm, dt ) {
+    step: function( asm, dt ) {
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
 
       // Verify that state is consistent.

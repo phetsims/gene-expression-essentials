@@ -42,7 +42,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( asm, dt ) {
+    step: function( asm, dt ) {
 
       var proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
       var ribosome = this.ribosomeAttachmentStateMachine.ribosome;

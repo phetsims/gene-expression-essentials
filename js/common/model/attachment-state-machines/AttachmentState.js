@@ -31,7 +31,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( enclosingStateMachine, dt ) {
+    step: function( enclosingStateMachine, dt ) {
       // By default does nothing, override to implement unique behavior.
     },
 

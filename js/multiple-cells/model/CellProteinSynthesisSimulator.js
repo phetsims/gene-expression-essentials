@@ -137,7 +137,7 @@ define( function( require ) {
      * @param {number} dt the length of this step through time
      * @public
      */
-    stepInTime: function( dt ) {
+    step: function( dt ) {
       var accumulatedTime = 0.0;
       var timeIncrement = -1.0;
       while ( accumulatedTime < dt && timeIncrement !== 0.0 ) {

@@ -130,7 +130,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( dt ) {
+    step: function( dt ) {
 
       if ( !this.userControlledProperty.get() ) {
 
@@ -143,7 +143,7 @@ define( function( require ) {
         }
 
         // Update the state of the attachment state machine.
-        this.attachmentStateMachine.stepInTime( dt );
+        this.attachmentStateMachine.step( dt );
       }
     },
 

@@ -107,23 +107,16 @@ define( function( require ) {
       if ( dt > 0.2 ) {
         return;
       }
-      this.stepInTime( dt );
-    },
 
-    /**
-     * @param {number} dt
-     * @private
-     */
-    stepInTime: function( dt ) {
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
-        mobileBiomolecule.stepInTime( dt );
+        mobileBiomolecule.step( dt );
       } );
 
       this.messengerRnaList.forEach( function( messengerRna ) {
-        messengerRna.stepInTime( dt );
+        messengerRna.step( dt );
       } );
 
-      this.dnaMolecule.stepInTime( dt );
+      this.dnaMolecule.step( dt );
     },
 
     /**

@@ -38,7 +38,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( enclosingStateMachine, dt ) {
+    step: function( enclosingStateMachine, dt ) {
       this.detachingCountdownTimer -= dt;
       if ( this.detachingCountdownTimer <= 0 ) {
 

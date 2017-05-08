@@ -46,9 +46,9 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( dt ) {
+    step: function( dt ) {
       // Step the current state in time.
-      this.attachmentState.stepInTime( this, dt );
+      this.attachmentState.step( this, dt );
     },
 
     /**

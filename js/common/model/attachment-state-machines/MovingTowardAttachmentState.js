@@ -37,7 +37,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( enclosingStateMachine, dt ) {
+    step: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
       // Verify that state is consistent
 

@@ -46,7 +46,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( asm, dt ) {
+    step: function( asm, dt ) {
       var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
       var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;

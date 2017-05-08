@@ -197,12 +197,12 @@ define( function( require ) {
     stepInTime: function( dt ) {
       // Step all the contained biomolecules.
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
-        mobileBiomolecule.stepInTime( dt );
+        mobileBiomolecule.step( dt );
       } );
       this.messengerRnaList.forEach( function( messengerRna ) {
-        messengerRna.stepInTime( dt );
+        messengerRna.step( dt );
       } );
-      this.dnaMolecule.stepInTime( dt );
+      this.dnaMolecule.step( dt );
     },
 
     /**

@@ -66,7 +66,7 @@ define( function( require ) {
        * @param {AttachmentStateMachine} asm
        * @param {number} dt
        */
-      stepInTime: function( asm, dt ) {
+      step: function( asm, dt ) {
         var biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
         biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
       }

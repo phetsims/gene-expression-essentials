@@ -57,9 +57,9 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( dt ) {
+    step: function( dt ) {
       // NOTE: Multiplying time step, because it was necessary to get the model to run at the needed rate.
-      this.proteinSynthesisSimulator.stepInTime( dt * 1000 );
+      this.proteinSynthesisSimulator.step( dt * 1000 );
       this.proteinCount.set( this.proteinSynthesisSimulator.getProteinCount() );
     },
 

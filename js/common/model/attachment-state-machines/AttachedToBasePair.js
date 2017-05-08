@@ -57,7 +57,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( asm, dt ) {
+    step: function( asm, dt ) {
 
       // Verify that state is consistent
       assert && assert( asm.attachmentSite !== null );

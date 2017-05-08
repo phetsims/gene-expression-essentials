@@ -274,7 +274,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( dt ) {
+    step: function( dt ) {
       this.updateStrandSegments();
       this.genes.forEach( function( gene ) {
         gene.updateAffinities();

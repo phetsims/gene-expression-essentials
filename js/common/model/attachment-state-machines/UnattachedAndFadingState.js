@@ -38,7 +38,7 @@ define( function( require ) {
      * @param {number} dt
      * @public
      */
-    stepInTime: function( asm, dt ) {
+    step: function( asm, dt ) {
       if ( this.preFadeCountdown > 0 ) {
         this.preFadeCountdown -= dt;
       }

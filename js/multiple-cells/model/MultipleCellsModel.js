@@ -159,7 +159,7 @@ define( function( require ) {
       var self = this;
       var totalProteinCount = 0;
       this.cellList.forEach( function( cell ) {
-        cell.stepInTime( dt );
+        cell.step( dt );
         if ( self.visibleCellList.contains( cell ) ) {
           totalProteinCount += cell.proteinCount.get();
         }
