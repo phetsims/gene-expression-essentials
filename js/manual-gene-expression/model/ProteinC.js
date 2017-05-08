@@ -21,6 +21,10 @@ define( function( require ) {
   var BASE_COLOR = new Color( 57, 255, 20 );
   var FULL_GROWN_WIDTH = 320;
 
+  /**
+   * @param {GeneExpressionModel} model
+   * @constructor
+   */
   function ProteinC( model ) {
     model = model || new StubGeneExpressionModel();
     Protein.call( this, model, this.createInitialShape(), BASE_COLOR );
