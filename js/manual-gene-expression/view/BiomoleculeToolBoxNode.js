@@ -56,12 +56,11 @@ define( function( require ) {
    * @constructor
    */
   function BiomoleculeToolBoxNode( model, canvas, mvt, gene ) {
-    var self = this;
 
-    self.model = model; //@private
-    self.canvas = canvas; //@private
-    self.mvt = mvt; //@private
-    self.biomoleculeCreatorNodeList = [];
+    this.model = model; //@private
+    this.canvas = canvas; //@private
+    this.mvt = mvt; //@private
+    this.biomoleculeCreatorNodeList = [];
 
     // Add the title.
     var toolBoxTitleNode = new Text( biomoleculeToolboxString, {
@@ -99,7 +98,7 @@ define( function( require ) {
           children: [
             positiveTranscriptionFactorLabel,
             new Spacer( maxWidth - positiveTranscriptionFactorLabelWidth, 0 ),
-            self.addCreatorNode( new TranscriptionFactorCreatorNode( self, tfConfig ) )
+            this.addCreatorNode( new TranscriptionFactorCreatorNode( this, tfConfig ) )
           ],
           spacing: 10
         } );
@@ -112,8 +111,8 @@ define( function( require ) {
       children: [
         rnaPolymeraseLabel,
         new Spacer( maxWidth - rnaPolymeraseLabelWidth, 0 ),
-        self.addCreatorNode( new RnaPolymeraseCreatorNode( self ) ),
-        self.addCreatorNode( new RnaPolymeraseCreatorNode( self ) )
+        this.addCreatorNode( new RnaPolymeraseCreatorNode( this ) ),
+        this.addCreatorNode( new RnaPolymeraseCreatorNode( this ) )
       ],
       spacing: 10
     } );
@@ -123,8 +122,8 @@ define( function( require ) {
       children: [
         ribosomeLabel,
         new Spacer( maxWidth - ribosomeLabelWidth, 0 ),
-        self.addCreatorNode( new RibosomeCreatorNode( self ) ),
-        self.addCreatorNode( new RibosomeCreatorNode( self ) )
+        this.addCreatorNode( new RibosomeCreatorNode( this ) ),
+        this.addCreatorNode( new RibosomeCreatorNode( this ) )
       ],
       spacing: 10
     } );
@@ -134,8 +133,8 @@ define( function( require ) {
       children: [
         mrnaDestroyerLabel,
         new Spacer( maxWidth - mrnaDestroyerLabelWidth, 0 ),
-        self.addCreatorNode( new MessengerRnaDestroyerCreatorNode( self ) ),
-        self.addCreatorNode( new MessengerRnaDestroyerCreatorNode( self ) )
+        this.addCreatorNode( new MessengerRnaDestroyerCreatorNode( this ) ),
+        this.addCreatorNode( new MessengerRnaDestroyerCreatorNode( this ) )
       ],
       spacing: 10
     } );
@@ -151,7 +150,7 @@ define( function( require ) {
           children: [
             negativeTranscriptionFactorLabel,
             new Spacer( maxWidth - negativeTranscriptionFactorLabelWidth, 0 ),
-            self.addCreatorNode( new TranscriptionFactorCreatorNode( self, tfConfig ) )
+            this.addCreatorNode( new TranscriptionFactorCreatorNode( this, tfConfig ) )
           ],
           spacing: 10
         } );
@@ -177,8 +176,7 @@ define( function( require ) {
     childrenNode.top = toolBoxTitleNode.bottom + 10;
     toolBoxTitleNode.centerX = childrenNode.centerX;
 
-
-    Panel.call( self, contentNode, {
+    Panel.call( this, contentNode, {
       xMargin: 10,
       yMargin: 10,
       fill: new Color( 250, 250, 250 ),
