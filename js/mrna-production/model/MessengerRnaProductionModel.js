@@ -38,6 +38,9 @@ define( function( require ) {
   // Number of RNA polymerase molecules present.
   var RNA_POLYMERASE_COUNT = 7;
 
+  var NOMINAL_TIME_STEP = 1 / 60; // nominal time step for 60fps
+  var MAX_TIME_STEP = 10 * NOMINAL_TIME_STEP; // max time step that the model is known to handle well
+
   /**
    * @constructor
    */
@@ -182,9 +185,8 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      if ( dt > 0.2 ) {
-        return;
-      }
+      // limit time step the max value that the model can handle
+      dt = Math.min( dt, MAX_TIME_STEP );
       if ( this.clockRunningProperty.get() ) {
         this.stepInTime( dt );
       }
