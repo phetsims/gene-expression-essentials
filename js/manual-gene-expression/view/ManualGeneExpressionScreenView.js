@@ -28,9 +28,8 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var GENE_TO_GENE_ANIMATION_TIME = 1000; // In milliseconds.
-  // Inset for several of the controls.
-  var INSET = 15;
+  var GENE_TO_GENE_ANIMATION_TIME = 1000; // in milliseconds
+  var INSET = 15; // inset for several of the controls, in view coordinates
 
   // strings
   var nextGeneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/nextGene' );
@@ -47,13 +46,15 @@ define( function( require ) {
 
     this.viewPortOffset = new Vector2( 0, 0 );
     var biomoleculeToolBoxNodeList = []; // Array of BiomoleculeToolBoxNode
-    // Set up the model-canvas transform.
-    // IMPORTANT NOTES: The multiplier factors for the 2nd point can be adjusted to shift the center right or left, and
-    // the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom in).
+
+    // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
+    // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
+    // in).
     this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.64 ),
-      0.1 ); // "Zoom factor" - smaller zooms out, larger zooms in.
+      0.1 // "zoom factor" - smaller zooms out, larger zooms in
+    );
 
     // Set up the node where all controls that need to be below the biomolecules should be placed.  This node and its
     // children will stay in one place and not scroll.
@@ -86,8 +87,8 @@ define( function( require ) {
     this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
     dnaLayer.addChild( this.dnaMoleculeNode );
 
-    // Add the placement hints that go on the DNA molecule. These exist on their own layer so that they can be seen above
-    // any molecules that are attached to the DNA strand.
+    // Add the placement hints that go on the DNA molecule. These exist on their own layer so that they can be seen
+    // above any molecules that are attached to the DNA strand.
     model.getDnaMolecule().getGenes().forEach( function( gene ) {
       gene.getPlacementHints().forEach( function( placementHint ) {
         placementHintLayer.addChild( new PlacementHintNode( self.mvt, placementHint ) );
@@ -139,7 +140,6 @@ define( function( require ) {
 
     } );
 
-
     // Add the tool boxes from which the various biomolecules can be moved  into the active area of the sim.
     model.getDnaMolecule().getGenes().forEach( function( gene ) {
       var biomoleculeToolBoxNode = new BiomoleculeToolBoxNode( model, self, self.mvt, gene );
@@ -150,8 +150,7 @@ define( function( require ) {
       model.addOffLimitsMotionSpace( self.mvt.viewToModelBounds( biomoleculeToolBoxNode.bounds ) );
     } );
 
-
-    // Add buttons for moving to next and previous genes.
+    // add button for moving to next gene
     var nextGeneButtonContent = new HBox( {
       children: [
         new Text( nextGeneString, {
@@ -179,7 +178,7 @@ define( function( require ) {
     nextGeneButton.x = self.layoutBounds.width - nextGeneButton.width - 20;
     nextGeneButton.y = self.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
 
-    // Add buttons for moving to next and previous genes.
+    // add buttons for moving to previous gene
     var previousGeneButtonContent = new HBox( {
       children: [
         new ArrowNode( 0, 0, -20, 0, {
@@ -234,10 +233,8 @@ define( function( require ) {
       modelRootNodeAnimator.stop().to( { x: self.viewPortOffset.x }, GENE_TO_GENE_ANIMATION_TIME ).start( phet.joist.elapsedTime );
     } );
 
-
     frontControlsLayer.addChild( nextGeneButton );
     frontControlsLayer.addChild( previousGeneButton );
-
 
     // Create and add the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
@@ -256,6 +253,7 @@ define( function( require ) {
   geneExpressionEssentials.register( 'ManualGeneExpressionScreenView', ManualGeneExpressionScreenView );
 
   return inherit( ScreenView, ManualGeneExpressionScreenView, {
+
     /**
      * @public
      */
