@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Node that has a shape and that can be set up to flash in a number of  different ways.
+ * Node that has a shape and that can be set up to flash in a number of different ways.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -20,7 +20,6 @@ define( function( require ) {
   // constants
   var INVISIBLE_COLOR = new Color( 0, 0, 0, 0 );
 
-
   /**
    * Class that controls timed flashing.
    *
@@ -37,9 +36,9 @@ define( function( require ) {
   function FlashController( flashingNode, normalColor, flashColor, onTime, offTime, numFlashes, flashOnAtStart, flashOnAtEnd ) {
 
     var self = this;
+
     // Variables used to implement the flashing behavior.
     this.transitionCountdown = 0; // @private
-
     this.flashingNode = flashingNode; // @private
     this.flashColor = flashColor; // @private
     this.normalColor = normalColor; // @private
@@ -49,21 +48,25 @@ define( function( require ) {
     this.timerHandle = null; // @private
 
     var time = 0;
+
     // @private
     this.timerListener = function() {
       self.timerHandle = null;
       if ( self.flashingNode.fill === self.flashColor ) {
+
         // Flash is on, so turn flash off.
         self.flashingNode.fill = self.normalColor;
         time = offTime;
       }
       else {
+
         // Flash is off, so turn flash on.
         self.flashingNode.fill = self.flashColor;
         time = onTime;
       }
       self.transitionCountdown--;
       if ( self.transitionCountdown > 0 ) {
+
         // Set timer for next transition.
         self.timerHandle = Timer.setTimeout( self.timerListener, time );
       }
@@ -123,7 +126,6 @@ define( function( require ) {
   } );
 
   /**
-   *
    * @param {Shape} shape
    * @param {Color} flashColor
    * @param {number} onTime - in milliseconds
