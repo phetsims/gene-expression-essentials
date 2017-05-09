@@ -64,7 +64,7 @@ define( function( require ) {
     // Add the node that will flash when a protein is created, stay lit until the protein is captured, and turn off once
     // it is captured.
     var flashingCaptureNodeShape = proteinShape.transformed( Matrix3.scaling( SCALE_FOR_FLASH_NODE, SCALE_FOR_FLASH_NODE ) );
-    var flashingCaptureNode = new FlashingShapeNode( flashingCaptureNodeShape, FLASH_COLOR, 350, 350, 4, false, true );
+    var flashingCaptureNode = new FlashingShapeNode( flashingCaptureNodeShape, FLASH_COLOR );
     self.addChild( flashingCaptureNode );
 
     // Add the node that will represent the spot where the protein can be captured, which is a black shape (signifying
