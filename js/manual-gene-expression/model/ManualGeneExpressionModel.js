@@ -94,7 +94,8 @@ define( function( require ) {
 
     // Rectangle that describes the "protein capture area".  When a protein is dropped by the user over this area, it
     // is considered to be captured.
-    this.proteinCaptureArea = new Bounds2( 0, 0, 1, 1 ); // @private
+    // Initially it is empty and is set by call to the function setProteinCaptureArea()
+    this.proteinCaptureArea = Bounds2.NOTHING.copy(); // @private
   }
 
   geneExpressionEssentials.register( 'ManualGeneExpressionModel', ManualGeneExpressionModel );
