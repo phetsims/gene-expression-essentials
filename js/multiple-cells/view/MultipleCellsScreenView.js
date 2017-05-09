@@ -168,22 +168,17 @@ define( function( require ) {
           cellLayer.removeChild( cellNodes[ addedCellIndex ] );
           model.visibleCellList.removeItemRemovedListener( removalListener );
           cellLayer.setScaleMagnitude( 1 );
-          // var scaleFactor = Math.min( ( self.layoutBounds.width * 0.3 ) / cellLayer.width , 1 );
           var scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1 );
           cellLayer.setScaleMagnitude( scaleFactor * 0.9 );
           cellLayer.centerX = self.proteinLevelChartNode.centerX;
-          //cellLayer.centerX = self.layoutBounds.width / 2 ;
           cellLayer.centerY = self.proteinLevelChartNode.bottom +
                               ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / 2;
         }
       } );
       cellLayer.setScaleMagnitude( 1 );
-      //var scaleFactor = Math.min( ( self.layoutBounds.width * 0.3 ) / cellLayer.width , 1 );
       var scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1 );
       cellLayer.setScaleMagnitude( scaleFactor * 0.9 );
       cellLayer.centerX = self.proteinLevelChartNode.centerX;
-      //cellLayer.centerX = self.layoutBounds.width / 2;
-      //cellLayer.top = self.proteinLevelChartNode.bottom + 10;
       cellLayer.centerY = self.proteinLevelChartNode.bottom +
                           ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / 2;
 
