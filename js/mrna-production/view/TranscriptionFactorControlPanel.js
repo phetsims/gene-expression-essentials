@@ -89,6 +89,7 @@ define( function( require ) {
     } );
 
     Panel.call( self, contentNode, {
+      cornerRadius: GEEConstants.CORNER_RADIUS,
       fill: new Color( 250, 250, 250 ),
       lineWidth: 2,
       xMargin: 10,

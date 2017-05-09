@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var Color = require( 'SCENERY/util/Color' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -59,7 +60,11 @@ define( function( require ) {
     // create the panel
     self.addChild( new Panel(
       new VBox( { children: [ title, collectionArea, createCollectionCountIndicator( model ) ], spacing: 5 } ),
-      { fill: BACKGROUND_COLOR, resize: false }
+      {
+        cornerRadius: GEEConstants.CORNER_RADIUS,
+        fill: BACKGROUND_COLOR,
+        resize: false
+      }
     ) );
   }
 
@@ -83,7 +88,7 @@ define( function( require ) {
     var countReadoutPanel = new Panel( countReadoutText, {
       minWidth: countReadoutText.width,
       resize: false,
-      cornerRadius: 3,
+      cornerRadius: GEEConstants.CORNER_RADIUS,
       lineWidth: 1,
       align: 'center',
       fill: INTEGER_BOX_BACKGROUND_COLOR

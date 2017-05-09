@@ -9,6 +9,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ColorChangingCellNode' );
   var FluorescentCellsPictureDialog = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/FluorescentCellsPictureDialog' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -65,6 +66,7 @@ define( function( require ) {
       touchAreaXDilation: 7,
       touchAreaYDilation: 7,
       baseColor: 'yellow',
+      cornerRadius: GEEConstants.CORNER_RADIUS,
       listener: function() {
         new FluorescentCellsPictureDialog().show();
       }
@@ -139,7 +141,7 @@ define( function( require ) {
     cellNumberLabel.bottom = cellNumberController.top - 5;
 
     var cellNumberControllerPanel = new Panel( cellNumberControllerNode, {
-      cornerRadius: 5,
+      cornerRadius: GEEConstants.CORNER_RADIUS,
       xMargin: 10,
       yMargin: 10,
       fill: new Color( 220, 236, 255 )

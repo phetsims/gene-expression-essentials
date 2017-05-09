@@ -48,7 +48,9 @@ define( function( require ) {
     LEADER_LENGTH: INTER_POINT_DISTANCE * 2,
 
     TRANSCRIPTION_FACTOR_MVT: ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ),
-      new Vector2( 0, 0 ), 0.08 )
+      new Vector2( 0, 0 ), 0.08 ),
+
+    CORNER_RADIUS: 5 // corner radius for different panels and accordion boxes in the views
   };
 
   geneExpressionEssentials.register( 'GEEConstants', GEEConstants );

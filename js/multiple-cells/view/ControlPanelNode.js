@@ -6,6 +6,7 @@ define( function( require ) {
   var AccordionBox = require( 'SUN/AccordionBox' );
   var Color = require( 'SCENERY/util/Color' );
   var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -58,6 +59,7 @@ define( function( require ) {
         font: new PhetFont( { size: 16, weight: 'bold' } ),
         maxWidth: 200
       } ),
+      cornerRadius: GEEConstants.CORNER_RADIUS,
       titleAlignX: 'left',
       contentAlign: 'center',
       fill: new Color( 220, 236, 255 ),

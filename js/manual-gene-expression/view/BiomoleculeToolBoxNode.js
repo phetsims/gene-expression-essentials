@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   var Color = require( 'SCENERY/util/Color' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -170,6 +171,7 @@ define( function( require ) {
     toolBoxTitleNode.centerX = childrenNode.centerX;
 
     Panel.call( this, contentNode, {
+      cornerRadius: GEEConstants.CORNER_RADIUS,
       xMargin: 10,
       yMargin: 10,
       fill: new Color( 250, 250, 250 ),

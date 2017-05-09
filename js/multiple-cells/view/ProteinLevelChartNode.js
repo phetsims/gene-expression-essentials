@@ -4,6 +4,7 @@ define( function( require ) {
 
   // modules
   var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ColorChangingCellNode' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -125,6 +126,7 @@ define( function( require ) {
 
     contentNode.addChild( yLabelNode );
     Panel.call( this, contentNode, {
+      cornerRadius: GEEConstants.CORNER_RADIUS,
       fill: 'lightgrey',
       xMargin: 10,
       yMargin: 10
