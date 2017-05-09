@@ -1,4 +1,12 @@
 // Copyright 2015, University of Colorado Boulder
+
+/**
+ * Class for constructing control panels that allow users to alter some of the parameters of the multi-cell protein
+ * synthesis model. This class makes sure fonts, colors, etc. are consistent consistent across panels.
+ *
+ * @author John Blanco
+ * @author Aadish Gupta
+ */
 define( function( require ) {
   'use strict';
 
@@ -16,7 +24,7 @@ define( function( require ) {
 
   /**
    * @param {String} title
-   * @param controllers
+   * @param {Array<Object>}controllers
    * @constructor
    */
   function ControlPanelNode( title, controllers ) {

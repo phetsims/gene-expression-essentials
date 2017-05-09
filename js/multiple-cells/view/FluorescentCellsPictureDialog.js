@@ -1,4 +1,11 @@
 // Copyright 2015, University of Colorado Boulder
+
+/**
+ * Shows a picture of real cells containing fluorescent protein.
+ *
+ * @author John Blanco
+ * @author Aadish Gupta
+ */
 define( function( require ) {
   'use strict';
 

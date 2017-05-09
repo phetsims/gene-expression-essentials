@@ -21,7 +21,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Util = require( 'DOT/Util' );
 
-  // constantw
+  // constants
   var NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray
   var FLORESCENT_FILL_COLOR = new Color( 200, 255, 58 );
   var STROKE = 2;

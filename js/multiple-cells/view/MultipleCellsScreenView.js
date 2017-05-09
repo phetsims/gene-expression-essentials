@@ -1,4 +1,11 @@
 // Copyright 2015, University of Colorado Boulder
+
+/**
+ * Screen view for the Multiple Cells screen.
+ *
+ * @author John Blanco
+ * @author Aadish Gupta
+ */
 define( function( require ) {
   'use strict';
 
@@ -43,6 +50,10 @@ define( function( require ) {
   var affinitiesString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinities' );
   var cellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/cells' );
 
+  /**
+   * @param {MultipleCellsModel} model
+   * @constructor
+   */
   function MultipleCellsScreenView( model ) {
     ScreenView.call( this );
     var self = this;

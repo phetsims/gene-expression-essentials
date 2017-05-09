@@ -1,4 +1,12 @@
 // Copyright 2015, University of Colorado Boulder
+
+/**
+ * This class defines a node that displays the average protein level for a population of cells. It in turns call Griddle
+ * library for drawing the graph
+ *
+ * @author John Blanco
+ * @author Aadish Gupta
+ */
 define( function( require ) {
   'use strict';
 
@@ -30,6 +38,10 @@ define( function( require ) {
   var averageProteinLevelVsTimeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevelVsTime' );
   var timeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/time' );
 
+  /**
+   * @param {Property<number>} averageProteinLevelProperty
+   * @constructor
+   */
   function ProteinLevelChartNode( averageProteinLevelProperty ) {
 
     var contentNode = new Node();
