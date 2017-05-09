@@ -63,7 +63,6 @@ define( function( require ) {
       fill: new Color( 220, 236, 255 ),
       buttonXMargin: 10,
       buttonYMargin: 10,
-      //contentXMargin: 10,
       contentYMargin: 10,
       expandedProperty: this.expandedProperty,
       buttonTouchAreaXDilation: 5,
