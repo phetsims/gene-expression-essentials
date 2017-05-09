@@ -4,6 +4,7 @@
  * GenericUnattachedAndAvailableState is a generic state when biomolecule is unattached and available
  * @author John Blanco
  * @author Mohamed Safi
+ * @author Aadish Gupta
  */
 define( function( require ) {
   'use strict';

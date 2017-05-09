@@ -7,6 +7,7 @@
  *
  * @author John Blanco
  * @author Mohamed Safi
+ * @author Aadish Gupta
  */
 define( function( require ) {
   'use strict';

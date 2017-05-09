@@ -4,6 +4,7 @@
  * One of the state for MessengerRnaAttachmentStateMachine. mRna enters this state when it is being synthesized.
  * @author John Blanco
  * @author Mohamed Safi
+ * @author Aadish Gupta
  */
 define( function( require ) {
   'use strict';

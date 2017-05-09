@@ -4,6 +4,7 @@
  * GenericUnattachedButUnavailableState is a generic state when biomolecule is unattached but unavailable
  * @author John Blanco
  * @author Mohamed Safi
+ * @author Aadish Gupta
  */
 define( function( require ) {
   'use strict';

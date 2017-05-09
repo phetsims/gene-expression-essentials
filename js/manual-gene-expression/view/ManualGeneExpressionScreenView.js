@@ -1,8 +1,10 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
+ * Screen View for Manual Gene Expression screen
  * @author Sharfudeen Ashraf
  * @author John Blanco
+ * @author Aadish Gupta
  */
 define( function( require ) {
   'use strict';

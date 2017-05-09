@@ -1,4 +1,11 @@
 // Copyright 2017, University of Colorado Boulder
+
+/**
+ * Class that created slider controller across the simulation. Scale for the controller can be linear or log
+ *
+ * @author John Blanco
+ * @author Aadish Gupta
+ */
 define( function( require ) {
   'use strict';
 

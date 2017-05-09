@@ -1,8 +1,11 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
+ * Screen View for Messenger Rna Production Screen
+ *
  * @author Mohamed Safi
  * @author John Blanco
+ * @author Aadish Gupta
  */
 define( function( require ) {
   'use strict';

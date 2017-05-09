@@ -2,7 +2,9 @@
 
 /**
  * A motion strategy that moves directly to the specified destination
+ * @author John Blanco
  * @author Mohamed Safi
+ * @author Aadish Gupta
  */
 define( function( require ) {
   'use strict';

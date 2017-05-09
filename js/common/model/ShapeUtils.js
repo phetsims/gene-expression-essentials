@@ -3,7 +3,9 @@
 /**
  * Contains utility  methods for creating different shapes
  *
+ * @author John Blanco
  * @author Sharfudeen Ashraf
+ * @author Aadish Gupta
  */
 define( function( require ) {
   'use strict';

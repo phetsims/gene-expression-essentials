@@ -4,8 +4,9 @@
  * This class defines a point in model space that also has mass. It is is used to define the overall shape of the mRNA,
  * which uses a spring algorithm to implement the winding/twisting behavior.
  *
- *@author John Blanco
- *@author Mohamed Safi
+ * @author John Blanco
+ * @author Mohamed Safi
+ * @author Aadish Gupta
  */
 define( function( require ) {
   'use strict';
