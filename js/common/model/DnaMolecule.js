@@ -85,8 +85,12 @@ define( function( require ) {
       var strand1YPos = this.getDnaStrandYPosition( xPos, 0 );
       var strand2YPos = this.getDnaStrandYPosition( xPos, GEEConstants.INTER_STRAND_OFFSET );
       var height = Math.abs( strand1YPos - strand2YPos );
-      var basePairYPos = ( strand1YPos + strand2YPos ) / 2;
-      this.basePairs.push( new BasePair( xPos, basePairYPos, height ) );
+      this.basePairs.push( new BasePair(
+        xPos,
+        Math.min( strand1YPos, strand2YPos ),
+        Math.max( strand1YPos, strand2YPos ),
+        height
+      ) );
       this.strandPoints.push( new DnaStrandPoint( xPos, strand1YPos, strand2YPos ) );
       this.strandPointsShadow.push( new DnaStrandPoint( xPos, strand1YPos, strand2YPos ) );
     }
@@ -188,9 +192,12 @@ define( function( require ) {
       this.redraw = false;
 
       // Set the shadow points to the nominal, non-deformed positions.
-      this.strandPointsShadow.forEach( function( dnaStrandPoint ) {
+      this.strandPointsShadow.forEach( function( dnaStrandPoint, i ) {
         dnaStrandPoint.strand1YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, 0 );
         dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, GEEConstants.INTER_STRAND_OFFSET );
+        self.basePairs[ i ].topYLocation = Math.min( dnaStrandPoint.strand1YPos, dnaStrandPoint.strand2YPos );
+        self.basePairs[ i ].bottomYLocation = Math.max( dnaStrandPoint.strand1YPos, dnaStrandPoint.strand2YPos );
+
       } );
 
       // Move the shadow points to account for any separations.
@@ -210,6 +217,13 @@ define( function( require ) {
                                                        separationWeight * separation.getAmount() / 2;
             self.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand2YPos -
                                                        separationWeight * separation.getAmount() / 2;
+            self.basePairs[ i ].topYLocation = Math.min(
+              self.strandPointsShadow[ i ].strand1YPos, self.strandPointsShadow[ i ].strand2YPos
+            );
+            self.basePairs[ i ].bottomYLocation = Math.max(
+              self.strandPointsShadow[ i ].strand1YPos, self.strandPointsShadow[ i ].strand2YPos
+            );
+
           }
         }
       } );

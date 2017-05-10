@@ -28,14 +28,16 @@ define( function( require ) {
   /**
    *
    * @param {number} centerLocationX
-   * @param {number} centerLocationY
+   * @param {number} topYLocation
+   * @param {number} bottomYLocation
    * @param {number} height
    * @constructor
    */
-  function BasePair( centerLocationX, centerLocationY, height ) {
-    this.center = new Vector2( centerLocationX, centerLocationY ); // @public
+  function BasePair( centerLocationX, topYLocation, bottomYLocation, height ) {
+    this.center = new Vector2( centerLocationX, ( topYLocation + bottomYLocation ) / 2 ); // @public
     this.x = centerLocationX - BASE_PAIR_WIDTH / 2; // @public
-    this.y = centerLocationY - height / 2; // @public
+    this.topYLocation = topYLocation; // @public
+    this.bottomYLocation = bottomYLocation; // @public
     this.height = height; // @public
     this.width = BASE_PAIR_WIDTH; // @public
   }

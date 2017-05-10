@@ -45,9 +45,11 @@ define( function( require ) {
      * @private
      */
     drawRect: function( context, basePair ) {
-      context.moveTo( basePair.x, basePair.y );
+      context.moveTo( basePair.x, basePair.topYLocation );
       context.lineWidth = basePair.width;
-      context.lineTo( basePair.x, basePair.y + basePair.height );
+      context.lineTo( basePair.x, basePair.topYLocation + basePair.height / 2 );
+      context.moveTo( basePair.x, basePair.bottomYLocation );
+      context.lineTo( basePair.x, basePair.bottomYLocation - basePair.height / 2 );
     },
 
     /**
