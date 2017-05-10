@@ -501,7 +501,7 @@ define( function( require ) {
       var potentialAttachmentSites = [];
       for ( var i = 0; i < this.basePairs.length; i++ ) {
         // See if the base pair is within the max attachment distance.
-        attachmentSiteLocation.setXY( this.basePairs[ i ].getCenterLocation().x, GEEConstants.DNA_MOLECULE_Y_POS );
+        attachmentSiteLocation.setXY( this.basePairs[ i ].getCenterLocationX(), GEEConstants.DNA_MOLECULE_Y_POS );
         if ( attachmentSiteLocation.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
           // In range.  Add it to the list if it is available.
           var potentialAttachmentSite = getAttachSiteForBasePair( i );

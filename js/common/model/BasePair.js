@@ -20,7 +20,6 @@ define( function( require ) {
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var BASE_PAIR_WIDTH = 13; // In picometers.  Not sure if this is close to real life, chosen to look decent in view.
@@ -34,7 +33,6 @@ define( function( require ) {
    * @constructor
    */
   function BasePair( centerLocationX, topYLocation, bottomYLocation, height ) {
-    this.center = new Vector2( centerLocationX, ( topYLocation + bottomYLocation ) / 2 ); // @public
     this.x = centerLocationX - BASE_PAIR_WIDTH / 2; // @public
     this.topYLocation = topYLocation; // @public
     this.bottomYLocation = bottomYLocation; // @public
@@ -47,11 +45,11 @@ define( function( require ) {
   return inherit( Object, BasePair, {
 
     /**
-     * @returns {Vector2}
+     * @returns {number}
      * @public
      */
-    getCenterLocation: function() {
-      return this.center;
+    getCenterLocationX: function() {
+      return this.x + BASE_PAIR_WIDTH / 2;
     }
   } );
 } );
