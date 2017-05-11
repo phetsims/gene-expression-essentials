@@ -45,8 +45,6 @@ define( function( require ) {
    * @constructor
    */
   function TranscriptionFactorControlPanel( model, transcriptionFactorConfig, affinityProperty ) {
-    var self = this;
-
     var titleText;
     var tfLevelProperty;
     if ( transcriptionFactorConfig.isPositive ) {
@@ -89,7 +87,7 @@ define( function( require ) {
       spacing: 10
     } );
 
-    Panel.call( self, contentNode, {
+    Panel.call( this, contentNode, {
       cornerRadius: GEEConstants.CORNER_RADIUS,
       fill: new Color( 250, 250, 250 ),
       lineWidth: 2,

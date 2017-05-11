@@ -48,7 +48,7 @@ define( function( require ) {
     var self = this;
     this.model = model;
     this.negativeTranscriptionFactorEnabled = new Property( false );
-    var viewPortPosition = new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.4 );
+    var viewPortPosition = new Vector2( this.layoutBounds.width * 0.48, this.layoutBounds.height * 0.4 );
 
     // Set up the model-canvas transform.
     this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -111,13 +111,13 @@ define( function( require ) {
     // Add the check box for showing/hiding the control panel for the negative transcription factor.
     var negativeFactorEnabledCheckBox = new CheckBox(
       new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ), maxWidth: 275 } ),
-      self.negativeTranscriptionFactorEnabled,
+      this.negativeTranscriptionFactorEnabled,
       { boxWidth: 20 }
     );
     controlsNode.addChild( negativeFactorEnabledCheckBox );
 
     // Only show the control for the negative transcription factor if it is enabled.
-    self.negativeTranscriptionFactorEnabled.link( function( enabled ) {
+    this.negativeTranscriptionFactorEnabled.link( function( enabled ) {
       negativeTranscriptionFactorControlPanel.setVisible( enabled );
       if ( !enabled ) {
         // When the negative transcription factor control is hidden, there should be no negative factors.
@@ -155,7 +155,7 @@ define( function( require ) {
     // Lay out the controls.
 
     positiveTranscriptionFactorControlPanel.left = INSET;
-    positiveTranscriptionFactorControlPanel.bottom = self.layoutBounds.maxY - INSET;
+    positiveTranscriptionFactorControlPanel.bottom = this.layoutBounds.maxY - INSET;
 
     polymeraseAffinityControlPanel.left = positiveTranscriptionFactorControlPanel.right + INSET;
     polymeraseAffinityControlPanel.bottom = positiveTranscriptionFactorControlPanel.bottom;

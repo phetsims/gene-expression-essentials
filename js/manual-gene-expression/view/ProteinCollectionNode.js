@@ -45,8 +45,7 @@ define( function( require ) {
    * @constructor
    */
   function ProteinCollectionNode( model, mvt ) {
-    var self = this;
-    Node.call( self );
+    Node.call( this );
 
     // Create the title and scale it if needed.
     var title = new MultiLineText( yourProteinCollectionString, {
@@ -59,7 +58,7 @@ define( function( require ) {
     var collectionArea = new ProteinCollectionArea( model, mvt );
 
     // create the panel
-    self.addChild( new Panel(
+    this.addChild( new Panel(
       new VBox( { children: [ title, collectionArea, createCollectionCountIndicator( model ) ], spacing: 5 } ),
       {
         cornerRadius: GEEConstants.CORNER_RADIUS,

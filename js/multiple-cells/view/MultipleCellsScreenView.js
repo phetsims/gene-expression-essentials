@@ -64,7 +64,7 @@ define( function( require ) {
     // in).
     this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      new Vector2( this.layoutBounds.width * 0.455, self.layoutBounds.height * 0.56 ),
+      new Vector2( this.layoutBounds.width * 0.455, this.layoutBounds.height * 0.56 ),
       1E8 // "zoom factor" - smaller zooms out, larger zooms in
     );
 
@@ -160,12 +160,12 @@ define( function( require ) {
 
     this.addChild( cellNumberControllerPanel );
     cellNumberControllerPanel.bottom = resetAllButton.bottom;
-    cellNumberControllerPanel.centerX = self.proteinLevelChartNode.centerX;
+    cellNumberControllerPanel.centerX = this.proteinLevelChartNode.centerX;
 
     var cellNodes = [];
 
     for ( var i = 0; i < model.cellList.length; i++ ) {
-      var cellNode = new ColorChangingCellNode( model.cellList[ i ], self.mvt );
+      var cellNode = new ColorChangingCellNode( model.cellList[ i ], this.mvt );
       cellNodes.push( cellNode );
       invisibleCellLayer.addChild( cellNode );
     }

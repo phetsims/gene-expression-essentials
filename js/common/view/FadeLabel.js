@@ -36,10 +36,10 @@ define( function( require ) {
     var opacity = 0;
 
     var label = new Text( text, { font: FONT, maxWidth: 80 } );
-    self.addChild( label );
+    this.addChild( label );
 
     if ( !initiallyVisible ) {
-      self.setOpacity( 0 );
+      this.setOpacity( 0 );
       opacity = 0;
     }
     else {

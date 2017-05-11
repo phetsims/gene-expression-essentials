@@ -42,7 +42,7 @@ define( function( require ) {
     var self = this;
 
     // Map from ribosomes to the shape segment to which they are attached.
-    self.mapRibosomeToShapeSegment = new Map(); //@private
+    this.mapRibosomeToShapeSegment = new Map(); //@private
 
     WindingBiomolecule.call( self, model, new Shape().moveToPoint( position ).makeImmutable(), position );
 
@@ -51,16 +51,16 @@ define( function( require ) {
     this.beingSynthesizedProperty = new Property( true ); //@public
 
     // Protein prototype, used to keep track of protein that should be synthesized from this particular strand of mRNA.
-    self.proteinPrototype = proteinPrototype; //@private
+    this.proteinPrototype = proteinPrototype; //@private
 
     // Local reference to the non-generic state machine used by this molecule.
-    self.mRnaAttachmentStateMachine = self.attachmentStateMachine; // @private
+    this.mRnaAttachmentStateMachine = this.attachmentStateMachine; // @private
 
     // mRNA destroyer that is destroying this mRNA. Null until and unless destruction has begun.
-    self.messengerRnaDestroyer = null; //@private
+    this.messengerRnaDestroyer = null; //@private
 
     // Shape segment where the mRNA destroyer is connected. This is null until and unless destruction has begun.
-    self.segmentWhereDestroyerConnects = null; //@private
+    this.segmentWhereDestroyerConnects = null; //@private
 
     // Add the first segment to the shape segment list. This segment will contain the "leader" for the mRNA.
     var segment = new FlatSegment( position );
@@ -69,8 +69,8 @@ define( function( require ) {
 
     // Add the placement hints for the locations where the user can attach a ribosome or an mRNA destroyer.
     var ribosome = new Ribosome( model );
-    self.ribosomePlacementHint = new PlacementHint( new Ribosome( model ) ); //@public(read-only)
-    self.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
+    this.ribosomePlacementHint = new PlacementHint( new Ribosome( model ) ); //@public(read-only)
+    this.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
 
     function handleShapeChanged( shape ) {
       // This hint always sits at the beginning of the RNA strand.

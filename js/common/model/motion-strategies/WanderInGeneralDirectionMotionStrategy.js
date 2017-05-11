@@ -31,8 +31,8 @@ define( function( require ) {
   function WanderInGeneralDirectionMotionStrategy( generalDirection, motionBoundsProperty ) {
     var self = this;
     MotionStrategy.call( self );
-    self.directionChangeCountdown = 0; // @private
-    self.currentMotionVector = new Vector2( 0, 0 ); // @private
+    this.directionChangeCountdown = 0; // @private
+    this.currentMotionVector = new Vector2( 0, 0 ); // @private
 
     function handleMotionBoundsChanged( motionBounds ) {
       self.motionBounds = motionBounds;
@@ -44,7 +44,7 @@ define( function( require ) {
       motionBoundsProperty.unlink( handleMotionBoundsChanged );
     };
 
-    self.generalDirection = generalDirection;
+    this.generalDirection = generalDirection;
   }
 
   geneExpressionEssentials.register( 'WanderInGeneralDirectionMotionStrategy', WanderInGeneralDirectionMotionStrategy );

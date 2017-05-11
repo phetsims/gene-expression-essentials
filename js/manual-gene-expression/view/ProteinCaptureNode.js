@@ -48,8 +48,7 @@ define( function( require ) {
    * @constructor
    */
   function ProteinCaptureNode( model, proteinClassName, transform, size ) {
-    var self = this;
-    Node.call( self );
+    Node.call( this );
 
     // Get the shape of the protein.
     var protein = new proteinStringConstructorMap[ proteinClassName ]();
@@ -57,7 +56,7 @@ define( function( require ) {
     var fullBaseColor = protein.colorProperty.get();
 
     // Add the background node. This is invisible, and exists only to make the node a specific size.
-    self.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ), {
+    this.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ), {
       fill: new Color( 0, 0, 0, 0 )
     } ) );
 
@@ -65,17 +64,17 @@ define( function( require ) {
     // it is captured.
     var flashingCaptureNodeShape = proteinShape.transformed( Matrix3.scaling( SCALE_FOR_FLASH_NODE, SCALE_FOR_FLASH_NODE ) );
     var flashingCaptureNode = new FlashingShapeNode( flashingCaptureNodeShape, FLASH_COLOR );
-    self.addChild( flashingCaptureNode );
+    this.addChild( flashingCaptureNode );
 
     // Add the node that will represent the spot where the protein can be captured, which is a black shape (signifying
     // emptiness) until a protein is captured, then it changes to look filled in.
     var captureAreaNode = new Path( proteinShape );
-    self.addChild( captureAreaNode );
+    this.addChild( captureAreaNode );
     var gradientPaint = GradientUtil.createGradientPaint( proteinShape, fullBaseColor );
 
     // Add the node that represents a count of the collected type.
     var countNode = new Text( '', { font: new PhetFont( { size: 18, weight: 'bold' } ) } );
-    self.addChild( countNode );
+    this.addChild( countNode );
     model.getCollectedCounterForProteinType( proteinClassName ).link( function( proteinCaptureCount ) {
       countNode.text = proteinCaptureCount;
       countNode.x = ( captureAreaNode.bounds.getCenterX() - countNode.bounds.width / 2);

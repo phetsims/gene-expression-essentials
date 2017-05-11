@@ -33,13 +33,13 @@ define( function( require ) {
     Node.call( self, { cursor: 'pointer' } );
     outlineStroke = outlineStroke || 1;
 
-    var path = self.getPathByMobileBioMoleculeType( mobileBiomolecule, {
+    var path = this.getPathByMobileBioMoleculeType( mobileBiomolecule, {
       stroke: Color.BLACK,
       lineWidth: mvt.viewToModelDeltaX( outlineStroke ),
       matrix: mvt.getMatrix()
     } );
 
-    self.addChild( path );
+    this.addChild( path );
 
     function handleShapeChanged( shape ) {
       path.shape = null;
@@ -105,7 +105,7 @@ define( function( require ) {
 
     var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, mvt );
     // Drag handling.
-    self.addInputListener( dragHandler );
+    this.addInputListener( dragHandler );
 
     function handleMovableByUserChanged( movableByUser ) {
       self.setPickable( movableByUser );

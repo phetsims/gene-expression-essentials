@@ -36,13 +36,12 @@ define( function( require ) {
       visibleAtEnd: true
     }, options );
 
-    var self = this;
-    Node.call( self );
+    Node.call( this );
 
     var flashingNode = new Path( shape, {
       fill: options.visibleAtStart ? flashColor : INVISIBLE_COLOR
     } );
-    self.addChild( flashingNode );
+    this.addChild( flashingNode );
     this.flashController = new FlashController( flashingNode, INVISIBLE_COLOR, flashColor, options );
   }
 

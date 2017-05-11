@@ -34,20 +34,20 @@ define( function( require ) {
   function BiomoleculeCreatorNode( appearanceNode, canvas, mvt, moleculeCreator, moleculeDestroyer, enclosingToolBoxNode ) {
     var self = this;
     Node.call( self, { cursor: 'pointer' } );
-    self.canvas = canvas; // @private
-    self.mvt = mvt; // @private
-    self.appearanceNode = appearanceNode; // @private
-    self.biomolecule = null; // @private
+    this.canvas = canvas; // @private
+    this.mvt = mvt; // @private
+    this.appearanceNode = appearanceNode; // @private
+    this.biomolecule = null; // @private
 
     // Appearance Node is a bioMolecule Node which has its own DragHandler, since the node within the creator Node only
     // serves as a icon, it shouldn't be pickable - otherwise the DragHandler of the BioMolecule takes over the
     // Input Listener of the creator Node
 
     appearanceNode.pickable = false;
-    self.mouseArea = appearanceNode.bounds;
-    self.touchArea = appearanceNode.bounds;
+    this.mouseArea = appearanceNode.bounds;
+    this.touchArea = appearanceNode.bounds;
 
-    self.addInputListener( new SimpleDragHandler( {
+    this.addInputListener( new SimpleDragHandler( {
 
       // Allow moving a finger (touch) across this node to interact with it
       allowTouchSnag: true,
@@ -93,7 +93,7 @@ define( function( require ) {
 
     } ) );
     // Add the main node with which the user will interact.
-    self.addChild( appearanceNode );
+    this.addChild( appearanceNode );
   }
 
   geneExpressionEssentials.register( 'BiomoleculeCreatorNode', BiomoleculeCreatorNode );

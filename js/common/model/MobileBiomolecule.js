@@ -70,14 +70,14 @@ define( function( require ) {
 
     // Reference to the model in which this biomolecule exists. This is needed in case the biomolecule needs to locate or
     // create other biomolecules.
-    self.model = model;
+    this.model = model;
 
     // Attachment state machine that controls how the molecule interacts with other model objects (primarily other
     // biomolecules) in terms of attaching, detaching, etc.
-    self.attachmentStateMachine = self.createAttachmentStateMachine(); // @protected
+    this.attachmentStateMachine = this.createAttachmentStateMachine(); // @protected
 
     if ( baseColor ) {
-      self.colorProperty.set( baseColor );
+      this.colorProperty.set( baseColor );
     }
 
     function handleUserControlledChanged( isUserControlled, wasUserControlled ) {
@@ -86,7 +86,7 @@ define( function( require ) {
       }
     }
 
-    self.userControlledProperty.link( handleUserControlledChanged );
+    this.userControlledProperty.link( handleUserControlledChanged );
 
     this.disposeMobileBiomolecule = function() {
       self.userControlledProperty.unlink( handleUserControlledChanged );

@@ -37,9 +37,9 @@ define( function( require ) {
   function RandomWalkMotionStrategy( motionBoundsProperty ) {
     var self = this;
     MotionStrategy.call( self );
-    self.directionChangeCountdown = 0; // @private
-    self.currentMotionVector2D = new Vector2( 0, 0 ); // @private
-    self.currentZVelocity = 0; // @private
+    this.directionChangeCountdown = 0; // @private
+    this.currentMotionVector2D = new Vector2( 0, 0 ); // @private
+    this.currentZVelocity = 0; // @private
 
     function handleMotionBoundsChanged( motionBounds ) {
       self.motionBounds = motionBounds;

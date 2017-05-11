@@ -136,7 +136,6 @@ define( function( require ) {
      * @private
      */
     initializeStrandSegments: function() {
-      var self = this;
       var strand1SegmentPoints = [];
       var strand2SegmentPoints = [];
       var segmentStartX = this.strandPoints[ 0 ].xPos;
@@ -149,8 +148,8 @@ define( function( require ) {
         if ( xPos - segmentStartX >= ( GEEConstants.LENGTH_PER_TWIST / 2 ) ) {
 
           // Time to add these segments and start a new ones.
-          self.strand1Segments.push( strand1SegmentPoints );
-          self.strand2Segments.push( strand2SegmentPoints );
+          this.strand1Segments.push( strand1SegmentPoints );
+          this.strand2Segments.push( strand2SegmentPoints );
           var firstPointOfNextSegment = strand1SegmentPoints[ strand1SegmentPoints.length - 1 ];
           strand1SegmentPoints = []; // clear;
           strand1SegmentPoints.push( firstPointOfNextSegment ); // This point must be on this segment too in order to prevent gaps.
@@ -163,8 +162,8 @@ define( function( require ) {
       }
 
       // add the strand for the remaining base segments
-      self.strand1Segments.push( strand1SegmentPoints );
-      self.strand2Segments.push( strand2SegmentPoints );
+      this.strand1Segments.push( strand1SegmentPoints );
+      this.strand2Segments.push( strand2SegmentPoints );
 
       this.redraw = true;
     },

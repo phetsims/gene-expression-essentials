@@ -56,8 +56,6 @@ define( function( require ) {
    * @constructor
    */
   function PolymeraseAffinityControlPanel( tfConfig, minHeight, polymeraseAffinityProperty ) {
-    var self = this;
-
     var titleNode = new Text( rnaPolymeraseString, {
       font: TITLE_FONT,
       maxWidth: 180
@@ -122,7 +120,7 @@ define( function( require ) {
       }
     );
 
-    Panel.call( self, contents, panelOptions );
+    Panel.call( this, contents, panelOptions );
   }
 
   geneExpressionEssentials.register( 'PolymeraseAffinityControlPanel', PolymeraseAffinityControlPanel );

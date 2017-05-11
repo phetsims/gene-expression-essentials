@@ -34,9 +34,8 @@ define( function( require ) {
    * @constructor
    */
   function RibosomeCreatorNode( biomoleculeBoxNode ) {
-    var self = this;
     BiomoleculeCreatorNode.call(
-      self,
+      this,
       new MobileBiomoleculeNode(
         SCALING_MVT,
         new Ribosome( new StubGeneExpressionModel() )

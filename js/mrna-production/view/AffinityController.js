@@ -40,8 +40,7 @@ define( function( require ) {
    * @constructor
    */
   function AffinityController( leftNode, rightNode, affinityProperty ) {
-    var self = this;
-    Node.call( self );
+    Node.call( this );
     var captionNode = new Text( affinityString, {
       font: new PhetFont( { size: 14, weight: 'bold' } ),
       maxWidth: 180
@@ -69,7 +68,7 @@ define( function( require ) {
       highString,
       { trackSize: new Dimension2( 130, 5 ) }
     );
-    self.addChild( new VBox( {
+    this.addChild( new VBox( {
       children: [ captionNode, affinityKey, horizontalSlider ],
       spacing: 10
     } ) );

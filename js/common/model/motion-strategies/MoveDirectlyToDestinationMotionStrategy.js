@@ -41,18 +41,18 @@ define( function( require ) {
       motionBoundsProperty.unlink( handleMotionBoundsChanged );
     };
 
-    self.velocityVector2D = new Vector2( 0, 0 ); // @private
+    this.velocityVector2D = new Vector2( 0, 0 ); // @private
 
     // Destination to which this motion strategy moves. Note that it is potentially a moving target.
-    self.destinationProperty = destinationProperty; // @private
+    this.destinationProperty = destinationProperty; // @private
 
     // Fixed offset from the destination location property used when computing the actual target destination. This is
     // useful in cases where something needs to move such that some point that is not its center is positioned at the
     // destination.
-    self.offsetFromDestinationProperty = destinationOffset; //@private
+    this.offsetFromDestinationProperty = destinationOffset; //@private
 
     // Scalar velocity with which the controlled item travels.
-    self.scalarVelocity2D = velocity; //@private
+    this.scalarVelocity2D = velocity; //@private
 
   }
 

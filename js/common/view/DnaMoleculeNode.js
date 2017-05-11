@@ -30,13 +30,11 @@ define( function( require ) {
    * @constructor
    */
   function DnaMoleculeNode( dnaMolecule, mvt, backboneStrokeWidth, showGeneBracketLabels ) {
-    var self = this;
-    Node.call( self );
-
+    Node.call( this );
 
     // Add the layers onto which the various nodes that represent parts of the dna, the hints, etc. are placed.
     var geneBackgroundLayer = new Node();
-    self.addChild( geneBackgroundLayer );
+    this.addChild( geneBackgroundLayer );
 
     // Layers for supporting the 3D look by allowing the "twist" to be depicted.
     this.dnaBackboneLayer = new DnaMoleculeCanvasNode( dnaMolecule, mvt, backboneStrokeWidth, {
@@ -49,7 +47,7 @@ define( function( require ) {
       matrix: mvt.getMatrix()
     } );
 
-    self.addChild( this.dnaBackboneLayer );
+    this.addChild( this.dnaBackboneLayer );
 
     // Put the gene backgrounds and labels behind everything.
     for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {

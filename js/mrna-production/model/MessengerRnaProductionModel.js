@@ -57,8 +57,8 @@ define( function( require ) {
       -NUM_BASE_PAIRS_ON_DNA_STRAND * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2, true );
 
     // The one gene that is on this DNA strand. Add the gene to the DNA molecule. There is only one gene in this model.
-    this.gene = new GeneA( self.dnaMolecule, Math.round( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) ); // @private
-    this.dnaMolecule.addGene( self.gene );
+    this.gene = new GeneA( this.dnaMolecule, Math.round( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) ); // @private
+    this.dnaMolecule.addGene( this.gene );
 
     // List of mobile biomolecules in the model, excluding mRNA.
     this.mobileBiomoleculeList = new ObservableArray(); // @public
@@ -96,8 +96,8 @@ define( function( require ) {
     // is recycled. This is near the beginning of the transcribed region in order to make transcription more likely to
     // occur.
     var polymeraseSize = new RnaPolymerase().bounds;
-    var firstGene = self.dnaMolecule.getGenes()[ 0 ];
-    var recycleZoneCenterX = self.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().min ) +
+    var firstGene = this.dnaMolecule.getGenes()[ 0 ];
+    var recycleZoneCenterX = this.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().min ) +
                              ( phet.joist.random.nextDouble() - 0.5 ) * 2000;
     var recycleZoneHeight = polymeraseSize.getHeight() * 1.2;
     var recycleZoneWidth = polymeraseSize.getWidth() * 4;

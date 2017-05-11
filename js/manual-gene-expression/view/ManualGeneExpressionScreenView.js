@@ -54,19 +54,19 @@ define( function( require ) {
     // in).
     this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      new Vector2( self.layoutBounds.width * 0.48, self.layoutBounds.height * 0.64 ),
+      new Vector2( this.layoutBounds.width * 0.48, this.layoutBounds.height * 0.64 ),
       0.1 // "zoom factor" - smaller zooms out, larger zooms in
     );
 
     // Set up the node where all controls that need to be below the biomolecules should be placed.  This node and its
     // children will stay in one place and not scroll.
     var backControlsLayer = new Node();
-    self.addChild( backControlsLayer );
+    this.addChild( backControlsLayer );
 
     // Set up the root node for all model objects. Nodes placed under this one will scroll when the user moves along the
     // DNA strand.
     this.modelRootNode = new Node();
-    self.addChild( this.modelRootNode );
+    this.addChild( this.modelRootNode );
 
     // Add some layers for enforcing some z-order relationships needed in order to keep things looking good.
     var dnaLayer = new Node();
@@ -83,10 +83,10 @@ define( function( require ) {
     // Set up the node where all controls that need to be above the biomolecules should be placed. This node and its
     // children will stay in one place and not scroll.
     var frontControlsLayer = new Node();
-    self.addChild( frontControlsLayer );
+    this.addChild( frontControlsLayer );
 
     // Add the representation of the DNA strand.
-    this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), self.mvt, 3, true );
+    this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.mvt, 3, true );
     dnaLayer.addChild( this.dnaMoleculeNode );
 
     // Add the placement hints that go on the DNA molecule. These exist on their own layer so that they can be seen
@@ -99,7 +99,7 @@ define( function( require ) {
 
     // Add the protein collection box.
     var proteinCollectionNode = new ProteinCollectionNode( model, this.mvt );
-    proteinCollectionNode.x = self.layoutBounds.width - proteinCollectionNode.bounds.width - INSET;
+    proteinCollectionNode.x = this.layoutBounds.width - proteinCollectionNode.bounds.width - INSET;
     proteinCollectionNode.y = INSET;
     backControlsLayer.addChild( proteinCollectionNode );
 
@@ -177,8 +177,8 @@ define( function( require ) {
       lineWidth: 1
     } );
 
-    nextGeneButton.x = self.layoutBounds.width - nextGeneButton.width - 20;
-    nextGeneButton.y = self.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
+    nextGeneButton.x = this.layoutBounds.width - nextGeneButton.width - 20;
+    nextGeneButton.y = this.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
 
     // add buttons for moving to previous gene
     var previousGeneButtonContent = new HBox( {
@@ -206,11 +206,11 @@ define( function( require ) {
     } );
 
     previousGeneButton.x = 20;
-    previousGeneButton.y = self.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
+    previousGeneButton.y = this.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
 
     // set the position of model root node based on first gene
-    self.modelRootNode.x = -self.mvt.modelToViewX( model.dnaMolecule.getGenes()[ 0 ].getCenterX() )
-                           + self.layoutBounds.width / 2;
+    this.modelRootNode.x = -this.mvt.modelToViewX( model.dnaMolecule.getGenes()[ 0 ].getCenterX() )
+                           + this.layoutBounds.width / 2;
 
     var modelRootNodeAnimator = new TWEEN.Tween( { x: self.modelRootNode.x } )
       .easing( TWEEN.Easing.Cubic.InOut )
