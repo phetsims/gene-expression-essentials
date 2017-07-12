@@ -68,6 +68,9 @@ define( function( require ) {
       1E8 // "zoom factor" - smaller zooms out, larger zooms in
     );
 
+    // dialog constructed lazily because Dialog requires Sim bounds during construction
+    var dialog = null;
+
     var buttonContent = new Text( showRealCellsString, {
       font: new PhetFont( 18 ),
       maxWidth: 140
@@ -79,7 +82,10 @@ define( function( require ) {
       baseColor: 'yellow',
       cornerRadius: GEEConstants.CORNER_RADIUS,
       listener: function() {
-        new FluorescentCellsPictureDialog().show();
+        if ( !dialog ) {
+          dialog = new FluorescentCellsPictureDialog();
+        }
+        dialog.show();
       }
     } );
 
