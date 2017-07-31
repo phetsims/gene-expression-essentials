@@ -49,6 +49,7 @@ define( function( require ) {
      * @public
      */
     add: function( length, windingBiomolecule, shapeSegmentList ) {
+
       // This shouldn't be called if there is no remaining capacity.
       assert && assert( this.getContainedLength() <= this.capacity );
       var growthAmount = length;

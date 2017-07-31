@@ -41,8 +41,8 @@ define( function( require ) {
   function MessengerRna( model, proteinPrototype, position ) {
     var self = this;
 
-    // Map from ribosomes to the shape segment to which they are attached.
-    this.mapRibosomeToShapeSegment = new Map(); //@private
+    // @private {Object} - object that maps from ribosomes to the shape segment to which they are attached
+    this.mapRibosomeToShapeSegment = {};
 
     WindingBiomolecule.call( self, model, new Shape().moveToPoint( position ).makeImmutable(), position );
 
@@ -94,7 +94,7 @@ define( function( require ) {
      * @private
      */
     dispose: function() {
-      this.mapRibosomeToShapeSegment.clear();
+      this.mapRibosomeToShapeSegment = null;
       this.disposeMessengerRna();
       WindingBiomolecule.prototype.dispose.call( this );
     },
@@ -159,7 +159,7 @@ define( function( require ) {
      */
     advanceTranslation: function( ribosome, length ) {
 
-      var segmentToAdvance = this.mapRibosomeToShapeSegment.get( ribosome );
+      var segmentToAdvance = this.mapRibosomeToShapeSegment[ ribosome.id ];
 
       // Error checking.
       assert && assert( segmentToAdvance !== null ); // Should never happen, since it means that the ribosome isn't attached.
@@ -268,20 +268,23 @@ define( function( require ) {
      * @public
      */
     getRibosomeAttachmentLocation: function( ribosome ) {
-      if ( !this.mapRibosomeToShapeSegment.has( ribosome ) ) {
-        console.log( ' Warning: Ignoring attempt to obtain attachment point for non-attached ribosome.' );
-        return null;
-      }
+      assert && assert(
+        this.mapRibosomeToShapeSegment[ ribosome.id ],
+        'attempt made to get attachment location for unattached ribosome'
+      );
       var attachmentPoint;
-      var segment = this.mapRibosomeToShapeSegment.get( ribosome );
+      var segment = this.mapRibosomeToShapeSegment[ ribosome.id ];
       if ( this.getPreviousShapeSegment( segment ) === null ) {
 
         // There is no previous segment, which means that the segment to which this ribosome is attached is the leader
         // segment. The attachment point is thus the leader length from its rightmost edge.
-        attachmentPoint = new Vector2( segment.getLowerRightCornerPos().x - GEEConstants.LEADER_LENGTH,
-          segment.getLowerRightCornerPos().y );
+        attachmentPoint = new Vector2(
+          segment.getLowerRightCornerPos().x - GEEConstants.LEADER_LENGTH,
+          segment.getLowerRightCornerPos().y
+        );
       }
       else {
+
         // The segment has filled up the channel, so calculate the position based on its left edge.
         attachmentPoint = new Vector2( segment.getUpperLeftCornerPos().x + ribosome.getTranslationChannelLength(),
           segment.getUpperLeftCornerPos().y );
@@ -296,8 +299,8 @@ define( function( require ) {
      * @public
      */
     releaseFromRibosome: function( ribosome ) {
-      this.mapRibosomeToShapeSegment.delete( ribosome );
-      if ( this.mapRibosomeToShapeSegment.size === 0 ) {
+      delete this.mapRibosomeToShapeSegment[ ribosome.id ];
+      if ( _.keys( this.mapRibosomeToShapeSegment ).length === 0 ) {
         this.mRnaAttachmentStateMachine.allRibosomesDetached();
       }
     },
@@ -338,7 +341,7 @@ define( function( require ) {
      * @public
      */
     initiateTranslation: function( ribosome ) {
-      assert && assert( this.mapRibosomeToShapeSegment.has( ribosome ) ); // State checking.
+      assert && assert( this.mapRibosomeToShapeSegment[ ribosome.id ] ); // State checking.
 
       // Set the capacity of the first segment to the size of the channel through which it will be pulled plus the leader
       // length.
@@ -370,9 +373,9 @@ define( function( require ) {
      * @public
      */
     getProportionOfRnaTranslated: function( ribosome ) {
-      assert && assert( this.mapRibosomeToShapeSegment.has( ribosome ) ); // Makes no sense if ribosome isn't attached.
+      assert && assert( this.mapRibosomeToShapeSegment[ ribosome.id ] ); // Makes no sense if ribosome isn't attached.
       var translatedLength = 0;
-      var segmentInRibosomeChannel = this.mapRibosomeToShapeSegment.get( ribosome );
+      var segmentInRibosomeChannel = this.mapRibosomeToShapeSegment[ ribosome.id ];
 
       assert && assert( segmentInRibosomeChannel.isFlat() ); // Make sure things are as we expect.
 
@@ -394,13 +397,13 @@ define( function( require ) {
     },
 
     /**
-     * Consider proposal from ribosome and if ribosome can attach return the attachment location
+     * Consider proposal from ribosome, and, if the proposal is accepted, return the attachment location
      * @param {Ribosome} ribosome
      * @returns {AttachmentSite}
      * @public
      */
     considerProposalFromRibosome: function( ribosome ) {
-      assert && assert( !this.mapRibosomeToShapeSegment.has( ribosome ) ); // Shouldn't get redundant proposals from a ribosome.
+      assert && assert( !this.mapRibosomeToShapeSegment[ ribosome.id ] ); // Shouldn't get redundant proposals from a ribosome.
       var returnValue = null;
 
       // Can't consider proposal if currently being destroyed.
@@ -419,7 +422,7 @@ define( function( require ) {
           this.mRnaAttachmentStateMachine.attachedToRibosome();
 
           // Enter this connection in the map.
-          this.mapRibosomeToShapeSegment.set( ribosome, this.shapeSegments[ 0 ] );
+          this.mapRibosomeToShapeSegment[ ribosome.id ] = this.shapeSegments[ 0 ];
         }
       }
       return returnValue;

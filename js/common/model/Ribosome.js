@@ -35,6 +35,9 @@ define( function( require ) {
   // shape changes.
   var OFFSET_TO_PROTEIN_OUTPUT_CHANNEL = new Vector2( WIDTH * 0.4, OVERALL_HEIGHT * 0.55 );
 
+  // a counter used to create a unique ID for each instance
+  var instanceCounter = 0;
+
   /**
    *
    * @param {GeneExpressionModel} model
@@ -47,8 +50,11 @@ define( function( require ) {
     MobileBiomolecule.call( this, model, this.createShape(), new Color( 205, 155, 29 ) );
     this.setPosition( position );
 
-    // Messenger RNA being translated, null if no translation is in progress.
+    // @private {MessengerRna} messenger RNA being translated, null if no translation is in progress
     this.messengerRnaBeingTranslated = null; // @private
+
+    // @public (read-only) {String} - unique ID for this instance
+    this.id = 'ribosome-' + instanceCounter++;
   }
 
   geneExpressionEssentials.register( 'Ribosome', Ribosome );
@@ -88,7 +94,7 @@ define( function( require ) {
     },
 
     /**
-     * Release the messenger Rna
+     * Release the messenger RNA
      * @public
      */
     releaseMessengerRna: function() {

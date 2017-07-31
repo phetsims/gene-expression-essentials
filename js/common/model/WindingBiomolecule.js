@@ -414,8 +414,7 @@ define( function( require ) {
      * @private
      */
     getLastShapeSegment: function() {
-      var lastShapeSegment = this.shapeSegments[ this.shapeSegments.length - 1 ];
-      return lastShapeSegment;
+      return this.shapeSegments[ this.shapeSegments.length - 1 ];
     },
 
     /**
