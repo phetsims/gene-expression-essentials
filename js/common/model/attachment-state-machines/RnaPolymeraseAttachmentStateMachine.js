@@ -101,12 +101,8 @@ define( function( require ) {
      * @public
      */
     calculateProbabilityOfDetachment: function( affinity, dt ) {
-
-      // Map affinity to a half life. Units are in seconds.
-      // Use standard half-life formula to decide on probability of detachment.
       return 1 - Math.exp( -0.693 * dt / this.calculateHalfLifeFromAffinity( affinity ) );
     },
-
 
     /**
      * Map an affinity value to a half life of attachment

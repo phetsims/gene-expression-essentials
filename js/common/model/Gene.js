@@ -210,14 +210,11 @@ define( function( require ) {
 
       // Count the number of positive transcription factors needed to enable transcription.
       var numPositiveTranscriptionFactorsNeeded = 0;
-      for ( var key in this.transcriptionFactorMap ) {
-        if ( this.transcriptionFactorMap.hasOwnProperty( key ) ) {
-          var transcriptionFactor = this.transcriptionFactorMap[ key ];
-          if ( transcriptionFactor.getConfig().isPositive ) {
-            numPositiveTranscriptionFactorsNeeded += 1;
-          }
+      _.values( this.transcriptionFactorMap ).forEach( function( transcriptionFactor ){
+        if ( transcriptionFactor.getConfig().isPositive ) {
+          numPositiveTranscriptionFactorsNeeded += 1;
         }
-      }
+      } );
 
       // Count the number of positive transcription factors attached.
       var numPositiveTranscriptionFactorsAttached = 0;
