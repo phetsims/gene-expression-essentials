@@ -1,7 +1,7 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
- * Class that controls timed flashing.
+ * type that is used to implement a 'flashing' behavior in a node by switching colors using a timer
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -25,8 +25,7 @@ define( function( require ) {
   function FlashController( flashingNode, normalColor, flashColor, options ) {
     var self = this;
 
-
-    // Variables used to implement the flashing behavior.
+    // variables used to implement the flashing behavior
     this.transitionCountdown = 0; // @private
     this.flashingNode = flashingNode; // @private
     this.flashColor = flashColor; // @private
