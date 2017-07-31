@@ -20,9 +20,8 @@ define( function( require ) {
 
   var simOptions = {
     credits: {
-      leadDesign: 'Steele Dalton',
-      softwareDevelopment: 'Sharfudeen Ashraf, John Blanco, George Emanuel,\n Aadish Gupta',
-      team: 'John Blanco, Mike Klymkowsky, Amanda McGarry, Ariel Paul,\n Katherine Perkins, Tom Perkins',
+      softwareDevelopment: 'Sharfudeen Ashraf, John Blanco, George Emanuel,\nAadish Gupta',
+      team: 'John Blanco, Steele Dalton, Mike Klymkowsky, Amanda McGarry,\nAriel Paul, Katherine Perkins, Tom Perkins',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow',
       graphicArts: '',
       thanks: ''
