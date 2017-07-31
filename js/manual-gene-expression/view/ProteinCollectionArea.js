@@ -62,9 +62,11 @@ define( function( require ) {
 
     // Add the collection area, which is a set of collection nodes.
     this.addChild( new HBox( {
-      children: [ new ProteinCaptureNode( model, 'ProteinA', transform, captureNodeBackgroundSize ),
+      children: [
+        new ProteinCaptureNode( model, 'ProteinA', transform, captureNodeBackgroundSize ),
         new ProteinCaptureNode( model, 'ProteinB', transform, captureNodeBackgroundSize ),
-        new ProteinCaptureNode( model, 'ProteinC', transform, captureNodeBackgroundSize ) ],
+        new ProteinCaptureNode( model, 'ProteinC', transform, captureNodeBackgroundSize )
+      ],
       spacing: 0
     } ) );
   }

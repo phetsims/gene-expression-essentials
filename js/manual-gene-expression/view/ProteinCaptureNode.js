@@ -68,7 +68,7 @@ define( function( require ) {
 
     // Add the node that will represent the spot where the protein can be captured, which is a black shape (signifying
     // emptiness) until a protein is captured, then it changes to look filled in.
-    var captureAreaNode = new Path( proteinShape );
+    var captureAreaNode = new Path( proteinShape, { stroke: 'black' } );
     this.addChild( captureAreaNode );
     var gradientPaint = GradientUtil.createGradientPaint( proteinShape, fullBaseColor );
 
