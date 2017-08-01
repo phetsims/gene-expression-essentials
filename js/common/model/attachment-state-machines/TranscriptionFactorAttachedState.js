@@ -1,6 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 /**
- * One of the state for TranscriptionFactorAttachmentStateMachine. Subclass of the "attached" state.
+ * One of the states for TranscriptionFactorAttachmentStateMachine. Subclass of the "attached" state.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco
@@ -19,12 +19,10 @@ define( function( require ) {
   var MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MoveDirectlyToDestinationMotionStrategy' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
 
-
   // constants
-  var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.// Half-life of attachment to a site with affinity of 0.5.
+  var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.
 
   /**
-   *
    * @param {TranscriptionFactorAttachmentStateMachine} transcriptionFactorAttachmentStateMachine
    * @constructor
    */

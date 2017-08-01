@@ -79,7 +79,6 @@ define( function( require ) {
       throw new Error( 'detach should be implemented in descendant classes of AttachmentStateMachine .' );
     },
 
-
     /**
      * Move immediately into the unattached-and-available state. This is generally done only when the user has grabbed
      * the associated molecule. Calling this when already in this state is harmless.

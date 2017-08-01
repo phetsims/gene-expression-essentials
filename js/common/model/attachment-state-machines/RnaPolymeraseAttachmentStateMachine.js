@@ -51,7 +51,7 @@ define( function( require ) {
     // This attachment site is used by the state machine to get the polymerase something to attach to when transcribing.
     // This is a bit hokey, but was a lot easier than trying to move to each and every base pair in the DNA strand.
     //@public
-    this.transcribingAttachmentSite = new AttachmentSite( new Vector2( 0, 0 ), 1 );
+    this.transcribingAttachmentSite = new AttachmentSite( rnaPolymerase, new Vector2( 0, 0 ), 1 );
 
     // Threshold for the detachment algorithm, used in deciding whether or not to detach completely from the DNA at a
     // given time step.

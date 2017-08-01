@@ -47,6 +47,7 @@ define( function( require ) {
    * @constructor
    */
   function DnaMolecule( model, numBasePairs, leftEdgeXOffset, pursueAttachments ) {
+
     // @private
     this.model = model || new StubGeneExpressionModel(); // support creation without model for control panels and such
     this.leftEdgeXOffset = leftEdgeXOffset; // @private
@@ -438,7 +439,7 @@ define( function( require ) {
     /**
      * Consider an attachment proposal from a transcription factor instance. To determine whether or not to accept or
      * reject this proposal, the base pairs are scanned in order to determine whether there is an appropriate and
-     * available attachment site within the attachment distance
+     * available attachment site within the attachment distance.
      *
      * @param {TranscriptionFactor} transcriptionFactor
      * @returns {AttachmentSite}
@@ -446,7 +447,9 @@ define( function( require ) {
      */
     considerProposalFromTranscriptionFactor: function( transcriptionFactor ) {
       var self = this;
-      return this.considerProposalFromBiomolecule( transcriptionFactor, TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE,
+      return this.considerProposalFromBiomolecule(
+        transcriptionFactor,
+        TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE,
         function( basePairIndex ) {
           return self.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex, transcriptionFactor.getConfig() );
         },
@@ -481,7 +484,6 @@ define( function( require ) {
           return gene.getPolymeraseAttachmentSite();
         }
       );
-
     },
 
     /**
@@ -499,9 +501,12 @@ define( function( require ) {
 
       var potentialAttachmentSites = [];
       for ( var i = 0; i < this.basePairs.length; i++ ) {
+
         // See if the base pair is within the max attachment distance.
         attachmentSiteLocation.setXY( this.basePairs[ i ].getCenterLocationX(), GEEConstants.DNA_MOLECULE_Y_POS );
+
         if ( attachmentSiteLocation.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
+
           // In range.  Add it to the list if it is available.
           var potentialAttachmentSite = getAttachSiteForBasePair( i );
           if ( potentialAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null ) {
@@ -590,19 +595,49 @@ define( function( require ) {
     eliminateInvalidAttachmentSites: function( biomolecule, potentialAttachmentSites ) {
       var self = this;
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
+
+        // determine the bounds for the provided biomolecule when translated to the attachment site
         var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
         var translatedShapeBounds = biomolecule.bounds.shifted( translationVector.x, translationVector.y );
-        var inBounds = biomolecule.motionBoundsProperty.get().inBounds( translatedShapeBounds );
+
+        // if the biomolecule would be out of the model bounds, the site should be excluded
+        if ( !biomolecule.motionBoundsProperty.get().inBounds( translatedShapeBounds ) ) {
+          return false;
+        }
+
+        // make a list of the bounds where all attached or incoming biomolecules are or will be (once attached)
+        var attachedOrIncomingBiomoleculeBounds = [];
+        self.model.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
+
+          var attachmentSite = mobileBiomolecule.attachmentStateMachine.attachmentSite;
+
+          if ( attachmentSite && attachmentSite.owner === self ) {
+            if ( mobileBiomolecule.attachedToDnaProperty.get() ){
+
+              // this biomolecule is attached, so add its bounds with no translation
+              attachedOrIncomingBiomoleculeBounds.push( mobileBiomolecule.bounds );
+            }
+            else{
+
+              // This biomolecule is moving towards attachment but not yet attached, so translate to bounds to where
+              // they will be once attachment occurs.
+              translationVector = attachmentSite.locationProperty.get().minus( mobileBiomolecule.getPosition() );
+              attachedOrIncomingBiomoleculeBounds.push(
+                mobileBiomolecule.bounds.shifted( translationVector.x, translationVector.y )
+              );
+            }
+          }
+        } );
+
         var overlapsOtherMolecules = false;
-        var list = self.model.getOverlappingBiomolecules( translatedShapeBounds );
-        for ( var i = 0; i < list.length; i++ ) {
-          var mobileBiomolecule = list[ i ];
-          if ( mobileBiomolecule.attachedToDnaProperty.get() && mobileBiomolecule !== biomolecule ) {
+        for ( var i = 0; i < attachedOrIncomingBiomoleculeBounds.length; i++ ) {
+          var mobileBiomoleculeBounds = attachedOrIncomingBiomoleculeBounds[ i ];
+          if ( mobileBiomoleculeBounds.intersectsBounds( translatedShapeBounds ) ) {
             overlapsOtherMolecules = true;
             break;
           }
         }
-        return inBounds && !overlapsOtherMolecules;
+        return !overlapsOtherMolecules;
       } );
     },
 
@@ -732,8 +767,12 @@ define( function( require ) {
      * @public
      */
     createDefaultAffinityAttachmentSite: function( xOffset ) {
-      return new AttachmentSite( new Vector2( this.getNearestBasePairXOffset( xOffset ),
-        GEEConstants.DNA_MOLECULE_Y_POS ), GEEConstants.DEFAULT_AFFINITY );
+      return new AttachmentSite(
+        this,
+        new Vector2( this.getNearestBasePairXOffset( xOffset ),
+          GEEConstants.DNA_MOLECULE_Y_POS ),
+        GEEConstants.DEFAULT_AFFINITY
+      );
     },
 
     /**

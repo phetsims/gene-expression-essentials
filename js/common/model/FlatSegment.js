@@ -18,11 +18,12 @@ define( function( require ) {
   var SquareSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/SquareSegment' );
 
   /**
+   * @param {Object} owner
    * @param {Vector2} origin
    * @constructor
    */
-  function FlatSegment( origin ) {
-    ShapeSegment.call( this );
+  function FlatSegment( owner, origin ) {
+    ShapeSegment.call( this, owner );
     this.bounds.setMinMax( origin.x, origin.y, origin.x, origin.y ); // make sure bounds height and width is zero
     this.updateAttachmentSiteLocation();
   }
@@ -57,7 +58,7 @@ define( function( require ) {
 
         // This segment can't hold the specified length. Add a new square segment to the end of the segment list and put
         // the excess in there.
-        var newSquareSegment = new SquareSegment( this.getLowerRightCornerPos() );
+        var newSquareSegment = new SquareSegment( this.owner, this.getLowerRightCornerPos() );
         growthAmount = this.capacity - this.getContainedLength(); // Clamp growth at remaining capacity.
         newSquareSegment.add( length - growthAmount, windingBiomolecule, shapeSegmentList );
         windingBiomolecule.insertAfterShapeSegment( this, newSquareSegment );
@@ -128,7 +129,7 @@ define( function( require ) {
 
             assert && assert( outputSegment === null );
 
-            var newLeaderSegment = new FlatSegment( this.getUpperLeftCornerPos() );
+            var newLeaderSegment = new FlatSegment( this.owner, this.getUpperLeftCornerPos() );
             newLeaderSegment.setCapacity( GEEConstants.LEADER_LENGTH );
             windingBiomolecule.insertBeforeShapeSegment( this, newLeaderSegment );
             outputSegment = newLeaderSegment;

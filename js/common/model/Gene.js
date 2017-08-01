@@ -44,9 +44,12 @@ define( function( require ) {
     this.transcribedRegionColor = transcribedRegionColor; // @private
 
 
-    // Create the attachment site for polymerase. It is always at the end of the regulatory region.
-    this.polymeraseAttachmentSite = new AttachmentSite( new Vector2(
-      dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.max ), GEEConstants.DNA_MOLECULE_Y_POS ), 1 ); // @private
+    // @private {AttachmentSite} - attachment site for polymerase. It is always at the end of the regulatory region.
+    this.polymeraseAttachmentSite = new AttachmentSite(
+      dnaMolecule,
+      new Vector2( dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.max ), GEEConstants.DNA_MOLECULE_Y_POS ),
+      1
+    );
 
     // Placement hint for polymerase. There is always only one.
     this.rnaPolymerasePlacementHint = new PlacementHint( new RnaPolymerase() ); // @private
@@ -61,8 +64,8 @@ define( function( require ) {
     // the TF attaches.
     this.transcriptionFactorMap = {}; // @private
 
-    // Property that determines the affinity of the site where polymerase attaches when the transcription factors support
-    // transcription.
+    // Property that determines the affinity of the site where polymerase attaches when the transcription factors
+    // support transcription.
     this.polymeraseAffinityProperty = new Property( 1.0 ); //@public
 
     // Initialize the placement hint for polymerase.
@@ -179,20 +182,25 @@ define( function( require ) {
     },
 
     /**
-     * Method used by descendant classes to add locations where transcription factors go on the gene.
-     * Generally this is only used during construction.
+     * Method used by descendant classes to add locations where transcription factors go on the gene. Generally this is
+     * only used during construction.
      *
      * @param {number} basePairOffset - Offset WITHIN THIS GENE where the transcription factor's high affinity site will exist.
      * @param {TranscriptionFactorConfig} tfConfig
      * @protected
      */
-    addTranscriptionFactor: function( basePairOffset, tfConfig ) {
+    addTranscriptionFactorLocation: function( basePairOffset, tfConfig ) {
       this.transcriptionFactorMap[ basePairOffset ] = new TranscriptionFactor( null, tfConfig );
-      var position = new Vector2( this.dnaMolecule.getBasePairXOffsetByIndex(
-        basePairOffset + this.regulatoryRegion.min ), GEEConstants.DNA_MOLECULE_Y_POS );
+      var position = new Vector2(
+        this.dnaMolecule.getBasePairXOffsetByIndex( basePairOffset + this.regulatoryRegion.min ),
+        GEEConstants.DNA_MOLECULE_Y_POS
+      );
       this.transcriptionFactorPlacementHints.push( new TranscriptionFactorPlacementHint(
-        new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, position ) ) );
-      this.transcriptionFactorAttachmentSites.push( new TranscriptionFactorAttachmentSite( position, tfConfig, 1 ) );
+        new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, position )
+      ) );
+      this.transcriptionFactorAttachmentSites.push(
+        new TranscriptionFactorAttachmentSite( this.dnaMolecule, position, tfConfig, 1 )
+      );
     },
 
     /**
@@ -210,7 +218,7 @@ define( function( require ) {
 
       // Count the number of positive transcription factors needed to enable transcription.
       var numPositiveTranscriptionFactorsNeeded = 0;
-      _.values( this.transcriptionFactorMap ).forEach( function( transcriptionFactor ){
+      _.values( this.transcriptionFactorMap ).forEach( function( transcriptionFactor ) {
         if ( transcriptionFactor.getConfig().isPositive ) {
           numPositiveTranscriptionFactorsNeeded += 1;
         }
@@ -221,8 +229,9 @@ define( function( require ) {
       this.transcriptionFactorAttachmentSites.forEach( function( transcriptionFactorAttachmentSite ) {
         if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() !== null ) {
           var tf = transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get();
-          // there is a very slight difference in the y direction and to mitigate that we add 0.0001 factor
-          // empirically determined
+
+          // there is a very slight difference in the y direction and to mitigate that we use an empirically determined
+          // tolerance factor
           if ( tf.getPosition().distance( transcriptionFactorAttachmentSite.locationProperty.get() ) < 0.001 &&
                tf.isPositive() ) {
             numPositiveTranscriptionFactorsAttached += 1;

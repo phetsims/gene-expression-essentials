@@ -63,7 +63,7 @@ define( function( require ) {
     this.segmentWhereDestroyerConnects = null; //@private
 
     // Add the first segment to the shape segment list. This segment will contain the "leader" for the mRNA.
-    var segment = new FlatSegment( position );
+    var segment = new FlatSegment( this, position );
     segment.setCapacity( GEEConstants.LEADER_LENGTH );
     this.shapeSegments.push( segment );
 

@@ -20,13 +20,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
+   * @param {Object} owner - the molecule upon which this attachment site exists
    * @param {Vector2} initialLocation
    * @param {TranscriptionFactorConfig} tfConfig
    * @param {number} initialAffinity
    * @constructor
    */
-  function TranscriptionFactorAttachmentSite( initialLocation, tfConfig, initialAffinity ) {
-    AttachmentSite.call( this, initialLocation, initialAffinity );
+  function TranscriptionFactorAttachmentSite( owner, initialLocation, tfConfig, initialAffinity ) {
+    AttachmentSite.call( this, owner, initialLocation, initialAffinity );
 
     // Configuration of TF that attaches to this site.
     this.tfConfig = tfConfig; // @private

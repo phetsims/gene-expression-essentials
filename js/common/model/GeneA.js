@@ -43,8 +43,8 @@ define( function( require ) {
 
     // Add transcription factors that are specific to this gene. Location is withing the regulatory region, and the
     // negative factor should overlap, and thus block, the positive factor(s).
-    this.addTranscriptionFactor( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS );
-    this.addTranscriptionFactor( 2, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG );
+    this.addTranscriptionFactorLocation( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS );
+    this.addTranscriptionFactorLocation( 2, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG );
 
   }
 

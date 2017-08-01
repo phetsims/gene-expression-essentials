@@ -22,11 +22,15 @@ define( function( require ) {
   var ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
 
   /**
+   * @param {Object} owner - the molecule upon which this attachment site exists
    * @param {Vector2} initialLocation
    * @param {number} initialAffinity
    * @constructor
    */
-  function AttachmentSite( initialLocation, initialAffinity ) {
+  function AttachmentSite( owner, initialLocation, initialAffinity ) {
+
+    // @public (read-only) {Object}
+    this.owner = owner;
 
     // Location of this attachment site. It is a property so that it can be followed in the event that the biomolecule
     // upon which it exists is moving.

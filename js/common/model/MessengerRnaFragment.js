@@ -30,7 +30,7 @@ define( function( require ) {
     WindingBiomolecule.call( this, model, new Shape().moveToPoint( position ), position );
 
     // Add the first, and in this case only, segment to the shape segment list.
-    this.shapeSegments.push( new SquareSegment( position ) );
+    this.shapeSegments.push( new SquareSegment( this, position ) );
   }
 
   geneExpressionEssentials.register( 'MessengerRnaFragment', MessengerRnaFragment );

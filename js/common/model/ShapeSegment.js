@@ -28,16 +28,16 @@ define( function( require ) {
   var FLOATING_POINT_COMP_FACTOR = 1E-7; // Factor to use to avoid issues with floating point resolution.
 
   /**
-   *
+   * @param {Object} owner - the model object that this shape segment is a portion of
    * @constructor
    */
-  function ShapeSegment() {
+  function ShapeSegment( owner ) {
 
     // Bounds of this shape segment.
     this.boundsProperty = new Property( new Bounds2( 0, 0, 0, 0 ) ); // @private
 
     // Attachment point where anything that attached to this segment would attach. Affinity is arbitrary in this case.
-    this.attachmentSite = new AttachmentSite( new Vector2( 0, 0 ), 1 ); // @private
+    this.attachmentSite = new AttachmentSite( owner, new Vector2( 0, 0 ), 1 ); // @private
 
     // Max length of mRNA that this segment can contain.
     this.capacity = Number.MAX_VALUE; // @protected

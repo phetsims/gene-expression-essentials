@@ -39,13 +39,12 @@ define( function( require ) {
      */
     step: function( enclosingStateMachine, dt ) {
       var gsm = enclosingStateMachine;
-      // Verify that state is consistent
 
+      // verify that state is consistent
       assert && assert( gsm.attachmentSite !== null );
       assert && assert( gsm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === this.genericAttachmentStateMachine.biomolecule );
 
       gsm.setState( gsm.attachedState );
-
     }
   } );
 } );

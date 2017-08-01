@@ -27,6 +27,9 @@ define( function( require ) {
 
   // constants
 
+  // period for shuffling biomolecules, helps with random behavior
+  var SHUFFLE_TIME = 1; // seconds
+
   // Length, in terms of base pairs, of the DNA molecule.
   var NUM_BASE_PAIRS_ON_DNA_STRAND = 500;
 
@@ -53,8 +56,12 @@ define( function( require ) {
     // DNA strand, which is where the genes reside, where the polymerase does its transcription, and where a lot of the
     // action takes place.
     // @private
-    this.dnaMolecule = new DnaMolecule( this, NUM_BASE_PAIRS_ON_DNA_STRAND,
-      -NUM_BASE_PAIRS_ON_DNA_STRAND * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2, true );
+    this.dnaMolecule = new DnaMolecule(
+      this,
+      NUM_BASE_PAIRS_ON_DNA_STRAND,
+      -NUM_BASE_PAIRS_ON_DNA_STRAND * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2,
+      true
+    );
 
     // The one gene that is on this DNA strand. Add the gene to the DNA molecule. There is only one gene in this model.
     this.gene = new GeneA( this.dnaMolecule, Math.round( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) ); // @private
@@ -91,6 +98,9 @@ define( function( require ) {
     // Motion bounds for the mobile biomolecules.
     this.moleculeMotionBounds = null; // @private
     this.setUpMotionBounds();
+
+    // @private {number} - accumulator used for deciding when to shuffle the biomolecules
+    this.shuffleTimeAccumulator = 0;
 
     // The bounds within which polymerase may be moved when recycled. Set up the area where RNA polymerase goes when it
     // is recycled. This is near the beginning of the transcribed region in order to make transcription more likely to
@@ -217,6 +227,13 @@ define( function( require ) {
         messengerRna.step( dt );
       } );
       this.dnaMolecule.step( dt );
+
+      // periodically shuffle the mobile biomolecules so that no molecules gets preference for attachments
+      this.shuffleTimeAccumulator += dt;
+      if ( this.shuffleTimeAccumulator > SHUFFLE_TIME ){
+        phet.joist.random.shuffle( this.mobileBiomoleculeList.getArray() );
+        this.shuffleTimeAccumulator = 0;
+      }
     },
 
     /**
