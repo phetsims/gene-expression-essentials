@@ -54,7 +54,7 @@ define( function( require ) {
     translate: function( x, y ) {
       this.bounds.shift( x, y );
       this.centerPosition.addXY( x, y );
-      this.shapeProperty.notifyObserversStatic();
+      this.shapeProperty.notifyListenersStatic();
     },
 
     /**

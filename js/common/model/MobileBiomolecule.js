@@ -204,7 +204,7 @@ define( function( require ) {
      */
     setMotionBounds: function( motionBounds ) {
       this.motionBoundsProperty.set( motionBounds );
-      this.motionBoundsProperty.notifyObserversStatic();
+      this.motionBoundsProperty.notifyListenersStatic();
     },
 
     /**
