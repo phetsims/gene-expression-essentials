@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
+  var Util = require( 'DOT/Util' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var GeneA = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneA' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -63,8 +64,8 @@ define( function( require ) {
       true
     );
 
-    // The one gene that is on this DNA strand. Add the gene to the DNA molecule. There is only one gene in this model.
-    this.gene = new GeneA( this.dnaMolecule, Math.round( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) ); // @private
+    // @private {Gene} The one gene that is on this DNA strand in this model.
+    this.gene = new GeneA( this.dnaMolecule, Util.roundSymmetric( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) );
     this.dnaMolecule.addGene( this.gene );
 
     // List of mobile biomolecules in the model, excluding mRNA.
@@ -81,7 +82,7 @@ define( function( require ) {
     this.positiveTranscriptionFactorCountProperty.link( function( count ) {
       self.setTranscriptionFactorCount(
         TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS,
-        count,
+        Util.roundSymmetric( count ),
         self.positiveTranscriptionFactorList
       );
     } );
@@ -90,7 +91,7 @@ define( function( require ) {
     this.negativeTranscriptionFactorCountProperty.link( function( count ) {
       self.setTranscriptionFactorCount(
         TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG,
-        count,
+        Util.roundSymmetric( count ),
         self.negativeTranscriptionFactorList
       );
     } );
