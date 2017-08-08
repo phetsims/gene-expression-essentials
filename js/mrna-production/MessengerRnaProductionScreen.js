@@ -19,7 +19,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var mRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRna' );
+  var screenMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/screen.mRna' );
 
   // images
   var mRnaProductionIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/mrna-production-icon.png' );
@@ -30,7 +30,7 @@ define( function( require ) {
   function MessengerRnaProductionScreen() {
 
     var options = {
-      name: mRnaString,
+      name: screenMRnaString,
       backgroundColorProperty: new Property( '#ABCBDB' ),
       homeScreenIcon: new Image( mRnaProductionIcon )
     };

@@ -2,6 +2,15 @@
   "gene-expression-essentials.title": {
     "value": "Gene Expression Essentials"
   },
+  "screen.expression": {
+    "value": "Expression"
+  },
+  "screen.mRna": {
+    "value": "mRNA"
+  },
+  "screen.multipleCells": {
+    "value": "Multiple Cells"
+  },
   "low": {
     "value": "Low"
   },
@@ -22,9 +31,6 @@
   },
   "affinities": {
     "value": "Affinities"
-  },
-  "expression": {
-    "value": "Expression"
   },
   "biomoleculeToolbox": {
     "value": "Biomolecule Toolbox"
@@ -58,9 +64,6 @@
   },
   "quotedMRna": {
     "value": "\"mRNA\""
-  },
-  "mRna": {
-    "value": "mRNA"
   },
   "mRnaDestroyer": {
     "value": "mRNA Destroyer"
@@ -130,8 +133,5 @@
   },
   "polymerase": {
     "value": "Polymerase"
-  },
-  "multipleCells": {
-    "value": "Multiple Cells"
   }
 }

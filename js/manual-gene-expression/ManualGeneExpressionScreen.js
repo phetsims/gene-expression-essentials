@@ -20,7 +20,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var expressionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/expression' );
+  var screenExpressionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/screen.expression' );
 
   // images
   var manualGeneExpressionIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/manual-gene-expression-icon.png' );
@@ -31,7 +31,7 @@ define( function( require ) {
   function ManualGeneExpressionScreen() {
 
     var options = {
-      name: expressionString,
+      name: screenExpressionString,
       backgroundColorProperty: new Property( '#ABCBDB' ),
       homeScreenIcon: new Image( manualGeneExpressionIcon )
     };

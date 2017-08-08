@@ -19,7 +19,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var multipleCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/multipleCells' );
+  var screenMultipleCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/screen.multipleCells' );
 
   // images
   var multipleCellsIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/multiple-cells-icon.png' );
@@ -30,7 +30,7 @@ define( function( require ) {
   function MultipleCellsScreen() {
 
     var options = {
-      name: multipleCellsString,
+      name: screenMultipleCellsString,
       backgroundColorProperty: new Property( 'black' ),
       homeScreenIcon: new Image( multipleCellsIcon )
     };
