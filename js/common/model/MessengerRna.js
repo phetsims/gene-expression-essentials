@@ -130,6 +130,7 @@ define( function( require ) {
      * @public
      */
     setPositionByXY: function( x, y ) {
+
       // This default implementation assumes that the position indicator is defined by the center of the shape's bounds.
       // Override if some other behavior is required.
       var center = this.getCenter();
@@ -143,6 +144,7 @@ define( function( require ) {
      * @public
      */
     setFadeAwayWhenFormed: function( fadeAwayWhenFormed ) {
+
       // Just pass this through to the state machine.
       this.mRnaAttachmentStateMachine.setFadeAwayWhenFormed( fadeAwayWhenFormed );
     },

@@ -29,11 +29,11 @@ define( function( require ) {
   return inherit( Object, MotionStrategy, {
 
     /**
-     * By default does nothing override for unique behavior
+     * Clean up references so that this is elibible for garbage collection.  This does nothing in the base class,
+     * override as needed in subclasses.
      * @public
      */
     dispose: function() {
-
     },
 
     /**

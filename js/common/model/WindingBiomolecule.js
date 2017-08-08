@@ -64,8 +64,8 @@ define( function( require ) {
 
     /**
      * Position a set of points within a rectangle. The first point stays at the upper left, the last point stays at the
-     * lower right, and the points in between are initially positioned randomly, then a spring algorithm is run to position
-     * them such that each point is the appropriate distance from the previous and next points.
+     * lower right, and the points in between are initially positioned randomly, then a spring algorithm is run to
+     * position them such that each point is the appropriate distance from the previous and next points.
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
      * @param {Bounds2} bounds
@@ -264,14 +264,16 @@ define( function( require ) {
       for ( var i = 0; i < this.shapeSegments.length; i++ ) {
         var shapeSegment = this.shapeSegments[ i ];
         var lengthRange;
+
+        // determine how much of the mRNA is within this shape segment and set the amount of length to work with accordingly
         if ( shapeSegment !== this.getLastShapeSegment() ) {
           lengthRange = new Range( handledLength, handledLength + shapeSegment.getContainedLength() );
         }
         else {
 
-          // This is the last segment, so set the max to be infinite in order to be sure that the last point is always
-          // included. If this isn't done, accumulation of floating point errors can cause the last point to fall outside
-          // of the range, and it won't get positioned.  Which is bad.
+          // This is the last segment, so set the end of the length range to be infinite in order to be sure that the
+          // last point is always included. If this isn't done, accumulation of floating point errors can cause the last
+          // point to fall outside of the range, and it won't get positioned.  Which is bad.
           lengthRange = new Range( handledLength, Number.MAX_VALUE );
 
           // Watch for unexpected conditions and spit out warning if found.
@@ -291,13 +293,19 @@ define( function( require ) {
           continue;
         }
         else if ( shapeSegment.isFlat() ) {
+
           // Position the contained points in a flat line.
           this.positionPointsInLine( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getUpperLeftCornerPos() );
         }
         else {
+
+          // The segment must be square, so position the points within it in a way that looks something like mRNA
+          //this.positionPointsFromUpperLeftToLowerRight( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          this.positionPointsAsTiltedSineWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+
           // Segment must be square, so position the points within it using the spring algorithm.
-          this.randomizePointPositionsInRectangle( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
-          this.runSpringAlgorithm( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          //this.randomizePointPositionsInRectangle( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          //this.runSpringAlgorithm( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
         }
 
         handledLength += shapeSegment.getContainedLength();
@@ -391,6 +399,100 @@ define( function( require ) {
     },
 
     /**
+     * TODO: This is probably temporary, document if retained.
+     *
+     * @param {PointMass} firstPoint
+     * @param {PointMass} lastPoint
+     * @param {Rectangle} bounds
+     * @private
+     */
+    positionPointsFromUpperLeftToLowerRight: function( firstPoint, lastPoint, bounds ) {
+
+      if ( firstPoint === null ) {
+
+        // Defensive programming.
+        return;
+      }
+
+      // Position the first point at the upper left.
+      firstPoint.setPosition( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
+      if ( firstPoint === lastPoint ) {
+
+        // Nothing more to do.
+        return;
+      }
+
+      // for easier manipulation, make a list of all of the points in order from first to last
+      var points = [];
+      var currentPoint = firstPoint;
+      points.push( currentPoint );
+      while( currentPoint !== lastPoint ){
+        currentPoint = currentPoint.getNextPointMass();
+        points.push( currentPoint );
+      }
+
+      // position the points in a line from top to bottom using a C-style loop for best performance
+      var nextPointPosition = new Vector2( bounds.minX, bounds.maxY );
+      var interPointXDistance = bounds.width / ( points.length - 1 );
+      var interPointYDistance = -bounds.height / ( points.length - 1 );
+      for ( var i = 0; i < points.length; i++ ){
+        points[ i ].setPosition( nextPointPosition.x, nextPointPosition.y );
+        nextPointPosition.addXY( interPointXDistance, interPointYDistance );
+      }
+    },
+
+    /**
+     * TODO: This is probably temporary, document if retained.
+     *
+     * @param {PointMass} firstPoint
+     * @param {PointMass} lastPoint
+     * @param {Rectangle} bounds
+     * @private
+     */
+    positionPointsAsTiltedSineWave: function( firstPoint, lastPoint, bounds ) {
+
+      if ( firstPoint === null ) {
+
+        // Defensive programming.
+        return;
+      }
+
+      // Position the first point at the upper left.
+      firstPoint.setPosition( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
+      if ( firstPoint === lastPoint ) {
+
+        // Nothing more to do.
+        return;
+      }
+
+      // for easier manipulation, make a list of all of the points in order from first to last
+      var points = [];
+      var currentPoint = firstPoint;
+      points.push( currentPoint );
+      while( currentPoint !== lastPoint ){
+        currentPoint = currentPoint.getNextPointMass();
+        points.push( currentPoint );
+      }
+
+      // position the points in a sine wave tilted from top to bottom using a C-style loop for best performance
+      var nextLinearPosition = new Vector2( bounds.minX, bounds.maxY );
+      var interPointXDistance = bounds.width / ( points.length - 1 );
+      var interPointYDistance = -bounds.height / ( points.length - 1 );
+      var totalDistanceTraversed = 0;
+      var totalDistancePerStep = Math.sqrt( interPointXDistance * interPointXDistance +
+                                            interPointYDistance * interPointYDistance );
+      var mRnaWavinessFactor = Math.PI / 100; // TODO: make this a constant if retained
+      var offsetFromLine = new Vector2;
+      for ( var i = 0; i < points.length; i++ ){
+        offsetFromLine.setXY( Math.sin( totalDistanceTraversed * mRnaWavinessFactor ) * 50, 0 );
+        offsetFromLine.rotate( Math.PI / 4 );
+        points[ i ].setPosition( nextLinearPosition.x + offsetFromLine.x, nextLinearPosition.y + offsetFromLine.y );
+        nextLinearPosition.addXY( interPointXDistance, interPointYDistance );
+        totalDistanceTraversed += totalDistancePerStep;
+      }
+    },
+
+    /**
      * Realign all the segments, making sure that the end of one connects to the beginning of another, using the last
      * segment on the list as the starting point.
      * @private
@@ -429,7 +531,6 @@ define( function( require ) {
       newPoint.setPreviousPointMass( this.lastShapeDefiningPoint );
       this.lastShapeDefiningPoint = newPoint;
     },
-
 
     /**
      * Get the points that define the shape as a list.
@@ -482,8 +583,8 @@ define( function( require ) {
     },
 
     /**
-     * Realign the positions of all segments starting from the given segment and working forward and backward through the
-     * segment list.
+     * Realign the positions of all segments starting from the given segment and working forward and backward through
+     * the segment list.
      * @param {ShapeSegment} segmentToAlignFrom
      * @protected
      */

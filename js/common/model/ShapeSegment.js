@@ -134,10 +134,7 @@ define( function( require ) {
      * @public
      */
     translate: function( x, y ) {
-      this.bounds.set( Bounds2.rect( this.bounds.x + x,
-        this.bounds.y + y,
-        this.bounds.getWidth(),
-        this.bounds.getHeight() ) );
+      this.bounds.set( this.bounds.shifted( x, y ) );
       this.updateAttachmentSiteLocation();
     },
 
