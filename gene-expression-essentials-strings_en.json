@@ -32,8 +32,8 @@
   "one": {
     "value": "One"
   },
-  "concentrations": {
-    "value": "Concentrations"
+  "concentration": {
+    "value": "Concentration"
   },
   "mrnaDestroyer": {
     "value": "mRNA Destroyer"

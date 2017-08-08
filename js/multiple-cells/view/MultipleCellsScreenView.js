@@ -46,7 +46,7 @@ define( function( require ) {
   var oneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/one' );
   var manyString = require( 'string!GENE_EXPRESSION_ESSENTIALS/many' );
   var polymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/polymerase' );
-  var concentrationsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentrations' );
+  var concentrationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentration' );
   var affinitiesString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinities' );
   var cellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/cells' );
 
@@ -232,7 +232,7 @@ define( function( require ) {
     ];
 
     var concentrationControlPanel = new ControlPanelNode(
-      concentrationsString,
+      concentrationString,
       concentrationControllers
     );
 

@@ -25,7 +25,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var concentrationsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentrations' );
+  var concentrationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentration' );
   var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
   var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
 
@@ -41,7 +41,7 @@ define( function( require ) {
   function ConcentrationController( transcriptionFactorConfig, tfLevelProperty, min, max ) {
     Node.call( this );
 
-    var captionNode = new Text( concentrationsString, {
+    var captionNode = new Text( concentrationString, {
       font: new PhetFont( { size: 14, weight: 'bold' } ),
       maxWidth: 180
     } );
