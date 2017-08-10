@@ -23,7 +23,6 @@ define( function( require ) {
 
   // constants
   var TRANSCRIPTION_VELOCITY = 1000;// In picometers per second.
-  var MRNA_GROWTH_RATE = 750; // controls rate at which mRNA grows, value was empirically determined
 
   // used for comparing the position of Biomolecule and endOfGene's position.
   var BIO_MOLECULE_POSITION_COMPARISON_EPSILON = 0.000001;
@@ -61,7 +60,7 @@ define( function( require ) {
       assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
 
       // Grow the messenger RNA and position it to be attached to the polymerase.
-      this.messengerRna.addLength( MRNA_GROWTH_RATE * dt );
+      this.messengerRna.addLength( TRANSCRIPTION_VELOCITY * dt );
       this.messengerRna.setLowerRightPosition(
         rnaPolymerase.getPosition().x + rnaPolymerase.messengerRnaGenerationOffset.x,
         rnaPolymerase.getPosition().y + rnaPolymerase.messengerRnaGenerationOffset.y );
