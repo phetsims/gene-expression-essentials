@@ -33,13 +33,20 @@ define( function( require ) {
   var dampingForce = new Vector2( 0, 0 );
 
   /**
-   *
    * @param {GeneExpressionModel} model
    * @param {Shape} initialShape
    * @param {Vector2} position
    * @constructor
    */
-  function WindingBiomolecule( model, initialShape, position ) {
+  function WindingBiomolecule( model, initialShape, position, options ) {
+
+    options = _.extend( {
+
+      // {number} - winding algorithm to use when creating and updating this biomolecule, see code for range
+      windingAlgorithm: 0
+
+    }, options );
+
     MobileBiomolecule.call( this, model, initialShape, NOMINAL_COLOR );
 
     // Add first shape defining point to the point list.
@@ -528,26 +535,27 @@ define( function( require ) {
         points.push( currentPoint );
       }
 
-      // position the points in a sine wave tilted from top to bottom using a C-style loop for best performance
       var nextLinearPosition = new Vector2( bounds.minX, bounds.maxY );
       var interPointXDistance = bounds.width / ( points.length - 1 );
       var interPointYDistance = -bounds.height / ( points.length - 1 );
       var totalDistanceTraversed = 0;
       var totalDistancePerStep = Math.sqrt( interPointXDistance * interPointXDistance +
                                             interPointYDistance * interPointYDistance );
-      var mRnaWavinessFactor = Math.PI / 100; // TODO: make this a constant if retained
+      var yWavinessFactor = Math.PI / 100;
+      var xWavinessFactor = yWavinessFactor * 2;
       var offsetFromLinearSequence = new Vector2;
       for ( var i = 0; i < points.length; i++ ){
-        var amplitudeMultiplier;
+        var yAmplitudeModulator;
         if ( totalDistanceTraversed < diagonalSpan / 2 ){
-          amplitudeMultiplier = 2 * ( totalDistanceTraversed / diagonalSpan );
+          yAmplitudeModulator = 2 * ( totalDistanceTraversed / diagonalSpan );
         }
         else{
-          amplitudeMultiplier = 2 * ( 1 - ( totalDistanceTraversed / diagonalSpan ) );
+          yAmplitudeModulator = 2 * ( 1 - ( totalDistanceTraversed / diagonalSpan ) );
         }
+        var xAmplitudeModulator = 1 - Math.pow( totalDistanceTraversed / diagonalSpan, 0.75 );
         offsetFromLinearSequence.setXY(
-          Math.sin( totalDistanceTraversed * mRnaWavinessFactor ) * ( diagonalSpan / 2 ) * amplitudeMultiplier,
-          Math.cos( totalDistanceTraversed * mRnaWavinessFactor * 2 ) * 60
+          Math.sin( totalDistanceTraversed * yWavinessFactor ) * ( diagonalSpan / 2 ) * yAmplitudeModulator,
+          Math.cos( totalDistanceTraversed * xWavinessFactor ) * 150 * xAmplitudeModulator
         );
         offsetFromLinearSequence.rotate( Math.PI / 4 );
         points[ i ].setPosition(
