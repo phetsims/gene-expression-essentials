@@ -232,7 +232,7 @@ define( function( require ) {
       // periodically shuffle the mobile biomolecules so that no molecules gets preference for attachments
       this.shuffleTimeAccumulator += dt;
       if ( this.shuffleTimeAccumulator > SHUFFLE_TIME ){
-        phet.joist.random.shuffle( this.mobileBiomoleculeList.getArray() );
+        this.mobileBiomoleculeList.shuffle( phet.joist.random );
         this.shuffleTimeAccumulator = 0;
       }
     },
