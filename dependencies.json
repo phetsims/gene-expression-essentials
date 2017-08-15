@@ -1,67 +1,67 @@
 {
-  "comment": "# gene-expression-essentials 1.0.0-dev.10 Mon May 01 2017 12:02:59 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# gene-expression-essentials 1.0.0-dev.3 Mon Apr 03 2017 15:16:46 GMT-0600 (Mountain Daylight Time)",
   "assert": {
-    "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
+    "sha": "a707328cc11048787a807714496af23e0bd25be1",
     "branch": "master"
   },
   "axon": {
-    "sha": "5db49894e7dc1018e63f61c751accee25eb05bdd",
+    "sha": "f7720d0e57be3884aedaa78bd799d1fac8168711",
     "branch": "master"
   },
   "brand": {
-    "sha": "f4b72cac70c41f724ab29eb7510d8bf9a8192901",
+    "sha": "b6bdbc2b7d618f8fbd2851a95476c0eb1205acf5",
     "branch": "master"
   },
   "chipper": {
-    "sha": "081a5c3aea2f5e74df1a1aac7c2d373179d9abdb",
+    "sha": "52c3aa33c623df4a2ef2470e298c7f2382cb7dc7",
     "branch": "master"
   },
   "dot": {
-    "sha": "ef145e365ef9dd517e6178a0b2ea65e4c533d73d",
+    "sha": "569939e1f45973234a3819255a88cd2b80006f76",
     "branch": "master"
   },
   "gene-expression-essentials": {
-    "sha": "4b0763c62aafe0a9592b3a5841375359fd2fbbb5",
+    "sha": "8d54aac27483dccba686c66a5abce9ca66327bf0",
     "branch": "master"
   },
   "joist": {
-    "sha": "85c73931a20c6c609f41024fc5fa7c9c1bbdf942",
+    "sha": "c5a6310480e17578e6ecaa98c3e6a65aff2c76e7",
     "branch": "master"
   },
   "kite": {
-    "sha": "0cc5b62077af04ac7765ed26ee1a410de8612ae1",
+    "sha": "81166ce9735f0bcb11b9e68b74eeed46b6f24da6",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "76ec02046b2a8da592d3273e93d52088d9b58121",
+    "sha": "c5c6c2a8273b9bd3f3bcb4ddfbcf24058b58954a",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "3ad92ec57b50aa2f2e49d52bd880ae63e24fb92c",
+    "sha": "85801e7b43730588c1e2770fb64d633c58d71759",
     "branch": "master"
   },
   "query-string-machine": {
-    "sha": "e7055778b4784bd4b1c5e33a99e31b98a93cb05f",
+    "sha": "d8a4ff18a12aff003e4896213c1dfed5a79c1a30",
     "branch": "master"
   },
   "scenery": {
-    "sha": "7bcac8e0f887d73a6215ff684f272d94fde7f7f9",
+    "sha": "b8b0944561ac846dcb0d2c8bd4a04edff0eb272c",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "ff102f186fc132aa3627ce5c5118cdae322c651d",
+    "sha": "6213dc27544de739f31722d59f1a756e20ca03fb",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "0e326d542b93f5cf3eea2b175d195c18b9bdfb6e",
+    "sha": "3255de0f1edda165ff360076051a56cd31cd3ea5",
     "branch": "master"
   },
   "sun": {
-    "sha": "fcadd82464fa311ab2e91a6b188e88fff2c99090",
+    "sha": "81abf142c7b9a225ee9ce9e6b398fb105d236012",
     "branch": "master"
   },
   "tandem": {
-    "sha": "30603e6651945c5adf8fb0d4861d9fa74cea385e",
+    "sha": "a668abd5e2f1d6b80de925c9e7567c4468a34f3a",
     "branch": "master"
   }
 }
