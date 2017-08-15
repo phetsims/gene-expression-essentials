@@ -521,7 +521,7 @@ define( function( require ) {
     },
 
     /**
-     * TODO: This is probably temporary, document if retained.
+     * TODO: This is probably temporary, document and clean up if retained.
      *
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
@@ -572,7 +572,7 @@ define( function( require ) {
     },
 
     /**
-     * TODO: This is probably temporary, document if retained.
+     * TODO: This is probably temporary, document and clean up if retained.
      *
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
@@ -647,7 +647,6 @@ define( function( require ) {
           ( yWave1Multiplier * Math.sin( totalDistanceTraversed * yWave1Frequency + yWave1PhaseOffset ) +
             yWave2Multiplier * Math.sin( totalDistanceTraversed * yWave2Frequency + yWave2PhaseOffset ) ) *
           yAmplitudeMultiplier,
-          //xWaveMultiplier * Math.sin( totalDistanceTraversed * xWaveFrequency + xWavePhaseOffset ) * xAmplitudeMultiplier
           xWaveMultiplier * Math.sin( totalDistanceTraversed * xWaveFrequency + xWavePhaseOffset ) * yAmplitudeMultiplier
         );
         offsetFromLinearSequence.rotate( Math.PI / 4 );
