@@ -24,10 +24,11 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  // Color used by this molecule. Since mRNA is depicted as a line and not as a closed shape, a transparent color is used.
-  // This enables reuse of generic biomolecule classes.
+  // Color used by this molecule. Since mRNA is depicted as a line and not as a closed shape, a transparent color is 
+  // used for the fill. This enables reuse of generic biomolecule classes.
   var NOMINAL_COLOR = new Color( 0, 0, 0, 0 );
 
+  // reusable vectors, pre-allocated for better performance
   var vectorToPreviousPoint = new Vector2( 0, 0 );
   var vectorToNextPoint = new Vector2( 0, 0 );
   var dampingForce = new Vector2( 0, 0 );
@@ -39,6 +40,76 @@ define( function( require ) {
    * @constructor
    */
   function WindingBiomolecule( model, initialShape, position, options ) {
+
+    // TODO: Temp for experimentation with the mRNA shape.
+    this.WINDING_PARAMS = {
+      //yWave1Frequency: Math.PI * ( phet.joist.random.nextDouble() ) * 0.1,
+      //yWave1PhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
+      //yWave1Multiplier: phet.joist.random.nextDouble(),
+      //yWave2Frequency: Math.PI * ( phet.joist.random.nextDouble() ) * 0.1,
+      //yWave2PhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
+      //yWave2Multiplier: phet.joist.random.nextDouble(),
+      //xWaveFrequency: Math.PI * ( phet.joist.random.nextDouble() ) * 0.2,
+      //xWavePhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
+      //xWaveMultiplier: phet.joist.random.nextDouble() * 200
+
+      // straight line
+      //yWave1Frequency: 0,
+      //yWave1PhaseOffset: 0,
+      //yWave1Multiplier: 0,
+      //yWave2Frequency: 0,
+      //yWave2PhaseOffset: 0,
+      //yWave2Multiplier: 0,
+      //xWaveFrequency: 0,
+      //xWavePhaseOffset: 0,
+      //xWaveMultiplier: 0
+
+      // sine wave from yWave1 only
+      //yWave1Frequency: Math.PI * 0.01,
+      //yWave1PhaseOffset: 0.1 * Math.PI,
+      //yWave1Multiplier: 0.5,
+      //yWave2Frequency: 0,
+      //yWave2PhaseOffset: 0,
+      //yWave2Multiplier: 0,
+      //xWaveFrequency: 0,
+      //xWavePhaseOffset: 0,
+      //xWaveMultiplier: 0
+
+      // double sine wave from yWave1 and yWave2
+      //yWave1Frequency: Math.PI * 0.01,
+      //yWave1PhaseOffset: 0.1 * Math.PI,
+      //yWave1Multiplier: 0.5,
+      //yWave2Frequency: Math.PI * 0.02,
+      //yWave2PhaseOffset: 0,
+      //yWave2Multiplier: 0.5,
+      //xWaveFrequency: 0,
+      //xWavePhaseOffset: 0,
+      //xWaveMultiplier: 0
+
+      // x wave
+      //yWave1Frequency: Math.PI * 0.01,
+      //yWave1PhaseOffset: 0.1 * Math.PI,
+      //yWave1Multiplier: 0.5,
+      //yWave2Frequency: 0,
+      //yWave2PhaseOffset: 0,
+      //yWave2Multiplier: 0,
+      //xWaveFrequency: Math.PI * 0.03,
+      //xWavePhaseOffset: 0,
+      //xWaveMultiplier: 0.4
+
+      yWave1Frequency: ( 0.0002 + phet.joist.random.nextDouble() * 0.015 ) * Math.PI,
+      yWave1PhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
+      yWave1Multiplier: ( 0.02 + phet.joist.random.nextDouble() * 0.8 ),
+      yWave2Frequency: ( 0.005 + phet.joist.random.nextDouble() * 0.03 ) * Math.PI,
+      yWave2PhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
+      yWave2Multiplier: ( 0.02 + phet.joist.random.nextDouble() * 0.8 ),
+      xWaveFrequency: ( 0.002 + phet.joist.random.nextDouble() * 0.02 ) * Math.PI,
+      xWavePhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
+      xWaveMultiplier: ( 0.1 + phet.joist.random.nextDouble() * 0.5 )
+    };
+
+    console.log( '---------------------------------' );
+    console.log( 'WINDING_PARAMS = ' + JSON.stringify( this.WINDING_PARAMS, null, 4 ) );
 
     options = _.extend( {
 
@@ -308,7 +379,7 @@ define( function( require ) {
 
           // The segment must be square, so position the points within it in a way that looks something like mRNA
           //this.positionPointsFromUpperLeftToLowerRight( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
-          this.positionPointsAsRandomizedSineWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          this.positionPointsAsChaoticWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
           //this.positionPointsAsTiltedSineWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
 
           // Segment must be square, so position the points within it using the spring algorithm.
@@ -434,7 +505,7 @@ define( function( require ) {
       var points = [];
       var currentPoint = firstPoint;
       points.push( currentPoint );
-      while( currentPoint !== lastPoint ){
+      while ( currentPoint !== lastPoint ) {
         currentPoint = currentPoint.getNextPointMass();
         points.push( currentPoint );
       }
@@ -443,7 +514,7 @@ define( function( require ) {
       var nextPointPosition = new Vector2( bounds.minX, bounds.maxY );
       var interPointXDistance = bounds.width / ( points.length - 1 );
       var interPointYDistance = -bounds.height / ( points.length - 1 );
-      for ( var i = 0; i < points.length; i++ ){
+      for ( var i = 0; i < points.length; i++ ) {
         points[ i ].setPosition( nextPointPosition.x, nextPointPosition.y );
         nextPointPosition.addXY( interPointXDistance, interPointYDistance );
       }
@@ -477,7 +548,7 @@ define( function( require ) {
       var points = [];
       var currentPoint = firstPoint;
       points.push( currentPoint );
-      while( currentPoint !== lastPoint ){
+      while ( currentPoint !== lastPoint ) {
         currentPoint = currentPoint.getNextPointMass();
         points.push( currentPoint );
       }
@@ -491,7 +562,7 @@ define( function( require ) {
                                             interPointYDistance * interPointYDistance );
       var mRnaWavinessFactor = Math.PI / 100; // TODO: make this a constant if retained
       var offsetFromLine = new Vector2;
-      for ( var i = 0; i < points.length; i++ ){
+      for ( var i = 0; i < points.length; i++ ) {
         offsetFromLine.setXY( Math.sin( totalDistanceTraversed * mRnaWavinessFactor ) * 50, 0 );
         offsetFromLine.rotate( Math.PI / 4 );
         points[ i ].setPosition( nextLinearPosition.x + offsetFromLine.x, nextLinearPosition.y + offsetFromLine.y );
@@ -508,7 +579,7 @@ define( function( require ) {
      * @param {Rectangle} bounds
      * @private
      */
-    positionPointsAsRandomizedSineWave: function( firstPoint, lastPoint, bounds ) {
+    positionPointsAsChaoticWave: function( firstPoint, lastPoint, bounds ) {
 
       if ( firstPoint === null ) {
 
@@ -530,7 +601,7 @@ define( function( require ) {
       var points = [];
       var currentPoint = firstPoint;
       points.push( currentPoint );
-      while( currentPoint !== lastPoint ){
+      while ( currentPoint !== lastPoint ) {
         currentPoint = currentPoint.getNextPointMass();
         points.push( currentPoint );
       }
@@ -541,21 +612,43 @@ define( function( require ) {
       var totalDistanceTraversed = 0;
       var totalDistancePerStep = Math.sqrt( interPointXDistance * interPointXDistance +
                                             interPointYDistance * interPointYDistance );
-      var yWavinessFactor = Math.PI / 100;
-      var xWavinessFactor = yWavinessFactor * 2;
+      //var yWave1Frequency = Math.PI / 100;
+      //var yWave1PhaseOffset = Math.PI * 0.5;
+      //var yWave1Multiplier = diagonalSpan * 0.4;
+      //var yWave2Frequency = Math.PI / 40;
+      //var yWave2PhaseOffset = Math.PI * 0.25;
+      //var yWave2Multiplier = diagonalSpan * 0.25;
+      //var xWaveFrequency = yWave1Frequency * 2;
+      //var xWavePhaseOffset = Math.PI * 0.5;
+      //var xWaveMultiplier = 100;
+      var yWave1Frequency = this.WINDING_PARAMS.yWave1Frequency;
+      var yWave1PhaseOffset = this.WINDING_PARAMS.yWave1PhaseOffset;
+      var yWave1Multiplier = this.WINDING_PARAMS.yWave1Multiplier;
+      var yWave2Frequency = this.WINDING_PARAMS.yWave2Frequency;
+      var yWave2PhaseOffset = this.WINDING_PARAMS.yWave2PhaseOffset;
+      var yWave2Multiplier = this.WINDING_PARAMS.yWave2Multiplier;
+      var xWaveFrequency = this.WINDING_PARAMS.xWaveFrequency;
+      var xWavePhaseOffset = this.WINDING_PARAMS.xWavePhaseOffset;
+      var xWaveMultiplier = this.WINDING_PARAMS.xWaveMultiplier;
       var offsetFromLinearSequence = new Vector2;
-      for ( var i = 0; i < points.length; i++ ){
-        var yAmplitudeModulator;
-        if ( totalDistanceTraversed < diagonalSpan / 2 ){
-          yAmplitudeModulator = 2 * ( totalDistanceTraversed / diagonalSpan );
+      for ( var i = 0; i < points.length; i++ ) {
+
+        // window function to modulate less at corners of square than in middle so that everything fits in the segment
+        var yAmplitudeMultiplier;
+        if ( totalDistanceTraversed < diagonalSpan / 2 ) {
+          yAmplitudeMultiplier = totalDistanceTraversed;
         }
-        else{
-          yAmplitudeModulator = 2 * ( 1 - ( totalDistanceTraversed / diagonalSpan ) );
+        else {
+          yAmplitudeMultiplier = diagonalSpan - totalDistanceTraversed;
         }
-        var xAmplitudeModulator = 1 - Math.pow( totalDistanceTraversed / diagonalSpan, 0.75 );
+
+        // use periodic functions to create a chaotic but deterministic shape
         offsetFromLinearSequence.setXY(
-          Math.sin( totalDistanceTraversed * yWavinessFactor ) * ( diagonalSpan / 2 ) * yAmplitudeModulator,
-          Math.cos( totalDistanceTraversed * xWavinessFactor ) * 150 * xAmplitudeModulator
+          ( yWave1Multiplier * Math.sin( totalDistanceTraversed * yWave1Frequency + yWave1PhaseOffset ) +
+            yWave2Multiplier * Math.sin( totalDistanceTraversed * yWave2Frequency + yWave2PhaseOffset ) ) *
+          yAmplitudeMultiplier,
+          //xWaveMultiplier * Math.sin( totalDistanceTraversed * xWaveFrequency + xWavePhaseOffset ) * xAmplitudeMultiplier
+          xWaveMultiplier * Math.sin( totalDistanceTraversed * xWaveFrequency + xWavePhaseOffset ) * yAmplitudeMultiplier
         );
         offsetFromLinearSequence.rotate( Math.PI / 4 );
         points[ i ].setPosition(
