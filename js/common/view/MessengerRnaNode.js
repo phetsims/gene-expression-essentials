@@ -17,8 +17,12 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
+  var Rectangle = require('SCENERY/nodes/Rectangle');
 
   // constants
+  var BOUNDING_RECT_FILL = 'rgba( 256, 256, 0, 0 )'; // adjust opacity to make visible if needed for debugging
+
+  // strings
   var quotedMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/quotedMRna' );
 
   /**
@@ -27,9 +31,14 @@ define( function( require ) {
    * @constructor
    */
   function MessengerRnaNode( mvt, messengerRna ) {
+
     MobileBiomoleculeNode.call( this, mvt, messengerRna, 2 );
 
-    // Add placement hints that show where ribosomes and mRNA destroyers could be attached.
+    // To improve performance, make the mRNA strand non-pickable, since it is a complex shape.  The bounding rectangle
+    // defined below will act as the pickable portion.
+    this.path.pickable = false;
+
+    // Add placement hints that show where ribosomes and mRNA destroyers can be attached.
     var ribosomePlacementHintNode = new PlacementHintNode( mvt, messengerRna.ribosomePlacementHint );
     var mRnaDestroyerPlacementHintNode = new PlacementHintNode( mvt, messengerRna.mRnaDestroyerPlacementHint );
     this.addChild( ribosomePlacementHintNode );
@@ -39,6 +48,7 @@ define( function( require ) {
     var label = new FadeLabel( quotedMRnaString, false, messengerRna.existenceStrengthProperty );
     this.addChild( label );
 
+    // handler function for changes to the "being synthesized" state
     function handleBeingSynthesizedChanged( beingSynthesized ) {
       if ( beingSynthesized ) {
         label.startFadeIn( 3000 ); // Fade time chosen empirically.
@@ -50,11 +60,19 @@ define( function( require ) {
 
     messengerRna.beingSynthesizedProperty.link( handleBeingSynthesizedChanged );
 
-    function handleShapeChanged( shape ) {
+    // Add a bounding rectangle node so that this can be easily grabbed by the user.  This is also useful for debugging
+    // when set to be visible.
+    var boundingRect = new Rectangle( 0, 0, 0.1, 0.1, 0, 0, { fill: BOUNDING_RECT_FILL } );
+    this.addChild( boundingRect );
+    boundingRect.moveToBack();
+
+    // handler for shape changes
+    function handleShapeChanged() {
       var shapeBounds = messengerRna.bounds;
       if ( _.isFinite( shapeBounds.maxX ) ) {
         label.x = mvt.modelToViewX( shapeBounds.maxX );
         label.y = mvt.modelToViewY( shapeBounds.maxY );
+        boundingRect.setRectBounds( mvt.modelToViewBounds( shapeBounds ) );
       }
     }
 

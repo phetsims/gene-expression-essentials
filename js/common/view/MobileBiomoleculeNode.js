@@ -33,29 +33,31 @@ define( function( require ) {
     Node.call( self, { cursor: 'pointer' } );
     outlineStroke = outlineStroke || 1;
 
-    var path = this.getPathByMobileBioMoleculeType( mobileBiomolecule, {
+    // @protected {Path} - main path that represents the biomolecule
+    this.path = new Path( new Shape(), {
       stroke: Color.BLACK,
       lineWidth: mvt.viewToModelDeltaX( outlineStroke ),
       matrix: mvt.getMatrix()
     } );
 
-    this.addChild( path );
+    this.addChild( this.path );
 
     function handleShapeChanged( shape ) {
-      path.shape = null;
-      path.setShape( shape );
-      // Account for the offset.
+
+      // update the shape
+      self.path.shape = null;
+      self.path.setShape( shape );
+
+      // Account for the offset
       var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
 
-      // For shapes with just one point, the Java Version of GeneralPath's "Bounds" returns a width of
-      // zero and height of 1 but kite's shape bounds returns infinity in such cases. Since the MessengerRna starts with
-      // a single point, the Gradient fill code fails as the bounds of the shape at that point is infinity.
-      // So the following check is added before calling createGradientPaint - Ashraf
+      // For shapes with just one point, the Java Version of GeneralPath's "Bounds" returns a width of zero and height
+      // of 1 but kite's shape bounds returns infinity in such cases. Since the MessengerRna starts with a single point,
+      // the Gradient fill code fails as the bounds of the shape at that point is infinity. So the following check is
+      // added before calling createGradientPaint - Ashraf
       if ( _.isFinite( shape.bounds.centerX ) ) {
-        path.centerX = offset.x;
-        path.centerY = offset.y;
+        self.path.center = offset;
       }
-
     }
 
     // Update the shape whenever it changes.
@@ -65,7 +67,7 @@ define( function( require ) {
       var moleculeShape = mobileBiomolecule.getShape();
       //see the comment above on gradientPaint
       if ( _.isFinite( moleculeShape.bounds.centerX ) ) {
-        path.fill = GradientUtil.createGradientPaint( moleculeShape, color );
+        self.path.fill = GradientUtil.createGradientPaint( moleculeShape, color );
       }
     }
 
@@ -130,8 +132,8 @@ define( function( require ) {
       self.removeInputListener( dragHandler );
       mobileBiomolecule.movableByUserProperty.unlink( handleMovableByUserChanged );
       mobileBiomolecule.userControlledProperty.unlink( handleUserControlledChanged );
-      path.shape = null;
-      path.dispose();
+      self.path.shape = null;
+      self.path.dispose();
     };
   }
 
@@ -145,17 +147,7 @@ define( function( require ) {
     dispose: function() {
       this.disposeMobileBiomoleculeNode();
       Node.prototype.dispose.call( this );
-    },
-
-    /**
-     * @param {MobileBiomolecule} mobileBiomolecule
-     * @param {Object} options
-     * @private
-     */
-    getPathByMobileBioMoleculeType: function( mobileBiomolecule, options ) {
-      var path = new Path( new Shape(), options );
-      path.boundsMethod = 'unstroked';
-      return path;
     }
+
   } );
 } );
