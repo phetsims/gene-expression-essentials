@@ -17,10 +17,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
-  var Rectangle = require('SCENERY/nodes/Rectangle');
-
-  // constants
-  var BOUNDING_RECT_FILL = 'rgba( 256, 256, 0, 0 )'; // adjust opacity to make visible if needed for debugging
 
   // strings
   var quotedMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/quotedMRna' );
@@ -33,6 +29,7 @@ define( function( require ) {
   function MessengerRnaNode( mvt, messengerRna ) {
 
     MobileBiomoleculeNode.call( this, mvt, messengerRna, 2 );
+    var self = this;
 
     // To improve performance, make the mRNA strand non-pickable, since it is a complex shape.  The bounding rectangle
     // defined below will act as the pickable portion.
@@ -60,19 +57,16 @@ define( function( require ) {
 
     messengerRna.beingSynthesizedProperty.link( handleBeingSynthesizedChanged );
 
-    // Add a bounding rectangle node so that this can be easily grabbed by the user.  This is also useful for debugging
-    // when set to be visible.
-    var boundingRect = new Rectangle( 0, 0, 0.1, 0.1, 0, 0, { fill: BOUNDING_RECT_FILL } );
-    this.addChild( boundingRect );
-    boundingRect.moveToBack();
-
     // handler for shape changes
     function handleShapeChanged() {
       var shapeBounds = messengerRna.bounds;
       if ( _.isFinite( shapeBounds.maxX ) ) {
         label.x = mvt.modelToViewX( shapeBounds.maxX );
         label.y = mvt.modelToViewY( shapeBounds.maxY );
-        boundingRect.setRectBounds( mvt.modelToViewBounds( shapeBounds ) );
+
+        // Set the mouse and touch areas to the overall bounds to make this easier for the user to move around.
+        self.mouseArea = mvt.modelToViewBounds( shapeBounds );
+        self.touchArea =self.mouseArea;
       }
     }
 
