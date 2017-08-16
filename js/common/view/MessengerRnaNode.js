@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var FadeLabel = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/FadeLabel' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -28,12 +29,8 @@ define( function( require ) {
    */
   function MessengerRnaNode( mvt, messengerRna ) {
 
-    MobileBiomoleculeNode.call( this, mvt, messengerRna, 2 );
+    MobileBiomoleculeNode.call( this, mvt, messengerRna, { lineWidth: 2 } );
     var self = this;
-
-    // To improve performance, make the mRNA strand non-pickable, since it is a complex shape.  The bounding rectangle
-    // defined below will act as the pickable portion.
-    this.path.pickable = false;
 
     // Add placement hints that show where ribosomes and mRNA destroyers can be attached.
     var ribosomePlacementHintNode = new PlacementHintNode( mvt, messengerRna.ribosomePlacementHint );
@@ -57,16 +54,28 @@ define( function( require ) {
 
     messengerRna.beingSynthesizedProperty.link( handleBeingSynthesizedChanged );
 
-    // handler for shape changes
-    function handleShapeChanged() {
-      var shapeBounds = messengerRna.bounds;
-      if ( _.isFinite( shapeBounds.maxX ) ) {
-        label.x = mvt.modelToViewX( shapeBounds.maxX );
-        label.y = mvt.modelToViewY( shapeBounds.maxY );
+    // To improve performance, the bounds method for the main path is set to 'none' here so that the bounds aren't
+    // computed on changes, and the local bounds are explicitly set below when the model shape changes.
+    this.shapeNode.boundsMethod = 'none';
+    this.shapeNode.localBounds = new Bounds2( 0, 0, 0.1, 0.1 ); // add some initial arbitrary bounds to avoid positioning issues
 
-        // Set the mouse and touch areas to the overall bounds to make this easier for the user to move around.
-        self.mouseArea = mvt.modelToViewBounds( shapeBounds );
-        self.touchArea =self.mouseArea;
+    // handler for shape changes
+    function handleShapeChanged( shape ) {
+      var shapeBounds = messengerRna.bounds;
+      if ( shapeBounds.isFinite() ) {
+        var actualTransformedShapeBounds = mvt.modelToViewBounds( shape.bounds );
+        var transformedShapeBounds = mvt.modelToViewBounds( shapeBounds );
+
+        // position the label
+        label.left = transformedShapeBounds.maxX;
+        label.y = transformedShapeBounds.minY;
+
+        // set the mouse and touch areas to the overall bounds to make this easier for the user to move around
+        self.mouseArea = transformedShapeBounds;
+        self.touchArea = transformedShapeBounds;
+
+        // explicitly set the local bounds of the main shape path - improves performance
+        self.shapeNode.localBounds = actualTransformedShapeBounds;
       }
     }
 

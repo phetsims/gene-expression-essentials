@@ -28,46 +28,50 @@ define( function( require ) {
    * @param {number} outlineStroke
    * @constructor
    */
-  function MobileBiomoleculeNode( mvt, mobileBiomolecule, outlineStroke ) {
+  function MobileBiomoleculeNode( mvt, mobileBiomolecule, options ) {
     var self = this;
     Node.call( self, { cursor: 'pointer' } );
-    outlineStroke = outlineStroke || 1;
+    options = _.extend( {
+      lineWidth: 1
+    }, options );
 
     // @protected {Path} - main path that represents the biomolecule
-    this.path = new Path( new Shape(), {
+    this.shapeNode = new Path( new Shape(), {
       stroke: Color.BLACK,
-      lineWidth: mvt.viewToModelDeltaX( outlineStroke ),
-      matrix: mvt.getMatrix()
+      lineWidth: options.lineWidth,
+      //matrix: mvt.getMatrix()
     } );
 
-    this.addChild( this.path );
+    this.addChild( this.shapeNode );
 
     function handleShapeChanged( shape ) {
 
-      // update the shape
-      self.path.shape = null;
-      self.path.setShape( shape );
+      if ( shape.bounds.isFinite() ) {
 
-      // Account for the offset
-      var offset = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
+        if ( shape !== self.previousShape ){
 
-      // For shapes with just one point, the Java Version of GeneralPath's "Bounds" returns a width of zero and height
-      // of 1 but kite's shape bounds returns infinity in such cases. Since the MessengerRna starts with a single point,
-      // the Gradient fill code fails as the bounds of the shape at that point is infinity. So the following check is
-      // added before calling createGradientPaint - Ashraf
-      if ( _.isFinite( shape.bounds.centerX ) ) {
-        self.path.center = offset;
+          // update the shape
+          self.shapeNode.shape = null;
+          self.shapeNode.setShape( mvt.modelToViewShape( shape ) );
+        }
+
+        // account for the offset
+        self.shapeNode.center = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
       }
+
+      // retain the previous shape and only update the path if the shape really changed
+      // TODO: This is likely temporary and will need to be removed, see https://github.com/phetsims/gene-expression-essentials/issues/86
+      self.previousShape = shape;
     }
 
     // Update the shape whenever it changes.
     mobileBiomolecule.shapeProperty.link( handleShapeChanged );
 
     function handleColorChanged( color ) {
-      var moleculeShape = mobileBiomolecule.getShape();
-      //see the comment above on gradientPaint
-      if ( _.isFinite( moleculeShape.bounds.centerX ) ) {
-        self.path.fill = GradientUtil.createGradientPaint( moleculeShape, color );
+
+      // see the comment above on gradientPaint
+      if ( self.shapeNode.shape.bounds.isFinite() ) {
+        self.shapeNode.fill = GradientUtil.createGradientPaint( self.shapeNode.shape, color );
       }
     }
 
@@ -132,8 +136,8 @@ define( function( require ) {
       self.removeInputListener( dragHandler );
       mobileBiomolecule.movableByUserProperty.unlink( handleMovableByUserChanged );
       mobileBiomolecule.userControlledProperty.unlink( handleUserControlledChanged );
-      self.path.shape = null;
-      self.path.dispose();
+      self.shapeNode.shape = null;
+      self.shapeNode.dispose();
     };
   }
 

@@ -26,9 +26,8 @@ define( function( require ) {
   var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
 
   // constants
-  // Distance within which this will connect to a ribosome.
-  var RIBOSOME_CONNECTION_DISTANCE = 400; // picometers
-  var MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers
+  var RIBOSOME_CONNECTION_DISTANCE = 400; // picometers - distance within which this will connect to a ribosome
+  var MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers - Distance within which this will connect to a mRNA destroyer
 
   /**
    * Constructor.  This creates the mRNA as a single point, with the intention of growing it.

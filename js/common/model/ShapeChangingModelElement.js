@@ -21,9 +21,15 @@ define( function( require ) {
    * @constructor
    */
   function ShapeChangingModelElement( initialShape ) {
-    // Shape property, which is not public because it should only be changed by descendants of the class.
-    this.shapeProperty = new Property( initialShape ); //@public
-    this.bounds = this.shapeProperty.get().bounds.copy(); //@public
+
+    // @public {Property.<Shape>} - can be read or listened to by anyone, should only be written by descendent types
+    this.shapeProperty = new Property( initialShape );
+
+    // @public {Bounds2} - TODO: Is this really needed?
+    this.bounds = this.shapeProperty.get().bounds.copy();
+
+    // @public (read-only)
+    this.center;
     this.setCenter();
   }
 
@@ -38,6 +44,7 @@ define( function( require ) {
       this.shapeProperty.set( null );
       this.shapeProperty.dispose();
     },
+
     /**
      * @returns {Shape}
      * @public
