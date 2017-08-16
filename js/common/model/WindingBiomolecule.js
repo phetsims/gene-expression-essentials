@@ -109,16 +109,27 @@ define( function( require ) {
       //xWaveMultiplier: ( 0.1 + phet.joist.random.nextDouble() * 0.5 )
 
       // nice windy one
-      yWave1Frequency: 0.03350868765331309,
-      yWave1PhaseOffset: 1.4652859313212294,
-      yWave1Multiplier: 0.3523018499297727,
-      yWave2Frequency: 0.03679270540637452,
-      yWave2PhaseOffset: 0.8290895969945882,
-      yWave2Multiplier: 0.3710465106439804,
-      xWaveFrequency: 0.06762818354262706,
-      xWavePhaseOffset: 1.3697784268233215,
-      xWaveMultiplier: 0.19589544619869786
+      //yWave1Frequency: 0.03350868765331309,
+      //yWave1PhaseOffset: 1.4652859313212294,
+      //yWave1Multiplier: 0.3523018499297727,
+      //yWave2Frequency: 0.03679270540637452,
+      //yWave2PhaseOffset: 0.8290895969945882,
+      //yWave2Multiplier: 0.3710465106439804,
+      //xWaveFrequency: 0.06762818354262706,
+      //xWavePhaseOffset: 1.3697784268233215,
+      //xWaveMultiplier: 0.19589544619869786
 
+      // kathy
+      yWave1Frequency: 0.02417698217540225,
+      yWave1PhaseOffset: 2.4695448382255574,
+      yWave1Multiplier: 0.37836434264592467,
+      yWave2Frequency: 0.06201593943296497,
+      yWave2PhaseOffset: 1.936966001193581,
+      yWave2Multiplier: 0.41526000924061474,
+      xWaveFrequency: 0.16811027073589893,
+      xWavePhaseOffset: 0.030242447922989232,
+      xWaveMultiplier: 0.3390090209844494
+      
       // ECG sort of one with some overlap
       //yWave1Frequency: 0.033801261909700855,
       //yWave1PhaseOffset: 2.749035346535291,
