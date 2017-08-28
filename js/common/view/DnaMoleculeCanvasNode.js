@@ -18,6 +18,7 @@ define( function( require ) {
   // constants
   var STRAND_1_COLOR = new Color( 31, 163, 223 );
   var STRAND_2_COLOR = new Color( 214, 87, 107 );
+  var BASE_PAIR_COLOR = Color.DARK_GRAY.computeCSS();
 
   /**
    * @param {DnaMolecule} model
@@ -39,17 +40,31 @@ define( function( require ) {
   return inherit( CanvasNode, DnaMoleculeCanvasNode, {
 
     /**
-     * Draws the base pairs
+     * Draws the base pairs - this normally just draws a single line the connects between the two strands, but if the
+     * strands are split it draws the base pairs in two pieces.
      * @param {CanvasRenderingContext2D} context
      * @param {BasePair}basePair
      * @private
      */
-    drawRect: function( context, basePair ) {
-      context.moveTo( basePair.x, basePair.topYLocation );
+    drawBasePair: function( context, basePair ) {
+
+      if ( basePair.topYLocation - basePair.bottomYLocation <= this.model.maxBasePairHeight ){
+
+        // draw the base pair as a single line between the top and bottom locations
+        context.moveTo( basePair.x, basePair.topYLocation );
+        context.lineTo( basePair.x, basePair.bottomYLocation );
+      }
+      else{
+
+        // the strands are separate, draw two separate base pairs
+        var dividedBasePairHeight = this.model.maxBasePairHeight / 2;
+        context.moveTo( basePair.x, basePair.topYLocation );
+        context.lineTo( basePair.x, basePair.topYLocation - dividedBasePairHeight );
+        context.moveTo( basePair.x, basePair.bottomYLocation );
+        context.lineTo( basePair.x, basePair.bottomYLocation + dividedBasePairHeight );
+      }
+
       context.lineWidth = basePair.width;
-      context.lineTo( basePair.x, basePair.topYLocation + basePair.height / 2 );
-      context.moveTo( basePair.x, basePair.bottomYLocation );
-      context.lineTo( basePair.x, basePair.bottomYLocation - basePair.height / 2 );
     },
 
     /**
@@ -144,18 +159,21 @@ define( function( require ) {
         }
       }
 
+      // draw the back portions of the DNA strand
       this.drawCurve( context, strand1ArrayBehind, STRAND_1_COLOR );
       this.drawCurve( context, strand2ArrayBehind, STRAND_2_COLOR );
+
+      // draw the base pairs
       context.beginPath();
+      context.strokeStyle = BASE_PAIR_COLOR;
 
       for ( i = 0; i < this.model.basePairs.length; i++ ) {
         var basePair = this.model.basePairs[ i ];
-        this.drawRect( context, basePair );
+        this.drawBasePair( context, basePair );
       }
-
-      context.strokeStyle = Color.DARK_GRAY.computeCSS();
       context.stroke();
 
+      // draw the front portions of the DNA strand
       this.drawCurve( context, strand1ArrayFront, STRAND_1_COLOR );
       this.drawCurve( context, strand2ArrayFront, STRAND_2_COLOR );
 

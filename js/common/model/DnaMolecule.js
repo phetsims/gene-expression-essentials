@@ -69,6 +69,9 @@ define( function( require ) {
     // Base pairs within the DNA strand.
     this.basePairs = []; // @public
 
+    // @public (read-only) {number} - height of the tallest base pair, set during initialization below
+    this.maxBasePairHeight = 0;
+
     this.genes = [];// @private
 
     // List of forced separations between the two strands.
@@ -79,18 +82,19 @@ define( function( require ) {
 
     // Add the initial set of shape-defining points for each of the two strands.  Points are spaced the same as the
     // base pairs.
-    // Add in the base pairs between the backbone strands.  This calculates the distance between the two strands and
-    // puts a line between them in  order to look like the base pair.
     for ( var i = 0; i < numBasePairs; i++ ) {
       var xPos = leftEdgeXOffset + i * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS;
       var strand1YPos = this.getDnaStrandYPosition( xPos, 0 );
       var strand2YPos = this.getDnaStrandYPosition( xPos, GEEConstants.INTER_STRAND_OFFSET );
       var height = Math.abs( strand1YPos - strand2YPos );
+      this.maxBasePairHeight = height > this.maxBasePairHeight ? height : this.maxBasePairHeight;
+
+      // Add in the base pairs between the backbone strands.  This calculates the distance between the two strands and
+      // puts a line between them in  order to look like the base pair.
       this.basePairs.push( new BasePair(
         xPos,
         Math.min( strand1YPos, strand2YPos ),
-        Math.max( strand1YPos, strand2YPos ),
-        height
+        Math.max( strand1YPos, strand2YPos )
       ) );
       this.strandPoints.push( new DnaStrandPoint( xPos, strand1YPos, strand2YPos ) );
       this.strandPointsShadow.push( new DnaStrandPoint( xPos, strand1YPos, strand2YPos ) );
@@ -197,15 +201,22 @@ define( function( require ) {
         dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, GEEConstants.INTER_STRAND_OFFSET );
         self.basePairs[ i ].topYLocation = Math.min( dnaStrandPoint.strand1YPos, dnaStrandPoint.strand2YPos );
         self.basePairs[ i ].bottomYLocation = Math.max( dnaStrandPoint.strand1YPos, dnaStrandPoint.strand2YPos );
-
       } );
 
       // Move the shadow points to account for any separations.
       this.separations.forEach( function( separation ) {
-        var windowWidth = separation.getAmount() * 1.5; // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
-        var separationWindowXIndexRange = new Range( Math.floor(                            ( separation.getXPos() - ( windowWidth / 2 ) -
-                                                                   self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
-          Math.floor( ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
+
+        // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
+        var windowWidth = separation.getAmount() * 1.5;
+
+        var separationWindowXIndexRange = new Range(
+          Math.floor(
+            ( separation.getXPos() - ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS
+          ),
+          Math.floor(
+            ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS
+          )
+        );
         for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
           var windowCenterX = ( separationWindowXIndexRange.min + separationWindowXIndexRange.max ) / 2;
           if ( i >= 0 && i < self.strandPointsShadow.length ) {
@@ -217,13 +228,12 @@ define( function( require ) {
                                                        separationWeight * separation.getAmount() / 2;
             self.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand2YPos -
                                                        separationWeight * separation.getAmount() / 2;
-            self.basePairs[ i ].topYLocation = Math.min(
+            self.basePairs[ i ].topYLocation = Math.max(
               self.strandPointsShadow[ i ].strand1YPos, self.strandPointsShadow[ i ].strand2YPos
             );
-            self.basePairs[ i ].bottomYLocation = Math.max(
+            self.basePairs[ i ].bottomYLocation = Math.min(
               self.strandPointsShadow[ i ].strand1YPos, self.strandPointsShadow[ i ].strand2YPos
             );
-
           }
         }
       } );
@@ -277,8 +287,6 @@ define( function( require ) {
             x: this.strandPointsShadow[ pointIndexRange.max ].xPos,
             y: this.strandPointsShadow[ pointIndexRange.max ].strand2YPos
           } );
-          //strand1Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand1ShapePoints ) );
-          //strand2Segment.setShape( BioShapeUtils.createCurvyLineFromPoints( strand2ShapePoints ) );
           this.strand1Segments[ i ] = strand1ShapePoints;
           this.strand2Segments[ i ] = strand2ShapePoints;
         }
@@ -612,12 +620,12 @@ define( function( require ) {
           var attachmentSite = mobileBiomolecule.attachmentStateMachine.attachmentSite;
 
           if ( attachmentSite && attachmentSite.owner === self ) {
-            if ( mobileBiomolecule.attachedToDnaProperty.get() ){
+            if ( mobileBiomolecule.attachedToDnaProperty.get() ) {
 
               // this biomolecule is attached, so add its bounds with no translation
               attachedOrIncomingBiomoleculeBounds.push( mobileBiomolecule.bounds );
             }
-            else{
+            else {
 
               // This biomolecule is moving towards attachment but not yet attached, so translate to bounds to where
               // they will be once attachment occurs.
