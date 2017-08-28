@@ -48,19 +48,21 @@ define( function( require ) {
      */
     drawBasePair: function( context, basePair ) {
 
+      var endOffset = basePair.width / 2;
+
       if ( basePair.topYLocation - basePair.bottomYLocation <= this.model.maxBasePairHeight ){
 
         // draw the base pair as a single line between the top and bottom locations
-        context.moveTo( basePair.x, basePair.topYLocation );
-        context.lineTo( basePair.x, basePair.bottomYLocation );
+        context.moveTo( basePair.x, basePair.topYLocation + endOffset);
+        context.lineTo( basePair.x, basePair.bottomYLocation - endOffset );
       }
       else{
 
         // the strands are separate, draw two separate base pairs
         var dividedBasePairHeight = this.model.maxBasePairHeight / 2;
-        context.moveTo( basePair.x, basePair.topYLocation );
+        context.moveTo( basePair.x, basePair.topYLocation + endOffset );
         context.lineTo( basePair.x, basePair.topYLocation - dividedBasePairHeight );
-        context.moveTo( basePair.x, basePair.bottomYLocation );
+        context.moveTo( basePair.x, basePair.bottomYLocation - endOffset );
         context.lineTo( basePair.x, basePair.bottomYLocation + dividedBasePairHeight );
       }
 
@@ -160,6 +162,7 @@ define( function( require ) {
       }
 
       // draw the back portions of the DNA strand
+      context.lineCap = 'round';
       this.drawCurve( context, strand1ArrayBehind, STRAND_1_COLOR );
       this.drawCurve( context, strand2ArrayBehind, STRAND_2_COLOR );
 
