@@ -23,9 +23,11 @@ define( function( require ) {
   var FADE_OUT_TIME = 3; // In seconds.
 
   //------------------------------------------
-  //States for this attachment state machine
+  // States for this attachment state machine
   //------------------------------------------
-  var AttachedToDestroyerState = inherit( AttachmentState,
+  var AttachedToDestroyerState = inherit(
+
+    AttachmentState,
 
     /**
      * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
@@ -42,9 +44,12 @@ define( function( require ) {
         var biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
         biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
       }
-    } );
+    }
+  );
 
-  var UnattachedAndFadingState = inherit( AttachmentState,
+  var UnattachedAndFadingState = inherit(
+
+    AttachmentState,
 
     /**
      * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
@@ -62,6 +67,7 @@ define( function( require ) {
         assert && assert( biomolecule.existenceStrengthProperty.get() === 1 );
         biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
       },
+
       /**
        * @override
        * @param {AttachmentStateMachine} asm

@@ -21,7 +21,6 @@ define( function( require ) {
   var UnattachedAndFadingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/UnattachedAndFadingState' );
   var WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/WanderingAroundCytoplasmState' );
 
-
   /**
    * @param {MessengerRna} messengerRna
    * @constructor
@@ -31,8 +30,9 @@ define( function( require ) {
 
     // Local reference of appropriate type.
     this.messengerRna = messengerRna; //@private;
-    // Flag to control whether the mRNA continues to exist once fully formed.
-    this.fadeAwayWhenFormed = false; //@private
+
+    // @private - flag to control whether the mRNA continues to exist once fully formed
+    this.fadeAwayWhenFormed = false;
     this.setState( new BeingSynthesizedState() );
   }
 

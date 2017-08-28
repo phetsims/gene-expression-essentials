@@ -29,12 +29,12 @@ define( function( require ) {
   function GenericAttachmentStateMachine( biomolecule ) {
     AttachmentStateMachine.call( this, biomolecule );
 
-    // States used by this state machine. These are often set by subclasses to non-default values in order to change the
+    // @public - States used by this state machine. These are often set by subclasses to non-default values in order to change the
     // default behavior.
-    this.unattachedAndAvailableState = new GenericUnattachedAndAvailableState(); //@public
-    this.attachedState = new GenericAttachedState(); //@public
-    this.movingTowardsAttachmentState = new GenericMovingTowardsAttachmentState( this ); //@public
-    this.unattachedButUnavailableState = new GenericUnattachedButUnavailableState(); //@public
+    this.unattachedAndAvailableState = new GenericUnattachedAndAvailableState();
+    this.attachedState = new GenericAttachedState();
+    this.movingTowardsAttachmentState = new GenericMovingTowardsAttachmentState( this );
+    this.unattachedButUnavailableState = new GenericUnattachedButUnavailableState();
     this.setState( this.unattachedAndAvailableState );
   }
 

@@ -18,22 +18,20 @@ define( function( require ) {
   var MovingTowardAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MovingTowardAttachmentState' );
 
   /**
-   *
-   * @param biomolecule {MobileBiomolecule}
+   * @param {MessengerRnaDestroyer} messengerRnaDestroyer
    * @constructor
    */
-  function RnaDestroyerAttachmentStateMachine( biomolecule ) {
-    GenericAttachmentStateMachine.call( this, biomolecule );
+  function RnaDestroyerAttachmentStateMachine( messengerRnaDestroyer ) {
+    GenericAttachmentStateMachine.call( this, messengerRnaDestroyer );
 
-    // Set up a local reference of the needed type.
-    this.mRnaDestroyer = biomolecule; //@public
+    // @public {MessengerRnaDestroyer}
+    this.mRnaDestroyer = messengerRnaDestroyer;
 
     // Set up a non-default "attached" state, since the behavior is different from the default.
     this.attachedState = new MRnaDestroyerAttachedState( this ); //@public
 
     // Set up a non-default "moving toward attachment" state, since the behavior is slightly different from the default.
     this.movingTowardsAttachmentState = new MovingTowardAttachmentState( this ); //@public
-
   }
 
   geneExpressionEssentials.register( 'RnaDestroyerAttachmentStateMachine', RnaDestroyerAttachmentStateMachine );

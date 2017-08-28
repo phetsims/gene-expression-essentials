@@ -26,8 +26,12 @@ define( function( require ) {
    */
   function BeingRecycledState( rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) {
     AttachmentState.call( this );
-    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; //@public
-    this.recycleReturnZones = recycleReturnZones; //@private
+
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+
+    // private
+    this.recycleReturnZones = recycleReturnZones;
   }
 
   geneExpressionEssentials.register( 'BeingRecycledState', BeingRecycledState );

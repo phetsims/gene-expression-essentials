@@ -24,8 +24,12 @@ define( function( require ) {
    */
   function AttachedAndDeconformingState( rnaPolymeraseAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; // @public
-    this.conformationalChangeAmount = 0; // @private
+
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+
+    // @private
+    this.conformationalChangeAmount = 0;
   }
 
   geneExpressionEssentials.register( 'AttachedAndDeconformingState', AttachedAndDeconformingState );

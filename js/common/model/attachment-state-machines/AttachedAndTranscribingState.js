@@ -33,9 +33,13 @@ define( function( require ) {
    */
   function AttachedAndTranscribingState( rnaPolymeraseAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; //@public
-    this.endOfGene = null; //@private
-    this.messengerRna = null; //@private
+
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+
+    // @private
+    this.endOfGene = null;
+    this.messengerRna = null;
   }
 
   geneExpressionEssentials.register( 'AttachedAndTranscribingState', AttachedAndTranscribingState );
@@ -45,7 +49,7 @@ define( function( require ) {
     /**
      * @override
      * @param {AttachmentStateMachine} asm
-     * @param {number} dt
+     * @param {number} dt - delta time
      * @public
      */
     step: function( asm, dt ) {

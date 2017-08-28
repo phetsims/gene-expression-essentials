@@ -27,13 +27,15 @@ define( function( require ) {
   var MRNA_FRAGMENT_LENGTH_RANGE = new Range( 100, 400 ); // In picometers.
 
   /**
-   *
    * @param {RnaDestroyerAttachmentStateMachine} rnaDestroyerAttachmentStateMachine
    * @constructor
    */
   function MRnaDestroyerAttachedState( rnaDestroyerAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine; //@public
+
+    // @public (read-ony) {RnaDestroyerAttachmentStateMachine}
+    this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine;
+
     this.messengerRnaFragment = null; //@private
     this.targetFragmentLength = 0; //@private
   }
@@ -41,6 +43,7 @@ define( function( require ) {
   geneExpressionEssentials.register( 'MRnaDestroyerAttachedState', MRnaDestroyerAttachedState );
 
   return inherit( AttachmentState, MRnaDestroyerAttachedState, {
+
     /**
      * @override
      * @param {AttachmentStateMachine} asm

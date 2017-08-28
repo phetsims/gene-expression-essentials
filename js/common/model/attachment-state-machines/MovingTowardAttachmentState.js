@@ -18,7 +18,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   *
    * @constructor
    * @param  {AttachmentStateMachine} attachmentStateMachine
    */

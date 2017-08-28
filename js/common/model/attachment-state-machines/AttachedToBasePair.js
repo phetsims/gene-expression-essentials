@@ -26,10 +26,12 @@ define( function( require ) {
    */
   function AttachedToBasePair( rnaPolymeraseAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine; //@public
 
-    // Flag that is set upon entry that determines whether transcription occurs.
-    this.transcribe = false; //@private
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+
+    // @private - flag that is set upon entry that determines whether transcription occurs
+    this.transcribe = false;
   }
 
   geneExpressionEssentials.register( 'AttachedToBasePair', AttachedToBasePair );

@@ -25,8 +25,12 @@ define( function( require ) {
 
   function DetachingFromPolymeraseState( msgRnaAttachmentStateMachine ) {
     AttachmentState.call( this );
-    this.msgRnaAttachmentStateMachine = msgRnaAttachmentStateMachine; //@public
-    this.detachingCountdownTimer = DETACHING_TIME; //@private
+
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.msgRnaAttachmentStateMachine = msgRnaAttachmentStateMachine;
+
+    // @private
+    this.detachingCountdownTimer = DETACHING_TIME;
   }
 
   geneExpressionEssentials.register( 'DetachingFromPolymeraseState', DetachingFromPolymeraseState );
