@@ -167,6 +167,7 @@ define( function( require ) {
       this.drawCurve( context, strand2ArrayBehind, STRAND_2_COLOR );
 
       // draw the base pairs
+      context.lineCap = 'butt';
       context.beginPath();
       context.strokeStyle = BASE_PAIR_COLOR;
 
@@ -177,6 +178,7 @@ define( function( require ) {
       context.stroke();
 
       // draw the front portions of the DNA strand
+      context.lineCap = 'round';
       this.drawCurve( context, strand1ArrayFront, STRAND_1_COLOR );
       this.drawCurve( context, strand2ArrayFront, STRAND_2_COLOR );
 
