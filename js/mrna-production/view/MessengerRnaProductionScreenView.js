@@ -66,11 +66,12 @@ define( function( require ) {
     var dnaLayer = new Node();
     this.modelRootNode.addChild( dnaLayer );
     dnaLayer.setPickable( false );
-    var biomoleculeToolBoxLayer = new Node();
-    this.modelRootNode.addChild( biomoleculeToolBoxLayer );
     var messengerRnaLayer = new Node();
     messengerRnaLayer.setPickable( false );
     this.modelRootNode.addChild( messengerRnaLayer );
+    var transcribingPolymeraseLayer = new Node();
+    transcribingPolymeraseLayer.setPickable( false );
+    this.modelRootNode.addChild( transcribingPolymeraseLayer );
     var topBiomoleculeLayer = new Node();
     topBiomoleculeLayer.setPickable( false );
     this.modelRootNode.addChild( topBiomoleculeLayer );
@@ -186,11 +187,11 @@ define( function( require ) {
           if ( topBiomoleculeLayer.hasChild( biomoleculeNode ) ) {
             topBiomoleculeLayer.removeChild( biomoleculeNode );
           }
-          dnaLayer.addChild( biomoleculeNode );
+          transcribingPolymeraseLayer.addChild( biomoleculeNode );
         }
         else {
-          if ( dnaLayer.hasChild( biomoleculeNode ) ) {
-            dnaLayer.removeChild( biomoleculeNode );
+          if ( transcribingPolymeraseLayer.hasChild( biomoleculeNode ) ) {
+            transcribingPolymeraseLayer.removeChild( biomoleculeNode );
           }
           topBiomoleculeLayer.addChild( biomoleculeNode );
         }
