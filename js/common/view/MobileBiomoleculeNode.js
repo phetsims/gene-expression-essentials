@@ -38,8 +38,7 @@ define( function( require ) {
     // @protected {Path} - main path that represents the biomolecule
     this.shapeNode = new Path( new Shape(), {
       stroke: Color.BLACK,
-      lineWidth: options.lineWidth,
-      //matrix: mvt.getMatrix()
+      lineWidth: options.lineWidth
     } );
 
     this.addChild( this.shapeNode );

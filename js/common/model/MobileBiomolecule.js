@@ -1,10 +1,10 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Base class for all biomolecules (i.e. rna polymerase, transcription factors, etc.) that move around within the
- * simulation. This is a very central type within this simulation. This base class provides the basic infrastructure for
+ * Base class for all biomolecules (i.e. RNA polymerase, transcription factors, etc.) that move around within the
+ * cell. This is a very central type within this simulation. This base class provides the basic infrastructure for
  * defining the shape, the movement, and the attachment behavior (i.e. how one biomolecule interacts with others in the
- * simulation). The specific, unique behavior for each biomolecule is implemented in the subclasses of this class.
+ * simulation). The specific, unique behavior for each biomolecule is implemented in the sub-types.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -32,8 +32,8 @@ define( function( require ) {
   function MobileBiomolecule( model, initialShape, baseColor ) {
     var self = this;
 
-    // Motion strategy that governs how this biomolecule moves. This changes as the molecule interacts with other portions
-    // of the model.
+    // Motion strategy that governs how this biomolecule moves. This changes as the molecule interacts with other
+    // portions of the model.
     this.motionStrategy = null; // @private
 
     ShapeChangingModelElement.call( self, initialShape );
