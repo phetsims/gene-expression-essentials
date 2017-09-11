@@ -30,8 +30,8 @@ define( function( require ) {
 
   // strings
   var affinityString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinity' );
-  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
   var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
+  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
 
   /**
    * @param {Node} leftNode

@@ -34,10 +34,10 @@ define( function( require ) {
   var INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
 
   // strings
-  var yourProteinCollectionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/yourProteinCollection' );
   var collectionCompleteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/collectionComplete' );
   var proteinCountCaptionPart1String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart1' );
   var proteinCountCaptionPart2String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart2' );
+  var yourProteinCollectionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/yourProteinCollection' );
 
   /**
    * @param {ManualGeneExpressionModel} model

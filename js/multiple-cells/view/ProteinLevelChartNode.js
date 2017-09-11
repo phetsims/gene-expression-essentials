@@ -32,10 +32,10 @@ define( function( require ) {
   var TIME_SPAN = 30;
 
   // strings
-  var lotsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/lots' );
-  var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
   var averageProteinLevelString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevel' );
   var averageProteinLevelVsTimeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevelVsTime' );
+  var lotsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/lots' );
+  var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
   var timeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/time' );
 
   /**

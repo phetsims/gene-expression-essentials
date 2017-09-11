@@ -26,8 +26,8 @@ define( function( require ) {
 
   // strings
   var concentrationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentration' );
-  var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
   var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
+  var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
 
   /**
    *

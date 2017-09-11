@@ -18,8 +18,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
   var Util = require( 'DOT/Util' );
-  var Vector3 = require( 'DOT/Vector3' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector3 = require( 'DOT/Vector3' );
 
   // constants
   var PRE_FADE_DRIFT_TIME = 1.5; // In seconds.
