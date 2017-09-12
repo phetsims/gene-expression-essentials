@@ -11,10 +11,10 @@ define( function( require ) {
 
   // modules
   var CellProteinSynthesisSimulator = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/CellProteinSynthesisSimulator' );
-  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
-  var ControlPanelNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControlPanelNode' );
   var Color = require( 'SCENERY/util/Color' );
   var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ColorChangingCellNode' );
+  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
+  var ControlPanelNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControlPanelNode' );
   var FluorescentCellsPictureDialog = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/FluorescentCellsPictureDialog' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -34,21 +34,21 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var showRealCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/showRealCells' );
-  var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
-  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
-  var proteinString = require( 'string!GENE_EXPRESSION_ESSENTIALS/protein' );
-  var slowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/slow' );
-  var fastString = require( 'string!GENE_EXPRESSION_ESSENTIALS/fast' );
-  var degradationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/degradation' );
-  var positiveTranscriptionFactorString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactor' );
-  var mRnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRnaDestroyer' );
-  var oneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/one' );
-  var manyString = require( 'string!GENE_EXPRESSION_ESSENTIALS/many' );
-  var polymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/polymerase' );
-  var concentrationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentration' );
   var affinitiesString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinities' );
   var cellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/cells' );
+  var concentrationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentration' );
+  var degradationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/degradation' );
+  var fastString = require( 'string!GENE_EXPRESSION_ESSENTIALS/fast' );
+  var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
+  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
+  var manyString = require( 'string!GENE_EXPRESSION_ESSENTIALS/many' );
+  var mRnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRnaDestroyer' );
+  var oneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/one' );
+  var polymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/polymerase' );
+  var positiveTranscriptionFactorString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactor' );
+  var proteinString = require( 'string!GENE_EXPRESSION_ESSENTIALS/protein' );
+  var showRealCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/showRealCells' );
+  var slowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/slow' );
 
   /**
    * @param {MultipleCellsModel} model
