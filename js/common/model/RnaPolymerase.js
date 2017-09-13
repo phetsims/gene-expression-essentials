@@ -21,8 +21,6 @@ define( function( require ) {
   var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/StubGeneExpressionModel' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // constants
-
   // Overall size of the polymerase molecule.
   var WIDTH = 340;   // picometers
   var HEIGHT = 480;  // picometers
@@ -60,6 +58,7 @@ define( function( require ) {
     MobileBiomolecule.call( this, model, this.createShape(), NOMINAL_COLOR );
     position = position || new Vector2( 0, 0 );
     this.messengerRnaGenerationOffset = MESSENGER_RNA_GENERATION_OFFSET; // @public
+
     // Copy of the attachment state machine reference from base class, but with the more specific type.
     this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // @public
     this.setPosition( position );
@@ -85,11 +84,10 @@ define( function( require ) {
      * @public
      */
     changeConformation: function( changeFactor ) {
-      // Seed value chosen by trial and error.
+
+      // seed value chosen empirically through trial and error
       var newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( SHAPE_POINTS, changeFactor, 45 );
       this.shapeProperty.set( newUntranslatedShape );
-      this.bounds = this.shapeProperty.get().bounds.copy().shift( this.getPosition().x, this.getPosition().y );
-      this.setCenter();
       this.colorProperty.set( Color.interpolateRGBA( NOMINAL_COLOR, CONFORMED_COLOR, changeFactor ) );
     },
 
@@ -99,7 +97,8 @@ define( function( require ) {
      * @public
      */
     proposeAttachments: function() {
-      // Propose attachment to the DNA.
+
+      // propose attachments to the DNA strand
       return this.model.getDnaMolecule().considerProposalFromRnaPolymerase( this );
     },
 
@@ -108,6 +107,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getDetachDirection: function() {
+
       // Randomly either up or down when detaching from DNA.
       return phet.joist.random.nextBoolean() ? UP_VECTOR : DOWN_VECTOR;
     },
@@ -133,7 +133,7 @@ define( function( require ) {
      * @public
      */
     createShape: function() {
-      // Shape is meant to look like illustrations in "The Machinery of  Life" by David Goodsell.
+      // Shape is meant to look like illustrations in "The Machinery of Life" by David Goodsell.
       return ShapeUtils.createRoundedShapeFromPoints( SHAPE_POINTS );
     }
   } );

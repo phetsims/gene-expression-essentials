@@ -156,7 +156,8 @@ define( function( require ) {
      * @private
      */
     getPosition3D: function() {
-      return new Vector3( this.getPosition().x, this.getPosition().y, this.zPositionProperty.get() );
+      var position = this.positionProperty.get();
+      return new Vector3( position.x, position.y, this.zPositionProperty.get() );
     },
 
     /**
@@ -164,7 +165,7 @@ define( function( require ) {
      * @public
      */
     setPosition3D: function( position ) {
-      this.setPosition( new Vector2( position.x, position.y ) );
+      this.setPosition( position.x, position.y );
       this.zPositionProperty.set( position.z );
     },
 

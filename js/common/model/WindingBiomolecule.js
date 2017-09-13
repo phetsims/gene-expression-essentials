@@ -37,6 +37,7 @@ define( function( require ) {
    * @param {GeneExpressionModel} model
    * @param {Shape} initialShape
    * @param {Vector2} position
+   * @param {Object} options
    * @constructor
    */
   function WindingBiomolecule( model, initialShape, position, options ) {
@@ -54,15 +55,15 @@ define( function( require ) {
       //xWaveMultiplier: phet.joist.random.nextDouble() * 200
 
       // straight line
-      //yWave1Frequency: 0,
-      //yWave1PhaseOffset: 0,
-      //yWave1Multiplier: 0,
-      //yWave2Frequency: 0,
-      //yWave2PhaseOffset: 0,
-      //yWave2Multiplier: 0,
-      //xWaveFrequency: 0,
-      //xWavePhaseOffset: 0,
-      //xWaveMultiplier: 0
+      yWave1Frequency: 0,
+      yWave1PhaseOffset: 0,
+      yWave1Multiplier: 0,
+      yWave2Frequency: 0,
+      yWave2PhaseOffset: 0,
+      yWave2Multiplier: 0,
+      xWaveFrequency: 0,
+      xWavePhaseOffset: 0,
+      xWaveMultiplier: 0
 
       // sine wave from yWave1 only
       //yWave1Frequency: Math.PI * 0.01,
@@ -131,15 +132,15 @@ define( function( require ) {
       //xWaveMultiplier: 0.3390090209844494
 
       // tight, irregular, couple of loops
-      yWave1Frequency: 0.025513096109174523,
-      yWave1PhaseOffset: 1.1302742162411226,
-      yWave1Multiplier: 0.05645521800389852,
-      yWave2Frequency: 0.11694967273633287,
-      yWave2PhaseOffset: 5.0498833980195315,
-      yWave2Multiplier: 0.18897369205742606,
-      xWaveFrequency: 0.0704947213915478,
-      xWavePhaseOffset: 0.5297440101233687,
-      xWaveMultiplier: 0.23725392225069356
+      // yWave1Frequency: 0.025513096109174523,
+      // yWave1PhaseOffset: 1.1302742162411226,
+      // yWave1Multiplier: 0.05645521800389852,
+      // yWave2Frequency: 0.11694967273633287,
+      // yWave2PhaseOffset: 5.0498833980195315,
+      // yWave2Multiplier: 0.18897369205742606,
+      // xWaveFrequency: 0.0704947213915478,
+      // xWavePhaseOffset: 0.5297440101233687,
+      // xWaveMultiplier: 0.23725392225069356
 
       // ECG sort of one with some overlap
       //yWave1Frequency: 0.033801261909700855,
@@ -365,7 +366,7 @@ define( function( require ) {
         this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), length );
       }
 
-      // Update the shape segments that defines the outline shape.
+      // Update the shape segments that define the outline shape.
       this.getLastShapeSegment().add( length, this, this.shapeSegments );
 
       // Realign the segments, since some growth probably occurred.
@@ -425,8 +426,8 @@ define( function( require ) {
         else {
 
           // The segment must be square, so position the points within it in a way that looks something like mRNA
-          //this.positionPointsFromUpperLeftToLowerRight( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
-          this.positionPointsAsChaoticWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          this.positionPointsFromUpperLeftToLowerRight( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          // this.positionPointsAsComplexWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
           //this.positionPointsAsTiltedSineWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
 
           // Segment must be square, so position the points within it using the spring algorithm.
@@ -439,8 +440,6 @@ define( function( require ) {
 
       // Update the shape property based on the newly positioned points.
       this.shapeProperty.set( BioShapeUtils.createCurvyLineFromPoints( this.getPointList() ).makeImmutable() );
-      this.bounds = this.shapeProperty.get().bounds.copy();
-      this.setCenter();
     },
 
     /**
@@ -626,7 +625,7 @@ define( function( require ) {
      * @param {Rectangle} bounds
      * @private
      */
-    positionPointsAsChaoticWave: function( firstPoint, lastPoint, bounds ) {
+    positionPointsAsComplexWave: function( firstPoint, lastPoint, bounds ) {
 
       if ( firstPoint === null ) {
 
@@ -689,7 +688,7 @@ define( function( require ) {
           yAmplitudeMultiplier = diagonalSpan - totalDistanceTraversed;
         }
 
-        // use periodic functions to create a chaotic but deterministic shape
+        // use periodic functions to create a complex but deterministic shape
         offsetFromLinearSequence.setXY(
           ( yWave1Multiplier * Math.sin( totalDistanceTraversed * yWave1Frequency + yWave1PhaseOffset ) +
             yWave2Multiplier * Math.sin( totalDistanceTraversed * yWave2Frequency + yWave2PhaseOffset ) ) *
@@ -718,9 +717,9 @@ define( function( require ) {
 
       for ( var i = 0; i < copyOfShapeSegments.length - 1; i++ ) {
 
-        // Assumes that the shape segments attach to one another in such a way that they chain from the upper left to the
-        // lower right.
-        copyOfShapeSegments[ i + 1 ].setLowerRightCornerPos( copyOfShapeSegments[ i ].getUpperLeftCornerPos() );
+        // Assumes that the shape segments attach to one another in such a way that they chain from the upper left to
+        // the lower right.
+        copyOfShapeSegments[ i + 1 ].setLowerRightCornerPosByVector( copyOfShapeSegments[ i ].getUpperLeftCornerPos() );
       }
     },
 
@@ -783,8 +782,11 @@ define( function( require ) {
      * @public
      */
     setLowerRightPositionByVector: function( p ) {
-      this.getLastShapeSegment().setLowerRightCornerPos( p );
-      this.realignSegmentsFromEnd();
+      this.setLowerRightPosition( p.x, p.y );
+      // this.setPosition( p.x - this.bounds.width / 2, p.y - this.bounds.height / 2 );
+      // this.bounds.width
+      // this.getLastShapeSegment().setLowerRightCornerPos( p );
+      // this.realignSegmentsFromEnd();
     },
 
     /**
@@ -793,7 +795,25 @@ define( function( require ) {
      * @public
      */
     setLowerRightPosition: function( x, y ) {
-      this.setLowerRightPositionByVector( new Vector2( x, y ) );
+      console.log( '================ setLowerRightPosition ================' );
+      console.log( 'x = ' + x );
+      console.log( 'y = ' + y );
+      var totalWidth = 0;
+      var totalHeight = 0;
+      for ( var i = 0; i < this.shapeSegments.length; i++ ){
+        totalWidth += this.shapeSegments[ i ].bounds.width;
+        totalHeight += this.shapeSegments[ i ].bounds.height;
+      }
+      console.log( 'totalHeight = ' + totalHeight );
+
+      // set the overall position property
+      this.setPositionByXY( x - totalWidth / 2, y + totalHeight / 2 );
+
+      // set the position of the last segment - this position is relative to the overall position, not absolute
+      this.getLastShapeSegment().setLowerRightCornerPos( totalWidth / 2, -totalHeight / 2 );
+
+      // realign all other segments based on the position of the last one
+      this.realignSegmentsFromEnd();
     },
 
     /**
@@ -812,7 +832,8 @@ define( function( require ) {
       var currentSegment = segmentToAlignFrom;
       var nextSegment = this.getNextShapeSegment( currentSegment );
       while ( nextSegment !== null ) {
-        nextSegment.setUpperLeftCornerPosition( currentSegment.getLowerRightCornerPos() );
+        var nextSegmentLowerRightCornerPos = currentSegment.getLowerRightCornerPos();
+        nextSegment.setUpperLeftCornerPosition( nextSegmentLowerRightCornerPos.x, nextSegmentLowerRightCornerPos.y );
         currentSegment = nextSegment;
         nextSegment = this.getNextShapeSegment( currentSegment );
       }
@@ -821,7 +842,7 @@ define( function( require ) {
       currentSegment = segmentToAlignFrom;
       var previousSegment = this.getPreviousShapeSegment( currentSegment );
       while ( previousSegment !== null ) {
-        previousSegment.setLowerRightCornerPos( currentSegment.getUpperLeftCornerPos() );
+        previousSegment.setLowerRightPositionByVector( currentSegment.getUpperLeftCornerPos() );
         currentSegment = previousSegment;
         previousSegment = this.getPreviousShapeSegment( currentSegment );
       }

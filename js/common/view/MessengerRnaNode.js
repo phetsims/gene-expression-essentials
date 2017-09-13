@@ -18,6 +18,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // strings
   var quotedMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/quotedMRna' );
@@ -58,13 +59,15 @@ define( function( require ) {
     // computed on changes, and the local bounds are explicitly set below when the model shape changes.
     this.shapeNode.boundsMethod = 'none';
     this.shapeNode.localBounds = new Bounds2( 0, 0, 0.1, 0.1 ); // add some initial arbitrary bounds to avoid positioning issues
+    var rect = new Rectangle( 0, 0, 0.1, 0.1, { fill: 'rgba( 256, 256, 0, 0.5 )' } );
+    this.addChild( rect );
 
     // handler for shape changes
     function handleShapeChanged( shape ) {
-      var shapeBounds = messengerRna.bounds;
+      var shapeBounds = shape.bounds;
       if ( shapeBounds.isFinite() ) {
-        var actualTransformedShapeBounds = mvt.modelToViewBounds( shape.bounds );
         var transformedShapeBounds = mvt.modelToViewBounds( shapeBounds );
+        rect.setRectBounds( transformedShapeBounds );
 
         // position the label
         label.left = transformedShapeBounds.maxX;
@@ -75,7 +78,8 @@ define( function( require ) {
         self.touchArea = transformedShapeBounds;
 
         // explicitly set the local bounds of the main shape path - improves performance
-        self.shapeNode.localBounds = actualTransformedShapeBounds;
+        self.shapeNode.localBounds = transformedShapeBounds;
+        // debugger;
       }
     }
 

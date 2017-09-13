@@ -21,7 +21,7 @@ define( function( require ) {
      * would form a closed shape.
      *
      * @param {Array} points Set of points to connect.
-     * @param {Shape} existingShape
+     * @param {Shape} [existingShape]
      * @returns Shape that the provided points define.
      * @public
      */

@@ -28,6 +28,7 @@ define( function( require ) {
   // constants
   var RIBOSOME_CONNECTION_DISTANCE = 400; // picometers - distance within which this will connect to a ribosome
   var MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers - Distance within which this will connect to a mRNA destroyer
+  var INITIAL_MRNA_SHAPE = Shape.circle( 0, 0, 0.1 ); // tiny circle until the strand starts to grow
 
   /**
    * Constructor.  This creates the mRNA as a single point, with the intention of growing it.
@@ -38,12 +39,13 @@ define( function( require ) {
    * @constructor
    */
   function MessengerRna( model, proteinPrototype, position ) {
+
     var self = this;
 
     // @private {Object} - object that maps from ribosomes to the shape segment to which they are attached
     this.mapRibosomeToShapeSegment = {};
 
-    WindingBiomolecule.call( self, model, new Shape().moveToPoint( position ).makeImmutable(), position );
+    WindingBiomolecule.call( self, model, INITIAL_MRNA_SHAPE, position );
 
     // Externally visible indicator for whether this mRNA is being synthesized. Assumes that it is being synthesized
     // when created.
@@ -61,8 +63,11 @@ define( function( require ) {
     // Shape segment where the mRNA destroyer is connected. This is null until and unless destruction has begun.
     this.segmentWhereDestroyerConnects = null; //@private
 
+    // set the initial position
+    this.setPosition( position );
+
     // Add the first segment to the shape segment list. This segment will contain the "leader" for the mRNA.
-    var segment = new FlatSegment( this, position );
+    var segment = new FlatSegment( this, Vector2.ZERO );
     segment.setCapacity( GEEConstants.LEADER_LENGTH );
     this.shapeSegments.push( segment );
 
@@ -71,17 +76,21 @@ define( function( require ) {
     this.ribosomePlacementHint = new PlacementHint( new Ribosome( model ) ); //@public(read-only)
     this.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
 
-    function handleShapeChanged( shape ) {
+    // TODO: Make this a multilink if retained
+    function updateHintPositions() {
+
       // This hint always sits at the beginning of the RNA strand.
       var currentMRnaFirstPointPosition = self.firstShapeDefiningPoint.getPosition();
       self.ribosomePlacementHint.setPosition( currentMRnaFirstPointPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
       self.mRnaDestroyerPlacementHint.setPosition( currentMRnaFirstPointPosition );
     }
 
-    this.shapeProperty.link( handleShapeChanged );
+    this.shapeProperty.link( updateHintPositions );
+    this.positionProperty.link( updateHintPositions );
 
     this.disposeMessengerRna = function() {
-      this.shapeProperty.unlink( handleShapeChanged );
+      this.shapeProperty.unlink( updateHintPositions );
+      this.positionProperty.unlink( updateHintPositions );
     };
   }
 
@@ -96,44 +105,6 @@ define( function( require ) {
       this.mapRibosomeToShapeSegment = null;
       this.disposeMessengerRna();
       WindingBiomolecule.prototype.dispose.call( this );
-    },
-
-    /**
-     * @override
-     * @param {number} x
-     * @param {number} y
-     * @public
-     */
-    translate: function( x, y ) {
-
-      // Translate the current shape user the superclass facility.
-      WindingBiomolecule.prototype.translate.call( this, x, y );
-
-      // Translate each of the shape segments that define the outline shape.
-      this.shapeSegments.forEach( function( shapeSegment ) {
-        shapeSegment.translate( x, y );
-      } );
-
-      // Translate each of the points that define the curly mRNA shape.
-      var thisPoint = this.firstShapeDefiningPoint;
-      while ( thisPoint !== null ) {
-        thisPoint.translate( x, y );
-        thisPoint = thisPoint.getNextPointMass();
-      }
-    },
-
-    /**
-     * @override
-     * @param {number} x
-     * @param  {number} y
-     * @public
-     */
-    setPositionByXY: function( x, y ) {
-
-      // This default implementation assumes that the position indicator is defined by the center of the shape's bounds.
-      // Override if some other behavior is required.
-      var center = this.getCenter();
-      this.translate( x - center.x, y - center.y );
     },
 
     /**
