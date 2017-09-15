@@ -37,8 +37,8 @@ define( function( require ) {
       lineWidth: 1
     }, options );
 
-    // create a scale-only transform for transforming the shape without translating its position
-    var scaleOnlyMvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    // @protected (read-only) {ModelViewTransform2} - scale-only transform for scaling the shape without translation
+    this.scaleOnlyModelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       Vector2.ZERO,
       mvt.getMatrix().getScaleVector().x
@@ -58,8 +58,7 @@ define( function( require ) {
       // update the shape
       self.shapeNode.shape = null;
       // self.shapeNode.setShape( mvt.modelToViewShape( shape ) );
-      self.shapeNode.setShape( scaleOnlyMvt.modelToViewShape( shape ) );
-      // debugger;
+      self.shapeNode.setShape( self.scaleOnlyModelViewTransform.modelToViewShape( shape ) );
     }
 
     mobileBiomolecule.shapeProperty.link( handleShapeChanged );
@@ -71,7 +70,6 @@ define( function( require ) {
       if ( position.y < 200 ){
         if ( mobileBiomolecule.setLowerRightPosition ){
           console.log( '------------------- mRNA -------------------' );
-          // debugger;
         }
         else{
           console.log( '~~~~~~~~~~~~~~~~~~ Polymerase ~~~~~~~~~~~~~~~~~~' );

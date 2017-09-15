@@ -66,20 +66,19 @@ define( function( require ) {
     function handleShapeChanged( shape ) {
       var shapeBounds = shape.bounds;
       if ( shapeBounds.isFinite() ) {
-        var transformedShapeBounds = mvt.modelToViewBounds( shapeBounds );
-        rect.setRectBounds( transformedShapeBounds );
+        var scaledShapeBounds = self.scaleOnlyModelViewTransform.modelToViewShape( shapeBounds );
+        rect.setRectBounds( scaledShapeBounds );
 
         // position the label
-        label.left = transformedShapeBounds.maxX;
-        label.y = transformedShapeBounds.minY;
+        label.left = scaledShapeBounds.maxX;
+        label.y = scaledShapeBounds.minY;
 
         // set the mouse and touch areas to the overall bounds to make this easier for the user to move around
-        self.mouseArea = transformedShapeBounds;
-        self.touchArea = transformedShapeBounds;
+        self.mouseArea = scaledShapeBounds;
+        self.touchArea = scaledShapeBounds;
 
         // explicitly set the local bounds of the main shape path - improves performance
-        self.shapeNode.localBounds = transformedShapeBounds;
-        // debugger;
+        self.shapeNode.localBounds = scaledShapeBounds;
       }
     }
 
