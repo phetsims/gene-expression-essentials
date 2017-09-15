@@ -48,8 +48,12 @@ define( function( require ) {
     var highlightStartY = modelViewTransform.modelToViewY( dnaMolecule.getLeftEdgePos().y ) - highlightHeight / 2;
 
     // Add the highlight for the regulatory region.
-    var regRegionHighlightStartX = modelViewTransform.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().min ) );
-    var regRegionWidth = modelViewTransform.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().max ) ) - regRegionHighlightStartX;
+    var regRegionHighlightStartX = modelViewTransform.modelToViewX(
+      dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().min )
+    );
+    var regRegionWidth = modelViewTransform.modelToViewX(
+      dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().max )
+    ) - regRegionHighlightStartX;
     var regRegionShape = Shape.roundRect( regRegionHighlightStartX, highlightStartY, regRegionWidth, highlightHeight,
       RECT_ROUNDING, RECT_ROUNDING );
     var regulatoryRegionNode = new Path( regRegionShape, { fill: gene.getRegulatoryRegionColor() } );
@@ -64,8 +68,12 @@ define( function( require ) {
     this.addChild( regulatoryRegionCaption );
 
     // Add the highlight for the transcribed region.
-    var transcribedRegionHighlightStartX = modelViewTransform.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().min ) );
-    var transcribedRegionWidth = modelViewTransform.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().max ) ) - transcribedRegionHighlightStartX;
+    var transcribedRegionHighlightStartX = modelViewTransform.modelToViewX(
+      dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().min )
+    );
+    var transcribedRegionWidth = modelViewTransform.modelToViewX(
+      dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().max )
+    ) - transcribedRegionHighlightStartX;
     var transcribedRegionShape = Shape.roundRect( transcribedRegionHighlightStartX, highlightStartY,
       transcribedRegionWidth, highlightHeight, RECT_ROUNDING, RECT_ROUNDING );
 
