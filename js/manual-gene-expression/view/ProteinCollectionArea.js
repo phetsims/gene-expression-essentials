@@ -25,18 +25,18 @@ define( function( require ) {
 
   /**
    * @param {ManualGeneExpressionModel} model
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function ProteinCollectionArea( model, mvt ) {
+  function ProteinCollectionArea( model, modelViewTransform ) {
     Node.call( this );
 
-    // Get a transform that performs only the scaling portion of the mvt.
-    var scaleVector = mvt.getMatrix().getScaleVector();
-    var scale = mvt.getMatrix().scaleVector.x;
+    // Get a transform that performs only the scaling portion of the modelViewTransform.
+    var scaleVector = modelViewTransform.getMatrix().getScaleVector();
+    var scale = modelViewTransform.getMatrix().scaleVector.x;
 
     // The getScaleVector method of Matrix3 always returns positive value for the scales, even though
-    // the mvt uses inverted scaling for Y, so changing the assertion statement to check for absolute values
+    // the modelViewTransform uses inverted scaling for Y, so changing the assertion statement to check for absolute values
     // see issue #7
     assert && assert( scale === Math.abs( scaleVector.y ) ); // This only handles symmetric transform case.
     var transform = Matrix3.scaling( scale, -scale );

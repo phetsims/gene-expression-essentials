@@ -23,7 +23,7 @@ define( function( require ) {
    * thing being created.
    * @param canvas - Canvas upon which this node ultimately resides.  This is needed for figuring out where in model
    * space this node exists.
-   * @param {ModelViewTransform2} mvt - Model view transform.
+   * @param {ModelViewTransform2} modelViewTransform - Model view transform.
    * @param {Function<>} moleculeCreator -  Function object that knows how to create the model element and add it to the
    * model.
    * @param {Function<>} moleculeDestroyer
@@ -31,11 +31,11 @@ define( function( require ) {
    * determine when the created model element is returned to the tool box.
    * @constructor
    */
-  function BiomoleculeCreatorNode( appearanceNode, canvas, mvt, moleculeCreator, moleculeDestroyer, enclosingToolBoxNode ) {
+  function BiomoleculeCreatorNode( appearanceNode, canvas, modelViewTransform, moleculeCreator, moleculeDestroyer, enclosingToolBoxNode ) {
     var self = this;
     Node.call( self, { cursor: 'pointer' } );
     this.canvas = canvas; // @private
-    this.mvt = mvt; // @private
+    this.modelViewTransform = modelViewTransform; // @private
     this.appearanceNode = appearanceNode; // @private
     this.biomolecule = null; // @private
 
@@ -70,7 +70,7 @@ define( function( require ) {
             // The user has released this biomolecule.  If it  was dropped above the return bounds (which are generally
             // the bounds of the tool box where this creator node resides),then the model element should be removed from
             // the model.
-            if ( enclosingToolBoxNode.bounds.containsPoint( mvt.modelToViewPosition( finalBiomolecule.getPosition() ) ) ) {
+            if ( enclosingToolBoxNode.bounds.containsPoint( modelViewTransform.modelToViewPosition( finalBiomolecule.getPosition() ) ) ) {
               moleculeDestroyer( finalBiomolecule );
               finalBiomolecule.userControlledProperty.unlink( userControlledPropertyObserver );
               self.appearanceNode.opacity = 1;
@@ -83,7 +83,7 @@ define( function( require ) {
       },
 
       translate: function( translationParams ) {
-        self.biomolecule.setPosition( self.biomolecule.getPosition().plus( mvt.viewToModelDelta( translationParams.delta ) ) );
+        self.biomolecule.setPosition( self.biomolecule.getPosition().plus( modelViewTransform.viewToModelDelta( translationParams.delta ) ) );
       },
 
       end: function( event ) {
@@ -121,7 +121,7 @@ define( function( require ) {
     getModelPosition: function( point ) {
       var canvasPosition = this.canvas.globalToLocalPoint( point );
       var adjustedCanvasPos = canvasPosition.minus( this.canvas.viewPortOffset );
-      return this.mvt.viewToModelPosition( adjustedCanvasPos );
+      return this.modelViewTransform.viewToModelPosition( adjustedCanvasPos );
     }
   } );
 } );

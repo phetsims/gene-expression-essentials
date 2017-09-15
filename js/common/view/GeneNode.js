@@ -34,22 +34,22 @@ define( function( require ) {
   var RECT_ROUNDING = 15;
 
   /**
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Gene} gene
    * @param {DnaMolecule} dnaMolecule
    * @param {string} label
    * @param {boolean} showBracketLabel
    * @constructor
    */
-  function GeneNode( mvt, gene, dnaMolecule, label, showBracketLabel ) {
+  function GeneNode( modelViewTransform, gene, dnaMolecule, label, showBracketLabel ) {
     Node.call( this );
 
-    var highlightHeight = -mvt.modelToViewDeltaY( GEEConstants.DNA_MOLECULE_DIAMETER * 1.5 );
-    var highlightStartY = mvt.modelToViewY( dnaMolecule.getLeftEdgePos().y ) - highlightHeight / 2;
+    var highlightHeight = -modelViewTransform.modelToViewDeltaY( GEEConstants.DNA_MOLECULE_DIAMETER * 1.5 );
+    var highlightStartY = modelViewTransform.modelToViewY( dnaMolecule.getLeftEdgePos().y ) - highlightHeight / 2;
 
     // Add the highlight for the regulatory region.
-    var regRegionHighlightStartX = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().min ) );
-    var regRegionWidth = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().max ) ) - regRegionHighlightStartX;
+    var regRegionHighlightStartX = modelViewTransform.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().min ) );
+    var regRegionWidth = modelViewTransform.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().max ) ) - regRegionHighlightStartX;
     var regRegionShape = Shape.roundRect( regRegionHighlightStartX, highlightStartY, regRegionWidth, highlightHeight,
       RECT_ROUNDING, RECT_ROUNDING );
     var regulatoryRegionNode = new Path( regRegionShape, { fill: gene.getRegulatoryRegionColor() } );
@@ -64,8 +64,8 @@ define( function( require ) {
     this.addChild( regulatoryRegionCaption );
 
     // Add the highlight for the transcribed region.
-    var transcribedRegionHighlightStartX = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().min ) );
-    var transcribedRegionWidth = mvt.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().max ) ) - transcribedRegionHighlightStartX;
+    var transcribedRegionHighlightStartX = modelViewTransform.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().min ) );
+    var transcribedRegionWidth = modelViewTransform.modelToViewX( dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().max ) ) - transcribedRegionHighlightStartX;
     var transcribedRegionShape = Shape.roundRect( transcribedRegionHighlightStartX, highlightStartY,
       transcribedRegionWidth, highlightHeight, RECT_ROUNDING, RECT_ROUNDING );
 

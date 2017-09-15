@@ -52,7 +52,7 @@ define( function( require ) {
     // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
     // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
     // in).
-    this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    this.modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( this.layoutBounds.width * 0.48, this.layoutBounds.height * 0.64 ),
       0.1 // "zoom factor" - smaller zooms out, larger zooms in
@@ -86,32 +86,32 @@ define( function( require ) {
     this.addChild( frontControlsLayer );
 
     // Add the representation of the DNA strand.
-    this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.mvt, 3, true );
+    this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.modelViewTransform, 3, true );
     dnaLayer.addChild( this.dnaMoleculeNode );
 
     // Add the placement hints that go on the DNA molecule. These exist on their own layer so that they can be seen
     // above any molecules that are attached to the DNA strand.
     model.getDnaMolecule().getGenes().forEach( function( gene ) {
       gene.getPlacementHints().forEach( function( placementHint ) {
-        placementHintLayer.addChild( new PlacementHintNode( self.mvt, placementHint ) );
+        placementHintLayer.addChild( new PlacementHintNode( self.modelViewTransform, placementHint ) );
       } );
     } );
 
     // Add the protein collection box.
-    var proteinCollectionNode = new ProteinCollectionNode( model, this.mvt );
+    var proteinCollectionNode = new ProteinCollectionNode( model, this.modelViewTransform );
     proteinCollectionNode.x = this.layoutBounds.width - proteinCollectionNode.bounds.width - INSET;
     proteinCollectionNode.y = INSET;
     backControlsLayer.addChild( proteinCollectionNode );
 
     // Add any initial molecules.
     model.mobileBiomoleculeList.forEach( function( biomolecule ) {
-      topBiomoleculeLayer.addChild( new MobileBiomoleculeNode( self.mvt, biomolecule ) );
+      topBiomoleculeLayer.addChild( new MobileBiomoleculeNode( self.modelViewTransform, biomolecule ) );
     } );
 
     // Watch for and handle comings and goings of biomolecules in the model. Most, but not all, of the biomolecules
     // are handled by this. Some  others are handled as special cases.
     model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
-      var biomoleculeNode = new MobileBiomoleculeNode( self.mvt, addedBiomolecule );
+      var biomoleculeNode = new MobileBiomoleculeNode( self.modelViewTransform, addedBiomolecule );
       topBiomoleculeLayer.addChild( biomoleculeNode );
 
       function removeItemListener( removedBiomolecule ) {
@@ -128,7 +128,7 @@ define( function( require ) {
     // Watch for and handle comings and goings of messenger RNA.
     model.messengerRnaList.addItemAddedListener( function( addedMessengerRna ) {
 
-      var messengerRnaNode = new MessengerRnaNode( self.mvt, addedMessengerRna );
+      var messengerRnaNode = new MessengerRnaNode( self.modelViewTransform, addedMessengerRna );
       messengerRnaLayer.addChild( messengerRnaNode );
 
       function removeItemListener( removedMessengerRna ) {
@@ -144,12 +144,12 @@ define( function( require ) {
 
     // Add the tool boxes from which the various biomolecules can be moved  into the active area of the sim.
     model.getDnaMolecule().getGenes().forEach( function( gene ) {
-      var biomoleculeToolBoxNode = new BiomoleculeToolBoxNode( model, self, self.mvt, gene );
-      biomoleculeToolBoxNode.x = self.mvt.modelToViewX( gene.getCenterX() ) - self.layoutBounds.getWidth() / 2 + INSET;
+      var biomoleculeToolBoxNode = new BiomoleculeToolBoxNode( model, self, self.modelViewTransform, gene );
+      biomoleculeToolBoxNode.x = self.modelViewTransform.modelToViewX( gene.getCenterX() ) - self.layoutBounds.getWidth() / 2 + INSET;
       biomoleculeToolBoxNode.y = INSET;
       biomoleculeToolBoxNodeList.push( biomoleculeToolBoxNode );
       biomoleculeToolBoxLayer.addChild( biomoleculeToolBoxNode );
-      model.addOffLimitsMotionSpace( self.mvt.viewToModelBounds( biomoleculeToolBoxNode.bounds ) );
+      model.addOffLimitsMotionSpace( self.modelViewTransform.viewToModelBounds( biomoleculeToolBoxNode.bounds ) );
     } );
 
     // add button for moving to next gene
@@ -178,7 +178,7 @@ define( function( require ) {
     } );
 
     nextGeneButton.x = this.layoutBounds.width - nextGeneButton.width - 20;
-    nextGeneButton.y = this.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
+    nextGeneButton.y = this.modelViewTransform.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
 
     // add buttons for moving to previous gene
     var previousGeneButtonContent = new HBox( {
@@ -206,10 +206,10 @@ define( function( require ) {
     } );
 
     previousGeneButton.x = 20;
-    previousGeneButton.y = this.mvt.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
+    previousGeneButton.y = this.modelViewTransform.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
 
     // set the position of model root node based on first gene
-    this.modelRootNode.x = -this.mvt.modelToViewX( model.dnaMolecule.getGenes()[ 0 ].getCenterX() )
+    this.modelRootNode.x = -this.modelViewTransform.modelToViewX( model.dnaMolecule.getGenes()[ 0 ].getCenterX() )
                            + this.layoutBounds.width / 2;
 
     var modelRootNodeAnimator = new TWEEN.Tween( { x: self.modelRootNode.x } )
@@ -222,7 +222,7 @@ define( function( require ) {
         self.modelRootNode.pickable = null;
         var boundsInControlNode = proteinCollectionNode.getBounds().copy();
         var boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
-        var boundsInModel = self.mvt.viewToModelBounds( boundsAfterTransform );
+        var boundsInModel = self.modelViewTransform.viewToModelBounds( boundsAfterTransform );
         model.setProteinCaptureArea( boundsInModel );
         model.addOffLimitsMotionSpace( boundsInModel );
       } );
@@ -231,7 +231,7 @@ define( function( require ) {
     model.activeGeneProperty.link( function( gene ) {
       nextGeneButton.enabled = !( gene === model.dnaMolecule.getLastGene() );
       previousGeneButton.enabled = !( gene === model.dnaMolecule.getGenes()[ 0 ] );
-      self.viewPortOffset.setXY( -self.mvt.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
+      self.viewPortOffset.setXY( -self.modelViewTransform.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
       modelRootNodeAnimator.stop().to( { x: self.viewPortOffset.x }, GENE_TO_GENE_ANIMATION_TIME ).start( phet.joist.elapsedTime );
     } );
 

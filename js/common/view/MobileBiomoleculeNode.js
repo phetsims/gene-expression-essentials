@@ -25,12 +25,12 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {MobileBiomolecule} mobileBiomolecule
    * @param {Object} options
    * @constructor
    */
-  function MobileBiomoleculeNode( mvt, mobileBiomolecule, options ) {
+  function MobileBiomoleculeNode( modelViewTransform, mobileBiomolecule, options ) {
     var self = this;
     Node.call( self, { cursor: 'pointer' } );
     options = _.extend( {
@@ -41,7 +41,7 @@ define( function( require ) {
     this.scaleOnlyModelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       Vector2.ZERO,
-      mvt.getMatrix().getScaleVector().x
+      modelViewTransform.getMatrix().getScaleVector().x
     );
 
     // @protected {Path} - main path that represents the biomolecule
@@ -57,7 +57,7 @@ define( function( require ) {
 
       // update the shape
       self.shapeNode.shape = null;
-      // self.shapeNode.setShape( mvt.modelToViewShape( shape ) );
+      // self.shapeNode.setShape( modelViewTransform.modelToViewShape( shape ) );
       self.shapeNode.setShape( self.scaleOnlyModelViewTransform.modelToViewShape( shape ) );
     }
 
@@ -65,8 +65,8 @@ define( function( require ) {
 
     // update this node's position when the corresponding model element moves
     function handlePositionChanged( position ) {
-      self.setTranslation( mvt.modelToViewPosition( position ) );
-      // self.center = mvt.modelToViewPosition( position );
+      self.setTranslation( modelViewTransform.modelToViewPosition( position ) );
+      // self.center = modelViewTransform.modelToViewPosition( position );
       if ( position.y < 200 ){
         if ( mobileBiomolecule.setLowerRightPosition ){
           console.log( '------------------- mRNA -------------------' );
@@ -124,7 +124,7 @@ define( function( require ) {
     // go between it and the DNA molecule. Otherwise odd-looking things can happen.
     mobileBiomolecule.attachedToDnaProperty.link( handleAttachedToDnaChanged );
 
-    var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, mvt );
+    var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, modelViewTransform );
     // Drag handling.
     this.addInputListener( dragHandler );
 

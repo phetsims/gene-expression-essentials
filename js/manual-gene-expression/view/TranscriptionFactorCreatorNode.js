@@ -39,7 +39,7 @@ define( function( require ) {
     BiomoleculeCreatorNode.call( this, new MobileBiomoleculeNode( SCALING_MVT,
       new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, new Vector2( 0, 0 ) ) ),
       biomoleculeBoxNode.canvas,
-      biomoleculeBoxNode.mvt,
+      biomoleculeBoxNode.modelViewTransform,
       function( pos ) {
         var transcriptionFactor = new TranscriptionFactor( biomoleculeBoxNode.model, tfConfig, pos );
         biomoleculeBoxNode.model.addMobileBiomolecule( transcriptionFactor );

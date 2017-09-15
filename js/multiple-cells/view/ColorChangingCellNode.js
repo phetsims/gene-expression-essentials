@@ -29,18 +29,18 @@ define( function( require ) {
 
   /**
    * @param {Cell} cell
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function ColorChangingCellNode( cell, mvt ) {
+  function ColorChangingCellNode( cell, modelViewTransform ) {
     Node.call( this );
 
-    var cellBody = new Path( mvt.modelToViewShape( cell.getShape() ), {
+    var cellBody = new Path( modelViewTransform.modelToViewShape( cell.getShape() ), {
       fill: NOMINAL_FILL_COLOR,
       stroke: STROKE_COLOR,
       lineWidth: STROKE,
       boundsMethod: 'unstroked',
-      center: mvt.modelToViewXY( cell.positionX, cell.positionY )
+      center: modelViewTransform.modelToViewXY( cell.positionX, cell.positionY )
     } );
 
     cell.proteinCount.lazyLink( function( proteinCount ) {

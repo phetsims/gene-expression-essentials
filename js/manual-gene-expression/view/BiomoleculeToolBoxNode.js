@@ -53,16 +53,16 @@ define( function( require ) {
   /**
    * @param {ManualGeneExpressionModel} model
    * @param {ManualGeneExpressionScreenView} canvas
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Gene} gene
    * @constructor
    */
-  function BiomoleculeToolBoxNode( model, canvas, mvt, gene ) {
+  function BiomoleculeToolBoxNode( model, canvas, modelViewTransform, gene ) {
 
     var self = this;
     this.model = model; //@private
     this.canvas = canvas; //@private
-    this.mvt = mvt; //@private
+    this.modelViewTransform = modelViewTransform; //@private
     this.biomoleculeCreatorNodeList = [];
 
     // Add the title.

@@ -24,18 +24,18 @@ define( function( require ) {
   var quotedMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/quotedMRna' );
 
   /**
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {MessengerRna} messengerRna
    * @constructor
    */
-  function MessengerRnaNode( mvt, messengerRna ) {
+  function MessengerRnaNode( modelViewTransform, messengerRna ) {
 
-    MobileBiomoleculeNode.call( this, mvt, messengerRna, { lineWidth: 2 } );
+    MobileBiomoleculeNode.call( this, modelViewTransform, messengerRna, { lineWidth: 2 } );
     var self = this;
 
     // Add placement hints that show where ribosomes and mRNA destroyers can be attached.
-    var ribosomePlacementHintNode = new PlacementHintNode( mvt, messengerRna.ribosomePlacementHint );
-    var mRnaDestroyerPlacementHintNode = new PlacementHintNode( mvt, messengerRna.mRnaDestroyerPlacementHint );
+    var ribosomePlacementHintNode = new PlacementHintNode( modelViewTransform, messengerRna.ribosomePlacementHint );
+    var mRnaDestroyerPlacementHintNode = new PlacementHintNode( modelViewTransform, messengerRna.mRnaDestroyerPlacementHint );
     this.addChild( ribosomePlacementHintNode );
     this.addChild( mRnaDestroyerPlacementHintNode );
 

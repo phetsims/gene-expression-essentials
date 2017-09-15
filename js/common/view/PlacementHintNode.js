@@ -25,11 +25,11 @@ define( function( require ) {
 
   /**
    *
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {PlacementHint} placementHint
    * @constructor
    */
-  function PlacementHintNode( mvt, placementHint ) {
+  function PlacementHintNode( modelViewTransform, placementHint ) {
     Node.call( this );
 
     // Create a transparent color based on the base color of the molecule.
@@ -37,11 +37,11 @@ define( function( require ) {
       placementHint.getBaseColor().getBlue(), 0.4 );
 
     var pathStyleOptions = _.extend( HINT_STROKE, {
-      lineWidth: mvt.viewToModelDeltaX( 2 ),
-      lineDash: [ mvt.viewToModelDeltaX( 5 ), mvt.viewToModelDeltaX( 5 ) ],
+      lineWidth: modelViewTransform.viewToModelDeltaX( 2 ),
+      lineDash: [ modelViewTransform.viewToModelDeltaX( 5 ), modelViewTransform.viewToModelDeltaX( 5 ) ],
       fill: transparentColor,
       boundsMethod: 'unstroked',
-      matrix: mvt.getMatrix()
+      matrix: modelViewTransform.getMatrix()
     } );
 
     var path = new Path( new Shape(), pathStyleOptions );
@@ -49,7 +49,7 @@ define( function( require ) {
 
     function handleShapeChanged( shape ) {
       path.setShape( shape );
-      var offset = mvt.modelToViewPosition( placementHint.getPosition() );
+      var offset = modelViewTransform.modelToViewPosition( placementHint.getPosition() );
       path.centerX = offset.x;
       path.centerY = offset.y;
     }
