@@ -165,7 +165,7 @@ define( function( require ) {
      * @public
      */
     setPosition3D: function( position ) {
-      this.setPosition( position.x, position.y );
+      this.setPosition( position );
       this.zPositionProperty.set( position.z );
     },
 

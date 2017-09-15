@@ -39,15 +39,25 @@ define( function( require ) {
     this.bounds = new Bounds2( 0, 0, 1, 1 ); // initial value is arbitrary, will be updated immediately
 
     // update the bounds whenever the shape or the position changes
-    Property.multilink( [ this.shapeProperty, this.positionProperty ], function( shape, position ){
-      var shapeBounds = shape.bounds;
-      self.bounds.setMinMax(
-        position.x + shapeBounds.minX,
-        position.y + shapeBounds.minY,
-        position.x + shapeBounds.maxX,
-        position.y + shapeBounds.maxY
-      );
-    } );
+    var boundsUpdateMultilink = Property.multilink(
+      [ this.shapeProperty, this.positionProperty ],
+      function( shape, position ) {
+        var shapeBounds = shape.bounds;
+        self.bounds.setMinMax(
+          position.x + shapeBounds.minX,
+          position.y + shapeBounds.minY,
+          position.x + shapeBounds.maxX,
+          position.y + shapeBounds.maxY
+        );
+      }
+    );
+
+    this.disposeShapeChangingModelElement = function() {
+      boundsUpdateMultilink.dispose();
+      this.positionProperty.dispose();
+      this.shapeProperty.dispose();
+      this.shapeProperty.set( null );
+    };
   }
 
   geneExpressionEssentials.register( 'ShapeChangingModelElement', ShapeChangingModelElement );
@@ -58,8 +68,7 @@ define( function( require ) {
      * @public
      */
     dispose: function() {
-      this.shapeProperty.set( null );
-      this.shapeProperty.dispose();
+      this.disposeShapeChangingModelElement();
     },
 
     /**

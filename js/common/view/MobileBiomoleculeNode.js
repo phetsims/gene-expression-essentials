@@ -41,7 +41,7 @@ define( function( require ) {
     var scaleOnlyMvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       Vector2.ZERO,
-      0.1 // TODO - IMPORTANT - figure out how to extract this from the provided mvt
+      mvt.getMatrix().getScaleVector().x
     );
 
     // @protected {Path} - main path that represents the biomolecule
