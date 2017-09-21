@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * Base class for motion strategies that can be used to exhibit different sorts of motion. This class and its subclasses

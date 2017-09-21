@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * GenericUnattachedButUnavailableState is a generic state when biomolecule is unattached but unavailable

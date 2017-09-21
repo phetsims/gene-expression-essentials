@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * A motion strategy where the user moves in a general direction with some random direction changes every once in a while.

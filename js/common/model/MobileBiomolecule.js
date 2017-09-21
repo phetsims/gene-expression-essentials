@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * Base class for all biomolecules (i.e. rna polymerase, transcription factors, etc.) that move around within the

@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when transcription of mRna
