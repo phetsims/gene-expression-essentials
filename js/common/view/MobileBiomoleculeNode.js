@@ -66,18 +66,6 @@ define( function( require ) {
     // update this node's position when the corresponding model element moves
     function handlePositionChanged( position ) {
       self.setTranslation( modelViewTransform.modelToViewPosition( position ) );
-      // self.center = modelViewTransform.modelToViewPosition( position );
-      if ( position.y < 200 ){
-        if ( mobileBiomolecule.setLowerRightPosition ){
-          console.log( '------------------- mRNA -------------------' );
-        }
-        else{
-          console.log( '~~~~~~~~~~~~~~~~~~ Polymerase ~~~~~~~~~~~~~~~~~~' );
-        }
-        console.log( 'position.toString() = ' + position.toString() );
-        console.log( 'mobileBiomolecule.shapeProperty.value.bounds = ' + mobileBiomolecule.shapeProperty.value.bounds );
-        console.log( 'self.globalBounds = ' + self.globalBounds );
-      }
     }
 
     mobileBiomolecule.positionProperty.link( handlePositionChanged );
@@ -124,15 +112,15 @@ define( function( require ) {
     // go between it and the DNA molecule. Otherwise odd-looking things can happen.
     mobileBiomolecule.attachedToDnaProperty.link( handleAttachedToDnaChanged );
 
+    // drag handling
     var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, modelViewTransform );
-    // Drag handling.
     this.addInputListener( dragHandler );
 
     function handleMovableByUserChanged( movableByUser ) {
       self.setPickable( movableByUser );
     }
 
-    // Interactivity control.
+    // interactivity control
     mobileBiomolecule.movableByUserProperty.link( handleMovableByUserChanged );
 
     function handleUserControlledChanged( userControlled ) {

@@ -11,7 +11,7 @@
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
@@ -23,12 +23,13 @@ define( function( require ) {
    * @constructor
    */
   function PlacementHint( biomolecule ) {
-    // Biomolecule that defines the shape of this hint.
+
+    // biomolecule that defines the shape of this hint
     this.biomolecule = biomolecule; // @public
 
     ShapeChangingModelElement.call( this, biomolecule.getShape() );
 
-    // Property that tracks whether or not the hint is should be visible to the user.
+    // property that tracks whether or not the hint is should be visible to the user
     this.activeProperty = new Property( false ); // @public
   }
 

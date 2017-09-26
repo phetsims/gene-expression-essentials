@@ -795,17 +795,12 @@ define( function( require ) {
      * @public
      */
     setLowerRightPosition: function( x, y ) {
-      console.log( '================ setLowerRightPosition ================' );
-      console.log( 'x = ' + x );
-      console.log( 'y = ' + y );
       var totalWidth = 0;
       var totalHeight = 0;
       for ( var i = 0; i < this.shapeSegments.length; i++ ){
         totalWidth += this.shapeSegments[ i ].bounds.width;
         totalHeight += this.shapeSegments[ i ].bounds.height;
       }
-      console.log( 'totalHeight = ' + totalHeight );
-
       // set the overall position property
       this.setPositionByXY( x - totalWidth / 2, y + totalHeight / 2 );
 

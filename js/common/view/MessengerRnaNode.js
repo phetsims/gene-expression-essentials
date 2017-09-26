@@ -17,8 +17,10 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
   var quotedMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/quotedMRna' );
@@ -33,9 +35,16 @@ define( function( require ) {
     MobileBiomoleculeNode.call( this, modelViewTransform, messengerRna, { lineWidth: 2 } );
     var self = this;
 
-    // Add placement hints that show where ribosomes and mRNA destroyers can be attached.
-    var ribosomePlacementHintNode = new PlacementHintNode( modelViewTransform, messengerRna.ribosomePlacementHint );
-    var mRnaDestroyerPlacementHintNode = new PlacementHintNode( modelViewTransform, messengerRna.mRnaDestroyerPlacementHint );
+    // Add placement hints that show where ribosomes and mRNA destroyers can be attached.  Placement hint node, like
+    // other mobile biomolecule nodes, are designed to position themselves, but we don't want that to happen here since
+    // they are child nodes, so a compensated model-view transform is needed.
+    var scaleOnlyTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+      Vector2.ZERO,
+      Vector2.ZERO,
+      modelViewTransform.getMatrix().getScaleVector().x
+    );
+    var ribosomePlacementHintNode = new PlacementHintNode( scaleOnlyTransform, messengerRna.ribosomePlacementHint );
+    var mRnaDestroyerPlacementHintNode = new PlacementHintNode( scaleOnlyTransform, messengerRna.mRnaDestroyerPlacementHint );
     this.addChild( ribosomePlacementHintNode );
     this.addChild( mRnaDestroyerPlacementHintNode );
 

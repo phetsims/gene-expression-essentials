@@ -73,24 +73,21 @@ define( function( require ) {
 
     // Add the placement hints for the locations where the user can attach a ribosome or an mRNA destroyer.
     var ribosome = new Ribosome( model );
-    this.ribosomePlacementHint = new PlacementHint( new Ribosome( model ) ); //@public(read-only)
+    this.ribosomePlacementHint = new PlacementHint( ribosome ); //@public(read-only)
     this.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
 
-    // TODO: Make this a multilink if retained
-    function updateHintPositions() {
+    function updateHintPositions( shape ) {
 
-      // This hint always sits at the beginning of the RNA strand.
-      var currentMRnaFirstPointPosition = self.firstShapeDefiningPoint.getPosition();
-      self.ribosomePlacementHint.setPosition( currentMRnaFirstPointPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
-      self.mRnaDestroyerPlacementHint.setPosition( currentMRnaFirstPointPosition );
+      // All hints always sit at the beginning of the RNA strand and are positioned relative to its center.
+      var strandStartPosition = new Vector2( -shape.bounds.width / 2, shape.bounds.height / 2 );
+      self.ribosomePlacementHint.setPosition( strandStartPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
+      self.mRnaDestroyerPlacementHint.setPosition( strandStartPosition );
     }
 
     this.shapeProperty.link( updateHintPositions );
-    this.positionProperty.link( updateHintPositions );
 
     this.disposeMessengerRna = function() {
       this.shapeProperty.unlink( updateHintPositions );
-      this.positionProperty.unlink( updateHintPositions );
     };
   }
 
