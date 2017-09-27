@@ -811,6 +811,35 @@ define( function( require ) {
     },
 
     /**
+     * Adjust the position and the relative locations of all the shape segments such that the mRNA is in the same
+     * place but the center is actually in the center of the segments.  This is necessary because during translations
+     * the segments change shape and can move such that the position is not longer at the center of the shape.
+     */
+    recenter: function(){
+      var shapeBounds = this.shapeProperty.get().bounds;
+      var adjustmentX = shapeBounds.centerX;
+      var adjustmentY = shapeBounds.centerY;
+
+      // only readjust if needed
+      if ( adjustmentX !== 0 || adjustmentY !== 0 ){
+
+        // adjust the shape segments
+        for ( var i = 0; i < this.shapeSegments.length; i++ ){
+          var shapeSegment = this.shapeSegments[ i ];
+          var upperLeftCornerPosition = shapeSegment.getUpperLeftCornerPos();
+          shapeSegment.setUpperLeftCornerPosition(
+            upperLeftCornerPosition.x - adjustmentX,
+            upperLeftCornerPosition.y - adjustmentY
+          );
+        }
+
+        // adjust the position
+        var position = this.getPosition();
+        this.setPositionByXY( position.x + adjustmentX, position.y + adjustmentY );
+      }
+    },
+
+    /**
      * Realign the positions of all segments starting from the given segment and working forward and backward through
      * the segment list.
      * @param {ShapeSegment} segmentToAlignFrom

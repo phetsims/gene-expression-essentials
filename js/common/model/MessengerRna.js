@@ -81,7 +81,6 @@ define( function( require ) {
     this.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
 
     function updateHintPositions( shape ) {
-      console.log( 'updating, shape.bounds.minX = ' + shape.bounds.minX );
 
       // All hints always sit at the beginning of the RNA strand and are positioned relative to its center.
       var strandStartPosition = new Vector2( shape.bounds.minX, shape.bounds.maxY );
@@ -152,6 +151,7 @@ define( function( require ) {
       // Realign the segments, since they may well have changed shape.
       if ( this.shapeSegments.indexOf( segmentToAdvance ) !== -1 ) {
         this.realignSegmentsFrom( segmentToAdvance );
+        this.recenter();
       }
 
       // Since the sizes and relationships of the segments probably changed, the winding algorithm needs to be rerun.
