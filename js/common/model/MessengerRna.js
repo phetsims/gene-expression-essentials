@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var FlatSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/FlatSegment' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -60,8 +61,11 @@ define( function( require ) {
     // mRNA destroyer that is destroying this mRNA. Null until and unless destruction has begun.
     this.messengerRnaDestroyer = null; //@private
 
-    // Shape segment where the mRNA destroyer is connected. This is null until and unless destruction has begun.
-    this.segmentWhereDestroyerConnects = null; //@private
+    // @private - Shape segment where the mRNA destroyer is connected. This is null until destruction has begun.
+    this.segmentBeingDestroyed = null; //@private
+
+    // @private {AttachmentSite} - site where ribosomes or mRNA destroyers can attach
+    this.attachmentSite = new AttachmentSite( this, new Vector2( 0, 0 ), 1 );
 
     // set the initial position
     this.setPosition( position );
@@ -86,8 +90,15 @@ define( function( require ) {
 
     this.shapeProperty.link( updateHintPositions );
 
+    // update the attachment site location when the mRNA moves or changes shape
+    var attachmentSiteLocationUpdater = this.updateAttachmentSitePosition.bind( this );
+    this.positionProperty.link( attachmentSiteLocationUpdater );
+    this.shapeProperty.link( attachmentSiteLocationUpdater );
+
     this.disposeMessengerRna = function() {
       this.shapeProperty.unlink( updateHintPositions );
+      this.shapeProperty.unlink( attachmentSiteLocationUpdater );
+      this.positionProperty.unlink( attachmentSiteLocationUpdater );
     };
   }
 
@@ -159,7 +170,7 @@ define( function( require ) {
     advanceDestruction: function( length ) {
 
       // Error checking.
-      if ( this.segmentWhereDestroyerConnects === null ) {
+      if ( this.segmentBeingDestroyed === null ) {
         console.log( ' - Warning: Attempt to advance the destruction of mRNA that has no content left.' );
         return true;
       }
@@ -168,8 +179,8 @@ define( function( require ) {
       this.reduceLength( length );
 
       // Realign the segments, since they may well have changed shape.
-      if ( this.shapeSegments.indexOf( this.segmentWhereDestroyerConnects ) !== -1 ) {
-        this.realignSegmentsFrom( this.segmentWhereDestroyerConnects );
+      if ( this.shapeSegments.indexOf( this.segmentBeingDestroyed ) !== -1 ) {
+        this.realignSegmentsFrom( this.segmentBeingDestroyed );
       }
 
       if ( this.shapeSegments.length > 0 ) {
@@ -198,7 +209,7 @@ define( function( require ) {
       else {
 
         // Remove the length from the shape segments.
-        this.segmentWhereDestroyerConnects.advanceAndRemove( reductionAmount, this, this.shapeSegments );
+        this.segmentBeingDestroyed.advanceAndRemove( reductionAmount, this, this.shapeSegments );
 
         // Remove the length from the shape defining points.
         for ( var amountRemoved = 0; amountRemoved < reductionAmount; ) {
@@ -216,6 +227,22 @@ define( function( require ) {
             amountRemoved = reductionAmount;
           }
         }
+      }
+    },
+
+    /**
+     * @private
+     */
+    updateAttachmentSitePosition: function() {
+      if ( this.shapeSegments.length > 0 ) {
+        var leadingShapeSegment = this.shapeSegments[ 0 ];
+        this.attachmentSite.locationProperty.set( new Vector2(
+          this.positionProperty.get().x + leadingShapeSegment.bounds.minX,
+          this.positionProperty.get().y + leadingShapeSegment.bounds.minY
+        ) );
+      }
+      else {
+        this.attachmentSite.positionProperty.set( this.positionProperty.get() );
       }
     },
 
@@ -241,24 +268,27 @@ define( function( require ) {
         this.mapRibosomeToShapeSegment[ ribosome.id ],
         'attempt made to get attachment location for unattached ribosome'
       );
-      var attachmentPoint;
+      var attachmentLocation;
+      var mRnaPosition = this.positionProperty.get();
       var segment = this.mapRibosomeToShapeSegment[ ribosome.id ];
       if ( this.getPreviousShapeSegment( segment ) === null ) {
 
         // There is no previous segment, which means that the segment to which this ribosome is attached is the leader
         // segment. The attachment point is thus the leader length from its rightmost edge.
-        attachmentPoint = new Vector2(
-          segment.getLowerRightCornerPos().x - GEEConstants.LEADER_LENGTH,
-          segment.getLowerRightCornerPos().y
+        attachmentLocation = new Vector2(
+          mRnaPosition.x + segment.getLowerRightCornerPos().x - GEEConstants.LEADER_LENGTH,
+          mRnaPosition.y + segment.getLowerRightCornerPos().y
         );
       }
       else {
 
         // The segment has filled up the channel, so calculate the position based on its left edge.
-        attachmentPoint = new Vector2( segment.getUpperLeftCornerPos().x + ribosome.getTranslationChannelLength(),
-          segment.getUpperLeftCornerPos().y );
+        attachmentLocation = new Vector2(
+          mRnaPosition.x + segment.getUpperLeftCornerPos().x + ribosome.getTranslationChannelLength(),
+          mRnaPosition.y + segment.getUpperLeftCornerPos().y
+        );
       }
-      return attachmentPoint;
+      return attachmentLocation;
     },
 
     /**
@@ -329,10 +359,12 @@ define( function( require ) {
       assert && assert( this.messengerRnaDestroyer === messengerRnaDestroyer ); // Shouldn't get this from unattached destroyers.
 
       // Set the capacity of the first segment to the size of the channel through which it will be pulled plus the leader length.
-      this.segmentWhereDestroyerConnects = this.shapeSegments[ 0 ];
+      this.segmentBeingDestroyed = this.shapeSegments[ 0 ];
 
-      assert && assert( this.segmentWhereDestroyerConnects.isFlat() );
-      this.segmentWhereDestroyerConnects.setCapacity( this.messengerRnaDestroyer.getDestructionChannelLength() + GEEConstants.LEADER_LENGTH );
+      assert && assert( this.segmentBeingDestroyed.isFlat() );
+      this.segmentBeingDestroyed.setCapacity(
+        this.messengerRnaDestroyer.getDestructionChannelLength() + GEEConstants.LEADER_LENGTH
+      );
     },
 
     /**
@@ -360,7 +392,7 @@ define( function( require ) {
       // Add the length for the segment that is inside the translation channel of this ribosome.
       translatedLength += segmentInRibosomeChannel.getContainedLength() -
                           ( segmentInRibosomeChannel.getLowerRightCornerPos().x -
-                          segmentInRibosomeChannel.attachmentSite.locationProperty.get().x);
+                          segmentInRibosomeChannel.attachmentSite.locationProperty.get().x );
 
       return Math.max( translatedLength / this.getLength(), 0 );
     },
@@ -378,14 +410,12 @@ define( function( require ) {
       // Can't consider proposal if currently being destroyed.
       if ( this.messengerRnaDestroyer === null ) {
 
-        // See if the attachment site at the leading edge of the mRNA is available.
-        var leadingEdgeAttachmentSite = this.shapeSegments[ 0 ].attachmentSite;
-        if ( leadingEdgeAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
-             leadingEdgeAttachmentSite.locationProperty.get().distance(
-               ribosome.getEntranceOfRnaChannelPos() ) < RIBOSOME_CONNECTION_DISTANCE ) {
+        // See if the attachment site at the leading edge of the mRNA is available and close by.
+        if ( this.attachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
+             this.attachmentSite.locationProperty.get().distance( ribosome.getEntranceOfRnaChannelPos() ) < RIBOSOME_CONNECTION_DISTANCE ) {
 
           // This attachment site is in range and available.
-          returnValue = leadingEdgeAttachmentSite;
+          returnValue = this.attachmentSite;
 
           // Update the attachment state machine.
           this.mRnaAttachmentStateMachine.attachedToRibosome();
@@ -411,14 +441,13 @@ define( function( require ) {
       // Make sure that this mRNA is not already being destroyed.
       if ( this.messengerRnaDestroyer === null ) {
 
-        // See if the attachment site at the leading edge of the mRNA is available.
-        var leadingEdgeAttachmentSite = this.shapeSegments[ 0 ].attachmentSite;
-        if ( leadingEdgeAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
-             leadingEdgeAttachmentSite.locationProperty.get().distance(
+        // See if the attachment site at the leading edge of the mRNA is available and close by.
+        if ( this.attachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
+             this.attachmentSite.locationProperty.get().distance(
                messengerRnaDestroyer.getPosition() ) < MRNA_DESTROYER_CONNECT_DISTANCE ) {
 
           // This attachment site is in range and available.
-          returnValue = leadingEdgeAttachmentSite;
+          returnValue = this.attachmentSite;
 
           // Update the attachment state machine.
           this.mRnaAttachmentStateMachine.attachToDestroyer();
@@ -457,17 +486,12 @@ define( function( require ) {
      * @public
      */
     getDestroyerAttachmentLocation: function() {
-      // State checking - shouldn't be called before this is set.
-      assert && assert( this.segmentWhereDestroyerConnects !== null );
+      
+      // state checking - shouldn't be called before this is set
+      assert && assert( this.segmentBeingDestroyed !== null );
 
-      // Avoid null pointer exception.
-      if ( this.segmentWhereDestroyerConnects === null ) {
-        return Vector2.ZERO;
-      }
-
-      // The attachment location is at the right most side of the segment minus the leader length.
-      return new Vector2( this.segmentWhereDestroyerConnects.getLowerRightCornerPos().x - GEEConstants.LEADER_LENGTH,
-        this.segmentWhereDestroyerConnects.getLowerRightCornerPos().y );
+      // the attachment location is at the right most side of the segment minus the leader length
+      return this.attachmentSite.locationProperty.get();
     }
   } );
 } );

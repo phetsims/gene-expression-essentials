@@ -174,6 +174,18 @@ define( function( require ) {
 
     // List of the shape segments that define the outline shape.
     this.shapeSegments = []; //@public
+
+    // // as this molecule moves, the attachment sites in the shape segments must be updated
+    // // TODO: I (jbphet) don't like this, and am considering moving the attachment sites into this class (WindingBiomolecule).
+    // var self = this;
+    // this.positionProperty.link( function( position ){
+    //   self.shapeSegments.forEach( function( shapeSegment ){
+    //     shapeSegment.attachmentSite.positionProperty.set(
+    //       position.x + shapeSegment.bounds.minX,
+    //       position.y + shapeSegment.bounds.minY
+    //     );
+    //   } );
+    // } );
   }
 
   geneExpressionEssentials.register( 'WindingBiomolecule', WindingBiomolecule );
@@ -837,7 +849,7 @@ define( function( require ) {
       currentSegment = segmentToAlignFrom;
       var previousSegment = this.getPreviousShapeSegment( currentSegment );
       while ( previousSegment !== null ) {
-        previousSegment.setLowerRightPositionByVector( currentSegment.getUpperLeftCornerPos() );
+        previousSegment.setLowerRightCornerPosByVector( currentSegment.getUpperLeftCornerPos() );
         currentSegment = previousSegment;
         previousSegment = this.getPreviousShapeSegment( currentSegment );
       }

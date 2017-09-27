@@ -41,9 +41,9 @@ define( function( require ) {
      * @override
      * @param {number} growthFactor
      * @returns {Shape}
-     * @public
+     * @protected
      */
-    getUntranslatedShape: function( growthFactor ) {
+    getScaledShape: function( growthFactor ) {
       return this.createShape( growthFactor );
     },
 

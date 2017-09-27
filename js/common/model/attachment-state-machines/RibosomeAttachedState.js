@@ -21,9 +21,6 @@ define( function( require ) {
   // constants
   var RNA_TRANSLATION_RATE = 750; // Picometers per second. // Scalar velocity for transcription.
 
-  // to avoid creating excessive vector2 instances, we are using a scratch vector
-  var proteinAttachmentPointScratchVector = new Vector2();
-
   /**
    *
    * @param {RibosomeAttachmentStateMachine} ribosomeAttachmentStateMachine
@@ -32,6 +29,7 @@ define( function( require ) {
   function RibosomeAttachedState( ribosomeAttachmentStateMachine ) {
     AttachmentState.call( this );
     this.ribosomeAttachmentStateMachine = ribosomeAttachmentStateMachine; //@public
+    this.proteinAttachmentPointScratchVector = new Vector2();
   }
 
   geneExpressionEssentials.register( 'RibosomeAttachedState', RibosomeAttachedState );
@@ -52,26 +50,30 @@ define( function( require ) {
       assert && assert( asm.attachmentSite !== null );
       assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === ribosome );
 
-      // Grow the protein.
+      // grow the protein
       proteinBeingSynthesized.setFullSizeProportion(
-        ribosome.getMessengerRnaBeingTranslated().getProportionOfRnaTranslated( ribosome ) );
-      proteinAttachmentPointScratchVector = ribosome.getProteinAttachmentPoint( proteinAttachmentPointScratchVector );
+        ribosome.getMessengerRnaBeingTranslated().getProportionOfRnaTranslated( ribosome )
+      );
+      this.proteinAttachmentPointScratchVector = ribosome.getProteinAttachmentPoint(
+        this.proteinAttachmentPointScratchVector
+      );
       proteinBeingSynthesized.setAttachmentPointPositionXY(
-        proteinAttachmentPointScratchVector.x,
-        proteinAttachmentPointScratchVector.y );
+        this.proteinAttachmentPointScratchVector.x,
+        this.proteinAttachmentPointScratchVector.y
+      );
 
-      // Advance the translation of the mRNA.
+      // advance the translation of the mRNA
       var translationComplete = ribosome.advanceMessengerRnaTranslation( RNA_TRANSLATION_RATE * dt );
       if ( translationComplete ) {
 
-        // Release the mRNA.
+        // release the mRNA
         ribosome.releaseMessengerRna();
 
-        // Release the protein.
+        // release the protein
         proteinBeingSynthesized.release();
         proteinBeingSynthesized = null;
 
-        // Release this ribosome to wander in the cytoplasm.
+        // release this ribosome to wander in the cytoplasm
         asm.detach();
       }
     },
@@ -83,7 +85,6 @@ define( function( require ) {
      */
     entered: function( asm ) {
       var ribosome = this.ribosomeAttachmentStateMachine.ribosome;
-      //var proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
       ribosome.initiateTranslation();
       ribosome.setMotionStrategy( new RibosomeTranslatingRnaMotionStrategy( ribosome ) );
       var proteinBeingSynthesized = ribosome.getMessengerRnaBeingTranslated().getProteinPrototype().createInstance();

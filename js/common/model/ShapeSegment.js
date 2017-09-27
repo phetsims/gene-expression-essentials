@@ -15,7 +15,7 @@
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -45,24 +45,6 @@ define( function( require ) {
 
   return inherit( Object, ShapeSegment, {
 
-    // /**
-    //  * Set the bounds
-    //  * @param {Bounds2} bounds
-    //  * @public
-    //  */
-    // set bounds( bounds ) {
-    //   this.bounds.set( bounds );
-    // },
-    //
-    // /**
-    //  * Return the bounds
-    //  * @returns {Bounds2}
-    //  * @public
-    //  */
-    // get bounds() {
-    //   return this.bounds;
-    // },
-    //
     /**
      * Sets the capacity
      * @param {number} capacity

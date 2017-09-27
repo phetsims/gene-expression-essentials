@@ -98,7 +98,8 @@ define( function( require ) {
      * @public
      */
     getDestructionChannelLength: function() {
-      // Since this looks like a circle with a slice out of it, the channel is half of the width.
+
+      // since this looks like a circle with a slice out of it, the channel is half of the width
       return this.bounds.getWidth() / 2;
     },
 
