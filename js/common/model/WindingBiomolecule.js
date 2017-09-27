@@ -55,15 +55,15 @@ define( function( require ) {
       //xWaveMultiplier: phet.joist.random.nextDouble() * 200
 
       // straight line
-      yWave1Frequency: 0,
-      yWave1PhaseOffset: 0,
-      yWave1Multiplier: 0,
-      yWave2Frequency: 0,
-      yWave2PhaseOffset: 0,
-      yWave2Multiplier: 0,
-      xWaveFrequency: 0,
-      xWavePhaseOffset: 0,
-      xWaveMultiplier: 0
+      // yWave1Frequency: 0,
+      // yWave1PhaseOffset: 0,
+      // yWave1Multiplier: 0,
+      // yWave2Frequency: 0,
+      // yWave2PhaseOffset: 0,
+      // yWave2Multiplier: 0,
+      // xWaveFrequency: 0,
+      // xWavePhaseOffset: 0,
+      // xWaveMultiplier: 0
 
       // sine wave from yWave1 only
       //yWave1Frequency: Math.PI * 0.01,
@@ -121,26 +121,26 @@ define( function( require ) {
       //xWaveMultiplier: 0.19589544619869786
 
       // kathy, kinky
-      //yWave1Frequency: 0.02417698217540225,
-      //yWave1PhaseOffset: 2.4695448382255574,
-      //yWave1Multiplier: 0.37836434264592467,
-      //yWave2Frequency: 0.06201593943296497,
-      //yWave2PhaseOffset: 1.936966001193581,
-      //yWave2Multiplier: 0.41526000924061474,
-      //xWaveFrequency: 0.16811027073589893,
-      //xWavePhaseOffset: 0.030242447922989232,
-      //xWaveMultiplier: 0.3390090209844494
+      // yWave1Frequency: 0.02417698217540225,
+      // yWave1PhaseOffset: 2.4695448382255574,
+      // yWave1Multiplier: 0.37836434264592467,
+      // yWave2Frequency: 0.06201593943296497,
+      // yWave2PhaseOffset: 1.936966001193581,
+      // yWave2Multiplier: 0.41526000924061474,
+      // xWaveFrequency: 0.16811027073589893,
+      // xWavePhaseOffset: 0.030242447922989232,
+      // xWaveMultiplier: 0.3390090209844494
 
       // tight, irregular, couple of loops
-      // yWave1Frequency: 0.025513096109174523,
-      // yWave1PhaseOffset: 1.1302742162411226,
-      // yWave1Multiplier: 0.05645521800389852,
-      // yWave2Frequency: 0.11694967273633287,
-      // yWave2PhaseOffset: 5.0498833980195315,
-      // yWave2Multiplier: 0.18897369205742606,
-      // xWaveFrequency: 0.0704947213915478,
-      // xWavePhaseOffset: 0.5297440101233687,
-      // xWaveMultiplier: 0.23725392225069356
+      yWave1Frequency: 0.025513096109174523,
+      yWave1PhaseOffset: 1.1302742162411226,
+      yWave1Multiplier: 0.05645521800389852,
+      yWave2Frequency: 0.11694967273633287,
+      yWave2PhaseOffset: 5.0498833980195315,
+      yWave2Multiplier: 0.18897369205742606,
+      xWaveFrequency: 0.0704947213915478,
+      xWavePhaseOffset: 0.5297440101233687,
+      xWaveMultiplier: 0.23725392225069356
 
       // ECG sort of one with some overlap
       //yWave1Frequency: 0.033801261909700855,
@@ -425,8 +425,8 @@ define( function( require ) {
         else {
 
           // The segment must be square, so position the points within it in a way that looks something like mRNA
-          this.positionPointsFromUpperLeftToLowerRight( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
-          // this.positionPointsAsComplexWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          // this.positionPointsFromUpperLeftToLowerRight( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          this.positionPointsAsComplexWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
           //this.positionPointsAsTiltedSineWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
 
           // Segment must be square, so position the points within it using the spring algorithm.
