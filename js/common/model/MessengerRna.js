@@ -81,9 +81,10 @@ define( function( require ) {
     this.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
 
     function updateHintPositions( shape ) {
+      console.log( 'updating, shape.bounds.minX = ' + shape.bounds.minX );
 
       // All hints always sit at the beginning of the RNA strand and are positioned relative to its center.
-      var strandStartPosition = new Vector2( -shape.bounds.width / 2, shape.bounds.height / 2 );
+      var strandStartPosition = new Vector2( shape.bounds.minX, shape.bounds.maxY );
       self.ribosomePlacementHint.setPosition( strandStartPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
       self.mRnaDestroyerPlacementHint.setPosition( strandStartPosition );
     }
