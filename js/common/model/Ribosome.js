@@ -29,7 +29,7 @@ define( function( require ) {
 
   // Offset from the center position to the entrance of the translation channel. May require some tweaking if the shape
   // changes.
-  var OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE = new Vector2( WIDTH / 2, -OVERALL_HEIGHT * 0.20 );
+  var OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE = new Vector2( WIDTH / 2, -OVERALL_HEIGHT * 0.23 );
 
   // Offset from the center position to the point from which the protein emerges. May require some tweaking if the overall
   // shape changes.
