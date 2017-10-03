@@ -44,8 +44,13 @@ define( function( require ) {
         gsm.attachmentSite.attachedOrAttachingMoleculeProperty.set( gsm.biomolecule );
 
         // Start moving towards the site.
-        gsm.biomolecule.setMotionStrategy( new MeanderToDestinationMotionStrategy( gsm.attachmentSite.locationProperty,
-          gsm.biomolecule.motionBoundsProperty, gsm.destinationOffset ) );
+        gsm.biomolecule.setMotionStrategy(
+          new MeanderToDestinationMotionStrategy(
+            gsm.attachmentSite.locationProperty,
+            gsm.biomolecule.motionBoundsProperty,
+            gsm.destinationOffset
+          )
+        );
 
         // Update state.
         gsm.setState( gsm.movingTowardsAttachmentState );
