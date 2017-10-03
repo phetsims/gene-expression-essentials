@@ -36,8 +36,10 @@ define( function( require ) {
     Gene.call( this, dnaMolecule,
       new Range( initialBasePair, initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION ),
       REGULATORY_REGION_COLOR,
-      new Range( initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1,
-        initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1 + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION ),
+      new Range(
+        initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1,
+        initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1 + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
+      ),
       TRANSCRIBED_REGION_COLOR
     );
 
@@ -45,7 +47,6 @@ define( function( require ) {
     // negative factor should overlap, and thus block, the positive factor(s).
     this.addTranscriptionFactorLocation( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS );
     this.addTranscriptionFactorLocation( 2, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG );
-
   }
 
   geneExpressionEssentials.register( 'GeneA', GeneA );

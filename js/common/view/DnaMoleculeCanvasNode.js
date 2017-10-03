@@ -22,15 +22,15 @@ define( function( require ) {
 
   /**
    * @param {DnaMolecule} model
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {number} backboneStrokeWidth
    * @param {Object} [options]
    * @constructor
    */
-  function DnaMoleculeCanvasNode( model, mvt, backboneStrokeWidth, options ) {
+  function DnaMoleculeCanvasNode( model, modelViewTransform, backboneStrokeWidth, options ) {
     this.model = model; // @private
-    this.mvt = mvt; // @private
-    this.backboneStrokeWidth = mvt.viewToModelDeltaX( backboneStrokeWidth ); // @private
+    this.modelViewTransform = modelViewTransform; // @private
+    this.backboneStrokeWidth = modelViewTransform.viewToModelDeltaX( backboneStrokeWidth ); // @private
     CanvasNode.call( this, options );
     this.invalidatePaint();
   }

@@ -17,23 +17,32 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var GradientUtil = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/GradientUtil' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
   var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {MobileBiomolecule} mobileBiomolecule
-   * @param {number} outlineStroke
+   * @param {Object} options
    * @constructor
    */
-  function MobileBiomoleculeNode( mvt, mobileBiomolecule, options ) {
+  function MobileBiomoleculeNode( modelViewTransform, mobileBiomolecule, options ) {
     var self = this;
     Node.call( self, { cursor: 'pointer' } );
     options = _.extend( {
       lineWidth: 1
     }, options );
+
+    // @protected (read-only) {ModelViewTransform2} - scale-only transform for scaling the shape without translation
+    this.scaleOnlyModelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+      Vector2.ZERO,
+      Vector2.ZERO,
+      modelViewTransform.getMatrix().getScaleVector().x
+    );
 
     // @protected {Path} - main path that represents the biomolecule
     this.shapeNode = new Path( new Shape(), {
@@ -43,28 +52,23 @@ define( function( require ) {
 
     this.addChild( this.shapeNode );
 
+    // update the shape whenever it changes
     function handleShapeChanged( shape ) {
 
-      if ( shape.bounds.isFinite() ) {
-
-        if ( shape !== self.previousShape ){
-
-          // update the shape
-          self.shapeNode.shape = null;
-          self.shapeNode.setShape( mvt.modelToViewShape( shape ) );
-        }
-
-        // account for the offset
-        self.shapeNode.center = mvt.modelToViewPosition( mobileBiomolecule.getPosition() );
-      }
-
-      // retain the previous shape and only update the path if the shape really changed
-      // TODO: This is likely temporary and will need to be removed, see https://github.com/phetsims/gene-expression-essentials/issues/86
-      self.previousShape = shape;
+      // update the shape
+      self.shapeNode.shape = null;
+      // self.shapeNode.setShape( modelViewTransform.modelToViewShape( shape ) );
+      self.shapeNode.setShape( self.scaleOnlyModelViewTransform.modelToViewShape( shape ) );
     }
 
-    // Update the shape whenever it changes.
     mobileBiomolecule.shapeProperty.link( handleShapeChanged );
+
+    // update this node's position when the corresponding model element moves
+    function handlePositionChanged( position ) {
+      self.setTranslation( modelViewTransform.modelToViewPosition( position ) );
+    }
+
+    mobileBiomolecule.positionProperty.link( handlePositionChanged );
 
     function handleColorChanged( color ) {
 
@@ -74,7 +78,7 @@ define( function( require ) {
       }
     }
 
-    //Update the color whenever it changes.
+    // Update the color whenever it changes.
     mobileBiomolecule.colorProperty.link( handleColorChanged );
 
     function handleExistenceStrengthChanged( existenceStrength ) {
@@ -108,15 +112,15 @@ define( function( require ) {
     // go between it and the DNA molecule. Otherwise odd-looking things can happen.
     mobileBiomolecule.attachedToDnaProperty.link( handleAttachedToDnaChanged );
 
-    var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, mvt );
-    // Drag handling.
+    // drag handling
+    var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, modelViewTransform );
     this.addInputListener( dragHandler );
 
     function handleMovableByUserChanged( movableByUser ) {
       self.setPickable( movableByUser );
     }
 
-    // Interactivity control.
+    // interactivity control
     mobileBiomolecule.movableByUserProperty.link( handleMovableByUserChanged );
 
     function handleUserControlledChanged( userControlled ) {
@@ -127,6 +131,7 @@ define( function( require ) {
     mobileBiomolecule.userControlledProperty.link( handleUserControlledChanged );
 
     this.disposeMobileBiomoleculeNode = function() {
+      mobileBiomolecule.positionProperty.unlink( handlePositionChanged );
       mobileBiomolecule.shapeProperty.unlink( handleShapeChanged );
       mobileBiomolecule.colorProperty.unlink( handleColorChanged );
       mobileBiomolecule.existenceStrengthProperty.unlink( handleExistenceStrengthChanged );

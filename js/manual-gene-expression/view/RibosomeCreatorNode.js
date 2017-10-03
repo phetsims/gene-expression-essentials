@@ -41,7 +41,7 @@ define( function( require ) {
         new Ribosome( new StubGeneExpressionModel() )
       ),
       biomoleculeBoxNode.canvas,
-      biomoleculeBoxNode.mvt,
+      biomoleculeBoxNode.modelViewTransform,
       function( pos ) {
         var srs = new Ribosome( biomoleculeBoxNode.model, pos );
         biomoleculeBoxNode.model.addMobileBiomolecule( srs );

@@ -38,7 +38,7 @@ define( function( require ) {
     BiomoleculeCreatorNode.call( this,
       new MobileBiomoleculeNode( SCALING_MVT, new MessengerRnaDestroyer( new StubGeneExpressionModel() ) ),
       biomoleculeBoxNode.canvas,
-      biomoleculeBoxNode.mvt,
+      biomoleculeBoxNode.modelViewTransform,
       function( pos ) {
         var mRnaDestroyer = new MessengerRnaDestroyer( biomoleculeBoxNode.model, pos );
         biomoleculeBoxNode.model.addMobileBiomolecule( mRnaDestroyer );

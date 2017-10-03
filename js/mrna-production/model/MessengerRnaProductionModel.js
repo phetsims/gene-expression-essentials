@@ -231,7 +231,7 @@ define( function( require ) {
 
       // periodically shuffle the mobile biomolecules so that no molecules gets preference for attachments
       this.shuffleTimeAccumulator += dt;
-      if ( this.shuffleTimeAccumulator > SHUFFLE_TIME ){
+      if ( this.shuffleTimeAccumulator > SHUFFLE_TIME ) {
         this.mobileBiomoleculeList.shuffle( phet.joist.random );
         this.shuffleTimeAccumulator = 0;
       }

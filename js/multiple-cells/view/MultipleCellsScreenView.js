@@ -62,7 +62,7 @@ define( function( require ) {
     // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
     // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
     // in).
-    this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    this.modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( this.layoutBounds.width * 0.455, this.layoutBounds.height * 0.56 ),
       1E8 // "zoom factor" - smaller zooms out, larger zooms in
@@ -171,7 +171,7 @@ define( function( require ) {
     var cellNodes = [];
 
     for ( var i = 0; i < model.cellList.length; i++ ) {
-      var cellNode = new ColorChangingCellNode( model.cellList[ i ], this.mvt );
+      var cellNode = new ColorChangingCellNode( model.cellList[ i ], this.modelViewTransform );
       cellNodes.push( cellNode );
       invisibleCellLayer.addChild( cellNode );
     }

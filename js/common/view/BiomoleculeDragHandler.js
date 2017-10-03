@@ -18,10 +18,10 @@ define( function( require ) {
   /**
    *
    * @param {MobileBiomolecule} biomolecule
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function BiomoleculeDragHandler( biomolecule, mvt ) {
+  function BiomoleculeDragHandler( biomolecule, modelViewTransform ) {
     var self = this;
     SimpleDragHandler.call( self, {
       allowTouchSnag: true,
@@ -32,7 +32,7 @@ define( function( require ) {
       },
 
       translate: function( translationParams ) {
-        var modelDelta = mvt.viewToModelDelta( translationParams.delta );
+        var modelDelta = modelViewTransform.viewToModelDelta( translationParams.delta );
         biomolecule.translate( modelDelta.x, modelDelta.y );
       },
 

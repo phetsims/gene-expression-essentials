@@ -122,15 +122,46 @@ define( function( require ) {
     }
   }, {
 
-    // Static definitions of all the transcription factor configurations that
-    // are used by this sim.
-    TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS: new TranscriptionFactorConfig( BioShapeUtils.createRandomShape( SIZE, 1000 ), true, Color.yellow ),
-    TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG: new TranscriptionFactorConfig( BioShapeUtils.createRandomShape( SIZE, 2000 ), false, Color.red ),
-    TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_1: new TranscriptionFactorConfig( BioShapeUtils.createRandomShape( SIZE, 3001 ), true, Color.orange ),
-    TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_2: new TranscriptionFactorConfig( BioShapeUtils.createRandomShape( SIZE, 125 ), true, new Color( 0, 255, 127 ) ),
-    TRANSCRIPTION_FACTOR_CONFIG_GENE_2_NEG: new TranscriptionFactorConfig( BioShapeUtils.createRandomShape( SIZE, 4000 ), false, new Color( 255, 255, 255 ) ),
-    TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_1: new TranscriptionFactorConfig( BioShapeUtils.createRandomShape( SIZE, 57 ), true, new Color( 255, 127, 0 ) ),
-    TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_2: new TranscriptionFactorConfig( BioShapeUtils.createRandomShape( SIZE, 88 ), true, new Color( 255, 99, 71 ) ),
-    TRANSCRIPTION_FACTOR_CONFIG_GENE_3_NEG: new TranscriptionFactorConfig( BioShapeUtils.createRandomShape( SIZE, 40 ), false, Color.magenta )
+    // static definitions of all the transcription factor configurations that are used by this sim
+    TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS: new TranscriptionFactorConfig(
+      BioShapeUtils.createRandomShape( SIZE, 1014 ),
+      true,
+      Color.yellow
+    ),
+    TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG: new TranscriptionFactorConfig(
+      BioShapeUtils.createRandomShape( SIZE, 2000 ),
+      false,
+      Color.red
+    ),
+    TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_1: new TranscriptionFactorConfig(
+      BioShapeUtils.createRandomShape( SIZE, 3004 ),
+      true,
+      Color.orange
+    ),
+    TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_2: new TranscriptionFactorConfig(
+      BioShapeUtils.createRandomShape( SIZE, 1 ),
+      true,
+      new Color( 0, 255, 127 )
+    ),
+    TRANSCRIPTION_FACTOR_CONFIG_GENE_2_NEG: new TranscriptionFactorConfig(
+      BioShapeUtils.createRandomShape( SIZE, 4000 ),
+      false,
+      new Color( 255, 255, 255 )
+    ),
+    TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_1: new TranscriptionFactorConfig(
+      BioShapeUtils.createRandomShape( SIZE, 57 ),
+      true,
+      new Color( 255, 127, 0 )
+    ),
+    TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_2: new TranscriptionFactorConfig(
+      BioShapeUtils.createRandomShape( SIZE, 88 ),
+      true,
+      new Color( 255, 99, 71 )
+    ),
+    TRANSCRIPTION_FACTOR_CONFIG_GENE_3_NEG: new TranscriptionFactorConfig(
+      BioShapeUtils.createRandomShape( SIZE, 40 ),
+      false,
+      Color.magenta
+    )
   } );
 } );

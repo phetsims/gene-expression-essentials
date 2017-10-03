@@ -1,12 +1,12 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * This class defines a shape that encloses a segment of the mRNA. These segments, connected together, are used to
- * define the outline shape of the mRNA strand. The path of the strand within these shape segments is worked out
+ * This type defines a rectangular shape that encloses a segment of the mRNA. These segments, connected together, are
+ * used to define the outer bounds of the mRNA strand. The path of the strand within these shape segments is worked out
  * elsewhere.
  *
- * Shape segments keep track of the length of mRNA that they contain, but the don't explicitly contain references to the
- * points that define the shape.
+ * Shape segments keep track of the length of mRNA that they contain, but they don't explicitly contain references to
+ * the points that define the shape.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -15,13 +15,11 @@
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Matrix3 = require( 'DOT/Matrix3' );
-  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -33,8 +31,8 @@ define( function( require ) {
    */
   function ShapeSegment( owner ) {
 
-    // Bounds of this shape segment.
-    this.boundsProperty = new Property( new Bounds2( 0, 0, 0, 0 ) ); // @private
+    // @public (read-only) {Bounds2} - Bounds of this shape segment
+    this.bounds = new Bounds2( 0, 0, 0, 0 );
 
     // Attachment point where anything that attached to this segment would attach. Affinity is arbitrary in this case.
     this.attachmentSite = new AttachmentSite( owner, new Vector2( 0, 0 ), 1 ); // @private
@@ -46,24 +44,6 @@ define( function( require ) {
   geneExpressionEssentials.register( 'ShapeSegment', ShapeSegment );
 
   return inherit( Object, ShapeSegment, {
-
-    /**
-     * Set the bounds
-     * @param {Bounds2} bounds
-     * @public
-     */
-    set bounds( bounds ) {
-      this.boundsProperty.set( bounds );
-    },
-
-    /**
-     * Return the bounds
-     * @returns {Bounds2}
-     * @public
-     */
-    get bounds() {
-      return this.boundsProperty.get();
-    },
 
     /**
      * Sets the capacity
@@ -94,15 +74,21 @@ define( function( require ) {
 
     /**
      * Sets the lower right position of the segment
-     * @param {Vector2} newLowerRightCornerPos
+     * @param {number} x
+     * @param {number} y
      * @public
      */
-    setLowerRightCornerPos: function( newLowerRightCornerPos ) {
-      var currentLowerRightCornerPos = this.getLowerRightCornerPos();
-      var delta = newLowerRightCornerPos.minus( currentLowerRightCornerPos );
-      var newBounds = this.bounds.transformed( Matrix3.translation( delta.x, delta.y ) );
-      this.bounds.set( newBounds );
+    setLowerRightCornerPos: function( x, y ) {
+      this.bounds.setMinMax( x - this.bounds.width, y, x, y + this.bounds.height );
       this.updateAttachmentSiteLocation();
+    },
+
+    /**
+     * @param {Vector2} p
+     * @public
+     */
+    setLowerRightCornerPosByVector: function( p ) {
+      this.setLowerRightCornerPos( p.x, p.y );
     },
 
     /**
@@ -116,14 +102,12 @@ define( function( require ) {
 
     /**
      * Sets the upper left position of the segment
-     * @param {Vector2} upperLeftCornerPosition
+     * @param {number} x
+     * @param {number} y
      * @public
      */
-    setUpperLeftCornerPosition: function( upperLeftCornerPosition ) {
-      this.bounds.set( Bounds2.rect( upperLeftCornerPosition.x,
-        upperLeftCornerPosition.y - this.bounds.getHeight(),
-        this.bounds.getWidth(),
-        this.bounds.getHeight() ) );
+    setUpperLeftCornerPosition: function( x, y ) {
+      this.bounds.setMinMax( x, y - this.bounds.height, x + this.bounds.width, y );
       this.updateAttachmentSiteLocation();
     },
 
@@ -134,7 +118,7 @@ define( function( require ) {
      * @public
      */
     translate: function( x, y ) {
-      this.bounds.set( this.bounds.shifted( x, y ) );
+      this.bounds.shift( x, y );
       this.updateAttachmentSiteLocation();
     },
 
@@ -148,7 +132,7 @@ define( function( require ) {
     },
 
     /**
-     * Returns wether the shape segment is flat or not. Shape segment is flat if the height is zero
+     * Returns whether the shape segment is flat or not. A shape segment is flat if the height is zero.
      * @returns {boolean}
      * @public
      */

@@ -1,6 +1,8 @@
 Implementation Notes
 ====================
 
+TODO: Add notes about position versus shape.
+
 This simulation was originally written in Java, and then ported to JavaScript.  As a result, there is a fair amount of
 code that looks a bit "Java-esque" and would have been done differently if the code had been written from scratch as a
 JavaScript simulation.  For example, there are a lot of deep inheritance hierarchies - something which is done a lot in

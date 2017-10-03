@@ -67,7 +67,8 @@ define( function( require ) {
       this.messengerRna.addLength( TRANSCRIPTION_VELOCITY * dt );
       this.messengerRna.setLowerRightPosition(
         rnaPolymerase.getPosition().x + rnaPolymerase.messengerRnaGenerationOffset.x,
-        rnaPolymerase.getPosition().y + rnaPolymerase.messengerRnaGenerationOffset.y );
+        rnaPolymerase.getPosition().y + rnaPolymerase.messengerRnaGenerationOffset.y
+      );
 
       // Move the DNA strand separator.
       dnaStrandSeparation.setXPos( rnaPolymerase.getPosition().x );
@@ -122,8 +123,11 @@ define( function( require ) {
       ) );
 
       // Create the mRNA that will be grown as a result of this transcription.
-      this.messengerRna = new MessengerRna( biomolecule.getModel(), geneToTranscribe.getProteinPrototype(),
-        biomolecule.getPosition().plus( biomolecule.messengerRnaGenerationOffset ) );
+      this.messengerRna = new MessengerRna(
+        biomolecule.getModel(),
+        geneToTranscribe.getProteinPrototype(),
+        biomolecule.getPosition().plus( biomolecule.messengerRnaGenerationOffset )
+      );
       biomolecule.spawnMessengerRna( this.messengerRna );
       this.messengerRna.movableByUserProperty.set( false );
 

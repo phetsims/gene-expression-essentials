@@ -41,10 +41,10 @@ define( function( require ) {
 
   /**
    * @param {ManualGeneExpressionModel} model
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function ProteinCollectionNode( model, mvt ) {
+  function ProteinCollectionNode( model, modelViewTransform ) {
     Node.call( this );
 
     // Create the title and scale it if needed.
@@ -55,7 +55,7 @@ define( function( require ) {
     } );
 
     // create the collection area
-    var collectionArea = new ProteinCollectionArea( model, mvt );
+    var collectionArea = new ProteinCollectionArea( model, modelViewTransform );
 
     // create the panel
     this.addChild( new Panel(

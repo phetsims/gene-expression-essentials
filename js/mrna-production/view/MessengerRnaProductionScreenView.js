@@ -51,7 +51,7 @@ define( function( require ) {
     var viewPortPosition = new Vector2( this.layoutBounds.width * 0.48, this.layoutBounds.height * 0.4 );
 
     // Set up the model-canvas transform.
-    this.mvt = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    this.modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       viewPortPosition,
       0.2  // "Zoom factor" - smaller zooms out, larger zooms in.
@@ -81,7 +81,7 @@ define( function( require ) {
     this.addChild( controlsNode );
 
     // Add the representation of the DNA strand.
-    this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.mvt, 5, false );
+    this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.modelViewTransform, 5, false );
     dnaLayer.addChild( this.dnaMoleculeNode );
 
     // Get a reference to the gene being controlled.
@@ -174,7 +174,7 @@ define( function( require ) {
 
     // define a function for adding views of biomolecules
     function addBiomoleculeView( addedBiomolecule ) {
-      var biomoleculeNode = new MobileBiomoleculeNode( self.mvt, addedBiomolecule );
+      var biomoleculeNode = new MobileBiomoleculeNode( self.modelViewTransform, addedBiomolecule );
 
       // On this screen, users can't directly interact with individual biomolecules.
       biomoleculeNode.setPickable( false );
@@ -226,7 +226,7 @@ define( function( require ) {
     // Watch for and handle comings and goings of messenger RNA.
     model.messengerRnaList.addItemAddedListener( function( addedMessengerRna ) {
 
-      var messengerRnaNode = new MessengerRnaNode( self.mvt, addedMessengerRna );
+      var messengerRnaNode = new MessengerRnaNode( self.modelViewTransform, addedMessengerRna );
       messengerRnaLayer.addChild( messengerRnaNode );
 
       model.messengerRnaList.addItemRemovedListener( function removalListener( removedMessengerRna ) {

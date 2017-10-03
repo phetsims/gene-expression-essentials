@@ -14,7 +14,6 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericUnattachedAndAvailableState' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var Property = require( 'AXON/Property' );
   var ProteinAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/ProteinAttachmentStateMachine' );
@@ -55,19 +54,15 @@ define( function( require ) {
 
     /**
      * Set the size of this protein by specifying the proportion of its full size.
-     * @param {number} fullSizeProportion - Value between 0 and 1 indicating the proportion of this protein's full grown
-     * size that it should be.
+     * @param {number} proportion - Value between 0 and 1 indicating the proportion of this protein's fully grown size
      * @public
      */
-    setFullSizeProportion: function( fullSizeProportion ) {
-      if ( this.fullSizeProportion !== fullSizeProportion ) {
-        this.fullSizeProportion = fullSizeProportion;
-        var transform = Matrix3.translation( this.getPosition().x, this.getPosition().y );
-        var untranslatedShape = this.getUntranslatedShape( fullSizeProportion );
-        this.shapeProperty.set( untranslatedShape.transformed( transform ) );
-        this.bounds = this.shapeProperty.get().bounds.copy();
-        this.setCenter();
-        this.colorProperty.notifyListenersStatic();
+    setFullSizeProportion: function( proportion ) {
+      assert && assert( proportion >= 0 && proportion <= 1, 'proportion value out of range: ' + proportion );
+      if ( this.fullSizeProportion !== proportion ) {
+        this.fullSizeProportion = proportion;
+        this.shapeProperty.set( this.getScaledShape( proportion ) );
+        this.colorProperty.notifyListenersStatic(); // TODO: Is this really necessary and, if so, why?
       }
     },
 
@@ -81,10 +76,10 @@ define( function( require ) {
 
     /**
      * @param {number} growthFactor
-     * @public
+     * @protected
      */
-    getUntranslatedShape: function( growthFactor ) {
-      throw new Error( 'getUntranslatedShape should be implemented in descendant classes of Protein' );
+    getScaledShape: function( growthFactor ) {
+      throw new Error( 'getScaledShape should be implemented in descendant classes of Protein' );
     },
 
     /**
@@ -95,7 +90,7 @@ define( function( require ) {
      * @public
      */
     getFullyGrownShape: function() {
-      return this.getUntranslatedShape( MAX_GROWTH_FACTOR );
+      return this.getScaledShape( MAX_GROWTH_FACTOR );
     },
 
     /**

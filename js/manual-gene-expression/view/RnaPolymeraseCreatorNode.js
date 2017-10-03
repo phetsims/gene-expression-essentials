@@ -39,7 +39,7 @@ define( function( require ) {
   function RnaPolymeraseCreatorNode( biomoleculeBoxNode ) {
     BiomoleculeCreatorNode.call( this, new MobileBiomoleculeNode( SCALING_MVT, new RnaPolymerase() ),
       biomoleculeBoxNode.canvas,
-      biomoleculeBoxNode.mvt,
+      biomoleculeBoxNode.modelViewTransform,
 
       function( pos ) { // Molecule creator function.
         var rnaPolymerase = new RnaPolymerase( biomoleculeBoxNode.model, pos );

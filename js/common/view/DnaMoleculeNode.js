@@ -24,12 +24,12 @@ define( function( require ) {
   /**
    *
    * @param {DnaMolecule} dnaMolecule
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {number} backboneStrokeWidth
    * @param {boolean} showGeneBracketLabels
    * @constructor
    */
-  function DnaMoleculeNode( dnaMolecule, mvt, backboneStrokeWidth, showGeneBracketLabels ) {
+  function DnaMoleculeNode( dnaMolecule, modelViewTransform, backboneStrokeWidth, showGeneBracketLabels ) {
     Node.call( this );
 
     // Add the layers onto which the various nodes that represent parts of the dna, the hints, etc. are placed.
@@ -37,21 +37,21 @@ define( function( require ) {
     this.addChild( geneBackgroundLayer );
 
     // Layers for supporting the 3D look by allowing the "twist" to be depicted.
-    this.dnaBackboneLayer = new DnaMoleculeCanvasNode( dnaMolecule, mvt, backboneStrokeWidth, {
+    this.dnaBackboneLayer = new DnaMoleculeCanvasNode( dnaMolecule, modelViewTransform, backboneStrokeWidth, {
       canvasBounds: new Bounds2(
         dnaMolecule.getLeftEdgeXPos(),
-        dnaMolecule.getBottomEdgeYPos() + mvt.viewToModelDeltaY( 10 ),
+        dnaMolecule.getBottomEdgeYPos() + modelViewTransform.viewToModelDeltaY( 10 ),
         dnaMolecule.getRightEdgeXPos(),
-        dnaMolecule.getTopEdgeYPos() - mvt.viewToModelDeltaY( 10 )
+        dnaMolecule.getTopEdgeYPos() - modelViewTransform.viewToModelDeltaY( 10 )
       ),
-      matrix: mvt.getMatrix()
+      matrix: modelViewTransform.getMatrix()
     } );
 
     this.addChild( this.dnaBackboneLayer );
 
     // Put the gene backgrounds and labels behind everything.
     for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
-      geneBackgroundLayer.addChild( new GeneNode( mvt, dnaMolecule.getGenes()[ i ], dnaMolecule,
+      geneBackgroundLayer.addChild( new GeneNode( modelViewTransform, dnaMolecule.getGenes()[ i ], dnaMolecule,
         geneString + ( i + 1 ), showGeneBracketLabels ) );
     }
   }
