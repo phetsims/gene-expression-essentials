@@ -39,7 +39,6 @@ define( function( require ) {
   var instanceCounter = 0;
 
   /**
-   *
    * @param {GeneExpressionModel} model
    * @param {Vector2} position
    * @constructor

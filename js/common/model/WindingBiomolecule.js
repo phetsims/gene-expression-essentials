@@ -44,6 +44,7 @@ define( function( require ) {
 
     // TODO: Temp for experimentation with the mRNA shape.
     this.WINDING_PARAMS = {
+
       //yWave1Frequency: Math.PI * ( phet.joist.random.nextDouble() ) * 0.1,
       //yWave1PhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
       //yWave1Multiplier: phet.joist.random.nextDouble(),
@@ -143,15 +144,15 @@ define( function( require ) {
       xWaveMultiplier: 0.23725392225069356
 
       // ECG sort of one with some overlap
-      //yWave1Frequency: 0.033801261909700855,
-      //yWave1PhaseOffset: 2.749035346535291,
-      //yWave1Multiplier: 0.27327335215625254,
-      //yWave2Frequency: 0.13249523648326847,
-      //yWave2PhaseOffset: 3.5761786010790373,
-      //yWave2Multiplier: 0.20586648052301262,
-      //xWaveFrequency: 0.03982596097448576,
-      //xWavePhaseOffset: 1.7894001491723766,
-      //xWaveMultiplier: 0.13588696362810446
+      // yWave1Frequency: 0.033801261909700855,
+      // yWave1PhaseOffset: 2.749035346535291,
+      // yWave1Multiplier: 0.27327335215625254,
+      // yWave2Frequency: 0.13249523648326847,
+      // yWave2PhaseOffset: 3.5761786010790373,
+      // yWave2Multiplier: 0.20586648052301262,
+      // xWaveFrequency: 0.03982596097448576,
+      // xWavePhaseOffset: 1.7894001491723766,
+      // xWaveMultiplier: 0.13588696362810446
 
     };
 
