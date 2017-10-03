@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  *  Specialization of placement hint for transcription factors.

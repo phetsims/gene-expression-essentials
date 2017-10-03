@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * Class that defines a square segment, which is one in which the mRNA can be (and generally is) curled up.

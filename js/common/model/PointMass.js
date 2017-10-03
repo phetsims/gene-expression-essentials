@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * This class defines a point in model space that also has mass. It is is used to define the overall shape of the mRNA,

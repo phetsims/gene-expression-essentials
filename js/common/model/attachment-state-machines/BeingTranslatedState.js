@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * One of the state for MessengerRnaAttachmentStateMachine. In this state mRNA is wandering around the cell's cytoplasm

@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * Attachment state machine for all RNA Polymerase molecules. This uses the generic behavior for all but the "attached"

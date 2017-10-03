@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * The generic "attached" state isn't very useful, but is included for completeness. The reason it isn't useful is

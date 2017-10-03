@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * Timer with stop, stop and restart method. Used for managing fade in and fade out of labels (though it is generic)
