@@ -149,12 +149,12 @@ define( function( require ) {
       new Color( 255, 255, 255 )
     ),
     TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_1: new TranscriptionFactorConfig(
-      BioShapeUtils.createRandomShape( SIZE, 57 ),
+      BioShapeUtils.createRandomShape( SIZE, 58 ),
       true,
       new Color( 255, 127, 0 )
     ),
     TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_2: new TranscriptionFactorConfig(
-      BioShapeUtils.createRandomShape( SIZE, 88 ),
+      BioShapeUtils.createRandomShape( SIZE, 96 ),
       true,
       new Color( 255, 99, 71 )
     ),
