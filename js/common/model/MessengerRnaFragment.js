@@ -19,6 +19,9 @@ define( function( require ) {
   var SquareSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/SquareSegment' );
   var WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
 
+  // constants
+  var MRNA_WINDING_ALGORITHMS = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+
   /**
    * This creates the mRNA fragment as a single point, with the intention of growing it.
    *
@@ -27,7 +30,9 @@ define( function( require ) {
    * @constructor
    */
   function MessengerRnaFragment( model, position ) {
-    WindingBiomolecule.call( this, model, new Shape().moveToPoint( position ), position );
+    WindingBiomolecule.call( this, model, new Shape().moveToPoint( position ), position, {
+      windingParamSet: MRNA_WINDING_ALGORITHMS[ phet.joist.random.nextInt( MRNA_WINDING_ALGORITHMS.length ) ]
+    } );
 
     // Add the first, and in this case only, segment to the shape segment list.
     this.shapeSegments.push( new SquareSegment( this, position ) );
