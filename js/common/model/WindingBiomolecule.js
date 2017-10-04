@@ -368,9 +368,9 @@ define( function( require ) {
         // add new point or points to the end
         var remainingLengthToAdd = length;
         while ( remainingLengthToAdd > 0 ){
-          var distanceToPreviousPoint = Math.min( GEEConstants.INTER_POINT_DISTANCE, remainingLengthToAdd );
-          this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), distanceToPreviousPoint );
-          remainingLengthToAdd -= distanceToPreviousPoint;
+          var targetDistanceToPreviousPoint = Math.min( GEEConstants.INTER_POINT_DISTANCE, remainingLengthToAdd );
+          this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), targetDistanceToPreviousPoint );
+          remainingLengthToAdd -= targetDistanceToPreviousPoint;
         }
       }
 
