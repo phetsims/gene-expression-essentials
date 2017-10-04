@@ -28,21 +28,33 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   *
    * @param {DnaMolecule} dnaMolecule - The DNA molecule within which this gene exists.
    * @param {Range} regulatoryRegion - The range, in terms of base pairs on the DNA strand, where this region exists.
    * @param {Color} regulatoryRegionColor
    * @param {Range} transcribedRegion - The range, in terms of base pairs on the DNA strand, where this region exists.
    * @param {Color} transcribedRegionColor
+   * @param {number} windingAlgorithmParameterSet - algorithm used to wind mRNA produced from this gene
    * @constructor
    */
-  function Gene( dnaMolecule, regulatoryRegion, regulatoryRegionColor, transcribedRegion, transcribedRegionColor ) {
+  function Gene( dnaMolecule,
+                 regulatoryRegion,
+                 regulatoryRegionColor,
+                 transcribedRegion,
+                 transcribedRegionColor,
+                 windingAlgorithmParameterSet ) {
+
     this.dnaMolecule = dnaMolecule; // @private
     this.regulatoryRegion = regulatoryRegion; // @private
-    this.regulatoryRegionColor = regulatoryRegionColor; // @private
     this.transcribedRegion = transcribedRegion; // @private
-    this.transcribedRegionColor = transcribedRegionColor; // @private
 
+    // @public (read-only) {Color}
+    this.regulatoryRegionColor = regulatoryRegionColor;
+
+    // @public (read-only) {Color}
+    this.transcribedRegionColor = transcribedRegionColor;
+
+    // @public (read-only) {number}
+    this.windingAlgorithmParameterSet = windingAlgorithmParameterSet;
 
     // @private {AttachmentSite} - attachment site for polymerase. It is always at the end of the regulatory region.
     this.polymeraseAttachmentSite = new AttachmentSite(

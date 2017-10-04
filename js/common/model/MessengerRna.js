@@ -37,16 +37,17 @@ define( function( require ) {
    * @param {GeneExpressionModel} model
    * @param {Protein} proteinPrototype
    * @param {Vector2} position
+   * @param {Object} options
    * @constructor
    */
-  function MessengerRna( model, proteinPrototype, position ) {
+  function MessengerRna( model, proteinPrototype, position, options ) {
 
     var self = this;
 
     // @private {Object} - object that maps from ribosomes to the shape segment to which they are attached
     this.mapRibosomeToShapeSegment = {};
 
-    WindingBiomolecule.call( self, model, INITIAL_MRNA_SHAPE, position );
+    WindingBiomolecule.call( self, model, INITIAL_MRNA_SHAPE, position, options );
 
     // Externally visible indicator for whether this mRNA is being synthesized. Assumes that it is being synthesized
     // when created.

@@ -28,6 +28,154 @@ define( function( require ) {
   // used for the fill. This enables reuse of generic biomolecule classes.
   var NOMINAL_COLOR = new Color( 0, 0, 0, 0 );
 
+  // parameters that control how the winding biomolecule winds
+  var WINDING_PARAMS = [
+
+    {
+      // straight line
+      yWave1Frequency: 0,
+      yWave1PhaseOffset: 0,
+      yWave1Multiplier: 0,
+      yWave2Frequency: 0,
+      yWave2PhaseOffset: 0,
+      yWave2Multiplier: 0,
+      xWaveFrequency: 0,
+      xWavePhaseOffset: 0,
+      xWaveMultiplier: 0
+    },
+
+    {
+      // sine wave from yWave1 only
+      yWave1Frequency: Math.PI * 0.01,
+      yWave1PhaseOffset: 0.1 * Math.PI,
+      yWave1Multiplier: 0.5,
+      yWave2Frequency: 0,
+      yWave2PhaseOffset: 0,
+      yWave2Multiplier: 0,
+      xWaveFrequency: 0,
+      xWavePhaseOffset: 0,
+      xWaveMultiplier: 0
+    },
+
+    {
+      // double sine wave from yWave1 and yWave2
+      yWave1Frequency: Math.PI * 0.01,
+      yWave1PhaseOffset: 0.1 * Math.PI,
+      yWave1Multiplier: 0.5,
+      yWave2Frequency: Math.PI * 0.02,
+      yWave2PhaseOffset: 0,
+      yWave2Multiplier: 0.5,
+      xWaveFrequency: 0,
+      xWavePhaseOffset: 0,
+      xWaveMultiplier: 0
+    },
+
+    {
+      // x wave
+      yWave1Frequency: Math.PI * 0.01,
+      yWave1PhaseOffset: 0.1 * Math.PI,
+      yWave1Multiplier: 0.5,
+      yWave2Frequency: 0,
+      yWave2PhaseOffset: 0,
+      yWave2Multiplier: 0,
+      xWaveFrequency: Math.PI * 0.03,
+      xWavePhaseOffset: 0,
+      xWaveMultiplier: 0.4
+    },
+
+    {
+      // nice windy one
+      yWave1Frequency: 0.03350868765331309,
+      yWave1PhaseOffset: 1.4652859313212294,
+      yWave1Multiplier: 0.3523018499297727,
+      yWave2Frequency: 0.03679270540637452,
+      yWave2PhaseOffset: 0.8290895969945882,
+      yWave2Multiplier: 0.3710465106439804,
+      xWaveFrequency: 0.06762818354262706,
+      xWavePhaseOffset: 1.3697784268233215,
+      xWaveMultiplier: 0.19589544619869786
+    },
+
+    {
+      // loopy and windy, liked by @kathy-phet
+      yWave1Frequency: 0.02417698217540225,
+      yWave1PhaseOffset: 2.4695448382255574,
+      yWave1Multiplier: 0.37836434264592467,
+      yWave2Frequency: 0.06201593943296497,
+      yWave2PhaseOffset: 1.936966001193581,
+      yWave2Multiplier: 0.41526000924061474,
+      xWaveFrequency: 0.16811027073589893,
+      xWavePhaseOffset: 0.030242447922989232,
+      xWaveMultiplier: 0.3390090209844494
+    },
+
+    {
+      // tight, irregular, couple of loops
+      yWave1Frequency: 0.008 * Math.PI,
+      yWave1PhaseOffset: 0.35 * Math.PI,
+      yWave1Multiplier: 0.0565,
+      yWave2Frequency: 0.037 * Math.PI,
+      yWave2PhaseOffset: 1.6 * Math.PI,
+      yWave2Multiplier: 0.19,
+      xWaveFrequency: 0.022 * Math.PI,
+      xWavePhaseOffset: 0.17 * Math.PI,
+      xWaveMultiplier: 0.2373
+    },
+
+    {
+      // winding with a few kinks, no complete loops
+      yWave1Frequency: 0.02 * Math.PI,
+      yWave1PhaseOffset: 0.35 * Math.PI,
+      yWave1Multiplier: 0.2,
+      yWave2Frequency: 0.007 * Math.PI,
+      yWave2PhaseOffset: 1.6 * Math.PI,
+      yWave2Multiplier: 0.1,
+      xWaveFrequency: 0.01 * Math.PI,
+      xWavePhaseOffset: 0.25 * Math.PI,
+      xWaveMultiplier: 0.14
+    },
+
+    {
+      // squiggly with a couple of small loops
+      yWave1Frequency: 0.008 * Math.PI,
+      yWave1PhaseOffset: 0.5 * Math.PI,
+      yWave1Multiplier: 0.2,
+      yWave2Frequency: 0.02 * Math.PI,
+      yWave2PhaseOffset: 0.55 * Math.PI,
+      yWave2Multiplier: 0.2,
+      xWaveFrequency: 0.02 * Math.PI,
+      xWavePhaseOffset: 0.45 * Math.PI,
+      xWaveMultiplier: 0.2
+    },
+
+    {
+      // very loopy
+      yWave1Frequency: 0.008 * Math.PI,
+      yWave1PhaseOffset: 2.4695448382255574,
+      yWave1Multiplier: 0.2,
+      yWave2Frequency: 0.02 * Math.PI,
+      yWave2PhaseOffset: 1.936966001193581,
+      yWave2Multiplier: 0.2,
+      xWaveFrequency: 0.02 * Math.PI,
+      xWavePhaseOffset: 0.030242447922989232,
+      xWaveMultiplier: 0.2
+    },
+
+    {
+      // ECG sort of one with some overlap
+      yWave1Frequency: 0.033801261909700855,
+      yWave1PhaseOffset: 2.749035346535291,
+      yWave1Multiplier: 0.27327335215625254,
+      yWave2Frequency: 0.13249523648326847,
+      yWave2PhaseOffset: 3.5761786010790373,
+      yWave2Multiplier: 0.20586648052301262,
+      xWaveFrequency: 0.03982596097448576,
+      xWavePhaseOffset: 1.7894001491723766,
+      xWaveMultiplier: 0.13588696362810446
+    }
+
+  ];
+
   // reusable vectors, pre-allocated for better performance
   var vectorToPreviousPoint = new Vector2( 0, 0 );
   var vectorToNextPoint = new Vector2( 0, 0 );
@@ -42,131 +190,17 @@ define( function( require ) {
    */
   function WindingBiomolecule( model, initialShape, position, options ) {
 
-    // TODO: Temp for experimentation with the mRNA shape.
-    this.WINDING_PARAMS = {
-
-      //yWave1Frequency: Math.PI * ( phet.joist.random.nextDouble() ) * 0.1,
-      //yWave1PhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
-      //yWave1Multiplier: phet.joist.random.nextDouble(),
-      //yWave2Frequency: Math.PI * ( phet.joist.random.nextDouble() ) * 0.1,
-      //yWave2PhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
-      //yWave2Multiplier: phet.joist.random.nextDouble(),
-      //xWaveFrequency: Math.PI * ( phet.joist.random.nextDouble() ) * 0.2,
-      //xWavePhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
-      //xWaveMultiplier: phet.joist.random.nextDouble() * 200
-
-      // straight line
-      // yWave1Frequency: 0,
-      // yWave1PhaseOffset: 0,
-      // yWave1Multiplier: 0,
-      // yWave2Frequency: 0,
-      // yWave2PhaseOffset: 0,
-      // yWave2Multiplier: 0,
-      // xWaveFrequency: 0,
-      // xWavePhaseOffset: 0,
-      // xWaveMultiplier: 0
-
-      // sine wave from yWave1 only
-      //yWave1Frequency: Math.PI * 0.01,
-      //yWave1PhaseOffset: 0.1 * Math.PI,
-      //yWave1Multiplier: 0.5,
-      //yWave2Frequency: 0,
-      //yWave2PhaseOffset: 0,
-      //yWave2Multiplier: 0,
-      //xWaveFrequency: 0,
-      //xWavePhaseOffset: 0,
-      //xWaveMultiplier: 0
-
-      // double sine wave from yWave1 and yWave2
-      //yWave1Frequency: Math.PI * 0.01,
-      //yWave1PhaseOffset: 0.1 * Math.PI,
-      //yWave1Multiplier: 0.5,
-      //yWave2Frequency: Math.PI * 0.02,
-      //yWave2PhaseOffset: 0,
-      //yWave2Multiplier: 0.5,
-      //xWaveFrequency: 0,
-      //xWavePhaseOffset: 0,
-      //xWaveMultiplier: 0
-
-      // x wave
-      //yWave1Frequency: Math.PI * 0.01,
-      //yWave1PhaseOffset: 0.1 * Math.PI,
-      //yWave1Multiplier: 0.5,
-      //yWave2Frequency: 0,
-      //yWave2PhaseOffset: 0,
-      //yWave2Multiplier: 0,
-      //xWaveFrequency: Math.PI * 0.03,
-      //xWavePhaseOffset: 0,
-      //xWaveMultiplier: 0.4
-
-      // randomized
-      //yWave1Frequency: ( 0.0002 + phet.joist.random.nextDouble() * 0.015 ) * Math.PI,
-      //yWave1PhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
-      //yWave1Multiplier: ( 0.02 + phet.joist.random.nextDouble() * 0.8 ),
-      //yWave2Frequency: ( 0.005 + phet.joist.random.nextDouble() * 0.03 ) * Math.PI,
-      //yWave2PhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
-      //yWave2Multiplier: ( 0.02 + phet.joist.random.nextDouble() * 0.8 ),
-      //xWaveFrequency: ( 0.002 + phet.joist.random.nextDouble() * 0.02 ) * Math.PI,
-      //xWavePhaseOffset: phet.joist.random.nextDouble() * 2 * Math.PI,
-      //xWaveMultiplier: ( 0.1 + phet.joist.random.nextDouble() * 0.5 )
-
-      // nice windy one
-      //yWave1Frequency: 0.03350868765331309,
-      //yWave1PhaseOffset: 1.4652859313212294,
-      //yWave1Multiplier: 0.3523018499297727,
-      //yWave2Frequency: 0.03679270540637452,
-      //yWave2PhaseOffset: 0.8290895969945882,
-      //yWave2Multiplier: 0.3710465106439804,
-      //xWaveFrequency: 0.06762818354262706,
-      //xWavePhaseOffset: 1.3697784268233215,
-      //xWaveMultiplier: 0.19589544619869786
-
-      // kathy, kinky
-      // yWave1Frequency: 0.02417698217540225,
-      // yWave1PhaseOffset: 2.4695448382255574,
-      // yWave1Multiplier: 0.37836434264592467,
-      // yWave2Frequency: 0.06201593943296497,
-      // yWave2PhaseOffset: 1.936966001193581,
-      // yWave2Multiplier: 0.41526000924061474,
-      // xWaveFrequency: 0.16811027073589893,
-      // xWavePhaseOffset: 0.030242447922989232,
-      // xWaveMultiplier: 0.3390090209844494
-
-      // tight, irregular, couple of loops
-      yWave1Frequency: 0.025513096109174523,
-      yWave1PhaseOffset: 1.1302742162411226,
-      yWave1Multiplier: 0.05645521800389852,
-      yWave2Frequency: 0.11694967273633287,
-      yWave2PhaseOffset: 5.0498833980195315,
-      yWave2Multiplier: 0.18897369205742606,
-      xWaveFrequency: 0.0704947213915478,
-      xWavePhaseOffset: 0.5297440101233687,
-      xWaveMultiplier: 0.23725392225069356
-
-      // ECG sort of one with some overlap
-      // yWave1Frequency: 0.033801261909700855,
-      // yWave1PhaseOffset: 2.749035346535291,
-      // yWave1Multiplier: 0.27327335215625254,
-      // yWave2Frequency: 0.13249523648326847,
-      // yWave2PhaseOffset: 3.5761786010790373,
-      // yWave2Multiplier: 0.20586648052301262,
-      // xWaveFrequency: 0.03982596097448576,
-      // xWavePhaseOffset: 1.7894001491723766,
-      // xWaveMultiplier: 0.13588696362810446
-
-    };
-
-    console.log( '---------------------------------' );
-    console.log( 'WINDING_PARAMS = ' + JSON.stringify( this.WINDING_PARAMS, null, 4 ) );
-
     options = _.extend( {
 
       // {number} - winding algorithm to use when creating and updating this biomolecule, see code for range
-      windingAlgorithm: 0
+      windingParamSet: 0
 
     }, options );
 
     MobileBiomolecule.call( this, model, initialShape, NOMINAL_COLOR );
+
+    // set up the winding params
+    this.windingParams = WINDING_PARAMS[ options.windingParamSet ];
 
     // Add first shape defining point to the point list.
     this.firstShapeDefiningPoint = new PointMass( position, 0 ); //@protected
@@ -666,25 +700,22 @@ define( function( require ) {
       var totalDistanceTraversed = 0;
       var totalDistancePerStep = Math.sqrt( interPointXDistance * interPointXDistance +
                                             interPointYDistance * interPointYDistance );
-      //var yWave1Frequency = Math.PI / 100;
-      //var yWave1PhaseOffset = Math.PI * 0.5;
-      //var yWave1Multiplier = diagonalSpan * 0.4;
-      //var yWave2Frequency = Math.PI / 40;
-      //var yWave2PhaseOffset = Math.PI * 0.25;
-      //var yWave2Multiplier = diagonalSpan * 0.25;
-      //var xWaveFrequency = yWave1Frequency * 2;
-      //var xWavePhaseOffset = Math.PI * 0.5;
-      //var xWaveMultiplier = 100;
-      var yWave1Frequency = this.WINDING_PARAMS.yWave1Frequency;
-      var yWave1PhaseOffset = this.WINDING_PARAMS.yWave1PhaseOffset;
-      var yWave1Multiplier = this.WINDING_PARAMS.yWave1Multiplier;
-      var yWave2Frequency = this.WINDING_PARAMS.yWave2Frequency;
-      var yWave2PhaseOffset = this.WINDING_PARAMS.yWave2PhaseOffset;
-      var yWave2Multiplier = this.WINDING_PARAMS.yWave2Multiplier;
-      var xWaveFrequency = this.WINDING_PARAMS.xWaveFrequency;
-      var xWavePhaseOffset = this.WINDING_PARAMS.xWavePhaseOffset;
-      var xWaveMultiplier = this.WINDING_PARAMS.xWaveMultiplier;
+
+      // convenience vars for winding params
+      var yWave1Frequency = this.windingParams.yWave1Frequency;
+      var yWave1PhaseOffset = this.windingParams.yWave1PhaseOffset;
+      var yWave1Multiplier = this.windingParams.yWave1Multiplier;
+      var yWave2Frequency = this.windingParams.yWave2Frequency;
+      var yWave2PhaseOffset = this.windingParams.yWave2PhaseOffset;
+      var yWave2Multiplier = this.windingParams.yWave2Multiplier;
+      var xWaveFrequency = this.windingParams.xWaveFrequency;
+      var xWavePhaseOffset = this.windingParams.xWavePhaseOffset;
+      var xWaveMultiplier = this.windingParams.xWaveMultiplier;
+
+      // pre-allocate and reuse the offset vector for optimal performance
       var offsetFromLinearSequence = new Vector2;
+
+      // implement the winding algorithm
       for ( var i = 0; i < points.length; i++ ) {
 
         // window function to modulate less at corners of square than in middle so that everything fits in the segment

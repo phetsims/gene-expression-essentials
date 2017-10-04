@@ -25,6 +25,7 @@ define( function( require ) {
   var NUM_BASE_PAIRS_IN_REGULATORY_REGION = 28;
   var NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION = 200;
   var NUM_BASE_PAIRS = NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION;
+  var MRNA_WINDING_ALGORITHM_NUMBER = 8;
 
   /**
    * @param {DnaMolecule} dnaMolecule -  The DNA molecule within which this gene exists
@@ -36,7 +37,8 @@ define( function( require ) {
       new Range( initialBasePair, initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION ),
       REGULATORY_REGION_COLOR,
       new Range( initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1, initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1 + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION ),
-      TRANSCRIBED_REGION_COLOR
+      TRANSCRIBED_REGION_COLOR,
+      MRNA_WINDING_ALGORITHM_NUMBER
     );
 
     // Add transcription factors that are specific to this gene.  Location is pretty much arbitrary, just meant to look

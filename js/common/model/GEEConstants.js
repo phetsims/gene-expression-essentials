@@ -46,7 +46,7 @@ define( function( require ) {
 
     // Length of the "leader segment", which is the portion of the mRNA that sticks out on the upper left side so that
     // a ribosome can be attached.
-    LEADER_LENGTH: INTER_POINT_DISTANCE * 2,
+    LEADER_LENGTH: INTER_POINT_DISTANCE,
 
     TRANSCRIPTION_FACTOR_MVT: ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ),
       new Vector2( 0, 0 ), 0.08 ),

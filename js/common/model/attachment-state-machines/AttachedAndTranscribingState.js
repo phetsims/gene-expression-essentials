@@ -126,7 +126,8 @@ define( function( require ) {
       this.messengerRna = new MessengerRna(
         biomolecule.getModel(),
         geneToTranscribe.getProteinPrototype(),
-        biomolecule.getPosition().plus( biomolecule.messengerRnaGenerationOffset )
+        biomolecule.getPosition().plus( biomolecule.messengerRnaGenerationOffset ),
+        { windingParamSet: geneToTranscribe.windingAlgorithmParameterSet }
       );
       biomolecule.spawnMessengerRna( this.messengerRna );
       this.messengerRna.movableByUserProperty.set( false );

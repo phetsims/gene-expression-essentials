@@ -24,6 +24,7 @@ define( function( require ) {
   var TRANSCRIBED_REGION_COLOR = new Color( 255, 165, 79, 150 );
   var NUM_BASE_PAIRS_IN_REGULATORY_REGION = 16;
   var NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION = 100;
+  var MRNA_WINDING_ALGORITHM_NUMBER = 6;
 
   /**
    * Constructor.
@@ -40,7 +41,8 @@ define( function( require ) {
         initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1,
         initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1 + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
       ),
-      TRANSCRIBED_REGION_COLOR
+      TRANSCRIBED_REGION_COLOR,
+      MRNA_WINDING_ALGORITHM_NUMBER
     );
 
     // Add transcription factors that are specific to this gene. Location is withing the regulatory region, and the
