@@ -357,13 +357,21 @@ define( function( require ) {
 
           // Set the last point to be at the prescribed inter-point distance, and then add a new point.
           this.lastShapeDefiningPoint.setTargetDistanceToPreviousPoint( GEEConstants.INTER_POINT_DISTANCE );
-          this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), length - ( GEEConstants.INTER_POINT_DISTANCE - prevDistance ) );
+          this.addPointToEnd(
+            this.lastShapeDefiningPoint.getPosition(),
+            length - ( GEEConstants.INTER_POINT_DISTANCE - prevDistance )
+          );
         }
       }
       else {
 
-        // Just add a new point to the end.
-        this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), length );
+        // add new point or points to the end
+        var remainingLengthToAdd = length;
+        while ( remainingLengthToAdd > 0 ){
+          var distanceToPreviousPoint = Math.min( GEEConstants.INTER_POINT_DISTANCE, remainingLengthToAdd );
+          this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), distanceToPreviousPoint );
+          remainingLengthToAdd -= distanceToPreviousPoint;
+        }
       }
 
       // Update the shape segments that define the outline shape.

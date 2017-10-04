@@ -26,13 +26,15 @@ define( function( require ) {
    * @constructor
    */
   function PointMass( initialPosition, targetDistanceToPreviousPoint ) {
+
     // @private
+    // TODO: Depending on whether the spring algorithm goes away for positioning these points, som of these properties can likely be removed.
     this.position = new Vector2( 0, 0 );
     this.velocity = new Vector2( 0, 0 );
     this.acceleration = new Vector2( 0, 0 );
     this.previousPointMass = null;
     this.nextPointMass = null;
-    this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint;// In picometers.
+    this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint; // in picometers
 
     this.setPosition( initialPosition );
   }
