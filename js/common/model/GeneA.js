@@ -24,7 +24,7 @@ define( function( require ) {
   var TRANSCRIBED_REGION_COLOR = new Color( 255, 165, 79, 150 );
   var NUM_BASE_PAIRS_IN_REGULATORY_REGION = 16;
   var NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION = 100;
-  var MRNA_WINDING_ALGORITHM_NUMBER = 6;
+  var MRNA_WINDING_ALGORITHM_NUMBER = 4;
 
   /**
    * Constructor.

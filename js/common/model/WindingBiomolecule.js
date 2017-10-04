@@ -84,32 +84,6 @@ define( function( require ) {
     },
 
     {
-      // nice windy one
-      yWave1Frequency: 0.03350868765331309,
-      yWave1PhaseOffset: 1.4652859313212294,
-      yWave1Multiplier: 0.3523018499297727,
-      yWave2Frequency: 0.03679270540637452,
-      yWave2PhaseOffset: 0.8290895969945882,
-      yWave2Multiplier: 0.3710465106439804,
-      xWaveFrequency: 0.06762818354262706,
-      xWavePhaseOffset: 1.3697784268233215,
-      xWaveMultiplier: 0.19589544619869786
-    },
-
-    {
-      // loopy and windy, liked by @kathy-phet
-      yWave1Frequency: 0.02417698217540225,
-      yWave1PhaseOffset: 2.4695448382255574,
-      yWave1Multiplier: 0.37836434264592467,
-      yWave2Frequency: 0.06201593943296497,
-      yWave2PhaseOffset: 1.936966001193581,
-      yWave2Multiplier: 0.41526000924061474,
-      xWaveFrequency: 0.16811027073589893,
-      xWavePhaseOffset: 0.030242447922989232,
-      xWaveMultiplier: 0.3390090209844494
-    },
-
-    {
       // tight, irregular, couple of loops
       yWave1Frequency: 0.008 * Math.PI,
       yWave1PhaseOffset: 0.35 * Math.PI,
@@ -146,6 +120,32 @@ define( function( require ) {
       xWaveFrequency: 0.02 * Math.PI,
       xWavePhaseOffset: 0.45 * Math.PI,
       xWaveMultiplier: 0.2
+    },
+
+    {
+      // large winds, no loops
+      yWave1Frequency: 0.03350868765331309,
+      yWave1PhaseOffset: 1.4652859313212294,
+      yWave1Multiplier: 0.3523018499297727,
+      yWave2Frequency: 0.03679270540637452,
+      yWave2PhaseOffset: 0.8290895969945882,
+      yWave2Multiplier: 0.3710465106439804,
+      xWaveFrequency: 0.06762818354262706,
+      xWavePhaseOffset: 1.3697784268233215,
+      xWaveMultiplier: 0.19589544619869786
+    },
+
+    {
+      // loopy and windy, liked by @kathy-phet
+      yWave1Frequency: 0.02417698217540225,
+      yWave1PhaseOffset: 2.4695448382255574,
+      yWave1Multiplier: 0.37836434264592467,
+      yWave2Frequency: 0.06201593943296497,
+      yWave2PhaseOffset: 1.936966001193581,
+      yWave2Multiplier: 0.41526000924061474,
+      xWaveFrequency: 0.16811027073589893,
+      xWavePhaseOffset: 0.030242447922989232,
+      xWaveMultiplier: 0.3390090209844494
     },
 
     {

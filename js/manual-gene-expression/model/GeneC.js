@@ -25,7 +25,7 @@ define( function( require ) {
   var NUM_BASE_PAIRS_IN_REGULATORY_REGION = 28;
   var NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION = 200;
   var NUM_BASE_PAIRS = NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION;
-  var MRNA_WINDING_ALGORITHM_NUMBER = 8;
+  var MRNA_WINDING_ALGORITHM_NUMBER = 6;
 
   /**
    * @param {DnaMolecule} dnaMolecule -  The DNA molecule within which this gene exists
