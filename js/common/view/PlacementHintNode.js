@@ -67,9 +67,6 @@ define( function( require ) {
 
     placementHint.positionProperty.link( handlePositionChanged );
 
-    // Update the shape whenever it changes.
-    placementHint.shapeProperty.link( handleShapeChanged );
-
     function handleShapeChanged( shape ) {
       path.setShape( scaleOnlyTransform.modelToViewShape( shape ) );
     }
