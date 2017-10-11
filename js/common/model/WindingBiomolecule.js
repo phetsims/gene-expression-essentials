@@ -28,7 +28,10 @@ define( function( require ) {
   // used for the fill. This enables reuse of generic biomolecule classes.
   var NOMINAL_COLOR = new Color( 0, 0, 0, 0 );
 
-  // parameters that control how the winding biomolecule winds
+  // parameters that control how the winding biomolecule wind. NOTE: The different variations of winding parameters
+  // were added in an effort to come to some consensus about how the mRNA should look for the various genes.  In the
+  // end, a single set was chosen, but I (jbphet) have left the other ones here in case this question ever comes up
+  // again so that we don't have to "rediscover" parameters that look reasonably good.
   var WINDING_PARAMS = [
 
     {
