@@ -218,10 +218,10 @@ define( function( require ) {
       } );
 
       // Hook up an observer that will remove this biomolecule from the model if its existence strength reaches zero.
-      mobileBiomolecule.existenceStrengthProperty.link( function( existenceStrength ) {
+      mobileBiomolecule.existenceStrengthProperty.link( function existenceStrengthChangeHandler( existenceStrength ) {
         if ( existenceStrength === 0 ) {
           self.removeMobileBiomolecule( mobileBiomolecule );
-          mobileBiomolecule.existenceStrengthProperty.unlink( this );
+          mobileBiomolecule.existenceStrengthProperty.unlink( existenceStrengthChangeHandler );
         }
       } );
     },

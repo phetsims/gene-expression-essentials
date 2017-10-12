@@ -376,6 +376,17 @@ define( function( require ) {
      * @public
      */
     getProportionOfRnaTranslated: function( ribosome ) {
+      var translatedLength = this.getLengthOfRnaTranslated( ribosome );
+      return Math.max( translatedLength / this.getLength(), 0 );
+    },
+
+    /**
+     * Get the length of the mRNA that has been translated by the given ribosome.
+     * @param {Ribosome} ribosome
+     * @returns {number}
+     * @public
+     */
+    getLengthOfRnaTranslated: function( ribosome ) {
       assert && assert( this.mapRibosomeToShapeSegment[ ribosome.id ] ); // Makes no sense if ribosome isn't attached.
       var translatedLength = 0;
       var segmentInRibosomeChannel = this.mapRibosomeToShapeSegment[ ribosome.id ];
@@ -396,7 +407,7 @@ define( function( require ) {
                           ( segmentInRibosomeChannel.getLowerRightCornerPos().x -
                           segmentInRibosomeChannel.attachmentSite.locationProperty.get().x );
 
-      return Math.max( translatedLength / this.getLength(), 0 );
+      return translatedLength;
     },
 
     /**

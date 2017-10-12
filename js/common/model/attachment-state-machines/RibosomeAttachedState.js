@@ -1,8 +1,8 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state of the RibosomeAttachmentStateMachine. It defined what the ribosome does when attached to mRNA,
- * which is essentially to transcribe it.
+ * One of the states of the RibosomeAttachmentStateMachine. It defines what the ribosome does when attached to mRNA,
+ * which is essentially to translate it.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -20,6 +20,7 @@ define( function( require ) {
 
   // constants
   var RNA_TRANSLATION_RATE = 750; // Picometers per second. // Scalar velocity for transcription.
+  var CLEAR_RNA_ATTACHMENT_LENGTH  = 700; // length which, once translated, a new biomolecule can attach to mRNA
 
   /**
    *
@@ -35,6 +36,7 @@ define( function( require ) {
   geneExpressionEssentials.register( 'RibosomeAttachedState', RibosomeAttachedState );
 
   return inherit( AttachmentState, RibosomeAttachedState, {
+
     /**
      * @override
      * @param {AttachmentStateMachine} asm
@@ -45,14 +47,11 @@ define( function( require ) {
 
       var proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
       var ribosome = this.ribosomeAttachmentStateMachine.ribosome;
-
-      // verify that state is consistent
-      assert && assert( asm.attachmentSite !== null );
-      assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === ribosome );
+      var mRna = ribosome.getMessengerRnaBeingTranslated();
 
       // grow the protein
       proteinBeingSynthesized.setFullSizeProportion(
-        ribosome.getMessengerRnaBeingTranslated().getProportionOfRnaTranslated( ribosome )
+        mRna.getProportionOfRnaTranslated( ribosome )
       );
       this.proteinAttachmentPointScratchVector = ribosome.getProteinAttachmentPoint(
         this.proteinAttachmentPointScratchVector
@@ -61,6 +60,15 @@ define( function( require ) {
         this.proteinAttachmentPointScratchVector.x,
         this.proteinAttachmentPointScratchVector.y
       );
+
+      // if enough translation of the mRNA has occurred, free up the attachment site on the mRNA so that other
+      // biomolecules, such as another ribosome or and mRNA destroyer, can attach
+      if ( asm.attachmentSite &&
+           asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === ribosome &&
+           mRna.getLengthOfRnaTranslated( ribosome ) > CLEAR_RNA_ATTACHMENT_LENGTH ){
+        asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
+        asm.attachmentSite = null;
+      }
 
       // advance the translation of the mRNA
       var translationComplete = ribosome.advanceMessengerRnaTranslation( RNA_TRANSLATION_RATE * dt );

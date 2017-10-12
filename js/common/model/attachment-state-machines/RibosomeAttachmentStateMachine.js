@@ -55,6 +55,21 @@ define( function( require ) {
         this.ribosome.releaseMessengerRna();
       }
       GenericAttachmentStateMachine.prototype.forceImmediateUnattachedAndAvailable.call( this );
+    },
+
+    /**
+     * detach is a little different for a ribosome, since it will likely have moved away from its original attachment
+     * point on the mRNA
+     * @override
+     * @public
+     */
+    detach: function(){
+      if ( this.attachmentSite ){
+        this.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
+        this.attachmentSite = null;
+      }
+      this.forceImmediateUnattachedButUnavailable();
+
     }
   } );
 } );
