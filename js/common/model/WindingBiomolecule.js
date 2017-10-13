@@ -265,10 +265,6 @@ define( function( require ) {
         }
       }
 
-      if ( currentPoint === null ) {
-        console.log( 'No last point.' );
-      }
-
       return currentPoint;
     },
 
@@ -309,7 +305,7 @@ define( function( require ) {
 
         // add new point or points to the end
         var remainingLengthToAdd = length;
-        while ( remainingLengthToAdd > 0 ){
+        while ( remainingLengthToAdd > 0 ) {
           var targetDistanceToPreviousPoint = Math.min( GEEConstants.INTER_POINT_DISTANCE, remainingLengthToAdd );
           this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), targetDistanceToPreviousPoint );
           remainingLengthToAdd -= targetDistanceToPreviousPoint;
@@ -352,13 +348,12 @@ define( function( require ) {
           // point to fall outside of the range, and it won't get positioned.  Which is bad.
           lengthRange = new Range( handledLength, Number.MAX_VALUE );
 
-          // Watch for unexpected conditions and spit out warning if found.
-          var totalShapeSegmentLength = this.getTotalLengthInShapeSegments();
-          if ( Math.abs( this.getLength() - totalShapeSegmentLength ) > 1 ) {
 
-            // If this message appears, something may well be wrong with the way the shape segments are being updated.
-            console.log( ' Warning: Larger than expected difference between mRNA length and shape segment length.' );
-          }
+          // If this assert is hit, something may well be wrong with the way the shape segments are being updated.
+          assert && assert(
+            this.getLength() - this.getTotalLengthInShapeSegments() < 1,
+            'larger than expected difference between mRNA length and shape segment length'
+          );
         }
 
         var firstEnclosedPoint = this.getFirstEnclosedPoint( lengthRange );
@@ -424,14 +419,11 @@ define( function( require ) {
         currentPoint = currentPoint.getNextPointMass();
         xOffset += currentPoint !== null ? currentPoint.getTargetDistanceToPreviousPoint() : 0;
       }
-      if ( currentPoint === null ) {
-        console.log( ' Error: Last point not found when positioning points.' );
-      }
-      else {
 
-        // Position the last point.
-        currentPoint.setPositionXY( origin.x + xOffset, origin.y );
-      }
+      assert && assert( currentPoint !== null, 'error: last point not found when positioning points' )
+
+      // position the last point
+      currentPoint.setPositionXY( origin.x + xOffset, origin.y );
     },
 
     /**
@@ -597,7 +589,7 @@ define( function( require ) {
     setLowerRightPositionXY: function( x, y ) {
       var totalWidth = 0;
       var totalHeight = 0;
-      for ( var i = 0; i < this.shapeSegments.length; i++ ){
+      for ( var i = 0; i < this.shapeSegments.length; i++ ) {
         totalWidth += this.shapeSegments[ i ].bounds.width;
         totalHeight += this.shapeSegments[ i ].bounds.height;
       }
@@ -616,16 +608,16 @@ define( function( require ) {
      * place but the center is actually in the center of the segments.  This is necessary because during translations
      * the segments change shape and can move such that the position is not longer at the center of the shape.
      */
-    recenter: function(){
+    recenter: function() {
       var shapeBounds = this.shapeProperty.get().bounds;
       var adjustmentX = shapeBounds.centerX;
       var adjustmentY = shapeBounds.centerY;
 
       // only readjust if needed
-      if ( adjustmentX !== 0 || adjustmentY !== 0 ){
+      if ( adjustmentX !== 0 || adjustmentY !== 0 ) {
 
         // adjust the shape segments
-        for ( var i = 0; i < this.shapeSegments.length; i++ ){
+        for ( var i = 0; i < this.shapeSegments.length; i++ ) {
           var shapeSegment = this.shapeSegments[ i ];
           var upperLeftCornerPosition = shapeSegment.getUpperLeftCornerPosition();
           shapeSegment.setUpperLeftCornerPositionXY(
@@ -647,10 +639,11 @@ define( function( require ) {
      * @protected
      */
     realignSegmentsFrom: function( segmentToAlignFrom ) {
-      if ( this.shapeSegments.indexOf( segmentToAlignFrom ) === -1 ) {
-        console.log( ' Warning: Ignoring attempt to align to segment that is not on the list.' );
-        return;
-      }
+
+      assert && assert(
+        this.shapeSegments.indexOf( segmentToAlignFrom ) !== -1,
+        'attempt to align to segment that is not on the list'
+      );
 
       // Align segments that follow this one.
       var currentSegment = segmentToAlignFrom;

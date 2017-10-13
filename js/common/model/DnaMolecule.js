@@ -791,12 +791,15 @@ define( function( require ) {
      * @public
      */
     getGeneAtLocation: function( location ) {
-      if ( !( location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&
-              location.y >= GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2 &&
-              location.y <= GEEConstants.DNA_MOLECULE_Y_POS + GEEConstants.DNA_MOLECULE_DIAMETER / 2 ) ) {
-        console.log( ' - Warning: Location for gene test is not on DNA molecule.' );
-        return null;
-      }
+
+      // make sure the location is reasonable
+      assert && assert(
+      location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&
+      location.y >= GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2 &&
+      location.y <= GEEConstants.DNA_MOLECULE_Y_POS + GEEConstants.DNA_MOLECULE_DIAMETER / 2,
+        'requested location is not on DNA molecule: ' + location
+      );
+
       var geneAtLocation = null;
       var basePairIndex = this.getBasePairIndexFromXOffset( location.x );
       this.genes.forEach( function( gene ) {

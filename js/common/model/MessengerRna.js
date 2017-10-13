@@ -172,10 +172,10 @@ define( function( require ) {
     advanceDestruction: function( length ) {
 
       // Error checking.
-      if ( this.segmentBeingDestroyed === null ) {
-        console.log( ' - Warning: Attempt to advance the destruction of mRNA that has no content left.' );
-        return true;
-      }
+      assert && assert(
+        this.segmentBeingDestroyed !== null,
+        'error - attempt to advance the destruction of mRNA that has no content left'
+      );
 
       // Advance the destruction by reducing the length of the mRNA.
       this.reduceLength( length );

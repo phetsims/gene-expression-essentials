@@ -73,22 +73,20 @@ define( function( require ) {
      */
     generateRandomLocationInBounds: function( destinationZones, bounds ) {
 
-      // Randomly choose one of the destination zones.
-      var index = phet.joist.random.nextInt( destinationZones.length );
-      var destinationBounds = destinationZones[ index ];
+      // randomly choose one of the destination zones
+      var destinationBounds = phet.joist.random.sample( destinationZones );
 
-      // Generate a random valid location within the chosen zone.
+      // generate a random valid location within the chosen zone
       var reducedBoundsWidth = destinationBounds.getWidth() - bounds.getWidth();
       var reducedBoundsHeight = destinationBounds.getHeight() - bounds.getHeight();
-      if ( reducedBoundsWidth <= 0 || reducedBoundsHeight <= 0 ) {
-        console.log( ' - Warning: Bounds cannot contain shape.' );
-        return new Vector2( destinationBounds.getCenterX(), destinationBounds.getCenterY() );
-      }
-      else {
-        return new Vector2(
-          destinationBounds.x + bounds.getWidth() / 2 + phet.joist.random.nextDouble() * reducedBoundsWidth,
-          destinationBounds.y + bounds.getHeight() / 2 + phet.joist.random.nextDouble() * reducedBoundsHeight );
-      }
+      assert && assert(
+      reducedBoundsWidth > 0 && reducedBoundsHeight > 0,
+        'earning: bounds cannot contain shape'
+      );
+      return new Vector2(
+        destinationBounds.x + bounds.getWidth() / 2 + phet.joist.random.nextDouble() * reducedBoundsWidth,
+        destinationBounds.y + bounds.getHeight() / 2 + phet.joist.random.nextDouble() * reducedBoundsHeight
+      );
     },
 
     /**

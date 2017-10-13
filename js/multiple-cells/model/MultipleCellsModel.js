@@ -215,12 +215,15 @@ define( function( require ) {
       }
     },
 
-    // @private - Find a location for the given cell that doesn't overlap with other cells on the list.
+  /**
+   * find a location for the given cell that doesn't overlap with other cells on the list
+   * @private
+   */
     placeCellInOpenLocation: function( cell ) {
+
       // Loop, randomly generating positions of increasing distance from the center, until the cell is positioned in a
       // place that does not overlap with the existing cells. The overall bounding shape of the collection of cells is
       // elliptical, not circular.
-
       for ( var i = 0; i < Math.ceil( Math.sqrt( this.cellList.length ) ); i++ ) {
         var radius = ( i + 1 ) * Cell.DefaultCellSize.width * ( this.positionRandomizer.nextDouble() / 2 + .75 );
         for ( var j = 0; j < radius * Math.PI / ( Cell.DefaultCellSize.height * 2 ); j++ ) {
@@ -247,7 +250,7 @@ define( function( require ) {
           }
         }
       }
-      console.log( 'Warning: Exiting placement loop without having found open location.' );
+      assert && assert( false, 'exited placement loop without having found open location' );
     }
   }, {
 

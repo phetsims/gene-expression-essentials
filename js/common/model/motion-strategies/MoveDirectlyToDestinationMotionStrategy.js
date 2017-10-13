@@ -105,47 +105,50 @@ define( function( require ) {
      * @public
      */
     getNextLocation3D: function( currentLocation3D, bounds, dt ) {
-      // Destination is assumed to always have a Z value of 0, i.e. at the "surface".
-      var currentDestination3D = new Vector3( this.destinationProperty.get().x - this.offsetFromDestinationProperty.x,
-        this.destinationProperty.get().y - this.offsetFromDestinationProperty.y,
-        0 );
-      var currentDestination2D = new Vector2( this.destinationProperty.get().x - this.offsetFromDestinationProperty.x,
-        this.destinationProperty.get().y - this.offsetFromDestinationProperty.y );
-      var currentLocation2D = new Vector2( currentLocation3D.x, currentLocation3D.y );
-      this.updateVelocityVector2D( currentLocation2D,
-        new Vector2( currentDestination3D.x, currentDestination3D.y ),
-        this.scalarVelocity2D );
 
-      // Make the Z velocity such that the front (i.e. z = 0) will be reached at the same time as the destination in XY space.
+      // destination is assumed to always have a Z value of 0, i.e. at the "surface"
+      var currentDestination3D = new Vector3(
+        this.destinationProperty.get().x - this.offsetFromDestinationProperty.x,
+        this.destinationProperty.get().y - this.offsetFromDestinationProperty.y,
+        0
+      );
+      var currentDestination2D = new Vector2(
+        this.destinationProperty.get().x - this.offsetFromDestinationProperty.x,
+        this.destinationProperty.get().y - this.offsetFromDestinationProperty.y
+      );
+      var currentLocation2D = new Vector2( currentLocation3D.x, currentLocation3D.y );
+      this.updateVelocityVector2D(
+        currentLocation2D,
+        new Vector2( currentDestination3D.x, currentDestination3D.y ),
+        this.scalarVelocity2D
+      );
+
+      // make the Z velocity such that the front (i.e. z = 0) will be reached at the same time as the destination in XY
+      // space
       var distanceToDestination2D = currentLocation2D.distance( this.destinationProperty.get() );
       var zVelocity;
       if ( distanceToDestination2D > 0 ) {
-        zVelocity = Math.min( Math.abs( currentLocation3D.z ) / ( currentLocation2D.distance(
-            this.destinationProperty.get() )                      / this.scalarVelocity2D ), MAX_Z_VELOCITY );
+        zVelocity = Math.min(
+          Math.abs( currentLocation3D.z ) / ( currentLocation2D.distance( this.destinationProperty.get() ) / this.scalarVelocity2D ),
+          MAX_Z_VELOCITY
+        );
       }
       else {
         zVelocity = MAX_Z_VELOCITY;
       }
 
-      // Make sure that current motion will not cause the model element to move outside of the motion bounds.
-      if ( this.motionBounds.inBounds( bounds ) && !this.motionBounds.testIfInMotionBoundsWithDelta( bounds, this.velocityVector2D, dt ) ) {
-
-        // Not sure what to do in this case, where the destination causes some portion of the shape to go out of bounds.
-        // For now, just issue a warning an allow it to happen.
-        console.log( 'MoveDirectlyToDestinationMotionStrategy - Warning: ' +
-                     'Destination is causing some portion of shape to move out of bounds.' );
-      }
-
-      // Make sure that the current motion won't move the model element past the destination.
+      // make sure that the current motion won't move the model element past the destination
       var distanceToDestination = currentLocation2D.distance( currentDestination2D );
       if ( this.velocityVector2D.magnitude() * dt > distanceToDestination ) {
         return currentDestination3D;
       }
 
-      // Calculate the next location based on the motion vector.
-      return new Vector3( currentLocation3D.x + this.velocityVector2D.x * dt,
+      // calculate the next location based on the motion vector
+      return new Vector3(
+        currentLocation3D.x + this.velocityVector2D.x * dt,
         currentLocation3D.y + this.velocityVector2D.y * dt,
-        Util.clamp( currentLocation3D.z + zVelocity * dt, -1, 0 ) );
+        Util.clamp( currentLocation3D.z + zVelocity * dt, -1, 0 )
+      );
     }
   } );
 } );
