@@ -273,21 +273,24 @@ define( function( require ) {
       var attachmentLocation;
       var mRnaPosition = this.positionProperty.get();
       var segment = this.mapRibosomeToShapeSegment[ ribosome.id ];
+      var segmentCornerPosition;
       if ( this.getPreviousShapeSegment( segment ) === null ) {
 
         // There is no previous segment, which means that the segment to which this ribosome is attached is the leader
         // segment. The attachment point is thus the leader length from its rightmost edge.
-        attachmentLocation = new Vector2(
-          mRnaPosition.x + segment.getLowerRightCornerPosition().x - GEEConstants.LEADER_LENGTH,
-          mRnaPosition.y + segment.getLowerRightCornerPosition().y
+        segmentCornerPosition = segment.getLowerRightCornerPosition();
+        attachmentLocation = mRnaPosition.plusXY(
+          segmentCornerPosition.x - GEEConstants.LEADER_LENGTH,
+          segmentCornerPosition.y
         );
       }
       else {
 
         // The segment has filled up the channel, so calculate the position based on its left edge.
-        attachmentLocation = new Vector2(
-          mRnaPosition.x + segment.getUpperLeftCornerPosition().x + ribosome.getTranslationChannelLength(),
-          mRnaPosition.y + segment.getUpperLeftCornerPosition().y
+        segmentCornerPosition = segment.getUpperLeftCornerPosition();
+        attachmentLocation = mRnaPosition.plusXY(
+          segmentCornerPosition.x + ribosome.getTranslationChannelLength(),
+          segmentCornerPosition.y
         );
       }
       return attachmentLocation;
@@ -499,7 +502,7 @@ define( function( require ) {
      * @public
      */
     getDestroyerAttachmentLocation: function() {
-      
+
       // state checking - shouldn't be called before this is set
       assert && assert( this.segmentBeingDestroyed !== null );
 
