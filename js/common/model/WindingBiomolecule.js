@@ -19,7 +19,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   var PointMass = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PointMass' );
-  var Random = require( 'DOT/Random' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -28,14 +27,14 @@ define( function( require ) {
   // used for the fill. This enables reuse of generic biomolecule classes.
   var NOMINAL_COLOR = new Color( 0, 0, 0, 0 );
 
-  // parameters that control how the winding biomolecule wind. NOTE: The different variations of winding parameters
+  // Parameters that control how the winding biomolecule winds. NOTE: The different variations of winding parameters
   // were added in an effort to come to some consensus about how the mRNA should look for the various genes.  In the
-  // end, a single set was chosen, but I (jbphet) have left the other ones here in case this question ever comes up
-  // again so that we don't have to "rediscover" parameters that look reasonably good.
+  // end, a single set was chosen, but I (jbphet) have left the other parameter sets here in case this question ever
+  // comes up again so that we don't have to "rediscover" parameters that look reasonably good.
   var WINDING_PARAMS = [
 
     {
-      // straight line
+      // straight line - generally only used for debug
       yWave1Frequency: 0,
       yWave1PhaseOffset: 0,
       yWave1Multiplier: 0,
@@ -179,11 +178,6 @@ define( function( require ) {
 
   ];
 
-  // reusable vectors, pre-allocated for better performance
-  var vectorToPreviousPoint = new Vector2( 0, 0 );
-  var vectorToNextPoint = new Vector2( 0, 0 );
-  var dampingForce = new Vector2( 0, 0 );
-
   /**
    * @param {GeneExpressionModel} model
    * @param {Shape} initialShape
@@ -223,95 +217,6 @@ define( function( require ) {
     dispose: function() {
       this.shapeSegments.length = 0;
       MobileBiomolecule.prototype.dispose.call( this );
-    },
-
-    /**
-     * Position a set of points within a rectangle. The first point stays at the upper left, the last point stays at the
-     * lower right, and the points in between are initially positioned randomly, then a spring algorithm is run to
-     * position them such that each point is the appropriate distance from the previous and next points.
-     * @param {PointMass} firstPoint
-     * @param {PointMass} lastPoint
-     * @param {Bounds2} bounds
-     * @private
-     */
-    runSpringAlgorithm: function( firstPoint, lastPoint, bounds ) {
-
-      if ( firstPoint === null ) {
-
-        // Defensive programming.
-        return;
-      }
-
-      // Position the first point at the upper left.
-      firstPoint.setPositionXY( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
-      if ( firstPoint === lastPoint ) {
-        // Nothing more to do.
-        return;
-      }
-
-      // Position the last point at the lower right.
-      lastPoint.setPositionXY( bounds.getMaxX(), bounds.getMinY() );
-
-      // Run an algorithm that treats each pair of points as though there is a spring between them, but doesn't allow the
-      // first or last points to be moved.
-      var currentPoint = firstPoint;
-      while ( currentPoint !== null ) {
-        currentPoint.clearVelocity();
-        currentPoint = currentPoint.getNextPointMass();
-      }
-
-      var springConstant = 2; // In Newtons/m
-      var dampingConstant = 1;
-      var pointMass = PointMass.MASS;
-      var dt = 0.025; // In seconds. Fixed time-step is used to have consistency in the MRNA shape
-      var numUpdates = 20;
-
-      for ( var i = 0; i < numUpdates; i++ ) {
-        var previousPoint = firstPoint;
-        currentPoint = firstPoint.getNextPointMass();
-        while ( currentPoint !== null ) {
-          if ( currentPoint.getNextPointMass() !== null ) {
-            var nextPoint = currentPoint.getNextPointMass();
-
-            // This is not the last point on the list, so go ahead and run the spring algorithm on it.
-            var previousPointPosition = previousPoint.getPosition();
-            var currentPointPosition = currentPoint.getPosition();
-            var nextPointPosition = nextPoint.getPosition();
-            var currentPointVelocity = currentPoint.getVelocity();
-
-            vectorToPreviousPoint.setXY( previousPointPosition.x - currentPointPosition.x, previousPointPosition.y - currentPointPosition.y );
-
-            if ( vectorToPreviousPoint.magnitude() === 0 ) {
-
-              // This point is sitting on top of the previous point, so create an arbitrary vector away from it.
-              vectorToPreviousPoint.setXY( 1, 1 );
-            }
-            var scalarForceDueToPreviousPoint = ( -springConstant ) * ( currentPoint.getTargetDistanceToPreviousPoint() - currentPoint.distance( previousPoint ) );
-            var forceDueToPreviousPoint = vectorToPreviousPoint.normalize().multiply( scalarForceDueToPreviousPoint );
-
-            vectorToNextPoint.setXY( nextPointPosition.x - currentPointPosition.x, nextPointPosition.y - currentPointPosition.y );
-
-            if ( vectorToNextPoint.magnitude() === 0 ) {
-
-              // This point is sitting on top of the next point, so create an arbitrary vector away from it.
-              vectorToNextPoint.setXY( -1, -1 );
-            }
-
-            var scalarForceDueToNextPoint = ( -springConstant ) * ( currentPoint.getTargetDistanceToPreviousPoint() - currentPoint.distance( nextPoint ) );
-            var forceDueToNextPoint = vectorToNextPoint.normalize().multiply( scalarForceDueToNextPoint );
-
-            dampingForce.setXY( currentPointVelocity.x * -dampingConstant, currentPointVelocity.y * -dampingConstant );
-            var totalForce = forceDueToPreviousPoint.add( forceDueToNextPoint ).add( dampingForce );
-            var acceleration = totalForce.multiply( 1 / pointMass );
-
-            //var acceleration = totalForce.timesScalar( 1 / pointMass ); // The acceleration vector is used internally by currentPoit, so cant reuse a scratch instance
-            currentPoint.setAcceleration( acceleration );
-            currentPoint.update( dt );
-          }
-          previousPoint = currentPoint;
-          currentPoint = currentPoint.getNextPointMass();
-        }
-      }
     },
 
     /**
@@ -530,143 +435,7 @@ define( function( require ) {
     },
 
     /**
-     * Randomly position a set of points inside a rectangle. The first point is positioned at the upper left, the last at
-     * the lower right, and all points in between are randomly placed.
-     *
-     * @param {PointMass} firstPoint
-     * @param {PointMass} lastPoint
-     * @param {Rectangle} bounds
-     * @private
-     */
-    randomizePointPositionsInRectangle: function( firstPoint, lastPoint, bounds ) {
-
-      if ( firstPoint === null ) {
-        // Defensive programming.
-        return;
-      }
-
-      // Position the first point at the upper left.
-      firstPoint.setPositionXY( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
-      if ( firstPoint === lastPoint ) {
-        // Nothing more to do.
-        return;
-      }
-
-      // Position the last point at the lower right.
-      lastPoint.setPositionXY( bounds.getMaxX(), bounds.getMinY() );
-
-      var seededRandom = new Random( {
-        seed: 8
-      } );
-      var currentPoint = firstPoint;
-      do {
-
-        // Randomly position the points within the segment.
-        currentPoint.setPosition(
-          bounds.getMinX() + seededRandom.nextDouble() * bounds.getWidth(),
-          bounds.getMinY() + (seededRandom.nextDouble()) * bounds.getHeight()
-        );
-        currentPoint = currentPoint.getNextPointMass();
-      } while ( currentPoint !== lastPoint && currentPoint !== null );
-    },
-
-    /**
-     * TODO: This is probably temporary, document if retained.
-     *
-     * @param {PointMass} firstPoint
-     * @param {PointMass} lastPoint
-     * @param {Rectangle} bounds
-     * @private
-     */
-    positionPointsFromUpperLeftToLowerRight: function( firstPoint, lastPoint, bounds ) {
-
-      if ( firstPoint === null ) {
-
-        // Defensive programming.
-        return;
-      }
-
-      // Position the first point at the upper left.
-      firstPoint.setPositionXY( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
-      if ( firstPoint === lastPoint ) {
-
-        // Nothing more to do.
-        return;
-      }
-
-      // for easier manipulation, make a list of all of the points in order from first to last
-      var points = [];
-      var currentPoint = firstPoint;
-      points.push( currentPoint );
-      while ( currentPoint !== lastPoint ) {
-        currentPoint = currentPoint.getNextPointMass();
-        points.push( currentPoint );
-      }
-
-      // position the points in a line from top to bottom using a C-style loop for best performance
-      var nextPointPosition = new Vector2( bounds.minX, bounds.maxY );
-      var interPointXDistance = bounds.width / ( points.length - 1 );
-      var interPointYDistance = -bounds.height / ( points.length - 1 );
-      for ( var i = 0; i < points.length; i++ ) {
-        points[ i ].setPositionXY( nextPointPosition.x, nextPointPosition.y );
-        nextPointPosition.addXY( interPointXDistance, interPointYDistance );
-      }
-    },
-
-    /**
-     * TODO: This is probably temporary, document and clean up if retained.
-     *
-     * @param {PointMass} firstPoint
-     * @param {PointMass} lastPoint
-     * @param {Rectangle} bounds
-     * @private
-     */
-    positionPointsAsTiltedSineWave: function( firstPoint, lastPoint, bounds ) {
-
-      if ( firstPoint === null ) {
-
-        // Defensive programming.
-        return;
-      }
-
-      // Position the first point at the upper left.
-      firstPoint.setPositionXY( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
-      if ( firstPoint === lastPoint ) {
-
-        // Nothing more to do.
-        return;
-      }
-
-      // for easier manipulation, make a list of all of the points in order from first to last
-      var points = [];
-      var currentPoint = firstPoint;
-      points.push( currentPoint );
-      while ( currentPoint !== lastPoint ) {
-        currentPoint = currentPoint.getNextPointMass();
-        points.push( currentPoint );
-      }
-
-      // position the points in a sine wave tilted from top to bottom using a C-style loop for best performance
-      var nextLinearPosition = new Vector2( bounds.minX, bounds.maxY );
-      var interPointXDistance = bounds.width / ( points.length - 1 );
-      var interPointYDistance = -bounds.height / ( points.length - 1 );
-      var totalDistanceTraversed = 0;
-      var totalDistancePerStep = Math.sqrt( interPointXDistance * interPointXDistance +
-                                            interPointYDistance * interPointYDistance );
-      var mRnaWavinessFactor = Math.PI / 100; // TODO: make this a constant if retained
-      var offsetFromLine = new Vector2;
-      for ( var i = 0; i < points.length; i++ ) {
-        offsetFromLine.setXY( Math.sin( totalDistanceTraversed * mRnaWavinessFactor ) * 50, 0 );
-        offsetFromLine.rotate( Math.PI / 4 );
-        points[ i ].setPositionXY( nextLinearPosition.x + offsetFromLine.x, nextLinearPosition.y + offsetFromLine.y );
-        nextLinearPosition.addXY( interPointXDistance, interPointYDistance );
-        totalDistanceTraversed += totalDistancePerStep;
-      }
-    },
-
-    /**
-     * TODO: This is probably temporary, document and clean up if retained.
-     *
+     * position the points that define the shape of the strand using a combination of sine waves
      * @param {PointMass} firstPoint
      * @param {PointMass} lastPoint
      * @param {Rectangle} bounds
