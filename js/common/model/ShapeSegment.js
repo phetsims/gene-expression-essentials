@@ -68,7 +68,7 @@ define( function( require ) {
      * @returns {Vector2}
      * @public
      */
-    getLowerRightCornerPos: function() {
+    getLowerRightCornerPosition: function() {
       return new Vector2( this.bounds.getMaxX(), this.bounds.getMinY() );
     },
 
@@ -78,7 +78,7 @@ define( function( require ) {
      * @param {number} y
      * @public
      */
-    setLowerRightCornerPos: function( x, y ) {
+    setLowerRightCornerPositionXY: function( x, y ) {
       this.bounds.setMinMax( x - this.bounds.width, y, x, y + this.bounds.height );
       this.updateAttachmentSiteLocation();
     },
@@ -87,8 +87,8 @@ define( function( require ) {
      * @param {Vector2} p
      * @public
      */
-    setLowerRightCornerPosByVector: function( p ) {
-      this.setLowerRightCornerPos( p.x, p.y );
+    setLowerRightCornerPosition: function( p ) {
+      this.setLowerRightCornerPositionXY( p.x, p.y );
     },
 
     /**
@@ -96,7 +96,7 @@ define( function( require ) {
      * @returns {Vector2}
      * @public
      */
-    getUpperLeftCornerPos: function() {
+    getUpperLeftCornerPosition: function() {
       return new Vector2( this.bounds.getMinX(), this.bounds.getMaxY() );
     },
 
@@ -106,7 +106,7 @@ define( function( require ) {
      * @param {number} y
      * @public
      */
-    setUpperLeftCornerPosition: function( x, y ) {
+    setUpperLeftCornerPositionXY: function( x, y ) {
       this.bounds.setMinMax( x, y - this.bounds.height, x + this.bounds.width, y );
       this.updateAttachmentSiteLocation();
     },
@@ -145,7 +145,7 @@ define( function( require ) {
      * @public
      */
     updateAttachmentSiteLocation: function() {
-      this.attachmentSite.locationProperty.set( this.getUpperLeftCornerPos() );
+      this.attachmentSite.locationProperty.set( this.getUpperLeftCornerPosition() );
     },
 
     /**

@@ -178,7 +178,7 @@ define( function( require ) {
     } );
 
     nextGeneButton.x = this.layoutBounds.width - nextGeneButton.width - 20;
-    nextGeneButton.y = this.modelViewTransform.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
+    nextGeneButton.y = this.modelViewTransform.modelToViewY( model.getDnaMolecule().getLeftEdgePosition().y ) + 90;
 
     // add buttons for moving to previous gene
     var previousGeneButtonContent = new HBox( {
@@ -206,7 +206,7 @@ define( function( require ) {
     } );
 
     previousGeneButton.x = 20;
-    previousGeneButton.y = this.modelViewTransform.modelToViewY( model.getDnaMolecule().getLeftEdgePos().y ) + 90;
+    previousGeneButton.y = this.modelViewTransform.modelToViewY( model.getDnaMolecule().getLeftEdgePosition().y ) + 90;
 
     // set the position of model root node based on first gene
     this.modelRootNode.x = -this.modelViewTransform.modelToViewX( model.dnaMolecule.getGenes()[ 0 ].getCenterX() )

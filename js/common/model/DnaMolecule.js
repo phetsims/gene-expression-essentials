@@ -211,10 +211,10 @@ define( function( require ) {
 
         var separationWindowXIndexRange = new Range(
           Math.floor(
-            ( separation.getXPos() - ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS
+            ( separation.getXPosition() - ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS
           ),
           Math.floor(
-            ( separation.getXPos() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS
+            ( separation.getXPosition() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS
           )
         );
         for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
@@ -399,7 +399,7 @@ define( function( require ) {
      * @returns {Vector2}
      * @public
      */
-    getLeftEdgePos: function() {
+    getLeftEdgePosition: function() {
       return new Vector2( this.leftEdgeXOffset, GEEConstants.DNA_MOLECULE_Y_POS );
     },
 
@@ -408,7 +408,7 @@ define( function( require ) {
      * @returns {number}
      * @public
      */
-    getLeftEdgeXPos: function() {
+    getLeftEdgeXPosition: function() {
       return this.leftEdgeXOffset;
     },
 
@@ -417,7 +417,7 @@ define( function( require ) {
      * @returns {number}
      * @public
      */
-    getRightEdgeXPos: function() {
+    getRightEdgeXPosition: function() {
       return this.strandPoints[ this.strandPoints.length - 1 ].xPos;
     },
 
@@ -426,7 +426,7 @@ define( function( require ) {
      * @returns {number}
      * @public
      */
-    getTopEdgeYPos: function() {
+    getTopEdgeYPosition: function() {
       var dnaStrand = this.strand1Segments[ 0 ];
       var index = Math.floor( dnaStrand.length / 2 );
       return dnaStrand[ index ].y;
@@ -437,7 +437,7 @@ define( function( require ) {
      * @returns {number}
      * @public
      */
-    getBottomEdgeYPos: function() {
+    getBottomEdgeYPosition: function() {
       // assert statement here
       var dnaStrand = this.strand1Segments[ 1 ];
       var index = Math.floor( dnaStrand.length / 2 );

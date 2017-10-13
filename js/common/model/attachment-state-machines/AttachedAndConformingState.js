@@ -75,7 +75,7 @@ define( function( require ) {
       asm.biomolecule.movableByUserProperty.set( false );
 
       // Insert the DNA strand separator.
-      dnaStrandSeparation.setXPos( rnaPolymerase.getPosition().x );
+      dnaStrandSeparation.setXPosition( rnaPolymerase.getPosition().x );
       rnaPolymerase.getModel().getDnaMolecule().addSeparation( dnaStrandSeparation );
       this.conformationalChangeAmount = 0;
     }

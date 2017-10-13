@@ -155,7 +155,7 @@ define( function( require ) {
      * @returns {Vector2}
      * @public
      */
-    getEntranceOfRnaChannelPos: function() {
+    getEntranceOfRnaChannelPosition: function() {
       return this.getPosition().plus( OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
     },
 

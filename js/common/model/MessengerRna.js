@@ -278,16 +278,16 @@ define( function( require ) {
         // There is no previous segment, which means that the segment to which this ribosome is attached is the leader
         // segment. The attachment point is thus the leader length from its rightmost edge.
         attachmentLocation = new Vector2(
-          mRnaPosition.x + segment.getLowerRightCornerPos().x - GEEConstants.LEADER_LENGTH,
-          mRnaPosition.y + segment.getLowerRightCornerPos().y
+          mRnaPosition.x + segment.getLowerRightCornerPosition().x - GEEConstants.LEADER_LENGTH,
+          mRnaPosition.y + segment.getLowerRightCornerPosition().y
         );
       }
       else {
 
         // The segment has filled up the channel, so calculate the position based on its left edge.
         attachmentLocation = new Vector2(
-          mRnaPosition.x + segment.getUpperLeftCornerPos().x + ribosome.getTranslationChannelLength(),
-          mRnaPosition.y + segment.getUpperLeftCornerPos().y
+          mRnaPosition.x + segment.getUpperLeftCornerPosition().x + ribosome.getTranslationChannelLength(),
+          mRnaPosition.y + segment.getUpperLeftCornerPosition().y
         );
       }
       return attachmentLocation;
@@ -404,7 +404,7 @@ define( function( require ) {
 
       // Add the length for the segment that is inside the translation channel of this ribosome.
       translatedLength += segmentInRibosomeChannel.getContainedLength() -
-                          ( segmentInRibosomeChannel.getLowerRightCornerPos().x -
+                          ( segmentInRibosomeChannel.getLowerRightCornerPosition().x -
                           segmentInRibosomeChannel.attachmentSite.locationProperty.get().x );
 
       return translatedLength;
@@ -425,7 +425,7 @@ define( function( require ) {
 
         // See if the attachment site at the leading edge of the mRNA is available and close by.
         if ( this.attachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
-             this.attachmentSite.locationProperty.get().distance( ribosome.getEntranceOfRnaChannelPos() ) < RIBOSOME_CONNECTION_DISTANCE ) {
+             this.attachmentSite.locationProperty.get().distance( ribosome.getEntranceOfRnaChannelPosition() ) < RIBOSOME_CONNECTION_DISTANCE ) {
 
           // This attachment site is in range and available.
           returnValue = this.attachmentSite;

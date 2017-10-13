@@ -95,7 +95,7 @@ define( function( require ) {
      * @public
      */
     setPosition: function( newPos ) {
-      this.setPositionByXY( newPos.x, newPos.y );
+      this.setPositionXY( newPos.x, newPos.y );
     },
 
     /**
@@ -104,7 +104,7 @@ define( function( require ) {
      * @param  {number} y
      * @public
      */
-    setPositionByXY: function( x, y ) {
+    setPositionXY: function( x, y ) {
 
       // in order to reduce allocations of vectors, set the value in the property and then force notifications
       this.positionProperty.set( new Vector2( x, y ) );

@@ -66,13 +66,13 @@ define( function( require ) {
 
       // Grow the messenger RNA and position it to be attached to the polymerase.
       this.messengerRna.addLength( TRANSCRIPTION_VELOCITY * MRNA_GROWTH_FACTOR * dt );
-      this.messengerRna.setLowerRightPosition(
+      this.messengerRna.setLowerRightPositionXY(
         rnaPolymerase.getPosition().x + rnaPolymerase.messengerRnaGenerationOffset.x,
         rnaPolymerase.getPosition().y + rnaPolymerase.messengerRnaGenerationOffset.y
       );
 
       // Move the DNA strand separator.
-      dnaStrandSeparation.setXPos( rnaPolymerase.getPosition().x );
+      dnaStrandSeparation.setXPosition( rnaPolymerase.getPosition().x );
 
       // Check for molecules that are in the way.
       var molecules = asm.biomolecule.getModel().getOverlappingBiomolecules( asm.biomolecule.bounds );

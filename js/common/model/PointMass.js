@@ -48,20 +48,17 @@ define( function( require ) {
      * @param {number} y
      * @public
      */
-    setPosition: function( x, y ) {
-      if ( _.isFinite( x.x ) ) {
-        return this.setPositionByVector( x );
-      }
+    setPositionXY: function( x, y ) {
+      assert && assert( arguments.length === 2, 'incorrect number of arguments: ' + arguments.length );
       this.position.setXY( x, y );
-
     },
 
     /**
      * @param {Vector2} position
      * @public
      */
-    setPositionByVector: function( position ) {
-      this.setPosition( position.x, position.y );
+    setPosition: function( position ) {
+      this.setPositionXY( position.x, position.y );
     },
 
     /**
@@ -152,7 +149,7 @@ define( function( require ) {
      * @public
      */
     translate: function( x, y ) {
-      this.setPosition( this.position.x + x, this.position.y + y );
+      this.setPositionXY( this.position.x + x, this.position.y + y );
     },
 
     /**

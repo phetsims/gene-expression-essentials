@@ -58,7 +58,7 @@ define( function( require ) {
 
         // This segment can't hold the specified length. Add a new square segment to the end of the segment list and put
         // the excess in there.
-        var newSquareSegment = new SquareSegment( this.owner, this.getLowerRightCornerPos() );
+        var newSquareSegment = new SquareSegment( this.owner, this.getLowerRightCornerPosition() );
         growthAmount = this.capacity - this.getContainedLength(); // Clamp growth at remaining capacity.
         newSquareSegment.add( length - growthAmount, windingBiomolecule, shapeSegmentList );
         windingBiomolecule.insertAfterShapeSegment( this, newSquareSegment );
@@ -131,7 +131,7 @@ define( function( require ) {
 
             assert && assert( outputSegment === null );
 
-            var newLeaderSegment = new FlatSegment( this.owner, this.getUpperLeftCornerPos() );
+            var newLeaderSegment = new FlatSegment( this.owner, this.getUpperLeftCornerPosition() );
             newLeaderSegment.setCapacity( GEEConstants.LEADER_LENGTH );
             windingBiomolecule.insertBeforeShapeSegment( this, newLeaderSegment );
             outputSegment = newLeaderSegment;

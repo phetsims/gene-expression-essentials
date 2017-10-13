@@ -45,7 +45,7 @@ define( function( require ) {
     Node.call( this );
 
     var highlightHeight = -modelViewTransform.modelToViewDeltaY( GEEConstants.DNA_MOLECULE_DIAMETER * 1.5 );
-    var highlightStartY = modelViewTransform.modelToViewY( dnaMolecule.getLeftEdgePos().y ) - highlightHeight / 2;
+    var highlightStartY = modelViewTransform.modelToViewY( dnaMolecule.getLeftEdgePosition().y ) - highlightHeight / 2;
 
     // Add the highlight for the regulatory region.
     var regRegionHighlightStartX = modelViewTransform.modelToViewX(

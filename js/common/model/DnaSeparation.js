@@ -33,7 +33,7 @@ define( function( require ) {
      * @returns {number}
      * @public
      */
-    getXPos: function() {
+    getXPosition: function() {
       return this.xPos;
     },
 
@@ -41,7 +41,7 @@ define( function( require ) {
      * @param {number} xPos
      * @public
      */
-    setXPos: function( xPos ) {
+    setXPosition: function( xPos ) {
       this.xPos = xPos;
     },
 

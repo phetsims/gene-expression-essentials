@@ -39,10 +39,10 @@ define( function( require ) {
     // Layers for supporting the 3D look by allowing the "twist" to be depicted.
     this.dnaBackboneLayer = new DnaMoleculeCanvasNode( dnaMolecule, modelViewTransform, backboneStrokeWidth, {
       canvasBounds: new Bounds2(
-        dnaMolecule.getLeftEdgeXPos(),
-        dnaMolecule.getBottomEdgeYPos() + modelViewTransform.viewToModelDeltaY( 10 ),
-        dnaMolecule.getRightEdgeXPos(),
-        dnaMolecule.getTopEdgeYPos() - modelViewTransform.viewToModelDeltaY( 10 )
+        dnaMolecule.getLeftEdgeXPosition(),
+        dnaMolecule.getBottomEdgeYPosition() + modelViewTransform.viewToModelDeltaY( 10 ),
+        dnaMolecule.getRightEdgeXPosition(),
+        dnaMolecule.getTopEdgeYPosition() - modelViewTransform.viewToModelDeltaY( 10 )
       ),
       matrix: modelViewTransform.getMatrix()
     } );

@@ -243,14 +243,14 @@ define( function( require ) {
       }
 
       // Position the first point at the upper left.
-      firstPoint.setPosition( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
+      firstPoint.setPositionXY( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
       if ( firstPoint === lastPoint ) {
         // Nothing more to do.
         return;
       }
 
       // Position the last point at the lower right.
-      lastPoint.setPosition( bounds.getMaxX(), bounds.getMinY() );
+      lastPoint.setPositionXY( bounds.getMaxX(), bounds.getMinY() );
 
       // Run an algorithm that treats each pair of points as though there is a spring between them, but doesn't allow the
       // first or last points to be moved.
@@ -466,7 +466,7 @@ define( function( require ) {
         else if ( shapeSegment.isFlat() ) {
 
           // Position the contained points in a flat line.
-          this.positionPointsInLine( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getUpperLeftCornerPos() );
+          this.positionPointsInLine( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getUpperLeftCornerPosition() );
         }
         else {
 
@@ -515,7 +515,7 @@ define( function( require ) {
       var currentPoint = firstPoint;
       var xOffset = 0;
       while ( currentPoint !== lastPoint && currentPoint !== null ) {
-        currentPoint.setPosition( origin.x + xOffset, origin.y );
+        currentPoint.setPositionXY( origin.x + xOffset, origin.y );
         currentPoint = currentPoint.getNextPointMass();
         xOffset += currentPoint !== null ? currentPoint.getTargetDistanceToPreviousPoint() : 0;
       }
@@ -525,7 +525,7 @@ define( function( require ) {
       else {
 
         // Position the last point.
-        currentPoint.setPosition( origin.x + xOffset, origin.y );
+        currentPoint.setPositionXY( origin.x + xOffset, origin.y );
       }
     },
 
@@ -546,14 +546,14 @@ define( function( require ) {
       }
 
       // Position the first point at the upper left.
-      firstPoint.setPosition( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
+      firstPoint.setPositionXY( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
       if ( firstPoint === lastPoint ) {
         // Nothing more to do.
         return;
       }
 
       // Position the last point at the lower right.
-      lastPoint.setPosition( bounds.getMaxX(), bounds.getMinY() );
+      lastPoint.setPositionXY( bounds.getMaxX(), bounds.getMinY() );
 
       var seededRandom = new Random( {
         seed: 8
@@ -562,8 +562,10 @@ define( function( require ) {
       do {
 
         // Randomly position the points within the segment.
-        currentPoint.setPosition( bounds.getMinX() + seededRandom.nextDouble() * bounds.getWidth(),
-          bounds.getMinY() + (seededRandom.nextDouble()) * bounds.getHeight() );
+        currentPoint.setPosition(
+          bounds.getMinX() + seededRandom.nextDouble() * bounds.getWidth(),
+          bounds.getMinY() + (seededRandom.nextDouble()) * bounds.getHeight()
+        );
         currentPoint = currentPoint.getNextPointMass();
       } while ( currentPoint !== lastPoint && currentPoint !== null );
     },
@@ -585,7 +587,7 @@ define( function( require ) {
       }
 
       // Position the first point at the upper left.
-      firstPoint.setPosition( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
+      firstPoint.setPositionXY( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
       if ( firstPoint === lastPoint ) {
 
         // Nothing more to do.
@@ -606,7 +608,7 @@ define( function( require ) {
       var interPointXDistance = bounds.width / ( points.length - 1 );
       var interPointYDistance = -bounds.height / ( points.length - 1 );
       for ( var i = 0; i < points.length; i++ ) {
-        points[ i ].setPosition( nextPointPosition.x, nextPointPosition.y );
+        points[ i ].setPositionXY( nextPointPosition.x, nextPointPosition.y );
         nextPointPosition.addXY( interPointXDistance, interPointYDistance );
       }
     },
@@ -628,7 +630,7 @@ define( function( require ) {
       }
 
       // Position the first point at the upper left.
-      firstPoint.setPosition( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
+      firstPoint.setPositionXY( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
       if ( firstPoint === lastPoint ) {
 
         // Nothing more to do.
@@ -656,7 +658,7 @@ define( function( require ) {
       for ( var i = 0; i < points.length; i++ ) {
         offsetFromLine.setXY( Math.sin( totalDistanceTraversed * mRnaWavinessFactor ) * 50, 0 );
         offsetFromLine.rotate( Math.PI / 4 );
-        points[ i ].setPosition( nextLinearPosition.x + offsetFromLine.x, nextLinearPosition.y + offsetFromLine.y );
+        points[ i ].setPositionXY( nextLinearPosition.x + offsetFromLine.x, nextLinearPosition.y + offsetFromLine.y );
         nextLinearPosition.addXY( interPointXDistance, interPointYDistance );
         totalDistanceTraversed += totalDistancePerStep;
       }
@@ -679,7 +681,7 @@ define( function( require ) {
       }
 
       // Position the first point at the upper left.
-      firstPoint.setPosition( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
+      firstPoint.setPositionXY( bounds.getMinX(), bounds.getMinY() + bounds.getHeight() );
       if ( firstPoint === lastPoint ) {
 
         // Nothing more to do.
@@ -738,7 +740,7 @@ define( function( require ) {
           xWaveMultiplier * Math.sin( totalDistanceTraversed * xWaveFrequency + xWavePhaseOffset ) * yAmplitudeMultiplier
         );
         offsetFromLinearSequence.rotate( Math.PI / 4 );
-        points[ i ].setPosition(
+        points[ i ].setPositionXY(
           nextLinearPosition.x + offsetFromLinearSequence.x,
           Math.min( nextLinearPosition.y + offsetFromLinearSequence.y, bounds.maxY )
         );
@@ -761,7 +763,7 @@ define( function( require ) {
 
         // Assumes that the shape segments attach to one another in such a way that they chain from the upper left to
         // the lower right.
-        copyOfShapeSegments[ i + 1 ].setLowerRightCornerPosByVector( copyOfShapeSegments[ i ].getUpperLeftCornerPos() );
+        copyOfShapeSegments[ i + 1 ].setLowerRightCornerPosition( copyOfShapeSegments[ i ].getUpperLeftCornerPosition() );
       }
     },
 
@@ -819,24 +821,11 @@ define( function( require ) {
     },
 
     /**
-     * Set the position of the lower right end of the mRNA strand.
-     * @param {Vector2} p
-     * @public
-     */
-    setLowerRightPositionByVector: function( p ) {
-      this.setLowerRightPosition( p.x, p.y );
-      // this.setPosition( p.x - this.bounds.width / 2, p.y - this.bounds.height / 2 );
-      // this.bounds.width
-      // this.getLastShapeSegment().setLowerRightCornerPos( p );
-      // this.realignSegmentsFromEnd();
-    },
-
-    /**
      * @param {number} x
      * @param {number} y
      * @public
      */
-    setLowerRightPosition: function( x, y ) {
+    setLowerRightPositionXY: function( x, y ) {
       var totalWidth = 0;
       var totalHeight = 0;
       for ( var i = 0; i < this.shapeSegments.length; i++ ){
@@ -844,10 +833,10 @@ define( function( require ) {
         totalHeight += this.shapeSegments[ i ].bounds.height;
       }
       // set the overall position property
-      this.setPositionByXY( x - totalWidth / 2, y + totalHeight / 2 );
+      this.setPositionXY( x - totalWidth / 2, y + totalHeight / 2 );
 
       // set the position of the last segment - this position is relative to the overall position, not absolute
-      this.getLastShapeSegment().setLowerRightCornerPos( totalWidth / 2, -totalHeight / 2 );
+      this.getLastShapeSegment().setLowerRightCornerPositionXY( totalWidth / 2, -totalHeight / 2 );
 
       // realign all other segments based on the position of the last one
       this.realignSegmentsFromEnd();
@@ -869,8 +858,8 @@ define( function( require ) {
         // adjust the shape segments
         for ( var i = 0; i < this.shapeSegments.length; i++ ){
           var shapeSegment = this.shapeSegments[ i ];
-          var upperLeftCornerPosition = shapeSegment.getUpperLeftCornerPos();
-          shapeSegment.setUpperLeftCornerPosition(
+          var upperLeftCornerPosition = shapeSegment.getUpperLeftCornerPosition();
+          shapeSegment.setUpperLeftCornerPositionXY(
             upperLeftCornerPosition.x - adjustmentX,
             upperLeftCornerPosition.y - adjustmentY
           );
@@ -878,7 +867,7 @@ define( function( require ) {
 
         // adjust the position
         var position = this.getPosition();
-        this.setPositionByXY( position.x + adjustmentX, position.y + adjustmentY );
+        this.setPositionXY( position.x + adjustmentX, position.y + adjustmentY );
       }
     },
 
@@ -898,8 +887,8 @@ define( function( require ) {
       var currentSegment = segmentToAlignFrom;
       var nextSegment = this.getNextShapeSegment( currentSegment );
       while ( nextSegment !== null ) {
-        var nextSegmentLowerRightCornerPos = currentSegment.getLowerRightCornerPos();
-        nextSegment.setUpperLeftCornerPosition( nextSegmentLowerRightCornerPos.x, nextSegmentLowerRightCornerPos.y );
+        var nextSegmentLowerRightCornerPos = currentSegment.getLowerRightCornerPosition();
+        nextSegment.setUpperLeftCornerPositionXY( nextSegmentLowerRightCornerPos.x, nextSegmentLowerRightCornerPos.y );
         currentSegment = nextSegment;
         nextSegment = this.getNextShapeSegment( currentSegment );
       }
@@ -908,7 +897,7 @@ define( function( require ) {
       currentSegment = segmentToAlignFrom;
       var previousSegment = this.getPreviousShapeSegment( currentSegment );
       while ( previousSegment !== null ) {
-        previousSegment.setLowerRightCornerPosByVector( currentSegment.getUpperLeftCornerPos() );
+        previousSegment.setLowerRightCornerPosition( currentSegment.getUpperLeftCornerPosition() );
         currentSegment = previousSegment;
         previousSegment = this.getPreviousShapeSegment( currentSegment );
       }
