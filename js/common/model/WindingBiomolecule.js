@@ -420,7 +420,7 @@ define( function( require ) {
         xOffset += currentPoint !== null ? currentPoint.getTargetDistanceToPreviousPoint() : 0;
       }
 
-      assert && assert( currentPoint !== null, 'error: last point not found when positioning points' )
+      assert && assert( currentPoint !== null, 'error: last point not found when positioning points' );
 
       // position the last point
       currentPoint.setPositionXY( origin.x + xOffset, origin.y );
