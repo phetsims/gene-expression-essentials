@@ -87,15 +87,15 @@ define( function( require ) {
 
     {
       // tight, irregular, couple of loops
-      yWave1Frequency: 0.008 * Math.PI,
+      yWave1Frequency: 0.007 * Math.PI,
       yWave1PhaseOffset: 0.35 * Math.PI,
-      yWave1Multiplier: 0.0565,
+      yWave1Multiplier: 0.11,
       yWave2Frequency: 0.037 * Math.PI,
       yWave2PhaseOffset: 1.6 * Math.PI,
-      yWave2Multiplier: 0.19,
+      yWave2Multiplier: 0.3,
       xWaveFrequency: 0.022 * Math.PI,
-      xWavePhaseOffset: 0.17 * Math.PI,
-      xWaveMultiplier: 0.2373
+      xWavePhaseOffset: 0.3 * Math.PI,
+      xWaveMultiplier: 0.24
     },
 
     {
@@ -485,22 +485,22 @@ define( function( require ) {
       for ( var i = 0; i < points.length; i++ ) {
 
         // window function to modulate less at corners of square than in middle so that everything fits in the segment
-        var yAmplitudeMultiplier;
+        var offsetScale;
         if ( totalDistanceTraversed < diagonalSpan / 2 ) {
-          yAmplitudeMultiplier = totalDistanceTraversed;
+          offsetScale = totalDistanceTraversed;
         }
         else {
-          yAmplitudeMultiplier = diagonalSpan - totalDistanceTraversed;
+          offsetScale = diagonalSpan - totalDistanceTraversed;
         }
 
         // use periodic functions to create a complex but deterministic shape
         offsetFromLinearSequence.setXY(
           ( yWave1Multiplier * Math.sin( totalDistanceTraversed * yWave1Frequency + yWave1PhaseOffset ) +
-            yWave2Multiplier * Math.sin( totalDistanceTraversed * yWave2Frequency + yWave2PhaseOffset ) ) *
-          yAmplitudeMultiplier,
-          xWaveMultiplier * Math.sin( totalDistanceTraversed * xWaveFrequency + xWavePhaseOffset ) * yAmplitudeMultiplier
+            yWave2Multiplier * Math.sin( totalDistanceTraversed * yWave2Frequency + yWave2PhaseOffset ) ),
+          xWaveMultiplier * Math.sin( totalDistanceTraversed * xWaveFrequency + xWavePhaseOffset )
         );
         offsetFromLinearSequence.rotate( Math.PI / 4 );
+        offsetFromLinearSequence.multiplyScalar( offsetScale );
         points[ i ].setPositionXY(
           nextLinearPosition.x + offsetFromLinearSequence.x,
           Math.min( nextLinearPosition.y + offsetFromLinearSequence.y, bounds.maxY )

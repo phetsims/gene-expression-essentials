@@ -23,7 +23,7 @@ define( function( require ) {
 
   // constants
   var TRANSCRIPTION_VELOCITY = 1000;// in picometers per second
-  var MRNA_GROWTH_FACTOR = 0.75; // empirically determined adjustment factor to make mRNA appear to be about the right length
+  var MRNA_GROWTH_FACTOR = 0.63; // empirically determined adjustment factor to make mRNA appear to be about the right length
 
   // used for comparing the position of Biomolecule and endOfGene's position.
   var BIO_MOLECULE_POSITION_COMPARISON_EPSILON = 0.000001;

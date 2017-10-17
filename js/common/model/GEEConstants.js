@@ -19,7 +19,7 @@ define( function( require ) {
   // constants
   var LENGTH_PER_TWIST = 340;// In picometers
   var BASE_PAIRS_PER_TWIST = 10;// In picometers.
-  var INTER_POINT_DISTANCE = 50;// In picometers
+  var INTER_POINT_DISTANCE = 75;// In picometers
 
   var GEEConstants = {
 
