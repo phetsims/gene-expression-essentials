@@ -14,6 +14,7 @@ define( function( require ) {
   var MultipleCellsScreen = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/MultipleCellsScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
   var geneExpressionEssentialsTitleString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene-expression-essentials.title' );
@@ -28,6 +29,10 @@ define( function( require ) {
     }
   };
 
+  // initialize the vector pool used in a number of places within this sim - the number was determined through experimentation
+  Vector2.fillPool( 50 ); // initialize to max size
+
+  // we are go for launch
   SimLauncher.launch( function() {
     var sim = new Sim( geneExpressionEssentialsTitleString,
       [

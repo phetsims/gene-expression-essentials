@@ -64,28 +64,34 @@ define( function( require ) {
      * @private
      */
     createRandomShapeFromPoints: function( points, seed ) {
-      var path = new Shape();
+
+      var shape = new Shape();
       var rand = new Random( {
         seed: seed
       } );
-      path.moveToPoint( points[ 0 ] );
+      var cp1 = Vector2.dirtyFromPool();
+      var cp2 = Vector2.dirtyFromPool();
+
+      shape.moveToPoint( points[ 0 ] );
       for ( var i = 0; i < points.length; i++ ) {
         var segmentStartPoint = points[ i ];
         var segmentEndPoint = points[ ( i + 1 ) % points.length ];
         var previousPoint = points[ i - 1 >= 0 ? i - 1 : points.length - 1 ];
         var nextPoint = points[ ( i + 2 ) % points.length ];
-        var controlPoint1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint );
-        var controlPoint2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint );
+        cp1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint, cp1 );
+        cp2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint,cp2 );
         if ( rand.nextBoolean() ) {
           // Curved segment.
-          path.cubicCurveTo( controlPoint1.x, controlPoint1.y, controlPoint2.x, controlPoint2.y, segmentEndPoint.x, segmentEndPoint.y );
+          shape.cubicCurveTo( cp1.x, cp1.y, cp2.x, cp2.y, segmentEndPoint.x, segmentEndPoint.y );
         }
         else {
           // Straight segment.
-          path.lineTo( segmentEndPoint.x, segmentEndPoint.y );
+          shape.lineTo( segmentEndPoint.x, segmentEndPoint.y );
         }
       }
-      return path;
+      cp1.freeToPool();
+      cp2.freeToPool();
+      return shape;
     },
 
     /**
@@ -127,35 +133,46 @@ define( function( require ) {
       assert && assert( points.length > 0 );
 
       // Control points, used throughout the code below for curving the line.
-      var cp1;
+      var cp1  = Vector2.dirtyFromPool();
+      var cp2  = Vector2.dirtyFromPool();
 
       var path = new Shape();
       path.moveTo( points[ 0 ].x, points[ 0 ].y );
       if ( points.length === 1 || points.length === 2 ) {
-        // Can't really create a curve from this, so draw a straight line
-        // to the end point and call it good.
+
+        // can't really create a curve from this, so draw a straight line to the end point and call it good
         path.lineTo( points[ points.length - 1 ].x, points[ points.length - 1 ].y );
         return path;
       }
-      // Create the first curved segment.
-      cp1 = ShapeUtils.extrapolateControlPoint( points[ 2 ], points[ 1 ], points[ 0 ] );
+
+      // create the first curved segment
+      cp1 = ShapeUtils.extrapolateControlPoint( points[ 2 ], points[ 1 ], points[ 0 ], cp1 );
       path.quadraticCurveTo( cp1.x, cp1.y, points[ 1 ].x, points[ 1 ].y );
-      // Create the middle segments.
+
+      // create the middle segments
       for ( var i = 1; i < points.length - 2; i++ ) {
         var segmentStartPoint = points[ i ];
         var segmentEndPoint = points[ i + 1 ];
         var previousPoint = points[ i - 1 ];
         var nextPoint = points[ ( i + 2 ) ];
-        var controlPoint1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint );
-        var controlPoint2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint );
-        path.cubicCurveTo( controlPoint1.x, controlPoint1.y, controlPoint2.x, controlPoint2.y, segmentEndPoint.x,
-          segmentEndPoint.y );
+        cp1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint, cp1 );
+        cp2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint, cp2 );
+        path.cubicCurveTo( cp1.x, cp1.y, cp2.x, cp2.y, segmentEndPoint.x, segmentEndPoint.y );
       }
-      // Create the final curved segment.
-      cp1 = ShapeUtils.extrapolateControlPoint( points[ points.length - 3 ], points[ points.length - 2 ],
-        points[ points.length - 1 ] );
 
+      // create the final curved segment
+      cp1 = ShapeUtils.extrapolateControlPoint(
+        points[ points.length - 3 ],
+        points[ points.length - 2 ],
+        points[ points.length - 1 ],
+        cp1
+      );
       path.quadraticCurveTo( cp1.x, cp1.y, points[ points.length - 1 ].x, points[ points.length - 1 ].y );
+
+      // free up the pre-allocated vectors
+      cp1.freeToPool();
+      cp2.freeToPool();
+
       return path;
     },
 

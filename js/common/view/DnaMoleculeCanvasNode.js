@@ -14,6 +14,7 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var STRAND_1_COLOR = new Color( 31, 163, 223 );
@@ -78,13 +79,19 @@ define( function( require ) {
      */
     drawCurve: function( context, strandSegmentArray, strokeColor ) {
       context.beginPath();
+
+      // allocate reusable vectors for optimal performance
+      var cp1 = Vector2.dirtyFromPool();
+      var cp2 = Vector2.dirtyFromPool();
+
+      // loop, drawing each strand segment
       for ( var i = 0; i < strandSegmentArray.length; i++ ) {
         var strandSegment = strandSegmentArray[ i ];
         var strandSegmentLength = strandSegment.length;
         context.moveTo( strandSegment[ 0 ].x, strandSegment[ 0 ].y );
         if ( strandSegmentLength === 1 || strandSegmentLength === 2 ) {
 
-          // Can't really create a curve from this, so draw a straight line to the end point and call it good.
+          // can't really create a curve from this, so draw a straight line to the end point and call it good
           context.lineTo(
             strandSegment[ strandSegmentLength - 1 ].x,
             strandSegment[ strandSegmentLength - 1 ].y
@@ -92,39 +99,28 @@ define( function( require ) {
           break;
         }
 
-        // Create the first curved segment.
-        var cp1 = ShapeUtils.extrapolateControlPoint( strandSegment[ 2 ], strandSegment[ 1 ], strandSegment[ 0 ] );
-        context.quadraticCurveTo(
-          cp1.x,
-          cp1.y,
-          strandSegment[ 1 ].x,
-          strandSegment[ 1 ].y
-        );
+        // create the first curved segment
+        cp1 = ShapeUtils.extrapolateControlPoint( strandSegment[ 2 ], strandSegment[ 1 ], strandSegment[ 0 ], cp1 );
+        context.quadraticCurveTo( cp1.x, cp1.y, strandSegment[ 1 ].x, strandSegment[ 1 ].y );
 
-        // Create the middle segments.
+        // create the middle segments
         for ( var j = 1; j < strandSegmentLength - 2; j++ ) {
           var segmentStartPoint = strandSegment[ j ];
           var segmentEndPoint = strandSegment[ j + 1 ];
           var previousPoint = strandSegment[ j - 1 ];
           var nextPoint = strandSegment[ ( j + 2 ) ];
-          var controlPoint1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint );
-          var controlPoint2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint );
-          context.bezierCurveTo(
-            controlPoint1.x,
-            controlPoint1.y,
-            controlPoint2.x,
-            controlPoint2.y,
-            segmentEndPoint.x,
-            segmentEndPoint.y
-          );
+          cp1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint, cp1 );
+          cp2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint, cp2 );
+          context.bezierCurveTo( cp1.x, cp1.y, cp2.x, cp2.y, segmentEndPoint.x, segmentEndPoint.y );
         }
 
-        // Create the final curved segment.
-        cp1 = ShapeUtils.extrapolateControlPoint( strandSegment[ strandSegmentLength - 3 ],
+        // create the final curved segment
+        cp1 = ShapeUtils.extrapolateControlPoint(
+          strandSegment[ strandSegmentLength - 3 ],
           strandSegment[ strandSegmentLength - 2 ],
-          strandSegment[ strandSegmentLength - 1 ]
+          strandSegment[ strandSegmentLength - 1 ],
+          cp1
         );
-
         context.quadraticCurveTo(
           cp1.x,
           cp1.y,
@@ -132,6 +128,8 @@ define( function( require ) {
           strandSegment[ strandSegmentLength - 1 ].y
         );
       }
+      cp1.freeToPool();
+      cp2.freeToPool();
       context.strokeStyle = strokeColor.computeCSS();
       context.lineWidth = this.backboneStrokeWidth;
       context.stroke();
