@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this stage when it detached from DNA
+ * One of the states for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this stage when it detached from DNA
  * and recycle mode is set to true
  *
  * @author Sharfudeen Ashraf

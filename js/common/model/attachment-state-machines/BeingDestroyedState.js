@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state for MessengerRnaAttachmentStateMachine. mRna enters this state when it is being destroyed.
+ * One of the states for MessengerRnaAttachmentStateMachine. mRna enters this state when it is being destroyed.
  *
  * @author John Blanco
  * @author Mohamed Safi

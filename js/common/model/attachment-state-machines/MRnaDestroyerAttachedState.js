@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state for RnaDestroyerAttachmentStateMachine. Destroyer enters this state when it attached to mRNA
+ * One of the states for RnaDestroyerAttachmentStateMachine. Destroyer enters this state when it attached to mRNA
  *
  * @author John Blanco
  * @author Mohamed Safi

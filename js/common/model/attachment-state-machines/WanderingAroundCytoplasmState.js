@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state of MessengerRnaAttachmentStateMachine. In this state mRNA is wandering around the cell's cytoplasm
+ * One of the statesof MessengerRnaAttachmentStateMachine. In this state mRNA is wandering around the cell's cytoplasm
  * unattached to anything.
  *
  * @author John Blanco

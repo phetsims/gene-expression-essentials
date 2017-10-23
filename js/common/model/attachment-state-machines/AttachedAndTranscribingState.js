@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state after conformation of
+ * One of the states for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state after conformation of
  * RnaPolymerase is complete
  *
  * @author Sharfudeen Ashraf

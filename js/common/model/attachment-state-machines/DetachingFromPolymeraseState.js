@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state for MessengerRnaAttachmentStateMachine. mRna enters this state when it is detaching from the
+ * One of the states for MessengerRnaAttachmentStateMachine. mRna enters this state when it is detaching from the
  * polymerase. During this time, it moves generally upwards until either the timer runs out or it is attached to by some
  * biomolecule.
  *

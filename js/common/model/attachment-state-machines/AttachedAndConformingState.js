@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when it is attached to DNA
+ * One of the states for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when it is attached to DNA
  * and ready to conform
  *
  * @author Sharfudeen Ashraf

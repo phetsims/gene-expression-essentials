@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when transcription of mRna
+ * One of the states for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when transcription of mRna
  * is complete
  *
  * @author Sharfudeen Ashraf

@@ -1,7 +1,7 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
- * One of the state used in RibosomeAttachmentStateMachine and MRnaDestroyerAttachmentStateMachine. It has a unique
+ * One of the statesused in RibosomeAttachmentStateMachine and MRnaDestroyerAttachmentStateMachine. It has a unique
  * behavior as it directly set up to attached state.
  * It is set up like this due to https://github.com/phetsims/gene-expression-essentials/issues/24
  *

@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state for MessengerRnaAttachmentStateMachine
+ * One of the states for MessengerRnaAttachmentStateMachine
  * @author John Blanco
  * @author Mohamed Safi
  * @author Aadish Gupta

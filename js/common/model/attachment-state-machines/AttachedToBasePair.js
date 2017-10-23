@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the state for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when it is attached to the
+ * One of the states for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when it is attached to the
  * DNA but is not transcribing. In this state, it is doing a 1D random walk on the DNA strand.
  *
  * @author Sharfudeen Ashraf
