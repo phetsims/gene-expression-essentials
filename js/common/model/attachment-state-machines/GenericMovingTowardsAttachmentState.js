@@ -31,20 +31,23 @@ define( function( require ) {
      * @public
      */
     step: function( enclosingStateMachine, dt ) {
-      var gsm = enclosingStateMachine;
-      // Verify that state is consistent
 
+      var gsm = enclosingStateMachine;
+
+      // verify that state is consistent
       assert && assert( gsm.attachmentSite !== null );
       assert && assert( gsm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === this.genericAttachmentStateMachine.biomolecule );
 
-      // Calculate the location where this biomolecule must be in order to attach to the attachment site.
-      var destination = new Vector2( gsm.attachmentSite.locationProperty.get().x - gsm.destinationOffset.x,
-        gsm.attachmentSite.locationProperty.get().y - gsm.destinationOffset.y );
+      // calculate the location where this biomolecule must be in order to attach to the attachment site
+      var destination = new Vector2(
+        gsm.attachmentSite.locationProperty.get().x - gsm.destinationOffset.x,
+        gsm.attachmentSite.locationProperty.get().y - gsm.destinationOffset.y
+      );
 
-      // See if the attachment site has been reached.
+      // see if the attachment site has been reached
       if ( gsm.biomolecule.getPosition().distance( destination ) < AttachmentState.ATTACHED_DISTANCE_THRESHOLD ) {
 
-        // This molecule is now at the attachment site, so consider it attached.
+        // this molecule is now at the attachment site, so consider it attached
         gsm.setState( gsm.attachedState );
       }
     },
@@ -55,7 +58,8 @@ define( function( require ) {
      * @public
      */
     entered: function( enclosingStateMachine ) {
-      // Allow user interaction.
+
+      // allow user interaction
       enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
     }
   } );

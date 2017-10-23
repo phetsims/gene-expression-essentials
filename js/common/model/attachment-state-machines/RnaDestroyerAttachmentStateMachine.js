@@ -14,7 +14,7 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovingTowardAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MovingTowardAttachmentState' );
+  var MovingTowardMRnaAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MovingTowardMRnaAttachmentState' );
   var MRnaDestroyerAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MRnaDestroyerAttachedState' );
 
   /**
@@ -31,7 +31,7 @@ define( function( require ) {
     this.attachedState = new MRnaDestroyerAttachedState( this ); //@public
 
     // Set up a non-default "moving toward attachment" state, since the behavior is slightly different from the default.
-    this.movingTowardsAttachmentState = new MovingTowardAttachmentState( this ); //@public
+    this.movingTowardsAttachmentState = new MovingTowardMRnaAttachmentState( this ); //@public
   }
 
   geneExpressionEssentials.register( 'RnaDestroyerAttachmentStateMachine', RnaDestroyerAttachmentStateMachine );

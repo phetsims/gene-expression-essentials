@@ -459,8 +459,10 @@ define( function( require ) {
 
         // See if the attachment site at the leading edge of the mRNA is available and close by.
         if ( this.attachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
-             this.attachmentSite.locationProperty.get().distance(
-               messengerRnaDestroyer.getPosition() ) < MRNA_DESTROYER_CONNECT_DISTANCE ) {
+             this.attachmentSite.locationProperty.get().distance( messengerRnaDestroyer.getPosition() ) <
+             MRNA_DESTROYER_CONNECT_DISTANCE ) {
+
+          console.log( 'attachment proposal accepted' );
 
           // This attachment site is in range and available.
           returnValue = this.attachmentSite;
