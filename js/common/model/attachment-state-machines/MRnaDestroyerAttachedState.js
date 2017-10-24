@@ -74,8 +74,9 @@ define( function( require ) {
       }
 
       // Advance the destruction of the mRNA.
-      var destructionComplete = this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer
-        .advanceMessengerRnaDestruction( RNA_DESTRUCTION_RATE * dt );
+      var destructionComplete = this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.advanceMessengerRnaDestruction(
+        RNA_DESTRUCTION_RATE * dt
+      );
       if ( destructionComplete ) {
 
         // Detach the current mRNA fragment.
@@ -87,7 +88,8 @@ define( function( require ) {
         // Remove the messenger RNA that is now destroyed from the model. There should be no visual representation left
         // to it at this point.
         biomolecule.getModel().removeMessengerRna(
-          this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.getMessengerRnaBeingDestroyed() );
+          this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.getMessengerRnaBeingDestroyed()
+        );
         this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.clearMessengerRnaBeingDestroyed();
 
         // Release this destroyer to wander in the cytoplasm.

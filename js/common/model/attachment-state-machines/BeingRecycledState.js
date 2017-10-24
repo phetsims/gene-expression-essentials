@@ -2,7 +2,7 @@
 
 /**
  * One of the states for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this stage when it detached from DNA
- * and recycle mode is set to true
+ * and recycle mode is set to true.
  *
  * @author Sharfudeen Ashraf
  * @author John Blanco

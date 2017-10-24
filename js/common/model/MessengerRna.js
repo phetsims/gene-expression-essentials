@@ -244,7 +244,7 @@ define( function( require ) {
         ) );
       }
       else {
-        this.attachmentSite.positionProperty.set( this.positionProperty.get() );
+        this.attachmentSite.locationProperty.set( this.positionProperty.get() );
       }
     },
 
