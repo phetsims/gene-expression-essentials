@@ -1,9 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * Generic attachment state machine - just implements basic behavior.
- * This class exists mainly for testing and for quick implementation of biomolecules. The code analyzer may show that it
- * is unused, but it should be kept around anyway for testing and prototyping of changes.
+ * Generic attachment state machine - implements basic behavior of a biomolecule.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -29,8 +27,8 @@ define( function( require ) {
   function GenericAttachmentStateMachine( biomolecule ) {
     AttachmentStateMachine.call( this, biomolecule );
 
-    // @public - States used by this state machine. These are often set by subclasses to non-default values in order to change the
-    // default behavior.
+    // @public - States used by this state machine. These are often set by subclasses to non-default values in order to
+    // change the default behavior.
     this.unattachedAndAvailableState = new GenericUnattachedAndAvailableState();
     this.attachedState = new GenericAttachedState();
     this.movingTowardsAttachmentState = new GenericMovingTowardsAttachmentState( this );

@@ -15,8 +15,9 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovingTowardMRnaAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MovingTowardMRnaAttachmentState' );
+  // var MovingTowardMRnaAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MovingTowardMRnaAttachmentState' );
   var RibosomeAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/RibosomeAttachedState' );
+  var UnattachedAndAvailableForMRnaAttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/UnattachedAndAvailableForMRnaAttachmentState' );
 
   /**
    * @param {MobileBiomolecule} biomolecule
@@ -35,11 +36,11 @@ define( function( require ) {
     // Set up offset used when attaching to mRNA.
     this.setDestinationOffset( this.ribosome.offsetToTranslationChannelEntrance );
 
-    // Set up a non-default "attached" state, since the behavior is different from the default.
-    this.attachedState = new RibosomeAttachedState( this ); //@public
+    // @override - override the unattached state, since attaching to mRNA is a little different versus the default behavior
+    this.unattachedAndAvailableState = new UnattachedAndAvailableForMRnaAttachmentState( this );
 
-    // Set up a non-default "moving toward attachment" state, since the behavior is slightly different from the default.
-    this.movingTowardsAttachmentState = new MovingTowardMRnaAttachmentState( this ); //@public
+    // @override - Set up a non-default "attached" state, since the behavior is different from the default.
+    this.attachedState = new RibosomeAttachedState( this ); //@public
   }
 
   geneExpressionEssentials.register( 'RibosomeAttachmentStateMachine', RibosomeAttachmentStateMachine );

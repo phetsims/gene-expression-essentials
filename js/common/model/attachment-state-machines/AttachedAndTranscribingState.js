@@ -22,7 +22,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var TRANSCRIPTION_VELOCITY = 1000;// in picometers per second
   var MRNA_GROWTH_FACTOR = 0.63; // empirically determined adjustment factor to make mRNA appear to be about the right length
 
   // used for comparing the position of Biomolecule and endOfGene's position.
@@ -65,7 +64,7 @@ define( function( require ) {
       assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
 
       // Grow the messenger RNA and position it to be attached to the polymerase.
-      this.messengerRna.addLength( TRANSCRIPTION_VELOCITY * MRNA_GROWTH_FACTOR * dt );
+      this.messengerRna.addLength( GEEConstants.TRANSCRIPTION_SPEED * MRNA_GROWTH_FACTOR * dt );
       this.messengerRna.setLowerRightPositionXY(
         rnaPolymerase.getPosition().x + rnaPolymerase.messengerRnaGenerationOffset.x,
         rnaPolymerase.getPosition().y + rnaPolymerase.messengerRnaGenerationOffset.y
@@ -120,7 +119,7 @@ define( function( require ) {
         new Property( this.endOfGene.copy() ),
         biomolecule.motionBoundsProperty,
         new Vector2( 0, 0 ),
-        TRANSCRIPTION_VELOCITY
+        GEEConstants.TRANSCRIPTION_SPEED
       ) );
 
       // Create the mRNA that will be grown as a result of this transcription.

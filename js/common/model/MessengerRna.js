@@ -462,8 +462,6 @@ define( function( require ) {
              this.attachmentSite.locationProperty.get().distance( messengerRnaDestroyer.getPosition() ) <
              MRNA_DESTROYER_CONNECT_DISTANCE ) {
 
-          console.log( 'attachment proposal accepted' );
-
           // This attachment site is in range and available.
           returnValue = this.attachmentSite;
 

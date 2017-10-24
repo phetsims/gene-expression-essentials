@@ -31,15 +31,6 @@ define( function( require ) {
     INTER_STRAND_OFFSET: LENGTH_PER_TWIST * 0.3,
     DNA_MOLECULE_Y_POS: 0, // Y position of the molecule in model space.
 
-    FLORESCENT_FILL_COLOR: new Color( 200, 255, 58 ),
-
-    DEFAULT_AFFINITY: 0.05, // Default affinity for any given biomolecule,
-
-    CONFORMATIONAL_CHANGE_RATE: 1, // proportion per second
-
-    VELOCITY_ON_DNA: 200, // Scalar velocity when moving between attachment points on the DNA.
-    DEFAULT_ATTACH_TIME: 0.15, // // Time for attachment to a site on the DNA, in seconds.
-
     // Standard distance between points that define the shape. This is done to keep the number of points reasonable
     // and make the shape-defining algorithm consistent.
     INTER_POINT_DISTANCE: INTER_POINT_DISTANCE,
@@ -48,9 +39,21 @@ define( function( require ) {
     // a ribosome can be attached.
     LEADER_LENGTH: INTER_POINT_DISTANCE,
 
-    TRANSCRIPTION_FACTOR_MVT: ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ),
-      new Vector2( 0, 0 ), 0.08 ),
+    // speed at which the RNA polymerase moves when transcribing DNA into mRNA, in picometers/sec
+    TRANSCRIPTION_SPEED: 1000,
 
+    // model-view transform used for transcription factors in the control panels
+    TRANSCRIPTION_FACTOR_MVT: ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+      new Vector2( 0, 0 ),
+      new Vector2( 0, 0 ), 0.08
+    ),
+
+    // other constants
+    FLORESCENT_FILL_COLOR: new Color( 200, 255, 58 ),
+    DEFAULT_AFFINITY: 0.05, // Default affinity for any given biomolecule,
+    CONFORMATIONAL_CHANGE_RATE: 1, // proportion per second
+    VELOCITY_ON_DNA: 200, // Scalar velocity when moving between attachment points on the DNA.
+    DEFAULT_ATTACH_TIME: 0.15, // // Time for attachment to a site on the DNA, in seconds.
     CORNER_RADIUS: 5 // corner radius for different panels and accordion boxes in the views
   };
 
