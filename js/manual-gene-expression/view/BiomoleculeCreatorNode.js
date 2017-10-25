@@ -42,10 +42,10 @@ define( function( require ) {
     // Appearance Node is a bioMolecule Node which has its own DragHandler, since the node within the creator Node only
     // serves as a icon, it shouldn't be pickable - otherwise the DragHandler of the BioMolecule takes over the
     // Input Listener of the creator Node
-
     appearanceNode.pickable = false;
-    this.mouseArea = appearanceNode.bounds;
-    this.touchArea = appearanceNode.bounds;
+
+    this.mouseArea = appearanceNode.bounds.dilated( 2 );
+    this.touchArea = appearanceNode.bounds.dilated( 5 );
 
     this.addInputListener( new SimpleDragHandler( {
 

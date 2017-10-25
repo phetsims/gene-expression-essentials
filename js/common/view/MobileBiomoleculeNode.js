@@ -57,8 +57,10 @@ define( function( require ) {
 
       // update the shape
       self.shapeNode.shape = null;
-      // self.shapeNode.setShape( modelViewTransform.modelToViewShape( shape ) );
-      self.shapeNode.setShape( self.scaleOnlyModelViewTransform.modelToViewShape( shape ) );
+      var transformedShape = self.scaleOnlyModelViewTransform.modelToViewShape( shape );
+      self.shapeNode.setShape( transformedShape );
+      self.mouseArea = transformedShape.bounds.dilated( 2 );
+      self.touchArea = transformedShape.bounds.dilated( 5 );
     }
 
     mobileBiomolecule.shapeProperty.link( handleShapeChanged );
