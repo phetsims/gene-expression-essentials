@@ -32,6 +32,19 @@ define( function( require ) {
     this.model = model; // @private
     this.modelViewTransform = modelViewTransform; // @private
     this.backboneStrokeWidth = modelViewTransform.viewToModelDeltaX( backboneStrokeWidth ); // @private
+
+    // @private - pre-allocated reusable vectors, used to reduce garbage collection
+    this.cp1ResuableVector = new Vector2();
+    this.cp2ResuableVector = new Vector2();
+
+    // @private - four arrays for the DNA backbone representation
+    var longerArrayLength = Math.round( this.model.strand1Segments.length / 2 );
+    var shorterArrayLength = Math.floor( this.model.strand1Segments.length / 2 );
+    this.strand1ArrayBehind = new Array( shorterArrayLength );
+    this.strand2ArrayBehind = new Array( longerArrayLength );
+    this.strand1ArrayFront = new Array( longerArrayLength );
+    this.strand2ArrayFront = new Array( shorterArrayLength );
+
     CanvasNode.call( this, options );
     this.invalidatePaint();
   }
@@ -51,15 +64,15 @@ define( function( require ) {
 
       var endOffset = basePair.width / 2;
 
-      if ( basePair.topYLocation - basePair.bottomYLocation <= this.model.maxBasePairHeight ){
+      if ( basePair.topYLocation - basePair.bottomYLocation <= this.model.maxBasePairHeight ) {
 
         // draw the base pair as a single line between the top and bottom locations
-        context.moveTo( basePair.x, basePair.topYLocation + endOffset);
+        context.moveTo( basePair.x, basePair.topYLocation + endOffset );
         context.lineTo( basePair.x, basePair.bottomYLocation - endOffset );
       }
-      else{
+      else {
 
-        // the strands are separate, draw two separate base pairs
+        // the strands are separated, draw two separate base pairs, one at the top and one at the bottom
         var dividedBasePairHeight = this.model.maxBasePairHeight / 2;
         context.moveTo( basePair.x, basePair.topYLocation + endOffset );
         context.lineTo( basePair.x, basePair.topYLocation - dividedBasePairHeight );
@@ -77,12 +90,12 @@ define( function( require ) {
      * @param {Color} strokeColor
      * @private
      */
-    drawCurve: function( context, strandSegmentArray, strokeColor ) {
+    drawStrandSegments: function( context, strandSegmentArray, strokeColor ) {
       context.beginPath();
 
       // allocate reusable vectors for optimal performance
-      var cp1 = Vector2.dirtyFromPool();
-      var cp2 = Vector2.dirtyFromPool();
+      var cp1 = this.cp1ResuableVector;
+      var cp2 = this.cp2ResuableVector;
 
       // loop, drawing each strand segment
       for ( var i = 0; i < strandSegmentArray.length; i++ ) {
@@ -128,8 +141,6 @@ define( function( require ) {
           strandSegment[ strandSegmentLength - 1 ].y
         );
       }
-      cp1.freeToPool();
-      cp2.freeToPool();
       context.strokeStyle = strokeColor.computeCSS();
       context.lineWidth = this.backboneStrokeWidth;
       context.stroke();
@@ -141,34 +152,32 @@ define( function( require ) {
      * @param {CanvasRenderingContext2D} context
      */
     paintCanvas: function( context ) {
-      var strand1ArrayBehind = [];
-      var strand2ArrayBehind = [];
-      var strand1ArrayFront = [];
-      var strand2ArrayFront = [];
+
+      // map the segments of the DNA in the model to the arrays used in rendering
       for ( var i = 0; i < this.model.strand1Segments.length; i++ ) {
         var strand1Segment = this.model.strand1Segments[ i ];
         var strand2Segment = this.model.strand2Segments[ i ];
 
+        var index = Math.floor( i / 2 );
         if ( i % 2 === 0 ) {
-          strand2ArrayBehind.push( strand2Segment );
-          strand1ArrayFront.push( strand1Segment );
+          this.strand2ArrayBehind[ index ] = strand2Segment;
+          this.strand1ArrayFront[ index ] = strand1Segment;
         }
         else {
-          strand1ArrayBehind.push( strand1Segment );
-          strand2ArrayFront.push( strand2Segment );
+          this.strand1ArrayBehind[ index ] = strand1Segment;
+          this.strand2ArrayFront[ index ] = strand2Segment;
         }
       }
 
       // draw the back portions of the DNA strand
       context.lineCap = 'round';
-      this.drawCurve( context, strand1ArrayBehind, STRAND_1_COLOR );
-      this.drawCurve( context, strand2ArrayBehind, STRAND_2_COLOR );
+      this.drawStrandSegments( context, this.strand1ArrayBehind, STRAND_1_COLOR );
+      this.drawStrandSegments( context, this.strand2ArrayBehind, STRAND_2_COLOR );
 
       // draw the base pairs
       context.lineCap = 'butt';
       context.beginPath();
       context.strokeStyle = BASE_PAIR_COLOR;
-
       for ( i = 0; i < this.model.basePairs.length; i++ ) {
         var basePair = this.model.basePairs[ i ];
         this.drawBasePair( context, basePair );
@@ -177,13 +186,8 @@ define( function( require ) {
 
       // draw the front portions of the DNA strand
       context.lineCap = 'round';
-      this.drawCurve( context, strand1ArrayFront, STRAND_1_COLOR );
-      this.drawCurve( context, strand2ArrayFront, STRAND_2_COLOR );
-
-      strand1ArrayBehind.length = 0;
-      strand2ArrayBehind.length = 0;
-      strand1ArrayFront.length = 0;
-      strand2ArrayFront.length = 0;
+      this.drawStrandSegments( context, this.strand1ArrayFront, STRAND_1_COLOR );
+      this.drawStrandSegments( context, this.strand2ArrayFront, STRAND_2_COLOR );
     },
 
     /**

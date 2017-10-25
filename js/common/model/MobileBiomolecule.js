@@ -140,7 +140,9 @@ define( function( require ) {
           this.setPosition3D( this.motionStrategy.getNextLocation3D( this.getPosition3D(), this.bounds, dt ) );
         }
         else {
-          this.setPosition( this.motionStrategy.getNextLocation( this.getPosition(), this.bounds, dt ) );
+          var currentPosition = this.getPosition();
+          this.setPosition( this.motionStrategy.getNextLocation( currentPosition, this.bounds, dt ) );
+          // currentPosition.freeToPool();
         }
 
         // Update the state of the attachment state machine.

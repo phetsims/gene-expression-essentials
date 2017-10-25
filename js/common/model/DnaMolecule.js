@@ -137,7 +137,7 @@ define( function( require ) {
     },
 
     /**
-     * Initialize the DNA stand segment lists
+     * initialize the DNA stand segment lists
      * @private
      */
     initializeStrandSegments: function() {
