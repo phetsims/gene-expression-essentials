@@ -149,7 +149,8 @@ define( function( require ) {
         self.negativeTranscriptionFactorEnabled.reset();
       },
       right: this.layoutBounds.maxX - INSET,
-      bottom: this.layoutBounds.maxY - INSET
+      bottom: this.layoutBounds.maxY - INSET,
+      touchAreaDilation: 10
     } );
     controlsNode.addChild( resetAllButton );
 
