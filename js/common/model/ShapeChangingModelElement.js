@@ -58,6 +58,10 @@ define( function( require ) {
       this.shapeProperty.dispose();
       this.shapeProperty.set( null );
     };
+
+    // reusable position vectors, used to prevent allocations of new vectors and thus improve performance
+    this.reusablePositionVector1 = new Vector2();
+    this.reusablePositionVector2 = new Vector2();
   }
 
   geneExpressionEssentials.register( 'ShapeChangingModelElement', ShapeChangingModelElement );
@@ -86,8 +90,11 @@ define( function( require ) {
      */
     translate: function( x, y ) {
 
-      // in order to reduce allocations of vectors, set the value in the property and then force notifications
-      this.positionProperty.set( this.positionProperty.get().plusXY( x, y ) );
+      // in order to reduce allocations of vectors, pull them from our local pool
+      var currentPosition = this.positionProperty.get();
+      var newPosition = this.getFreeReusablePositionVector();
+      newPosition.setXY( currentPosition.x + x, currentPosition.y + y );
+      this.positionProperty.set( newPosition );
     },
 
     /**
@@ -95,7 +102,7 @@ define( function( require ) {
      * @public
      */
     setPosition: function( newPos ) {
-      this.setPositionXY( newPos.x, newPos.y );
+      this.positionProperty.set( newPos );
     },
 
     /**
@@ -106,8 +113,10 @@ define( function( require ) {
      */
     setPositionXY: function( x, y ) {
 
-      // in order to reduce allocations of vectors, set the value in the property and then force notifications
-      this.positionProperty.set( new Vector2( x, y ) );
+      // in order to reduce allocations of vectors, use vectors from the local vector pool
+      var newPosition = this.getFreeReusablePositionVector();
+      newPosition.setXY( x, y );
+      this.positionProperty.set( newPosition );
     },
 
     /**
@@ -117,6 +126,12 @@ define( function( require ) {
     getPosition: function() {
       // Assumes that the center of the shape is the position.  Override if other behavior is needed.
       return this.positionProperty.get();
+    },
+
+    getFreeReusablePositionVector: function(){
+      return this.positionProperty.get() === this.reusablePositionVector1 ?
+             this.reusablePositionVector2 :
+             this.reusablePositionVector1;
     }
   } );
 } );
