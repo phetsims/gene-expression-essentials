@@ -29,9 +29,6 @@ define( function( require ) {
     }
   };
 
-  // initialize the vector pool used in a number of places within this sim - the number was determined through experimentation
-  Vector2.fillPool( 50 ); // initialize to max size
-
   // we are go for launch
   SimLauncher.launch( function() {
     var sim = new Sim( geneExpressionEssentialsTitleString,
