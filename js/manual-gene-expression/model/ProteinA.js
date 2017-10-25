@@ -58,25 +58,25 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {Vector2} attachmentPointLocation
+     * @param {Vector2} attachmentPointPosition
      * @public
      */
-    setAttachmentPointPosition: function( attachmentPointLocation ) {
+    setAttachmentPointPosition: function( attachmentPointPosition ) {
       // Note: This is specific to this protein's shape, and will need to be adjusted if the protein's shape algorithm
       // changes.
-      this.setAttachmentPointPositionXY( attachmentPointLocation.x, attachmentPointLocation.y );
+      this.setAttachmentPointPositionXY( attachmentPointPosition.x, attachmentPointPosition.y );
     },
 
     /**
      *
-     * @param {number} attachmentPointLocationX
-     * @param {number} attachmentPointLocationY
+     * @param {number} attachmentPointPositionX
+     * @param {number} attachmentPointPositionY
      * @private
      */
-    setAttachmentPointPositionXY: function( attachmentPointLocationX, attachmentPointLocationY ) {
+    setAttachmentPointPositionXY: function( attachmentPointPositionX, attachmentPointPositionY ) {
       // Note: This is specific to this protein's shape, and will need to be adjusted if the protein's shape algorithm
       // changes.
-      this.setPosition( new Vector2( attachmentPointLocationX, attachmentPointLocationY +
+      this.setPosition( new Vector2( attachmentPointPositionX, attachmentPointPositionY +
                                                                ( FULL_GROWN_WIDTH / 2 * this.getFullSizeProportion() ) ) );
     },
 

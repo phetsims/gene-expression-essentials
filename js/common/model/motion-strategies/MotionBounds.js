@@ -107,13 +107,13 @@ define( function( require ) {
      * given point.
      *
      * @param {Bounds2} bounds            - Test bounds.
-     * @param {Vector2} proposedLocation - Proposed location of the shape's center.
+     * @param {Vector2} proposedPosition - Proposed location of the shape's center.
      * @returns {boolean}
      * @public
      */
-    testIfInMotionBounds: function( bounds, proposedLocation ) {
+    testIfInMotionBounds: function( bounds, proposedPosition ) {
       var shapeCenter = bounds.getCenter();
-      var translationVector = proposedLocation.minus( shapeCenter );
+      var translationVector = proposedPosition.minus( shapeCenter );
       return this.inBounds( bounds.shifted( translationVector.x, translationVector.y ) );
     }
   } );

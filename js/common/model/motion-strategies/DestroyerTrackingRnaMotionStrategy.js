@@ -32,13 +32,13 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      * @public
      */
-    getNextLocation: function( currentLocation, bounds, dt ) {
+    getNextPosition: function( currentPosition, bounds, dt ) {
       var attachmentLocation = this.messengerRna.getDestroyerAttachmentLocation();
       return new Vector2( attachmentLocation.x, attachmentLocation.y );
     }

@@ -70,13 +70,13 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      * @public
      */
-    getNextLocation: function( currentLocation, bounds, dt ) {
+    getNextPosition: function( currentPosition, bounds, dt ) {
       this.directionChangeCountdown -= dt;
       if ( this.directionChangeCountdown <= 0 ) {
 
@@ -99,22 +99,22 @@ define( function( require ) {
         this.directionChangeCountdown = this.generateDirectionChangeCountdownValue();
       }
 
-      return currentLocation.plus( this.currentMotionVector.timesScalar( dt ) );
+      return currentPosition.plus( this.currentMotionVector.timesScalar( dt ) );
     },
 
     /**
      * @override
-     * @param {Vector3} currentLocation
+     * @param {Vector3} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
      * @public
      */
-    getNextLocation3D: function( currentLocation, bounds, dt ) {
+    getNextPosition3D: function( currentPosition, bounds, dt ) {
 
       // The 3D version of this motion strategy doesn't move in the z direction. This may change some day.
-      var nextLocation2D = this.getNextLocation( new Vector2( currentLocation.x, currentLocation.y ), bounds, dt );
-      return new Vector3( nextLocation2D.x, nextLocation2D.y, currentLocation.z );
+      var nextLocation2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
+      return new Vector3( nextLocation2D.x, nextLocation2D.y, currentPosition.z );
     }
   } );
 } );

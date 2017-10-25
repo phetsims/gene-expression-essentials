@@ -137,11 +137,11 @@ define( function( require ) {
 
         // Set a new position in model space based on the current motion strategy.
         if ( this.zMotionEnabled ) {
-          this.setPosition3D( this.motionStrategy.getNextLocation3D( this.getPosition3D(), this.bounds, dt ) );
+          this.setPosition3D( this.motionStrategy.getNextPosition3D( this.getPosition3D(), this.bounds, dt ) );
         }
         else {
           var currentPosition = this.getPosition();
-          this.setPosition( this.motionStrategy.getNextLocation( currentPosition, this.bounds, dt ) );
+          this.setPosition( this.motionStrategy.getNextPosition( currentPosition, this.bounds, dt ) );
           // currentPosition.freeToPool();
         }
 

@@ -40,21 +40,21 @@ define( function( require ) {
      * Get the next location given the current position. State information contained in the motion strategy instance,
      * such as the current motion vector, will determine the next position.
      *
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Bounds2} bounds   Bounds of the controlled item, used in detecting whether the item would go outside of
      *                           the motion bounds.
      * @param {number} dt
      * @public
      */
-    getNextLocation: function( currentLocation, bounds, dt ) {
-      throw new Error( 'getNextLocation should be implemented in descendant classes of MotionStrategy .' );
+    getNextPosition: function( currentPosition, bounds, dt ) {
+      throw new Error( 'getNextPosition should be implemented in descendant classes of MotionStrategy .' );
     },
 
     /**
      * Get the next location in three dimensions given the current position. State information contained in the motion
      * strategy instance, such as the current motion vector, will determine the next position.
      *
-     * @param {Vector3} currentLocation
+     * @param {Vector3} currentPosition
      * @param {Bounds2} bounds   Bounds of the controlled item, used in detecting
      *                           whether the item would go outside of the motion
      *                           bounds.
@@ -62,10 +62,10 @@ define( function( require ) {
      * @returns {Vector3}
      * @public
      */
-    getNextLocation3D: function( currentLocation, bounds, dt ) {
+    getNextPosition3D: function( currentPosition, bounds, dt ) {
 
       // Default version does not move in Z direction, override for true 3D motion.
-      var nextLocation2D = this.getNextLocation( new Vector2( currentLocation.x, currentLocation.y ), bounds, dt );
+      var nextLocation2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
       return new Vector3( nextLocation2D.x, nextLocation2D.y, 0 );
     },
 

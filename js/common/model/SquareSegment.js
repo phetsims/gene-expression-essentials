@@ -28,7 +28,7 @@ define( function( require ) {
     ShapeSegment.call( this, owner );
 
     this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );
-    this.updateAttachmentSiteLocation();
+    this.updateAttachmentSitePosition();
   }
 
   geneExpressionEssentials.register( 'SquareSegment', SquareSegment );
@@ -61,7 +61,7 @@ define( function( require ) {
         this.bounds.y,
         this.bounds.getWidth() + sideGrowthAmount,
         this.bounds.getHeight() + sideGrowthAmount ) );
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     },
 
     /**
@@ -85,7 +85,7 @@ define( function( require ) {
         var index = shapeSegmentList.indexOf( this );
         shapeSegmentList.splice( index, 1 );
       }
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     },
 
     /**

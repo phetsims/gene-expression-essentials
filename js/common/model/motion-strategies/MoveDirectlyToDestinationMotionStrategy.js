@@ -70,29 +70,29 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      * @public
      */
-    getNextLocation: function( currentLocation, bounds, dt ) {
-      var nextLocation3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.y, 0 ), bounds, dt );
+    getNextPosition: function( currentPosition, bounds, dt ) {
+      var nextLocation3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
       return new Vector2( nextLocation3D.x, nextLocation3D.y );
     },
 
     /**
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Vector2} destination
      * @param {number} velocity
      * @private
      */
-    updateVelocityVector2D: function( currentLocation, destination, velocity ) {
-      if ( currentLocation.distance( destination ) === 0 ) {
+    updateVelocityVector2D: function( currentPosition, destination, velocity ) {
+      if ( currentPosition.distance( destination ) === 0 ) {
         this.velocityVector2D.setXY( 0, 0 );
       }
       else {
-        this.velocityVector2D.set( destination.minus( currentLocation ).setMagnitude( velocity ) );
+        this.velocityVector2D.set( destination.minus( currentPosition ).setMagnitude( velocity ) );
       }
     },
 
@@ -104,7 +104,7 @@ define( function( require ) {
      * @returns {Vector3}
      * @public
      */
-    getNextLocation3D: function( currentLocation3D, bounds, dt ) {
+    getNextPosition3D: function( currentLocation3D, bounds, dt ) {
 
       // destination is assumed to always have a Z value of 0, i.e. at the "surface"
       var currentDestination3D = new Vector3(

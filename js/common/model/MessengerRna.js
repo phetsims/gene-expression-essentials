@@ -91,15 +91,15 @@ define( function( require ) {
 
     this.shapeProperty.link( updateHintPositions );
 
-    // update the attachment site location when the mRNA moves or changes shape
-    var attachmentSiteLocationUpdater = this.updateAttachmentSitePosition.bind( this );
-    this.positionProperty.link( attachmentSiteLocationUpdater );
-    this.shapeProperty.link( attachmentSiteLocationUpdater );
+    // update the attachment site position when the mRNA moves or changes shape
+    var attachmentSitePositionUpdater = this.updateAttachmentSitePosition.bind( this );
+    this.positionProperty.link( attachmentSitePositionUpdater );
+    this.shapeProperty.link( attachmentSitePositionUpdater );
 
     this.disposeMessengerRna = function() {
       this.shapeProperty.unlink( updateHintPositions );
-      this.shapeProperty.unlink( attachmentSiteLocationUpdater );
-      this.positionProperty.unlink( attachmentSiteLocationUpdater );
+      this.shapeProperty.unlink( attachmentSitePositionUpdater );
+      this.positionProperty.unlink( attachmentSitePositionUpdater );
     };
   }
 
@@ -414,7 +414,7 @@ define( function( require ) {
     },
 
     /**
-     * Consider proposal from ribosome, and, if the proposal is accepted, return the attachment location
+     * Consider proposal from ribosome, and, if the proposal is accepted, return the attachment position
      * @param {Ribosome} ribosome
      * @returns {AttachmentSite}
      * @public
@@ -444,7 +444,7 @@ define( function( require ) {
     },
 
     /**
-     * Consider proposal from mRnaDestroyer and if it can attach return the attachment location
+     * Consider proposal from mRnaDestroyer and if it can attach return the attachment position
      * @param {MessengerRnaDestroyer} messengerRnaDestroyer
      * @returns {AttachmentSite}
      * @public
@@ -506,7 +506,7 @@ define( function( require ) {
       // state checking - shouldn't be called before this is set
       assert && assert( this.segmentBeingDestroyed !== null );
 
-      // the attachment location is at the right most side of the segment minus the leader length
+      // the attachment position is at the right most side of the segment minus the leader length
       return this.attachmentSite.positionProperty.get();
     }
   } );

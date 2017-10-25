@@ -340,7 +340,7 @@ define( function( require ) {
       // model.
       for ( var i = 0; i < RNA_POLYMERASE_COUNT; i++ ) {
         var rnaPolymerase = new RnaPolymerase( this, new Vector2( 0, 0 ) );
-        rnaPolymerase.setPosition3D( this.generateInitialLocation3D( rnaPolymerase ) );
+        rnaPolymerase.setPosition3D( this.generateInitialPosition3D( rnaPolymerase ) );
         rnaPolymerase.set3DMotionEnabled( true );
         rnaPolymerase.setRecycleMode( true );
         rnaPolymerase.addRecycleReturnZone( this.aboveDnaPolymeraseReturnBounds );
@@ -355,7 +355,7 @@ define( function( require ) {
      * @returns {Vector3}
      * @private
      */
-    generateInitialLocation3D: function( biomolecule ) {
+    generateInitialPosition3D: function( biomolecule ) {
       var xMin = this.moleculeMotionBounds.getBounds().minX + biomolecule.bounds.getWidth() / 2;
       var yMin = this.moleculeMotionBounds.getBounds().minY + biomolecule.bounds.getHeight() / 2;
       var xMax = this.moleculeMotionBounds.getBounds().maxX - biomolecule.bounds.getWidth() / 2;
@@ -376,7 +376,7 @@ define( function( require ) {
       if ( transcriptionFactorList.length < targetCount ) {
         while ( transcriptionFactorList.length < targetCount ) {
           var transcriptionFactor = new TranscriptionFactor( this, tcConfig, new Vector2( 0, 0 ) );
-          transcriptionFactor.setPosition3D( this.generateInitialLocation3D( transcriptionFactor ) );
+          transcriptionFactor.setPosition3D( this.generateInitialPosition3D( transcriptionFactor ) );
           transcriptionFactor.set3DMotionEnabled( true );
           this.addMobileBiomolecule( transcriptionFactor );
           transcriptionFactorList.push( transcriptionFactor );

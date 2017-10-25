@@ -111,12 +111,12 @@ define( function( require ) {
 
     /**
      * Set the position of this protein such that its "attachment point", which is the point from which it grows when it
-     * is being synthesized, is at the specified location.
+     * is being synthesized, is at the specified position.
      *
-     * @param attachmentPointLocation
+     * @param attachmentPointPosition
      * @public
      */
-    setAttachmentPointPosition: function( attachmentPointLocation ) {
+    setAttachmentPointPosition: function( attachmentPointPosition ) {
       throw new Error( 'setAttachmentPointPosition should be implemented in descendant classes of Protein' );
     }
   } );

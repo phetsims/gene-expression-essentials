@@ -66,18 +66,18 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      * @public
      */
-    getNextLocation: function( currentLocation, bounds, dt ) {
-      nextLocation3DScratchInVector.x = currentLocation.x;
-      nextLocation3DScratchInVector.y = currentLocation.y;
+    getNextPosition: function( currentPosition, bounds, dt ) {
+      nextLocation3DScratchInVector.x = currentPosition.x;
+      nextLocation3DScratchInVector.y = currentPosition.y;
       nextLocation3DScratchInVector.z = 0;
-      var location3D = this.getNextLocation3D( nextLocation3DScratchInVector, bounds, dt );
-      return new Vector2( location3D.x, location3D.y );
+      var position3D = this.getNextPosition3D( nextLocation3DScratchInVector, bounds, dt );
+      return new Vector2( position3D.x, position3D.y );
     },
 
     /**
@@ -91,13 +91,13 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {Vector3} currentLocation
+     * @param {Vector3} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
      * @public
      */
-    getNextLocation3D: function( currentLocation, bounds, dt ) {
+    getNextPosition3D: function( currentPosition, bounds, dt ) {
       this.directionChangeCountdown -= dt;
       if ( this.directionChangeCountdown <= 0 ) {
 
@@ -124,13 +124,13 @@ define( function( require ) {
 
       // To prevent odd-looking situations, the Z direction is limited so that biomolecules don't appear transparent
       // when on top of the DNA molecule.
-      var minZ = this.getMinZ( bounds, currentLocation );
+      var minZ = this.getMinZ( bounds, currentPosition );
 
       // Calculate the next location based on current motion.
       return new Vector3(
-        currentLocation.x + this.currentMotionVector2D.x * dt,
-        currentLocation.y + this.currentMotionVector2D.y * dt,
-        Util.clamp( currentLocation.z + this.currentZVelocity * dt, minZ, 0 )
+        currentPosition.x + this.currentMotionVector2D.x * dt,
+        currentPosition.y + this.currentMotionVector2D.y * dt,
+        Util.clamp( currentPosition.z + this.currentZVelocity * dt, minZ, 0 )
       );
     }
   } );

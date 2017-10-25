@@ -91,29 +91,29 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      * @public
      */
-    getNextLocation: function( currentLocation, bounds, dt ) {
-      var location3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.x, 0 ), bounds, dt );
-      return new Vector2( location3D.x, location3D.y );
+    getNextPosition: function( currentPosition, bounds, dt ) {
+      var position3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.x, 0 ), bounds, dt );
+      return new Vector2( position3D.x, position3D.y );
     },
 
     /**
      * @override
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
      * @public
      */
-    getNextLocation3D: function( currentLocation, bounds, dt ) {
+    getNextPosition3D: function( currentPosition, bounds, dt ) {
 
       // Check if it is time to teleport.  This occurs when back of Z-space is reached.
-      if ( currentLocation.z <= -1 ) {
+      if ( currentPosition.z <= -1 ) {
 
         // Time to teleport.
         var destination2D = this.generateRandomLocationInBounds( this.destinationZones, bounds );
@@ -141,9 +141,9 @@ define( function( require ) {
       }
 
       return new Vector3(
-        currentLocation.x + xyMovement.x,
-        currentLocation.y + xyMovement.y,
-        Util.clamp( currentLocation.z + zMovement, -1, 0 )
+        currentPosition.x + xyMovement.x,
+        currentPosition.y + xyMovement.y,
+        Util.clamp( currentPosition.z + zMovement, -1, 0 )
       );
     }
   } );

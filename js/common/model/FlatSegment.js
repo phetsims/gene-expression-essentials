@@ -25,7 +25,7 @@ define( function( require ) {
   function FlatSegment( owner, origin ) {
     ShapeSegment.call( this, owner );
     this.bounds.setMinMax( origin.x, origin.y, origin.x, origin.y ); // make sure bounds height and width is zero
-    this.updateAttachmentSiteLocation();
+    this.updateAttachmentSitePosition();
   }
 
   geneExpressionEssentials.register( 'FlatSegment', FlatSegment );
@@ -71,7 +71,7 @@ define( function( require ) {
         this.bounds.x + this.bounds.getWidth(),
         this.bounds.y
       );
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     },
 
     /**
@@ -88,7 +88,7 @@ define( function( require ) {
         var index = shapeSegmentList.indexOf( this );
         shapeSegmentList.splice( index, 1 );
       }
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     },
 
     /**
@@ -150,7 +150,7 @@ define( function( require ) {
         inputSegment.remove( inputSegment.getContainedLength(), shapeSegmentList );
         outputSegment.add( length, windingBiomolecule, shapeSegmentList );
       }
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     },
 
     /**
@@ -180,7 +180,7 @@ define( function( require ) {
         this.remove( length - inputSegment.getContainedLength(), shapeSegmentList );
         inputSegment.remove( inputSegment.getContainedLength(), shapeSegmentList );
       }
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     },
 
     /**
@@ -192,7 +192,7 @@ define( function( require ) {
       this.bounds.setMinMax( this.bounds.x - growthAmount,
         this.bounds.minY, this.bounds.x - growthAmount + this.capacity,
         this.bounds.minY );
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     }
   } );
 } );

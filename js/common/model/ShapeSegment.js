@@ -80,7 +80,7 @@ define( function( require ) {
      */
     setLowerRightCornerPositionXY: function( x, y ) {
       this.bounds.setMinMax( x - this.bounds.width, y, x, y + this.bounds.height );
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     },
 
     /**
@@ -108,7 +108,7 @@ define( function( require ) {
      */
     setUpperLeftCornerPositionXY: function( x, y ) {
       this.bounds.setMinMax( x, y - this.bounds.height, x + this.bounds.width, y );
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     },
 
     /**
@@ -119,7 +119,7 @@ define( function( require ) {
      */
     translate: function( x, y ) {
       this.bounds.shift( x, y );
-      this.updateAttachmentSiteLocation();
+      this.updateAttachmentSitePosition();
     },
 
     /**
@@ -144,7 +144,7 @@ define( function( require ) {
      * Updates the Attachment Site Location which is the upper left corner of the segment
      * @public
      */
-    updateAttachmentSiteLocation: function() {
+    updateAttachmentSitePosition: function() {
       this.attachmentSite.positionProperty.set( this.getUpperLeftCornerPosition() );
     },
 

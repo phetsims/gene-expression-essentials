@@ -49,38 +49,38 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector2}
      * @public
      */
-    getNextLocation: function( currentLocation, bounds, dt ) {
-      var nextLocation3D = this.getNextLocation3D( new Vector3( currentLocation.x, currentLocation.y, 0 ), bounds, dt );
+    getNextPosition: function( currentPosition, bounds, dt ) {
+      var nextLocation3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
       return new Vector2( nextLocation3D.x, nextLocation3D.y );
     },
 
     /**
      * @override
-     * @param {Vector2} currentLocation
+     * @param {Vector2} currentPosition
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
      * @public
      */
-    getNextLocation3D: function( currentLocation, bounds, dt ) {
+    getNextPosition3D: function( currentPosition, bounds, dt ) {
 
       // If the destination in within the shape, go straight to it.
       if ( bounds.containsPoint( this.destinationProperty.get() ) ) {
 
         // Move directly towards the destination with no randomness.
-        return this.directToDestinationMotionStrategy.getNextLocation3D( currentLocation, bounds, dt );
+        return this.directToDestinationMotionStrategy.getNextPosition3D( currentPosition, bounds, dt );
       }
       else {
 
         // Use a combination of the random and linear motion.
-        var intermediateLocation = this.randomWalkMotionStrategy.getNextLocation3D( currentLocation, bounds, dt * 0.6 );
-        return this.directToDestinationMotionStrategy.getNextLocation3D( intermediateLocation, bounds, dt * 0.4 );
+        var intermediateLocation = this.randomWalkMotionStrategy.getNextPosition3D( currentPosition, bounds, dt * 0.6 );
+        return this.directToDestinationMotionStrategy.getNextPosition3D( intermediateLocation, bounds, dt * 0.4 );
       }
     }
   } );
