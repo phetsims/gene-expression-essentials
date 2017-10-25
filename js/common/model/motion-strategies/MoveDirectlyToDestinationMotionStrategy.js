@@ -46,7 +46,7 @@ define( function( require ) {
     // Destination to which this motion strategy moves. Note that it is potentially a moving target.
     this.destinationProperty = destinationProperty; // @private
 
-    // Fixed offset from the destination location property used when computing the actual target destination. This is
+    // Fixed offset from the destination position property used when computing the actual target destination. This is
     // useful in cases where something needs to move such that some point that is not its center is positioned at the
     // destination.
     this.offsetFromDestinationProperty = destinationOffset; //@private
@@ -77,8 +77,8 @@ define( function( require ) {
      * @public
      */
     getNextPosition: function( currentPosition, bounds, dt ) {
-      var nextLocation3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
-      return new Vector2( nextLocation3D.x, nextLocation3D.y );
+      var nextPosition3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
+      return new Vector2( nextPosition3D.x, nextPosition3D.y );
     },
 
     /**
@@ -98,13 +98,13 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {Vector3} currentLocation3D
+     * @param {Vector3} currentPosition3D
      * @param {Bounds2} bounds
      * @param {number} dt
      * @returns {Vector3}
      * @public
      */
-    getNextPosition3D: function( currentLocation3D, bounds, dt ) {
+    getNextPosition3D: function( currentPosition3D, bounds, dt ) {
 
       // destination is assumed to always have a Z value of 0, i.e. at the "surface"
       var currentDestination3D = new Vector3(
@@ -116,20 +116,20 @@ define( function( require ) {
         this.destinationProperty.get().x - this.offsetFromDestinationProperty.x,
         this.destinationProperty.get().y - this.offsetFromDestinationProperty.y
       );
-      var currentLocation2D = new Vector2( currentLocation3D.x, currentLocation3D.y );
+      var currentPosition2D = new Vector2( currentPosition3D.x, currentPosition3D.y );
       this.updateVelocityVector2D(
-        currentLocation2D,
+        currentPosition2D,
         new Vector2( currentDestination3D.x, currentDestination3D.y ),
         this.scalarVelocity2D
       );
 
       // make the Z velocity such that the front (i.e. z = 0) will be reached at the same time as the destination in XY
       // space
-      var distanceToDestination2D = currentLocation2D.distance( this.destinationProperty.get() );
+      var distanceToDestination2D = currentPosition2D.distance( this.destinationProperty.get() );
       var zVelocity;
       if ( distanceToDestination2D > 0 ) {
         zVelocity = Math.min(
-          Math.abs( currentLocation3D.z ) / ( currentLocation2D.distance( this.destinationProperty.get() ) / this.scalarVelocity2D ),
+          Math.abs( currentPosition3D.z ) / ( currentPosition2D.distance( this.destinationProperty.get() ) / this.scalarVelocity2D ),
           MAX_Z_VELOCITY
         );
       }
@@ -138,16 +138,16 @@ define( function( require ) {
       }
 
       // make sure that the current motion won't move the model element past the destination
-      var distanceToDestination = currentLocation2D.distance( currentDestination2D );
+      var distanceToDestination = currentPosition2D.distance( currentDestination2D );
       if ( this.velocityVector2D.magnitude() * dt > distanceToDestination ) {
         return currentDestination3D;
       }
 
       // calculate the next location based on the motion vector
       return new Vector3(
-        currentLocation3D.x + this.velocityVector2D.x * dt,
-        currentLocation3D.y + this.velocityVector2D.y * dt,
-        Util.clamp( currentLocation3D.z + zVelocity * dt, -1, 0 )
+        currentPosition3D.x + this.velocityVector2D.x * dt,
+        currentPosition3D.y + this.velocityVector2D.y * dt,
+        Util.clamp( currentPosition3D.z + zVelocity * dt, -1, 0 )
       );
     }
   } );

@@ -56,8 +56,8 @@ define( function( require ) {
      * @public
      */
     getNextPosition: function( currentPosition, bounds, dt ) {
-      var nextLocation3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
-      return new Vector2( nextLocation3D.x, nextLocation3D.y );
+      var nextPosition3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
+      return new Vector2( nextPosition3D.x, nextPosition3D.y );
     },
 
     /**

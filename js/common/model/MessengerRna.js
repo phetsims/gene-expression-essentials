@@ -265,12 +265,12 @@ define( function( require ) {
      * @returns {Vector2}
      * @public
      */
-    getRibosomeAttachmentLocation: function( ribosome ) {
+    getRibosomeGenerateInitialPosition3D: function( ribosome ) {
       assert && assert(
         this.mapRibosomeToShapeSegment[ ribosome.id ],
         'attempt made to get attachment location for unattached ribosome'
       );
-      var attachmentLocation;
+      var generateInitialPosition3D;
       var mRnaPosition = this.positionProperty.get();
       var segment = this.mapRibosomeToShapeSegment[ ribosome.id ];
       var segmentCornerPosition;
@@ -279,7 +279,7 @@ define( function( require ) {
         // There is no previous segment, which means that the segment to which this ribosome is attached is the leader
         // segment. The attachment point is thus the leader length from its rightmost edge.
         segmentCornerPosition = segment.getLowerRightCornerPosition();
-        attachmentLocation = mRnaPosition.plusXY(
+        generateInitialPosition3D = mRnaPosition.plusXY(
           segmentCornerPosition.x - GEEConstants.LEADER_LENGTH,
           segmentCornerPosition.y
         );
@@ -288,12 +288,12 @@ define( function( require ) {
 
         // The segment has filled up the channel, so calculate the position based on its left edge.
         segmentCornerPosition = segment.getUpperLeftCornerPosition();
-        attachmentLocation = mRnaPosition.plusXY(
+        generateInitialPosition3D = mRnaPosition.plusXY(
           segmentCornerPosition.x + ribosome.getTranslationChannelLength(),
           segmentCornerPosition.y
         );
       }
-      return attachmentLocation;
+      return generateInitialPosition3D;
     },
 
     /**
@@ -501,7 +501,7 @@ define( function( require ) {
      * @returns {Vector2}
      * @public
      */
-    getDestroyerAttachmentLocation: function() {
+    getDestroyerGenerateInitialPosition3D: function() {
 
       // state checking - shouldn't be called before this is set
       assert && assert( this.segmentBeingDestroyed !== null );

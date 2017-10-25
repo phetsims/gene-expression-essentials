@@ -28,7 +28,7 @@ define( function( require ) {
   var MAX_TIME_IN_ONE_DIRECTION = 0.8; // In seconds.
 
   // Vector used for intermediate calculations - Added to avoid excessive creation of Vector3 instances - Ashraf
-  var nextLocation3DScratchInVector = new Vector3();
+  var nextPosition3DScratchVector = new Vector3();
 
   /**
    * @param {Property} motionBoundsProperty
@@ -73,10 +73,10 @@ define( function( require ) {
      * @public
      */
     getNextPosition: function( currentPosition, bounds, dt ) {
-      nextLocation3DScratchInVector.x = currentPosition.x;
-      nextLocation3DScratchInVector.y = currentPosition.y;
-      nextLocation3DScratchInVector.z = 0;
-      var position3D = this.getNextPosition3D( nextLocation3DScratchInVector, bounds, dt );
+      nextPosition3DScratchVector.x = currentPosition.x;
+      nextPosition3DScratchVector.y = currentPosition.y;
+      nextPosition3DScratchVector.z = 0;
+      var position3D = this.getNextPosition3D( nextPosition3DScratchVector, bounds, dt );
       return new Vector2( position3D.x, position3D.y );
     },
 
@@ -126,7 +126,7 @@ define( function( require ) {
       // when on top of the DNA molecule.
       var minZ = this.getMinZ( bounds, currentPosition );
 
-      // Calculate the next location based on current motion.
+      // Calculate the next position based on current motion.
       return new Vector3(
         currentPosition.x + this.currentMotionVector2D.x * dt,
         currentPosition.y + this.currentMotionVector2D.y * dt,

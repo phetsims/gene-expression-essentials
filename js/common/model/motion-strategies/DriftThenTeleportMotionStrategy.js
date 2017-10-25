@@ -71,7 +71,7 @@ define( function( require ) {
      * @returns {Vector2}
      * @private
      */
-    generateRandomLocationInBounds: function( destinationZones, bounds ) {
+    generateRandomPositionInBounds: function( destinationZones, bounds ) {
 
       // randomly choose one of the destination zones
       var destinationBounds = phet.joist.random.sample( destinationZones );
@@ -116,7 +116,7 @@ define( function( require ) {
       if ( currentPosition.z <= -1 ) {
 
         // Time to teleport.
-        var destination2D = this.generateRandomLocationInBounds( this.destinationZones, bounds );
+        var destination2D = this.generateRandomPositionInBounds( this.destinationZones, bounds );
         return new Vector3( destination2D.x, destination2D.y, -1 );
       }
 

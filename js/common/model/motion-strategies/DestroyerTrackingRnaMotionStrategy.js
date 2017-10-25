@@ -39,8 +39,8 @@ define( function( require ) {
      * @public
      */
     getNextPosition: function( currentPosition, bounds, dt ) {
-      var attachmentLocation = this.messengerRna.getDestroyerAttachmentLocation();
-      return new Vector2( attachmentLocation.x, attachmentLocation.y );
+      var generateInitialPosition3D = this.messengerRna.getDestroyerGenerateInitialPosition3D();
+      return new Vector2( generateInitialPosition3D.x, generateInitialPosition3D.y );
     }
   } );
 } );

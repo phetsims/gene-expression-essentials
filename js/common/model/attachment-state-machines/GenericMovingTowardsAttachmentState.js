@@ -38,7 +38,7 @@ define( function( require ) {
       assert && assert( gsm.attachmentSite !== null );
       assert && assert( gsm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === this.genericAttachmentStateMachine.biomolecule );
 
-      // calculate the location where this biomolecule must be in order to attach to the attachment site
+      // calculate the position where this biomolecule must be in order to attach to the attachment site
       var destination = new Vector2(
         gsm.attachmentSite.positionProperty.get().x - gsm.destinationOffset.x,
         gsm.attachmentSite.positionProperty.get().y - gsm.destinationOffset.y

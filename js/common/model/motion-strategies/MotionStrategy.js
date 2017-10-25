@@ -37,7 +37,7 @@ define( function( require ) {
     },
 
     /**
-     * Get the next location given the current position. State information contained in the motion strategy instance,
+     * Get the next position given the current position. State information contained in the motion strategy instance,
      * such as the current motion vector, will determine the next position.
      *
      * @param {Vector2} currentPosition
@@ -51,7 +51,7 @@ define( function( require ) {
     },
 
     /**
-     * Get the next location in three dimensions given the current position. State information contained in the motion
+     * Get the next position in three dimensions given the current position. State information contained in the motion
      * strategy instance, such as the current motion vector, will determine the next position.
      *
      * @param {Vector3} currentPosition
@@ -65,8 +65,8 @@ define( function( require ) {
     getNextPosition3D: function( currentPosition, bounds, dt ) {
 
       // Default version does not move in Z direction, override for true 3D motion.
-      var nextLocation2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
-      return new Vector3( nextLocation2D.x, nextLocation2D.y, 0 );
+      var nextPosition2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
+      return new Vector3( nextPosition2D.x, nextPosition2D.y, 0 );
     },
 
     /**

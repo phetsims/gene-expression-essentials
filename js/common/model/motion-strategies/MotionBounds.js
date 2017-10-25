@@ -107,7 +107,7 @@ define( function( require ) {
      * given point.
      *
      * @param {Bounds2} bounds            - Test bounds.
-     * @param {Vector2} proposedPosition - Proposed location of the shape's center.
+     * @param {Vector2} proposedPosition - Proposed position of the shape's center.
      * @returns {boolean}
      * @public
      */

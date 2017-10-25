@@ -113,8 +113,8 @@ define( function( require ) {
     getNextPosition3D: function( currentPosition, bounds, dt ) {
 
       // The 3D version of this motion strategy doesn't move in the z direction. This may change some day.
-      var nextLocation2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
-      return new Vector3( nextLocation2D.x, nextLocation2D.y, currentPosition.z );
+      var nextPosition2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
+      return new Vector3( nextPosition2D.x, nextPosition2D.y, currentPosition.z );
     }
   } );
 } );

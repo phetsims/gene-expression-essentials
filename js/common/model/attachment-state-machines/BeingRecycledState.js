@@ -73,7 +73,7 @@ define( function( require ) {
       // Prevent user interaction.
       asm.biomolecule.movableByUserProperty.set( false );
 
-      // Set the motion strategy that will move the polymerase clear of the DNA, then teleport it to a location within
+      // Set the motion strategy that will move the polymerase clear of the DNA, then teleport it to a position within
       // the specified bounds.
       asm.biomolecule.setMotionStrategy( new DriftThenTeleportMotionStrategy( new Vector2( 0,
         phet.joist.random.nextBoolean() ? 1 : -1 ),
