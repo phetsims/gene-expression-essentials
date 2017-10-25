@@ -64,7 +64,7 @@ define( function( require ) {
 
           gsm.biomolecule.setMotionStrategy(
             new MoveDirectlyToDestinationMotionStrategy(
-              gsm.attachmentSite.locationProperty,
+              gsm.attachmentSite.positionProperty,
               gsm.biomolecule.motionBoundsProperty,
               gsm.destinationOffset,
               GEEConstants.TRANSCRIPTION_SPEED * 2
@@ -74,7 +74,7 @@ define( function( require ) {
         else{
           gsm.biomolecule.setMotionStrategy(
             new MeanderToDestinationMotionStrategy(
-              gsm.attachmentSite.locationProperty,
+              gsm.attachmentSite.positionProperty,
               gsm.biomolecule.motionBoundsProperty,
               gsm.destinationOffset
             )

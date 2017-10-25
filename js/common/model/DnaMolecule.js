@@ -537,9 +537,9 @@ define( function( require ) {
               potentialAttachmentSites.push( matchingSite );
             }
             else if ( !matchingSite.isMoleculeAttached() ) {
-              var thisDistance = biomolecule.getPosition().distance( matchingSite.locationProperty.get() );
+              var thisDistance = biomolecule.getPosition().distance( matchingSite.positionProperty.get() );
               var thatDistance = matchingSite.attachedOrAttachingMoleculeProperty.get().getPosition().distance(
-                matchingSite.locationProperty.get() );
+                matchingSite.positionProperty.get() );
               if ( thisDistance < thatDistance ) {
 
                 // The other molecule is not yet attached, and this one is closer, so force the other molecule to
@@ -573,9 +573,9 @@ define( function( require ) {
         // only the affinity matters, a value of 100 means it is pretty much entirely distance. A value of 2 is how
         // gravity works, so it appears kind of natural. Tweak as needed.
         var as1Factor = attachmentSite1.getAffinity() /
-                        Math.pow( attachLocation.distance( attachmentSite1.locationProperty.get() ), exponent );
+                        Math.pow( attachLocation.distance( attachmentSite1.positionProperty.get() ), exponent );
         var as2Factor = attachmentSite2.getAffinity() /
-                        Math.pow( attachLocation.distance( attachmentSite2.locationProperty.get() ), exponent );
+                        Math.pow( attachLocation.distance( attachmentSite2.positionProperty.get() ), exponent );
 
         if ( as2Factor > as1Factor ) {
           return 1;
@@ -605,7 +605,7 @@ define( function( require ) {
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
 
         // determine the bounds for the provided biomolecule when translated to the attachment site
-        var translationVector = attachmentSite.locationProperty.get().minus( biomolecule.getPosition() );
+        var translationVector = attachmentSite.positionProperty.get().minus( biomolecule.getPosition() );
         var translatedShapeBounds = biomolecule.bounds.shifted( translationVector.x, translationVector.y );
 
         // if the biomolecule would be out of the model bounds, the site should be excluded
@@ -629,7 +629,7 @@ define( function( require ) {
 
               // This biomolecule is moving towards attachment but not yet attached, so translate to bounds to where
               // they will be once attachment occurs.
-              translationVector = attachmentSite.locationProperty.get().minus( mobileBiomolecule.getPosition() );
+              translationVector = attachmentSite.positionProperty.get().minus( mobileBiomolecule.getPosition() );
               attachedOrIncomingBiomoleculeBounds.push(
                 mobileBiomolecule.bounds.shifted( translationVector.x, translationVector.y )
               );
@@ -698,7 +698,7 @@ define( function( require ) {
      * @public
      */
     getAdjacentAttachmentSitesTranscriptionFactor: function( transcriptionFactor, attachmentSite ) {
-      var basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.locationProperty.get().x );
+      var basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.positionProperty.get().x );
       var attachmentSites = [];
       var potentialSite;
       if ( basePairIndex !== 0 ) {
@@ -729,7 +729,7 @@ define( function( require ) {
      * @public
      */
     getAdjacentAttachmentSitesRnaPolymerase: function( rnaPolymerase, attachmentSite ) {
-      var basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.locationProperty.get().x );
+      var basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.positionProperty.get().x );
       var attachmentSites = [];
       var potentialSite;
       if ( basePairIndex !== 0 ) {

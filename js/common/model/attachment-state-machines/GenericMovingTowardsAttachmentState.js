@@ -40,8 +40,8 @@ define( function( require ) {
 
       // calculate the location where this biomolecule must be in order to attach to the attachment site
       var destination = new Vector2(
-        gsm.attachmentSite.locationProperty.get().x - gsm.destinationOffset.x,
-        gsm.attachmentSite.locationProperty.get().y - gsm.destinationOffset.y
+        gsm.attachmentSite.positionProperty.get().x - gsm.destinationOffset.x,
+        gsm.attachmentSite.positionProperty.get().y - gsm.destinationOffset.y
       );
 
       // see if the attachment site has been reached

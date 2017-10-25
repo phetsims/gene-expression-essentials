@@ -145,7 +145,7 @@ define( function( require ) {
      * @public
      */
     updateAttachmentSiteLocation: function() {
-      this.attachmentSite.locationProperty.set( this.getUpperLeftCornerPosition() );
+      this.attachmentSite.positionProperty.set( this.getUpperLeftCornerPosition() );
     },
 
     /**

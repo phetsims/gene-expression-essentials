@@ -46,7 +46,7 @@ define( function( require ) {
         // Start moving towards the site.
         gsm.biomolecule.setMotionStrategy(
           new MeanderToDestinationMotionStrategy(
-            gsm.attachmentSite.locationProperty,
+            gsm.attachmentSite.positionProperty,
             gsm.biomolecule.motionBoundsProperty,
             gsm.destinationOffset
           )

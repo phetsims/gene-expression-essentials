@@ -103,7 +103,7 @@ define( function( require ) {
           _.remove( attachmentSites, function( site ) {
 
             return site.isMoleculeAttached() || !biomolecule.motionBoundsProperty.get().testIfInMotionBounds(
-                biomolecule.bounds, site.locationProperty.get() );
+                biomolecule.bounds, site.positionProperty.get() );
           } );
 
           // Shuffle in order to produce random-ish behavior.
@@ -129,7 +129,7 @@ define( function( require ) {
             // Set up the state to move to the new attachment site.
             this.rnaPolymeraseAttachmentStateMachine.setState(
               this.rnaPolymeraseAttachmentStateMachine.movingTowardsAttachmentState );
-            biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.locationProperty,
+            biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.positionProperty,
               biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), GEEConstants.VELOCITY_ON_DNA ) );
             this.rnaPolymeraseAttachmentStateMachine.attachmentSite = attachmentSite;
 

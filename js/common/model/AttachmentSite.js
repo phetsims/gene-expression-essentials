@@ -34,7 +34,7 @@ define( function( require ) {
 
     // Location of this attachment site. It is a property so that it can be followed in the event that the biomolecule
     // upon which it exists is moving.
-    this.locationProperty = new Property( initialLocation ); // @public
+    this.positionProperty = new Property( initialLocation ); // @public
 
     // A property that tracks which if any biomolecule is attached to or moving towards attachment with this site.
     this.attachedOrAttachingMoleculeProperty = new Property( null ); // @public
@@ -64,7 +64,7 @@ define( function( require ) {
      */
     isMoleculeAttached: function() {
       return this.attachedOrAttachingMoleculeProperty.get() !== null &&
-             this.locationProperty.get().distance( this.attachedOrAttachingMoleculeProperty.get().getPosition() ) < ATTACHED_THRESHOLD;
+             this.positionProperty.get().distance( this.attachedOrAttachingMoleculeProperty.get().getPosition() ) < ATTACHED_THRESHOLD;
     },
 
     /**
@@ -80,7 +80,7 @@ define( function( require ) {
       var otherAttachmentSite = obj;
 
       return (this.affinityProperty.get() === otherAttachmentSite.affinityProperty.get() ) &&
-             this.locationProperty.get().equals( otherAttachmentSite.locationProperty.get() );
+             this.positionProperty.get().equals( otherAttachmentSite.positionProperty.get() );
     }
   } );
 } );

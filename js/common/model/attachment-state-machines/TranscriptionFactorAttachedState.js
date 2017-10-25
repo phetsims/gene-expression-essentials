@@ -102,7 +102,7 @@ define( function( require ) {
           //var clonedAttachmentSites = [].concat( attachmentSites );
           _.remove( attachmentSites, function( site ) {
             return !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.bounds,
-              site.locationProperty.get() );
+              site.positionProperty.get() );
           } );
 
           // Shuffle in order to produce random-ish behavior.
@@ -126,7 +126,7 @@ define( function( require ) {
             // Set up the state to move to the new attachment site.
             this.transcriptionFactorAttachmentStateMachine.setState( movingTowardsAttachmentState );
             this.transcriptionFactorAttachmentStateMachine.attachmentSite = attachmentSite;
-            biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.locationProperty,
+            biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.positionProperty,
               biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), GEEConstants.VELOCITY_ON_DNA ) );
 
             // Update the detachment threshold. It gets lower over time to increase the probability of detachment.

@@ -37,7 +37,7 @@ define( function( require ) {
      * @public
      */
     getNextLocation: function( currentLocation, bounds, dt ) {
-      return this.attachmentSite.locationProperty.get();
+      return this.attachmentSite.positionProperty.get();
     }
   } );
 } );

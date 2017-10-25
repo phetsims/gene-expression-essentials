@@ -81,7 +81,7 @@ define( function( require ) {
     this.polymeraseAffinityProperty = new Property( 1.0 ); //@public
 
     // Initialize the placement hint for polymerase.
-    this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.locationProperty.get() );
+    this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.positionProperty.get() );
   }
 
   geneExpressionEssentials.register( 'Gene', Gene );
@@ -244,7 +244,7 @@ define( function( require ) {
 
           // there is a very slight difference in the y direction and to mitigate that we use an empirically determined
           // tolerance factor
-          if ( tf.getPosition().distance( transcriptionFactorAttachmentSite.locationProperty.get() ) < 0.001 &&
+          if ( tf.getPosition().distance( transcriptionFactorAttachmentSite.positionProperty.get() ) < 0.001 &&
                tf.isPositive() ) {
             numPositiveTranscriptionFactorsAttached += 1;
           }
@@ -297,7 +297,7 @@ define( function( require ) {
         if ( transcriptionFactorAttachmentSite.configurationMatches( tfConfig ) ) {
           // Found matching site.  Is it available and in the right place?
           if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
-               Math.abs( transcriptionFactorAttachmentSite.locationProperty.get().x -
+               Math.abs( transcriptionFactorAttachmentSite.positionProperty.get().x -
                          this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) ) <
                GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS / 2 ) {
 

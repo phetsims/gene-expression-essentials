@@ -238,13 +238,13 @@ define( function( require ) {
     updateAttachmentSitePosition: function() {
       if ( this.shapeSegments.length > 0 ) {
         var leadingShapeSegment = this.shapeSegments[ 0 ];
-        this.attachmentSite.locationProperty.set( new Vector2(
+        this.attachmentSite.positionProperty.set( new Vector2(
           this.positionProperty.get().x + leadingShapeSegment.bounds.minX,
           this.positionProperty.get().y + leadingShapeSegment.bounds.minY
         ) );
       }
       else {
-        this.attachmentSite.locationProperty.set( this.positionProperty.get() );
+        this.attachmentSite.positionProperty.set( this.positionProperty.get() );
       }
     },
 
@@ -408,7 +408,7 @@ define( function( require ) {
       // Add the length for the segment that is inside the translation channel of this ribosome.
       translatedLength += segmentInRibosomeChannel.getContainedLength() -
                           ( segmentInRibosomeChannel.getLowerRightCornerPosition().x -
-                          segmentInRibosomeChannel.attachmentSite.locationProperty.get().x );
+                          segmentInRibosomeChannel.attachmentSite.positionProperty.get().x );
 
       return translatedLength;
     },
@@ -428,7 +428,7 @@ define( function( require ) {
 
         // See if the attachment site at the leading edge of the mRNA is available and close by.
         if ( this.attachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
-             this.attachmentSite.locationProperty.get().distance( ribosome.getEntranceOfRnaChannelPosition() ) < RIBOSOME_CONNECTION_DISTANCE ) {
+             this.attachmentSite.positionProperty.get().distance( ribosome.getEntranceOfRnaChannelPosition() ) < RIBOSOME_CONNECTION_DISTANCE ) {
 
           // This attachment site is in range and available.
           returnValue = this.attachmentSite;
@@ -459,7 +459,7 @@ define( function( require ) {
 
         // See if the attachment site at the leading edge of the mRNA is available and close by.
         if ( this.attachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
-             this.attachmentSite.locationProperty.get().distance( messengerRnaDestroyer.getPosition() ) <
+             this.attachmentSite.positionProperty.get().distance( messengerRnaDestroyer.getPosition() ) <
              MRNA_DESTROYER_CONNECT_DISTANCE ) {
 
           // This attachment site is in range and available.
@@ -507,7 +507,7 @@ define( function( require ) {
       assert && assert( this.segmentBeingDestroyed !== null );
 
       // the attachment location is at the right most side of the segment minus the leader length
-      return this.attachmentSite.locationProperty.get();
+      return this.attachmentSite.positionProperty.get();
     }
   } );
 } );
