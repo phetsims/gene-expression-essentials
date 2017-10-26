@@ -48,7 +48,7 @@
     "value": "Protein"
   },
   "slow": {
-    "value": "slow"
+    "value": "Slow"
   },
   "cells": {
     "value": "Cells"
@@ -129,7 +129,7 @@
     "value": "Collection Complete!"
   },
   "fast": {
-    "value": "fast"
+    "value": "Fast"
   },
   "polymerase": {
     "value": "Polymerase"
