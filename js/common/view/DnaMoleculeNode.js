@@ -52,7 +52,7 @@ define( function( require ) {
     // Put the gene backgrounds and labels behind everything.
     for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
       geneBackgroundLayer.addChild( new GeneNode( modelViewTransform, dnaMolecule.getGenes()[ i ], dnaMolecule,
-        geneString + ( i + 1 ), showGeneBracketLabels ) );
+        geneString + ' ' + ( i + 1 ), showGeneBracketLabels ) );
     }
   }
 
