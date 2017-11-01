@@ -30,6 +30,7 @@ define( function( require ) {
   var RIBOSOME_CONNECTION_DISTANCE = 400; // picometers - distance within which this will connect to a ribosome
   var MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers - Distance within which this will connect to a mRNA destroyer
   var INITIAL_MRNA_SHAPE = Shape.circle( 0, 0, 0.1 ); // tiny circle until the strand starts to grow
+  var MIN_LENGTH_TO_ATTACH = 75; // picometers - min length before attachments are allowed
 
   /**
    * Constructor.  This creates the mRNA as a single point, with the intention of growing it.
@@ -423,8 +424,8 @@ define( function( require ) {
       assert && assert( !this.mapRibosomeToShapeSegment[ ribosome.id ] ); // Shouldn't get redundant proposals from a ribosome.
       var returnValue = null;
 
-      // Can't consider proposal if currently being destroyed.
-      if ( this.messengerRnaDestroyer === null ) {
+      // Can't consider proposal if too short or if currently being destroyed.
+      if ( this.getLength() >= MIN_LENGTH_TO_ATTACH && this.messengerRnaDestroyer === null ) {
 
         // See if the attachment site at the leading edge of the mRNA is available and close by.
         if ( this.attachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&

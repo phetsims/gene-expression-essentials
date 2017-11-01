@@ -174,7 +174,8 @@ define( function( require ) {
      * @public
      */
     advanceMessengerRnaTranslation: function( amount ) {
-      return this.messengerRnaBeingTranslated !== null && this.messengerRnaBeingTranslated.advanceTranslation( this, amount );
+      return this.messengerRnaBeingTranslated !== null &&
+             this.messengerRnaBeingTranslated.advanceTranslation( this, amount );
     },
 
     /**

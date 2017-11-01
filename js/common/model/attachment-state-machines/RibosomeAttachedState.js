@@ -13,13 +13,14 @@ define( function( require ) {
 
   // modules
   var AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RibosomeTranslatingRnaMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RibosomeTranslatingRnaMotionStrategy' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var RNA_TRANSLATION_RATE = 750; // Picometers per second. // Scalar velocity for transcription.
+  var RNA_TRANSLATION_RATE = 750; // picometers per second
   var CLEAR_RNA_ATTACHMENT_LENGTH  = 700; // length which, once translated, a new biomolecule can attach to mRNA
 
   /**
@@ -70,8 +71,11 @@ define( function( require ) {
         asm.attachmentSite = null;
       }
 
-      // advance the translation of the mRNA
-      var translationComplete = ribosome.advanceMessengerRnaTranslation( RNA_TRANSLATION_RATE * dt );
+      // Advance the translation of the mRNA.  This must proceed more slowly if the mRNA is in the process of being
+      // synthesized, otherwise the ribosome with run out of mRNA to work with.  The amount of reduction was chosen to
+      // look good and to cause minimal "jumpiness" when translation and trnascription occur simultaneously.
+      var translationRate = mRna.beingSynthesizedProperty.get() ? RNA_TRANSLATION_RATE * 0.4 : RNA_TRANSLATION_RATE;
+      var translationComplete = ribosome.advanceMessengerRnaTranslation( translationRate * dt );
       if ( translationComplete ) {
 
         // release the mRNA

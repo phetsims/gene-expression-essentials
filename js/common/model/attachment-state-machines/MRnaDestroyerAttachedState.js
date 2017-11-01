@@ -73,9 +73,12 @@ define( function( require ) {
         this.messengerRnaFragment = null;
       }
 
-      // Advance the destruction of the mRNA.
+      // Advance the destruction of the mRNA.  Destruction must proceed more slowly when the mRNA is being synthesized
+      // to avoid a situation where it gets destroyed more rapidly than it is created.
+      var destructionRate = biomolecule.getMessengerRnaBeingDestroyed().beingSynthesizedProperty.get() ?
+                            RNA_DESTRUCTION_RATE / 2 : RNA_DESTRUCTION_RATE;
       var destructionComplete = this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.advanceMessengerRnaDestruction(
-        RNA_DESTRUCTION_RATE * dt
+        destructionRate * dt
       );
       if ( destructionComplete ) {
 
