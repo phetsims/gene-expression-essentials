@@ -81,7 +81,10 @@ define( function( require ) {
     }
 
     function handleUserControlledChanged( isUserControlled, wasUserControlled ) {
-      if ( wasUserControlled && !isUserControlled ) {
+      if ( isUserControlled && !wasUserControlled ){
+        self.handleGrabbedByUser();
+      }
+      else if ( wasUserControlled && !isUserControlled ) {
         self.handleReleasedByUser();
       }
     }
@@ -118,13 +121,21 @@ define( function( require ) {
     },
 
     /**
-     * Handle the case where the user was controlling this model object (i.e. dragging it with the mouse) and has released
-     * it. Override this if unique behavior is needed in a subclass.
+     * handle the case where the user grabs this model object (i.e. starts dragging it with the mouse or a finger)
+     * @protected
+     */
+    handleGrabbedByUser: function() {
+      // The user has grabbed this node. This should cause any existing or pending attachments to be severed.
+      this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
+    },
+
+    /**
+     * Handle the case where the user was controlling this model object (i.e. dragging it with the mouse) and has
+     * released it. Override this if unique behavior is needed in a subclass.
      * @protected
      */
     handleReleasedByUser: function() {
-      // The user has released this node after moving it. This should cause any existing or pending attachments to be severed.
-      this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
+      // The user has released this node after moving it. This does nothing in the base class.
     },
 
     /**

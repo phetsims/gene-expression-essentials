@@ -415,6 +415,20 @@ define( function( require ) {
     },
 
     /**
+     * returns true if this messenger RNA is in a state where attachments can occur
+     * @returns {boolean}
+     * @private
+     */
+    attachmentAllowed: function() {
+
+      // For an attachment proposal to be considered, the mRNA can't be controlled by the user, too short, or in the
+      // process of being destroyed.
+      return !this.userControlledProperty.get() &&
+             this.getLength() >= MIN_LENGTH_TO_ATTACH &&
+             this.messengerRnaDestroyer === null;
+    },
+
+    /**
      * Consider proposal from ribosome, and, if the proposal is accepted, return the attachment position
      * @param {Ribosome} ribosome
      * @returns {AttachmentSite}
@@ -424,8 +438,7 @@ define( function( require ) {
       assert && assert( !this.mapRibosomeToShapeSegment[ ribosome.id ] ); // Shouldn't get redundant proposals from a ribosome.
       var returnValue = null;
 
-      // Can't consider proposal if too short or if currently being destroyed.
-      if ( this.getLength() >= MIN_LENGTH_TO_ATTACH && this.messengerRnaDestroyer === null ) {
+      if ( this.attachmentAllowed() ) {
 
         // See if the attachment site at the leading edge of the mRNA is available and close by.
         if ( this.attachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
@@ -455,8 +468,7 @@ define( function( require ) {
 
       var returnValue = null;
 
-      // Make sure that this mRNA is not already being destroyed.
-      if ( this.messengerRnaDestroyer === null ) {
+      if ( this.attachmentAllowed() ) {
 
         // See if the attachment site at the leading edge of the mRNA is available and close by.
         if ( this.attachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
