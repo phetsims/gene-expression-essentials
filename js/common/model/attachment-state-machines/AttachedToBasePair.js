@@ -20,6 +20,9 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
 
+  // constant
+  var REEVALUATE_TRANSCRIPTION_DECISION_TIME = 1; // seconds
+
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
    * @constructor
@@ -32,6 +35,9 @@ define( function( require ) {
 
     // @private - flag that is set upon entry that determines whether transcription occurs
     this.transcribe = false;
+
+    // @private
+    this.timeSinceTranscriptionDecision = 0;
   }
 
   geneExpressionEssentials.register( 'AttachedToBasePair', AttachedToBasePair );
@@ -66,6 +72,7 @@ define( function( require ) {
       assert && assert( asm.attachmentSite !== null );
       assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === asm.biomolecule );
 
+      // set up some convenient variables
       var attachedState = this.rnaPolymeraseAttachmentStateMachine.attachedState;
       var attachedAndConformingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndConformingState;
       var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
@@ -81,9 +88,7 @@ define( function( require ) {
         detachFromDnaThreshold.reset(); // Reset this threshold.
       }
       else if ( phet.joist.random.nextDouble() >
-                ( 1 -
-                  this.rnaPolymeraseAttachmentStateMachine.calculateProbabilityOfDetachment(
-                    attachmentSite.getAffinity(), dt ) ) ) {
+                ( 1 - this.rnaPolymeraseAttachmentStateMachine.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
 
         // The decision has been made to detach. Next, decide whether to detach completely from the DNA strand or just
         // jump to an adjacent base pair.
@@ -140,7 +145,17 @@ define( function( require ) {
         }
       }
       else {
-        // Just stay attached to the current site.
+
+        // Reevaluate the decision on whether to transcribe.  This is necessary to avoid getting stuck in the attached
+        // state, which can happen if the affinity is changed after the state was initially entered, see
+        // https://github.com/phetsims/gene-expression-essentials/issues/100.
+        this.timeSinceTranscriptionDecision += dt;
+
+        if ( this.timeSinceTranscriptionDecision >= REEVALUATE_TRANSCRIPTION_DECISION_TIME ){
+          this.transcribe = attachmentSite.getAffinity() > GEEConstants.DEFAULT_AFFINITY &&
+                            phet.joist.random.nextDouble() < attachmentSite.getAffinity();
+          this.timeSinceTranscriptionDecision = 0;
+        }
       }
     },
 
