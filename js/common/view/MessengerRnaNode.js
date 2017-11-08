@@ -77,7 +77,6 @@ define( function( require ) {
       var shapeBounds = shape.bounds;
       if ( shapeBounds.isFinite() ) {
         var scaledShapeBounds = self.scaleOnlyModelViewTransform.modelToViewShape( shapeBounds );
-        // rect.setRectBounds( scaledShapeBounds );
 
         // position the label
         label.left = scaledShapeBounds.maxX;
