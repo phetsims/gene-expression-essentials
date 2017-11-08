@@ -319,6 +319,45 @@ define( function( require ) {
     },
 
     /**
+     * This override checks to see if the mRNA is about to be translated and destroyed and, if so, aborts those
+     * operations.  If translation or destruction are in progress, nothing is done, since those can't be stopped once
+     * they've started.
+     * @override
+     */
+    handleGrabbedByUser: function() {
+
+      var attachedOrAttachingMolecule = this.attachmentSite.attachedOrAttachingMoleculeProperty.get();
+
+      if ( attachedOrAttachingMolecule instanceof Ribosome ) {
+
+        // if a ribosome is moving towards this mRNA strand but translation hasn't started, call off the wedding
+        if ( !attachedOrAttachingMolecule.isTranslating() ) {
+          attachedOrAttachingMolecule.cancelTranslation();
+          this.releaseFromRibosome( attachedOrAttachingMolecule );
+          this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
+        }
+      }
+      else if ( attachedOrAttachingMolecule instanceof MessengerRnaDestroyer ) {
+
+        // state checking
+        assert && assert(
+          this.messengerRnaDestroyer === attachedOrAttachingMolecule,
+          'something isn\t right - the destroyer for the attachment site doesn\'t match the expected reference'
+        );
+
+        // if an mRNA destroyer is moving towards this mRNA strand but translation hasn't started, call off the wedding
+        if ( !this.isDestructionInProgress() ) {
+          attachedOrAttachingMolecule.cancelMessengerRnaDestruction();
+          this.messengerRnaDestroyer = null;
+          this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
+        }
+      }
+
+      // TODO: We don't need this, right?
+      // WindingBiomolecule.prototype.handleGrabbedByUser.call( this );
+    },
+
+    /**
      * Activate the placement hint(s) as appropriate for the given biomolecule.
      *
      * @param {MobileBiomolecule} biomolecule - instance of the type of biomolecule for which any matching hints
@@ -348,8 +387,8 @@ define( function( require ) {
     initiateTranslation: function( ribosome ) {
       assert && assert( this.mapRibosomeToShapeSegment[ ribosome.id ] ); // State checking.
 
-      // Set the capacity of the first segment to the size of the channel through which it will be pulled plus the leader
-      // length.
+      // Set the capacity of the first segment to the size of the channel through which it will be pulled plus the
+      // leader length.
       var firstShapeSegment = this.shapeSegments[ 0 ];
       assert && assert( firstShapeSegment.isFlat() );
       firstShapeSegment.setCapacity( ribosome.getTranslationChannelLength() + GEEConstants.LEADER_LENGTH );
@@ -371,6 +410,15 @@ define( function( require ) {
       this.segmentBeingDestroyed.setCapacity(
         this.messengerRnaDestroyer.getDestructionChannelLength() + GEEConstants.LEADER_LENGTH
       );
+    },
+
+    /**
+     * returns true if destruction has started, false if not - note that destruction must actually have started, and
+     * the state where an mRNA destroyer is moving towards the mRNA doesn't count
+     * @private
+     */
+    isDestructionInProgress: function(){
+      return this.segmentBeingDestroyed !== null;
     },
 
     /**
@@ -490,8 +538,8 @@ define( function( require ) {
     },
 
     /**
-     * Aborts the destruction process, used if the mRNA destroyer was on its way to the mRNA but the user picked it up
-     * before it got there.
+     * Aborts the destruction process, used if the mRNA destroyer was on its way to the mRNA but the user picked up
+     * once of the two biomolecules before destruction started.
      * @public
      */
     abortDestruction: function() {

@@ -15,7 +15,7 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
-  var RnaDestroyerAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/RnaDestroyerAttachmentStateMachine' );
+  var MRnaDestroyerAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MRnaDestroyerAttachmentStateMachine' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -54,11 +54,11 @@ define( function( require ) {
 
     /**
      * @override
-     * @returns {RnaDestroyerAttachmentStateMachine}
+     * @returns {MRnaDestroyerAttachmentStateMachine}
      * @public
      */
     createAttachmentStateMachine: function() {
-      return new RnaDestroyerAttachmentStateMachine( this );
+      return new MRnaDestroyerAttachmentStateMachine( this );
     },
 
     /**
@@ -108,6 +108,17 @@ define( function( require ) {
      */
     initiateMessengerRnaDestruction: function() {
       this.messengerRnaBeingDestroyed.initiateDestruction( this );
+    },
+
+    /**
+     * If destruction was planned but not yet initiated, it can be canceled using this method.  This can happen when
+     * the mRNA and the destroyer are moving towards one another and one of them is grabbed before the actual
+     * destruction process starts.
+     * @public
+     */
+    cancelMessengerRnaDestruction: function() {
+      this.messengerRnaBeingDestroyed = null;
+      this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
     },
 
     /**

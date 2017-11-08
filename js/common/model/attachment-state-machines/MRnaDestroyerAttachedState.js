@@ -1,7 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * One of the states for RnaDestroyerAttachmentStateMachine. Destroyer enters this state when it attached to mRNA
+ * One of the states for MRnaDestroyerAttachmentStateMachine. Destroyer enters this state when it attached to mRNA
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -27,14 +27,14 @@ define( function( require ) {
   var MRNA_FRAGMENT_LENGTH_RANGE = new Range( 100, 400 ); // In picometers.
 
   /**
-   * @param {RnaDestroyerAttachmentStateMachine} rnaDestroyerAttachmentStateMachine
+   * @param {MRnaDestroyerAttachmentStateMachine} MRnaDestroyerAttachmentStateMachine
    * @constructor
    */
-  function MRnaDestroyerAttachedState( rnaDestroyerAttachmentStateMachine ) {
+  function MRnaDestroyerAttachedState( MRnaDestroyerAttachmentStateMachine ) {
     AttachmentState.call( this );
 
-    // @public (read-ony) {RnaDestroyerAttachmentStateMachine}
-    this.rnaDestroyerAttachmentStateMachine = rnaDestroyerAttachmentStateMachine;
+    // @public (read-ony) {MRnaDestroyerAttachmentStateMachine}
+    this.MRnaDestroyerAttachmentStateMachine = MRnaDestroyerAttachmentStateMachine;
 
     this.messengerRnaFragment = null; //@private
     this.targetFragmentLength = 0; //@private
@@ -51,7 +51,7 @@ define( function( require ) {
      * @public
      */
     step: function( asm, dt ) {
-      var biomolecule = this.rnaDestroyerAttachmentStateMachine.biomolecule;
+      var biomolecule = this.MRnaDestroyerAttachmentStateMachine.biomolecule;
 
       // Verify that state is consistent.
       assert && assert( asm.attachmentSite !== null );
@@ -77,7 +77,7 @@ define( function( require ) {
       // to avoid a situation where it gets destroyed more rapidly than it is created.
       var destructionRate = biomolecule.getMessengerRnaBeingDestroyed().beingSynthesizedProperty.get() ?
                             RNA_DESTRUCTION_RATE / 2 : RNA_DESTRUCTION_RATE;
-      var destructionComplete = this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.advanceMessengerRnaDestruction(
+      var destructionComplete = this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer.advanceMessengerRnaDestruction(
         destructionRate * dt
       );
       if ( destructionComplete ) {
@@ -91,9 +91,9 @@ define( function( require ) {
         // Remove the messenger RNA that is now destroyed from the model. There should be no visual representation left
         // to it at this point.
         biomolecule.getModel().removeMessengerRna(
-          this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.getMessengerRnaBeingDestroyed()
+          this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer.getMessengerRnaBeingDestroyed()
         );
-        this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer.clearMessengerRnaBeingDestroyed();
+        this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer.clearMessengerRnaBeingDestroyed();
 
         // Release this destroyer to wander in the cytoplasm.
         asm.detach();
@@ -106,7 +106,7 @@ define( function( require ) {
      * @public
      */
     entered: function( asm ) {
-      var mRnaDestroyer = this.rnaDestroyerAttachmentStateMachine.mRnaDestroyer;
+      var mRnaDestroyer = this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer;
       mRnaDestroyer.initiateMessengerRnaDestruction();
       mRnaDestroyer.setMotionStrategy( new DestroyerTrackingRnaMotionStrategy( mRnaDestroyer ) );
 

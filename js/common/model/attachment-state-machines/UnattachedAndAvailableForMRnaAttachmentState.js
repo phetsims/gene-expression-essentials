@@ -1,7 +1,7 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
- * One of the states used in RibosomeAttachmentStateMachine and MRnaDestroyerAttachmentStateMachine. This state
+ * One of the states used in RibosomeAttachmentStateMachine and MMRnaDestroyerAttachmentStateMachine. This state
  * descends from the GenericUnattachedAndAvailableState, but it handles a special case where it has to move differently
  * if the mRNA is in the process of being transcribed (aka synthesized).  This state is only used for attachments that
  * are formed with messenger RNA (mRNA).

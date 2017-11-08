@@ -21,7 +21,7 @@ define( function( require ) {
    * @param {MessengerRnaDestroyer} messengerRnaDestroyer
    * @constructor
    */
-  function RnaDestroyerAttachmentStateMachine( messengerRnaDestroyer ) {
+  function MRnaDestroyerAttachmentStateMachine( messengerRnaDestroyer ) {
     GenericAttachmentStateMachine.call( this, messengerRnaDestroyer );
 
     // @public {MessengerRnaDestroyer}
@@ -34,9 +34,9 @@ define( function( require ) {
     this.attachedState = new MRnaDestroyerAttachedState( this );
   }
 
-  geneExpressionEssentials.register( 'RnaDestroyerAttachmentStateMachine', RnaDestroyerAttachmentStateMachine );
+  geneExpressionEssentials.register( 'MRnaDestroyerAttachmentStateMachine', MRnaDestroyerAttachmentStateMachine );
 
-  return inherit( GenericAttachmentStateMachine, RnaDestroyerAttachmentStateMachine, {
+  return inherit( GenericAttachmentStateMachine, MRnaDestroyerAttachmentStateMachine, {
 
     /**
      * @override
@@ -51,6 +51,7 @@ define( function( require ) {
       }
       GenericAttachmentStateMachine.prototype.forceImmediateUnattachedAndAvailable.call( this );
     }
+
   } );
 } );
 

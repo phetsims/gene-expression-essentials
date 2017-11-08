@@ -26,7 +26,7 @@ define( function( require ) {
     // Reference to the biomolecule controlled by this state machine.
     this.biomolecule = biomolecule; //@public
 
-    // Attachment point. When this is non-null, the biomolecule is either attached to this point or moving towards
+    // Attachment site. When this is non-null, the biomolecule is either attached to this point or moving towards
     // attachment with it.
     this.attachmentSite = null; //@public
 

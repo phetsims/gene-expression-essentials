@@ -70,7 +70,15 @@ define( function( require ) {
         this.attachmentSite = null;
       }
       this.forceImmediateUnattachedButUnavailable();
+    },
 
+    /**
+     * returns true if the state indicates that the ribosome is currently translating mRNA, false otherwise
+     * @return {boolean}
+     * @public
+     */
+    isTranslating: function(){
+      return ( this.attachmentState === this.attachedState );
     }
   } );
 } );

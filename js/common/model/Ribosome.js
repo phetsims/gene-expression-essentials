@@ -201,6 +201,27 @@ define( function( require ) {
       if ( this.messengerRnaBeingTranslated !== null ) {
         this.messengerRnaBeingTranslated.initiateTranslation( this );
       }
+    },
+
+    isTranslating: function(){
+      /**
+       * returns true if this ribosome is currently translating mRNA, false otherwise
+       * @public
+       * @return {boolean}
+       */
+      return this.attachmentStateMachine.isTranslating();
+    },
+
+    /**
+     * cancel a translation that was going to happen but something occured to prevent it
+     * @public
+     */
+    cancelTranslation: function(){
+
+      // make sure we're in a state that supports this operation
+      assert && assert( !this.attachmentStateMachine.isTranslating() );
+
+      this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
     }
   } );
 } );

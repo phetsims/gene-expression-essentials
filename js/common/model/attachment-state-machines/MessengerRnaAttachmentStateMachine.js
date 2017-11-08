@@ -61,6 +61,14 @@ define( function( require ) {
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.attachmentSite !== null ) {
+        var attachedOrAttachingMolecule = this.attachmentSite.attachedOrAttachingMoleculeProperty.get();
+
+        // this is the case for when the incoming molecule is a ribosome
+        attachedOrAttachingMolecule.cancelTranslation && attachedOrAttachingMolecule.cancelTranslation();
+
+        // this is the case for when the incoming molecule is an mRNA destroyer
+        attachedOrAttachingMolecule.cancelDestruction && attachedOrAttachingMolecule.cancelDestruction();
+
         this.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       }
       this.attachmentSite = null;
