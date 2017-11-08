@@ -96,7 +96,7 @@
     "value": "Positive Transcription\nFactor"
   },
   "gene": {
-    "value": "Gene"
+    "value": "Gene {{geneID}}"
   },
   "affinity": {
     "value": "Affinity"

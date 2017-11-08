@@ -17,6 +17,7 @@ define( function( require ) {
   var GeneNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/GeneNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
   var geneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene' );
@@ -51,8 +52,13 @@ define( function( require ) {
 
     // Put the gene backgrounds and labels behind everything.
     for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
-      geneBackgroundLayer.addChild( new GeneNode( modelViewTransform, dnaMolecule.getGenes()[ i ], dnaMolecule,
-        geneString + ' ' + ( i + 1 ), showGeneBracketLabels ) );
+      geneBackgroundLayer.addChild( new GeneNode(
+        modelViewTransform,
+        dnaMolecule.getGenes()[ i ],
+        dnaMolecule,
+        StringUtils.fillIn( geneString, { geneID: i + 1 } ),
+        showGeneBracketLabels
+      ) );
     }
   }
 
