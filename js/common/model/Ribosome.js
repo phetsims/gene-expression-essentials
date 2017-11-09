@@ -164,7 +164,7 @@ define( function( require ) {
      * @public
      */
     getTranslationChannelLength: function() {
-      return WIDTH;
+      return WIDTH * 0.95;
     },
 
     /**

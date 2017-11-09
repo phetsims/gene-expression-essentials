@@ -45,7 +45,10 @@ define( function( require ) {
       modelViewTransform.getMatrix().getScaleVector().x
     );
     var ribosomePlacementHintNode = new PlacementHintNode( scaleOnlyTransform, messengerRna.ribosomePlacementHint );
-    var mRnaDestroyerPlacementHintNode = new PlacementHintNode( scaleOnlyTransform, messengerRna.mRnaDestroyerPlacementHint );
+    var mRnaDestroyerPlacementHintNode = new PlacementHintNode(
+      scaleOnlyTransform,
+      messengerRna.mRnaDestroyerPlacementHint
+    );
     this.addChild( ribosomePlacementHintNode );
     this.addChild( mRnaDestroyerPlacementHintNode );
 
