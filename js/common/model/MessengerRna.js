@@ -352,9 +352,6 @@ define( function( require ) {
           this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
         }
       }
-
-      // TODO: We don't need this, right?
-      // WindingBiomolecule.prototype.handleGrabbedByUser.call( this );
     },
 
     /**
