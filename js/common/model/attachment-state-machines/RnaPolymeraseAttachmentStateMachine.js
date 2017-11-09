@@ -76,6 +76,17 @@ define( function( require ) {
   return inherit( GenericAttachmentStateMachine, RnaPolymeraseAttachmentStateMachine, {
 
     /**
+     * this override makes sure that the polymerase has returned to its normal shape before detaching from DNA
+     * @override
+     */
+    forceImmediateUnattachedAndAvailable: function(){
+      if ( this.attachmentState === this.attachedAndDeconformingState ){
+        this.attachmentState.detachFromDna();
+      }
+      GenericAttachmentStateMachine.prototype.forceImmediateUnattachedAndAvailable.call( this );
+    },
+
+    /**
      * @param {boolean} recycleMode
      * @public
      */

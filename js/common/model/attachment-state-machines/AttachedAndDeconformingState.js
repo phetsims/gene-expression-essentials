@@ -18,6 +18,12 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  // constants
+
+  // the deconformation rate needs to be a little faster than the conformational change rate so that the polymerase is
+  // less likely to collide at the end of the gene, see https://github.com/phetsims/gene-expression-essentials/issues/102.
+  var DECONFORMATION_RATE = GEEConstants.CONFORMATIONAL_CHANGE_RATE * 1.25;
+
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
    * @constructor
@@ -50,40 +56,58 @@ define( function( require ) {
       assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
 
       var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
-      var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
-      var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
-      var recycleMode = this.rnaPolymeraseAttachmentStateMachine.recycleMode;
-      var recycleReturnZones = this.rnaPolymeraseAttachmentStateMachine.recycleReturnZones;
-      var attachedAndWanderingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndWanderingState;
 
       this.conformationalChangeAmount = Math.max(
-        this.conformationalChangeAmount - GEEConstants.CONFORMATIONAL_CHANGE_RATE * dt,
+        this.conformationalChangeAmount - DECONFORMATION_RATE * dt,
         0
       );
       biomolecule.changeConformation( this.conformationalChangeAmount );
       dnaStrandSeparation.setProportionOfTargetAmount( this.conformationalChangeAmount );
       if ( this.conformationalChangeAmount === 0 ) {
+        this.detachFromDna( asm );
+      }
+    },
 
-        // Remove the DNA separator, which makes the DNA close back up.
-        rnaPolymerase.getModel().getDnaMolecule().removeSeparation( dnaStrandSeparation );
+    /**
+     * take the steps necessary to detach from the DNA strand
+     * @public
+     */
+    detachFromDna: function(){
 
-        // Update externally visible state indication.
-        asm.biomolecule.attachedToDnaProperty.set( false );
+      var asm = this.rnaPolymeraseAttachmentStateMachine;
+      var dnaStrandSeparation = asm.dnaStrandSeparation;
+      var rnaPolymerase = asm.rnaPolymerase;
+      var attachmentSite = asm.attachmentSite;
+      var recycleMode = asm.recycleMode;
+      var recycleReturnZones = asm.recycleReturnZones;
+      var attachedAndWanderingState = asm.attachedAndWanderingState;
 
-        // Make sure that we enter the correct initial state upon the next attachment.
-        this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndWanderingState;
+      // Remove the DNA separator, which makes the DNA close back up.
+      rnaPolymerase.getModel().getDnaMolecule().removeSeparation( dnaStrandSeparation );
 
-        // Detach from the DNA.
-        attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
-        attachmentSite = null;
-        this.rnaPolymeraseAttachmentStateMachine.attachmentSite = attachmentSite;
-        if ( recycleMode ) {
-          this.rnaPolymeraseAttachmentStateMachine.setState(
-            new BeingRecycledState( this.rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) );
-        }
-        else {
-          this.rnaPolymeraseAttachmentStateMachine.forceImmediateUnattachedButUnavailable();
-        }
+      // Update externally visible state indication.
+      asm.biomolecule.attachedToDnaProperty.set( false );
+
+      // Make sure that we enter the correct initial state upon the next attachment.
+      this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndWanderingState;
+
+      // Make sure the shape is back to normal (might not be is this was knocked off the strand by another polymerase).
+      if ( this.conformationalChangeAmount > 0 ){
+        this.conformationalChangeAmount = 0;
+        asm.biomolecule.changeConformation( this.conformationalChangeAmount );
+      }
+
+      // Detach from the DNA.
+      attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
+      attachmentSite = null;
+      this.rnaPolymeraseAttachmentStateMachine.attachmentSite = attachmentSite;
+      if ( recycleMode ) {
+        this.rnaPolymeraseAttachmentStateMachine.setState(
+          new BeingRecycledState( this.rnaPolymeraseAttachmentStateMachine, recycleReturnZones )
+        );
+      }
+      else {
+        this.rnaPolymeraseAttachmentStateMachine.forceImmediateUnattachedButUnavailable();
       }
     },
 
