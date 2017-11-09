@@ -370,14 +370,8 @@ define( function( require ) {
         }
         else {
 
-          // The segment must be square, so position the points within it in a way that looks something like mRNA
-          // this.positionPointsFromUpperLeftToLowerRight( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
+          // The segment is square, so position the points within it in a way that looks something like mRNA.
           this.positionPointsAsComplexWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
-          //this.positionPointsAsTiltedSineWave( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
-
-          // Segment must be square, so position the points within it using the spring algorithm.
-          //this.randomizePointPositionsInRectangle( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
-          //this.runSpringAlgorithm( firstEnclosedPoint, lastEnclosedPoint, shapeSegment.getBounds() );
         }
 
         handledLength += shapeSegment.getContainedLength();

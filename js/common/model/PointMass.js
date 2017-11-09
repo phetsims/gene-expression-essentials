@@ -28,10 +28,7 @@ define( function( require ) {
   function PointMass( initialPosition, targetDistanceToPreviousPoint ) {
 
     // @private
-    // TODO: Depending on whether the spring algorithm goes away for positioning these points, som of these properties can likely be removed.
     this.position = new Vector2( 0, 0 );
-    this.velocity = new Vector2( 0, 0 );
-    this.acceleration = new Vector2( 0, 0 );
     this.previousPointMass = null;
     this.nextPointMass = null;
     this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint; // in picometers
@@ -67,22 +64,6 @@ define( function( require ) {
      */
     getPosition: function() {
       return this.position;
-    },
-
-    /**
-     * @returns {Vector2}
-     * @public
-     */
-    getVelocity: function() {
-      return this.velocity;
-    },
-
-    /**
-     * @param {Vector2} acceleration
-     * @public
-     */
-    setAcceleration: function( acceleration ) {
-      this.acceleration.set( acceleration );
     },
 
     /**
@@ -135,15 +116,6 @@ define( function( require ) {
     },
 
     /**
-     * @param {number} deltaTime
-     * @public
-     */
-    update: function( deltaTime ) {
-      this.velocity.addXY( this.acceleration.x * deltaTime, this.acceleration.y * deltaTime );
-      this.position.setXY( this.position.x + this.velocity.x * deltaTime, this.position.y + this.velocity.y * deltaTime );
-    },
-
-    /**
      * @param {number} x
      * @param {number} y
      * @public
@@ -158,14 +130,6 @@ define( function( require ) {
      */
     setTargetDistanceToPreviousPoint: function( targetDistance ) {
       this.targetDistanceToPreviousPoint = targetDistance;
-    },
-
-    /**
-     * Set the velocity to 0
-     * @public
-     */
-    clearVelocity: function() {
-      this.velocity.setXY( 0, 0 );
     }
 
   }, {
