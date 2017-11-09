@@ -1,8 +1,8 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * This class defines a point in model space that also has mass. It is is used to define the overall shape of the mRNA,
- * which uses a spring algorithm to implement the winding/twisting behavior.
+ * This class defines a point in model space that can be used to define a complex, winding shape.  In this simulation,
+ * it is used to define the shape of the messenger RNA strand.
  *
  * @author John Blanco
  * @author Mohamed Safi
@@ -16,29 +16,26 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // constants
-  var MASS = 0.25; // In kg.  Arbitrarily chosen to get the desired behavior.
-
   /**
    *
    * @param {Vector2} initialPosition
    * @param {number} targetDistanceToPreviousPoint
    * @constructor
    */
-  function PointMass( initialPosition, targetDistanceToPreviousPoint ) {
+  function ShapeDefiningPoint( initialPosition, targetDistanceToPreviousPoint ) {
 
     // @private
     this.position = new Vector2( 0, 0 );
-    this.previousPointMass = null;
-    this.nextPointMass = null;
+    this.previousPoint = null;
+    this.nextPoint = null;
     this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint; // in picometers
 
     this.setPosition( initialPosition );
   }
 
-  geneExpressionEssentials.register( 'PointMass', PointMass );
+  geneExpressionEssentials.register( 'ShapeDefiningPoint', ShapeDefiningPoint );
 
-  return inherit( Object, PointMass, {
+  return inherit( Object, ShapeDefiningPoint, {
 
     /**
      * @param {number} x
@@ -67,35 +64,35 @@ define( function( require ) {
     },
 
     /**
-     * @returns {PointMass}
+     * @returns {ShapeDefiningPoint}
      * @public
      */
-    getPreviousPointMass: function() {
-      return this.previousPointMass;
+    getPreviousPoint: function() {
+      return this.previousPoint;
     },
 
     /**
-     * @param {PointMass} previousPointMass
+     * @param {ShapeDefiningPoint} previousPoint
      * @public
      */
-    setPreviousPointMass: function( previousPointMass ) {
-      this.previousPointMass = previousPointMass;
+    setPreviousPoint: function( previousPoint ) {
+      this.previousPoint = previousPoint;
     },
 
     /**
-     * @returns {PointMass}
+     * @returns {ShapeDefiningPoint}
      * @public
      */
-    getNextPointMass: function() {
-      return this.nextPointMass;
+    getNextPoint: function() {
+      return this.nextPoint;
     },
 
     /**
-     * @param {PointMass} nextPointMass
+     * @param {ShapeDefiningPoint} nextPoint
      * @public
      */
-    setNextPointMass: function( nextPointMass ) {
-      this.nextPointMass = nextPointMass;
+    setNextPoint: function( nextPoint ) {
+      this.nextPoint = nextPoint;
     },
 
     /**
@@ -107,7 +104,7 @@ define( function( require ) {
     },
 
     /**
-     * @param {PointMass} p
+     * @param {ShapeDefiningPoint} p
      * @returns {number}
      * @public
      */
@@ -132,7 +129,5 @@ define( function( require ) {
       this.targetDistanceToPreviousPoint = targetDistance;
     }
 
-  }, {
-    MASS: MASS
   } );
 } );

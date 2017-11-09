@@ -206,7 +206,7 @@ define( function( require ) {
 
         // Reduce length to be zero.
         this.lastShapeDefiningPoint = this.firstShapeDefiningPoint;
-        this.lastShapeDefiningPoint.setNextPointMass( null );
+        this.lastShapeDefiningPoint.setNextPoint( null );
         this.shapeSegments.length = 0;
       }
       else {
@@ -220,8 +220,8 @@ define( function( require ) {
 
             // Remove the last point from the list.
             amountRemoved += this.lastShapeDefiningPoint.getTargetDistanceToPreviousPoint();
-            this.lastShapeDefiningPoint = this.lastShapeDefiningPoint.getPreviousPointMass();
-            this.lastShapeDefiningPoint.setNextPointMass( null );
+            this.lastShapeDefiningPoint = this.lastShapeDefiningPoint.getPreviousPoint();
+            this.lastShapeDefiningPoint.setNextPoint( null );
           }
           else {
 

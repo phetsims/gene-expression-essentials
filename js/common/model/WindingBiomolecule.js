@@ -18,7 +18,7 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
-  var PointMass = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PointMass' );
+  var ShapeDefiningPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeDefiningPoint' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -200,7 +200,7 @@ define( function( require ) {
     this.windingParams = WINDING_PARAMS[ options.windingParamSet ];
 
     // Add first shape defining point to the point list.
-    this.firstShapeDefiningPoint = new PointMass( position, 0 ); //@protected
+    this.firstShapeDefiningPoint = new ShapeDefiningPoint( position, 0 ); //@protected
     this.lastShapeDefiningPoint = this.firstShapeDefiningPoint; //@protected
 
     // List of the shape segments that define the outline shape.
@@ -222,7 +222,7 @@ define( function( require ) {
     /**
      * Get the first shape-defining point enclosed in the provided length range.
      * @param {Range} lengthRange
-     * @returns {PointMass}
+     * @returns {ShapeDefiningPoint}
      * @private
      */
     getFirstEnclosedPoint: function( lengthRange ) {
@@ -234,7 +234,7 @@ define( function( require ) {
           // We've found the first point.
           break;
         }
-        currentPoint = currentPoint.getNextPointMass();
+        currentPoint = currentPoint.getNextPoint();
         currentLength += currentPoint !== null ? currentPoint.getTargetDistanceToPreviousPoint() : 0;
       }
       return currentPoint;
@@ -243,7 +243,7 @@ define( function( require ) {
     /**
      * Get the last shape-defining point enclosed in the provided length range.
      * @param  {Range} lengthRange
-     * @returns {PointMass}
+     * @returns {ShapeDefiningPoint}
      * @private
      */
     getLastEnclosedPoint: function( lengthRange ) {
@@ -253,14 +253,14 @@ define( function( require ) {
         if ( currentLength >= lengthRange.min && currentLength < lengthRange.max ) {
           break;
         }
-        currentPoint = currentPoint.getNextPointMass();
+        currentPoint = currentPoint.getNextPoint();
         currentLength += currentPoint !== null ? currentPoint.getTargetDistanceToPreviousPoint() : 0;
       }
 
       if ( currentPoint !== null ) {
-        while ( currentPoint.getNextPointMass() !== null &&
-                currentPoint.getNextPointMass().getTargetDistanceToPreviousPoint() + currentLength < lengthRange.max ) {
-          currentPoint = currentPoint.getNextPointMass();
+        while ( currentPoint.getNextPoint() !== null &&
+                currentPoint.getNextPoint().getTargetDistanceToPreviousPoint() + currentLength < lengthRange.max ) {
+          currentPoint = currentPoint.getNextPoint();
           currentLength += currentPoint.getTargetDistanceToPreviousPoint();
         }
       }
@@ -397,11 +397,11 @@ define( function( require ) {
     },
 
     /**
-     * Position a series of point masses in a straight line. The distances between the point masses are set to be their
-     * target distances. This is generally used when positioning the point masses in a flat shape segment.
+     * Position a series of points in a straight line. The distances between the points are set to be their target
+     * distances. This is generally used when positioning the points in a flat shape segment.
      *
-     * @param {PointMass} firstPoint
-     * @param {PointMass} lastPoint
+     * @param {ShapeDefiningPoint} firstPoint
+     * @param {ShapeDefiningPoint} lastPoint
      * @param {Vector2} origin
      * @private
      */
@@ -410,7 +410,7 @@ define( function( require ) {
       var xOffset = 0;
       while ( currentPoint !== lastPoint && currentPoint !== null ) {
         currentPoint.setPositionXY( origin.x + xOffset, origin.y );
-        currentPoint = currentPoint.getNextPointMass();
+        currentPoint = currentPoint.getNextPoint();
         xOffset += currentPoint !== null ? currentPoint.getTargetDistanceToPreviousPoint() : 0;
       }
 
@@ -422,8 +422,8 @@ define( function( require ) {
 
     /**
      * position the points that define the shape of the strand using a combination of sine waves
-     * @param {PointMass} firstPoint
-     * @param {PointMass} lastPoint
+     * @param {ShapeDefiningPoint} firstPoint
+     * @param {ShapeDefiningPoint} lastPoint
      * @param {Rectangle} bounds
      * @private
      */
@@ -450,7 +450,7 @@ define( function( require ) {
       var currentPoint = firstPoint;
       points.push( currentPoint );
       while ( currentPoint !== lastPoint ) {
-        currentPoint = currentPoint.getNextPointMass();
+        currentPoint = currentPoint.getNextPoint();
         points.push( currentPoint );
       }
 
@@ -538,9 +538,9 @@ define( function( require ) {
      * @private
      */
     addPointToEnd: function( position, targetDistanceToPreviousPoint ) {
-      var newPoint = new PointMass( position, targetDistanceToPreviousPoint );
-      this.lastShapeDefiningPoint.setNextPointMass( newPoint );
-      newPoint.setPreviousPointMass( this.lastShapeDefiningPoint );
+      var newPoint = new ShapeDefiningPoint( position, targetDistanceToPreviousPoint );
+      this.lastShapeDefiningPoint.setNextPoint( newPoint );
+      newPoint.setPreviousPoint( this.lastShapeDefiningPoint );
       this.lastShapeDefiningPoint = newPoint;
     },
 
@@ -554,7 +554,7 @@ define( function( require ) {
       var thisPoint = this.firstShapeDefiningPoint;
       while ( thisPoint !== null ) {
         pointList.push( thisPoint.getPosition() );
-        thisPoint = thisPoint.getNextPointMass();
+        thisPoint = thisPoint.getNextPoint();
       }
       return pointList;
     },
@@ -567,10 +567,10 @@ define( function( require ) {
      */
     getLength: function() {
       var length = 0;
-      var thisPoint = this.firstShapeDefiningPoint.getNextPointMass();
+      var thisPoint = this.firstShapeDefiningPoint.getNextPoint();
       while ( thisPoint !== null ) {
         length += thisPoint.getTargetDistanceToPreviousPoint();
-        thisPoint = thisPoint.getNextPointMass();
+        thisPoint = thisPoint.getNextPoint();
       }
       return length;
     },
