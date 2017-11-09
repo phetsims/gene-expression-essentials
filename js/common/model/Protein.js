@@ -62,7 +62,9 @@ define( function( require ) {
       if ( this.fullSizeProportion !== proportion ) {
         this.fullSizeProportion = proportion;
         this.shapeProperty.set( this.getScaledShape( proportion ) );
-        this.colorProperty.notifyListenersStatic(); // TODO: Is this really necessary and, if so, why?
+
+        // force an update of the fill
+        this.colorProperty.notifyListenersStatic();
       }
     },
 
