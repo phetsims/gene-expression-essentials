@@ -14,13 +14,13 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var FadeLabel = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/FadeLabel' );
+  var GEEQueryParameters = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEQueryParameters' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PlacementHintNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/PlacementHintNode' );
-  // TODO: Decide whether to completely remove the bounding rect or use a query param to aid in debugging
-  // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -69,14 +69,17 @@ define( function( require ) {
     // computed on changes, and the local bounds are explicitly set below when the model shape changes.
     this.shapeNode.boundsMethod = 'none';
     this.shapeNode.localBounds = new Bounds2( 0, 0, 0.1, 0.1 ); // add some initial arbitrary bounds to avoid positioning issues
-    // var rect = new Rectangle( 0, 0, 0.1, 0.1, { fill: 'rgba( 256, 256, 0, 0.5 )' } );
-    // this.addChild( rect );
+    if ( GEEQueryParameters.showMRnaBoundingRect ){
+      var rect = new Rectangle( 0, 0, 0.1, 0.1, { fill: 'rgba( 256, 256, 0, 0.5 )' } );
+      this.addChild( rect );
+    }
 
     // handler for shape changes
     function handleShapeChanged( shape ) {
       var shapeBounds = shape.bounds;
       if ( shapeBounds.isFinite() ) {
         var scaledShapeBounds = self.scaleOnlyModelViewTransform.modelToViewShape( shapeBounds );
+        rect && rect.setRectBounds( scaledShapeBounds );
 
         // position the label
         label.left = scaledShapeBounds.maxX;

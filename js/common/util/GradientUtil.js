@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   //modules
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 

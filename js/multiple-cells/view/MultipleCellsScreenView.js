@@ -16,7 +16,7 @@ define( function( require ) {
   var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
   var ControlPanelNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControlPanelNode' );
   var FluorescentCellsPictureDialog = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/FluorescentCellsPictureDialog' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );

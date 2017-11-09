@@ -20,7 +20,7 @@ define( function( require ) {
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var BasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BasePair' );
   var DnaStrandPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaStrandPoint' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );

@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var FollowAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/FollowAttachmentSite' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var GenericAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachedState' );
   var inherit = require( 'PHET_CORE/inherit' );

@@ -18,7 +18,7 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GEEConstants' );
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   var GeneA = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneA' );
   var GeneB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneB' );
   var GeneC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneC' );
