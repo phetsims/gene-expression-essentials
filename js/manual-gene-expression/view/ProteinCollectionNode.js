@@ -16,11 +16,11 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var ProteinCollectionArea = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionArea' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -48,10 +48,11 @@ define( function( require ) {
     Node.call( this );
 
     // Create the title and scale it if needed.
-    var title = new MultiLineText( yourProteinCollectionString, {
+    var title = new RichText( yourProteinCollectionString, {
       fill: Color.BLACK,
       font: TITLE_FONT,
-      maxWidth: 120
+      maxWidth: 120,
+      align: 'center'
     } );
 
     // create the collection area

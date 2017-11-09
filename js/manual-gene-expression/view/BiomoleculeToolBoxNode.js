@@ -18,11 +18,11 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MessengerRnaDestroyerCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/MessengerRnaDestroyerCreatorNode' );
-  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RibosomeCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RibosomeCreatorNode' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
   var RnaPolymeraseCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RnaPolymeraseCreatorNode' );
   var Spacer = require( 'SCENERY/nodes/Spacer' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -44,9 +44,10 @@ define( function( require ) {
    * Convenience function for creating row labels.
    */
   function RowLabel( text ) {
-    return new MultiLineText( text, {
+    return new RichText( text, {
       font: new PhetFont( { size: 15 } ),
-      maxWidth: 150
+      maxWidth: 150,
+      align: 'center'
     } );
   }
 

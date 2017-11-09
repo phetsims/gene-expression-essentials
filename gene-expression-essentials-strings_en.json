@@ -18,10 +18,7 @@
     "value": "Lots"
   },
   "regulatoryRegion": {
-    "value": "Regulatory\nRegion"
-  },
-  "positiveTranscriptionFactorHtml": {
-    "value": "Positive Transcription\nFactor"
+    "value": "Regulatory<br>Region"
   },
   "negativeTranscriptionFactor": {
     "value": "Negative Transcription Factor"
@@ -54,7 +51,7 @@
     "value": "Cells"
   },
   "yourProteinCollection": {
-    "value": "Your Protein\nCollection"
+    "value": "Your Protein<br>Collection"
   },
   "previousGene": {
     "value": "Previous Gene"
@@ -84,16 +81,16 @@
     "value": "Time (s)"
   },
   "transcribedRegion": {
-    "value": "Transcribed\nRegion"
+    "value": "Transcribed<br>Region"
   },
   "nextGene": {
     "value": "Next Gene"
   },
   "negativeTranscriptionFactorHtml": {
-    "value": "Negative Transcription\nFactor"
+    "value": "Negative Transcription<br>Factor"
   },
   "positiveTranscriptionFactorHtml": {
-    "value": "Positive Transcription\nFactor"
+    "value": "Positive Transcription<br>Factor"
   },
   "gene": {
     "value": "Gene {{geneID}}"
@@ -105,16 +102,16 @@
     "value": "This image shows <i>Escherichia coli</i> cells expressing green fluorescent protein (GFP)."
   },
   "imageCaptionNote": {
-    "value": "Note that though the cells are genetically identical, they are expressing differing amounts of \n the protein."
-  },
-  "proteinCountCaptionPart2": {
-    "value": "of 3 protein types."
+    "value": "Note that though the cells are genetically identical, they are expressing differing amounts of the protein."
   },
   "rnaPolymerase": {
     "value": "RNA Polymerase"
   },
   "proteinCountCaptionPart1": {
     "value": "You have:"
+  },
+  "proteinCountCaptionPart2": {
+    "value": "of 3 protein types."
   },
   "showRealCells": {
     "value": "Show Real Cells"

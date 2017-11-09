@@ -16,10 +16,10 @@ define( function( require ) {
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -59,12 +59,13 @@ define( function( require ) {
     var regulatoryRegionNode = new Path( regRegionShape, { fill: gene.getRegulatoryRegionColor() } );
     this.addChild( regulatoryRegionNode );
 
-    var regulatoryRegionCaption = new MultiLineText( regulatoryRegionString, {
+    var regulatoryRegionCaption = new RichText( regulatoryRegionString, {
       font: REGION_LABEL_FONT,
-      maxWidth: 100
+      maxWidth: 100,
+      align: 'center',
+      centerX: regulatoryRegionNode.bounds.getCenterX(),
+      top: regulatoryRegionNode.bounds.getMaxY()
     } );
-    regulatoryRegionCaption.x = regulatoryRegionNode.bounds.getCenterX() - regulatoryRegionCaption.bounds.width / 2;
-    regulatoryRegionCaption.y = regulatoryRegionNode.bounds.getMaxY();
     this.addChild( regulatoryRegionCaption );
 
     // Add the highlight for the transcribed region.
@@ -80,22 +81,24 @@ define( function( require ) {
     var transcribedRegionNode = new Path( transcribedRegionShape, { fill: gene.getTranscribedRegionColor() } );
     this.addChild( transcribedRegionNode );
 
-    var transcribedRegionCaption = new MultiLineText( transcribedRegionString, {
+    var transcribedRegionCaption = new RichText( transcribedRegionString, {
       font: REGION_LABEL_FONT,
-      maxWidth: 100
+      maxWidth: 100,
+      align: 'center',
+      centerX: transcribedRegionNode.bounds.getCenterX(),
+      top: transcribedRegionNode.bounds.getMaxY()
     } );
-    transcribedRegionCaption.x = transcribedRegionNode.bounds.getCenterX() - transcribedRegionCaption.bounds.width / 2;
-    transcribedRegionCaption.y = transcribedRegionNode.bounds.getMaxY();
     this.addChild( transcribedRegionCaption );
 
     // Add the bracket.  This is a portion (the non-textual part) of the  label for the gene.
     if ( showBracketLabel ) {
       var bracketPath = new Shape();
-      bracketPath.moveTo( regulatoryRegionNode.bounds.getMinX(),
-        regulatoryRegionCaption.bounds.getMaxY() );
+      bracketPath.moveTo( regulatoryRegionNode.bounds.getMinX(), regulatoryRegionCaption.bounds.getMaxY() );
       bracketPath.lineToRelative( BRACKET_DEPTH, BRACKET_DEPTH );
-      bracketPath.lineTo( transcribedRegionNode.bounds.getMaxX() - BRACKET_DEPTH,
-        transcribedRegionCaption.bounds.getMaxY() + BRACKET_DEPTH );
+      bracketPath.lineTo(
+        transcribedRegionNode.bounds.getMaxX() - BRACKET_DEPTH,
+        transcribedRegionCaption.bounds.getMaxY() + BRACKET_DEPTH
+      );
       bracketPath.lineToRelative( BRACKET_DEPTH, -BRACKET_DEPTH );
       this.addChild( new Path( bracketPath, { lineWidth: 2, stroke: Color.BLACK } ) );
 

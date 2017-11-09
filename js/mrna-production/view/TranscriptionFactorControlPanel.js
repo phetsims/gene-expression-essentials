@@ -22,9 +22,9 @@ define( function( require ) {
   var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/model/MessengerRnaProductionModel' );
   var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
   var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -58,9 +58,10 @@ define( function( require ) {
       tfLevelProperty = model.negativeTranscriptionFactorCountProperty;
     }
 
-    var titleNode = new MultiLineText( titleText, {
+    var titleNode = new RichText( titleText, {
       font: TITLE_FONT,
-      maxWidth: 180
+      maxWidth: 180,
+      align: 'center'
     } );
 
     var transcriptionFactorNode = new MobileBiomoleculeNode(

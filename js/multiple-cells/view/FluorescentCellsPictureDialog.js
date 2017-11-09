@@ -16,7 +16,6 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
-  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
@@ -42,8 +41,16 @@ define( function( require ) {
     var imageNode = new Image( eColiImage );
     imageNode.scale( 0.75 ); // scale empirically determined
     var textNode = new Node();
-    var captionTextNode = new RichText( imageCaptionString, { font: TEXT_FONT, maxWidth: 800 } );
-    var noteTextNode = new MultiLineText( imageCaptionNoteString, { font: TEXT_FONT, maxWidth: 800 } );
+    var captionTextNode = new RichText( imageCaptionString, {
+      font: TEXT_FONT,
+      maxWidth: 800,
+      align: 'center'
+    } );
+    var noteTextNode = new RichText( imageCaptionNoteString, {
+      font: TEXT_FONT,
+      maxWidth: 800,
+      align: 'center'
+    } );
     if ( captionTextNode.bounds.isFinite() ) {
       noteTextNode.centerX = captionTextNode.centerX;
       noteTextNode.top = captionTextNode.bottom + 1;
