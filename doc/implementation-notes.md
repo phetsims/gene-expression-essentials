@@ -1,14 +1,12 @@
 Implementation Notes
 ====================
 
-TODO: Add notes about position versus shape.
-
 This simulation was originally written in Java, and then ported to JavaScript.  As a result, there is a fair amount of
 code that looks a bit "Java-esque" and would have been done differently if the code had been written from scratch as a
 JavaScript simulation.  For example, there are a lot of deep inheritance hierarchies - something which is done a lot in
 Java but is not as common in JavaScript.  On a more detailed level, there are a number of getter and setter methods for
-things that were private member variables in Java and are, due to the nature of the language, publicly accessible
-attributes in JavaScript.
+things that were private member variables in Java and are, due to the nature of the JavaScript, publicly accessible
+attributes in this new implementation.
 
 # Implementation Notes for Screens 1 and 2
 
@@ -88,7 +86,9 @@ Biomolecules propose attachments to other biomolecules.  If the biomolecule
 that receives the proposal has an attachment site that is close enough and is
 open, it will generally accept the attachment request.  Once a proposal is
 accepted, the proposing molecule starts moving toward the attachment site on
-the accepting molecule.
+the accepting molecule.  These pending attachments can be interrupted in some
+cases, such as when the user grabs one of them before the attachment occurs,
+and some of the more complex code in the state machines handles such cases.
 
 ## Motion Strategies
 
@@ -131,3 +131,13 @@ forth.  A set of instances of this protein synthesizer type are created and
 depicted for the user so that they can see the variations that occur in the
 cells as time goes on, and can also experiment with the effects of changing
 several of the parameters that affect protein production.
+
+# Closing Thoughts
+
+As previously mentioned, this sim is relatively complex.  If you are reading
+this because you have been assigned to do some maintenance, and the changes
+require more than a cursory understanding of the simulation, the best plan
+for ramping up would be to spend some time studying and understanding the
+inheritance hierarchies - especially the ones related to the attachment state
+machines.  Hopefully, once that part makes sense, it should be reasonably
+easy to target and change the appropriate portion of the code.
