@@ -31,10 +31,12 @@ define( function( require ) {
    * @constructor
    */
   function BasePair( centerLocationX, topYLocation, bottomYLocation ) {
-    this.x = centerLocationX - BASE_PAIR_WIDTH / 2; // @public
-    this.topYLocation = topYLocation; // @public
-    this.bottomYLocation = bottomYLocation; // @public
-    this.width = BASE_PAIR_WIDTH; // @public
+
+    // @public - values that indicate where the base pair is positioned
+    this.x = centerLocationX - BASE_PAIR_WIDTH / 2;
+    this.topYLocation = topYLocation;
+    this.bottomYLocation = bottomYLocation;
+    this.width = BASE_PAIR_WIDTH;
   }
 
   geneExpressionEssentials.register( 'BasePair', BasePair );

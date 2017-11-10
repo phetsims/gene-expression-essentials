@@ -29,10 +29,11 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  // Distance within which transcription factors may attach.
+
+  // distance within which transcription factors may attach
   var TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE = 400;
 
-  // Distance within which RNA polymerase may attach.
+  // distance within which RNA polymerase may attach
   var RNA_POLYMERASE_ATTACHMENT_DISTANCE = 400;
 
   var attachmentSiteLocation = new Vector2( 0, 0 );
@@ -55,30 +56,32 @@ define( function( require ) {
     this.moleculeLength = numBasePairs * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS; // @private
     this.numberOfTwists = this.moleculeLength / GEEConstants.LENGTH_PER_TWIST; // @private
 
-    // Points that, when connected, define the shape of the DNA strands.
-    this.strandPoints = []; // @private
+    // @private - points that, when connected, define the shape of the DNA strands.
+    this.strandPoints = [];
 
-    // Shadow of the points that define the strand shapes, used for rapid evaluation of any shape changes.
-    this.strandPointsShadow = []; // @private
+    // @private - shadow of the points that define the strand shapes, used for rapid evaluation of any shape changes
+    this.strandPointsShadow = [];
 
-    // The backbone strands that are portrayed in the view, which consist of lists of shapes. This is done so that the
-    // shapes can be colored differently and layered in order to create a "twisted" look.
+    // @public (read-only) {Array.<Array.<Vector2>>} The backbone strands that are portrayed in the view, which consist
+    // of lists of shapes. This is done so that the shapes can be colored differently and layered in order to create a
+    // "twisted" look.
     this.strand1Segments = []; // @public
     this.strand2Segments = []; // @public
 
-    // Base pairs within the DNA strand.
-    this.basePairs = []; // @public
+    // @public (read-only) {Array.<BasePair>} - base pairs within the DNA strand
+    this.basePairs = [];
 
     // @public (read-only) {number} - height of the tallest base pair, set during initialization below
     this.maxBasePairHeight = 0;
 
+    // @private {Array.<Gene>}
     this.genes = [];// @private
 
-    // List of forced separations between the two strands.
-    this.separations = []; // @private
+    // @private - list of forced separations between the two strands of the DNA
+    this.separations = [];
 
-    // dirty bit which tells the view when to redraw DNA
-    this.redraw = false; // @public
+    // @public {boolean} - dirty bit which tells the view when to redraw DNA
+    this.redraw = false;
 
     // Add the initial set of shape-defining points for each of the two strands.  Points are spaced the same as the
     // base pairs.

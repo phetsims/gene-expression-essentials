@@ -21,9 +21,9 @@ define( function( require ) {
    * @constructor
    */
   function DnaSeparation( xPos, targetAmount ) {
-    this.xPos = xPos;// X Position in model space. // @private
+    this.xPos = xPos; // @private - x Position in model space
     this.targetAmount = targetAmount; // @private
-    this.amount = 0;// @private Actual amount of separation. Starts at 0 and is generally grown over time toward target.
+    this.amount = 0;// @private - Actual amount of separation. Starts at 0 and is generally grown over time toward target.
   }
 
   geneExpressionEssentials.register( 'DnaSeparation', DnaSeparation );

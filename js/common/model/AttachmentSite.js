@@ -32,15 +32,16 @@ define( function( require ) {
     // @public (read-only) {Object}
     this.owner = owner;
 
-    // Location of this attachment site. It is a property so that it can be followed in the event that the biomolecule
-    // upon which it exists is moving.
-    this.positionProperty = new Property( initialLocation ); // @public
+    // @public {Property.<Vector2> - location of this attachment site - it is a property so that it can be followed in
+    // the event that the biomolecule upon which it exists is moving
+    this.positionProperty = new Property( initialLocation );
 
-    // A property that tracks which if any biomolecule is attached to or moving towards attachment with this site.
-    this.attachedOrAttachingMoleculeProperty = new Property( null ); // @public
+    // @public {Property.<MobileBiomolecule>} - a property that tracks which if any biomolecule is attached to or moving
+    // towards attachment with this site
+    this.attachedOrAttachingMoleculeProperty = new Property( null );
 
-    // Property that represents the affinity of the attachment site.
-    this.affinityProperty = new NumberProperty( initialAffinity, { range: { min: 0.0, max: 1.0 } } ); // @private
+    // @public {NumberProperty} - affinity of the attachment site, meaning how strongly things attach
+    this.affinityProperty = new NumberProperty( initialAffinity, { range: { min: 0.0, max: 1.0 } } );
   }
 
   geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );

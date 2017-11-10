@@ -53,6 +53,7 @@ define( function( require ) {
      * Compares to dna strand point
      * @param {DnaStrandPoint} o
      * @returns {boolean}
+     * @public
      */
     equals: function( o ) {
       if ( this === o ) { return true; }
