@@ -2,7 +2,7 @@ Model Notes for Gene Expression Essentials
 ==========================================
 
 Protein synthesis in living cells is a very complex process.  The Gene
-Expression Basics simulation depicts a version of protein synthesis that is
+Expression Essentials simulation depicts a version of protein synthesis that is
 greatly simplified in order to present enough information for students to understand
 the basics of the process without overwhelming them with they myriad details
 and variations.
