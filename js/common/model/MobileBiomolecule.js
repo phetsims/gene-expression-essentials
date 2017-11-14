@@ -14,6 +14,7 @@ define( function( require ) {
   'use strict';
 
   //modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Color = require( 'SCENERY/util/Color' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -32,49 +33,51 @@ define( function( require ) {
   function MobileBiomolecule( model, initialShape, baseColor ) {
     var self = this;
 
-    // Motion strategy that governs how this biomolecule moves. This changes as the molecule interacts with other
-    // portions of the model.
+    // @private {MotionStrategy} - Motion strategy that governs how this biomolecule moves. This changes as the molecule
+    // interacts with other portions of the model.
     this.motionStrategy = null; // @private
 
     ShapeChangingModelElement.call( self, initialShape );
 
-    // Bounds within which this biomolecule is allowed to move.
-    this.motionBoundsProperty = new Property( new MotionBounds() ); // @public
+    // @public (read-only) {Property.<Bounds2>} - bounds within which this biomolecule is allowed to move
+    this.motionBoundsProperty = new Property( new MotionBounds() );
 
-    // Position on the Z axis. This is handled much differently than for the x and y axes, which can be set to any
-    // value. The Z axis only goes between 0 (all the way to the front) and -1 (all the way to the back).
-    this.zPositionProperty = new Property( 0 ); // @public(read-only)
+    // @public (read-only) {Property.<number>} - Position on the Z axis. This is handled much differently than for the x
+    // and y axes, which can be set to any value. The Z axis only goes between 0 (all the way to the front) and -1 (all
+    // the way to the back).
+    this.zPositionProperty = new Property( 0 );
 
-    // Flag that tracks whether motion in Z dimension is enabled.
-    this.zMotionEnabled = false; // @property
+    // @private {boolean} - flag that tracks whether motion in Z dimension is enabled
+    this.zMotionEnabled = false;
 
-    // A property that keeps track of this biomolecule's "existence strength", which is used primarily to fade out of
-    // existence. The range for this is 1 (full existence) to 0 (non-existent).
-    this.existenceStrengthProperty = new Property( 1 ); // @public
+    // @public (read-only) {Property.<number>} - a value that represents this biomolecule's "existence strength", which
+    // is used primarily to fade out of existence. The range for this is 1 (full existence) to 0 (non-existent).
+    this.existenceStrengthProperty = new Property( 1 );
 
-    // Property that is used to let the view know whether or not this biomolecule is in a state where it is okay for the
-    // user to move it around.
-    this.movableByUserProperty = new Property( true ); // @public
+    // @public {BooleanProperty} - a flag that is used to let the view know whether or not this biomolecule is in a
+    // state where it is okay for the user to move it around
+    this.movableByUserProperty = new BooleanProperty( true );
 
-    // Property that indicates whether or not this biomolecule is attached to the DNA strand. Some biomolecules never
-    // attach to DNA, so it will never become true. This should only be set by subclasses.
-    this.attachedToDnaProperty = new Property( false ); // @public
+    // @public {BooleanProperty} - a flag that indicates whether or not this biomolecule is attached to the DNA strand.
+    // Some biomolecules never attach to DNA, so it may never become true. This should only be set by subclasses.
+    this.attachedToDnaProperty = new BooleanProperty( false );
 
-    // Color to use when displaying this biomolecule to the user. This is a bit out of place here, and has nothing to do\
-    // with the fact that the molecule moves. This was just a convenient place to put it (so far).
+    // @public {Property.<Color>} - Color to use when displaying this biomolecule to the user. This is a bit out of
+    // place here, and has nothing to do with the fact that the molecule moves. This was just a convenient place to put
+    // it (so far).
     this.colorProperty = new Property( Color.BLACK ); // @public
 
-    // Property that tracks whether this biomolecule is user controlled. If it is, it shouldn't try to move or interact
-    // with anything. Handle changes in user control.
-    this.userControlledProperty = new Property( false ); // @public
+    // @publich {BooleanProperty} Property that tracks whether this biomolecule is user controlled. If it is, it
+    // shouldn't try to move or interact with anything. Handle changes in user control.
+    this.userControlledProperty = new BooleanProperty( false ); // @public
 
-    // Reference to the model in which this biomolecule exists. This is needed in case the biomolecule needs to locate or
-    // create other biomolecules.
+    // @private - Reference to the model in which this biomolecule exists. This is needed in case the biomolecule needs
+    // to locate or create other biomolecules.
     this.model = model;
 
-    // Attachment state machine that controls how the molecule interacts with other model objects (primarily other
-    // biomolecules) in terms of attaching, detaching, etc.
-    this.attachmentStateMachine = this.createAttachmentStateMachine(); // @protected
+    // @protected {AttachmentStateMachine} - state machine that controls how the molecule interacts with other model
+    // objects (primarily other biomolecules) in terms of attaching, detaching, etc.
+    this.attachmentStateMachine = this.createAttachmentStateMachine();
 
     if ( baseColor ) {
       this.colorProperty.set( baseColor );

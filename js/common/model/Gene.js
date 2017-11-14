@@ -43,10 +43,6 @@ define( function( require ) {
                  transcribedRegionColor,
                  windingAlgorithmParameterSet ) {
 
-    this.dnaMolecule = dnaMolecule; // @private
-    this.regulatoryRegion = regulatoryRegion; // @private
-    this.transcribedRegion = transcribedRegion; // @private
-
     // @public (read-only) {Color}
     this.regulatoryRegionColor = regulatoryRegionColor;
 
@@ -63,22 +59,30 @@ define( function( require ) {
       1
     );
 
-    // Placement hint for polymerase. There is always only one.
+    // @private - internal variables used by the methods
+    this.dnaMolecule = dnaMolecule;
+    this.regulatoryRegion = regulatoryRegion;
+    this.transcribedRegion = transcribedRegion;
+
+    // @private {PlacementHint} - Placement hint for polymerase. There is always only one.  Strictly speaking it is
+    // private, but it is accessed by methods to allow it to be portrayed in the view.
     this.rnaPolymerasePlacementHint = new PlacementHint( new RnaPolymerase() ); // @private
 
-    // Placement hints for transcription factors.
+    // @private {Array.<PlacementHint>} - Placement hint for polymerase. There is always only one.  Strictly speaking
+    // this is private, but the hints are accessed by methods to allow them to be portrayed in the view.
     this.transcriptionFactorPlacementHints = [];
 
-    // Attachment sites for transcription factors.
+    // @private {Array.<TranscriptionFactorAttachmentSite>} - attachment sites for transcription factors, private, but
+    // accessible via methods
     this.transcriptionFactorAttachmentSites = []; // @private
 
-    // Map of transcription factors that interact with this gene to the location, in terms of base pair offset, where
-    // the TF attaches.
+    // @private {Object} - Map of transcription factors that interact with this gene to the location, in terms of base
+    // pair offset, where the TF attaches.
     this.transcriptionFactorMap = {}; // @private
 
-    // Property that determines the affinity of the site where polymerase attaches when the transcription factors
+    // @public {Property.<number>}} - Property that determines the affinity of the site where polymerase attaches when the transcription factors
     // support transcription.
-    this.polymeraseAffinityProperty = new Property( 1.0 ); //@public
+    this.polymeraseAffinityProperty = new Property( 1.0 );
 
     // Initialize the placement hint for polymerase.
     this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.positionProperty.get() );

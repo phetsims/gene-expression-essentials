@@ -1,9 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * Base class for the models used in this simulation. All models must extend from a common class so that the same
- * biomolecules can be used within each.
- *
+ * abstract base class for some of the main models used in this simulation
  * @author John Blanco
  * @author Mohamed Safi
  * @author Aadish Gupta

@@ -49,22 +49,11 @@ define( function( require ) {
    */
   function DnaMolecule( model, numBasePairs, leftEdgeXOffset, pursueAttachments ) {
 
-    // @private
-    this.model = model || new StubGeneExpressionModel(); // support creation without model for control panels and such
-    this.leftEdgeXOffset = leftEdgeXOffset; // @private
-    this.pursueAttachments = pursueAttachments; // @private
-    this.moleculeLength = numBasePairs * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS; // @private
-    this.numberOfTwists = this.moleculeLength / GEEConstants.LENGTH_PER_TWIST; // @private
-
-    // @private - points that, when connected, define the shape of the DNA strands.
-    this.strandPoints = [];
-
-    // @private - shadow of the points that define the strand shapes, used for rapid evaluation of any shape changes
-    this.strandPointsShadow = [];
-
-    // @public (read-only) {Array.<Array.<Vector2>>} The backbone strands that are portrayed in the view, which consist
-    // of lists of shapes. This is done so that the shapes can be colored differently and layered in order to create a
-    // "twisted" look.
+    // @public (read-only) {Array.<Array.<Vector2>>} These arrays contain lists of "segments" that define the shape of
+    // the DNA strand.  Each segment is comprised of a set of points that, when smoothly connected, define one half of
+    // a "cycle" of the DNA.  The motivation behind having the separate segments is to make it easier to render the
+    // DNA as appearing to twist.  These segments change position when the DNA strands separates, which occurs when the
+    // DNA is transcribed by RNA polymerase.
     this.strand1Segments = []; // @public
     this.strand2Segments = []; // @public
 
@@ -74,14 +63,29 @@ define( function( require ) {
     // @public (read-only) {number} - height of the tallest base pair, set during initialization below
     this.maxBasePairHeight = 0;
 
+    // @public {boolean} - dirty bit which tells the view when to redraw DNA
+    this.redraw = false;
+
+    // @private {Array.<DnaStrandPoint>} - points that, when connected, define the shape of the DNA strands - these
+    // used for internal manipulations, and their positions are copied into the layered, separated "strand segements"
+    // as changes occur.
+    this.strandPoints = [];
+
+    // @private - shadow of the points that define the strand shapes, used for rapid evaluation of any shape changes
+    this.strandPointsShadow = [];
+
+    // @private - internal variable that define shape, size, and behavior
+    this.model = model || new StubGeneExpressionModel(); // support creation without model for control panels and such
+    this.leftEdgeXOffset = leftEdgeXOffset;
+    this.pursueAttachments = pursueAttachments;
+    this.moleculeLength = numBasePairs * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS;
+    this.numberOfTwists = this.moleculeLength / GEEConstants.LENGTH_PER_TWIST;
+
     // @private {Array.<Gene>}
-    this.genes = [];// @private
+    this.genes = [];
 
     // @private - list of forced separations between the two strands of the DNA
     this.separations = [];
-
-    // @public {boolean} - dirty bit which tells the view when to redraw DNA
-    this.redraw = false;
 
     // Add the initial set of shape-defining points for each of the two strands.  Points are spaced the same as the
     // base pairs.
@@ -112,8 +116,7 @@ define( function( require ) {
   return inherit( Object, DnaMolecule, {
 
     /**
-     * Get the index of the nearest base pair given an X position in model space.
-     *
+     * get the index of the nearest base pair given an X position in model space
      * @param {number} xOffset
      * @returns {number}
      * @private
@@ -130,7 +133,7 @@ define( function( require ) {
     },
 
     /**
-     * Get the X location of the nearest base pair given an arbitrary X location in model coordinates
+     * get the X location of the nearest base pair given an arbitrary X location in model coordinates
      * @param {number} xPos
      * @returns {number}
      * @private
@@ -179,7 +182,6 @@ define( function( require ) {
     /**
      * Get the Y position in model space for a DNA strand for the given X position and offset. The offset acts like a
      * "phase difference", thus allowing this method to be used to get location information for both DNA strands.
-     *
      * @param {number} xPos
      * @param {number} offset
      * @returns {number}

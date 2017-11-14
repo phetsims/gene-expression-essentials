@@ -13,6 +13,7 @@ define( function( require ) {
 
   // modules
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var FlatSegment = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/FlatSegment' );
   var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -20,7 +21,6 @@ define( function( require ) {
   var MessengerRnaAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/MessengerRnaAttachmentStateMachine' );
   var MessengerRnaDestroyer = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MessengerRnaDestroyer' );
   var PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
-  var Property = require( 'AXON/Property' );
   var Ribosome = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Ribosome' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -50,21 +50,22 @@ define( function( require ) {
 
     WindingBiomolecule.call( self, model, INITIAL_MRNA_SHAPE, position, options );
 
-    // Externally visible indicator for whether this mRNA is being synthesized. Assumes that it is being synthesized
-    // when created.
-    this.beingSynthesizedProperty = new Property( true ); //@public
+    // @public {BooleanProperty} - externally visible indicator for whether this mRNA is being synthesized, assumes that
+    // it is being synthesized when initially created
+    this.beingSynthesizedProperty = new BooleanProperty( true ); //@public
 
-    // Protein prototype, used to keep track of protein that should be synthesized from this particular strand of mRNA.
-    this.proteinPrototype = proteinPrototype; //@private
+    // @private - protein prototype, used to keep track of protein that should be synthesized from this particular
+    // strand of mRNA
+    this.proteinPrototype = proteinPrototype;
 
-    // Local reference to the non-generic state machine used by this molecule.
-    this.mRnaAttachmentStateMachine = this.attachmentStateMachine; // @private
+    // @private - local reference to the non-generic state machine used by this molecule
+    this.mRnaAttachmentStateMachine = this.attachmentStateMachine;
 
-    // mRNA destroyer that is destroying this mRNA. Null until and unless destruction has begun.
-    this.messengerRnaDestroyer = null; //@private
+    // @private - mRNA destroyer that is destroying this mRNA. Null until and unless destruction has begun.
+    this.messengerRnaDestroyer = null;
 
     // @private - Shape segment where the mRNA destroyer is connected. This is null until destruction has begun.
-    this.segmentBeingDestroyed = null; //@private
+    this.segmentBeingDestroyed = null;
 
     // @private {AttachmentSite} - site where ribosomes or mRNA destroyers can attach
     this.attachmentSite = new AttachmentSite( this, new Vector2( 0, 0 ), 1 );
@@ -109,7 +110,7 @@ define( function( require ) {
   return inherit( WindingBiomolecule, MessengerRna, {
 
     /**
-     * @private
+     * @public
      */
     dispose: function() {
       this.mapRibosomeToShapeSegment = null;
@@ -132,7 +133,6 @@ define( function( require ) {
     /**
      * Advance the translation of the mRNA through the given ribosome by the specified length. The given ribosome must
      * already be attached to the mRNA.
-     *
      * @param {Ribosome} ribosome - The ribosome by which the mRNA is being translated.
      * @param {number} length   - The amount of mRNA to move through the translation channel.
      * @returns - true if the mRNA is completely through the channel, indicating, that transcription is complete, and false
@@ -356,7 +356,6 @@ define( function( require ) {
 
     /**
      * Activate the placement hint(s) as appropriate for the given biomolecule.
-     *
      * @param {MobileBiomolecule} biomolecule - instance of the type of biomolecule for which any matching hints
      * should be activated.
      * @public
