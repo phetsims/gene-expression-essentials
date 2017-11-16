@@ -18,8 +18,8 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
-  var ShapeDefiningPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeDefiningPoint' );
   var Range = require( 'DOT/Range' );
+  var ShapeDefiningPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeDefiningPoint' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
