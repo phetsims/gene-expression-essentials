@@ -16,7 +16,11 @@
     ],
     "phetLibs": [
       "griddle"
-    ]
+    ],
+    "runnable": true,
+    "supportedBrands": [
+      "phet"
+    ],
+    "simulation": true
   }
 }
-
