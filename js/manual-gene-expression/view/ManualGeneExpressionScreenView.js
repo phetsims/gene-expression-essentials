@@ -47,7 +47,7 @@ define( function( require ) {
     var self = this;
 
     this.viewPortOffset = new Vector2( 0, 0 );
-    var biomoleculeToolBoxNodeList = []; // Array of BiomoleculeToolBoxNode
+    var biomoleculeToolBoxNodeList = []; // array containing the tool box nodes used to create biomolecules
 
     // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
     // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
@@ -152,6 +152,13 @@ define( function( require ) {
       model.addOffLimitsMotionSpace( self.modelViewTransform.viewToModelBounds( biomoleculeToolBoxNode.bounds ) );
     } );
 
+    // define a convenience function that allows quick setting of the pickability of the tool box nodes
+    function setBiomoleculeToolboxPickability( pickable ){
+      biomoleculeToolBoxNodeList.forEach( function( biomoleculeToolBoxNode ){
+        biomoleculeToolBoxNode.pickable = pickable;
+      } );
+    }
+
     // add button for moving to next gene
     var nextGeneButtonContent = new HBox( {
       children: [
@@ -225,14 +232,27 @@ define( function( require ) {
         var boundsInModel = self.modelViewTransform.viewToModelBounds( boundsAfterTransform );
         model.setProteinCaptureArea( boundsInModel );
         model.addOffLimitsMotionSpace( boundsInModel );
+        setBiomoleculeToolboxPickability( true );
       } );
 
     // Monitor the active gene and move the view port to be centered on it whenever it changes.
     model.activeGeneProperty.link( function( gene ) {
+
+      // update the enabled state of the buttons that navigate between genes
       nextGeneButton.enabled = !( gene === model.dnaMolecule.getLastGene() );
       previousGeneButton.enabled = !( gene === model.dnaMolecule.getGenes()[ 0 ] );
+
+      // disable interaction with the toolbox node to prevent race conditions
+      setBiomoleculeToolboxPickability( false );
+
+      // set the offset of the viewport
       self.viewPortOffset.setXY( -self.modelViewTransform.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
-      modelRootNodeAnimator.stop().to( { x: self.viewPortOffset.x }, GENE_TO_GENE_ANIMATION_TIME ).start( phet.joist.elapsedTime );
+
+      // initiate the animation to the new viewport offset
+      modelRootNodeAnimator
+        .stop()
+        .to( { x: self.viewPortOffset.x }, GENE_TO_GENE_ANIMATION_TIME )
+        .start( phet.joist.elapsedTime );
     } );
 
     frontControlsLayer.addChild( nextGeneButton );
