@@ -1,8 +1,8 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * This class defines a node that displays the average protein level for a population of cells. It in turns call Griddle
- * library for drawing the graph
+ * node that displays the average protein level for a population of cells, uses the "griddle" library for drawing the
+ * graph
  *
  * @author John Blanco
  * @author Aadish Gupta
