@@ -43,9 +43,6 @@ define( function( require ) {
   // size of the DNA strand
   var NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
 
-  var NOMINAL_TIME_STEP = 1 / 60; // nominal time step for 60fps
-  var MAX_TIME_STEP = 10 * NOMINAL_TIME_STEP; // max time step that the model is known to handle well
-
   /**
    * Main constructor for ManualGeneExpressionModel, which contains all of the model logic for the entire sim screen.
    * @constructor
@@ -109,7 +106,6 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      dt = Math.min( dt, MAX_TIME_STEP );
 
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         mobileBiomolecule.step( dt );

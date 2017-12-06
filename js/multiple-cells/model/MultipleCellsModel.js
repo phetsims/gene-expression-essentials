@@ -35,9 +35,6 @@ define( function( require ) {
   var POSITION_RANDOMIZER_SEED = 226;
   var SIZE_AND_ORIENTATION_RANDOMIZER_SEED = 25214903912;
 
-  var NOMINAL_TIME_STEP = 1 / 60; // nominal time step for 60fps
-  var MAX_TIME_STEP = 10 * NOMINAL_TIME_STEP; // max time step that the model is known to handle well
-
   /**
    * @constructor
    */
@@ -145,7 +142,6 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      dt = Math.min( dt, MAX_TIME_STEP );
       if ( this.clockRunningProperty.get() ) {
         this.stepInTime( dt );
       }

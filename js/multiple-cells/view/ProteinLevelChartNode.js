@@ -154,16 +154,19 @@ define( function( require ) {
      * @public
      */
     addDataPoint: function( dt ) {
-      this.simRunningTime = this.simRunningTime + dt;
+      this.simRunningTime += dt;
       if ( this.simRunningTime - this.timeOffset > TIME_SPAN ) {
-        // If the end of the chart has been reached, clear it.
+
+        // if the end of the chart has been reached, clear it
         this.dataSeries.clear();
       }
       if ( this.dataSeries.getLength() === 0 ) {
+
         // This is the first data added after the most recent clear, so record the time offset.
         this.timeOffset = this.simRunningTime;
       }
-      // Add the data to the chart.
+
+      // add the data to the chart
       this.dataSeries.addPoint( this.simRunningTime - this.timeOffset, this.averageProteinLevelProperty.get() );
     },
 

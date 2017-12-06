@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -33,7 +34,8 @@ define( function( require ) {
     var options = {
       name: screenExpressionString,
       backgroundColorProperty: new Property( '#ABCBDB' ),
-      homeScreenIcon: new Image( manualGeneExpressionIcon )
+      homeScreenIcon: new Image( manualGeneExpressionIcon ),
+      maxDT: GEEConstants.MAX_DT
     };
 
     Screen.call( this,
