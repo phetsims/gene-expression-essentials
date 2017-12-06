@@ -23,6 +23,9 @@ define( function( require ) {
 
   var GEEConstants = {
 
+    // max DT value, used by all screens now, but this doesn't need to be the case
+    MAX_DT: ( 1 / 60 ) * 10,
+
     // constants that define the geometry of the DNA molecule
     DNA_MOLECULE_DIAMETER: 200,
     LENGTH_PER_TWIST: LENGTH_PER_TWIST,// In picometers
