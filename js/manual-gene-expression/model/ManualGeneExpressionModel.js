@@ -197,15 +197,19 @@ define( function( require ) {
           } );
         }
         else {
-          self.dnaMolecule.deactivateAllHints();
-          self.messengerRnaList.forEach( function( messengerRna ) {
-            messengerRna.deactivateAllHints();
-          } );
 
           if ( wasUserControlled ) {
-            // The user dropped this biomolecule.
+
+            // The user dropped this biomolecule, so deactivate any hints that were showing where it could be placed.
+            self.dnaMolecule.deactivateAllHints();
+            self.messengerRnaList.forEach( function( messengerRna ) {
+              messengerRna.deactivateAllHints();
+            } );
+
+            // See if this is a protein being placed in the capture area.
             if ( self.proteinCaptureArea.containsPoint( mobileBiomolecule.getPosition() ) &&
                  mobileBiomolecule instanceof Protein ) {
+
               // The user has dropped this protein in the capture area. So capture it.
               self.captureProtein( mobileBiomolecule );
             }
