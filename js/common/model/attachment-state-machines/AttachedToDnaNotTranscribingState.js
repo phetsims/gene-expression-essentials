@@ -27,7 +27,7 @@ define( function( require ) {
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
    * @constructor
    */
-  function AttachedToBasePair( rnaPolymeraseAttachmentStateMachine ) {
+  function AttachedToDnaNotTranscribingState( rnaPolymeraseAttachmentStateMachine ) {
     AttachmentState.call( this );
 
     // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
@@ -40,9 +40,9 @@ define( function( require ) {
     this.timeSinceTranscriptionDecision = 0;
   }
 
-  geneExpressionEssentials.register( 'AttachedToBasePair', AttachedToBasePair );
+  geneExpressionEssentials.register( 'AttachedToDnaNotTranscribingState', AttachedToDnaNotTranscribingState );
 
-  return inherit( AttachmentState, AttachedToBasePair, {
+  return inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
 
     /**
      * Helper function which detaches RnaPolymerase from the DNA
@@ -82,6 +82,7 @@ define( function( require ) {
       // Decide whether to transcribe the DNA. The decision is based on the affinity of the site and the time of
       // attachment.
       if ( this.transcribe ) {
+
         // Begin transcription.
         attachedState = attachedAndConformingState;
         this.rnaPolymeraseAttachmentStateMachine.setState( attachedState );
@@ -101,12 +102,13 @@ define( function( require ) {
 
           // Move to an adjacent base pair. Start by making a list of candidate base pairs.
           var attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesRnaPolymerase(
-            biomolecule, asm.attachmentSite );
+            biomolecule,
+            asm.attachmentSite
+          );
 
           // Eliminate sites that are in use or that, if moved to, would put the biomolecule out of bounds.
           //var clonedAttachmentSites = [].concat( attachmentSites );
           _.remove( attachmentSites, function( site ) {
-
             return site.isMoleculeAttached() || !biomolecule.motionBoundsProperty.get().testIfInMotionBounds(
                 biomolecule.bounds, site.positionProperty.get() );
           } );
@@ -133,9 +135,14 @@ define( function( require ) {
 
             // Set up the state to move to the new attachment site.
             this.rnaPolymeraseAttachmentStateMachine.setState(
-              this.rnaPolymeraseAttachmentStateMachine.movingTowardsAttachmentState );
-            biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.positionProperty,
-              biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), GEEConstants.VELOCITY_ON_DNA ) );
+              this.rnaPolymeraseAttachmentStateMachine.movingTowardsAttachmentState
+            );
+            biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy(
+              attachmentSite.positionProperty,
+              biomolecule.motionBoundsProperty,
+              new Vector2( 0, 0 ),
+              GEEConstants.VELOCITY_ON_DNA
+            ) );
             this.rnaPolymeraseAttachmentStateMachine.attachmentSite = attachmentSite;
 
             // Update the detachment threshold. It gets lower over time to increase the probability of detachment.

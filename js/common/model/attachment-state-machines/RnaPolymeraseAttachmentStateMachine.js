@@ -15,7 +15,7 @@ define( function( require ) {
   var AttachedAndConformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndConformingState' );
   var AttachedAndDeconformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndDeconformingState' );
   var AttachedAndTranscribingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndTranscribingState' );
-  var AttachedToBasePair = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedToBasePair' );
+  var AttachedToDnaNotTranscribingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedToDnaNotTranscribingState' );
   var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
   var DnaSeparation = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaSeparation' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
@@ -33,7 +33,7 @@ define( function( require ) {
    */
   function RnaPolymeraseAttachmentStateMachine( rnaPolymerase ) {
     GenericAttachmentStateMachine.call( this, rnaPolymerase );
-    this.attachedAndWanderingState = new AttachedToBasePair( this ); //@public
+    this.attachedAndWanderingState = new AttachedToDnaNotTranscribingState( this ); //@public
     this.attachedAndConformingState = new AttachedAndConformingState( this ); //@public
     this.attachedAndTranscribingState = new AttachedAndTranscribingState( this ); //@public
     this.attachedAndDeconformingState = new AttachedAndDeconformingState( this ); //@public

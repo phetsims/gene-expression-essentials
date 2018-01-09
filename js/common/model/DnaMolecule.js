@@ -622,6 +622,11 @@ define( function( require ) {
         var attachedOrIncomingBiomoleculeBounds = [];
         self.model.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
 
+          // skip the biomolecule being tested for overlap
+          if ( mobileBiomolecule === biomolecule ){
+            return;
+          }
+
           var attachmentSite = mobileBiomolecule.attachmentStateMachine.attachmentSite;
 
           if ( attachmentSite && attachmentSite.owner === self ) {
