@@ -27,11 +27,11 @@ define( function( require ) {
    * @param {Function<>} moleculeCreator -  Function object that knows how to create the model element and add it to the
    * model.
    * @param {Function<>} moleculeDestroyer
-   * @param enclosingToolBoxNode - Tool box in which this creator node is  contained.  This is needed in order to
+   * @param enclosingToolboxNode - Toolbox in which this creator node is  contained.  This is needed in order to
    * determine when the created model element is returned to the tool box.
    * @constructor
    */
-  function BiomoleculeCreatorNode( appearanceNode, canvas, modelViewTransform, moleculeCreator, moleculeDestroyer, enclosingToolBoxNode ) {
+  function BiomoleculeCreatorNode( appearanceNode, canvas, modelViewTransform, moleculeCreator, moleculeDestroyer, enclosingToolboxNode ) {
     var self = this;
     Node.call( self, { cursor: 'pointer' } );
     this.canvas = canvas; // @private
@@ -70,7 +70,7 @@ define( function( require ) {
             // The user has released this biomolecule.  If it  was dropped above the return bounds (which are generally
             // the bounds of the tool box where this creator node resides),then the model element should be removed from
             // the model.
-            if ( enclosingToolBoxNode.bounds.containsPoint( modelViewTransform.modelToViewPosition( finalBiomolecule.getPosition() ) ) ) {
+            if ( enclosingToolboxNode.bounds.containsPoint( modelViewTransform.modelToViewPosition( finalBiomolecule.getPosition() ) ) ) {
               moleculeDestroyer( finalBiomolecule );
               finalBiomolecule.userControlledProperty.unlink( userControlledPropertyObserver );
               self.appearanceNode.opacity = 1;

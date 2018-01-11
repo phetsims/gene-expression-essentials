@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var BiomoleculeToolBoxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/BiomoleculeToolBoxNode' );
+  var BiomoleculeToolboxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/BiomoleculeToolboxNode' );
   var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -47,7 +47,7 @@ define( function( require ) {
     var self = this;
 
     this.viewPortOffset = new Vector2( 0, 0 );
-    var biomoleculeToolBoxNodeList = []; // array containing the tool box nodes used to create biomolecules
+    var biomoleculeToolboxNodeList = []; // array containing the tool box nodes used to create biomolecules
 
     // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
     // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
@@ -71,8 +71,8 @@ define( function( require ) {
     // Add some layers for enforcing some z-order relationships needed in order to keep things looking good.
     var dnaLayer = new Node();
     this.modelRootNode.addChild( dnaLayer );
-    var biomoleculeToolBoxLayer = new Node();
-    this.modelRootNode.addChild( biomoleculeToolBoxLayer );
+    var biomoleculeToolboxLayer = new Node();
+    this.modelRootNode.addChild( biomoleculeToolboxLayer );
     var messengerRnaLayer = new Node();
     this.modelRootNode.addChild( messengerRnaLayer );
     var topBiomoleculeLayer = new Node();
@@ -144,18 +144,18 @@ define( function( require ) {
 
     // Add the tool boxes from which the various biomolecules can be moved  into the active area of the sim.
     model.getDnaMolecule().getGenes().forEach( function( gene ) {
-      var biomoleculeToolBoxNode = new BiomoleculeToolBoxNode( model, self, self.modelViewTransform, gene );
-      biomoleculeToolBoxNode.x = self.modelViewTransform.modelToViewX( gene.getCenterX() ) - self.layoutBounds.getWidth() / 2 + INSET;
-      biomoleculeToolBoxNode.y = INSET;
-      biomoleculeToolBoxNodeList.push( biomoleculeToolBoxNode );
-      biomoleculeToolBoxLayer.addChild( biomoleculeToolBoxNode );
-      model.addOffLimitsMotionSpace( self.modelViewTransform.viewToModelBounds( biomoleculeToolBoxNode.bounds ) );
+      var biomoleculeToolboxNode = new BiomoleculeToolboxNode( model, self, self.modelViewTransform, gene );
+      biomoleculeToolboxNode.x = self.modelViewTransform.modelToViewX( gene.getCenterX() ) - self.layoutBounds.getWidth() / 2 + INSET;
+      biomoleculeToolboxNode.y = INSET;
+      biomoleculeToolboxNodeList.push( biomoleculeToolboxNode );
+      biomoleculeToolboxLayer.addChild( biomoleculeToolboxNode );
+      model.addOffLimitsMotionSpace( self.modelViewTransform.viewToModelBounds( biomoleculeToolboxNode.bounds ) );
     } );
 
     // define a convenience function that allows quick setting of the pickability of the tool box nodes
     function setBiomoleculeToolboxPickability( pickable ){
-      biomoleculeToolBoxNodeList.forEach( function( biomoleculeToolBoxNode ){
-        biomoleculeToolBoxNode.pickable = pickable;
+      biomoleculeToolboxNodeList.forEach( function( biomoleculeToolboxNode ) {
+        biomoleculeToolboxNode.pickable = pickable;
       } );
     }
 
@@ -262,8 +262,8 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
-        biomoleculeToolBoxNodeList.forEach( function( biomoleculeToolBoxNode ) {
-          biomoleculeToolBoxNode.reset();
+        biomoleculeToolboxNodeList.forEach( function( biomoleculeToolboxNode ) {
+          biomoleculeToolboxNode.reset();
         } );
       },
       right: this.layoutBounds.maxX - 10,

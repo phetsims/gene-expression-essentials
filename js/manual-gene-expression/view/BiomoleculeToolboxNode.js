@@ -58,7 +58,7 @@ define( function( require ) {
    * @param {Gene} gene
    * @constructor
    */
-  function BiomoleculeToolBoxNode( model, canvas, modelViewTransform, gene ) {
+  function BiomoleculeToolboxNode( model, canvas, modelViewTransform, gene ) {
 
     var self = this;
     this.model = model; //@private
@@ -67,7 +67,7 @@ define( function( require ) {
     this.biomoleculeCreatorNodeList = [];
 
     // Add the title.
-    var toolBoxTitleNode = new Text( biomoleculeToolboxString, {
+    var toolboxTitleNode = new Text( biomoleculeToolboxString, {
       font: TITLE_FONT,
       maxWidth: 200
     } );
@@ -162,15 +162,15 @@ define( function( require ) {
     childrenNodesArray = childrenNodesArray.concat( negativeTranscriptBoxNodes );
     // Create the content of this control panel.
     var contentNode = new Node();
-    contentNode.addChild( toolBoxTitleNode );
+    contentNode.addChild( toolboxTitleNode );
     var childrenNode = new VBox( {
       children: childrenNodesArray,
       spacing: 10,
       align: 'left'
     } );
     contentNode.addChild( childrenNode );
-    childrenNode.top = toolBoxTitleNode.bottom + 10;
-    toolBoxTitleNode.centerX = childrenNode.centerX;
+    childrenNode.top = toolboxTitleNode.bottom + 10;
+    toolboxTitleNode.centerX = childrenNode.centerX;
 
     Panel.call( this, contentNode, {
       cornerRadius: GEEConstants.CORNER_RADIUS,
@@ -183,9 +183,9 @@ define( function( require ) {
     } );
   }
 
-  geneExpressionEssentials.register( 'BiomoleculeToolBoxNode', BiomoleculeToolBoxNode );
+  geneExpressionEssentials.register( 'BiomoleculeToolboxNode', BiomoleculeToolboxNode );
 
-  return inherit( Panel, BiomoleculeToolBoxNode, {
+  return inherit( Panel, BiomoleculeToolboxNode, {
 
     /**
      * @public reset the toolbox
