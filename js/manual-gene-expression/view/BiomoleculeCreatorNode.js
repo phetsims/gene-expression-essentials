@@ -2,7 +2,7 @@
 
 /**
  * This class defines a node that can be used in the view to create biomolecules in the model. It is intended for use in
- * panels, often referred to as "tool boxes". It is generalized so that the parameters allow it to create any sort of
+ * panels, often referred to as "toolboxes". It is generalized so that the parameters allow it to create any sort of
  * biomolecule.
  *
  * @author Sharfudeen Ashraf
@@ -28,7 +28,7 @@ define( function( require ) {
    * model.
    * @param {Function<>} moleculeDestroyer
    * @param enclosingToolboxNode - Toolbox in which this creator node is  contained.  This is needed in order to
-   * determine when the created model element is returned to the tool box.
+   * determine when the created model element is returned to the toolbox.
    * @constructor
    */
   function BiomoleculeCreatorNode( appearanceNode, canvas, modelViewTransform, moleculeCreator, moleculeDestroyer, enclosingToolboxNode ) {
@@ -52,7 +52,7 @@ define( function( require ) {
       // Allow moving a finger (touch) across this node to interact with it
       allowTouchSnag: true,
       start: function( event, trail ) {
-        //Set the node to look faded out so that something is still visible. This acts as a legend in the tool box.
+        //Set the node to look faded out so that something is still visible. This acts as a legend in the toolbox.
         self.pickable = false;
         self.appearanceNode.opacity = 0.3;
 
@@ -68,7 +68,7 @@ define( function( require ) {
         var userControlledPropertyObserver = function( userControlled ) {
           if ( !userControlled ) {
             // The user has released this biomolecule.  If it  was dropped above the return bounds (which are generally
-            // the bounds of the tool box where this creator node resides),then the model element should be removed from
+            // the bounds of the toolbox where this creator node resides),then the model element should be removed from
             // the model.
             if ( enclosingToolboxNode.bounds.containsPoint( modelViewTransform.modelToViewPosition( finalBiomolecule.getPosition() ) ) ) {
               moleculeDestroyer( finalBiomolecule );

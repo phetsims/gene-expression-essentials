@@ -31,7 +31,7 @@ define( function( require ) {
   );
 
   /**
-   * @param {BiomoleculeToolBoxNode} biomoleculeBoxNode - Biomolecule box, which is a sort of tool box, in which
+   * @param {BiomoleculeToolBoxNode} biomoleculeBoxNode - Biomolecule box, which is a sort of toolbox, in which
    * this creator node exists.
    *
    * @constructor

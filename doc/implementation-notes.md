@@ -117,8 +117,8 @@ types of biomolecules.
 
 The view is fairly straightforward.  Each biomolecule in the model has a view
 component that portrays its position, shape, and color.  The view provides
-tool box nodes that allow the user to create and remove biomolecules by
-dragging them out of or in to the tool box.
+toolbox nodes that allow the user to create and remove biomolecules by
+dragging them out of or in to the toolbox.
 
 # Screen 3 - Multiple Cells Model
 

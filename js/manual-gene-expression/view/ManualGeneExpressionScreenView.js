@@ -47,7 +47,7 @@ define( function( require ) {
     var self = this;
 
     this.viewPortOffset = new Vector2( 0, 0 );
-    var biomoleculeToolboxNodeList = []; // array containing the tool box nodes used to create biomolecules
+    var biomoleculeToolboxNodeList = []; // array containing the toolbox nodes used to create biomolecules
 
     // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
     // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
@@ -142,7 +142,7 @@ define( function( require ) {
 
     } );
 
-    // Add the tool boxes from which the various biomolecules can be moved  into the active area of the sim.
+    // Add the toolboxes from which the various biomolecules can be moved  into the active area of the sim.
     model.getDnaMolecule().getGenes().forEach( function( gene ) {
       var biomoleculeToolboxNode = new BiomoleculeToolboxNode( model, self, self.modelViewTransform, gene );
       biomoleculeToolboxNode.x = self.modelViewTransform.modelToViewX( gene.getCenterX() ) - self.layoutBounds.getWidth() / 2 + INSET;
@@ -152,7 +152,7 @@ define( function( require ) {
       model.addOffLimitsMotionSpace( self.modelViewTransform.viewToModelBounds( biomoleculeToolboxNode.bounds ) );
     } );
 
-    // define a convenience function that allows quick setting of the pickability of the tool box nodes
+    // define a convenience function that allows quick setting of the pickability of the toolbox nodes
     function setBiomoleculeToolboxPickability( pickable ){
       biomoleculeToolboxNodeList.forEach( function( biomoleculeToolboxNode ) {
         biomoleculeToolboxNode.pickable = pickable;

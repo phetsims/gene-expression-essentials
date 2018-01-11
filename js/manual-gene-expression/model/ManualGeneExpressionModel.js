@@ -74,7 +74,7 @@ define( function( require ) {
     this.activeGeneProperty = new Property( this.dnaMolecule.getGenes()[ 0 ] ); // @public(read-only)
 
     // List of areas where biomolecules should not be allowed.  These are generally populated by the view in order to
-    // keep biomolecules from wandering over the tool boxes and collection areas.
+    // keep biomolecules from wandering over the toolboxes and collection areas.
     this.offLimitsMotionSpaces = []; //@private
 
     // Properties that track how many of the various proteins have been collected.
@@ -332,7 +332,7 @@ define( function( require ) {
 
     /**
      * Add a space where the biomolecules should not be allowed to wander. This is generally used by the view to prevent
-     * biomolecules from moving over tool boxes and such.
+     * biomolecules from moving over toolboxes and such.
      *
      * @param {Bounds2} newOffLimitsSpace
      * @public
