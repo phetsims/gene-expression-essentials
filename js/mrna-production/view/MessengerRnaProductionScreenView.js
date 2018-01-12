@@ -109,7 +109,7 @@ define( function( require ) {
     );
     controlsNode.addChild( negativeTranscriptionFactorControlPanel );
 
-    // Add the check box for showing/hiding the control panel for the negative transcription factor.
+    // Add the checkbox for showing/hiding the control panel for the negative transcription factor.
     var negativeFactorEnabledCheckbox = new Checkbox(
       new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ), maxWidth: 275 } ),
       this.negativeTranscriptionFactorEnabled,
