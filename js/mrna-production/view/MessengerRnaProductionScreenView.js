@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -110,12 +110,12 @@ define( function( require ) {
     controlsNode.addChild( negativeTranscriptionFactorControlPanel );
 
     // Add the check box for showing/hiding the control panel for the negative transcription factor.
-    var negativeFactorEnabledCheckBox = new CheckBox(
+    var negativeFactorEnabledCheckbox = new Checkbox(
       new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ), maxWidth: 275 } ),
       this.negativeTranscriptionFactorEnabled,
       { boxWidth: 20 }
     );
-    controlsNode.addChild( negativeFactorEnabledCheckBox );
+    controlsNode.addChild( negativeFactorEnabledCheckbox );
 
     // Only show the control for the negative transcription factor if it is enabled.
     this.negativeTranscriptionFactorEnabled.link( function( enabled ) {
@@ -164,11 +164,11 @@ define( function( require ) {
 
     negativeTranscriptionFactorControlPanel.left = polymeraseAffinityControlPanel.right + INSET;
     negativeTranscriptionFactorControlPanel.bottom = polymeraseAffinityControlPanel.bottom;
-    negativeFactorEnabledCheckBox.left = negativeTranscriptionFactorControlPanel.right + INSET;
-    negativeFactorEnabledCheckBox.centerY = resetAllButton.centerY;
+    negativeFactorEnabledCheckbox.left = negativeTranscriptionFactorControlPanel.right + INSET;
+    negativeFactorEnabledCheckbox.centerY = resetAllButton.centerY;
 
-    playPauseButton.bottom = negativeFactorEnabledCheckBox.top - 2 * INSET;
-    playPauseButton.centerX = negativeFactorEnabledCheckBox.centerX;
+    playPauseButton.bottom = negativeFactorEnabledCheckbox.top - 2 * INSET;
+    playPauseButton.centerX = negativeFactorEnabledCheckbox.centerX;
 
     stepButton.centerY = playPauseButton.centerY;
     stepButton.left = playPauseButton.right + INSET;
