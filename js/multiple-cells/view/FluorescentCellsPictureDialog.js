@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var ButtonListener = require( 'SCENERY/input/ButtonListener' );
-  var Dialog = require( 'JOIST/Dialog' );
+  var Dialog = require( 'SUN/Dialog' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
