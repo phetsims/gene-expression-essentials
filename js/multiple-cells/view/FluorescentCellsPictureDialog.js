@@ -65,10 +65,7 @@ define( function( require ) {
 
     var content = new LayoutBox( { orientation: 'vertical', align: 'center', spacing: 10, children: children } );
 
-    Dialog.call( this, content, {
-      modal: true,
-      hasCloseButton: true
-    } );
+    Dialog.call( this, content );
 
     // close it on a click
     this.addInputListener( new ButtonListener( {
