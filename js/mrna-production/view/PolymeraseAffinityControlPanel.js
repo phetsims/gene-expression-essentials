@@ -97,7 +97,7 @@ define( function( require ) {
     // correct size.
     var dummyContents = new VBox( {
         children: [ titleNode,
-          new AffinityController( polymeraseNode, dnaFragmentNode, new Property( 0 ) ),
+          new AffinityController( polymeraseNode, dnaFragmentNode, new Property( 0 ) )
         ],
         spacing: 20
       }
