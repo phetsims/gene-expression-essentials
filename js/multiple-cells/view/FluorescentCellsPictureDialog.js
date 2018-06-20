@@ -52,6 +52,7 @@ define( function( require ) {
     var captionAndNoteNode = new RichText( imageCaptionString + '  ' + imageCaptionNoteString, {
       font: TEXT_FONT,
       lineWrap: IMAGE_WIDTH,
+      maxWidth: IMAGE_WIDTH,
       centerX: imageNode.centerX,
       top: imageNode.bottom + 10,
       align: 'left'
