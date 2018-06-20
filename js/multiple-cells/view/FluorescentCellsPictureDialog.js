@@ -73,7 +73,6 @@ define( function( require ) {
     this.addInputListener( new ButtonListener( {
       fire: self.hide.bind( self )
     } ) );
-
     this.shownProperty = new Property( false );
 
     this.shownProperty.lazyLink( function( shown ) {
