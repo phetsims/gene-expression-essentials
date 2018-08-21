@@ -61,7 +61,9 @@ define( function( require ) {
     this.transcriptionFactorLevelProperty = new Property( CellProteinSynthesisSimulator.DefaultTranscriptionFactorCount, { reentrant: true } );
     this.proteinDegradationRateProperty = new Property( CellProteinSynthesisSimulator.DefaultProteinDegradationRate );
     this.transcriptionFactorAssociationProbabilityProperty = new Property(
-      CellProteinSynthesisSimulator.DefaultTFAssociationProbability
+      CellProteinSynthesisSimulator.DefaultTFAssociationProbability, {
+        reentrant: true
+      }
     );
     this.polymeraseAssociationProbabilityProperty = new Property(
       CellProteinSynthesisSimulator.DefaultPolymeraseAssociationProbability
