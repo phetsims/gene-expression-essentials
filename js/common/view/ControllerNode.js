@@ -42,11 +42,11 @@ define( function( require ) {
     var passThroughController;
     if ( options.logScale ) {
       range = new Range( Math.log( minValue ) / Math.LN10, Math.log( maxValue ) / Math.LN10 );
-      passThroughController = new Property( Math.log( controller.get() ) / Math.LN10 );
+      passThroughController = new Property( Math.log( controller.get() ) / Math.LN10, { reentrant: true } );
     }
     else {
       range = new Range( minValue, maxValue );
-      passThroughController = new Property( controller.get() );
+      passThroughController = new Property( controller.get(), { reentrant: true } );
     }
 
     // Conversion to exponential.

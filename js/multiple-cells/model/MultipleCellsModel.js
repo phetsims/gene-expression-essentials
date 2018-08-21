@@ -58,7 +58,7 @@ define( function( require ) {
     // Properties used to control the rate at which protein is synthesized and degraded in the cells. These are intended
     // to be set by clients, such as the view.
     // @public
-    this.transcriptionFactorLevelProperty = new Property( CellProteinSynthesisSimulator.DefaultTranscriptionFactorCount );
+    this.transcriptionFactorLevelProperty = new Property( CellProteinSynthesisSimulator.DefaultTranscriptionFactorCount, { reentrant: true } );
     this.proteinDegradationRateProperty = new Property( CellProteinSynthesisSimulator.DefaultProteinDegradationRate );
     this.transcriptionFactorAssociationProbabilityProperty = new Property(
       CellProteinSynthesisSimulator.DefaultTFAssociationProbability
@@ -66,7 +66,7 @@ define( function( require ) {
     this.polymeraseAssociationProbabilityProperty = new Property(
       CellProteinSynthesisSimulator.DefaultPolymeraseAssociationProbability
     );
-    this.mRnaDegradationRateProperty = new Property( CellProteinSynthesisSimulator.DefaultMRNADegradationRate );
+    this.mRnaDegradationRateProperty = new Property( CellProteinSynthesisSimulator.DefaultMRNADegradationRate, { reentrant: true } );
 
     // Property that tracks the average protein level of all the cells.
     this.averageProteinLevelProperty = new Property( 0.0 ); // @public( read-only )
@@ -211,10 +211,10 @@ define( function( require ) {
       }
     },
 
-  /**
-   * find a location for the given cell that doesn't overlap with other cells on the list
-   * @private
-   */
+    /**
+     * find a location for the given cell that doesn't overlap with other cells on the list
+     * @private
+     */
     placeCellInOpenLocation: function( cell ) {
 
       // Loop, randomly generating positions of increasing distance from the center, until the cell is positioned in a
@@ -235,7 +235,7 @@ define( function( require ) {
             var existingCell = this.cellList[ k ];
             // new bounds
             if ( cell.bounds.shifted( cell.positionX, cell.positionY )
-                .intersectsBounds( existingCell.bounds.shifted( existingCell.positionX, existingCell.positionY ) ) ) {
+              .intersectsBounds( existingCell.bounds.shifted( existingCell.positionX, existingCell.positionY ) ) ) {
               overlapDetected = true;
               break;
             }
