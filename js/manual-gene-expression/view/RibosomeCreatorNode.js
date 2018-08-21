@@ -30,7 +30,7 @@ define( function( require ) {
   );
 
   /**
-   * @param {BiomoleculeToolBoxNode} biomoleculeBoxNode
+   * @param {BiomoleculeToolboxNode} biomoleculeBoxNode
    * @constructor
    */
   function RibosomeCreatorNode( biomoleculeBoxNode ) {

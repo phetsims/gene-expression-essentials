@@ -31,7 +31,7 @@ define( function( require ) {
   );
 
   /**
-   * @param {BiomoleculeToolBoxNode} biomoleculeBoxNode
+   * @param {BiomoleculeToolboxNode} biomoleculeBoxNode
    * @constructor
    */
   function MessengerRnaDestroyerCreatorNode( biomoleculeBoxNode ) {
