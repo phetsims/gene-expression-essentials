@@ -135,7 +135,7 @@ define( function( require ) {
 
     // Add the step button.
     var stepButton = new StepForwardButton( {
-      playingProperty: model.clockRunningProperty,
+      isPlayingProperty: model.clockRunningProperty,
       listener: function() { model.stepInTime( 0.016 ); },
       radius: 15,
       touchAreaDilation: 5

@@ -121,7 +121,7 @@ define( function( require ) {
     this.addChild( playPauseButton );
 
     var stepButton = new StepForwardButton( {
-      playingProperty: model.clockRunningProperty,
+      isPlayingProperty: model.clockRunningProperty,
       listener: function() {
         model.stepInTime( 0.016 );
         self.proteinLevelChartNode.addDataPoint( 0.016 );
