@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Timer = require( 'PHET_CORE/Timer' );
+  var timer = require( 'PHET_CORE/timer' );
 
   /**
    * @param {Path} flashingNode
@@ -56,7 +56,7 @@ define( function( require ) {
       if ( self.transitionCountdown > 0 ) {
 
         // Set timer for next transition.
-        self.timerHandle = Timer.setTimeout( self.timerListener, time );
+        self.timerHandle = timer.setTimeout( self.timerListener, time );
       }
     };
   }
@@ -78,7 +78,7 @@ define( function( require ) {
      */
     stop: function() {
       if ( this.timerHandle ) {
-        Timer.clearTimeout( this.timerHandle );
+        timer.clearTimeout( this.timerHandle );
       }
       this.timerHandle = null;
     },

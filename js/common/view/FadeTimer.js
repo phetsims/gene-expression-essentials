@@ -14,7 +14,7 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var Timer = require( 'PHET_CORE/Timer' );
+  var timer = require( 'PHET_CORE/timer' );
 
   /**
    *
@@ -40,7 +40,7 @@ define( function( require ) {
     start: function() {
       var self = this;
       if ( !this.isRunningProperty.get() ) {
-        self._intervalId = Timer.setInterval( function() {
+        self._intervalId = timer.setInterval( function() {
           self.listener();
         }, this.interval );
         self.isRunningProperty.set( true );
@@ -53,7 +53,7 @@ define( function( require ) {
      */
     stop: function() {
       if ( this.isRunningProperty.get() ) {
-        Timer.clearInterval( this._intervalId );
+        timer.clearInterval( this._intervalId );
         this._intervalId = null;
         this.isRunningProperty.set( false );
       }
