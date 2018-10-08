@@ -10,9 +10,11 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Animation = require( 'TWIXT/Animation' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var BiomoleculeToolboxNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/BiomoleculeToolboxNode' );
   var DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
+  var Easing = require( 'TWIXT/Easing' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -30,7 +32,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var GENE_TO_GENE_ANIMATION_TIME = 1000; // in milliseconds
+  var GENE_TO_GENE_ANIMATION_TIME = 1; // in seconds
   var INSET = 15; // inset for several of the controls, in view coordinates
 
   // strings
@@ -219,22 +221,6 @@ define( function( require ) {
     this.modelRootNode.x = -this.modelViewTransform.modelToViewX( model.dnaMolecule.getGenes()[ 0 ].getCenterX() )
                            + this.layoutBounds.width / 2;
 
-    var modelRootNodeAnimator = new TWEEN.Tween( { x: self.modelRootNode.x } )
-      .easing( TWEEN.Easing.Cubic.InOut )
-      .onUpdate( function() {
-        self.modelRootNode.x = this.x;
-      } )
-      .onComplete( function() {
-        self.modelRootNode.visible = true;
-        self.modelRootNode.pickable = null;
-        var boundsInControlNode = proteinCollectionNode.getBounds().copy();
-        var boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
-        var boundsInModel = self.modelViewTransform.viewToModelBounds( boundsAfterTransform );
-        model.setProteinCaptureArea( boundsInModel );
-        model.addOffLimitsMotionSpace( boundsInModel );
-        setBiomoleculeToolboxPickability( true );
-      } );
-
     // Monitor the active gene and move the view port to be centered on it whenever it changes.
     model.activeGeneProperty.link( function( gene ) {
 
@@ -248,11 +234,28 @@ define( function( require ) {
       // set the offset of the viewport
       self.viewPortOffset.setXY( -self.modelViewTransform.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
 
-      // initiate the animation to the new viewport offset
-      modelRootNodeAnimator
-        .stop()
-        .to( { x: self.viewPortOffset.x }, GENE_TO_GENE_ANIMATION_TIME )
-        .start( phet.joist.elapsedTime );
+      // create and run the animation that will move the view to the selected gene
+      var modelRootNodeAnimator = new Animation( {
+        duration: GENE_TO_GENE_ANIMATION_TIME,
+        stepper: 'timer',
+        easing: Easing.CUBIC_IN_OUT,
+        setValue: function( newXPos ) {
+          self.modelRootNode.x = newXPos;
+        },
+        from: self.modelRootNode.x,
+        to: self.viewPortOffset.x
+      } );
+      modelRootNodeAnimator.finishEmitter.addListener( function() {
+        self.modelRootNode.visible = true;
+        self.modelRootNode.pickable = null;
+        var boundsInControlNode = proteinCollectionNode.getBounds().copy();
+        var boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
+        var boundsInModel = self.modelViewTransform.viewToModelBounds( boundsAfterTransform );
+        model.setProteinCaptureArea( boundsInModel );
+        model.addOffLimitsMotionSpace( boundsInModel );
+        setBiomoleculeToolboxPickability( true );
+      } );
+      modelRootNodeAnimator.start();
     } );
 
     frontControlsLayer.addChild( nextGeneButton );
