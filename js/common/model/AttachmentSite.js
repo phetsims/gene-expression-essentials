@@ -17,6 +17,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
 
   // constants
   var ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
@@ -41,7 +42,7 @@ define( function( require ) {
     this.attachedOrAttachingMoleculeProperty = new Property( null );
 
     // @public {NumberProperty} - affinity of the attachment site, meaning how strongly things attach
-    this.affinityProperty = new NumberProperty( initialAffinity, { range: { min: 0.0, max: 1.0 } } );
+    this.affinityProperty = new NumberProperty( initialAffinity, { range: new Range( 0.0, 1.0 ) } );
   }
 
   geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );
