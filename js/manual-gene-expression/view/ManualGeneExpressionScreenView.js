@@ -237,7 +237,6 @@ define( function( require ) {
       // create and run the animation that will move the view to the selected gene
       var modelRootNodeAnimator = new Animation( {
         duration: GENE_TO_GENE_ANIMATION_TIME,
-        stepper: 'timer',
         easing: Easing.CUBIC_IN_OUT,
         setValue: function( newXPos ) {
           self.modelRootNode.x = newXPos;
