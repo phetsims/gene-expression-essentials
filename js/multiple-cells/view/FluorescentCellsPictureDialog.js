@@ -73,34 +73,9 @@ define( function( require ) {
     this.addInputListener( new ButtonListener( {
       fire: self.hide.bind( self )
     } ) );
-    this.shownProperty = new Property( false );
-
-    this.shownProperty.lazyLink( function( shown ) {
-      if ( shown ) {
-        Dialog.prototype.show.call( self );
-      }
-      else {
-        Dialog.prototype.hide.call( self );
-      }
-    } );
   }
 
   geneExpressionEssentials.register( 'FluorescentCellsPictureDialog', FluorescentCellsPictureDialog );
 
-  return inherit( Dialog, FluorescentCellsPictureDialog, {
-
-    /**
-     * @public
-     */
-    hide: function() {
-      this.shownProperty.value = false;
-    },
-
-    /**
-     * @public
-     */
-    show: function() {
-      this.shownProperty.value = true;
-    }
-  } );
+  return inherit( Dialog, FluorescentCellsPictureDialog );
 } );
