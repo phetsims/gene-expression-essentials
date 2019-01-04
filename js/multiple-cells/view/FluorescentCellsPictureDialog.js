@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ButtonListener = require( 'SCENERY/input/ButtonListener' );
   var Dialog = require( 'SUN/Dialog' );
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -37,7 +36,6 @@ define( function( require ) {
    * @constructor
    */
   function FluorescentCellsPictureDialog() {
-    var self = this;
 
     var imageNode = new Image( eColiImage, {
       minWidth: IMAGE_WIDTH,
@@ -67,11 +65,6 @@ define( function( require ) {
       topMargin: 20,
       bottomMargin: 20
     } );
-
-    // close it on a click
-    this.addInputListener( new ButtonListener( {
-      fire: self.hide.bind( self )
-    } ) );
   }
 
   geneExpressionEssentials.register( 'FluorescentCellsPictureDialog', FluorescentCellsPictureDialog );
