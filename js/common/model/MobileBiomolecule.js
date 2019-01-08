@@ -277,7 +277,7 @@ define( function( require ) {
      * Search for other biomolecules (and perhaps additional model elements) to which this biomolecule may legitimately
      * attach and, if any are founds, propose an attachment to them.
      *
-     * @return Attachment site of accepted attachment, null if no attachments were proposed or if all were rejected.
+     * @returns {} Attachment site of accepted attachment, null if no attachments were proposed or if all were rejected.
      * @public
      */
     proposeAttachments: function() {

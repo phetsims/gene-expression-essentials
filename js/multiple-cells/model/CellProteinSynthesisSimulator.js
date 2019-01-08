@@ -149,7 +149,7 @@ define( function( require ) {
      * Simulates one reaction if the wait time before that reaction occurs is less than maxTime
      *
      * @param maxTime the maximum of time to wait for this reaction to occur
-     * @return the amount of time evolved in the system
+     * @returns {number} the amount of time evolved in the system
      * @private
      */
     simulateOneReaction: function( maxTime ) {
@@ -273,7 +273,7 @@ define( function( require ) {
 
     /**
      * Get the number of proteins currently in this cell.
-     * @return protein count
+     * @returns {number} protein count
      * @public
      */
     getProteinCount: function() {

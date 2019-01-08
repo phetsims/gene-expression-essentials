@@ -207,7 +207,7 @@ define( function( require ) {
       /**
        * returns true if this ribosome is currently translating mRNA, false otherwise
        * @public
-       * @return {boolean}
+       * @returns {boolean}
        */
       return this.attachmentStateMachine.isTranslating();
     },

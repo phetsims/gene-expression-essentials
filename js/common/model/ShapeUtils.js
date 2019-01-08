@@ -53,7 +53,7 @@ define( function( require ) {
      * @param {Object} y - Beginning of line segment.
      * @param {Object} z - End of line segment.
      * @param {Vector2} cp - control point to be set and returned
-     * @return {Object}
+     * @returns {Object}
      * @public
      */
     extrapolateControlPoint: function( x, y, z, cp ) {

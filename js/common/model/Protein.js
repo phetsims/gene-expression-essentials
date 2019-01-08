@@ -88,7 +88,7 @@ define( function( require ) {
      * Method to get an untranslated (in terms of position, not language) version of this protein's shape when it fully
      * grown. This is intended for use in creating control panel shapes that match this protein's shape.
      *
-     * @return Shape representing the fully developed protein.
+     * @returns {Shape} representing the fully developed protein.
      * @public
      */
     getFullyGrownShape: function() {

@@ -74,7 +74,7 @@ define( function( require ) {
 
     /**
      * returns true if the state indicates that the ribosome is currently translating mRNA, false otherwise
-     * @return {boolean}
+     * @returns {boolean}
      * @public
      */
     isTranslating: function(){
