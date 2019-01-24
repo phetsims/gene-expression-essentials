@@ -269,8 +269,7 @@ define( function( require ) {
         } );
       },
       right: this.layoutBounds.maxX - 10,
-      bottom: this.layoutBounds.maxY - 10,
-      touchAreaDilation: 10
+      bottom: this.layoutBounds.maxY - 10
     } );
     frontControlsLayer.addChild( resetAllButton );
   }

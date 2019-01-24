@@ -108,8 +108,7 @@ define( function( require ) {
         self.proteinLevelChartNode.reset();
       },
       right: this.layoutBounds.maxX - 10,
-      bottom: this.layoutBounds.maxY - 10,
-      touchAreaDilation: 10
+      bottom: this.layoutBounds.maxY - 10
     } );
     this.addChild( resetAllButton );
 
