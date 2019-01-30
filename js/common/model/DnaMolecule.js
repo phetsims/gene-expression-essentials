@@ -128,8 +128,8 @@ define( function( require ) {
         this.leftEdgeXOffset,
         this.leftEdgeXOffset + GEEConstants.LENGTH_PER_TWIST * this.numberOfTwists
       );
-      return ( Math.round( ( xOffset - this.leftEdgeXOffset - GEEConstants.INTER_STRAND_OFFSET ) /
-                           GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) ) | 0; // make it int
+      return ( Util.roundSymmetric( ( xOffset - this.leftEdgeXOffset - GEEConstants.INTER_STRAND_OFFSET ) /
+                                    GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) ) | 0; // make it int
     },
 
     /**

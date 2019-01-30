@@ -14,6 +14,7 @@ define( function( require ) {
   var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
+  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -38,7 +39,7 @@ define( function( require ) {
     this.cp2ResuableVector = new Vector2();
 
     // @private - four arrays for the DNA backbone representation
-    var longerArrayLength = Math.round( this.model.strand1Segments.length / 2 );
+    var longerArrayLength = Util.roundSymmetric( this.model.strand1Segments.length / 2 );
     var shorterArrayLength = Math.floor( this.model.strand1Segments.length / 2 );
     this.strand1ArrayBehind = new Array( shorterArrayLength );
     this.strand2ArrayBehind = new Array( longerArrayLength );
