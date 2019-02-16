@@ -28,7 +28,7 @@ define( function( require ) {
   var MAX_TIME_IN_ONE_DIRECTION = 0.8; // In seconds.
 
   // Vector used for intermediate calculations - Added to avoid excessive creation of Vector3 instances - Ashraf
-  var nextPosition3DScratchVector = new Vector3();
+  var nextPosition3DScratchVector = new Vector3( 0, 0, 0 );
 
   /**
    * @param {Property} motionBoundsProperty
