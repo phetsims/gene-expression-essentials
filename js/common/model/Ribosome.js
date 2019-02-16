@@ -187,7 +187,7 @@ define( function( require ) {
      * @public
      */
     getProteinAttachmentPoint: function( newAttachmentPoint ) {
-      newAttachmentPoint = newAttachmentPoint || new Vector2();
+      newAttachmentPoint = newAttachmentPoint || new Vector2( 0, 0 );
       newAttachmentPoint.x = this.getPosition().x + OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.x;
       newAttachmentPoint.y = this.getPosition().y + OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.y;
       return newAttachmentPoint;

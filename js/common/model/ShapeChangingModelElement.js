@@ -60,8 +60,8 @@ define( function( require ) {
     };
 
     // reusable position vectors, used to prevent allocations of new vectors and thus improve performance
-    this.reusablePositionVector1 = new Vector2();
-    this.reusablePositionVector2 = new Vector2();
+    this.reusablePositionVector1 = new Vector2( 0, 0 );
+    this.reusablePositionVector2 = new Vector2( 0, 0 );
   }
 
   geneExpressionEssentials.register( 'ShapeChangingModelElement', ShapeChangingModelElement );

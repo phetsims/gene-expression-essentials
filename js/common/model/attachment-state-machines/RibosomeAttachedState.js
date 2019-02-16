@@ -30,7 +30,7 @@ define( function( require ) {
   function RibosomeAttachedState( ribosomeAttachmentStateMachine ) {
     AttachmentState.call( this );
     this.ribosomeAttachmentStateMachine = ribosomeAttachmentStateMachine; //@public
-    this.proteinAttachmentPointScratchVector = new Vector2();
+    this.proteinAttachmentPointScratchVector = new Vector2( 0, 0 );
   }
 
   geneExpressionEssentials.register( 'RibosomeAttachedState', RibosomeAttachedState );

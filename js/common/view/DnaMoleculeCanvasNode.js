@@ -35,8 +35,8 @@ define( function( require ) {
     this.backboneStrokeWidth = modelViewTransform.viewToModelDeltaX( backboneStrokeWidth ); // @private
 
     // @private - pre-allocated reusable vectors, used to reduce garbage collection
-    this.cp1ResuableVector = new Vector2();
-    this.cp2ResuableVector = new Vector2();
+    this.cp1ResuableVector = new Vector2( 0, 0 );
+    this.cp2ResuableVector = new Vector2( 0, 0 );
 
     // @private - four arrays for the DNA backbone representation
     var longerArrayLength = Util.roundSymmetric( this.model.strand1Segments.length / 2 );
