@@ -110,7 +110,7 @@ define( function( require ) {
       var centerOfMotionBounds = this.motionBounds.getBounds().getCenter();
       var vectorToMotionBoundsCenter = new Vector2( centerOfMotionBounds.x - bounds.getCenterX(),
         centerOfMotionBounds.y - bounds.getCenterY() );
-      vectorToMotionBoundsCenter.multiplyScalar( maxVelocity / vectorToMotionBoundsCenter.magnitude() );
+      vectorToMotionBoundsCenter.multiplyScalar( maxVelocity / vectorToMotionBoundsCenter.magnitude );
       return vectorToMotionBoundsCenter;
     },
 

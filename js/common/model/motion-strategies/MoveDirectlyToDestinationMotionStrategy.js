@@ -139,7 +139,7 @@ define( function( require ) {
 
       // make sure that the current motion won't move the model element past the destination
       var distanceToDestination = currentPosition2D.distance( currentDestination2D );
-      if ( this.velocityVector2D.magnitude() * dt > distanceToDestination ) {
+      if ( this.velocityVector2D.magnitude * dt > distanceToDestination ) {
         return currentDestination3D;
       }
 
