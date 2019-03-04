@@ -75,8 +75,10 @@ define( function( require ) {
       buttonYMargin: 6,
       contentYMargin: 8,
       expandedProperty: this.expandedProperty,
-      buttonTouchAreaXDilation: 5,
-      buttonTouchAreaYDilation: 5,
+      expandCollapseButtonOptions: {
+        touchAreaXDilation: 5,
+        touchAreaYDilation: 5
+      },
       minWidth: 200
     } );
   }
