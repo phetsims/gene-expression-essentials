@@ -29,7 +29,7 @@ define( function( require ) {
     // @public {Property.<Shape>} - can be read or listened to by anyone, should only be written by descendant types
     this.shapeProperty = new Property( initialShape );
 
-    // @public (read-only) {Property.<Vector2>} - The position of this model element in model space.  Generally this
+    // @public (read-only) - The position of this model element in model space.  Generally this
     // will be the center of the model element, since it has width and height.
     this.positionProperty = new Property( Vector2.ZERO, { useDeepEquality: true } );
 
