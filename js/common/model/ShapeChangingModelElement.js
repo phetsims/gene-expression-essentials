@@ -16,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   /**
    * @abstract
@@ -31,7 +32,7 @@ define( function( require ) {
 
     // @public (read-only) - The position of this model element in model space.  Generally this
     // will be the center of the model element, since it has width and height.
-    this.positionProperty = new Property( Vector2.ZERO, { useDeepEquality: true } );
+    this.positionProperty = new Vector2Property( Vector2.ZERO, { useDeepEquality: true } );
 
     // @public (read-only) {Bounds2} - This model element's bounds in model space.  This could be derived from the
     // combination of the shape and position, but doing so every time it is needed is inefficient, so it is explicitly
