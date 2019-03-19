@@ -1,5 +1,5 @@
 {
-  "comment": "# gene-expression-essentials 1.0.5 Fri Mar 08 2019 13:27:54 GMT-0500 (EST)",
+  "comment": "# gene-expression-essentials 1.0.5 Tue Mar 19 2019 16:44:27 GMT-0400 (EDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -10,18 +10,18 @@
   },
   "brand": {
     "sha": "5244383b261949e17fb064135e4df7332391eddc",
-    "branch": "gene-expression-essentials-1.0"
+    "branch": "HEAD"
   },
   "chipper": {
-    "sha": "2fdc93fae3b62801002905359bc1fb8463b035d4",
-    "branch": "HEAD"
+    "sha": "91c4034706db12b5e8054ccd22825e99984d7129",
+    "branch": "gene-expression-essentials-1.0"
   },
   "dot": {
     "sha": "85ef2bbfad0bc023dec7988d60475bd513af1e1c",
     "branch": "HEAD"
   },
   "gene-expression-essentials": {
-    "sha": "b8bdf7aea4ec25be8de14e3a15cdded035c029b1",
+    "sha": "95c495537013b7776e2cb1fb6265018ff862e107",
     "branch": "1.0"
   },
   "griddle": {
@@ -30,7 +30,7 @@
   },
   "joist": {
     "sha": "6eec1ca2d9bdf67ab645d5f7f18746ad4ffb67ed",
-    "branch": "gene-expression-essentials-1.0"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "2c921cba0c91bd8ceef51dbb5abea335ff89a001",
@@ -42,6 +42,10 @@
   },
   "phetcommon": {
     "sha": "bf1e704b5cff3c0a4776a6631240ea5c27aecf25",
+    "branch": "HEAD"
+  },
+  "phetmarks": {
+    "sha": "5212009b151bb584d17bb2af16cedd80308ea8a1",
     "branch": "HEAD"
   },
   "query-string-machine": {
@@ -67,9 +71,5 @@
   "tandem": {
     "sha": "c1e98f69b57aa3527428ac069284766757b713d8",
     "branch": "HEAD"
-  },
-  "phetmarks": {
-    "branch": "master",
-    "sha": "5212009b151bb584d17bb2af16cedd80308ea8a1"
   }
 }
