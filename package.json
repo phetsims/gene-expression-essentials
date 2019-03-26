@@ -12,7 +12,8 @@
   "phet": {
     "requirejsNamespace": "GENE_EXPRESSION_ESSENTIALS",
     "phetLibs": [
-      "griddle"
+      "griddle",
+      "twixt"
     ],
     "runnable": true,
     "supportedBrands": [
