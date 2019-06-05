@@ -56,8 +56,8 @@ define( function( require ) {
     this.disposeShapeChangingModelElement = function() {
       boundsUpdateMultilink.dispose();
       this.positionProperty.dispose();
-      this.shapeProperty.dispose();
       this.shapeProperty.set( null );
+      this.shapeProperty.dispose();
     };
 
     // reusable position vectors, used to prevent allocations of new vectors and thus improve performance
