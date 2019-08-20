@@ -44,7 +44,6 @@ define( function( require ) {
   var NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
 
   /**
-   * Main constructor for ManualGeneExpressionModel, which contains all of the model logic for the entire sim screen.
    * @constructor
    */
   function ManualGeneExpressionModel() {
