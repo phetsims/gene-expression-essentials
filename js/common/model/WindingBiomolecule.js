@@ -473,7 +473,7 @@ define( function( require ) {
       var xWaveMultiplier = this.windingParams.xWaveMultiplier;
 
       // pre-allocate and reuse the offset vector for optimal performance
-      var offsetFromLinearSequence = new Vector2;
+      var offsetFromLinearSequence = new Vector2( 0, 0 );
 
       // implement the winding algorithm
       for ( var i = 0; i < points.length; i++ ) {
