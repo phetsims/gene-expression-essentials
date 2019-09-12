@@ -49,7 +49,7 @@ define( function( require ) {
     // Fixed offset from the destination position property used when computing the actual target destination. This is
     // useful in cases where something needs to move such that some point that is not its center is positioned at the
     // destination.
-    this.offsetFromDestinationProperty = destinationOffset; //@private
+    this.offsetFromDestination = destinationOffset; //@private
 
     // Scalar velocity with which the controlled item travels.
     this.scalarVelocity2D = velocity; //@private
@@ -108,13 +108,13 @@ define( function( require ) {
 
       // destination is assumed to always have a Z value of 0, i.e. at the "surface"
       var currentDestination3D = new Vector3(
-        this.destinationProperty.get().x - this.offsetFromDestinationProperty.x,
-        this.destinationProperty.get().y - this.offsetFromDestinationProperty.y,
+        this.destinationProperty.get().x - this.offsetFromDestination.x,
+        this.destinationProperty.get().y - this.offsetFromDestination.y,
         0
       );
       var currentDestination2D = new Vector2(
-        this.destinationProperty.get().x - this.offsetFromDestinationProperty.x,
-        this.destinationProperty.get().y - this.offsetFromDestinationProperty.y
+        this.destinationProperty.get().x - this.offsetFromDestination.x,
+        this.destinationProperty.get().y - this.offsetFromDestination.y
       );
       var currentPosition2D = new Vector2( currentPosition3D.x, currentPosition3D.y );
       this.updateVelocityVector2D(
