@@ -11,13 +11,13 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   //modules
-  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  const AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {Object} owner - the molecule upon which this attachment site exists

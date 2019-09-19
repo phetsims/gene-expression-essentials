@@ -8,37 +8,37 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MessengerRnaDestroyerCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/MessengerRnaDestroyerCreatorNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RibosomeCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RibosomeCreatorNode' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
-  var RnaPolymeraseCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RnaPolymeraseCreatorNode' );
-  var Spacer = require( 'SCENERY/nodes/Spacer' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var TranscriptionFactorCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/TranscriptionFactorCreatorNode' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Color = require( 'SCENERY/util/Color' );
+  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MessengerRnaDestroyerCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/MessengerRnaDestroyerCreatorNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const RibosomeCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RibosomeCreatorNode' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
+  const RnaPolymeraseCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/RnaPolymeraseCreatorNode' );
+  const Spacer = require( 'SCENERY/nodes/Spacer' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const TranscriptionFactorCreatorNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/TranscriptionFactorCreatorNode' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var TITLE_FONT = new PhetFont( { size: 20, weight: 'bold' } );
 
   // strings
-  var biomoleculeToolboxString = require( 'string!GENE_EXPRESSION_ESSENTIALS/biomoleculeToolbox' );
-  var mrnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mrnaDestroyer' );
-  var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactorHtml' );
-  var positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactorHtml' );
-  var ribosomeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/ribosome' );
-  var rnaPolymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/rnaPolymerase' );
+  const biomoleculeToolboxString = require( 'string!GENE_EXPRESSION_ESSENTIALS/biomoleculeToolbox' );
+  const mrnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mrnaDestroyer' );
+  const negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactorHtml' );
+  const positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactorHtml' );
+  const ribosomeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/ribosome' );
+  const rnaPolymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/rnaPolymerase' );
 
   /**
    * Convenience function for creating row labels.

@@ -9,17 +9,17 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Cell = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/Cell' );
-  var Color = require( 'SCENERY/util/Color' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Util = require( 'DOT/Util' );
+  const Cell = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/Cell' );
+  const Color = require( 'SCENERY/util/Color' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Util = require( 'DOT/Util' );
 
   // constants
   var NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray

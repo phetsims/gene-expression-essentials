@@ -7,22 +7,22 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var ProteinCollectionArea = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionArea' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Color = require( 'SCENERY/util/Color' );
+  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const ProteinCollectionArea = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionArea' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var NUM_PROTEIN_TYPES = 3;  // Total number of protein types that can be collected.
@@ -34,10 +34,10 @@ define( function( require ) {
   var INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
 
   // strings
-  var collectionCompleteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/collectionComplete' );
-  var proteinCountCaptionPart1String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart1' );
-  var proteinCountCaptionPart2String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart2' );
-  var yourProteinCollectionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/yourProteinCollection' );
+  const collectionCompleteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/collectionComplete' );
+  const proteinCountCaptionPart1String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart1' );
+  const proteinCountCaptionPart2String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart2' );
+  const yourProteinCollectionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/yourProteinCollection' );
 
   /**
    * @param {ManualGeneExpressionModel} model

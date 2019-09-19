@@ -8,30 +8,30 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var ARROW_LENGTH = 30;
   var ARROW_HEAD_HEIGHT = 10;
 
   // strings
-  var affinityString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinity' );
-  var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
-  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
+  const affinityString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinity' );
+  const highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
+  const lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
 
   /**
    * @param {Node} leftNode

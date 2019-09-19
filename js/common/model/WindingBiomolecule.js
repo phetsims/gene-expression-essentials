@@ -8,19 +8,19 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
-  var Color = require( 'SCENERY/util/Color' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
-  var Range = require( 'DOT/Range' );
-  var ShapeDefiningPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeDefiningPoint' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const BioShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/BioShapeUtils' );
+  const Color = require( 'SCENERY/util/Color' );
+  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
+  const Range = require( 'DOT/Range' );
+  const ShapeDefiningPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeDefiningPoint' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   // Color used by this molecule. Since mRNA is depicted as a line and not as a closed shape, a transparent color is 

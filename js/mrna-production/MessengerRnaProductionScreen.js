@@ -6,24 +6,24 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/model/MessengerRnaProductionModel' );
-  var MessengerRnaProductionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/MessengerRnaProductionScreenView' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/model/MessengerRnaProductionModel' );
+  const MessengerRnaProductionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/MessengerRnaProductionScreenView' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/screen.mRna' );
+  const screenMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/screen.mRna' );
 
   // images
-  var mRnaProductionIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/mrna-production-icon.png' );
+  const mRnaProductionIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/mrna-production-icon.png' );
 
   /**
    * @constructor

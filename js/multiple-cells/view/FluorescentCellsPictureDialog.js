@@ -6,28 +6,28 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Dialog = require( 'SUN/Dialog' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const Dialog = require( 'SUN/Dialog' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var IMAGE_WIDTH = 380; // in screen coordinates, empirically determined to look good
 
   // images
-  var eColiImage = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/ecoli.jpg' );
+  const eColiImage = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/ecoli.jpg' );
 
   // strings
-  var imageCaptionNoteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaptionNote' );
-  var imageCaptionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaption' );
+  const imageCaptionNoteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaptionNote' );
+  const imageCaptionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaption' );
 
   // constants
   var TEXT_FONT = new PhetFont( 12 );

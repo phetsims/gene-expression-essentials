@@ -12,27 +12,27 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  var GeneA = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneA' );
-  var GeneB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneB' );
-  var GeneC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneC' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var GeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionModel' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
-  var Property = require( 'AXON/Property' );
-  var Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
-  var ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinA' );
-  var ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinB' );
-  var ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinC' );
-  var Util = require( 'DOT/Util' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
+  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
+  const GeneA = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneA' );
+  const GeneB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneB' );
+  const GeneC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/GeneC' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const GeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/GeneExpressionModel' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MotionBounds = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionBounds' );
+  const ObservableArray = require( 'AXON/ObservableArray' );
+  const Property = require( 'AXON/Property' );
+  const Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
+  const ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinA' );
+  const ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinB' );
+  const ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinC' );
+  const Util = require( 'DOT/Util' );
 
   // constants
   // Stage size for the mobile biomolecules, which is basically the area in which the molecules can move. These are

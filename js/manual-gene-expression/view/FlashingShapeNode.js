@@ -7,16 +7,16 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var FlashController = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/FlashController' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
+  const Color = require( 'SCENERY/util/Color' );
+  const FlashController = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/FlashController' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
 
   // constants
   var INVISIBLE_COLOR = new Color( 0, 0, 0, 0 );

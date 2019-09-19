@@ -7,27 +7,27 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/StubGeneExpressionModel' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/StubGeneExpressionModel' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var concentrationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentration' );
-  var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
-  var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
+  const concentrationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentration' );
+  const highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
+  const noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
 
   /**
    *

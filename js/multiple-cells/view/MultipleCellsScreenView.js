@@ -6,49 +6,49 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CellProteinSynthesisSimulator = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/CellProteinSynthesisSimulator' );
-  var Color = require( 'SCENERY/util/Color' );
-  var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ColorChangingCellNode' );
-  var ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
-  var ControlPanelNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControlPanelNode' );
-  var FluorescentCellsPictureDialog = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/FluorescentCellsPictureDialog' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var MultipleCellsModel = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/MultipleCellsModel' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var ProteinLevelChartNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ProteinLevelChartNode' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const CellProteinSynthesisSimulator = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/CellProteinSynthesisSimulator' );
+  const Color = require( 'SCENERY/util/Color' );
+  const ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ColorChangingCellNode' );
+  const ControllerNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/ControllerNode' );
+  const ControlPanelNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ControlPanelNode' );
+  const FluorescentCellsPictureDialog = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/FluorescentCellsPictureDialog' );
+  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const MultipleCellsModel = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/MultipleCellsModel' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  const ProteinLevelChartNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ProteinLevelChartNode' );
+  const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var affinitiesString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinities' );
-  var cellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/cells' );
-  var concentrationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentration' );
-  var degradationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/degradation' );
-  var fastString = require( 'string!GENE_EXPRESSION_ESSENTIALS/fast' );
-  var highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
-  var lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
-  var manyString = require( 'string!GENE_EXPRESSION_ESSENTIALS/many' );
-  var mRnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRnaDestroyer' );
-  var oneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/one' );
-  var polymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/polymerase' );
-  var positiveTranscriptionFactorString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactor' );
-  var proteinString = require( 'string!GENE_EXPRESSION_ESSENTIALS/protein' );
-  var showRealCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/showRealCells' );
-  var slowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/slow' );
+  const affinitiesString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinities' );
+  const cellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/cells' );
+  const concentrationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/concentration' );
+  const degradationString = require( 'string!GENE_EXPRESSION_ESSENTIALS/degradation' );
+  const fastString = require( 'string!GENE_EXPRESSION_ESSENTIALS/fast' );
+  const highString = require( 'string!GENE_EXPRESSION_ESSENTIALS/high' );
+  const lowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/low' );
+  const manyString = require( 'string!GENE_EXPRESSION_ESSENTIALS/many' );
+  const mRnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRnaDestroyer' );
+  const oneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/one' );
+  const polymeraseString = require( 'string!GENE_EXPRESSION_ESSENTIALS/polymerase' );
+  const positiveTranscriptionFactorString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactor' );
+  const proteinString = require( 'string!GENE_EXPRESSION_ESSENTIALS/protein' );
+  const showRealCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/showRealCells' );
+  const slowString = require( 'string!GENE_EXPRESSION_ESSENTIALS/slow' );
 
   /**
    * @param {MultipleCellsModel} model

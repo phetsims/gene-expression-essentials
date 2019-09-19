@@ -8,21 +8,21 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AttachedAndConformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndConformingState' );
-  var AttachedAndDeconformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndDeconformingState' );
-  var AttachedAndTranscribingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndTranscribingState' );
-  var AttachedToDnaNotTranscribingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedToDnaNotTranscribingState' );
-  var AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
-  var DnaSeparation = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaSeparation' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const AttachedAndConformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndConformingState' );
+  const AttachedAndDeconformingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndDeconformingState' );
+  const AttachedAndTranscribingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedAndTranscribingState' );
+  const AttachedToDnaNotTranscribingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachedToDnaNotTranscribingState' );
+  const AttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/AttachmentSite' );
+  const DnaSeparation = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaSeparation' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const GenericAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachmentStateMachine' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Property = require( 'AXON/Property' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.  Half-life of attachment to a site with affinity of 0.5.

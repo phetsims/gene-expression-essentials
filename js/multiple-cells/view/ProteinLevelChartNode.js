@@ -7,23 +7,23 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ColorChangingCellNode' );
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var XYDataSeries = require( 'GRIDDLE/XYDataSeries' );
-  var XYPlot = require( 'GRIDDLE/XYPlot' );
+  const ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ColorChangingCellNode' );
+  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const XYDataSeries = require( 'GRIDDLE/XYDataSeries' );
+  const XYPlot = require( 'GRIDDLE/XYPlot' );
 
   // constants
   var PLOT_WIDTH = 400;
@@ -32,11 +32,11 @@ define( function( require ) {
   var TIME_SPAN = 30;
 
   // strings
-  var averageProteinLevelString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevel' );
-  var averageProteinLevelVsTimeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevelVsTime' );
-  var lotsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/lots' );
-  var noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
-  var timeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/time' );
+  const averageProteinLevelString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevel' );
+  const averageProteinLevelVsTimeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevelVsTime' );
+  const lotsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/lots' );
+  const noneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/none' );
+  const timeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/time' );
 
   /**
    * @param {Property<number>} averageProteinLevelProperty

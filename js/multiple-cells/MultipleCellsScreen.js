@@ -6,24 +6,24 @@
  * @author Aadish Gupta
  * @author John Blanco
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MultipleCellsModel = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/MultipleCellsModel' );
-  var MultipleCellsScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/MultipleCellsScreenView' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MultipleCellsModel = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/MultipleCellsModel' );
+  const MultipleCellsScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/MultipleCellsScreenView' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenMultipleCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/screen.multipleCells' );
+  const screenMultipleCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/screen.multipleCells' );
 
   // images
-  var multipleCellsIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/multiple-cells-icon.png' );
+  const multipleCellsIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/multiple-cells-icon.png' );
 
   /**
    * @constructor

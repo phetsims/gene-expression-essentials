@@ -9,16 +9,16 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var Matrix3 = require( 'DOT/Matrix3' );
-  var Random = require( 'DOT/Random' );
-  var Shape = require( 'KITE/Shape' );
-  var ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const Matrix3 = require( 'DOT/Matrix3' );
+  const Random = require( 'DOT/Random' );
+  const Shape = require( 'KITE/Shape' );
+  const ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   var BioShapeUtils = {
     /**

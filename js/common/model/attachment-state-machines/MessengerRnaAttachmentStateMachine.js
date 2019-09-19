@@ -7,19 +7,19 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentStateMachine' );
-  var BeingDestroyedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingDestroyedState' );
-  var BeingSynthesizedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingSynthesizedState' );
-  var BeingTranslatedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingTranslatedState' );
-  var DetachingFromPolymeraseState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/DetachingFromPolymeraseState' );
-  var geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var UnattachedAndFadingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/UnattachedAndFadingState' );
-  var WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/WanderingAroundCytoplasmState' );
+  const AttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentStateMachine' );
+  const BeingDestroyedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingDestroyedState' );
+  const BeingSynthesizedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingSynthesizedState' );
+  const BeingTranslatedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/BeingTranslatedState' );
+  const DetachingFromPolymeraseState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/DetachingFromPolymeraseState' );
+  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const UnattachedAndFadingState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/UnattachedAndFadingState' );
+  const WanderingAroundCytoplasmState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/WanderingAroundCytoplasmState' );
 
   /**
    * @param {MessengerRna} messengerRna
