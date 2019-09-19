@@ -19,8 +19,8 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var FONT = new PhetFont( 14 );
-  var TIMER_DELAY = 100; // In milliseconds.
+  const FONT = new PhetFont( 14 );
+  const TIMER_DELAY = 100; // In milliseconds.
 
   /**
    *
@@ -30,12 +30,12 @@ define( require => {
    * @constructor
    */
   function FadeLabel( text, initiallyVisible, existenceStrengthProperty ) {
-    var self = this;
+    const self = this;
     Node.call( self, { pickable: false } );
     this.fadeDelta = 0; // @private
-    var opacity = 0;
+    let opacity = 0;
 
-    var label = new Text( text, { font: FONT, maxWidth: 80 } );
+    const label = new Text( text, { font: FONT, maxWidth: 80 } );
     this.addChild( label );
 
     if ( !initiallyVisible ) {

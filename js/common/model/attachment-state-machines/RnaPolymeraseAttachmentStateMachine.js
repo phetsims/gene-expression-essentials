@@ -25,7 +25,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.  Half-life of attachment to a site with affinity of 0.5.
+  const HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.  Half-life of attachment to a site with affinity of 0.5.
 
   /**
    * @param {RnaPolymerase} rnaPolymerase
@@ -132,8 +132,8 @@ define( require => {
      * @public
      */
     pointContainedInBoundsList: function( p, boundsList ) {
-      for ( var i = 0; i < boundsList.length; i++ ) {
-        var bounds = boundsList[ i ];
+      for ( let i = 0; i < boundsList.length; i++ ) {
+        const bounds = boundsList[ i ];
         if ( bounds.containsPoint( p ) ) {
           return true;
         }

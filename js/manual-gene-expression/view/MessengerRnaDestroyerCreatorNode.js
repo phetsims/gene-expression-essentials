@@ -23,8 +23,8 @@ define( require => {
   // constants
   // Scaling factor for this node when used as a creator node. May be significantly different from the size of the
   // corresponding element in the model.
-  var SCALING_FACTOR = 0.07;
-  var SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+  const SCALING_FACTOR = 0.07;
+  const SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
     new Vector2( 0, 0 ),
     new Vector2( 0, 0 ),
     SCALING_FACTOR
@@ -40,7 +40,7 @@ define( require => {
       biomoleculeBoxNode.canvas,
       biomoleculeBoxNode.modelViewTransform,
       function( pos ) {
-        var mRnaDestroyer = new MessengerRnaDestroyer( biomoleculeBoxNode.model, pos );
+        const mRnaDestroyer = new MessengerRnaDestroyer( biomoleculeBoxNode.model, pos );
         biomoleculeBoxNode.model.addMobileBiomolecule( mRnaDestroyer );
         return mRnaDestroyer;
 

@@ -32,15 +32,15 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
-  var POLYMERASE_SCALE = 0.08;
-  var POLYMERASE_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+  const TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
+  const POLYMERASE_SCALE = 0.08;
+  const POLYMERASE_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
     new Vector2( 0, 0 ),
     new Vector2( 0, 0 ),
     POLYMERASE_SCALE
   );
-  var DNA_AND_TF_SCALE = 0.08;
-  var DNA_AND_TF_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+  const DNA_AND_TF_SCALE = 0.08;
+  const DNA_AND_TF_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
     new Vector2( 0, 0 ),
     new Vector2( 0, 0 ),
     DNA_AND_TF_SCALE
@@ -56,14 +56,14 @@ define( require => {
    * @constructor
    */
   function PolymeraseAffinityControlPanel( tfConfig, minHeight, polymeraseAffinityProperty ) {
-    var titleNode = new Text( rnaPolymeraseString, {
+    const titleNode = new Text( rnaPolymeraseString, {
       font: TITLE_FONT,
       maxWidth: 180
     } );
 
     // Create the affinity control node.
-    var polymeraseNode = new MobileBiomoleculeNode( POLYMERASE_MVT, new RnaPolymerase() );
-    var dnaFragmentNode = new DnaMoleculeNode(
+    const polymeraseNode = new MobileBiomoleculeNode( POLYMERASE_MVT, new RnaPolymerase() );
+    const dnaFragmentNode = new DnaMoleculeNode(
       new DnaMolecule(
         null,
         GEEConstants.BASE_PAIRS_PER_TWIST * 2 + 1,
@@ -74,7 +74,7 @@ define( require => {
       2,
       false
     ).toDataURLNodeSynchronous(); // make this into an image in the control panel so another canvas isn't created
-    var transcriptionFactorNode = new MobileBiomoleculeNode( DNA_AND_TF_MVT, new TranscriptionFactor( null, tfConfig ) );
+    const transcriptionFactorNode = new MobileBiomoleculeNode( DNA_AND_TF_MVT, new TranscriptionFactor( null, tfConfig ) );
 
     // Set position to be on top of the dna, values empirically determined.
     transcriptionFactorNode.x = 25;
@@ -82,7 +82,7 @@ define( require => {
 
     dnaFragmentNode.addChild( transcriptionFactorNode );
 
-    var panelOptions = {
+    const panelOptions = {
       cornerRadius: GEEConstants.CORNER_RADIUS,
       fill: new Color( 250, 250, 250 ),
       lineWidth: 2,
@@ -95,21 +95,21 @@ define( require => {
 
     // In order to size the control panel correctly, make one first, see how far off it is, and then make one of the
     // correct size.
-    var dummyContents = new VBox( {
+    const dummyContents = new VBox( {
         children: [ titleNode,
           new AffinityController( polymeraseNode, dnaFragmentNode, new Property( 0 ) )
         ],
         spacing: 20
       }
     );
-    var dummyControlPanel = new Panel( dummyContents, panelOptions );
-    var growthAmount = minHeight - dummyControlPanel.height - 40;
+    const dummyControlPanel = new Panel( dummyContents, panelOptions );
+    const growthAmount = minHeight - dummyControlPanel.height - 40;
 
     // Create the spacers used to make the panel meet the min size.
-    var topSpacer = new Spacer( 0, growthAmount * 0.25 );
-    var bottomSpacer = new Spacer( 0, growthAmount * 0.75 );
+    const topSpacer = new Spacer( 0, growthAmount * 0.25 );
+    const bottomSpacer = new Spacer( 0, growthAmount * 0.75 );
 
-    var contents = new VBox( {
+    const contents = new VBox( {
       children: [
         titleNode,
         topSpacer,

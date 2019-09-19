@@ -20,11 +20,11 @@ define( require => {
   const TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
 
   // constants
-  var REGULATORY_REGION_COLOR = new Color( 216, 191, 216 );
-  var TRANSCRIBED_REGION_COLOR = new Color( 240, 246, 143, 150 );
-  var NUM_BASE_PAIRS_IN_REGULATORY_REGION = 28;
-  var NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION = 150;
-  var MRNA_WINDING_ALGORITHM_NUMBER = 4;
+  const REGULATORY_REGION_COLOR = new Color( 216, 191, 216 );
+  const TRANSCRIBED_REGION_COLOR = new Color( 240, 246, 143, 150 );
+  const NUM_BASE_PAIRS_IN_REGULATORY_REGION = 28;
+  const NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION = 150;
+  const MRNA_WINDING_ALGORITHM_NUMBER = 4;
 
   /**
    * @param {DnaMolecule} dnaMolecule -  The DNA molecule within which this gene exists

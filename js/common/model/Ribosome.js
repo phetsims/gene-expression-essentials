@@ -21,22 +21,22 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var WIDTH = 430;                  // In nanometers.
-  var OVERALL_HEIGHT = 450;         // In nanometers.
-  var TOP_SUBUNIT_HEIGHT_PROPORTION = 0.6;
-  var TOP_SUBUNIT_HEIGHT = OVERALL_HEIGHT * TOP_SUBUNIT_HEIGHT_PROPORTION;
-  var BOTTOM_SUBUNIT_HEIGHT = OVERALL_HEIGHT * ( 1 - TOP_SUBUNIT_HEIGHT_PROPORTION );
+  const WIDTH = 430;                  // In nanometers.
+  const OVERALL_HEIGHT = 450;         // In nanometers.
+  const TOP_SUBUNIT_HEIGHT_PROPORTION = 0.6;
+  const TOP_SUBUNIT_HEIGHT = OVERALL_HEIGHT * TOP_SUBUNIT_HEIGHT_PROPORTION;
+  const BOTTOM_SUBUNIT_HEIGHT = OVERALL_HEIGHT * ( 1 - TOP_SUBUNIT_HEIGHT_PROPORTION );
 
   // Offset from the center position to the entrance of the translation channel. May require some tweaking if the shape
   // changes.
-  var OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE = new Vector2( WIDTH * 0.45, -OVERALL_HEIGHT * 0.23 );
+  const OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE = new Vector2( WIDTH * 0.45, -OVERALL_HEIGHT * 0.23 );
 
   // Offset from the center position to the point from which the protein emerges. May require some tweaking if the overall
   // shape changes.
-  var OFFSET_TO_PROTEIN_OUTPUT_CHANNEL = new Vector2( WIDTH * 0.4, OVERALL_HEIGHT * 0.55 );
+  const OFFSET_TO_PROTEIN_OUTPUT_CHANNEL = new Vector2( WIDTH * 0.4, OVERALL_HEIGHT * 0.55 );
 
   // a counter used to create a unique ID for each instance
-  var instanceCounter = 0;
+  let instanceCounter = 0;
 
   /**
    * @param {GeneExpressionModel} model
@@ -78,10 +78,10 @@ define( require => {
      * @public
      */
     proposeAttachments: function() {
-      var attachmentSite = null;
-      var messengerRnaList = this.model.getMessengerRnaList();
-      for ( var i = 0; i < messengerRnaList.length; i++ ) {
-        var messengerRna = messengerRnaList.get( i );
+      let attachmentSite = null;
+      const messengerRnaList = this.model.getMessengerRnaList();
+      for ( let i = 0; i < messengerRnaList.length; i++ ) {
+        const messengerRna = messengerRnaList.get( i );
         attachmentSite = messengerRna.considerProposalFromRibosome( this );
         if ( attachmentSite !== null ) {
           // Proposal accepted.
@@ -119,7 +119,7 @@ define( require => {
 
       // Draw the top portion, which in this sim is the larger subunit. The shape is essentially a lumpy ellipse, and
       // is based on some drawings seen on the web.
-      var topSubunitPointList = [
+      const topSubunitPointList = [
         // Define the shape with a series of points.  Starts at top left.
         new Vector2( -WIDTH * 0.3, TOP_SUBUNIT_HEIGHT * 0.9 ),
         new Vector2( WIDTH * 0.3, TOP_SUBUNIT_HEIGHT ),
@@ -130,12 +130,12 @@ define( require => {
         new Vector2( -WIDTH * 0.5, 0 )
       ];
 
-      var translation = Matrix3.translation( 0, OVERALL_HEIGHT / 4 );
-      var topSubunitShape = ShapeUtils.createRoundedShapeFromPoints( topSubunitPointList ).transformed( translation );
+      const translation = Matrix3.translation( 0, OVERALL_HEIGHT / 4 );
+      const topSubunitShape = ShapeUtils.createRoundedShapeFromPoints( topSubunitPointList ).transformed( translation );
 
       // Draw the bottom portion, which in this sim is the smaller subunit.
-      var startPointY = topSubunitShape.bounds.minY;
-      var bottomSubunitPointList = [
+      const startPointY = topSubunitShape.bounds.minY;
+      const bottomSubunitPointList = [
         // Define the shape with a series of points.
         new Vector2( -WIDTH * 0.45, startPointY ),
         new Vector2( 0, startPointY ),
@@ -145,8 +145,8 @@ define( require => {
         new Vector2( -WIDTH * 0.45, startPointY - BOTTOM_SUBUNIT_HEIGHT )
       ];
 
-      var bottomSubunitTranslation = Matrix3.translation( 0, -OVERALL_HEIGHT / 4 );
-      var ribosomeShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList, topSubunitShape ).transformed( bottomSubunitTranslation );
+      const bottomSubunitTranslation = Matrix3.translation( 0, -OVERALL_HEIGHT / 4 );
+      const ribosomeShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList, topSubunitShape ).transformed( bottomSubunitTranslation );
 
       return ribosomeShape;
     },

@@ -38,7 +38,7 @@ define( require => {
      * @public
      */
     start: function() {
-      var self = this;
+      const self = this;
       if ( !this.isRunningProperty.get() ) {
         self._intervalId = timer.setInterval( function() {
           self.listener();

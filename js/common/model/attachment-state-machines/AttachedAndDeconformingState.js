@@ -22,7 +22,7 @@ define( require => {
 
   // the deconformation rate needs to be a little faster than the conformational change rate so that the polymerase is
   // less likely to collide at the end of the gene, see https://github.com/phetsims/gene-expression-essentials/issues/102.
-  var DECONFORMATION_RATE = GEEConstants.CONFORMATIONAL_CHANGE_RATE * 1.25;
+  const DECONFORMATION_RATE = GEEConstants.CONFORMATIONAL_CHANGE_RATE * 1.25;
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
@@ -49,13 +49,13 @@ define( require => {
      * @public
      */
     step: function( asm, dt ) {
-      var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+      const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
 
       // Verify that state is consistent.
       assert && assert( asm.attachmentSite !== null );
       assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === biomolecule );
 
-      var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
+      const dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
 
       this.conformationalChangeAmount = Math.max(
         this.conformationalChangeAmount - DECONFORMATION_RATE * dt,
@@ -74,13 +74,13 @@ define( require => {
      */
     detachFromDna: function(){
 
-      var asm = this.rnaPolymeraseAttachmentStateMachine;
-      var dnaStrandSeparation = asm.dnaStrandSeparation;
-      var rnaPolymerase = asm.rnaPolymerase;
-      var attachmentSite = asm.attachmentSite;
-      var recycleMode = asm.recycleMode;
-      var recycleReturnZones = asm.recycleReturnZones;
-      var attachedAndWanderingState = asm.attachedAndWanderingState;
+      const asm = this.rnaPolymeraseAttachmentStateMachine;
+      const dnaStrandSeparation = asm.dnaStrandSeparation;
+      const rnaPolymerase = asm.rnaPolymerase;
+      let attachmentSite = asm.attachmentSite;
+      const recycleMode = asm.recycleMode;
+      const recycleReturnZones = asm.recycleReturnZones;
+      const attachedAndWanderingState = asm.attachedAndWanderingState;
 
       // Remove the DNA separator, which makes the DNA close back up.
       rnaPolymerase.getModel().getDnaMolecule().removeSeparation( dnaStrandSeparation );

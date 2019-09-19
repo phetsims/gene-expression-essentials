@@ -21,10 +21,10 @@ define( require => {
   // constants
 
   // Scalar velocity for transcription.
-  var RNA_DESTRUCTION_RATE = 750; // Picometers per second.
+  const RNA_DESTRUCTION_RATE = 750; // Picometers per second.
 
   // Range of lengths for mRNA fragments.
-  var MRNA_FRAGMENT_LENGTH_RANGE = new Range( 100, 400 ); // In picometers.
+  const MRNA_FRAGMENT_LENGTH_RANGE = new Range( 100, 400 ); // In picometers.
 
   /**
    * @param {MRnaDestroyerAttachmentStateMachine} MRnaDestroyerAttachmentStateMachine
@@ -51,7 +51,7 @@ define( require => {
      * @public
      */
     step: function( asm, dt ) {
-      var biomolecule = this.MRnaDestroyerAttachmentStateMachine.biomolecule;
+      const biomolecule = this.MRnaDestroyerAttachmentStateMachine.biomolecule;
 
       // Verify that state is consistent.
       assert && assert( asm.attachmentSite !== null );
@@ -75,9 +75,9 @@ define( require => {
 
       // Advance the destruction of the mRNA.  Destruction must proceed more slowly when the mRNA is being synthesized
       // to avoid a situation where it gets destroyed more rapidly than it is created.
-      var destructionRate = biomolecule.getMessengerRnaBeingDestroyed().beingSynthesizedProperty.get() ?
+      const destructionRate = biomolecule.getMessengerRnaBeingDestroyed().beingSynthesizedProperty.get() ?
                             RNA_DESTRUCTION_RATE / 2 : RNA_DESTRUCTION_RATE;
-      var destructionComplete = this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer.advanceMessengerRnaDestruction(
+      const destructionComplete = this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer.advanceMessengerRnaDestruction(
         destructionRate * dt
       );
       if ( destructionComplete ) {
@@ -106,7 +106,7 @@ define( require => {
      * @public
      */
     entered: function( asm ) {
-      var mRnaDestroyer = this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer;
+      const mRnaDestroyer = this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer;
       mRnaDestroyer.initiateMessengerRnaDestruction();
       mRnaDestroyer.setMotionStrategy( new DestroyerTrackingRnaMotionStrategy( mRnaDestroyer ) );
 

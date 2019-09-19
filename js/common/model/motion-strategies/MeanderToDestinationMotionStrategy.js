@@ -56,7 +56,7 @@ define( require => {
      * @public
      */
     getNextPosition: function( currentPosition, bounds, dt ) {
-      var nextPosition3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
+      const nextPosition3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
       return new Vector2( nextPosition3D.x, nextPosition3D.y );
     },
 
@@ -79,7 +79,7 @@ define( require => {
       else {
 
         // Use a combination of the random and linear motion.
-        var intermediateLocation = this.randomWalkMotionStrategy.getNextPosition3D( currentPosition, bounds, dt * 0.6 );
+        const intermediateLocation = this.randomWalkMotionStrategy.getNextPosition3D( currentPosition, bounds, dt * 0.6 );
         return this.directToDestinationMotionStrategy.getNextPosition3D( intermediateLocation, bounds, dt * 0.4 );
       }
     }

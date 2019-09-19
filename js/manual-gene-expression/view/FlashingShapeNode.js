@@ -19,7 +19,7 @@ define( require => {
   const Path = require( 'SCENERY/nodes/Path' );
 
   // constants
-  var INVISIBLE_COLOR = new Color( 0, 0, 0, 0 );
+  const INVISIBLE_COLOR = new Color( 0, 0, 0, 0 );
 
   /**
    * @param {Shape} shape
@@ -38,7 +38,7 @@ define( require => {
 
     Node.call( this );
 
-    var flashingNode = new Path( shape, {
+    const flashingNode = new Path( shape, {
       fill: options.visibleAtStart ? flashColor : INVISIBLE_COLOR
     } );
     this.addChild( flashingNode );

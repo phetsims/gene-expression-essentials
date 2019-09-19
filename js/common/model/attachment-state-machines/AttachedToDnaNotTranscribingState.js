@@ -21,7 +21,7 @@ define( require => {
   const WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
 
   // constant
-  var REEVALUATE_TRANSCRIPTION_DECISION_TIME = 1; // seconds
+  const REEVALUATE_TRANSCRIPTION_DECISION_TIME = 1; // seconds
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
@@ -73,11 +73,11 @@ define( require => {
       assert && assert( asm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === asm.biomolecule );
 
       // set up some convenient variables
-      var attachedState = this.rnaPolymeraseAttachmentStateMachine.attachedState;
-      var attachedAndConformingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndConformingState;
-      var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
-      var detachFromDnaThreshold = this.rnaPolymeraseAttachmentStateMachine.detachFromDnaThreshold;
-      var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
+      let attachedState = this.rnaPolymeraseAttachmentStateMachine.attachedState;
+      const attachedAndConformingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndConformingState;
+      const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+      const detachFromDnaThreshold = this.rnaPolymeraseAttachmentStateMachine.detachFromDnaThreshold;
+      let attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
 
       // Decide whether to transcribe the DNA. The decision is based on the affinity of the site and the time of
       // attachment.
@@ -101,7 +101,7 @@ define( require => {
         else {
 
           // Move to an adjacent base pair. Start by making a list of candidate base pairs.
-          var attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesRnaPolymerase(
+          let attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesRnaPolymerase(
             biomolecule,
             asm.attachmentSite
           );
@@ -172,8 +172,8 @@ define( require => {
      * @public
      */
     entered: function( asm ) {
-      var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
-      var randValue = phet.joist.random.nextDouble();
+      const attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
+      const randValue = phet.joist.random.nextDouble();
 
       // Decide right away whether or not to transcribe.
       this.transcribe = attachmentSite.getAffinity() > GEEConstants.DEFAULT_AFFINITY &&

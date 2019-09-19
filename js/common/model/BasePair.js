@@ -22,7 +22,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
 
   // constants
-  var BASE_PAIR_WIDTH = 13; // In picometers.  Not sure if this is close to real life, chosen to look decent in view.
+  const BASE_PAIR_WIDTH = 13; // In picometers.  Not sure if this is close to real life, chosen to look decent in view.
 
   /**
    * @param {number} centerLocationX

@@ -55,7 +55,7 @@ define( require => {
       this.containedLength += length;
 
       // Grow the bounds up and to the left to accommodate the additional length.
-      var sideGrowthAmount = this.calculateSideLength() - this.bounds.getWidth();
+      const sideGrowthAmount = this.calculateSideLength() - this.bounds.getWidth();
       assert && assert( length >= 0 && sideGrowthAmount >= 0 ); //
       this.bounds.set( Bounds2.rect( this.bounds.x - sideGrowthAmount,
         this.bounds.y,
@@ -73,7 +73,7 @@ define( require => {
       this.containedLength -= length;
 
       // Shrink by moving the lower right corner up and to the left.
-      var sideShrinkageAmount = this.bounds.getWidth() - this.calculateSideLength();
+      const sideShrinkageAmount = this.bounds.getWidth() - this.calculateSideLength();
 
       this.bounds.set( Bounds2.rect( this.bounds.x,
         this.bounds.y + sideShrinkageAmount,
@@ -82,7 +82,7 @@ define( require => {
 
       // If the length has gotten to zero, remove this segment from the list.
       if ( this.getContainedLength() <= ShapeSegment.FLOATING_POINT_COMP_FACTOR ) {
-        var index = shapeSegmentList.indexOf( this );
+        const index = shapeSegmentList.indexOf( this );
         shapeSegmentList.splice( index, 1 );
       }
       this.updateAttachmentSitePosition();
@@ -121,7 +121,7 @@ define( require => {
      * @private
      */
     calculateSideLength: function() {
-      var desiredDiagonalLength = Math.pow( this.containedLength, 0.7 ); // Power value was empirically determined.
+      const desiredDiagonalLength = Math.pow( this.containedLength, 0.7 ); // Power value was empirically determined.
       return Math.sqrt( 2 * desiredDiagonalLength * desiredDiagonalLength );
     }
   } );

@@ -17,8 +17,8 @@ define( require => {
   const WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
 
   // constants
-  var PRE_FADE_TIME = 5;
-  var FADE_OUT_TIME = 2;
+  const PRE_FADE_TIME = 5;
+  const FADE_OUT_TIME = 2;
 
   /**
    * @param {MessengerRnaAttachmentStateMachine} messengerRnaAttachmentStateMachine
@@ -44,7 +44,7 @@ define( require => {
         this.preFadeCountdown -= dt;
       }
       else {
-        var biomolecule = this.messengerRnaAttachmentStateMachine.biomolecule;
+        const biomolecule = this.messengerRnaAttachmentStateMachine.biomolecule;
         biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
       }
     },

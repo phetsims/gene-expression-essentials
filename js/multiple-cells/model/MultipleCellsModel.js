@@ -20,11 +20,11 @@ define( require => {
   const Random = require( 'DOT/Random' );
 
   // constants
-  var MAX_CELLS = 90;
+  const MAX_CELLS = 90;
 
-  var boundingShapeWidth = Cell.DefaultCellSize.width * 20;
-  var boundingShapeHeight = boundingShapeWidth * 0.35;
-  var bounds = new Bounds2(
+  const boundingShapeWidth = Cell.DefaultCellSize.width * 20;
+  const boundingShapeHeight = boundingShapeWidth * 0.35;
+  const bounds = new Bounds2(
     -boundingShapeWidth / 2,
     -boundingShapeHeight / 2,
     -boundingShapeWidth / 2 + boundingShapeWidth,
@@ -32,14 +32,14 @@ define( require => {
   );
 
   // Seeds for the random number generators.  Values chosen empirically.
-  var POSITION_RANDOMIZER_SEED = 226;
-  var SIZE_AND_ORIENTATION_RANDOMIZER_SEED = 25214903912;
+  const POSITION_RANDOMIZER_SEED = 226;
+  const SIZE_AND_ORIENTATION_RANDOMIZER_SEED = 25214903912;
 
   /**
    * @constructor
    */
   function MultipleCellsModel() {
-    var self = this;
+    const self = this;
     this.clockRunningProperty = new Property( true ); // @public
 
     // List of all cells that are being simulated. Some of these cells will be visible to the user at any given time,
@@ -158,8 +158,8 @@ define( require => {
       // Update the average protein level. Note that only the visible cells are used for this calculation. This helps
       // convey the concept that the more cells there are, the more even the average level is.
 
-      var self = this;
-      var totalProteinCount = 0;
+      const self = this;
+      let totalProteinCount = 0;
       this.cellList.forEach( function( cell ) {
         cell.step( dt );
         if ( self.visibleCellList.contains( cell ) ) {
@@ -185,7 +185,7 @@ define( require => {
 
       // Step the model a bunch of times in order to allow it to reach a steady state. The number of times that are
       // needed to reach steady state was empirically determined.
-      for ( var i = 0; i < 1000; i++ ) {
+      for ( let i = 0; i < 1000; i++ ) {
         this.step( 0.016 );
       }
     },
@@ -222,19 +222,19 @@ define( require => {
       // Loop, randomly generating positions of increasing distance from the center, until the cell is positioned in a
       // place that does not overlap with the existing cells. The overall bounding shape of the collection of cells is
       // elliptical, not circular.
-      for ( var i = 0; i < Math.ceil( Math.sqrt( this.cellList.length ) ); i++ ) {
-        var radius = ( i + 1 ) * Cell.DefaultCellSize.width * ( this.positionRandomizer.nextDouble() / 2 + .75 );
-        for ( var j = 0; j < radius * Math.PI / ( Cell.DefaultCellSize.height * 2 ); j++ ) {
-          var angle = this.positionRandomizer.nextDouble() * 2 * Math.PI;
+      for ( let i = 0; i < Math.ceil( Math.sqrt( this.cellList.length ) ); i++ ) {
+        const radius = ( i + 1 ) * Cell.DefaultCellSize.width * ( this.positionRandomizer.nextDouble() / 2 + .75 );
+        for ( let j = 0; j < radius * Math.PI / ( Cell.DefaultCellSize.height * 2 ); j++ ) {
+          const angle = this.positionRandomizer.nextDouble() * 2 * Math.PI;
           cell.positionX = radius * Math.cos( angle );
           cell.positionY = radius * Math.sin( angle );
           if ( !bounds.containsCoordinates( cell.positionX, cell.positionY ) ) {
             // Not in bounds.
             continue;
           }
-          var overlapDetected = false;
-          for ( var k = 0; k < this.cellList.length; k++ ) {
-            var existingCell = this.cellList[ k ];
+          let overlapDetected = false;
+          for ( let k = 0; k < this.cellList.length; k++ ) {
+            const existingCell = this.cellList[ k ];
             // new bounds
             if ( cell.bounds.shifted( cell.positionX, cell.positionY )
               .intersectsBounds( existingCell.bounds.shifted( existingCell.positionX, existingCell.positionY ) ) ) {

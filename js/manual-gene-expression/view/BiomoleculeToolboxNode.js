@@ -30,7 +30,7 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
-  var TITLE_FONT = new PhetFont( { size: 20, weight: 'bold' } );
+  const TITLE_FONT = new PhetFont( { size: 20, weight: 'bold' } );
 
   // strings
   const biomoleculeToolboxString = require( 'string!GENE_EXPRESSION_ESSENTIALS/biomoleculeToolbox' );
@@ -60,30 +60,30 @@ define( require => {
    */
   function BiomoleculeToolboxNode( model, canvas, modelViewTransform, gene ) {
 
-    var self = this;
+    const self = this;
     this.model = model; //@private
     this.canvas = canvas; //@private
     this.modelViewTransform = modelViewTransform; //@private
     this.biomoleculeCreatorNodeList = [];
 
     // Add the title.
-    var toolboxTitleNode = new Text( biomoleculeToolboxString, {
+    const toolboxTitleNode = new Text( biomoleculeToolboxString, {
       font: TITLE_FONT,
       maxWidth: 200
     } );
 
-    var positiveTranscriptionFactorLabel = new RowLabel( positiveTranscriptionFactorHtmlString );
-    var positiveTranscriptionFactorLabelWidth = positiveTranscriptionFactorLabel.width;
-    var rnaPolymeraseLabel = new RowLabel( rnaPolymeraseString );
-    var rnaPolymeraseLabelWidth = rnaPolymeraseLabel.width;
-    var ribosomeLabel = new RowLabel( ribosomeString );
-    var ribosomeLabelWidth = ribosomeLabel.width;
-    var mrnaDestroyerLabel = new RowLabel( mrnaDestroyerString );
-    var mrnaDestroyerLabelWidth = mrnaDestroyerLabel.width;
-    var negativeTranscriptionFactorLabel = new RowLabel( negativeTranscriptionFactorHtmlString );
-    var negativeTranscriptionFactorLabelWidth = negativeTranscriptionFactorLabel.width;
+    const positiveTranscriptionFactorLabel = new RowLabel( positiveTranscriptionFactorHtmlString );
+    const positiveTranscriptionFactorLabelWidth = positiveTranscriptionFactorLabel.width;
+    const rnaPolymeraseLabel = new RowLabel( rnaPolymeraseString );
+    const rnaPolymeraseLabelWidth = rnaPolymeraseLabel.width;
+    const ribosomeLabel = new RowLabel( ribosomeString );
+    const ribosomeLabelWidth = ribosomeLabel.width;
+    const mrnaDestroyerLabel = new RowLabel( mrnaDestroyerString );
+    const mrnaDestroyerLabelWidth = mrnaDestroyerLabel.width;
+    const negativeTranscriptionFactorLabel = new RowLabel( negativeTranscriptionFactorHtmlString );
+    const negativeTranscriptionFactorLabelWidth = negativeTranscriptionFactorLabel.width;
 
-    var maxWidth = _.max( [
+    const maxWidth = _.max( [
       positiveTranscriptionFactorLabelWidth,
       rnaPolymeraseLabelWidth,
       ribosomeLabelWidth,
@@ -92,13 +92,13 @@ define( require => {
     ] );
 
     // Transcription factor(s).
-    var transcriptionFactors = gene.getTranscriptionFactorConfigs();
-    var positiveTranscriptBoxNodes = [];
-    var negativeTranscriptBoxNodes = [];
+    const transcriptionFactors = gene.getTranscriptionFactorConfigs();
+    const positiveTranscriptBoxNodes = [];
+    const negativeTranscriptBoxNodes = [];
     transcriptionFactors.forEach( function( tfConfig ) {
-      var creatorNode = self.addCreatorNode( new TranscriptionFactorCreatorNode( self, tfConfig ) );
+      const creatorNode = self.addCreatorNode( new TranscriptionFactorCreatorNode( self, tfConfig ) );
       if ( tfConfig.isPositive ) {
-        var positiveTranscriptionBox = new HBox( {
+        const positiveTranscriptionBox = new HBox( {
           children: [
             positiveTranscriptionFactorLabel,
             new Spacer( maxWidth - positiveTranscriptionFactorLabelWidth, 0 ),
@@ -109,7 +109,7 @@ define( require => {
         positiveTranscriptBoxNodes.push( positiveTranscriptionBox );
       }
       else {
-        var negativeTranscriptionBox = new HBox( {
+        const negativeTranscriptionBox = new HBox( {
           children: [
             negativeTranscriptionFactorLabel,
             new Spacer( maxWidth - negativeTranscriptionFactorLabelWidth, 0 ),
@@ -122,7 +122,7 @@ define( require => {
     } );
 
     // Polymerase.
-    var polymeraseBox = new HBox( {
+    const polymeraseBox = new HBox( {
       children: [
         rnaPolymeraseLabel,
         new Spacer( maxWidth - rnaPolymeraseLabelWidth, 0 ),
@@ -133,7 +133,7 @@ define( require => {
     } );
 
     // Ribosomes.
-    var ribosomeBox = new HBox( {
+    const ribosomeBox = new HBox( {
       children: [
         ribosomeLabel,
         new Spacer( maxWidth - ribosomeLabelWidth, 0 ),
@@ -144,7 +144,7 @@ define( require => {
     } );
 
     // mRNA destroyer.
-    var mRnaDestroyerBox = new HBox( {
+    const mRnaDestroyerBox = new HBox( {
       children: [
         mrnaDestroyerLabel,
         new Spacer( maxWidth - mrnaDestroyerLabelWidth, 0 ),
@@ -154,16 +154,16 @@ define( require => {
       spacing: 10
     } );
 
-    var childrenNodesArray = [];
+    let childrenNodesArray = [];
     childrenNodesArray = childrenNodesArray.concat( positiveTranscriptBoxNodes );
     childrenNodesArray.push( polymeraseBox );
     childrenNodesArray.push( ribosomeBox );
     childrenNodesArray.push( mRnaDestroyerBox );
     childrenNodesArray = childrenNodesArray.concat( negativeTranscriptBoxNodes );
     // Create the content of this control panel.
-    var contentNode = new Node();
+    const contentNode = new Node();
     contentNode.addChild( toolboxTitleNode );
-    var childrenNode = new VBox( {
+    const childrenNode = new VBox( {
       children: childrenNodesArray,
       spacing: 10,
       align: 'left'
@@ -191,8 +191,8 @@ define( require => {
      * @public reset the toolbox
      */
     reset: function() {
-      var bioMoleculeCreatorNodeLength = this.biomoleculeCreatorNodeList.length;
-      for ( var i = 0; i < bioMoleculeCreatorNodeLength; i++ ) {
+      const bioMoleculeCreatorNodeLength = this.biomoleculeCreatorNodeList.length;
+      for ( let i = 0; i < bioMoleculeCreatorNodeLength; i++ ) {
         this.biomoleculeCreatorNodeList[ i ].reset();
       }
     },

@@ -53,12 +53,12 @@ define( require => {
 
       // This shouldn't be called if there is no remaining capacity.
       assert && assert( this.getContainedLength() <= this.capacity );
-      var growthAmount = length;
+      let growthAmount = length;
       if ( this.getContainedLength() + length > this.capacity ) {
 
         // This segment can't hold the specified length. Add a new square segment to the end of the segment list and put
         // the excess in there.
-        var newSquareSegment = new SquareSegment( this.owner, this.getLowerRightCornerPosition() );
+        const newSquareSegment = new SquareSegment( this.owner, this.getLowerRightCornerPosition() );
         growthAmount = this.capacity - this.getContainedLength(); // Clamp growth at remaining capacity.
         newSquareSegment.add( length - growthAmount, windingBiomolecule, shapeSegmentList );
         windingBiomolecule.insertAfterShapeSegment( this, newSquareSegment );
@@ -85,7 +85,7 @@ define( require => {
 
       // If the length has gotten to zero, remove this segment from  the list.
       if ( this.getContainedLength() < ShapeSegment.FLOATING_POINT_COMP_FACTOR ) {
-        var index = shapeSegmentList.indexOf( this );
+        const index = shapeSegmentList.indexOf( this );
         shapeSegmentList.splice( index, 1 );
       }
       this.updateAttachmentSitePosition();
@@ -99,13 +99,13 @@ define( require => {
      * @public
      */
     advance: function( length, windingBiomolecule, shapeSegmentList ) {
-      var outputSegment = windingBiomolecule.getPreviousShapeSegment( this );
-      var inputSegment = windingBiomolecule.getNextShapeSegment( this );
+      let outputSegment = windingBiomolecule.getPreviousShapeSegment( this );
+      const inputSegment = windingBiomolecule.getNextShapeSegment( this );
       if ( inputSegment === null ) {
 
         // There is no input segment, meaning that the end of the mRNA strand is contained in THIS segment, so this
         // segment needs to shrink.
-        var lengthToAdvance = Math.min( length, this.getContainedLength() );
+        const lengthToAdvance = Math.min( length, this.getContainedLength() );
         this.remove( lengthToAdvance, shapeSegmentList );
         outputSegment.add( lengthToAdvance, windingBiomolecule, shapeSegmentList );
       }
@@ -120,7 +120,7 @@ define( require => {
         else {
           // This segment is full or close enough to being full that it can't accommodate all of the specified length.
           // Some or all of that length must go in the output segment.
-          var remainingCapacity = this.getRemainingCapacity();
+          const remainingCapacity = this.getRemainingCapacity();
           if ( remainingCapacity > ShapeSegment.FLOATING_POINT_COMP_FACTOR ) {
 
             // Not quite full yet - fill it up.
@@ -131,7 +131,7 @@ define( require => {
 
             assert && assert( outputSegment === null );
 
-            var newLeaderSegment = new FlatSegment( this.owner, this.getUpperLeftCornerPosition() );
+            const newLeaderSegment = new FlatSegment( this.owner, this.getUpperLeftCornerPosition() );
             newLeaderSegment.setCapacity( GEEConstants.LEADER_LENGTH );
             windingBiomolecule.insertBeforeShapeSegment( this, newLeaderSegment );
             outputSegment = newLeaderSegment;
@@ -161,12 +161,12 @@ define( require => {
      * @public
      */
     advanceAndRemove: function( length, windingBiomolecule, shapeSegmentList ) {
-      var inputSegment = windingBiomolecule.getNextShapeSegment( this );
+      const inputSegment = windingBiomolecule.getNextShapeSegment( this );
       if ( inputSegment === null ) {
 
         // There is no input segment, meaning that the end of the mRNA strand is contained in THIS segment, so this
         // segment needs to shrink.
-        var lengthToRemove = Math.min( length, this.getContainedLength() );
+        const lengthToRemove = Math.min( length, this.getContainedLength() );
         this.remove( lengthToRemove, shapeSegmentList );
       }
       else if ( inputSegment.getContainedLength() > length ) {
@@ -188,7 +188,7 @@ define( require => {
      * @private
      */
     maxOutLength: function() {
-      var growthAmount = this.getRemainingCapacity();
+      const growthAmount = this.getRemainingCapacity();
       this.bounds.setMinMax( this.bounds.x - growthAmount,
         this.bounds.minY, this.bounds.x - growthAmount + this.capacity,
         this.bounds.minY );

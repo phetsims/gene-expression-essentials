@@ -18,10 +18,10 @@ define( require => {
   const Vector3 = require( 'DOT/Vector3' );
 
   // constants
-  var MIN_VELOCITY = 100; // In picometers/s
-  var MAX_VELOCITY = 500; // In picometers/s
-  var MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
-  var MAX_TIME_IN_ONE_DIRECTION = 1.25; // In seconds.
+  const MIN_VELOCITY = 100; // In picometers/s
+  const MAX_VELOCITY = 500; // In picometers/s
+  const MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
+  const MAX_TIME_IN_ONE_DIRECTION = 1.25; // In seconds.
 
   /**
    * @param  {Vector2} generalDirection
@@ -29,7 +29,7 @@ define( require => {
    * @constructor
    */
   function WanderInGeneralDirectionMotionStrategy( generalDirection, motionBoundsProperty ) {
-    var self = this;
+    const self = this;
     MotionStrategy.call( self );
     this.directionChangeCountdown = 0; // @private
     this.currentMotionVector = new Vector2( 0, 0 ); // @private
@@ -81,8 +81,8 @@ define( require => {
       if ( this.directionChangeCountdown <= 0 ) {
 
         // Time to change the direction.
-        var newVelocity = MIN_VELOCITY + phet.joist.random.nextDouble() * ( MAX_VELOCITY - MIN_VELOCITY );
-        var varianceAngle = ( phet.joist.random.nextDouble() - 0.5 ) * Math.PI / 3;
+        const newVelocity = MIN_VELOCITY + phet.joist.random.nextDouble() * ( MAX_VELOCITY - MIN_VELOCITY );
+        const varianceAngle = ( phet.joist.random.nextDouble() - 0.5 ) * Math.PI / 3;
         this.currentMotionVector = this.generalDirection.withMagnitude( newVelocity ).rotated( varianceAngle );
 
         // Reset the countdown timer.
@@ -113,7 +113,7 @@ define( require => {
     getNextPosition3D: function( currentPosition, bounds, dt ) {
 
       // The 3D version of this motion strategy doesn't move in the z direction. This may change some day.
-      var nextPosition2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
+      const nextPosition2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
       return new Vector3( nextPosition2D.x, nextPosition2D.y, currentPosition.z );
     }
   } );

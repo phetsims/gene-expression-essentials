@@ -15,7 +15,7 @@ define( require => {
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
-  var GradientUtil = {
+  const GradientUtil = {
     /**
      * Create a gradient paint in order to give a molecule a little depth. This is public so that it can be used by other
      * nodes that need to depict biomolecules.
@@ -24,9 +24,9 @@ define( require => {
      * @param {Color} baseColor
      */
     createGradientPaint: function( shape, baseColor ) {
-      var paint;
+      let paint;
       if ( !GEEConstants.FLORESCENT_FILL_COLOR.equals( baseColor ) ) {
-        var shapeBounds = shape.bounds;
+        const shapeBounds = shape.bounds;
         paint = new LinearGradient( shapeBounds.getMinX(),
           shapeBounds.getCenterY(),
           shapeBounds.getMaxX(),

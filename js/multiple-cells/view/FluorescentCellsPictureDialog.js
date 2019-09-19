@@ -20,7 +20,7 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var IMAGE_WIDTH = 380; // in screen coordinates, empirically determined to look good
+  const IMAGE_WIDTH = 380; // in screen coordinates, empirically determined to look good
 
   // images
   const eColiImage = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/ecoli.jpg' );
@@ -30,14 +30,14 @@ define( require => {
   const imageCaptionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/imageCaption' );
 
   // constants
-  var TEXT_FONT = new PhetFont( 12 );
+  const TEXT_FONT = new PhetFont( 12 );
 
   /**
    * @constructor
    */
   function FluorescentCellsPictureDialog() {
 
-    var imageNode = new Image( eColiImage, {
+    const imageNode = new Image( eColiImage, {
       minWidth: IMAGE_WIDTH,
       maxWidth: IMAGE_WIDTH
     } );
@@ -46,20 +46,20 @@ define( require => {
     // lines, but this was changed (see https://github.com/phetsims/gene-expression-essentials/issues/121) and they are
     // now combined. The strings have been left separate in the strings files so that translations don't need to be
     // modified.
-    var captionAndNoteNode = new RichText( imageCaptionString + '  ' + imageCaptionNoteString, {
+    const captionAndNoteNode = new RichText( imageCaptionString + '  ' + imageCaptionNoteString, {
       font: TEXT_FONT,
       lineWrap: IMAGE_WIDTH,
       centerX: imageNode.centerX,
       top: imageNode.bottom + 10,
       align: 'left'
     } );
-    var children = [
+    const children = [
       imageNode,
       captionAndNoteNode,
       new Text( 'Image Copyright Dennis Kunkel Microscopy, Inc.', { font: TEXT_FONT } )
     ];
 
-    var content = new LayoutBox( { orientation: 'vertical', align: 'center', spacing: 10, children: children } );
+    const content = new LayoutBox( { orientation: 'vertical', align: 'center', spacing: 10, children: children } );
 
     Dialog.call( this, content, {
       topMargin: 20,

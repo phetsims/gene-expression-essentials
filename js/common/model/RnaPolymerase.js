@@ -22,16 +22,16 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // Overall size of the polymerase molecule.
-  var WIDTH = 340;   // picometers
-  var HEIGHT = 480;  // picometers
+  const WIDTH = 340;   // picometers
+  const HEIGHT = 480;  // picometers
 
   // Offset from the center of the molecule to the location where mRNA should emerge when transcription is occurring.
   // This is determined empirically, and may need to change if the shape is changed.
-  var MESSENGER_RNA_GENERATION_OFFSET = new Vector2( -WIDTH * 0.4, HEIGHT * 0.4 );
+  const MESSENGER_RNA_GENERATION_OFFSET = new Vector2( -WIDTH * 0.4, HEIGHT * 0.4 );
 
   // Set of points that outline the basic, non-distorted shape of this molecule. The shape is meant to look like
   // illustrations in "The Machinery of Life" by David Goodsell.
-  var SHAPE_POINTS = [ new Vector2( 0, HEIGHT / 2 ), // Middle top.
+  const SHAPE_POINTS = [ new Vector2( 0, HEIGHT / 2 ), // Middle top.
     new Vector2( WIDTH / 2, HEIGHT * 0.25 ),
     new Vector2( WIDTH * 0.35, -HEIGHT * 0.25 ),
     new Vector2( 0, -HEIGHT / 2 ), // Middle bottom.
@@ -40,12 +40,12 @@ define( require => {
   ];
 
   // Colors used by this molecule.
-  var NOMINAL_COLOR = new Color( 0, 153, 210 );
-  var CONFORMED_COLOR = Color.CYAN;
+  const NOMINAL_COLOR = new Color( 0, 153, 210 );
+  const CONFORMED_COLOR = Color.CYAN;
 
   // Direction vectors when polymerase detaches from DNA
-  var UP_VECTOR = new Vector2( 0, 1 );
-  var DOWN_VECTOR = new Vector2( 0, -1 );
+  const UP_VECTOR = new Vector2( 0, 1 );
+  const DOWN_VECTOR = new Vector2( 0, -1 );
 
   /**
    *
@@ -86,7 +86,7 @@ define( require => {
     changeConformation: function( changeFactor ) {
 
       // seed value chosen empirically through trial and error
-      var newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( SHAPE_POINTS, changeFactor, 45 );
+      const newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( SHAPE_POINTS, changeFactor, 45 );
       this.shapeProperty.set( newUntranslatedShape );
       this.colorProperty.set( Color.interpolateRGBA( NOMINAL_COLOR, CONFORMED_COLOR, changeFactor ) );
     },

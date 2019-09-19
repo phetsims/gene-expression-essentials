@@ -22,10 +22,10 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var MRNA_GROWTH_FACTOR = 0.63; // empirically determined adjustment factor to make mRNA appear to be about the right length
+  const MRNA_GROWTH_FACTOR = 0.63; // empirically determined adjustment factor to make mRNA appear to be about the right length
 
   // used for comparing the position of Biomolecule and endOfGene's position.
-  var BIO_MOLECULE_POSITION_COMPARISON_EPSILON = 0.000001;
+  const BIO_MOLECULE_POSITION_COMPARISON_EPSILON = 0.000001;
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
@@ -53,11 +53,11 @@ define( require => {
      * @public
      */
     step: function( asm, dt ) {
-      var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
-      var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
-      var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
-      var attachedState = this.rnaPolymeraseAttachmentStateMachine.attachedState;
-      var attachedAndDeconformingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndDeconformingState;
+      const rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
+      const dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
+      const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+      let attachedState = this.rnaPolymeraseAttachmentStateMachine.attachedState;
+      const attachedAndDeconformingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndDeconformingState;
 
       // Verify that state is consistent
       assert && assert( asm.attachmentSite !== null );
@@ -74,7 +74,7 @@ define( require => {
       dnaStrandSeparation.setXPosition( rnaPolymerase.getPosition().x );
 
       // Check for molecules that are in the way.
-      var molecules = asm.biomolecule.getModel().getOverlappingBiomolecules( asm.biomolecule.bounds );
+      const molecules = asm.biomolecule.getModel().getOverlappingBiomolecules( asm.biomolecule.bounds );
       molecules.forEach( function( molecule ) {
         if ( molecule.getPosition().x > asm.biomolecule.getPosition().x && molecule.attachedToDnaProperty.get() ) {
 
@@ -101,15 +101,15 @@ define( require => {
      * @public
      */
     entered: function( asm ) {
-      var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
-      var transcribingAttachmentSite = this.rnaPolymeraseAttachmentStateMachine.transcribingAttachmentSite;
-      var attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
+      const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+      const transcribingAttachmentSite = this.rnaPolymeraseAttachmentStateMachine.transcribingAttachmentSite;
+      const attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
 
       // Prevent user interaction.
       asm.biomolecule.movableByUserProperty.set( false );
 
       // Determine the gene that is being transcribed.
-      var geneToTranscribe = biomolecule.getModel().getDnaMolecule().getGeneAtLocation( biomolecule.getPosition() );
+      const geneToTranscribe = biomolecule.getModel().getDnaMolecule().getGeneAtLocation( biomolecule.getPosition() );
       assert && assert( geneToTranscribe !== null );
 
       // Set up the motion strategy to move to the end of the transcribed region of the gene.

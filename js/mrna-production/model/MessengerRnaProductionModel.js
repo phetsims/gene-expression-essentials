@@ -29,26 +29,26 @@ define( require => {
   // constants
 
   // period for shuffling biomolecules, helps with random behavior
-  var SHUFFLE_TIME = 1; // seconds
+  const SHUFFLE_TIME = 1; // seconds
 
   // Length, in terms of base pairs, of the DNA molecule.
-  var NUM_BASE_PAIRS_ON_DNA_STRAND = 500;
+  const NUM_BASE_PAIRS_ON_DNA_STRAND = 500;
 
   // Configurations for the transcriptions factors used within this model.
-  var POSITIVE_TRANSCRIPTION_FACTOR_CONFIG = TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS;
-  var NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG = TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG;
+  const POSITIVE_TRANSCRIPTION_FACTOR_CONFIG = TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS;
+  const NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG = TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG;
 
   // Maximum number of transcription factor molecules.  The pertains to both positive and negative transcription factors.
-  var MAX_TRANSCRIPTION_FACTOR_COUNT = 8;
+  const MAX_TRANSCRIPTION_FACTOR_COUNT = 8;
 
   // Number of RNA polymerase molecules present.
-  var RNA_POLYMERASE_COUNT = 7;
+  const RNA_POLYMERASE_COUNT = 7;
 
   /**
    * @constructor
    */
   function MessengerRnaProductionModel() {
-    var self = this;
+    const self = this;
     this.clockRunningProperty = new Property( true ); //@public
 
     // DNA strand, which is where the genes reside, where the polymerase does its transcription, and where a lot of the
@@ -103,14 +103,14 @@ define( require => {
     // The bounds within which polymerase may be moved when recycled. Set up the area where RNA polymerase goes when it
     // is recycled. This is near the beginning of the transcribed region in order to make transcription more likely to
     // occur.
-    var polymeraseSize = new RnaPolymerase().bounds;
-    var firstGene = this.dnaMolecule.getGenes()[ 0 ];
-    var recycleZoneCenterX = this.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().min ) +
+    const polymeraseSize = new RnaPolymerase().bounds;
+    const firstGene = this.dnaMolecule.getGenes()[ 0 ];
+    const recycleZoneCenterX = this.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().min ) +
                              ( phet.joist.random.nextDouble() - 0.5 ) * 2000;
-    var recycleZoneHeight = polymeraseSize.getHeight() * 1.2;
-    var recycleZoneWidth = polymeraseSize.getWidth() * 4;
-    var minX = recycleZoneCenterX - polymeraseSize.getWidth() * 2;
-    var minY = GEEConstants.DNA_MOLECULE_Y_POS + polymeraseSize.getHeight();
+    const recycleZoneHeight = polymeraseSize.getHeight() * 1.2;
+    const recycleZoneWidth = polymeraseSize.getWidth() * 4;
+    const minX = recycleZoneCenterX - polymeraseSize.getWidth() * 2;
+    let minY = GEEConstants.DNA_MOLECULE_Y_POS + polymeraseSize.getHeight();
 
     // @private
     this.aboveDnaPolymeraseReturnBounds = new Bounds2(
@@ -238,12 +238,12 @@ define( require => {
     setUpMotionBounds: function() {
 
       // Bounds, have been empirically determined to keep biomolecules in .
-      var minY = -1854;
-      var maxY = 1236;
-      var minX = -2458;
-      var maxX = 2663;
+      const minY = -1854;
+      const maxY = 1236;
+      const minX = -2458;
+      const maxX = 2663;
 
-      var bounds = new Bounds2( minX, minY, maxX, maxY );
+      const bounds = new Bounds2( minX, minY, maxX, maxY );
       this.moleculeMotionBounds = new MotionBounds( bounds );
     },
 
@@ -271,7 +271,7 @@ define( require => {
      * @public
      */
     getOverlappingBiomolecules: function( testShapeBounds ) {
-      var overlappingBiomolecules = [];
+      const overlappingBiomolecules = [];
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         if ( mobileBiomolecule.bounds.intersectsBounds( testShapeBounds ) ) {
           overlappingBiomolecules.push( mobileBiomolecule );
@@ -333,8 +333,8 @@ define( require => {
 
       // Add the polymerase molecules. These don't come and go, the concentration of these remains constant in this
       // model.
-      for ( var i = 0; i < RNA_POLYMERASE_COUNT; i++ ) {
-        var rnaPolymerase = new RnaPolymerase( this, new Vector2( 0, 0 ) );
+      for ( let i = 0; i < RNA_POLYMERASE_COUNT; i++ ) {
+        const rnaPolymerase = new RnaPolymerase( this, new Vector2( 0, 0 ) );
         rnaPolymerase.setPosition3D( this.generateInitialPosition3D( rnaPolymerase ) );
         rnaPolymerase.set3DMotionEnabled( true );
         rnaPolymerase.setRecycleMode( true );
@@ -351,13 +351,13 @@ define( require => {
      * @private
      */
     generateInitialPosition3D: function( biomolecule ) {
-      var xMin = this.moleculeMotionBounds.getBounds().minX + biomolecule.bounds.getWidth() / 2;
-      var yMin = this.moleculeMotionBounds.getBounds().minY + biomolecule.bounds.getHeight() / 2;
-      var xMax = this.moleculeMotionBounds.getBounds().maxX - biomolecule.bounds.getWidth() / 2;
-      var yMax = this.moleculeMotionBounds.getBounds().maxY - biomolecule.bounds.getHeight() / 2;
-      var xPos = xMin + phet.joist.random.nextDouble() * ( xMax - xMin );
-      var yPos = yMin + phet.joist.random.nextDouble() * ( yMax - yMin );
-      var zPos = -phet.joist.random.nextDouble(); // Valid z values are from -1 to 0.
+      const xMin = this.moleculeMotionBounds.getBounds().minX + biomolecule.bounds.getWidth() / 2;
+      const yMin = this.moleculeMotionBounds.getBounds().minY + biomolecule.bounds.getHeight() / 2;
+      const xMax = this.moleculeMotionBounds.getBounds().maxX - biomolecule.bounds.getWidth() / 2;
+      const yMax = this.moleculeMotionBounds.getBounds().maxY - biomolecule.bounds.getHeight() / 2;
+      const xPos = xMin + phet.joist.random.nextDouble() * ( xMax - xMin );
+      const yPos = yMin + phet.joist.random.nextDouble() * ( yMax - yMin );
+      const zPos = -phet.joist.random.nextDouble(); // Valid z values are from -1 to 0.
       return new Vector3( xPos, yPos, zPos );
     },
 
@@ -370,7 +370,7 @@ define( require => {
     setTranscriptionFactorCount: function( tcConfig, targetCount, transcriptionFactorList ) {
       if ( transcriptionFactorList.length < targetCount ) {
         while ( transcriptionFactorList.length < targetCount ) {
-          var transcriptionFactor = new TranscriptionFactor( this, tcConfig, new Vector2( 0, 0 ) );
+          const transcriptionFactor = new TranscriptionFactor( this, tcConfig, new Vector2( 0, 0 ) );
           transcriptionFactor.setPosition3D( this.generateInitialPosition3D( transcriptionFactor ) );
           transcriptionFactor.set3DMotionEnabled( true );
           this.addMobileBiomolecule( transcriptionFactor );
@@ -379,7 +379,7 @@ define( require => {
       }
       else if ( transcriptionFactorList.length > targetCount ) {
         while ( transcriptionFactorList.length > targetCount ) {
-          var mobileBiomolecule = transcriptionFactorList.pop();
+          const mobileBiomolecule = transcriptionFactorList.pop();
           mobileBiomolecule.forceDetach();
           this.removeMobileBiomolecule( mobileBiomolecule );
         }

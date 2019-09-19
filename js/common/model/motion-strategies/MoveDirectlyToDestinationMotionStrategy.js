@@ -18,7 +18,7 @@ define( require => {
   const Vector3 = require( 'DOT/Vector3' );
 
   // constants
-  var MAX_Z_VELOCITY = 10; // Max Z velocity in normalized units.
+  const MAX_Z_VELOCITY = 10; // Max Z velocity in normalized units.
 
   /**
    * @param {Property} destinationProperty
@@ -28,7 +28,7 @@ define( require => {
    * @constructor
    */
   function MoveDirectlyToDestinationMotionStrategy( destinationProperty, motionBoundsProperty, destinationOffset, velocity ) {
-    var self = this;
+    const self = this;
     MotionStrategy.call( self );
 
     function handleMotionBoundsChanged( motionBounds ) {
@@ -77,7 +77,7 @@ define( require => {
      * @public
      */
     getNextPosition: function( currentPosition, bounds, dt ) {
-      var nextPosition3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
+      const nextPosition3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
       return new Vector2( nextPosition3D.x, nextPosition3D.y );
     },
 
@@ -107,16 +107,16 @@ define( require => {
     getNextPosition3D: function( currentPosition3D, bounds, dt ) {
 
       // destination is assumed to always have a Z value of 0, i.e. at the "surface"
-      var currentDestination3D = new Vector3(
+      const currentDestination3D = new Vector3(
         this.destinationProperty.get().x - this.offsetFromDestination.x,
         this.destinationProperty.get().y - this.offsetFromDestination.y,
         0
       );
-      var currentDestination2D = new Vector2(
+      const currentDestination2D = new Vector2(
         this.destinationProperty.get().x - this.offsetFromDestination.x,
         this.destinationProperty.get().y - this.offsetFromDestination.y
       );
-      var currentPosition2D = new Vector2( currentPosition3D.x, currentPosition3D.y );
+      const currentPosition2D = new Vector2( currentPosition3D.x, currentPosition3D.y );
       this.updateVelocityVector2D(
         currentPosition2D,
         new Vector2( currentDestination3D.x, currentDestination3D.y ),
@@ -125,8 +125,8 @@ define( require => {
 
       // make the Z velocity such that the front (i.e. z = 0) will be reached at the same time as the destination in XY
       // space
-      var distanceToDestination2D = currentPosition2D.distance( this.destinationProperty.get() );
-      var zVelocity;
+      const distanceToDestination2D = currentPosition2D.distance( this.destinationProperty.get() );
+      let zVelocity;
       if ( distanceToDestination2D > 0 ) {
         zVelocity = Math.min(
           Math.abs( currentPosition3D.z ) / ( currentPosition2D.distance( this.destinationProperty.get() ) / this.scalarVelocity2D ),
@@ -138,7 +138,7 @@ define( require => {
       }
 
       // make sure that the current motion won't move the model element past the destination
-      var distanceToDestination = currentPosition2D.distance( currentDestination2D );
+      const distanceToDestination = currentPosition2D.distance( currentDestination2D );
       if ( this.velocityVector2D.magnitude * dt > distanceToDestination ) {
         return currentDestination3D;
       }

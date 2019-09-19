@@ -31,12 +31,12 @@ define( require => {
   // constants
 
   // distance within which transcription factors may attach
-  var TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE = 400;
+  const TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE = 400;
 
   // distance within which RNA polymerase may attach
-  var RNA_POLYMERASE_ATTACHMENT_DISTANCE = 400;
+  const RNA_POLYMERASE_ATTACHMENT_DISTANCE = 400;
 
-  var attachmentSiteLocation = new Vector2( 0, 0 );
+  const attachmentSiteLocation = new Vector2( 0, 0 );
 
   /**
    * @param {GeneExpressionModel} model - the gene expression model within which this DNA strand exists
@@ -89,11 +89,11 @@ define( require => {
 
     // Add the initial set of shape-defining points for each of the two strands.  Points are spaced the same as the
     // base pairs.
-    for ( var i = 0; i < numBasePairs; i++ ) {
-      var xPos = leftEdgeXOffset + i * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS;
-      var strand1YPos = this.getDnaStrandYPosition( xPos, 0 );
-      var strand2YPos = this.getDnaStrandYPosition( xPos, GEEConstants.INTER_STRAND_OFFSET );
-      var height = Math.abs( strand1YPos - strand2YPos );
+    for ( let i = 0; i < numBasePairs; i++ ) {
+      const xPos = leftEdgeXOffset + i * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS;
+      const strand1YPos = this.getDnaStrandYPosition( xPos, 0 );
+      const strand2YPos = this.getDnaStrandYPosition( xPos, GEEConstants.INTER_STRAND_OFFSET );
+      const height = Math.abs( strand1YPos - strand2YPos );
       this.maxBasePairHeight = height > this.maxBasePairHeight ? height : this.maxBasePairHeight;
 
       // Add in the base pairs between the backbone strands.  This calculates the distance between the two strands and
@@ -147,13 +147,13 @@ define( require => {
      * @private
      */
     initializeStrandSegments: function() {
-      var strand1SegmentPoints = [];
-      var strand2SegmentPoints = [];
-      var segmentStartX = this.strandPoints[ 0 ].xPos;
-      var strand1InFront = true;
-      for ( var i = 0; i < this.strandPoints.length; i++ ) {
-        var dnaStrandPoint = this.strandPoints[ i ];
-        var xPos = dnaStrandPoint.xPos;
+      let strand1SegmentPoints = [];
+      let strand2SegmentPoints = [];
+      let segmentStartX = this.strandPoints[ 0 ].xPos;
+      let strand1InFront = true;
+      for ( let i = 0; i < this.strandPoints.length; i++ ) {
+        const dnaStrandPoint = this.strandPoints[ i ];
+        const xPos = dnaStrandPoint.xPos;
         strand1SegmentPoints.push( new Vector2( xPos, dnaStrandPoint.strand1YPos ) );
         strand2SegmentPoints.push( new Vector2( xPos, dnaStrandPoint.strand2YPos ) );
         if ( xPos - segmentStartX >= ( GEEConstants.LENGTH_PER_TWIST / 2 ) ) {
@@ -161,7 +161,7 @@ define( require => {
           // Time to add these segments and start a new ones.
           this.strand1Segments.push( strand1SegmentPoints );
           this.strand2Segments.push( strand2SegmentPoints );
-          var firstPointOfNextSegment = strand1SegmentPoints[ strand1SegmentPoints.length - 1 ];
+          let firstPointOfNextSegment = strand1SegmentPoints[ strand1SegmentPoints.length - 1 ];
           strand1SegmentPoints = []; // clear;
           strand1SegmentPoints.push( firstPointOfNextSegment ); // This point must be on this segment too in order to prevent gaps.
           firstPointOfNextSegment = strand2SegmentPoints[ strand2SegmentPoints.length - 1 ];
@@ -197,7 +197,7 @@ define( require => {
      * @private
      */
     updateStrandSegments: function() {
-      var self = this;
+      const self = this;
       this.redraw = false;
 
       // Set the shadow points to the nominal, non-deformed positions.
@@ -212,9 +212,9 @@ define( require => {
       this.separations.forEach( function( separation ) {
 
         // Make the window wider than it is high.  This was chosen to look decent, tweak if needed.
-        var windowWidth = separation.getAmount() * 1.5;
+        const windowWidth = separation.getAmount() * 1.5;
 
-        var separationWindowXIndexRange = new Range(
+        const separationWindowXIndexRange = new Range(
           Math.floor(
             ( separation.getXPosition() - ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS
           ),
@@ -222,13 +222,13 @@ define( require => {
             ( separation.getXPosition() + ( windowWidth / 2 ) - self.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS
           )
         );
-        for ( var i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
-          var windowCenterX = ( separationWindowXIndexRange.min + separationWindowXIndexRange.max ) / 2;
+        for ( let i = separationWindowXIndexRange.min; i < separationWindowXIndexRange.max; i++ ) {
+          const windowCenterX = ( separationWindowXIndexRange.min + separationWindowXIndexRange.max ) / 2;
           if ( i >= 0 && i < self.strandPointsShadow.length ) {
 
             // Perform a windowing algorithm that weights the separation at 1 in the center, 0 at the edges, and linear
             // graduations in between.
-            var separationWeight = 1 - Math.abs( 2 * ( i - windowCenterX ) / separationWindowXIndexRange.getLength() );
+            const separationWeight = 1 - Math.abs( 2 * ( i - windowCenterX ) / separationWindowXIndexRange.getLength() );
             self.strandPointsShadow[ i ].strand1YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand1YPos +
                                                        separationWeight * separation.getAmount() / 2;
             self.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand2YPos -
@@ -244,22 +244,22 @@ define( require => {
       } );
 
       // See if any of the points have moved and, if so, update the corresponding shape segment.
-      var numSegments = this.strand1Segments.length;
-      for ( var i = 0; i < numSegments; i++ ) {
-        var segmentChanged = false;
-        var strand1Segment = this.strand1Segments[ i ];
+      const numSegments = this.strand1Segments.length;
+      for ( let i = 0; i < numSegments; i++ ) {
+        let segmentChanged = false;
+        const strand1Segment = this.strand1Segments[ i ];
 
         // Determine the bounds of the current segment. Assumes that the bounds for the strand1 and strand2 segments are
         // the same, which should be a safe assumption.
         //var bounds = strand1Segment.getShape().bounds;
-        var minX = strand1Segment[ 0 ].x;
-        var maxX = strand1Segment[ strand1Segment.length - 1 ].x;
-        var pointIndexRange = new Range( Math.floor( ( minX - this.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
+        const minX = strand1Segment[ 0 ].x;
+        const maxX = strand1Segment[ strand1Segment.length - 1 ].x;
+        const pointIndexRange = new Range( Math.floor( ( minX - this.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ),
           Math.floor( ( maxX - this.leftEdgeXOffset ) / GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
 
         // Check to see if any of the points within the identified range have changed and, if so, update the
         // corresponding segment shape in the strands. If the points for either strand has changed, both are updated.
-        for ( var j = pointIndexRange.min; j < pointIndexRange.max; j++ ) {
+        for ( let j = pointIndexRange.min; j < pointIndexRange.max; j++ ) {
           if ( !this.strandPoints[ j ].equals( this.strandPointsShadow[ j ] ) ) {
 
             // The point has changed.  Update it, mark the change.
@@ -276,9 +276,9 @@ define( require => {
         if ( segmentChanged ) {
           this.redraw = true;
           // Update the shape of this segment.
-          var strand1ShapePoints = [];
-          var strand2ShapePoints = [];
-          for ( var k = pointIndexRange.min; k < pointIndexRange.max; k++ ) {
+          const strand1ShapePoints = [];
+          const strand2ShapePoints = [];
+          for ( let k = pointIndexRange.min; k < pointIndexRange.max; k++ ) {
 
             //for performance reasons using object literals instead of Vector instances
             strand1ShapePoints.push( { x: this.strandPoints[ k ].xPos, y: this.strandPoints[ k ].strand1YPos } );
@@ -355,7 +355,7 @@ define( require => {
      * @public
      */
     removeSeparation: function( separation ) {
-      var index = this.separations.indexOf( separation );
+      const index = this.separations.indexOf( separation );
       if ( index !== -1 ) {
         this.separations.splice( index, 1 );
       }
@@ -432,8 +432,8 @@ define( require => {
      * @public
      */
     getTopEdgeYPosition: function() {
-      var dnaStrand = this.strand1Segments[ 0 ];
-      var index = Math.floor( dnaStrand.length / 2 );
+      const dnaStrand = this.strand1Segments[ 0 ];
+      const index = Math.floor( dnaStrand.length / 2 );
       return dnaStrand[ index ].y;
     },
 
@@ -444,8 +444,8 @@ define( require => {
      */
     getBottomEdgeYPosition: function() {
       // assert statement here
-      var dnaStrand = this.strand1Segments[ 1 ];
-      var index = Math.floor( dnaStrand.length / 2 );
+      const dnaStrand = this.strand1Segments[ 1 ];
+      const index = Math.floor( dnaStrand.length / 2 );
       return dnaStrand[ index ].y;
     },
 
@@ -459,7 +459,7 @@ define( require => {
      * @public
      */
     considerProposalFromTranscriptionFactor: function( transcriptionFactor ) {
-      var self = this;
+      const self = this;
       return this.considerProposalFromBiomolecule(
         transcriptionFactor,
         TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE,
@@ -485,7 +485,7 @@ define( require => {
      * @public
      */
     considerProposalFromRnaPolymerase: function( rnaPolymerase ) {
-      var self = this;
+      const self = this;
       return this.considerProposalFromBiomolecule( rnaPolymerase, RNA_POLYMERASE_ATTACHMENT_DISTANCE,
         function( basePairIndex ) {
           return self.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex );
@@ -512,8 +512,8 @@ define( require => {
     considerProposalFromBiomolecule: function( biomolecule, maxAttachDistance, getAttachSiteForBasePair, isOkayToAttach,
                                                getAttachmentSite ) {
 
-      var potentialAttachmentSites = [];
-      for ( var i = 0; i < this.basePairs.length; i++ ) {
+      let potentialAttachmentSites = [];
+      for ( let i = 0; i < this.basePairs.length; i++ ) {
 
         // See if the base pair is within the max attachment distance.
         attachmentSiteLocation.setXY( this.basePairs[ i ].getCenterLocationX(), GEEConstants.DNA_MOLECULE_Y_POS );
@@ -521,7 +521,7 @@ define( require => {
         if ( attachmentSiteLocation.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
 
           // In range.  Add it to the list if it is available.
-          var potentialAttachmentSite = getAttachSiteForBasePair( i );
+          const potentialAttachmentSite = getAttachSiteForBasePair( i );
           if ( potentialAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null ) {
             potentialAttachmentSites.push( potentialAttachmentSite );
           }
@@ -533,7 +533,7 @@ define( require => {
       if ( potentialAttachmentSites.length === 0 && this.pursueAttachments ) {
         this.genes.forEach( function( gene ) {
           if ( isOkayToAttach( gene ) ) {
-            var matchingSite = getAttachmentSite( gene );
+            const matchingSite = getAttachmentSite( gene );
 
             // Found a matching site on a gene.
             if ( matchingSite.attachedOrAttachingMoleculeProperty.get() === null ) {
@@ -542,8 +542,8 @@ define( require => {
               potentialAttachmentSites.push( matchingSite );
             }
             else if ( !matchingSite.isMoleculeAttached() ) {
-              var thisDistance = biomolecule.getPosition().distance( matchingSite.positionProperty.get() );
-              var thatDistance = matchingSite.attachedOrAttachingMoleculeProperty.get().getPosition().distance(
+              const thisDistance = biomolecule.getPosition().distance( matchingSite.positionProperty.get() );
+              const thatDistance = matchingSite.attachedOrAttachingMoleculeProperty.get().getPosition().distance(
                 matchingSite.positionProperty.get() );
               if ( thisDistance < thatDistance ) {
 
@@ -567,8 +567,8 @@ define( require => {
         return null;
       }
 
-      var exponent = 1;
-      var attachLocation = biomolecule.getPosition();
+      const exponent = 1;
+      const attachLocation = biomolecule.getPosition();
 
       // Sort the collection so that the best site is at the top of the list.
       potentialAttachmentSites.sort( function( attachmentSite1, attachmentSite2 ) {
@@ -577,9 +577,9 @@ define( require => {
         // The exponent effectively sets the relative weighting of one versus another. An exponent value of zero means
         // only the affinity matters, a value of 100 means it is pretty much entirely distance. A value of 2 is how
         // gravity works, so it appears kind of natural. Tweak as needed.
-        var as1Factor = attachmentSite1.getAffinity() /
+        const as1Factor = attachmentSite1.getAffinity() /
                         Math.pow( attachLocation.distance( attachmentSite1.positionProperty.get() ), exponent );
-        var as2Factor = attachmentSite2.getAffinity() /
+        const as2Factor = attachmentSite2.getAffinity() /
                         Math.pow( attachLocation.distance( attachmentSite2.positionProperty.get() ), exponent );
 
         if ( as2Factor > as1Factor ) {
@@ -606,12 +606,12 @@ define( require => {
      * @private
      */
     eliminateInvalidAttachmentSites: function( biomolecule, potentialAttachmentSites ) {
-      var self = this;
+      const self = this;
       return _.filter( potentialAttachmentSites, function( attachmentSite ) {
 
         // determine the bounds for the provided biomolecule when translated to the attachment site
-        var translationVector = attachmentSite.positionProperty.get().minus( biomolecule.getPosition() );
-        var translatedShapeBounds = biomolecule.bounds.shifted( translationVector.x, translationVector.y );
+        let translationVector = attachmentSite.positionProperty.get().minus( biomolecule.getPosition() );
+        const translatedShapeBounds = biomolecule.bounds.shifted( translationVector.x, translationVector.y );
 
         // if the biomolecule would be out of the model bounds, the site should be excluded
         if ( !biomolecule.motionBoundsProperty.get().inBounds( translatedShapeBounds ) ) {
@@ -619,7 +619,7 @@ define( require => {
         }
 
         // make a list of the bounds where all attached or incoming biomolecules are or will be (once attached)
-        var attachedOrIncomingBiomoleculeBounds = [];
+        const attachedOrIncomingBiomoleculeBounds = [];
         self.model.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
 
           // skip the biomolecule being tested for overlap
@@ -627,7 +627,7 @@ define( require => {
             return;
           }
 
-          var attachmentSite = mobileBiomolecule.attachmentStateMachine.attachmentSite;
+          const attachmentSite = mobileBiomolecule.attachmentStateMachine.attachmentSite;
 
           if ( attachmentSite && attachmentSite.owner === self ) {
             if ( mobileBiomolecule.attachedToDnaProperty.get() ) {
@@ -647,9 +647,9 @@ define( require => {
           }
         } );
 
-        var overlapsOtherMolecules = false;
-        for ( var i = 0; i < attachedOrIncomingBiomoleculeBounds.length; i++ ) {
-          var mobileBiomoleculeBounds = attachedOrIncomingBiomoleculeBounds[ i ];
+        let overlapsOtherMolecules = false;
+        for ( let i = 0; i < attachedOrIncomingBiomoleculeBounds.length; i++ ) {
+          const mobileBiomoleculeBounds = attachedOrIncomingBiomoleculeBounds[ i ];
           if ( mobileBiomoleculeBounds.intersectsBounds( translatedShapeBounds ) ) {
             overlapsOtherMolecules = true;
             break;
@@ -667,7 +667,7 @@ define( require => {
      */
     getTranscriptionFactorAttachmentSiteForBasePairIndex: function( i, tfConfig ) {
       // See if this base pair is inside a gene.
-      var gene = this.getGeneContainingBasePair( i );
+      const gene = this.getGeneContainingBasePair( i );
 
       if ( gene !== null ) {
         // Base pair is in a gene, so get it from the gene.
@@ -686,7 +686,7 @@ define( require => {
      */
     getRnaPolymeraseAttachmentSiteForBasePairIndex: function( i ) {
       // See if this base pair is inside a gene.
-      var gene = this.getGeneContainingBasePair( i );
+      const gene = this.getGeneContainingBasePair( i );
       if ( gene !== null ) {
         // Base pair is in a gene.  See if site is available.
         return gene.getPolymeraseAttachmentSiteByIndex( i );
@@ -708,9 +708,9 @@ define( require => {
      * @public
      */
     getAdjacentAttachmentSitesTranscriptionFactor: function( transcriptionFactor, attachmentSite ) {
-      var basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.positionProperty.get().x );
-      var attachmentSites = [];
-      var potentialSite;
+      const basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.positionProperty.get().x );
+      const attachmentSites = [];
+      let potentialSite;
       if ( basePairIndex !== 0 ) {
         potentialSite = this.getTranscriptionFactorAttachmentSiteForBasePairIndex( basePairIndex - 1,
           transcriptionFactor.getConfig() );
@@ -739,9 +739,9 @@ define( require => {
      * @public
      */
     getAdjacentAttachmentSitesRnaPolymerase: function( rnaPolymerase, attachmentSite ) {
-      var basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.positionProperty.get().x );
-      var attachmentSites = [];
-      var potentialSite;
+      const basePairIndex = this.getBasePairIndexFromXOffset( attachmentSite.positionProperty.get().x );
+      const attachmentSites = [];
+      let potentialSite;
       if ( basePairIndex !== 0 ) {
         potentialSite = this.getRnaPolymeraseAttachmentSiteForBasePairIndex( basePairIndex - 1 );
         if ( potentialSite.attachedOrAttachingMoleculeProperty.get() === null ) {
@@ -765,9 +765,9 @@ define( require => {
      * @private
      */
     getGeneContainingBasePair: function( basePairIndex ) {
-      var geneContainingBasePair = null;
-      for ( var i = 0; i < this.genes.length; i++ ) {
-        var gene = this.genes[ i ];
+      let geneContainingBasePair = null;
+      for ( let i = 0; i < this.genes.length; i++ ) {
+        const gene = this.genes[ i ];
         if ( gene.containsBasePair( basePairIndex ) ) {
           geneContainingBasePair = gene;
           break;
@@ -810,8 +810,8 @@ define( require => {
         'requested location is not on DNA molecule: ' + location
       );
 
-      var geneAtLocation = null;
-      var basePairIndex = this.getBasePairIndexFromXOffset( location.x );
+      let geneAtLocation = null;
+      const basePairIndex = this.getBasePairIndexFromXOffset( location.x );
       this.genes.forEach( function( gene ) {
         if ( gene.containsBasePair( basePairIndex ) ) {
 

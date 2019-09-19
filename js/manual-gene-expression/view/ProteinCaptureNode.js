@@ -27,14 +27,14 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var FLASH_COLOR = new Color( 173, 255, 47 );
-  var SCALE_FOR_FLASH_NODE = 1.5;
+  const FLASH_COLOR = new Color( 173, 255, 47 );
+  const SCALE_FOR_FLASH_NODE = 1.5;
 
   // Tweak warning: This is used to make sure that the counters on the various protein nodes end up horizontally
   // aligned.  This will need to be adjust if the protein shapes change a lot.
-  var VERTICAL_DISTANCE_TO_COUNT_NODE = 40;
+  const VERTICAL_DISTANCE_TO_COUNT_NODE = 40;
 
-  var proteinStringConstructorMap = {
+  const proteinStringConstructorMap = {
     'ProteinA': ProteinA,
     'ProteinB': ProteinB,
     'ProteinC': ProteinC
@@ -51,9 +51,9 @@ define( require => {
     Node.call( this );
 
     // Get the shape of the protein.
-    var protein = new proteinStringConstructorMap[ proteinClassName ]();
-    var proteinShape = protein.getFullyGrownShape().transformed( transform );
-    var fullBaseColor = protein.colorProperty.get();
+    const protein = new proteinStringConstructorMap[ proteinClassName ]();
+    const proteinShape = protein.getFullyGrownShape().transformed( transform );
+    const fullBaseColor = protein.colorProperty.get();
 
     // Add the background node. This is invisible, and exists only to make the node a specific size.
     this.addChild( new Path( Shape.rectangle( -size.width / 2, -size.height / 2, size.width, size.height ), {
@@ -62,18 +62,18 @@ define( require => {
 
     // Add the node that will flash when a protein is created, stay lit until the protein is captured, and turn off once
     // it is captured.
-    var flashingCaptureNodeShape = proteinShape.transformed( Matrix3.scaling( SCALE_FOR_FLASH_NODE, SCALE_FOR_FLASH_NODE ) );
-    var flashingCaptureNode = new FlashingShapeNode( flashingCaptureNodeShape, FLASH_COLOR );
+    const flashingCaptureNodeShape = proteinShape.transformed( Matrix3.scaling( SCALE_FOR_FLASH_NODE, SCALE_FOR_FLASH_NODE ) );
+    const flashingCaptureNode = new FlashingShapeNode( flashingCaptureNodeShape, FLASH_COLOR );
     this.addChild( flashingCaptureNode );
 
     // Add the node that will represent the spot where the protein can be captured, which is a black shape (signifying
     // emptiness) until a protein is captured, then it changes to look filled in.
-    var captureAreaNode = new Path( proteinShape, { stroke: 'black' } );
+    const captureAreaNode = new Path( proteinShape, { stroke: 'black' } );
     this.addChild( captureAreaNode );
-    var gradientPaint = GradientUtil.createGradientPaint( proteinShape, fullBaseColor );
+    const gradientPaint = GradientUtil.createGradientPaint( proteinShape, fullBaseColor );
 
     // Add the node that represents a count of the collected type.
-    var countNode = new Text( '', { font: new PhetFont( { size: 18, weight: 'bold' } ) } );
+    const countNode = new Text( '', { font: new PhetFont( { size: 18, weight: 'bold' } ) } );
     this.addChild( countNode );
     model.getCollectedCounterForProteinType( proteinClassName ).link( function( proteinCaptureCount ) {
       countNode.text = proteinCaptureCount;
@@ -94,7 +94,7 @@ define( require => {
     } );
 
     // Get the capture count property for this protein.
-    var captureCountProperty = model.getCollectedCounterForProteinType( proteinClassName );
+    const captureCountProperty = model.getCollectedCounterForProteinType( proteinClassName );
 
     // Observe the capture indicator and set the state of the nodes appropriately.
     captureCountProperty.link( function( captureCount ) {

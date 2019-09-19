@@ -20,14 +20,14 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var WIDTH = 250;   // In nanometers.
+  const WIDTH = 250;   // In nanometers.
 
   /**
    * helper function
    * @returns {Shape}
    */
   function createShape() {
-    var mouthShape = new Shape().moveTo( 0, 0 ).
+    const mouthShape = new Shape().moveTo( 0, 0 ).
     arc( 0, 0, WIDTH / 2, Math.PI / 6, 2 * Math.PI - Math.PI / 6 ).
     close();
     return mouthShape;
@@ -79,10 +79,10 @@ define( require => {
      * @public
      */
     proposeAttachments: function() {
-      var attachmentSite = null;
-      var messengerRnaList = this.model.getMessengerRnaList();
-      for ( var i = 0; i < messengerRnaList.length; i++ ) {
-        var messengerRna = messengerRnaList.get( i );
+      let attachmentSite = null;
+      const messengerRnaList = this.model.getMessengerRnaList();
+      for ( let i = 0; i < messengerRnaList.length; i++ ) {
+        const messengerRna = messengerRnaList.get( i );
         attachmentSite = messengerRna.considerProposalFromMessengerRnaDestroyer( this );
         if ( attachmentSite !== null ) {
           // Proposal accepted.

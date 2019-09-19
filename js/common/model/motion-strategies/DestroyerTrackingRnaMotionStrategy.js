@@ -39,7 +39,7 @@ define( require => {
      * @public
      */
     getNextPosition: function( currentPosition, bounds, dt ) {
-      var generateInitialPosition3D = this.messengerRna.getDestroyerGenerateInitialPosition3D();
+      const generateInitialPosition3D = this.messengerRna.getDestroyerGenerateInitialPosition3D();
       return new Vector2( generateInitialPosition3D.x, generateInitialPosition3D.y );
     }
   } );

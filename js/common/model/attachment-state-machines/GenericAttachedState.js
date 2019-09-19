@@ -20,7 +20,7 @@ define( require => {
   const WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
 
   // constants
-  var DEFAULT_ATTACH_TIME = 3; // In seconds.
+  const DEFAULT_ATTACH_TIME = 3; // In seconds.
 
   /**
    *
@@ -42,7 +42,7 @@ define( require => {
      * @public
      */
     step: function( enclosingStateMachine, dt ) {
-      var gsm = enclosingStateMachine;
+      const gsm = enclosingStateMachine;
 
       // Verify that state is consistent.
       assert && assert( gsm.attachmentSite !== null );

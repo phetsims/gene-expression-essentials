@@ -30,9 +30,9 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var DNA_SCALE = 0.1;
-  var DNA_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 0, 0 ), DNA_SCALE );
-  var TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
+  const DNA_SCALE = 0.1;
+  const DNA_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 0, 0 ), DNA_SCALE );
+  const TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
 
   // strings
   const negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactorHtml' );
@@ -45,8 +45,8 @@ define( require => {
    * @constructor
    */
   function TranscriptionFactorControlPanel( model, transcriptionFactorConfig, affinityProperty ) {
-    var titleText;
-    var tfLevelProperty;
+    let titleText;
+    let tfLevelProperty;
     if ( transcriptionFactorConfig.isPositive ) {
       transcriptionFactorConfig = MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG;
       titleText = positiveTranscriptionFactorHtmlString;
@@ -58,32 +58,32 @@ define( require => {
       tfLevelProperty = model.negativeTranscriptionFactorCountProperty;
     }
 
-    var titleNode = new RichText( titleText, {
+    const titleNode = new RichText( titleText, {
       font: TITLE_FONT,
       maxWidth: 180,
       align: 'center'
     } );
 
-    var transcriptionFactorNode = new MobileBiomoleculeNode(
+    const transcriptionFactorNode = new MobileBiomoleculeNode(
       GEEConstants.TRANSCRIPTION_FACTOR_MVT,
       new TranscriptionFactor( null, transcriptionFactorConfig )
     );
-    var dnaFragmentNode = new DnaMoleculeNode(
+    const dnaFragmentNode = new DnaMoleculeNode(
       new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ),
       DNA_MVT,
       2,
       false
     ).toDataURLNodeSynchronous(); // turn into an image so as not to create a canvas layer
 
-    var concentrationController = new ConcentrationController(
+    const concentrationController = new ConcentrationController(
       transcriptionFactorConfig,
       tfLevelProperty,
       0,
       MessengerRnaProductionModel.MAX_TRANSCRIPTION_FACTOR_COUNT
     );
-    var affinityController = new AffinityController( transcriptionFactorNode, dnaFragmentNode, affinityProperty );
+    const affinityController = new AffinityController( transcriptionFactorNode, dnaFragmentNode, affinityProperty );
 
-    var contentNode = new VBox( {
+    const contentNode = new VBox( {
       children: [ titleNode, concentrationController, affinityController ],
       spacing: 10
     } );

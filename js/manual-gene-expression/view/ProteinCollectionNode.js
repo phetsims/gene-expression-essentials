@@ -25,13 +25,13 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
-  var NUM_PROTEIN_TYPES = 3;  // Total number of protein types that can be collected.
+  const NUM_PROTEIN_TYPES = 3;  // Total number of protein types that can be collected.
 
   // attributes of various aspects of the box
-  var TITLE_FONT = new PhetFont( { size: 18, weight: 'bold' } );
-  var READOUT_FONT = new PhetFont( { size: 18, weight: 'bold' } );
-  var BACKGROUND_COLOR = new Color( 255, 250, 205 );
-  var INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
+  const TITLE_FONT = new PhetFont( { size: 18, weight: 'bold' } );
+  const READOUT_FONT = new PhetFont( { size: 18, weight: 'bold' } );
+  const BACKGROUND_COLOR = new Color( 255, 250, 205 );
+  const INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
 
   // strings
   const collectionCompleteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/collectionComplete' );
@@ -48,7 +48,7 @@ define( require => {
     Node.call( this );
 
     // Create the title and scale it if needed.
-    var title = new RichText( yourProteinCollectionString, {
+    const title = new RichText( yourProteinCollectionString, {
       fill: Color.BLACK,
       font: TITLE_FONT,
       maxWidth: 120,
@@ -56,7 +56,7 @@ define( require => {
     } );
 
     // create the collection area
-    var collectionArea = new ProteinCollectionArea( model, modelViewTransform );
+    const collectionArea = new ProteinCollectionArea( model, modelViewTransform );
 
     // create the panel
     this.addChild( new Panel(
@@ -75,18 +75,18 @@ define( require => {
    * @param {ManualGeneExpressionModel}model
    */
   function createCollectionCountIndicator( model ) {
-    var contentNode = new Node();
+    const contentNode = new Node();
 
-    var collectionCompleteNode = new Text( collectionCompleteString, {
+    const collectionCompleteNode = new Text( collectionCompleteString, {
       font: new PhetFont( 20 ),
       maxWidth: 200
     } );
     contentNode.addChild( collectionCompleteNode );
 
-    var countReadoutText = new Text( 0, {
+    const countReadoutText = new Text( 0, {
       font: READOUT_FONT
     } );
-    var countReadoutPanel = new Panel( countReadoutText, {
+    const countReadoutPanel = new Panel( countReadoutText, {
       minWidth: countReadoutText.width,
       resize: false,
       cornerRadius: GEEConstants.CORNER_RADIUS,
@@ -94,7 +94,7 @@ define( require => {
       align: 'center',
       fill: INTEGER_BOX_BACKGROUND_COLOR
     } );
-    var countIndicatorNode = new HBox( {
+    const countIndicatorNode = new HBox( {
       children: [ new Text( proteinCountCaptionPart1String, {
         font: READOUT_FONT,
         maxWidth: 100
@@ -103,11 +103,11 @@ define( require => {
       spacing: 4
     } );
 
-    var children = [ countIndicatorNode, new Text( proteinCountCaptionPart2String, {
+    const children = [ countIndicatorNode, new Text( proteinCountCaptionPart2String, {
       font: READOUT_FONT,
       maxWidth: 200
     } ) ];
-    var collectedQuantityIndicator = new VBox( {
+    const collectedQuantityIndicator = new VBox( {
       children: children, spacing: 10
     } );
 
@@ -115,7 +115,7 @@ define( require => {
     collectedQuantityIndicator.center = collectionCompleteNode.center;
 
     function countChangeUpdater() {
-      var numProteinTypesCollected = 0;
+      let numProteinTypesCollected = 0;
       if ( model.proteinACollectedProperty.get() > 0 ) {
         numProteinTypesCollected++;
       }

@@ -65,7 +65,7 @@ define( require => {
     getNextPosition3D: function( currentPosition, bounds, dt ) {
 
       // Default version does not move in Z direction, override for true 3D motion.
-      var nextPosition2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
+      const nextPosition2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
       return new Vector3( nextPosition2D.x, nextPosition2D.y, 0 );
     },
 
@@ -86,19 +86,19 @@ define( require => {
       assert && assert( !this.motionBounds.inBounds( bounds.shifted( originalMotionVector.x * dt, originalMotionVector.y * dt ) ) );
 
       // Try reversing X direction.
-      var reversedXMotionVector = new Vector2( -originalMotionVector.x, originalMotionVector.y );
+      const reversedXMotionVector = new Vector2( -originalMotionVector.x, originalMotionVector.y );
       if ( this.motionBounds.inBounds( bounds.shifted( reversedXMotionVector.x * dt, reversedXMotionVector.y * dt ) ) ) {
         return reversedXMotionVector;
       }
 
       // Try reversing Y direction.
-      var reversedYMotionVector = new Vector2( originalMotionVector.x, -originalMotionVector.y );
+      const reversedYMotionVector = new Vector2( originalMotionVector.x, -originalMotionVector.y );
       if ( this.motionBounds.inBounds( bounds.shifted( reversedYMotionVector.x * dt, reversedYMotionVector * dt ) ) ) {
         return reversedYMotionVector;
       }
 
       // Try reversing both X and Y directions.
-      var reversedXYMotionVector = new Vector2( -originalMotionVector.x, -originalMotionVector.y );
+      const reversedXYMotionVector = new Vector2( -originalMotionVector.x, -originalMotionVector.y );
       if ( this.motionBounds.inBounds( bounds.shifted( reversedXYMotionVector.x * dt, reversedXYMotionVector.x * dt ) ) ) {
         return reversedXYMotionVector;
       }
@@ -107,8 +107,8 @@ define( require => {
       // bounds. This might be because the molecule was dropped somewhere out of bounds, or maybe just that it is stuck
       // to the DNA or something. So, just return a vector back to the center of the motion bounds.  That should be a
       // safe bet.
-      var centerOfMotionBounds = this.motionBounds.getBounds().getCenter();
-      var vectorToMotionBoundsCenter = new Vector2( centerOfMotionBounds.x - bounds.getCenterX(),
+      const centerOfMotionBounds = this.motionBounds.getBounds().getCenter();
+      const vectorToMotionBoundsCenter = new Vector2( centerOfMotionBounds.x - bounds.getCenterX(),
         centerOfMotionBounds.y - bounds.getCenterY() );
       vectorToMotionBoundsCenter.multiplyScalar( maxVelocity / vectorToMotionBoundsCenter.magnitude );
       return vectorToMotionBoundsCenter;
@@ -122,7 +122,7 @@ define( require => {
      * @private
      */
     calculateDistanceBetweenRanges: function( r1, r2 ) {
-      var distance;
+      let distance;
       if ( r1.intersects( r2 ) ) {
 
         // Ranges overlap, so there is no distance between them.
@@ -148,12 +148,12 @@ define( require => {
      * @protected
      */
     getMinZ: function( bounds, positionXY ) {
-      var shapeYRange = new Range( positionXY.y - bounds.height / 2,
+      const shapeYRange = new Range( positionXY.y - bounds.height / 2,
         positionXY.y + bounds.height / 2 );
-      var dnaYRange = new Range( GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2,
+      const dnaYRange = new Range( GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2,
         GEEConstants.DNA_MOLECULE_Y_POS + GEEConstants.DNA_MOLECULE_DIAMETER / 2 );
-      var minZ = -1;
-      var distanceToEdgeOfDna = this.calculateDistanceBetweenRanges( shapeYRange, dnaYRange );
+      let minZ = -1;
+      const distanceToEdgeOfDna = this.calculateDistanceBetweenRanges( shapeYRange, dnaYRange );
       if ( distanceToEdgeOfDna < shapeYRange.getLength() / 2 ) {
 
         // Limit the z-dimension so that the biomolecule is at the front when over the DNA and make a gradient as it

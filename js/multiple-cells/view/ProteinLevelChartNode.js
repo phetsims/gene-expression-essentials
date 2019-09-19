@@ -26,10 +26,10 @@ define( require => {
   const XYPlot = require( 'GRIDDLE/XYPlot' );
 
   // constants
-  var PLOT_WIDTH = 400;
-  var PLOT_HEIGHT = 120;
-  var COLOR_KEY_WIDTH = 20;
-  var TIME_SPAN = 30;
+  const PLOT_WIDTH = 400;
+  const PLOT_HEIGHT = 120;
+  const COLOR_KEY_WIDTH = 20;
+  const TIME_SPAN = 30;
 
   // strings
   const averageProteinLevelString = require( 'string!GENE_EXPRESSION_ESSENTIALS/averageProteinLevel' );
@@ -44,11 +44,11 @@ define( require => {
    */
   function ProteinLevelChartNode( averageProteinLevelProperty ) {
 
-    var contentNode = new Node();
+    const contentNode = new Node();
     this.simRunningTime = 0;
     this.timeOffset = 0;
     this.averageProteinLevelProperty = averageProteinLevelProperty;
-    var plot = new XYPlot( {
+    const plot = new XYPlot( {
       width: PLOT_WIDTH,
       height: PLOT_HEIGHT,
       minX: 0,
@@ -78,7 +78,7 @@ define( require => {
     contentNode.addChild( plot );
 
     // graph title
-    var titleNode = new Text( averageProteinLevelVsTimeString, {
+    const titleNode = new Text( averageProteinLevelVsTimeString, {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       maxWidth: PLOT_WIDTH
     } );
@@ -88,7 +88,7 @@ define( require => {
     titleNode.bottom = plot.top - 10;
 
     // x axis label
-    var xLabel = new Text( timeString, {
+    const xLabel = new Text( timeString, {
       font: new PhetFont( { size: 12 } ),
       maxWidth: PLOT_WIDTH
     } );
@@ -98,7 +98,7 @@ define( require => {
     xLabel.top = plot.bottom + 10;
 
     // y axis label
-    var proteinLevelColorKey = new Rectangle( plot.left, plot.top, COLOR_KEY_WIDTH, PLOT_HEIGHT, {
+    const proteinLevelColorKey = new Rectangle( plot.left, plot.top, COLOR_KEY_WIDTH, PLOT_HEIGHT, {
       fill: new LinearGradient( plot.left, plot.top, plot.left + COLOR_KEY_WIDTH, plot.top + PLOT_HEIGHT )
         .addColorStop( 0, ColorChangingCellNode.FlorescentFillColor )
         .addColorStop( 1, ColorChangingCellNode.NominalFillColor ),
@@ -111,7 +111,7 @@ define( require => {
     proteinLevelColorKey.top = plot.top;
     proteinLevelColorKey.right = plot.left - 5;
 
-    var lotsNode = new Text( lotsString, {
+    const lotsNode = new Text( lotsString, {
       font: new PhetFont( 12 ),
       maxWidth: 50
     } );
@@ -119,7 +119,7 @@ define( require => {
     lotsNode.centerY = proteinLevelColorKey.top;
     lotsNode.right = proteinLevelColorKey.left - 5;
 
-    var noneNode = new Text( noneString, {
+    const noneNode = new Text( noneString, {
       font: new PhetFont( 12 ),
       maxWidth: 50
     } );
@@ -127,7 +127,7 @@ define( require => {
     noneNode.centerY = proteinLevelColorKey.bottom;
     noneNode.right = proteinLevelColorKey.left - 5;
 
-    var yLabelNode = new Text( averageProteinLevelString, {
+    const yLabelNode = new Text( averageProteinLevelString, {
       font: new PhetFont( 13 ),
       maxWidth: PLOT_HEIGHT + 10
     } );

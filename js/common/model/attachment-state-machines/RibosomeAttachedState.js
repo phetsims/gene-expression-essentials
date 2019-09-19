@@ -19,8 +19,8 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var RNA_TRANSLATION_RATE = 750; // picometers per second
-  var CLEAR_RNA_ATTACHMENT_LENGTH  = 700; // length which, once translated, a new biomolecule can attach to mRNA
+  const RNA_TRANSLATION_RATE = 750; // picometers per second
+  const CLEAR_RNA_ATTACHMENT_LENGTH  = 700; // length which, once translated, a new biomolecule can attach to mRNA
 
   /**
    *
@@ -45,9 +45,9 @@ define( require => {
      */
     step: function( asm, dt ) {
 
-      var proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
-      var ribosome = this.ribosomeAttachmentStateMachine.ribosome;
-      var mRna = ribosome.getMessengerRnaBeingTranslated();
+      let proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
+      const ribosome = this.ribosomeAttachmentStateMachine.ribosome;
+      const mRna = ribosome.getMessengerRnaBeingTranslated();
 
       // grow the protein
       proteinBeingSynthesized.setFullSizeProportion(
@@ -73,8 +73,8 @@ define( require => {
       // Advance the translation of the mRNA.  This must proceed more slowly if the mRNA is in the process of being
       // synthesized, otherwise the ribosome with run out of mRNA to work with.  The amount of reduction was chosen to
       // look good and to cause minimal "jumpiness" when translation and trnascription occur simultaneously.
-      var translationRate = mRna.beingSynthesizedProperty.get() ? RNA_TRANSLATION_RATE * 0.4 : RNA_TRANSLATION_RATE;
-      var translationComplete = ribosome.advanceMessengerRnaTranslation( translationRate * dt );
+      const translationRate = mRna.beingSynthesizedProperty.get() ? RNA_TRANSLATION_RATE * 0.4 : RNA_TRANSLATION_RATE;
+      const translationComplete = ribosome.advanceMessengerRnaTranslation( translationRate * dt );
       if ( translationComplete ) {
 
         // release the mRNA
@@ -95,10 +95,10 @@ define( require => {
      * @public
      */
     entered: function( asm ) {
-      var ribosome = this.ribosomeAttachmentStateMachine.ribosome;
+      const ribosome = this.ribosomeAttachmentStateMachine.ribosome;
       ribosome.initiateTranslation();
       ribosome.setMotionStrategy( new RibosomeTranslatingRnaMotionStrategy( ribosome ) );
-      var proteinBeingSynthesized = ribosome.getMessengerRnaBeingTranslated().getProteinPrototype().createInstance();
+      const proteinBeingSynthesized = ribosome.getMessengerRnaBeingTranslated().getProteinPrototype().createInstance();
       this.ribosomeAttachmentStateMachine.proteinBeingSynthesized = proteinBeingSynthesized;
       proteinBeingSynthesized.setAttachmentPointPosition( ribosome.getProteinAttachmentPoint() );
       ribosome.getModel().addMobileBiomolecule( proteinBeingSynthesized );

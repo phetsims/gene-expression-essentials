@@ -34,18 +34,18 @@ define( require => {
   function MessengerRnaNode( modelViewTransform, messengerRna ) {
 
     MobileBiomoleculeNode.call( this, modelViewTransform, messengerRna, { lineWidth: 2 } );
-    var self = this;
+    const self = this;
 
     // Add placement hints that show where ribosomes and mRNA destroyers can be attached.  Placement hint node, like
     // other mobile biomolecule nodes, are designed to position themselves, but we don't want that to happen here since
     // they are child nodes, so a compensated model-view transform is needed.
-    var scaleOnlyTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    const scaleOnlyTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       Vector2.ZERO,
       modelViewTransform.getMatrix().getScaleVector().x
     );
-    var ribosomePlacementHintNode = new PlacementHintNode( scaleOnlyTransform, messengerRna.ribosomePlacementHint );
-    var mRnaDestroyerPlacementHintNode = new PlacementHintNode(
+    const ribosomePlacementHintNode = new PlacementHintNode( scaleOnlyTransform, messengerRna.ribosomePlacementHint );
+    const mRnaDestroyerPlacementHintNode = new PlacementHintNode(
       scaleOnlyTransform,
       messengerRna.mRnaDestroyerPlacementHint
     );
@@ -53,7 +53,7 @@ define( require => {
     this.addChild( mRnaDestroyerPlacementHintNode );
 
     // Add the label. This fades in during synthesis, then fades out.
-    var label = new FadeLabel( quotedMRnaString, false, messengerRna.existenceStrengthProperty );
+    const label = new FadeLabel( quotedMRnaString, false, messengerRna.existenceStrengthProperty );
     this.addChild( label );
 
     // handler function for changes to the "being synthesized" state
@@ -79,9 +79,9 @@ define( require => {
 
     // handler for shape changes
     function handleShapeChanged( shape ) {
-      var shapeBounds = shape.bounds;
+      const shapeBounds = shape.bounds;
       if ( shapeBounds.isFinite() ) {
-        var scaledShapeBounds = self.scaleOnlyModelViewTransform.modelToViewShape( shapeBounds );
+        const scaledShapeBounds = self.scaleOnlyModelViewTransform.modelToViewShape( shapeBounds );
         rect && rect.setRectBounds( scaledShapeBounds );
 
         // position the label

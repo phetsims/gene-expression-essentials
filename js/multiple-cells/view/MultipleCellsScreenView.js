@@ -56,7 +56,7 @@ define( require => {
    */
   function MultipleCellsScreenView( model ) {
     ScreenView.call( this );
-    var self = this;
+    const self = this;
     this.model = model;
 
     // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
@@ -69,13 +69,13 @@ define( require => {
     );
 
     // dialog constructed lazily because Dialog requires Sim bounds during construction
-    var dialog = null;
+    let dialog = null;
 
-    var buttonContent = new Text( showRealCellsString, {
+    const buttonContent = new Text( showRealCellsString, {
       font: new PhetFont( 18 ),
       maxWidth: 140
     } );
-    var showRealCellsButton = new RectangularPushButton( {
+    const showRealCellsButton = new RectangularPushButton( {
       content: buttonContent,
       touchAreaXDilation: 7,
       touchAreaYDilation: 7,
@@ -99,7 +99,7 @@ define( require => {
     this.proteinLevelChartNode.left = showRealCellsButton.right + 10;
 
     // Add the Reset All button.
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
         concentrationControlPanel.expandedProperty.reset();
@@ -113,13 +113,13 @@ define( require => {
     this.addChild( resetAllButton );
 
     // Add play/pause button.
-    var playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
+    const playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
       radius: 23,
       touchAreaDilation: 5
     } );
     this.addChild( playPauseButton );
 
-    var stepButton = new StepForwardButton( {
+    const stepButton = new StepForwardButton( {
       isPlayingProperty: model.clockRunningProperty,
       listener: function() {
         model.stepInTime( 0.016 );
@@ -133,11 +133,11 @@ define( require => {
     playPauseButton.bottom = resetAllButton.bottom;
     stepButton.centerY = playPauseButton.centerY;
 
-    var cellLayer = new Node();
-    var invisibleCellLayer = new Node(); // for performance improvement load all cells at start of the sim
+    const cellLayer = new Node();
+    const invisibleCellLayer = new Node(); // for performance improvement load all cells at start of the sim
     this.addChild( cellLayer );
 
-    var cellNumberController = new ControllerNode(
+    const cellNumberController = new ControllerNode(
       model.numberOfVisibleCellsProperty,
       1,
       MultipleCellsModel.MaxCells,
@@ -145,10 +145,10 @@ define( require => {
       manyString
     );
 
-    var cellNumberControllerNode = new Node();
+    const cellNumberControllerNode = new Node();
     cellNumberControllerNode.addChild( cellNumberController );
 
-    var cellNumberLabel = new Text( cellsString, {
+    const cellNumberLabel = new Text( cellsString, {
       font: new PhetFont( { size: 15, weight: 'bold' } ),
       maxWidth: 100
     } );
@@ -157,7 +157,7 @@ define( require => {
     cellNumberLabel.centerX = cellNumberController.centerX;
     cellNumberLabel.bottom = cellNumberController.top - 5;
 
-    var cellNumberControllerPanel = new Panel( cellNumberControllerNode, {
+    const cellNumberControllerPanel = new Panel( cellNumberControllerNode, {
       cornerRadius: GEEConstants.CORNER_RADIUS,
       xMargin: 10,
       yMargin: 10,
@@ -168,10 +168,10 @@ define( require => {
     cellNumberControllerPanel.bottom = resetAllButton.bottom;
     cellNumberControllerPanel.centerX = this.proteinLevelChartNode.centerX;
 
-    var cellNodes = [];
+    const cellNodes = [];
 
-    for ( var i = 0; i < model.cellList.length; i++ ) {
-      var cellNode = new ColorChangingCellNode( model.cellList[ i ], this.modelViewTransform );
+    for ( let i = 0; i < model.cellList.length; i++ ) {
+      const cellNode = new ColorChangingCellNode( model.cellList[ i ], this.modelViewTransform );
       cellNodes.push( cellNode );
       invisibleCellLayer.addChild( cellNode );
     }
@@ -180,12 +180,12 @@ define( require => {
       cellLayer.addChild( cellNodes[ addedCellIndex ] );
 
       model.visibleCellList.addItemRemovedListener( function removalListener( removedCell ) {
-        var removedCellIndex = model.cellList.indexOf( removedCell );
+        const removedCellIndex = model.cellList.indexOf( removedCell );
         if ( removedCellIndex === addedCellIndex ) {
           cellLayer.removeChild( cellNodes[ addedCellIndex ] );
           model.visibleCellList.removeItemRemovedListener( removalListener );
           cellLayer.setScaleMagnitude( 1 );
-          var scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1 );
+          const scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1 );
           cellLayer.setScaleMagnitude( scaleFactor * 0.9 );
           cellLayer.centerX = self.proteinLevelChartNode.centerX;
           cellLayer.centerY = self.proteinLevelChartNode.bottom +
@@ -193,7 +193,7 @@ define( require => {
         }
       } );
       cellLayer.setScaleMagnitude( 1 );
-      var scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1 );
+      const scaleFactor = Math.min( ( cellNumberControllerPanel.top - self.proteinLevelChartNode.bottom ) / cellLayer.height, 1 );
       cellLayer.setScaleMagnitude( scaleFactor * 0.9 );
       cellLayer.centerX = self.proteinLevelChartNode.centerX;
       cellLayer.centerY = self.proteinLevelChartNode.bottom +
@@ -210,7 +210,7 @@ define( require => {
       addCellView( model.cellList.indexOf( cell ) );
     } );
 
-    var concentrationControllers = [
+    const concentrationControllers = [
       {
         label: positiveTranscriptionFactorString,
         controlProperty: model.transcriptionFactorLevelProperty,
@@ -236,7 +236,7 @@ define( require => {
       concentrationControllers
     );
 
-    var affinityControllers = [
+    const affinityControllers = [
       {
         label: positiveTranscriptionFactorString,
         controlProperty: model.transcriptionFactorAssociationProbabilityProperty,
@@ -262,7 +262,7 @@ define( require => {
       affinityControllers
     );
 
-    var degradationControllers = [
+    const degradationControllers = [
       {
         label: proteinString,
         controlProperty: model.proteinDegradationRateProperty,

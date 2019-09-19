@@ -22,8 +22,8 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
-  var HINT_STROKE = { lineJoin: 'bevel', lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
+  const HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
+  const HINT_STROKE = { lineJoin: 'bevel', lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
 
   /**
    *
@@ -33,11 +33,11 @@ define( require => {
    */
   function PlacementHintNode( modelViewTransform, placementHint ) {
 
-    var self = this;
+    const self = this;
     Node.call( this );
 
     // Create a transparent color based on the base color of the molecule.
-    var transparentColor = new Color(
+    const transparentColor = new Color(
       placementHint.getBaseColor().getRed(),
       placementHint.getBaseColor().getGreen(),
       placementHint.getBaseColor().getBlue(),
@@ -45,20 +45,20 @@ define( require => {
     );
 
     // create a transform that will be used to scale but not translate the placement hint's shape
-    var scaleOnlyTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    const scaleOnlyTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       Vector2.ZERO,
       modelViewTransform.getMatrix().getScaleVector().x
     );
 
-    var pathStyleOptions = _.extend( HINT_STROKE, {
+    const pathStyleOptions = _.extend( HINT_STROKE, {
       lineWidth: 2,
       lineDash: [  5, 5 ],
       fill: transparentColor,
       boundsMethod: 'unstroked'
     } );
 
-    var path = new Path( new Shape(), pathStyleOptions );
+    const path = new Path( new Shape(), pathStyleOptions );
     this.addChild( path );
 
     function handlePositionChanged( position ) {

@@ -22,9 +22,9 @@ define( require => {
   const Vector3 = require( 'DOT/Vector3' );
 
   // constants
-  var PRE_FADE_DRIFT_TIME = 1.5; // In seconds.
-  var FADE_AND_DRIFT_TIME = 1; // In seconds.
-  var PRE_TELEPORT_VELOCITY = 250; // In picometers per second.
+  const PRE_FADE_DRIFT_TIME = 1.5; // In seconds.
+  const FADE_AND_DRIFT_TIME = 1; // In seconds.
+  const PRE_TELEPORT_VELOCITY = 250; // In picometers per second.
 
   /**
    * @param {Vector2} wanderDirection
@@ -33,7 +33,7 @@ define( require => {
    * @constructor
    */
   function DriftThenTeleportMotionStrategy( wanderDirection, destinationZones, motionBoundsProperty ) {
-    var self = this;
+    const self = this;
     MotionStrategy.call( this );
 
     function handleMotionBoundsChanged( motionBounds ) {
@@ -74,11 +74,11 @@ define( require => {
     generateRandomPositionInBounds: function( destinationZones, bounds ) {
 
       // randomly choose one of the destination zones
-      var destinationBounds = phet.joist.random.sample( destinationZones );
+      const destinationBounds = phet.joist.random.sample( destinationZones );
 
       // generate a random valid location within the chosen zone
-      var reducedBoundsWidth = destinationBounds.getWidth() - bounds.getWidth();
-      var reducedBoundsHeight = destinationBounds.getHeight() - bounds.getHeight();
+      const reducedBoundsWidth = destinationBounds.getWidth() - bounds.getWidth();
+      const reducedBoundsHeight = destinationBounds.getHeight() - bounds.getHeight();
       assert && assert(
       reducedBoundsWidth > 0 && reducedBoundsHeight > 0,
         'earning: bounds cannot contain shape'
@@ -98,7 +98,7 @@ define( require => {
      * @public
      */
     getNextPosition: function( currentPosition, bounds, dt ) {
-      var position3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.x, 0 ), bounds, dt );
+      const position3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.x, 0 ), bounds, dt );
       return new Vector2( position3D.x, position3D.y );
     },
 
@@ -116,19 +116,19 @@ define( require => {
       if ( currentPosition.z <= -1 ) {
 
         // Time to teleport.
-        var destination2D = this.generateRandomPositionInBounds( this.destinationZones, bounds );
+        const destination2D = this.generateRandomPositionInBounds( this.destinationZones, bounds );
         return new Vector3( destination2D.x, destination2D.y, -1 );
       }
 
       // Determine movement for drift.
-      var xyMovement;
+      let xyMovement;
       if ( this.motionBounds.testIfInMotionBoundsWithDelta( bounds, this.velocityXY, dt ) ) {
         xyMovement = this.velocityXY.timesScalar( dt );
       }
       else {
         xyMovement = new Vector2( 0, 0 );
       }
-      var zMovement = 0;
+      let zMovement = 0;
       if ( this.preFadeCountdown > 0 ) {
 
         // In pre-fade state, so no movement in Z direction.

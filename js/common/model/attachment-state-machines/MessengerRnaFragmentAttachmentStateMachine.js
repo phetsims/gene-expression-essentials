@@ -20,12 +20,12 @@ define( require => {
   const StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/StillnessMotionStrategy' );
 
   // constants
-  var FADE_OUT_TIME = 3; // In seconds.
+  const FADE_OUT_TIME = 3; // In seconds.
 
   //------------------------------------------
   // States for this attachment state machine
   //------------------------------------------
-  var AttachedToDestroyerState = inherit(
+  const AttachedToDestroyerState = inherit(
 
     AttachmentState,
 
@@ -41,13 +41,13 @@ define( require => {
        * @param {AttachmentStateMachine} asm
        */
       entered: function( asm ) {
-        var biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+        const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
         biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
       }
     }
   );
 
-  var UnattachedAndFadingState = inherit(
+  const UnattachedAndFadingState = inherit(
 
     AttachmentState,
 
@@ -63,7 +63,7 @@ define( require => {
        * @param {AttachmentStateMachine} asm
        */
       entered: function( asm ) {
-        var biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+        const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
         assert && assert( biomolecule.existenceStrengthProperty.get() === 1 );
         biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
       },
@@ -74,7 +74,7 @@ define( require => {
        * @param {number} dt
        */
       step: function( asm, dt ) {
-        var biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+        const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
         biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
       }
     } );

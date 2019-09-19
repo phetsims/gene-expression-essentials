@@ -29,15 +29,15 @@ define( require => {
    */
   function ControlPanelNode( title, controllers ) {
 
-    var controllerNodes = [];
+    const controllerNodes = [];
 
-    for ( var i = 0; i < controllers.length; i++ ) {
-      var controller = controllers[ i ];
-      var label = new Text( controller.label, {
+    for ( let i = 0; i < controllers.length; i++ ) {
+      const controller = controllers[ i ];
+      const label = new Text( controller.label, {
         font: new PhetFont( { size: 13 } ),
         maxWidth: 200
       } );
-      var controllerNode = new ControllerNode(
+      const controllerNode = new ControllerNode(
         controller.controlProperty,
         controller.minValue,
         controller.maxValue,
@@ -56,7 +56,7 @@ define( require => {
       } );
     }
 
-    var contentNode = new VBox( {
+    const contentNode = new VBox( {
       spacing: 5,
       children: controllerNodes
     } );

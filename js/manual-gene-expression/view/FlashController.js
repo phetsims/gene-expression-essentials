@@ -23,7 +23,7 @@ define( require => {
    * @constructor
    */
   function FlashController( flashingNode, normalColor, flashColor, options ) {
-    var self = this;
+    const self = this;
 
     // variables used to implement the flashing behavior
     this.transitionCountdown = 0; // @private
@@ -35,7 +35,7 @@ define( require => {
     this.numFlashes = options.numFlashes; // @private
     this.timerHandle = null; // @private
 
-    var time = 0;
+    let time = 0;
 
     // @private
     this.timerListener = function() {

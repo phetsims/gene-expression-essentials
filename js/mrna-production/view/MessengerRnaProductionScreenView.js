@@ -32,7 +32,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var INSET = 10;  // Inset for several of the controls.
+  const INSET = 10;  // Inset for several of the controls.
 
   // strings
   const negativeTranscriptionFactorString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactor' );
@@ -45,10 +45,10 @@ define( require => {
 
     // due to odd behavior of flickering on this screen, we run it with preventFit
     ScreenView.call( this, { preventFit: true } );
-    var self = this;
+    const self = this;
     this.model = model;
     this.negativeTranscriptionFactorEnabled = new Property( false );
-    var viewPortPosition = new Vector2( this.layoutBounds.width * 0.48, this.layoutBounds.height * 0.4 );
+    const viewPortPosition = new Vector2( this.layoutBounds.width * 0.48, this.layoutBounds.height * 0.4 );
 
     // Set up the model-canvas transform.
     this.modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -63,21 +63,21 @@ define( require => {
     this.addChild( this.modelRootNode );
 
     // Add some layers for enforcing some z-order relationships needed in order to keep things looking good.
-    var dnaLayer = new Node();
+    const dnaLayer = new Node();
     this.modelRootNode.addChild( dnaLayer );
     dnaLayer.setPickable( false );
-    var messengerRnaLayer = new Node();
+    const messengerRnaLayer = new Node();
     messengerRnaLayer.setPickable( false );
     this.modelRootNode.addChild( messengerRnaLayer );
-    var transcribingPolymeraseLayer = new Node();
+    const transcribingPolymeraseLayer = new Node();
     transcribingPolymeraseLayer.setPickable( false );
     this.modelRootNode.addChild( transcribingPolymeraseLayer );
-    var topBiomoleculeLayer = new Node();
+    const topBiomoleculeLayer = new Node();
     topBiomoleculeLayer.setPickable( false );
     this.modelRootNode.addChild( topBiomoleculeLayer );
-    var placementHintLayer = new Node();
+    const placementHintLayer = new Node();
     this.modelRootNode.addChild( placementHintLayer );
-    var controlsNode = new Node();
+    const controlsNode = new Node();
     this.addChild( controlsNode );
 
     // Add the representation of the DNA strand.
@@ -85,24 +85,24 @@ define( require => {
     dnaLayer.addChild( this.dnaMoleculeNode );
 
     // Get a reference to the gene being controlled.
-    var gene = model.getDnaMolecule().getGenes()[ 0 ];
+    const gene = model.getDnaMolecule().getGenes()[ 0 ];
 
     // Add the nodes that allow the user to control the concentrations and affinities.
-    var positiveTranscriptionFactorControlPanel = new TranscriptionFactorControlPanel(
+    const positiveTranscriptionFactorControlPanel = new TranscriptionFactorControlPanel(
       model,
       MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
       gene.getTranscriptionFactorAffinityProperty( MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG )
     );
     controlsNode.addChild( positiveTranscriptionFactorControlPanel );
 
-    var polymeraseAffinityControlPanel = new PolymeraseAffinityControlPanel(
+    const polymeraseAffinityControlPanel = new PolymeraseAffinityControlPanel(
       MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
       positiveTranscriptionFactorControlPanel.bounds.height,
       gene.getPolymeraseAffinityProperty()
     );
     controlsNode.addChild( polymeraseAffinityControlPanel );
 
-    var negativeTranscriptionFactorControlPanel = new TranscriptionFactorControlPanel(
+    const negativeTranscriptionFactorControlPanel = new TranscriptionFactorControlPanel(
       model,
       MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG,
       gene.getTranscriptionFactorAffinityProperty( MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG )
@@ -110,7 +110,7 @@ define( require => {
     controlsNode.addChild( negativeTranscriptionFactorControlPanel );
 
     // Add the checkbox for showing/hiding the control panel for the negative transcription factor.
-    var negativeFactorEnabledCheckbox = new Checkbox(
+    const negativeFactorEnabledCheckbox = new Checkbox(
       new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ), maxWidth: 275 } ),
       this.negativeTranscriptionFactorEnabled,
       { boxWidth: 20 }
@@ -127,14 +127,14 @@ define( require => {
     } );
 
     // Add the play/pause button.
-    var playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
+    const playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
       radius: 23,
       touchAreaDilation: 5
     } );
     this.addChild( playPauseButton );
 
     // Add the step button.
-    var stepButton = new StepForwardButton( {
+    const stepButton = new StepForwardButton( {
       isPlayingProperty: model.clockRunningProperty,
       listener: function() { model.stepInTime( 0.016 ); },
       radius: 15,
@@ -143,7 +143,7 @@ define( require => {
     this.addChild( stepButton );
 
     // Add the Reset All button.
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: function() {
         self.model.reset();
         self.negativeTranscriptionFactorEnabled.reset();
@@ -174,7 +174,7 @@ define( require => {
 
     // define a function for adding views of biomolecules
     function addBiomoleculeView( addedBiomolecule ) {
-      var biomoleculeNode = new MobileBiomoleculeNode( self.modelViewTransform, addedBiomolecule );
+      const biomoleculeNode = new MobileBiomoleculeNode( self.modelViewTransform, addedBiomolecule );
 
       // On this screen, users can't directly interact with individual biomolecules.
       biomoleculeNode.setPickable( false );
@@ -182,7 +182,7 @@ define( require => {
 
       // Add a listener that moves the child on to a lower layer when it connects to the DNA so that we see the desired
       // overlap behavior.
-      var positionBiomolecule = function( attachedToDna ) {
+      const positionBiomolecule = function( attachedToDna ) {
         if ( attachedToDna ) {
           if ( topBiomoleculeLayer.hasChild( biomoleculeNode ) ) {
             topBiomoleculeLayer.removeChild( biomoleculeNode );
@@ -226,7 +226,7 @@ define( require => {
     // Watch for and handle comings and goings of messenger RNA.
     model.messengerRnaList.addItemAddedListener( function( addedMessengerRna ) {
 
-      var messengerRnaNode = new MessengerRnaNode( self.modelViewTransform, addedMessengerRna );
+      const messengerRnaNode = new MessengerRnaNode( self.modelViewTransform, addedMessengerRna );
       messengerRnaLayer.addChild( messengerRnaNode );
 
       model.messengerRnaList.addItemRemovedListener( function removalListener( removedMessengerRna ) {

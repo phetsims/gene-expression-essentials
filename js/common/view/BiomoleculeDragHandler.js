@@ -22,7 +22,7 @@ define( require => {
    * @constructor
    */
   function BiomoleculeDragHandler( biomolecule, modelViewTransform ) {
-    var self = this;
+    const self = this;
     SimpleDragHandler.call( self, {
       allowTouchSnag: true,
 
@@ -32,7 +32,7 @@ define( require => {
       },
 
       translate: function( translationParams ) {
-        var modelDelta = modelViewTransform.viewToModelDelta( translationParams.delta );
+        const modelDelta = modelViewTransform.viewToModelDelta( translationParams.delta );
         biomolecule.translate( modelDelta.x, modelDelta.y );
       },
 

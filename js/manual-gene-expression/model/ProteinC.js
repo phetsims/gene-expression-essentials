@@ -21,8 +21,8 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var BASE_COLOR = new Color( 57, 255, 20 );
-  var FULL_GROWN_WIDTH = 320;
+  const BASE_COLOR = new Color( 57, 255, 20 );
+  const FULL_GROWN_WIDTH = 320;
 
   /**
    * @param {GeneExpressionModel} model
@@ -92,11 +92,11 @@ define( require => {
      * @private
      */
     createShape: function( growthFactor ) {
-      var currentWidth = Util.clamp( growthFactor, 0.01, 1 ) * FULL_GROWN_WIDTH;
-      var currentHeight = currentWidth * 1.4;
-      var path = new Shape();
-      var topAndBottomCurveMultiplier = 0.55;
-      var sideCurvesMultiplier = 0.40;
+      const currentWidth = Util.clamp( growthFactor, 0.01, 1 ) * FULL_GROWN_WIDTH;
+      const currentHeight = currentWidth * 1.4;
+      const path = new Shape();
+      const topAndBottomCurveMultiplier = 0.55;
+      const sideCurvesMultiplier = 0.40;
       // Start in the upper left and proceed clockwise in adding segments.
       path.moveTo( -currentWidth * 0.45, currentHeight * 0.45 );
       path.cubicCurveTo( -currentWidth * 0.33, currentHeight * topAndBottomCurveMultiplier, currentWidth * 0.3, currentHeight * topAndBottomCurveMultiplier, currentWidth * 0.45, currentHeight * 0.45 );

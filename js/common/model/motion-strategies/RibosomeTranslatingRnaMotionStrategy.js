@@ -39,7 +39,7 @@ define( require => {
      * @public
      */
     getNextPosition: function( currentPosition, bounds, dt ) {
-      var ribosomeAttachmentPoint = this.messengerRna.getRibosomeGenerateInitialPosition3D( this.ribosome );
+      const ribosomeAttachmentPoint = this.messengerRna.getRibosomeGenerateInitialPosition3D( this.ribosome );
       return ribosomeAttachmentPoint.minus( this.ribosome.offsetToTranslationChannelEntrance );
     }
   } );

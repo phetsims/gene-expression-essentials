@@ -38,8 +38,8 @@ define( require => {
       trackSize: new Dimension2( 100, 5 )
     }, options );
 
-    var range;
-    var passThroughController;
+    let range;
+    let passThroughController;
     if ( options.logScale ) {
       range = new Range( Math.log( minValue ) / Math.LN10, Math.log( maxValue ) / Math.LN10 );
       passThroughController = new Property( Math.log( controller.get() ) / Math.LN10, { reentrant: true } );
@@ -70,13 +70,13 @@ define( require => {
       }
     } );
 
-    var tickLabelOptions = {
+    const tickLabelOptions = {
       font: new PhetFont( 12 ),
       pickable: false,
       maxWidth: 50
     };
 
-    var slider = new HSlider( passThroughController, range, {
+    const slider = new HSlider( passThroughController, range, {
       trackSize: options.trackSize,
       thumbSize: new Dimension2( 15, 30 ),
       majorTickLength: 15,

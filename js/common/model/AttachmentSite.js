@@ -20,7 +20,7 @@ define( require => {
   const Range = require( 'DOT/Range' );
 
   // constants
-  var ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
+  const ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
 
   /**
    * @param {Object} owner - the molecule upon which this attachment site exists
@@ -79,7 +79,7 @@ define( require => {
 
       if ( !( obj instanceof AttachmentSite ) ) { return false; }
 
-      var otherAttachmentSite = obj;
+      const otherAttachmentSite = obj;
 
       return (this.affinityProperty.get() === otherAttachmentSite.affinityProperty.get() ) &&
              this.positionProperty.get().equals( otherAttachmentSite.positionProperty.get() );

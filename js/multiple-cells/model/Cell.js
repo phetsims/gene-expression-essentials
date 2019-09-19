@@ -21,17 +21,17 @@ define( require => {
   const ShapeChangingModelElement = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeChangingModelElement' );
 
   // Default size for a cell.
-  var DEFAULT_CELL_SIZE = new Dimension2( 2E-6, 0.75E-6 ); // In meters.
+  const DEFAULT_CELL_SIZE = new Dimension2( 2E-6, 0.75E-6 ); // In meters.
 
   // Protein level at which the cell color starts to change. This is meant to make the cell act as though the protein
   // being produced is florescent.
-  var PROTEIN_LEVEL_WHERE_COLOR_CHANGE_STARTS = 50;
+  const PROTEIN_LEVEL_WHERE_COLOR_CHANGE_STARTS = 50;
 
   // Protein level at which the color change (towards the florescent color) is complete.
-  var PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES = 150;
+  const PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES = 150;
 
   // Default E-Coli like shape for performance improvement and we make copy of it and rotate for different instances
-  var E_COLI_LLIKE_SHAPE = BioShapeUtils.createEColiLikeShape( DEFAULT_CELL_SIZE.width, DEFAULT_CELL_SIZE.height );
+  const E_COLI_LLIKE_SHAPE = BioShapeUtils.createEColiLikeShape( DEFAULT_CELL_SIZE.width, DEFAULT_CELL_SIZE.height );
 
   /**
    * @param {number} rotationAngle rotation for the cell in model space
@@ -70,7 +70,7 @@ define( require => {
      * @returns {Shape}
      */
     createShape: function( rotationAngle ) {
-      var eColiShape = E_COLI_LLIKE_SHAPE.copy();
+      const eColiShape = E_COLI_LLIKE_SHAPE.copy();
       // rotate and return
       return eColiShape.transformed( Matrix3.rotation2( rotationAngle ) );
     },

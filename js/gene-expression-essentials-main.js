@@ -18,7 +18,7 @@ define( require => {
   // strings
   const geneExpressionEssentialsTitleString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene-expression-essentials.title' );
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Steele Dalton, John Blanco',
       softwareDevelopment: 'John Blanco, Aadish Gupta, Sharfudeen Ashraf, George Emanuel',
@@ -29,7 +29,7 @@ define( require => {
 
   // we are go for launch
   SimLauncher.launch( function() {
-    var sim = new Sim( geneExpressionEssentialsTitleString,
+    const sim = new Sim( geneExpressionEssentialsTitleString,
       [
         new ManualGeneExpressionScreen(),
         new MessengerRnaProductionScreen(),

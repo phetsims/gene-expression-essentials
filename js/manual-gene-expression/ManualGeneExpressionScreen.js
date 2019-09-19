@@ -31,7 +31,7 @@ define( require => {
    */
   function ManualGeneExpressionScreen() {
 
-    var options = {
+    const options = {
       name: screenExpressionString,
       backgroundColorProperty: new Property( '#ABCBDB' ),
       homeScreenIcon: new Image( manualGeneExpressionIcon ),

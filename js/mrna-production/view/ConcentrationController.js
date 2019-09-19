@@ -41,12 +41,12 @@ define( require => {
   function ConcentrationController( transcriptionFactorConfig, tfLevelProperty, min, max ) {
     Node.call( this );
 
-    var captionNode = new Text( concentrationString, {
+    const captionNode = new Text( concentrationString, {
       font: new PhetFont( { size: 14, weight: 'bold' } ),
       maxWidth: 180
     } );
 
-    var molecule = new MobileBiomoleculeNode( GEEConstants.TRANSCRIPTION_FACTOR_MVT,
+    const molecule = new MobileBiomoleculeNode( GEEConstants.TRANSCRIPTION_FACTOR_MVT,
       new TranscriptionFactor( new StubGeneExpressionModel(), transcriptionFactorConfig ) );
     molecule.setPickable( false );
 

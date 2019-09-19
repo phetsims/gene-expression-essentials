@@ -25,8 +25,8 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var ARROW_LENGTH = 30;
-  var ARROW_HEAD_HEIGHT = 10;
+  const ARROW_LENGTH = 30;
+  const ARROW_HEAD_HEIGHT = 10;
 
   // strings
   const affinityString = require( 'string!GENE_EXPRESSION_ESSENTIALS/affinity' );
@@ -41,26 +41,26 @@ define( require => {
    */
   function AffinityController( leftNode, rightNode, affinityProperty ) {
     Node.call( this );
-    var captionNode = new Text( affinityString, {
+    const captionNode = new Text( affinityString, {
       font: new PhetFont( { size: 14, weight: 'bold' } ),
       maxWidth: 180
     } );
-    var arrowTail = new Vector2( 0, 0 );
-    var arrowTip = new Vector2( ARROW_LENGTH, 0 );
-    var arrowOptions = {
+    const arrowTail = new Vector2( 0, 0 );
+    const arrowTip = new Vector2( ARROW_LENGTH, 0 );
+    const arrowOptions = {
       doubleHead: true,
       headHeight: ARROW_HEAD_HEIGHT / 2,
       headWidth: ARROW_HEAD_HEIGHT,
       tailWidth: ARROW_HEAD_HEIGHT / 3
     };
-    var arrowNode = new ArrowNode( arrowTail.x, arrowTail.y, arrowTip.x, arrowTip.y, arrowOptions );
-    var affinityKey = new HBox( {
+    const arrowNode = new ArrowNode( arrowTail.x, arrowTail.y, arrowTip.x, arrowTip.y, arrowOptions );
+    const affinityKey = new HBox( {
       children: [ leftNode, arrowNode, rightNode ],
       spacing: 10
     } );
     affinityKey.setPickable( false );
 
-    var horizontalSlider = new ControllerNode(
+    const horizontalSlider = new ControllerNode(
       affinityProperty,
       0,
       1,

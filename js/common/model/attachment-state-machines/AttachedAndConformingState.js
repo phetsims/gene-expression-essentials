@@ -43,9 +43,9 @@ define( require => {
      */
     step: function( asm, dt ) {
 
-      var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
-      var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
-      var attachedAndTranscribingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndTranscribingState;
+      const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+      const dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
+      const attachedAndTranscribingState = this.rnaPolymeraseAttachmentStateMachine.attachedAndTranscribingState;
 
       // Verify that state is consistent.
       assert && assert( asm.attachmentSite !== null );
@@ -68,8 +68,8 @@ define( require => {
      * @public
      */
     entered: function( asm ) {
-      var rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
-      var dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
+      const rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
+      const dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
 
       // Prevent user interaction.
       asm.biomolecule.movableByUserProperty.set( false );

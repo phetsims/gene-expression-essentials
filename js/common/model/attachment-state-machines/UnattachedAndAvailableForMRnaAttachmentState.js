@@ -46,7 +46,7 @@ define( require => {
      * @public
      */
     step: function( enclosingStateMachine, dt ) {
-      var gsm = enclosingStateMachine;
+      const gsm = enclosingStateMachine;
 
       // verify that state is consistent
       assert && assert( gsm.attachmentSite === null );

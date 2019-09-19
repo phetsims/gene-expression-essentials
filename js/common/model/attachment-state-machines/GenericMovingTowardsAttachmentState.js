@@ -32,14 +32,14 @@ define( require => {
      */
     step: function( enclosingStateMachine, dt ) {
 
-      var gsm = enclosingStateMachine;
+      const gsm = enclosingStateMachine;
 
       // verify that state is consistent
       assert && assert( gsm.attachmentSite !== null );
       assert && assert( gsm.attachmentSite.attachedOrAttachingMoleculeProperty.get() === this.genericAttachmentStateMachine.biomolecule );
 
       // calculate the position where this biomolecule must be in order to attach to the attachment site
-      var destination = new Vector2(
+      const destination = new Vector2(
         gsm.attachmentSite.positionProperty.get().x - gsm.destinationOffset.x,
         gsm.attachmentSite.positionProperty.get().y - gsm.destinationOffset.y
       );

@@ -15,7 +15,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  var ShapeUtils = {
+  const ShapeUtils = {
 
     /**
      * Creates a rounded shape from a set of points. The points must be in an order that, if connected by straight lines,
@@ -27,15 +27,15 @@ define( require => {
      * @public
      */
     createRoundedShapeFromPoints: function( points, existingShape ) {
-      var shape = existingShape || new Shape();
+      const shape = existingShape || new Shape();
       shape.moveToPoint( points[ 0 ] );
-      var cp1 = Vector2.dirtyFromPool();
-      var cp2 = Vector2.dirtyFromPool();
-      for ( var i = 0; i < points.length; i++ ) {
-        var segmentStartPoint = points[ i ];
-        var segmentEndPoint = points[ ( i + 1 ) % points.length ];
-        var previousPoint = points[ i - 1 >= 0 ? i - 1 : points.length - 1 ];
-        var nextPoint = points[ ( i + 2 ) % points.length ];
+      let cp1 = Vector2.dirtyFromPool();
+      let cp2 = Vector2.dirtyFromPool();
+      for ( let i = 0; i < points.length; i++ ) {
+        const segmentStartPoint = points[ i ];
+        const segmentEndPoint = points[ ( i + 1 ) % points.length ];
+        const previousPoint = points[ i - 1 >= 0 ? i - 1 : points.length - 1 ];
+        const nextPoint = points[ ( i + 2 ) % points.length ];
         cp1 = this.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint, cp1 );
         cp2 = this.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint, cp2 );
         shape.cubicCurveTo( cp1.x, cp1.y, cp2.x, cp2.y, segmentEndPoint.x, segmentEndPoint.y );
@@ -57,8 +57,8 @@ define( require => {
      * @public
      */
     extrapolateControlPoint: function( x, y, z, cp ) {
-      var xz_x = 0.25 * ( z.x - x.x );
-      var xz_y = 0.25 * ( z.y - x.y );
+      const xz_x = 0.25 * ( z.x - x.x );
+      const xz_y = 0.25 * ( z.y - x.y );
       return( cp.setXY( y.x + xz_x, y.y + xz_y ) );
     }
   };

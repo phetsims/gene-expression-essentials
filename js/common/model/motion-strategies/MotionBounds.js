@@ -60,7 +60,7 @@ define( require => {
      * @private
      */
     inOffLimitMotionSpace: function( bounds ) {
-      var flag = false;
+      let flag = false;
       this.offLimitMotionSpaces.forEach( function( offLimitMotionSpace ) {
         if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {
           flag = true;
@@ -112,8 +112,8 @@ define( require => {
      * @public
      */
     testIfInMotionBounds: function( bounds, proposedPosition ) {
-      var shapeCenter = bounds.getCenter();
-      var translationVector = proposedPosition.minus( shapeCenter );
+      const shapeCenter = bounds.getCenter();
+      const translationVector = proposedPosition.minus( shapeCenter );
       return this.inBounds( bounds.shifted( translationVector.x, translationVector.y ) );
     }
   } );

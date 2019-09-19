@@ -17,11 +17,11 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var LENGTH_PER_TWIST = 340;// In picometers
-  var BASE_PAIRS_PER_TWIST = 10;// In picometers.
-  var INTER_POINT_DISTANCE = 75;// In picometers
+  const LENGTH_PER_TWIST = 340;// In picometers
+  const BASE_PAIRS_PER_TWIST = 10;// In picometers.
+  const INTER_POINT_DISTANCE = 75;// In picometers
 
-  var GEEConstants = {
+  const GEEConstants = {
 
     // max DT value, used by all screens now, but this doesn't need to be the case
     MAX_DT: ( 1 / 60 ) * 10,

@@ -20,22 +20,22 @@ define( require => {
   const Vector3 = require( 'DOT/Vector3' );
 
   // constants
-  var MIN_XY_VELOCITY = 200; // In picometers/s
-  var MAX_XY_VELOCITY = 400; // In picometers/s
-  var MIN_Z_VELOCITY = 0.3; // In normalized units per sec
-  var MAX_Z_VELOCITY = 0.6; // In normalized units per sec
-  var MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
-  var MAX_TIME_IN_ONE_DIRECTION = 0.8; // In seconds.
+  const MIN_XY_VELOCITY = 200; // In picometers/s
+  const MAX_XY_VELOCITY = 400; // In picometers/s
+  const MIN_Z_VELOCITY = 0.3; // In normalized units per sec
+  const MAX_Z_VELOCITY = 0.6; // In normalized units per sec
+  const MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
+  const MAX_TIME_IN_ONE_DIRECTION = 0.8; // In seconds.
 
   // Vector used for intermediate calculations - Added to avoid excessive creation of Vector3 instances - Ashraf
-  var nextPosition3DScratchVector = new Vector3( 0, 0, 0 );
+  const nextPosition3DScratchVector = new Vector3( 0, 0, 0 );
 
   /**
    * @param {Property} motionBoundsProperty
    * @constructor
    */
   function RandomWalkMotionStrategy( motionBoundsProperty ) {
-    var self = this;
+    const self = this;
     MotionStrategy.call( self );
     this.directionChangeCountdown = 0; // @private
     this.currentMotionVector2D = new Vector2( 0, 0 ); // @private
@@ -76,7 +76,7 @@ define( require => {
       nextPosition3DScratchVector.x = currentPosition.x;
       nextPosition3DScratchVector.y = currentPosition.y;
       nextPosition3DScratchVector.z = 0;
-      var position3D = this.getNextPosition3D( nextPosition3DScratchVector, bounds, dt );
+      const position3D = this.getNextPosition3D( nextPosition3DScratchVector, bounds, dt );
       return new Vector2( position3D.x, position3D.y );
     },
 
@@ -102,8 +102,8 @@ define( require => {
       if ( this.directionChangeCountdown <= 0 ) {
 
         // Time to change direction.
-        var newXYVelocity = MIN_XY_VELOCITY + phet.joist.random.nextDouble() * ( MAX_XY_VELOCITY - MIN_XY_VELOCITY );
-        var newXYAngle = Math.PI * 2 * phet.joist.random.nextDouble();
+        const newXYVelocity = MIN_XY_VELOCITY + phet.joist.random.nextDouble() * ( MAX_XY_VELOCITY - MIN_XY_VELOCITY );
+        const newXYAngle = Math.PI * 2 * phet.joist.random.nextDouble();
         this.currentMotionVector2D = Vector2.createPolar( newXYVelocity, newXYAngle );
         this.currentZVelocity = MIN_Z_VELOCITY + phet.joist.random.nextDouble() * ( MAX_Z_VELOCITY - MIN_Z_VELOCITY );
         this.currentZVelocity = phet.joist.random.nextBoolean() ? -this.currentZVelocity : this.currentZVelocity;
@@ -124,7 +124,7 @@ define( require => {
 
       // To prevent odd-looking situations, the Z direction is limited so that biomolecules don't appear transparent
       // when on top of the DNA molecule.
-      var minZ = this.getMinZ( bounds, currentPosition );
+      const minZ = this.getMinZ( bounds, currentPosition );
 
       // Calculate the next position based on current motion.
       return new Vector3(

@@ -37,11 +37,11 @@ define( require => {
   // constants
   // Stage size for the mobile biomolecules, which is basically the area in which the molecules can move. These are
   // empirically determined such that the molecules don't move off of the screen when looking at a given gene.
-  var BIOMOLECULE_STAGE_WIDTH = 10000; // In picometers.
-  var BIOMOLECULE_STAGE_HEIGHT = 6000; // In picometers.
+  const BIOMOLECULE_STAGE_WIDTH = 10000; // In picometers.
+  const BIOMOLECULE_STAGE_HEIGHT = 6000; // In picometers.
 
   // size of the DNA strand
-  var NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
+  const NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
 
   /**
    * @constructor
@@ -163,8 +163,8 @@ define( require => {
      * @private
      */
     switchToGeneRelative: function( i ) {
-      var genes = this.dnaMolecule.getGenes();
-      var index = Util.clamp( 0, genes.indexOf( this.activeGeneProperty.get() ) + i, genes.length - 1 );
+      const genes = this.dnaMolecule.getGenes();
+      const index = Util.clamp( 0, genes.indexOf( this.activeGeneProperty.get() ) + i, genes.length - 1 );
       this.activeGeneProperty.set( genes[ index ] );
     },
 
@@ -182,7 +182,7 @@ define( require => {
      * @public
      */
     addMobileBiomolecule: function( mobileBiomolecule ) {
-      var self = this;
+      const self = this;
       self.mobileBiomoleculeList.add( mobileBiomolecule );
       mobileBiomolecule.setMotionBounds( self.getBoundsForActiveGene() );
 
@@ -234,7 +234,7 @@ define( require => {
      */
     getOverlappingBiomolecules: function( testShapeBounds ) {
 
-      var overlappingBiomolecules = [];
+      const overlappingBiomolecules = [];
 
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         if ( mobileBiomolecule.bounds.intersectsBounds( testShapeBounds ) ) {
@@ -272,7 +272,7 @@ define( require => {
      * @public
      */
     getProteinCount: function( proteinClassType ) {
-      var count = 0;
+      let count = 0;
       this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
         if ( mobileBiomolecule instanceof proteinClassType ) {
           count++;
@@ -337,9 +337,9 @@ define( require => {
      * @public
      */
     addOffLimitsMotionSpace: function( newOffLimitsSpace ) {
-      for ( var i = 0; i < this.offLimitsMotionSpaces.length; i++ ) {
+      for ( let i = 0; i < this.offLimitsMotionSpaces.length; i++ ) {
 
-        var offLimitsMotionSpace = this.offLimitsMotionSpaces[ i ];
+        const offLimitsMotionSpace = this.offLimitsMotionSpaces[ i ];
         if ( offLimitsMotionSpace.equals( newOffLimitsSpace ) ) {
           // An equivalent space already exists, so don't bother adding this one.
           return;
@@ -357,15 +357,15 @@ define( require => {
     getBoundsForActiveGene: function() {
 
       // The bottom bounds are intended to be roughly at the bottom of the viewport.  The value was empirically determined.
-      var bottomYPos = GEEConstants.DNA_MOLECULE_Y_POS - 2100;
+      const bottomYPos = GEEConstants.DNA_MOLECULE_Y_POS - 2100;
 
       // Get the nominal bounds for this gene.
-      var bounds = new Bounds2( this.activeGeneProperty.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
+      const bounds = new Bounds2( this.activeGeneProperty.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2,
         bottomYPos,
         this.activeGeneProperty.get().getCenterX() - BIOMOLECULE_STAGE_WIDTH / 2 + BIOMOLECULE_STAGE_WIDTH,
         bottomYPos + BIOMOLECULE_STAGE_HEIGHT );
 
-      var motionBounds = new MotionBounds( bounds );
+      const motionBounds = new MotionBounds( bounds );
       // Subtract off any off limits areas.
       this.offLimitsMotionSpaces.forEach( function( offLimitMotionSpace ) {
         if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {

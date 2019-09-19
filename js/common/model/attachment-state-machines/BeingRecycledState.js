@@ -49,8 +49,8 @@ define( require => {
       // Verify that state is consistent.
       assert && assert( asm.attachmentSite === null );
 
-      var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
-      var unattachedAndAvailableState = this.rnaPolymeraseAttachmentStateMachine.unattachedAndAvailableState;
+      const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+      const unattachedAndAvailableState = this.rnaPolymeraseAttachmentStateMachine.unattachedAndAvailableState;
 
       if ( this.rnaPolymeraseAttachmentStateMachine.pointContainedInBoundsList(
           asm.biomolecule.getPosition(), this.recycleReturnZones
@@ -68,7 +68,7 @@ define( require => {
      * @public
      */
     entered: function( asm ) {
-      var biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+      const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
 
       // Prevent user interaction.
       asm.biomolecule.movableByUserProperty.set( false );

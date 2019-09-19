@@ -20,7 +20,7 @@ define( require => {
   const WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
 
   // constants
-  var HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.
+  const HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.
 
   /**
    * @param {TranscriptionFactorAttachmentStateMachine} transcriptionFactorAttachmentStateMachine
@@ -50,7 +50,7 @@ define( require => {
       // Map affinity to a half life. Units are in seconds. This formula can be tweaked as needed in order to make the
       // half life longer or shorter. However, zero affinity should always map to zero half life, and an affinity of one
       // should always map to an infinite half life.
-      var halfLife = HALF_LIFE_FOR_HALF_AFFINITY * ( affinity / ( 1 - affinity ) );
+      const halfLife = HALF_LIFE_FOR_HALF_AFFINITY * ( affinity / ( 1 - affinity ) );
 
       // Use standard half-life formula to decide on probability of detachment.
       return 1 - Math.exp( -0.693 * dt / halfLife );
@@ -61,7 +61,7 @@ define( require => {
      * @private
      */
     detachFromDnaMolecule: function( asm ) {
-      var biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
+      const biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
       asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       asm.attachmentSite = null;
       asm.setState( this.transcriptionFactorAttachmentStateMachine.unattachedButUnavailableState );
@@ -78,10 +78,10 @@ define( require => {
      * @public
      */
     step: function( asm, dt ) {
-      var attachmentSite = this.transcriptionFactorAttachmentStateMachine.attachmentSite;
-      var detachFromDnaThreshold = this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold;
-      var biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
-      var movingTowardsAttachmentState = this.transcriptionFactorAttachmentStateMachine.movingTowardsAttachmentState;
+      let attachmentSite = this.transcriptionFactorAttachmentStateMachine.attachmentSite;
+      const detachFromDnaThreshold = this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold;
+      const biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
+      const movingTowardsAttachmentState = this.transcriptionFactorAttachmentStateMachine.movingTowardsAttachmentState;
 
       // Decide whether or not to detach from the current attachment site.
       if ( phet.joist.random.nextDouble() > ( 1 - this.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
@@ -96,7 +96,7 @@ define( require => {
         else {
 
           // Move to an adjacent base pair. Start by making a list of candidate base pairs.
-          var attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesTranscriptionFactor( biomolecule, asm.attachmentSite );
+          let attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesTranscriptionFactor( biomolecule, asm.attachmentSite );
 
           // Eliminate sites that, if moved to, would put the biomolecule out of bounds.
           //var clonedAttachmentSites = [].concat( attachmentSites );

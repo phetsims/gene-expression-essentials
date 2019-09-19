@@ -20,7 +20,7 @@ define( require => {
   const ShapeUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeUtils' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  var BioShapeUtils = {
+  const BioShapeUtils = {
     /**
      * Create a distorted shape from a list of points.  This is useful when trying to animate some sort of deviation
      * from a basic shape.
@@ -34,21 +34,21 @@ define( require => {
      * @public
      */
     createdDistortedRoundedShapeFromPoints: function( points, distortionFactor, randomNumberSeed ) {
-      var rand = new Random( {
+      const rand = new Random( {
         seed: randomNumberSeed
       } );
 
       // Alter the positions of the points that define the shape in order to define a distorted version of the shape.
-      var alteredPoints = [];
+      const alteredPoints = [];
 
-      for ( var i = 0; i < points.length; i++ ) {
-        var pointAsVector = points[ i ].copy();
+      for ( let i = 0; i < points.length; i++ ) {
+        const pointAsVector = points[ i ].copy();
         pointAsVector.multiplyScalar( 1 + ( rand.nextDouble() - 0.5 ) * distortionFactor );
         alteredPoints.push( pointAsVector );
       }
 
       // Create the basis for the new shape.
-      var distortedShape = ShapeUtils.createRoundedShapeFromPoints( alteredPoints );
+      const distortedShape = ShapeUtils.createRoundedShapeFromPoints( alteredPoints );
 
       return distortedShape;
     },
@@ -65,19 +65,19 @@ define( require => {
      */
     createRandomShapeFromPoints: function( points, seed ) {
 
-      var shape = new Shape();
-      var rand = new Random( {
+      const shape = new Shape();
+      const rand = new Random( {
         seed: seed
       } );
-      var cp1 = Vector2.dirtyFromPool();
-      var cp2 = Vector2.dirtyFromPool();
+      let cp1 = Vector2.dirtyFromPool();
+      let cp2 = Vector2.dirtyFromPool();
 
       shape.moveToPoint( points[ 0 ] );
-      for ( var i = 0; i < points.length; i++ ) {
-        var segmentStartPoint = points[ i ];
-        var segmentEndPoint = points[ ( i + 1 ) % points.length ];
-        var previousPoint = points[ i - 1 >= 0 ? i - 1 : points.length - 1 ];
-        var nextPoint = points[ ( i + 2 ) % points.length ];
+      for ( let i = 0; i < points.length; i++ ) {
+        const segmentStartPoint = points[ i ];
+        const segmentEndPoint = points[ ( i + 1 ) % points.length ];
+        const previousPoint = points[ i - 1 >= 0 ? i - 1 : points.length - 1 ];
+        const nextPoint = points[ ( i + 2 ) % points.length ];
         cp1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint, cp1 );
         cp2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint,cp2 );
         if ( rand.nextBoolean() ) {
@@ -102,23 +102,23 @@ define( require => {
      * @public
      */
     createRandomShape: function( size, seed ) {
-      var pointList = [];
-      var rand = new Random( {
+      const pointList = [];
+      const rand = new Random( {
         seed: seed
       } );
       // Create a series of points that will enclose a space.
-      for ( var angle = 0; angle < 1.9 * Math.PI; angle += Math.PI / 10 + rand.nextDouble() * Math.PI / 10 ) {
+      for ( let angle = 0; angle < 1.9 * Math.PI; angle += Math.PI / 10 + rand.nextDouble() * Math.PI / 10 ) {
         pointList.push( Vector2.createPolar( 0.5 + rand.nextDouble(), angle ) );
       }
 
-      var unscaledShape = this.createRandomShapeFromPoints( pointList, seed );
-      var unscaledShapeBounds = unscaledShape.bounds;
+      const unscaledShape = this.createRandomShapeFromPoints( pointList, seed );
+      const unscaledShapeBounds = unscaledShape.bounds;
 
       // Scale the shape to the specified size.
-      var horizontalScale = size.width / unscaledShapeBounds.width;
-      var verticalScale = size.height / unscaledShapeBounds.height;
+      const horizontalScale = size.width / unscaledShapeBounds.width;
+      const verticalScale = size.height / unscaledShapeBounds.height;
 
-      var scaledMatrix = Matrix3.scaling( horizontalScale, verticalScale );
+      const scaledMatrix = Matrix3.scaling( horizontalScale, verticalScale );
       return unscaledShape.transformed( scaledMatrix );
     },
 
@@ -133,10 +133,10 @@ define( require => {
       assert && assert( points.length > 0 );
 
       // Control points, used throughout the code below for curving the line.
-      var cp1  = Vector2.dirtyFromPool();
-      var cp2  = Vector2.dirtyFromPool();
+      let cp1  = Vector2.dirtyFromPool();
+      let cp2  = Vector2.dirtyFromPool();
 
-      var path = new Shape();
+      const path = new Shape();
       path.moveTo( points[ 0 ].x, points[ 0 ].y );
       if ( points.length === 1 || points.length === 2 ) {
 
@@ -150,11 +150,11 @@ define( require => {
       path.quadraticCurveTo( cp1.x, cp1.y, points[ 1 ].x, points[ 1 ].y );
 
       // create the middle segments
-      for ( var i = 1; i < points.length - 2; i++ ) {
-        var segmentStartPoint = points[ i ];
-        var segmentEndPoint = points[ i + 1 ];
-        var previousPoint = points[ i - 1 ];
-        var nextPoint = points[ ( i + 2 ) ];
+      for ( let i = 1; i < points.length - 2; i++ ) {
+        const segmentStartPoint = points[ i ];
+        const segmentEndPoint = points[ i + 1 ];
+        const previousPoint = points[ i - 1 ];
+        const nextPoint = points[ ( i + 2 ) ];
         cp1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint, cp1 );
         cp2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint, cp2 );
         path.cubicCurveTo( cp1.x, cp1.y, cp2.x, cp2.y, segmentEndPoint.x, segmentEndPoint.y );
@@ -189,31 +189,31 @@ define( require => {
       assert && assert( width > height ); // Param checking.  Can't create the needed shape if this isn't true.
 
       // Tweakable parameters that affect number of points used to define the shape.
-      var numPointsPerLineSegment = 8;
-      var numPointsPerCurvedSegment = 8;
+      const numPointsPerLineSegment = 8;
+      const numPointsPerCurvedSegment = 8;
 
       // Adjustable parameter that affects the degree to which the shape is altered to make it look somewhat irregular.
       // Zero means no change from the perfect geometric shape, 1 means a lot of variation.
-      var alterationFactor = 0.025;
+      const alterationFactor = 0.025;
 
       // The list of points that will define the shape.
-      var pointList = [];
+      const pointList = [];
 
       // Random number generator used for deviation from the perfect geometric shape.
-      var rand = new Random( {
+      const rand = new Random( {
         seed: 45 // empirically determined to make shape look distorted
       } );
 
 
       // Variables needed for the calculations.
-      var curveRadius = height / 2;
-      var lineLength = width - height;
-      var rightCurveCenterX = width / 2 - height / 2;
-      var leftCurveCenterX = -width / 2 + height / 2;
-      var centerY = 0;
-      var angle = 0;
-      var radius = 0;
-      var nextPoint = null;
+      const curveRadius = height / 2;
+      const lineLength = width - height;
+      const rightCurveCenterX = width / 2 - height / 2;
+      const leftCurveCenterX = -width / 2 + height / 2;
+      const centerY = 0;
+      let angle = 0;
+      let radius = 0;
+      let nextPoint = null;
 
       // Create a shape that is like E. Coli. Start at the left side of the line that defines the top edge and move
       // around the shape in a clockwise direction.

@@ -21,7 +21,7 @@ define( require => {
   //------------------------------------------
   //States for this attachment state machine
   //------------------------------------------
-  var ProteinAttachedToRibosomeState = inherit( AttachmentState,
+  const ProteinAttachedToRibosomeState = inherit( AttachmentState,
 
     /**
      * @param {ProteinAttachmentStateMachine} proteinAttachmentStateMachine
@@ -35,7 +35,7 @@ define( require => {
        * @param {AttachmentStateMachine} asm
        */
       entered: function( asm ) {
-        var biomolecule = this.proteinAttachmentStateMachine.biomolecule;
+        const biomolecule = this.proteinAttachmentStateMachine.biomolecule;
         biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
 
         // Prevent user interaction while the protein is growing.

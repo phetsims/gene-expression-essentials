@@ -21,7 +21,7 @@ define( require => {
   const WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
 
   // constants
-  var DETACHING_TIME = 3; // seconds
+  const DETACHING_TIME = 3; // seconds
 
   function DetachingFromPolymeraseState( msgRnaAttachmentStateMachine ) {
     AttachmentState.call( this );

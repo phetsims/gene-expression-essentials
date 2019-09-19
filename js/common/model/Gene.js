@@ -207,7 +207,7 @@ define( require => {
      */
     addTranscriptionFactorLocation: function( basePairOffset, tfConfig ) {
       this.transcriptionFactorMap[ basePairOffset ] = new TranscriptionFactor( null, tfConfig );
-      var position = new Vector2(
+      const position = new Vector2(
         this.dnaMolecule.getBasePairXOffsetByIndex( basePairOffset + this.regulatoryRegion.min ),
         GEEConstants.DNA_MOLECULE_Y_POS
       );
@@ -233,7 +233,7 @@ define( require => {
       }
 
       // Count the number of positive transcription factors needed to enable transcription.
-      var numPositiveTranscriptionFactorsNeeded = 0;
+      let numPositiveTranscriptionFactorsNeeded = 0;
       _.values( this.transcriptionFactorMap ).forEach( function( transcriptionFactor ) {
         if ( transcriptionFactor.getConfig().isPositive ) {
           numPositiveTranscriptionFactorsNeeded += 1;
@@ -241,10 +241,10 @@ define( require => {
       } );
 
       // Count the number of positive transcription factors attached.
-      var numPositiveTranscriptionFactorsAttached = 0;
+      let numPositiveTranscriptionFactorsAttached = 0;
       this.transcriptionFactorAttachmentSites.forEach( function( transcriptionFactorAttachmentSite ) {
         if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() !== null ) {
-          var tf = transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get();
+          const tf = transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get();
 
           // there is a very slight difference in the y direction and to mitigate that we use an empirically determined
           // tolerance factor
@@ -265,8 +265,8 @@ define( require => {
      * @private
      */
     transcriptionFactorsBlockTranscription: function() {
-      for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
-        var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
+      for ( let i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
+        const transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
         if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() !== null ) {
           if ( !(transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() ).isPositive() ) {
             return true;
@@ -291,13 +291,13 @@ define( require => {
      */
     getTranscriptionFactorAttachmentSite: function( basePairIndex, tfConfig ) {
       // Assume a default affinity site until proven otherwise.
-      var attachmentSite = this.dnaMolecule.createDefaultAffinityAttachmentSite(
+      let attachmentSite = this.dnaMolecule.createDefaultAffinityAttachmentSite(
         this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) );
 
       // Determine whether there are any transcription factor attachment sites on this gene that match the specified
       // configuration.
-      for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
-        var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
+      for ( let i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
+        const transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
         if ( transcriptionFactorAttachmentSite.configurationMatches( tfConfig ) ) {
           // Found matching site.  Is it available and in the right place?
           if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
@@ -325,8 +325,8 @@ define( require => {
      * @public
      */
     getMatchingSite: function( transcriptionFactorConfig ) {
-      for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
-        var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
+      for ( let i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
+        const transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
         if ( transcriptionFactorAttachmentSite.configurationMatches( transcriptionFactorConfig ) ) {
           return transcriptionFactorAttachmentSite;
         }
@@ -343,9 +343,9 @@ define( require => {
      * @public
      */
     getTranscriptionFactorAffinityProperty: function( tfConfig ) {
-      var affinityProperty = null;
-      for ( var i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
-        var transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
+      let affinityProperty = null;
+      for ( let i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
+        const transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
         if ( transcriptionFactorAttachmentSite.configurationMatches( tfConfig ) ) {
           affinityProperty = transcriptionFactorAttachmentSite.affinityProperty;
           // Built-in assumption here: Only one site for given TF config.
@@ -379,7 +379,7 @@ define( require => {
      * @public
      */
     activateHints: function( biomolecule ) {
-      var self = this;
+      const self = this;
       if ( this.rnaPolymerasePlacementHint.isMatchingBiomolecule( biomolecule ) ) {
         if ( !this.transcriptionFactorsBlockTranscription() ) {
 
@@ -430,7 +430,7 @@ define( require => {
      * @public
      */
     getPlacementHints: function() {
-      var placementHints = [ this.rnaPolymerasePlacementHint ];
+      const placementHints = [ this.rnaPolymerasePlacementHint ];
       this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
         placementHints.push( transcriptionFactorPlacementHint );
       } );
@@ -463,10 +463,10 @@ define( require => {
      * @public
      */
     getTranscriptionFactorConfigs: function() {
-      var configList = [];
-      for ( var key in this.transcriptionFactorMap ) {
+      const configList = [];
+      for ( const key in this.transcriptionFactorMap ) {
         if ( this.transcriptionFactorMap.hasOwnProperty( key ) ) {
-          var transcriptionFactor = this.transcriptionFactorMap[ key ];
+          const transcriptionFactor = this.transcriptionFactorMap[ key ];
           configList.push( transcriptionFactor.getConfig() );
         }
       }

@@ -32,7 +32,7 @@ define( require => {
    * @constructor
    */
   function BiomoleculeCreatorNode( appearanceNode, canvas, modelViewTransform, moleculeCreator, moleculeDestroyer, enclosingToolboxNode ) {
-    var self = this;
+    const self = this;
     Node.call( self, { cursor: 'pointer' } );
     this.canvas = canvas; // @private
     this.modelViewTransform = modelViewTransform; // @private
@@ -57,14 +57,14 @@ define( require => {
         self.appearanceNode.opacity = 0.3;
 
         // Convert the canvas position to the corresponding location in the model.
-        var modelPos = self.getModelPosition( event.pointer.point );
+        const modelPos = self.getModelPosition( event.pointer.point );
 
         // Create the corresponding biomolecule and add it to the model.
         self.biomolecule = moleculeCreator( modelPos );
         self.biomolecule.userControlledProperty.set( true );
 
         // Add an observer to watch for this model element to be returned.
-        var finalBiomolecule = self.biomolecule;
+        const finalBiomolecule = self.biomolecule;
         var userControlledPropertyObserver = function( userControlled ) {
           if ( !userControlled ) {
             // The user has released this biomolecule.  If it  was dropped above the return bounds (which are generally
@@ -119,8 +119,8 @@ define( require => {
      * @private
      */
     getModelPosition: function( point ) {
-      var canvasPosition = this.canvas.globalToLocalPoint( point );
-      var adjustedCanvasPos = canvasPosition.minus( this.canvas.viewPortOffset );
+      const canvasPosition = this.canvas.globalToLocalPoint( point );
+      const adjustedCanvasPos = canvasPosition.minus( this.canvas.viewPortOffset );
       return this.modelViewTransform.viewToModelPosition( adjustedCanvasPos );
     }
   } );

@@ -32,8 +32,8 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var GENE_TO_GENE_ANIMATION_TIME = 1; // in seconds
-  var INSET = 15; // inset for several of the controls, in view coordinates
+  const GENE_TO_GENE_ANIMATION_TIME = 1; // in seconds
+  const INSET = 15; // inset for several of the controls, in view coordinates
 
   // strings
   const nextGeneString = require( 'string!GENE_EXPRESSION_ESSENTIALS/nextGene' );
@@ -46,10 +46,10 @@ define( require => {
   function ManualGeneExpressionScreenView( model ) {
 
     ScreenView.call( this, { preventFit: true } );
-    var self = this;
+    const self = this;
 
     this.viewPortOffset = new Vector2( 0, 0 );
-    var biomoleculeToolboxNodeList = []; // array containing the toolbox nodes used to create biomolecules
+    const biomoleculeToolboxNodeList = []; // array containing the toolbox nodes used to create biomolecules
 
     // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
     // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
@@ -62,7 +62,7 @@ define( require => {
 
     // Set up the node where all controls that need to be below the biomolecules should be placed.  This node and its
     // children will stay in one place and not scroll.
-    var backControlsLayer = new Node();
+    const backControlsLayer = new Node();
     this.addChild( backControlsLayer );
 
     // Set up the root node for all model objects. Nodes placed under this one will scroll when the user moves along the
@@ -71,20 +71,20 @@ define( require => {
     this.addChild( this.modelRootNode );
 
     // Add some layers for enforcing some z-order relationships needed in order to keep things looking good.
-    var dnaLayer = new Node();
+    const dnaLayer = new Node();
     this.modelRootNode.addChild( dnaLayer );
-    var biomoleculeToolboxLayer = new Node();
+    const biomoleculeToolboxLayer = new Node();
     this.modelRootNode.addChild( biomoleculeToolboxLayer );
-    var messengerRnaLayer = new Node();
+    const messengerRnaLayer = new Node();
     this.modelRootNode.addChild( messengerRnaLayer );
-    var topBiomoleculeLayer = new Node();
+    const topBiomoleculeLayer = new Node();
     this.modelRootNode.addChild( topBiomoleculeLayer );
-    var placementHintLayer = new Node();
+    const placementHintLayer = new Node();
     this.modelRootNode.addChild( placementHintLayer );
 
     // Set up the node where all controls that need to be above the biomolecules should be placed. This node and its
     // children will stay in one place and not scroll.
-    var frontControlsLayer = new Node();
+    const frontControlsLayer = new Node();
     this.addChild( frontControlsLayer );
 
     // Add the representation of the DNA strand.
@@ -100,7 +100,7 @@ define( require => {
     } );
 
     // Add the protein collection box.
-    var proteinCollectionNode = new ProteinCollectionNode( model, this.modelViewTransform );
+    const proteinCollectionNode = new ProteinCollectionNode( model, this.modelViewTransform );
     proteinCollectionNode.x = this.layoutBounds.width - proteinCollectionNode.bounds.width - INSET;
     proteinCollectionNode.y = INSET;
     backControlsLayer.addChild( proteinCollectionNode );
@@ -113,7 +113,7 @@ define( require => {
     // Watch for and handle comings and goings of biomolecules in the model. Most, but not all, of the biomolecules
     // are handled by this. Some  others are handled as special cases.
     model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
-      var biomoleculeNode = new MobileBiomoleculeNode( self.modelViewTransform, addedBiomolecule );
+      const biomoleculeNode = new MobileBiomoleculeNode( self.modelViewTransform, addedBiomolecule );
       topBiomoleculeLayer.addChild( biomoleculeNode );
 
       function removeItemListener( removedBiomolecule ) {
@@ -130,7 +130,7 @@ define( require => {
     // Watch for and handle comings and goings of messenger RNA.
     model.messengerRnaList.addItemAddedListener( function( addedMessengerRna ) {
 
-      var messengerRnaNode = new MessengerRnaNode( self.modelViewTransform, addedMessengerRna );
+      const messengerRnaNode = new MessengerRnaNode( self.modelViewTransform, addedMessengerRna );
       messengerRnaLayer.addChild( messengerRnaNode );
 
       function removeItemListener( removedMessengerRna ) {
@@ -146,7 +146,7 @@ define( require => {
 
     // Add the toolboxes from which the various biomolecules can be moved  into the active area of the sim.
     model.getDnaMolecule().getGenes().forEach( function( gene ) {
-      var biomoleculeToolboxNode = new BiomoleculeToolboxNode( model, self, self.modelViewTransform, gene );
+      const biomoleculeToolboxNode = new BiomoleculeToolboxNode( model, self, self.modelViewTransform, gene );
       biomoleculeToolboxNode.x = self.modelViewTransform.modelToViewX( gene.getCenterX() ) - self.layoutBounds.getWidth() / 2 + INSET;
       biomoleculeToolboxNode.y = INSET;
       biomoleculeToolboxNodeList.push( biomoleculeToolboxNode );
@@ -162,7 +162,7 @@ define( require => {
     }
 
     // add button for moving to next gene
-    var nextGeneButtonContent = new HBox( {
+    const nextGeneButtonContent = new HBox( {
       children: [
         new Text( nextGeneString, {
           font: new PhetFont( { size: 18 } ),
@@ -176,7 +176,7 @@ define( require => {
       ],
       spacing: 5
     } );
-    var nextGeneButton = new RectangularPushButton( {
+    const nextGeneButton = new RectangularPushButton( {
       content: nextGeneButtonContent,
       listener: function() {
         model.nextGene();
@@ -190,7 +190,7 @@ define( require => {
     nextGeneButton.y = this.modelViewTransform.modelToViewY( model.getDnaMolecule().getLeftEdgePosition().y ) + 90;
 
     // add buttons for moving to previous gene
-    var previousGeneButtonContent = new HBox( {
+    const previousGeneButtonContent = new HBox( {
       children: [
         new ArrowNode( 0, 0, -20, 0, {
           headHeight: 8,
@@ -204,7 +204,7 @@ define( require => {
       ],
       spacing: 5
     } );
-    var previousGeneButton = new RectangularPushButton( {
+    const previousGeneButton = new RectangularPushButton( {
       content: previousGeneButtonContent,
       listener: function() {
         model.previousGene();
@@ -235,7 +235,7 @@ define( require => {
       self.viewPortOffset.setXY( -self.modelViewTransform.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
 
       // create and run the animation that will move the view to the selected gene
-      var modelRootNodeAnimator = new Animation( {
+      const modelRootNodeAnimator = new Animation( {
         duration: GENE_TO_GENE_ANIMATION_TIME,
         easing: Easing.CUBIC_IN_OUT,
         setValue: function( newXPos ) {
@@ -247,9 +247,9 @@ define( require => {
       modelRootNodeAnimator.finishEmitter.addListener( function() {
         self.modelRootNode.visible = true;
         self.modelRootNode.pickable = null;
-        var boundsInControlNode = proteinCollectionNode.getBounds().copy();
-        var boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
-        var boundsInModel = self.modelViewTransform.viewToModelBounds( boundsAfterTransform );
+        const boundsInControlNode = proteinCollectionNode.getBounds().copy();
+        const boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
+        const boundsInModel = self.modelViewTransform.viewToModelBounds( boundsAfterTransform );
         model.setProteinCaptureArea( boundsInModel );
         model.addOffLimitsMotionSpace( boundsInModel );
         setBiomoleculeToolboxPickability( true );
@@ -261,7 +261,7 @@ define( require => {
     frontControlsLayer.addChild( previousGeneButton );
 
     // Create and add the Reset All Button in the bottom right, which resets the model
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
         biomoleculeToolboxNodeList.forEach( function( biomoleculeToolboxNode ) {

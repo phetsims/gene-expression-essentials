@@ -19,7 +19,7 @@ define( require => {
   const ProteinAttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/ProteinAttachmentStateMachine' );
 
   // constants
-  var MAX_GROWTH_FACTOR = 1; // Max value for the growth factor, indicates that it is fully grown.
+  const MAX_GROWTH_FACTOR = 1; // Max value for the growth factor, indicates that it is fully grown.
 
   /**
    *

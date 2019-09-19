@@ -30,7 +30,7 @@ define( require => {
    */
   function MultipleCellsScreen() {
 
-    var options = {
+    const options = {
       name: screenMultipleCellsString,
       backgroundColorProperty: new Property( 'black' ),
       homeScreenIcon: new Image( multipleCellsIcon ),

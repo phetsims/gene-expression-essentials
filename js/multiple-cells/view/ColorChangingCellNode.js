@@ -22,10 +22,10 @@ define( require => {
   const Util = require( 'DOT/Util' );
 
   // constants
-  var NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray
-  var FLORESCENT_FILL_COLOR = new Color( 200, 255, 58 );
-  var STROKE = 2;
-  var STROKE_COLOR = Color.WHITE;
+  const NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray
+  const FLORESCENT_FILL_COLOR = new Color( 200, 255, 58 );
+  const STROKE = 2;
+  const STROKE_COLOR = Color.WHITE;
 
   /**
    * @param {Cell} cell
@@ -35,7 +35,7 @@ define( require => {
   function ColorChangingCellNode( cell, modelViewTransform ) {
     Node.call( this );
 
-    var cellBody = new Path( modelViewTransform.modelToViewShape( cell.getShape() ), {
+    const cellBody = new Path( modelViewTransform.modelToViewShape( cell.getShape() ), {
       fill: NOMINAL_FILL_COLOR,
       stroke: STROKE_COLOR,
       lineWidth: STROKE,
@@ -44,7 +44,7 @@ define( require => {
     } );
 
     cell.proteinCount.lazyLink( function( proteinCount ) {
-      var florescenceAmount = Util.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
+      const florescenceAmount = Util.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
                                           ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );
       cellBody.fill = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
     } );

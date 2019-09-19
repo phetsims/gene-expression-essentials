@@ -30,7 +30,7 @@ define( require => {
    */
   function MessengerRnaProductionScreen() {
 
-    var options = {
+    const options = {
       name: screenMRnaString,
       backgroundColorProperty: new Property( '#ABCBDB' ),
       homeScreenIcon: new Image( mRnaProductionIcon ),

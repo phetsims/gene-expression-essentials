@@ -27,10 +27,10 @@ define( require => {
   const WindingBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/WindingBiomolecule' );
 
   // constants
-  var RIBOSOME_CONNECTION_DISTANCE = 400; // picometers - distance within which this will connect to a ribosome
-  var MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers - Distance within which this will connect to a mRNA destroyer
-  var INITIAL_MRNA_SHAPE = Shape.circle( 0, 0, 0.1 ); // tiny circle until the strand starts to grow
-  var MIN_LENGTH_TO_ATTACH = 75; // picometers - min length before attachments are allowed
+  const RIBOSOME_CONNECTION_DISTANCE = 400; // picometers - distance within which this will connect to a ribosome
+  const MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers - Distance within which this will connect to a mRNA destroyer
+  const INITIAL_MRNA_SHAPE = Shape.circle( 0, 0, 0.1 ); // tiny circle until the strand starts to grow
+  const MIN_LENGTH_TO_ATTACH = 75; // picometers - min length before attachments are allowed
 
   /**
    * Constructor.  This creates the mRNA as a single point, with the intention of growing it.
@@ -43,7 +43,7 @@ define( require => {
    */
   function MessengerRna( model, proteinPrototype, position, options ) {
 
-    var self = this;
+    const self = this;
 
     // @private {Object} - object that maps from ribosomes to the shape segment to which they are attached
     this.mapRibosomeToShapeSegment = {};
@@ -74,19 +74,19 @@ define( require => {
     this.setPosition( position );
 
     // Add the first segment to the shape segment list. This segment will contain the "leader" for the mRNA.
-    var segment = new FlatSegment( this, Vector2.ZERO );
+    const segment = new FlatSegment( this, Vector2.ZERO );
     segment.setCapacity( GEEConstants.LEADER_LENGTH );
     this.shapeSegments.push( segment );
 
     // Add the placement hints for the locations where the user can attach a ribosome or an mRNA destroyer.
-    var ribosome = new Ribosome( model );
+    const ribosome = new Ribosome( model );
     this.ribosomePlacementHint = new PlacementHint( ribosome ); //@public(read-only)
     this.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
 
     function updateHintPositions( shape ) {
 
       // All hints always sit at the beginning of the RNA strand and are positioned relative to its center.
-      var strandStartPosition = new Vector2( shape.bounds.minX, shape.bounds.maxY );
+      const strandStartPosition = new Vector2( shape.bounds.minX, shape.bounds.maxY );
       self.ribosomePlacementHint.setPosition( strandStartPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
       self.mRnaDestroyerPlacementHint.setPosition( strandStartPosition );
     }
@@ -94,7 +94,7 @@ define( require => {
     this.shapeProperty.link( updateHintPositions );
 
     // update the attachment site position when the mRNA moves or changes shape
-    var attachmentSitePositionUpdater = this.updateAttachmentSitePosition.bind( this );
+    const attachmentSitePositionUpdater = this.updateAttachmentSitePosition.bind( this );
     this.positionProperty.link( attachmentSitePositionUpdater );
     this.shapeProperty.link( attachmentSitePositionUpdater );
 
@@ -141,7 +141,7 @@ define( require => {
      */
     advanceTranslation: function( ribosome, length ) {
 
-      var segmentToAdvance = this.mapRibosomeToShapeSegment[ ribosome.id ];
+      const segmentToAdvance = this.mapRibosomeToShapeSegment[ ribosome.id ];
 
       // Error checking.
       assert && assert( segmentToAdvance !== null ); // Should never happen, since it means that the ribosome isn't attached.
@@ -215,7 +215,7 @@ define( require => {
         this.segmentBeingDestroyed.advanceAndRemove( reductionAmount, this, this.shapeSegments );
 
         // Remove the length from the shape defining points.
-        for ( var amountRemoved = 0; amountRemoved < reductionAmount; ) {
+        for ( let amountRemoved = 0; amountRemoved < reductionAmount; ) {
           if ( this.lastShapeDefiningPoint.getTargetDistanceToPreviousPoint() <= reductionAmount - amountRemoved ) {
 
             // Remove the last point from the list.
@@ -238,7 +238,7 @@ define( require => {
      */
     updateAttachmentSitePosition: function() {
       if ( this.shapeSegments.length > 0 ) {
-        var leadingShapeSegment = this.shapeSegments[ 0 ];
+        const leadingShapeSegment = this.shapeSegments[ 0 ];
         this.attachmentSite.positionProperty.set( new Vector2(
           this.positionProperty.get().x + leadingShapeSegment.bounds.minX,
           this.positionProperty.get().y + leadingShapeSegment.bounds.minY
@@ -271,10 +271,10 @@ define( require => {
         this.mapRibosomeToShapeSegment[ ribosome.id ],
         'attempt made to get attachment location for unattached ribosome'
       );
-      var generateInitialPosition3D;
-      var mRnaPosition = this.positionProperty.get();
-      var segment = this.mapRibosomeToShapeSegment[ ribosome.id ];
-      var segmentCornerPosition;
+      let generateInitialPosition3D;
+      const mRnaPosition = this.positionProperty.get();
+      const segment = this.mapRibosomeToShapeSegment[ ribosome.id ];
+      let segmentCornerPosition;
       if ( this.getPreviousShapeSegment( segment ) === null ) {
 
         // There is no previous segment, which means that the segment to which this ribosome is attached is the leader
@@ -326,7 +326,7 @@ define( require => {
      */
     handleGrabbedByUser: function() {
 
-      var attachedOrAttachingMolecule = this.attachmentSite.attachedOrAttachingMoleculeProperty.get();
+      const attachedOrAttachingMolecule = this.attachmentSite.attachedOrAttachingMoleculeProperty.get();
 
       if ( attachedOrAttachingMolecule instanceof Ribosome ) {
 
@@ -385,7 +385,7 @@ define( require => {
 
       // Set the capacity of the first segment to the size of the channel through which it will be pulled plus the
       // leader length.
-      var firstShapeSegment = this.shapeSegments[ 0 ];
+      const firstShapeSegment = this.shapeSegments[ 0 ];
       assert && assert( firstShapeSegment.isFlat() );
       firstShapeSegment.setCapacity( ribosome.getTranslationChannelLength() + GEEConstants.LEADER_LENGTH );
     },
@@ -424,7 +424,7 @@ define( require => {
      * @public
      */
     getProportionOfRnaTranslated: function( ribosome ) {
-      var translatedLength = this.getLengthOfRnaTranslated( ribosome );
+      const translatedLength = this.getLengthOfRnaTranslated( ribosome );
       return Math.max( translatedLength / this.getLength(), 0 );
     },
 
@@ -436,14 +436,14 @@ define( require => {
      */
     getLengthOfRnaTranslated: function( ribosome ) {
       assert && assert( this.mapRibosomeToShapeSegment[ ribosome.id ] ); // Makes no sense if ribosome isn't attached.
-      var translatedLength = 0;
-      var segmentInRibosomeChannel = this.mapRibosomeToShapeSegment[ ribosome.id ];
+      let translatedLength = 0;
+      const segmentInRibosomeChannel = this.mapRibosomeToShapeSegment[ ribosome.id ];
 
       assert && assert( segmentInRibosomeChannel.isFlat() ); // Make sure things are as we expect.
 
       // Add the length for each segment that precedes this ribosome.
-      for ( var i = 0; i < this.shapeSegments.length; i++ ) {
-        var shapeSegment = this.shapeSegments[ i ];
+      for ( let i = 0; i < this.shapeSegments.length; i++ ) {
+        const shapeSegment = this.shapeSegments[ i ];
         if ( shapeSegment === segmentInRibosomeChannel ) {
           break;
         }
@@ -480,7 +480,7 @@ define( require => {
      */
     considerProposalFromRibosome: function( ribosome ) {
       assert && assert( !this.mapRibosomeToShapeSegment[ ribosome.id ] ); // Shouldn't get redundant proposals from a ribosome.
-      var returnValue = null;
+      let returnValue = null;
 
       if ( this.attachmentAllowed() ) {
 
@@ -510,7 +510,7 @@ define( require => {
     considerProposalFromMessengerRnaDestroyer: function( messengerRnaDestroyer ) {
       assert && assert( this.messengerRnaDestroyer !== messengerRnaDestroyer ); // Shouldn't get redundant proposals from same destroyer.
 
-      var returnValue = null;
+      let returnValue = null;
 
       if ( this.attachmentAllowed() ) {
 

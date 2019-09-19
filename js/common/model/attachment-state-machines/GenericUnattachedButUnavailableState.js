@@ -15,7 +15,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
 
   // constants
-  var DEFAULT_DETACH_TIME = 3; // In seconds.
+  const DEFAULT_DETACH_TIME = 3; // In seconds.
 
   /**
    * @constructor
@@ -36,7 +36,7 @@ define( require => {
      * @public
      */
     step: function( enclosingStateMachine, dt ) {
-      var gsm = enclosingStateMachine;
+      const gsm = enclosingStateMachine;
 
       // Verify that state is consistent
       assert && assert( gsm.attachmentSite === null );

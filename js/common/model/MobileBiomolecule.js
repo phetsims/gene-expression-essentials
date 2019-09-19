@@ -31,7 +31,7 @@ define( require => {
    * @constructor
    */
   function MobileBiomolecule( model, initialShape, baseColor ) {
-    var self = this;
+    const self = this;
 
     // @private {MotionStrategy} - Motion strategy that governs how this biomolecule moves. This changes as the molecule
     // interacts with other portions of the model.
@@ -154,7 +154,7 @@ define( require => {
           this.setPosition3D( this.motionStrategy.getNextPosition3D( this.getPosition3D(), this.bounds, dt ) );
         }
         else {
-          var currentPosition = this.getPosition();
+          const currentPosition = this.getPosition();
           this.setPosition( this.motionStrategy.getNextPosition( currentPosition, this.bounds, dt ) );
           // currentPosition.freeToPool();
         }
@@ -172,7 +172,7 @@ define( require => {
      * @private
      */
     getPosition3D: function() {
-      var position = this.positionProperty.get();
+      const position = this.positionProperty.get();
       return new Vector3( position.x, position.y, this.zPositionProperty.get() );
     },
 

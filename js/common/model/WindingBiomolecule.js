@@ -25,13 +25,13 @@ define( require => {
   // constants
   // Color used by this molecule. Since mRNA is depicted as a line and not as a closed shape, a transparent color is 
   // used for the fill. This enables reuse of generic biomolecule classes.
-  var NOMINAL_COLOR = new Color( 0, 0, 0, 0 );
+  const NOMINAL_COLOR = new Color( 0, 0, 0, 0 );
 
   // Parameters that control how the winding biomolecule winds. NOTE: The different variations of winding parameters
   // were added in an effort to come to some consensus about how the mRNA should look for the various genes.  In the
   // end, a single set was chosen, but I (jbphet) have left the other parameter sets here in case this question ever
   // comes up again so that we don't have to "rediscover" parameters that look reasonably good.
-  var WINDING_PARAMS = [
+  const WINDING_PARAMS = [
 
     {
       // straight line - generally only used for debug
@@ -226,8 +226,8 @@ define( require => {
      * @private
      */
     getFirstEnclosedPoint: function( lengthRange ) {
-      var currentPoint = this.firstShapeDefiningPoint;
-      var currentLength = 0;
+      let currentPoint = this.firstShapeDefiningPoint;
+      let currentLength = 0;
       while ( currentPoint !== null ) {
         if ( currentLength >= lengthRange.min && currentLength < lengthRange.max ) {
 
@@ -247,8 +247,8 @@ define( require => {
      * @private
      */
     getLastEnclosedPoint: function( lengthRange ) {
-      var currentPoint = this.firstShapeDefiningPoint;
-      var currentLength = 0;
+      let currentPoint = this.firstShapeDefiningPoint;
+      let currentLength = 0;
       while ( currentPoint !== null ) {
         if ( currentLength >= lengthRange.min && currentLength < lengthRange.max ) {
           break;
@@ -284,7 +284,7 @@ define( require => {
         this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), length );
       }
       else if ( this.lastShapeDefiningPoint.getTargetDistanceToPreviousPoint() < GEEConstants.INTER_POINT_DISTANCE ) {
-        var prevDistance = this.lastShapeDefiningPoint.getTargetDistanceToPreviousPoint();
+        const prevDistance = this.lastShapeDefiningPoint.getTargetDistanceToPreviousPoint();
         if ( prevDistance + length <= GEEConstants.INTER_POINT_DISTANCE ) {
 
           // No need to add a new point - just set the distance of the current last point to be further away from the
@@ -304,9 +304,9 @@ define( require => {
       else {
 
         // add new point or points to the end
-        var remainingLengthToAdd = length;
+        let remainingLengthToAdd = length;
         while ( remainingLengthToAdd > 0 ) {
-          var targetDistanceToPreviousPoint = Math.min( GEEConstants.INTER_POINT_DISTANCE, remainingLengthToAdd );
+          const targetDistanceToPreviousPoint = Math.min( GEEConstants.INTER_POINT_DISTANCE, remainingLengthToAdd );
           this.addPointToEnd( this.lastShapeDefiningPoint.getPosition(), targetDistanceToPreviousPoint );
           remainingLengthToAdd -= targetDistanceToPreviousPoint;
         }
@@ -330,11 +330,11 @@ define( require => {
      * @protected
      */
     windPointsThroughSegments: function() {
-      var handledLength = 0;
+      let handledLength = 0;
 
       // Loop through the shape segments positioning the shape-defining points within them.
-      for ( var i = 0; i < this.shapeSegments.length; i++ ) {
-        var shapeSegment = this.shapeSegments[ i ];
+      for ( let i = 0; i < this.shapeSegments.length; i++ ) {
+        const shapeSegment = this.shapeSegments[ i ];
         var lengthRange;
 
         // determine how much of the mRNA is within this shape segment and set the amount of length to work with accordingly
@@ -356,8 +356,8 @@ define( require => {
           );
         }
 
-        var firstEnclosedPoint = this.getFirstEnclosedPoint( lengthRange );
-        var lastEnclosedPoint = this.getLastEnclosedPoint( lengthRange );
+        const firstEnclosedPoint = this.getFirstEnclosedPoint( lengthRange );
+        const lastEnclosedPoint = this.getLastEnclosedPoint( lengthRange );
         if ( firstEnclosedPoint === null ) {
 
           // The segment contains no points.
@@ -387,7 +387,7 @@ define( require => {
      * @private
      */
     getTotalLengthInShapeSegments: function() {
-      var totalShapeSegmentLength = 0;
+      let totalShapeSegmentLength = 0;
 
       this.shapeSegments.forEach( function( shapeSeg ) {
         totalShapeSegmentLength += shapeSeg.getContainedLength();
@@ -406,8 +406,8 @@ define( require => {
      * @private
      */
     positionPointsInLine: function( firstPoint, lastPoint, origin ) {
-      var currentPoint = firstPoint;
-      var xOffset = 0;
+      let currentPoint = firstPoint;
+      let xOffset = 0;
       while ( currentPoint !== lastPoint && currentPoint !== null ) {
         currentPoint.setPositionXY( origin.x + xOffset, origin.y );
         currentPoint = currentPoint.getNextPoint();
@@ -443,40 +443,40 @@ define( require => {
         return;
       }
 
-      var diagonalSpan = Math.sqrt( bounds.width * bounds.width + bounds.height * bounds.height );
+      const diagonalSpan = Math.sqrt( bounds.width * bounds.width + bounds.height * bounds.height );
 
       // for easier manipulation, make a list of all of the points in order from first to last
-      var points = [];
-      var currentPoint = firstPoint;
+      const points = [];
+      let currentPoint = firstPoint;
       points.push( currentPoint );
       while ( currentPoint !== lastPoint ) {
         currentPoint = currentPoint.getNextPoint();
         points.push( currentPoint );
       }
 
-      var nextLinearPosition = new Vector2( bounds.minX, bounds.maxY );
-      var interPointXDistance = bounds.width / ( points.length - 1 );
-      var interPointYDistance = -bounds.height / ( points.length - 1 );
-      var totalDistanceTraversed = 0;
-      var totalDistancePerStep = Math.sqrt( interPointXDistance * interPointXDistance +
+      const nextLinearPosition = new Vector2( bounds.minX, bounds.maxY );
+      const interPointXDistance = bounds.width / ( points.length - 1 );
+      const interPointYDistance = -bounds.height / ( points.length - 1 );
+      let totalDistanceTraversed = 0;
+      const totalDistancePerStep = Math.sqrt( interPointXDistance * interPointXDistance +
                                             interPointYDistance * interPointYDistance );
 
       // convenience vars for winding params
-      var yWave1Frequency = this.windingParams.yWave1Frequency;
-      var yWave1PhaseOffset = this.windingParams.yWave1PhaseOffset;
-      var yWave1Multiplier = this.windingParams.yWave1Multiplier;
-      var yWave2Frequency = this.windingParams.yWave2Frequency;
-      var yWave2PhaseOffset = this.windingParams.yWave2PhaseOffset;
-      var yWave2Multiplier = this.windingParams.yWave2Multiplier;
-      var xWaveFrequency = this.windingParams.xWaveFrequency;
-      var xWavePhaseOffset = this.windingParams.xWavePhaseOffset;
-      var xWaveMultiplier = this.windingParams.xWaveMultiplier;
+      const yWave1Frequency = this.windingParams.yWave1Frequency;
+      const yWave1PhaseOffset = this.windingParams.yWave1PhaseOffset;
+      const yWave1Multiplier = this.windingParams.yWave1Multiplier;
+      const yWave2Frequency = this.windingParams.yWave2Frequency;
+      const yWave2PhaseOffset = this.windingParams.yWave2PhaseOffset;
+      const yWave2Multiplier = this.windingParams.yWave2Multiplier;
+      const xWaveFrequency = this.windingParams.xWaveFrequency;
+      const xWavePhaseOffset = this.windingParams.xWavePhaseOffset;
+      const xWaveMultiplier = this.windingParams.xWaveMultiplier;
 
       // pre-allocate and reuse the offset vector for optimal performance
-      var offsetFromLinearSequence = new Vector2( 0, 0 );
+      const offsetFromLinearSequence = new Vector2( 0, 0 );
 
       // implement the winding algorithm
-      for ( var i = 0; i < points.length; i++ ) {
+      for ( let i = 0; i < points.length; i++ ) {
 
         // window function to modulate less at corners of square than in middle so that everything fits in the segment
         var offsetScale;
@@ -510,11 +510,11 @@ define( require => {
      * @private
      */
     realignSegmentsFromEnd: function() {
-      var copyOfShapeSegments = this.shapeSegments.slice();
+      let copyOfShapeSegments = this.shapeSegments.slice();
 
       copyOfShapeSegments = copyOfShapeSegments.reverse();
 
-      for ( var i = 0; i < copyOfShapeSegments.length - 1; i++ ) {
+      for ( let i = 0; i < copyOfShapeSegments.length - 1; i++ ) {
 
         // Assumes that the shape segments attach to one another in such a way that they chain from the upper left to
         // the lower right.
@@ -538,7 +538,7 @@ define( require => {
      * @private
      */
     addPointToEnd: function( position, targetDistanceToPreviousPoint ) {
-      var newPoint = new ShapeDefiningPoint( position, targetDistanceToPreviousPoint );
+      const newPoint = new ShapeDefiningPoint( position, targetDistanceToPreviousPoint );
       this.lastShapeDefiningPoint.setNextPoint( newPoint );
       newPoint.setPreviousPoint( this.lastShapeDefiningPoint );
       this.lastShapeDefiningPoint = newPoint;
@@ -550,8 +550,8 @@ define( require => {
      * @private
      */
     getPointList: function() {
-      var pointList = [];
-      var thisPoint = this.firstShapeDefiningPoint;
+      const pointList = [];
+      let thisPoint = this.firstShapeDefiningPoint;
       while ( thisPoint !== null ) {
         pointList.push( thisPoint.getPosition() );
         thisPoint = thisPoint.getNextPoint();
@@ -566,8 +566,8 @@ define( require => {
      * @protected
      */
     getLength: function() {
-      var length = 0;
-      var thisPoint = this.firstShapeDefiningPoint.getNextPoint();
+      let length = 0;
+      let thisPoint = this.firstShapeDefiningPoint.getNextPoint();
       while ( thisPoint !== null ) {
         length += thisPoint.getTargetDistanceToPreviousPoint();
         thisPoint = thisPoint.getNextPoint();
@@ -581,9 +581,9 @@ define( require => {
      * @public
      */
     setLowerRightPositionXY: function( x, y ) {
-      var totalWidth = 0;
-      var totalHeight = 0;
-      for ( var i = 0; i < this.shapeSegments.length; i++ ) {
+      let totalWidth = 0;
+      let totalHeight = 0;
+      for ( let i = 0; i < this.shapeSegments.length; i++ ) {
         totalWidth += this.shapeSegments[ i ].bounds.width;
         totalHeight += this.shapeSegments[ i ].bounds.height;
       }
@@ -603,17 +603,17 @@ define( require => {
      * the segments change shape and can move such that the position is not longer at the center of the shape.
      */
     recenter: function() {
-      var shapeBounds = this.shapeProperty.get().bounds;
-      var adjustmentX = shapeBounds.centerX;
-      var adjustmentY = shapeBounds.centerY;
+      const shapeBounds = this.shapeProperty.get().bounds;
+      const adjustmentX = shapeBounds.centerX;
+      const adjustmentY = shapeBounds.centerY;
 
       // only readjust if needed
       if ( adjustmentX !== 0 || adjustmentY !== 0 ) {
 
         // adjust the shape segments
-        for ( var i = 0; i < this.shapeSegments.length; i++ ) {
-          var shapeSegment = this.shapeSegments[ i ];
-          var upperLeftCornerPosition = shapeSegment.getUpperLeftCornerPosition();
+        for ( let i = 0; i < this.shapeSegments.length; i++ ) {
+          const shapeSegment = this.shapeSegments[ i ];
+          const upperLeftCornerPosition = shapeSegment.getUpperLeftCornerPosition();
           shapeSegment.setUpperLeftCornerPositionXY(
             upperLeftCornerPosition.x - adjustmentX,
             upperLeftCornerPosition.y - adjustmentY
@@ -621,7 +621,7 @@ define( require => {
         }
 
         // adjust the position
-        var position = this.getPosition();
+        const position = this.getPosition();
         this.setPositionXY( position.x + adjustmentX, position.y + adjustmentY );
       }
     },
@@ -640,10 +640,10 @@ define( require => {
       );
 
       // Align segments that follow this one.
-      var currentSegment = segmentToAlignFrom;
-      var nextSegment = this.getNextShapeSegment( currentSegment );
+      let currentSegment = segmentToAlignFrom;
+      let nextSegment = this.getNextShapeSegment( currentSegment );
       while ( nextSegment !== null ) {
-        var nextSegmentLowerRightCornerPos = currentSegment.getLowerRightCornerPosition();
+        const nextSegmentLowerRightCornerPos = currentSegment.getLowerRightCornerPosition();
         nextSegment.setUpperLeftCornerPositionXY( nextSegmentLowerRightCornerPos.x, nextSegmentLowerRightCornerPos.y );
         currentSegment = nextSegment;
         nextSegment = this.getNextShapeSegment( currentSegment );
@@ -651,7 +651,7 @@ define( require => {
 
       // Align segments that precede this one.
       currentSegment = segmentToAlignFrom;
-      var previousSegment = this.getPreviousShapeSegment( currentSegment );
+      let previousSegment = this.getPreviousShapeSegment( currentSegment );
       while ( previousSegment !== null ) {
         previousSegment.setLowerRightCornerPosition( currentSegment.getUpperLeftCornerPosition() );
         currentSegment = previousSegment;
@@ -666,7 +666,7 @@ define( require => {
      * @public
      */
     getNextShapeSegment: function( shapeSegment ) {
-      var index = this.shapeSegments.indexOf( shapeSegment );
+      const index = this.shapeSegments.indexOf( shapeSegment );
 
       assert && assert( index !== -1, 'Given item not in list' );
 
@@ -686,7 +686,7 @@ define( require => {
      * @public
      */
     getPreviousShapeSegment: function( shapeSegment ) {
-      var index = this.shapeSegments.indexOf( shapeSegment );
+      const index = this.shapeSegments.indexOf( shapeSegment );
 
       assert && assert( index !== -1, 'Given item not in list' );
 
@@ -706,7 +706,7 @@ define( require => {
      * @public
      */
     insertAfterShapeSegment: function( existingShapeSegment, shapeSegmentToInsert ) {
-      var index = this.shapeSegments.indexOf( existingShapeSegment );
+      const index = this.shapeSegments.indexOf( existingShapeSegment );
       assert && assert( index !== -1, 'Given item not in list' );
       this.shapeSegments.splice( index + 1, 0, shapeSegmentToInsert );
     },
@@ -718,7 +718,7 @@ define( require => {
      * @public
      */
     insertBeforeShapeSegment: function( existingShapeSegment, shapeSegmentToInsert ) {
-      var index = this.shapeSegments.indexOf( existingShapeSegment );
+      const index = this.shapeSegments.indexOf( existingShapeSegment );
       assert && assert( index !== -1, 'Given item not in list' );
       this.shapeSegments.splice( index, 0, shapeSegmentToInsert );
     }

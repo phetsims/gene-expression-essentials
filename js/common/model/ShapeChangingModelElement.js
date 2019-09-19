@@ -25,7 +25,7 @@ define( require => {
    */
   function ShapeChangingModelElement( initialShape ) {
 
-    var self = this;
+    const self = this;
 
     // @public {Property.<Shape>} - can be read or listened to by anyone, should only be written by descendant types
     this.shapeProperty = new Property( initialShape );
@@ -40,10 +40,10 @@ define( require => {
     this.bounds = new Bounds2( 0, 0, 1, 1 ); // initial value is arbitrary, will be updated immediately
 
     // update the bounds whenever the shape or the position changes
-    var boundsUpdateMultilink = Property.multilink(
+    const boundsUpdateMultilink = Property.multilink(
       [ this.shapeProperty, this.positionProperty ],
       function( shape, position ) {
-        var shapeBounds = shape.bounds;
+        const shapeBounds = shape.bounds;
         self.bounds.setMinMax(
           position.x + shapeBounds.minX,
           position.y + shapeBounds.minY,
@@ -92,8 +92,8 @@ define( require => {
     translate: function( x, y ) {
 
       // in order to reduce allocations of vectors, pull them from our local pool
-      var currentPosition = this.positionProperty.get();
-      var newPosition = this.getFreeReusablePositionVector();
+      const currentPosition = this.positionProperty.get();
+      const newPosition = this.getFreeReusablePositionVector();
       newPosition.setXY( currentPosition.x + x, currentPosition.y + y );
       this.positionProperty.set( newPosition );
     },
@@ -115,7 +115,7 @@ define( require => {
     setPositionXY: function( x, y ) {
 
       // in order to reduce allocations of vectors, use vectors from the local vector pool
-      var newPosition = this.getFreeReusablePositionVector();
+      const newPosition = this.getFreeReusablePositionVector();
       newPosition.setXY( x, y );
       this.positionProperty.set( newPosition );
     },

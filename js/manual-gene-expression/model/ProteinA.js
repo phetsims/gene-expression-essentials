@@ -21,8 +21,8 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var BASE_COLOR = new Color( 255, 99, 71 );
-  var FULL_GROWN_WIDTH = 450;
+  const BASE_COLOR = new Color( 255, 99, 71 );
+  const FULL_GROWN_WIDTH = 450;
 
   /**
    * @param {GeneExpressionModel} model
@@ -94,8 +94,8 @@ define( require => {
      * @private
      */
     createShape: function( growthFactor ) {
-      var currentWidth = Util.clamp( growthFactor, 0.01, 1 ) * FULL_GROWN_WIDTH;
-      var shape = new Shape();
+      const currentWidth = Util.clamp( growthFactor, 0.01, 1 ) * FULL_GROWN_WIDTH;
+      const shape = new Shape();
       shape.moveTo( -currentWidth / 2, 0 );
       shape.lineTo( 0, -currentWidth / 2 );
       shape.lineTo( currentWidth / 2, 0 );

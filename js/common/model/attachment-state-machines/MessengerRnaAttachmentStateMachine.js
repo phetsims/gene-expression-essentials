@@ -61,7 +61,7 @@ define( require => {
      */
     forceImmediateUnattachedAndAvailable: function() {
       if ( this.attachmentSite !== null ) {
-        var attachedOrAttachingMolecule = this.attachmentSite.attachedOrAttachingMoleculeProperty.get();
+        const attachedOrAttachingMolecule = this.attachmentSite.attachedOrAttachingMoleculeProperty.get();
 
         // this is the case for when the incoming molecule is a ribosome
         attachedOrAttachingMolecule.cancelTranslation && attachedOrAttachingMolecule.cancelTranslation();

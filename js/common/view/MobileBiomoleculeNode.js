@@ -31,7 +31,7 @@ define( require => {
    * @constructor
    */
   function MobileBiomoleculeNode( modelViewTransform, mobileBiomolecule, options ) {
-    var self = this;
+    const self = this;
     Node.call( self, { cursor: 'pointer' } );
     options = _.extend( {
       lineWidth: 1
@@ -58,7 +58,7 @@ define( require => {
 
       // update the shape
       self.shapeNode.shape = null;
-      var transformedShape = self.scaleOnlyModelViewTransform.modelToViewShape( shape );
+      const transformedShape = self.scaleOnlyModelViewTransform.modelToViewShape( shape );
       self.shapeNode.setShape( transformedShape );
       self.mouseArea = transformedShape.bounds.dilated( 2 );
       self.touchArea = transformedShape.bounds.dilated( 5 );
@@ -116,7 +116,7 @@ define( require => {
     mobileBiomolecule.attachedToDnaProperty.link( handleAttachedToDnaChanged );
 
     // drag handling
-    var dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, modelViewTransform );
+    const dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, modelViewTransform );
     this.addInputListener( dragHandler );
 
     function handleMovableByUserChanged( movableByUser ) {

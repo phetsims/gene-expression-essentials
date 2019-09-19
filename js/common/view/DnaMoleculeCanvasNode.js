@@ -18,9 +18,9 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var STRAND_1_COLOR = new Color( 31, 163, 223 );
-  var STRAND_2_COLOR = new Color( 214, 87, 107 );
-  var BASE_PAIR_COLOR = Color.DARK_GRAY.computeCSS();
+  const STRAND_1_COLOR = new Color( 31, 163, 223 );
+  const STRAND_2_COLOR = new Color( 214, 87, 107 );
+  const BASE_PAIR_COLOR = Color.DARK_GRAY.computeCSS();
 
   /**
    * @param {DnaMolecule} model
@@ -39,8 +39,8 @@ define( require => {
     this.cp2ResuableVector = new Vector2( 0, 0 );
 
     // @private - four arrays for the DNA backbone representation
-    var longerArrayLength = Util.roundSymmetric( this.model.strand1Segments.length / 2 );
-    var shorterArrayLength = Math.floor( this.model.strand1Segments.length / 2 );
+    const longerArrayLength = Util.roundSymmetric( this.model.strand1Segments.length / 2 );
+    const shorterArrayLength = Math.floor( this.model.strand1Segments.length / 2 );
     this.strand1ArrayBehind = new Array( shorterArrayLength );
     this.strand2ArrayBehind = new Array( longerArrayLength );
     this.strand1ArrayFront = new Array( longerArrayLength );
@@ -63,7 +63,7 @@ define( require => {
      */
     drawBasePair: function( context, basePair ) {
 
-      var endOffset = basePair.width / 2;
+      const endOffset = basePair.width / 2;
 
       if ( basePair.topYLocation - basePair.bottomYLocation <= this.model.maxBasePairHeight ) {
 
@@ -74,7 +74,7 @@ define( require => {
       else {
 
         // the strands are separated, draw two separate base pairs, one at the top and one at the bottom
-        var dividedBasePairHeight = this.model.maxBasePairHeight / 2;
+        const dividedBasePairHeight = this.model.maxBasePairHeight / 2;
         context.moveTo( basePair.x, basePair.topYLocation + endOffset );
         context.lineTo( basePair.x, basePair.topYLocation - dividedBasePairHeight );
         context.moveTo( basePair.x, basePair.bottomYLocation - endOffset );
@@ -95,13 +95,13 @@ define( require => {
       context.beginPath();
 
       // allocate reusable vectors for optimal performance
-      var cp1 = this.cp1ResuableVector;
-      var cp2 = this.cp2ResuableVector;
+      let cp1 = this.cp1ResuableVector;
+      let cp2 = this.cp2ResuableVector;
 
       // loop, drawing each strand segment
-      for ( var i = 0; i < strandSegmentArray.length; i++ ) {
-        var strandSegment = strandSegmentArray[ i ];
-        var strandSegmentLength = strandSegment.length;
+      for ( let i = 0; i < strandSegmentArray.length; i++ ) {
+        const strandSegment = strandSegmentArray[ i ];
+        const strandSegmentLength = strandSegment.length;
         context.moveTo( strandSegment[ 0 ].x, strandSegment[ 0 ].y );
         if ( strandSegmentLength === 1 || strandSegmentLength === 2 ) {
 
@@ -118,11 +118,11 @@ define( require => {
         context.quadraticCurveTo( cp1.x, cp1.y, strandSegment[ 1 ].x, strandSegment[ 1 ].y );
 
         // create the middle segments
-        for ( var j = 1; j < strandSegmentLength - 2; j++ ) {
-          var segmentStartPoint = strandSegment[ j ];
-          var segmentEndPoint = strandSegment[ j + 1 ];
-          var previousPoint = strandSegment[ j - 1 ];
-          var nextPoint = strandSegment[ ( j + 2 ) ];
+        for ( let j = 1; j < strandSegmentLength - 2; j++ ) {
+          const segmentStartPoint = strandSegment[ j ];
+          const segmentEndPoint = strandSegment[ j + 1 ];
+          const previousPoint = strandSegment[ j - 1 ];
+          const nextPoint = strandSegment[ ( j + 2 ) ];
           cp1 = ShapeUtils.extrapolateControlPoint( previousPoint, segmentStartPoint, segmentEndPoint, cp1 );
           cp2 = ShapeUtils.extrapolateControlPoint( nextPoint, segmentEndPoint, segmentStartPoint, cp2 );
           context.bezierCurveTo( cp1.x, cp1.y, cp2.x, cp2.y, segmentEndPoint.x, segmentEndPoint.y );
@@ -156,10 +156,10 @@ define( require => {
 
       // map the segments of the DNA in the model to the arrays used in rendering
       for ( var i = 0; i < this.model.strand1Segments.length; i++ ) {
-        var strand1Segment = this.model.strand1Segments[ i ];
-        var strand2Segment = this.model.strand2Segments[ i ];
+        const strand1Segment = this.model.strand1Segments[ i ];
+        const strand2Segment = this.model.strand2Segments[ i ];
 
-        var index = Math.floor( i / 2 );
+        const index = Math.floor( i / 2 );
         if ( i % 2 === 0 ) {
           this.strand2ArrayBehind[ index ] = strand2Segment;
           this.strand1ArrayFront[ index ] = strand1Segment;
@@ -180,7 +180,7 @@ define( require => {
       context.beginPath();
       context.strokeStyle = BASE_PAIR_COLOR;
       for ( i = 0; i < this.model.basePairs.length; i++ ) {
-        var basePair = this.model.basePairs[ i ];
+        const basePair = this.model.basePairs[ i ];
         this.drawBasePair( context, basePair );
       }
       context.stroke();

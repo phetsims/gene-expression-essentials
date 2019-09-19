@@ -34,7 +34,7 @@ define( require => {
     Node.call( this );
 
     // Add the layers onto which the various nodes that represent parts of the dna, the hints, etc. are placed.
-    var geneBackgroundLayer = new Node();
+    const geneBackgroundLayer = new Node();
     this.addChild( geneBackgroundLayer );
 
     // Layers for supporting the 3D look by allowing the "twist" to be depicted.
@@ -51,7 +51,7 @@ define( require => {
     this.addChild( this.dnaBackboneLayer );
 
     // Put the gene backgrounds and labels behind everything.
-    for ( var i = 0; i < dnaMolecule.getGenes().length; i++ ) {
+    for ( let i = 0; i < dnaMolecule.getGenes().length; i++ ) {
       geneBackgroundLayer.addChild( new GeneNode(
         modelViewTransform,
         dnaMolecule.getGenes()[ i ],

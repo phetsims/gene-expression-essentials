@@ -23,7 +23,7 @@ define( require => {
    */
   function DnaStrandPoint( xPos, strand1YPos, strand2YPos ) {
     if ( !_.isFinite( strand1YPos ) ) { // use isFinite otherwise the condition fails at zero (Ashraf)
-      var strandPoint = xPos;
+      const strandPoint = xPos;
       this.xPos = strandPoint.xPos; // @public
       this.strand1YPos = strandPoint.strand1YPos; // @public
       this.strand2YPos = strandPoint.strand2YPos; // @public

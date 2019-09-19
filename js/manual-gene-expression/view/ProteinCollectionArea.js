@@ -32,22 +32,22 @@ define( require => {
     Node.call( this );
 
     // Get a transform that performs only the scaling portion of the modelViewTransform.
-    var scaleVector = modelViewTransform.getMatrix().getScaleVector();
-    var scale = modelViewTransform.getMatrix().scaleVector.x;
+    const scaleVector = modelViewTransform.getMatrix().getScaleVector();
+    const scale = modelViewTransform.getMatrix().scaleVector.x;
 
     // The getScaleVector method of Matrix3 always returns positive value for the scales, even though
     // the modelViewTransform uses inverted scaling for Y, so changing the assertion statement to check for absolute values
     // see issue #7
     assert && assert( scale === Math.abs( scaleVector.y ) ); // This only handles symmetric transform case.
-    var transform = Matrix3.scaling( scale, -scale );
+    const transform = Matrix3.scaling( scale, -scale );
 
     // Figure out the max dimensions of the various protein types so that the capture nodes can be properly laid out.
-    var captureNodeBackgroundSize = new Dimension2( 0, 0 );
+    const captureNodeBackgroundSize = new Dimension2( 0, 0 );
 
-    var proteinTypes = [ ProteinA, ProteinB, ProteinC ];
-    for ( var i = 0; i < proteinTypes.length; i++ ) {
-      var protein = new proteinTypes[ i ]();
-      var proteinShapeBounds = protein.getFullyGrownShape()
+    const proteinTypes = [ ProteinA, ProteinB, ProteinC ];
+    for ( let i = 0; i < proteinTypes.length; i++ ) {
+      const protein = new proteinTypes[ i ]();
+      const proteinShapeBounds = protein.getFullyGrownShape()
         .transformed( transform )
         .getStrokedBounds( new kite.LineStyles( { lineWidth: 1 } ) );
       captureNodeBackgroundSize.width = ( Math.max(

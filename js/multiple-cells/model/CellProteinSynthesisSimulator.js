@@ -17,16 +17,16 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const Range = require( 'DOT/Range' );
 
-  var DEFAULT_TRANSCRIPTION_FACTOR_COUNT = 2000;
-  var TRANSCRIPTION_FACTOR_COUNT_RANGE = new Range( DEFAULT_TRANSCRIPTION_FACTOR_COUNT / 10, DEFAULT_TRANSCRIPTION_FACTOR_COUNT * 10 );
-  var DEFAULT_TF_ASSOCIATION_PROBABILITY = 2.5E-6;
-  var TF_ASSOCIATION_PROBABILITY_RANGE = new Range( DEFAULT_TF_ASSOCIATION_PROBABILITY / 10, DEFAULT_TF_ASSOCIATION_PROBABILITY * 10 );
-  var DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY = 9.5E-7;
-  var POLYMERASE_ASSOCIATION_PROBABILITY_RANGE = new Range( 0.0, 2 * DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY );
-  var DEFAULT_PROTEIN_DEGRADATION_RATE = 0.0004;
-  var PROTEIN_DEGRADATION_RANGE = new Range( DEFAULT_PROTEIN_DEGRADATION_RATE * 0.7, DEFAULT_PROTEIN_DEGRADATION_RATE * 1.3 );
-  var DEFAULT_MRNA_DEGRADATION_RATE = 0.01;
-  var MRNA_DEGRADATION_RATE_RANGE = new Range( DEFAULT_MRNA_DEGRADATION_RATE / 1000, DEFAULT_MRNA_DEGRADATION_RATE * 1000 );
+  const DEFAULT_TRANSCRIPTION_FACTOR_COUNT = 2000;
+  const TRANSCRIPTION_FACTOR_COUNT_RANGE = new Range( DEFAULT_TRANSCRIPTION_FACTOR_COUNT / 10, DEFAULT_TRANSCRIPTION_FACTOR_COUNT * 10 );
+  const DEFAULT_TF_ASSOCIATION_PROBABILITY = 2.5E-6;
+  const TF_ASSOCIATION_PROBABILITY_RANGE = new Range( DEFAULT_TF_ASSOCIATION_PROBABILITY / 10, DEFAULT_TF_ASSOCIATION_PROBABILITY * 10 );
+  const DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY = 9.5E-7;
+  const POLYMERASE_ASSOCIATION_PROBABILITY_RANGE = new Range( 0.0, 2 * DEFAULT_POLYMERASE_ASSOCIATION_PROBABILITY );
+  const DEFAULT_PROTEIN_DEGRADATION_RATE = 0.0004;
+  const PROTEIN_DEGRADATION_RANGE = new Range( DEFAULT_PROTEIN_DEGRADATION_RATE * 0.7, DEFAULT_PROTEIN_DEGRADATION_RATE * 1.3 );
+  const DEFAULT_MRNA_DEGRADATION_RATE = 0.01;
+  const MRNA_DEGRADATION_RATE_RANGE = new Range( DEFAULT_MRNA_DEGRADATION_RATE / 1000, DEFAULT_MRNA_DEGRADATION_RATE * 1000 );
 
   /**
    * @param {number} ribosomeCount
@@ -137,8 +137,8 @@ define( require => {
      * @public
      */
     step: function( dt ) {
-      var accumulatedTime = 0.0;
-      var timeIncrement = -1.0;
+      let accumulatedTime = 0.0;
+      let timeIncrement = -1.0;
       while ( accumulatedTime < dt && timeIncrement !== 0.0 ) {
         timeIncrement = this.simulateOneReaction( dt - accumulatedTime );
         accumulatedTime += timeIncrement;
@@ -153,18 +153,18 @@ define( require => {
      * @private
      */
     simulateOneReaction: function( maxTime ) {
-      var a = this.calculateA();
-      var a0 = this.sum( a );
+      const a = this.calculateA();
+      const a0 = this.sum( a );
 
-      var r1 = phet.joist.random.nextDouble();
-      var r2 = phet.joist.random.nextDouble();
-      var tau = ( 1 / a0 ) * Math.log( 1 / r1 );
+      const r1 = phet.joist.random.nextDouble();
+      const r2 = phet.joist.random.nextDouble();
+      const tau = ( 1 / a0 ) * Math.log( 1 / r1 );
       if ( tau > maxTime ) {
         return 0.0;
       }
 
-      var mu = 0;
-      var sumSoFar = a[ 0 ];
+      let mu = 0;
+      let sumSoFar = a[ 0 ];
       while ( sumSoFar < r2 * a0 ) {
         mu++;
         sumSoFar += a[ mu ];
@@ -180,8 +180,8 @@ define( require => {
      * @private
      */
     sum: function( array ) {
-      var total = 0;
-      for ( var i = 0; i < array.length; i++ ) {
+      let total = 0;
+      for ( let i = 0; i < array.length; i++ ) {
         total += array[ i ];
       }
       return total;
@@ -192,7 +192,7 @@ define( require => {
      * @private
      */
     calculateA: function() {
-      var h = [
+      const h = [
         this.objectCounts[ 0 ] * this.objectCounts[ 1 ],
         this.objectCounts[ 3 ],
         this.objectCounts[ 2 ] * this.objectCounts[ 3 ],
@@ -205,7 +205,7 @@ define( require => {
         this.objectCounts[ 5 ]
       ];
 
-      for ( var i = 0; i < h.length; i++ ) {
+      for ( let i = 0; i < h.length; i++ ) {
         h[ i ] *= this.reactionProbabilities[ i ];
       }
       return h;

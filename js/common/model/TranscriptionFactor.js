@@ -25,9 +25,9 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var WIDTH = 325;   // In nanometers.
-  var HEIGHT = 240;  // In nanometers.
-  var SIZE = new Dimension2( WIDTH, HEIGHT );
+  const WIDTH = 325;   // In nanometers.
+  const HEIGHT = 240;  // In nanometers.
+  const SIZE = new Dimension2( WIDTH, HEIGHT );
 
   /**
    * @param {GeneExpressionModel} model
@@ -81,10 +81,10 @@ define( require => {
       // directly into the detaching state so that this drifts away from the DNA. This makes it clear the you can't have
       // two transcription factors in the same place on the DNA.
 
-      var moleculesShapes = this.model.getOverlappingBiomolecules( this.bounds );
+      const moleculesShapes = this.model.getOverlappingBiomolecules( this.bounds );
 
-      for ( var i = 0; i < moleculesShapes.length; i++ ) {
-        var biomolecule = moleculesShapes[ i ];
+      for ( let i = 0; i < moleculesShapes.length; i++ ) {
+        const biomolecule = moleculesShapes[ i ];
         if ( biomolecule !== this && biomolecule.attachedToDnaProperty.get() ) {
           this.attachmentStateMachine.forceImmediateUnattachedButUnavailable();
           break;

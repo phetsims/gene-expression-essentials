@@ -11,7 +11,7 @@ define( require => {
   // modules
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
 
-  var GEEQueryParameters = QueryStringMachine.getAll( {
+  const GEEQueryParameters = QueryStringMachine.getAll( {
 
     // show bounding rectangle for mRNA, useful for debugging
     showMRnaBoundingRect: { type: 'flag' }
