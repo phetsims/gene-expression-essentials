@@ -1,4 +1,4 @@
-// Copyright 2015-2017, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * Motion strategy that has no motion, i.e. causes the user to be still.

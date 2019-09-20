@@ -1,4 +1,4 @@
-// Copyright 2015-2017, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * Class for displaying placement hints, which let the user know where various things (e.g. biomolecules) can and should

@@ -1,4 +1,4 @@
-// Copyright 2015-2017, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * Motion strategy that moves towards a destination, but it wanders or meanders a bit on the way to look less directed

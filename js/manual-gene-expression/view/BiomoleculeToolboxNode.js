@@ -1,4 +1,4 @@
-// Copyright 2015-2018, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * This class defines the box on the user interface from which the user can extract various biomolecules and put them

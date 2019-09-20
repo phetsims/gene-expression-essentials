@@ -1,4 +1,4 @@
-// Copyright 2015-2018, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * An attachment site is a single point in model space to which a biomolecule may attach. Typically, one biomolecule

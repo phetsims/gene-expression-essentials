@@ -1,4 +1,4 @@
-// Copyright 2015-2017, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * Specialization of the attachment site for transcription factors - associates a transcription factor configuration and

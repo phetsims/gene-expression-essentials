@@ -1,4 +1,4 @@
-// Copyright 2015-2018, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * Control panel that present a user interface for controlling the affinity of RNA polymerase to DNA plus a

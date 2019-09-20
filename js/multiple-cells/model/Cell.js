@@ -1,4 +1,4 @@
-// Copyright 2015-2017, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * Model element that represents a cell on the "Multiple Cells" screen. The cell has a shape, a protein level, and a

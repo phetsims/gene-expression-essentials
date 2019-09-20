@@ -1,4 +1,4 @@
-// Copyright 2015-2017, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * This type defines a rectangular shape that encloses a segment of the mRNA. These segments, connected together, are

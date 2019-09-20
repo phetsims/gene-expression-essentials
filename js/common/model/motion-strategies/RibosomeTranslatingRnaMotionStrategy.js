@@ -1,4 +1,4 @@
-// Copyright 2015-2017, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * This class defines a very specific motion strategy used by a ribosome to follow the translation attachment point of a

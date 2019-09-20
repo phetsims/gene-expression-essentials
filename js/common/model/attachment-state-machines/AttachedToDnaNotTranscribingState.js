@@ -1,4 +1,4 @@
-// Copyright 2015-2018, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * One of the states for RnaPolymeraseAttachmentStateMachine. RnaPolymerase enters this state when it is attached to the

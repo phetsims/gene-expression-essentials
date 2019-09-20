@@ -1,4 +1,4 @@
-// Copyright 2016-2018, University of Colorado Boulder
+// Copyright 2016-2019, University of Colorado Boulder
 
 /**
  * Class that created slider controller across the simulation. Scale for the controller can be linear or log

@@ -1,4 +1,4 @@
-// Copyright 2015-2017, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * Flat segment is inherited from ShapeSegment and has no height, so mRNA contained in this segment is not wound.

@@ -1,4 +1,4 @@
-// Copyright 2017, University of Colorado Boulder
+// Copyright 2017-2019, University of Colorado Boulder
 
 /**
  * One of the states used in RibosomeAttachmentStateMachine and MMRnaDestroyerAttachmentStateMachine. This state
