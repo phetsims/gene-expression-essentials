@@ -15,6 +15,7 @@ define( require => {
   const FlashController = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/FlashController' );
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
 
@@ -28,7 +29,7 @@ define( require => {
    * @constructor
    */
   function FlashingShapeNode( shape, flashColor, options ) {
-    options = _.extend( {
+    options = merge( {
       onTime: 350,
       offTime: 350,
       numFlashes: 4,

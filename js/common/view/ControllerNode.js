@@ -14,6 +14,7 @@ define( require => {
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const HSlider = require( 'SUN/HSlider' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
@@ -33,7 +34,7 @@ define( require => {
   function ControllerNode( controller, minValue, maxValue, minLabel, maxLabel, options ) {
     Node.call( this ); // Call super constructor.
 
-    options = _.extend( {
+    options = merge( {
       logScale: false,
       trackSize: new Dimension2( 100, 5 )
     }, options );

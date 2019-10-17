@@ -15,6 +15,7 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -51,7 +52,7 @@ define( require => {
       modelViewTransform.getMatrix().getScaleVector().x
     );
 
-    const pathStyleOptions = _.extend( HINT_STROKE, {
+    const pathStyleOptions = merge( HINT_STROKE, {
       lineWidth: 2,
       lineDash: [  5, 5 ],
       fill: transparentColor,

@@ -17,6 +17,7 @@ define( require => {
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const GradientUtil = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/GradientUtil' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -33,7 +34,7 @@ define( require => {
   function MobileBiomoleculeNode( modelViewTransform, mobileBiomolecule, options ) {
     const self = this;
     Node.call( self, { cursor: 'pointer' } );
-    options = _.extend( {
+    options = merge( {
       lineWidth: 1
     }, options );
 

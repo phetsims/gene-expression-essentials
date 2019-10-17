@@ -17,6 +17,7 @@ define( require => {
   const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MobileBiomolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/MobileBiomolecule' );
   const Range = require( 'DOT/Range' );
   const ShapeDefiningPoint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/ShapeDefiningPoint' );
@@ -187,7 +188,7 @@ define( require => {
    */
   function WindingBiomolecule( model, initialShape, position, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       // {number} - winding algorithm to use when creating and updating this biomolecule, see code for range
       windingParamSet: 0
