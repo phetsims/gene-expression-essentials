@@ -24,7 +24,7 @@ define( require => {
   // constants
   const NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray
   const FLORESCENT_FILL_COLOR = new Color( 200, 255, 58 );
-  const STROKE = 2;
+  const LINE_WIDTH = 2;
   const STROKE_COLOR = Color.WHITE;
 
   /**
@@ -38,7 +38,8 @@ define( require => {
     const cellBody = new Path( modelViewTransform.modelToViewShape( cell.getShape() ), {
       fill: NOMINAL_FILL_COLOR,
       stroke: STROKE_COLOR,
-      lineWidth: STROKE,
+      lineWidth: LINE_WIDTH,
+      lineJoin: 'round',
       boundsMethod: 'unstroked',
       center: modelViewTransform.modelToViewXY( cell.positionX, cell.positionY )
     } );
