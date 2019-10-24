@@ -39,6 +39,7 @@ define( function( require ) {
       fill: NOMINAL_FILL_COLOR,
       stroke: STROKE_COLOR,
       lineWidth: STROKE,
+      lineJoin: 'round',
       boundsMethod: 'unstroked',
       center: modelViewTransform.modelToViewXY( cell.positionX, cell.positionY )
     } );
