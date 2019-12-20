@@ -24,13 +24,12 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   const ProteinLevelChartNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ProteinLevelChartNode' );
   const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
-  const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   const Text = require( 'SCENERY/nodes/Text' );
+  const TimeControlNode = require( 'SCENERY_PHET/TimeControlNode' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -112,26 +111,22 @@ define( require => {
     } );
     this.addChild( resetAllButton );
 
-    // Add play/pause button.
-    const playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
-      radius: 23,
-      touchAreaDilation: 5
-    } );
-    this.addChild( playPauseButton );
-
-    const stepButton = new StepForwardButton( {
-      isPlayingProperty: model.clockRunningProperty,
-      listener: function() {
-        model.stepInTime( 0.016 );
-        self.proteinLevelChartNode.addDataPoint( 0.016 );
+    // Add a time control node
+    const timeControlNode = new TimeControlNode( model.clockRunningProperty, {
+      playPauseOptions: {
+        radius: 23,
+        touchAreaDilation: 5
       },
-      radius: 15,
-      touchAreaDilation: 5
+      stepForwardOptions: {
+        listener: function() {
+          model.stepInTime( 0.016 );
+          self.proteinLevelChartNode.addDataPoint( 0.016 );
+        },
+        radius: 15,
+        touchAreaDilation: 5
+      }
     } );
-    this.addChild( stepButton );
-
-    playPauseButton.bottom = resetAllButton.bottom;
-    stepButton.centerY = playPauseButton.centerY;
+    this.addChild( timeControlNode );
 
     const cellLayer = new Node();
     const invisibleCellLayer = new Node(); // for performance improvement load all cells at start of the sim
@@ -292,10 +287,8 @@ define( require => {
     degradationControlPanel.right = affinityControlPanel.right;
     degradationControlPanel.top = affinityControlPanel.bottom + 10;
 
-    playPauseButton.bottom = resetAllButton.bottom;
-    stepButton.centerY = playPauseButton.centerY;
-    stepButton.right = degradationControlPanel.left - 20;
-    playPauseButton.right = stepButton.left - 10;
+    timeControlNode.bottom = resetAllButton.bottom;
+    timeControlNode.right = degradationControlPanel.left - 20;
   }
 
   geneExpressionEssentials.register( 'MultipleCellsScreenView', MultipleCellsScreenView );
