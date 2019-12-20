@@ -21,13 +21,12 @@ define( require => {
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   const PolymeraseAffinityControlPanel = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/PolymeraseAffinityControlPanel' );
   const Property = require( 'AXON/Property' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
-  const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   const Text = require( 'SCENERY/nodes/Text' );
+  const TimeControlNode = require( 'SCENERY_PHET/TimeControlNode' );
   const TranscriptionFactorControlPanel = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/TranscriptionFactorControlPanel' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -126,21 +125,20 @@ define( require => {
       }
     } );
 
-    // Add the play/pause button.
-    const playPauseButton = new PlayPauseButton( model.clockRunningProperty, {
-      radius: 23,
-      touchAreaDilation: 5
+    // Adds the node that has the buttons for controlling time and pausing and stepping forward
+    const timeControlNode = new TimeControlNode( model.clockRunningProperty, {
+      playPauseStepXSpacing: INSET,
+      playPauseOptions: {
+        radius: 23,
+        touchAreaDilation: 5
+      },
+      stepForwardOptions: {
+        listener: function() { model.stepInTime( 0.016 ); },
+        radius: 15,
+        touchAreaDilation: 5
+      }
     } );
-    this.addChild( playPauseButton );
-
-    // Add the step button.
-    const stepButton = new StepForwardButton( {
-      isPlayingProperty: model.clockRunningProperty,
-      listener: function() { model.stepInTime( 0.016 ); },
-      radius: 15,
-      touchAreaDilation: 5
-    } );
-    this.addChild( stepButton );
+    this.addChild( timeControlNode );
 
     // Add the Reset All button.
     const resetAllButton = new ResetAllButton( {
@@ -166,11 +164,8 @@ define( require => {
     negativeFactorEnabledCheckbox.left = negativeTranscriptionFactorControlPanel.right + INSET;
     negativeFactorEnabledCheckbox.centerY = resetAllButton.centerY;
 
-    playPauseButton.bottom = negativeFactorEnabledCheckbox.top - 2 * INSET;
-    playPauseButton.centerX = negativeFactorEnabledCheckbox.centerX;
-
-    stepButton.centerY = playPauseButton.centerY;
-    stepButton.left = playPauseButton.right + INSET;
+    timeControlNode.bottom = negativeFactorEnabledCheckbox.top - 2 * INSET;
+    timeControlNode.centerX = negativeFactorEnabledCheckbox.centerX;
 
     // define a function for adding views of biomolecules
     function addBiomoleculeView( addedBiomolecule ) {
