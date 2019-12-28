@@ -165,7 +165,7 @@ define( require => {
       }
 
       // add the data to the chart
-      this.dataSeries.addPoint( this.simRunningTime - this.timeOffset, this.averageProteinLevelProperty.get() );
+      this.dataSeries.addXYDataPoint( this.simRunningTime - this.timeOffset, this.averageProteinLevelProperty.get() );
     },
 
     /**
