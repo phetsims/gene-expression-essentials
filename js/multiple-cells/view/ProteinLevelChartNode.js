@@ -12,6 +12,7 @@ define( require => {
 
   // modules
   const ColorChangingCellNode = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/ColorChangingCellNode' );
+  const DynamicSeries = require( 'GRIDDLE/DynamicSeries' );
   const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const inherit = require( 'PHET_CORE/inherit' );
@@ -22,7 +23,6 @@ define( require => {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const XYDataSeries = require( 'GRIDDLE/XYDataSeries' );
   const XYPlot = require( 'GRIDDLE/XYPlot' );
 
   // constants
@@ -66,11 +66,9 @@ define( require => {
       showAxis: false
     } );
 
-    this.dataSeries = new XYDataSeries( {
+    this.dataSeries = new DynamicSeries( {
       color: PhetColorScheme.RED_COLORBLIND,
-      stroke: PhetColorScheme.RED_COLORBLIND,
-      lineWidth: 2,
-      initialSize: 1800
+      lineWidth: 2
     } );
 
     plot.addSeries( this.dataSeries, true );
