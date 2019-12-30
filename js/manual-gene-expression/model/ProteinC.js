@@ -17,7 +17,7 @@ define( require => {
   const Protein = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/Protein' );
   const Shape = require( 'KITE/Shape' );
   const StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/StubGeneExpressionModel' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -92,7 +92,7 @@ define( require => {
      * @private
      */
     createShape: function( growthFactor ) {
-      const currentWidth = Util.clamp( growthFactor, 0.01, 1 ) * FULL_GROWN_WIDTH;
+      const currentWidth = Utils.clamp( growthFactor, 0.01, 1 ) * FULL_GROWN_WIDTH;
       const currentHeight = currentWidth * 1.4;
       const path = new Shape();
       const topAndBottomCurveMultiplier = 0.55;

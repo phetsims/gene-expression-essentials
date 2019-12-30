@@ -19,7 +19,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // constants
   const NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray
@@ -45,7 +45,7 @@ define( require => {
     } );
 
     cell.proteinCount.lazyLink( function( proteinCount ) {
-      const florescenceAmount = Util.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
+      const florescenceAmount = Utils.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
                                           ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );
       cellBody.fill = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
     } );

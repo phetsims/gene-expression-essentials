@@ -22,7 +22,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const RnaPolymerase = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/RnaPolymerase' );
   const TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector3 = require( 'DOT/Vector3' );
 
@@ -62,7 +62,7 @@ define( require => {
     );
 
     // @private {Gene} The one gene that is on this DNA strand in this model.
-    this.gene = new GeneA( this.dnaMolecule, Util.roundSymmetric( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) );
+    this.gene = new GeneA( this.dnaMolecule, Utils.roundSymmetric( NUM_BASE_PAIRS_ON_DNA_STRAND * 0.4 ) );
     this.dnaMolecule.addGene( this.gene );
 
     // List of mobile biomolecules in the model, excluding mRNA.
@@ -79,7 +79,7 @@ define( require => {
     this.positiveTranscriptionFactorCountProperty.link( function( count ) {
       self.setTranscriptionFactorCount(
         TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS,
-        Util.roundSymmetric( count ),
+        Utils.roundSymmetric( count ),
         self.positiveTranscriptionFactorList
       );
     } );
@@ -88,7 +88,7 @@ define( require => {
     this.negativeTranscriptionFactorCountProperty.link( function( count ) {
       self.setTranscriptionFactorCount(
         TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG,
-        Util.roundSymmetric( count ),
+        Utils.roundSymmetric( count ),
         self.negativeTranscriptionFactorList
       );
     } );

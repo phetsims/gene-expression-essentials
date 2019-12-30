@@ -32,7 +32,7 @@ define( require => {
   const ProteinA = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinA' );
   const ProteinB = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinB' );
   const ProteinC = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/model/ProteinC' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // constants
   // Stage size for the mobile biomolecules, which is basically the area in which the molecules can move. These are
@@ -164,7 +164,7 @@ define( require => {
      */
     switchToGeneRelative: function( i ) {
       const genes = this.dnaMolecule.getGenes();
-      const index = Util.clamp( 0, genes.indexOf( this.activeGeneProperty.get() ) + i, genes.length - 1 );
+      const index = Utils.clamp( 0, genes.indexOf( this.activeGeneProperty.get() ) + i, genes.length - 1 );
       this.activeGeneProperty.set( genes[ index ] );
     },
 

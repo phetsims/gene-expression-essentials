@@ -20,7 +20,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * @param {Property.<number>} controller
@@ -53,7 +53,7 @@ define( require => {
     // Conversion to exponential.
     passThroughController.link( function( value ) {
       if ( options.logScale ) {
-        controller.set( Util.clamp( Math.pow( 10, value ), minValue, maxValue ) );
+        controller.set( Utils.clamp( Math.pow( 10, value ), minValue, maxValue ) );
       }
       else {
         controller.set( value );

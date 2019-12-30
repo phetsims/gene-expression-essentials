@@ -13,7 +13,7 @@ define( require => {
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector3 = require( 'DOT/Vector3' );
 
@@ -147,7 +147,7 @@ define( require => {
       return new Vector3(
         currentPosition3D.x + this.velocityVector2D.x * dt,
         currentPosition3D.y + this.velocityVector2D.y * dt,
-        Util.clamp( currentPosition3D.z + zVelocity * dt, -1, 0 )
+        Utils.clamp( currentPosition3D.z + zVelocity * dt, -1, 0 )
       );
     }
   } );

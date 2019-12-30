@@ -25,7 +25,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const Range = require( 'DOT/Range' );
   const StubGeneExpressionModel = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/StubGeneExpressionModel' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -123,12 +123,12 @@ define( require => {
      */
     getBasePairIndexFromXOffset: function( xOffset ) {
       assert && assert( xOffset >= this.leftEdgeXOffset && xOffset < this.leftEdgeXOffset + this.moleculeLength );
-      xOffset = Util.clamp(
+      xOffset = Utils.clamp(
         xOffset,
         this.leftEdgeXOffset,
         this.leftEdgeXOffset + GEEConstants.LENGTH_PER_TWIST * this.numberOfTwists
       );
-      return ( Util.roundSymmetric( ( xOffset - this.leftEdgeXOffset - GEEConstants.INTER_STRAND_OFFSET ) /
+      return ( Utils.roundSymmetric( ( xOffset - this.leftEdgeXOffset - GEEConstants.INTER_STRAND_OFFSET ) /
                                     GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) ) | 0; // make it int
     },
 
