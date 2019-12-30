@@ -14,7 +14,7 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const FlashingShapeNode = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/FlashingShapeNode' );
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const GradientUtil = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/GradientUtil' );
+  const GradientUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/GradientUtils' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Matrix3 = require( 'DOT/Matrix3' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -70,7 +70,7 @@ define( require => {
     // emptiness) until a protein is captured, then it changes to look filled in.
     const captureAreaNode = new Path( proteinShape, { stroke: 'black' } );
     this.addChild( captureAreaNode );
-    const gradientPaint = GradientUtil.createGradientPaint( proteinShape, fullBaseColor );
+    const gradientPaint = GradientUtils.createGradientPaint( proteinShape, fullBaseColor );
 
     // Add the node that represents a count of the collected type.
     const countNode = new Text( '', { font: new PhetFont( { size: 18, weight: 'bold' } ) } );

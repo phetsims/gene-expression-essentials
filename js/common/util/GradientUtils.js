@@ -15,7 +15,7 @@ define( require => {
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
-  const GradientUtil = {
+  const GradientUtils = {
     /**
      * Create a gradient paint in order to give a molecule a little depth. This is public so that it can be used by other
      * nodes that need to depict biomolecules.
@@ -44,6 +44,6 @@ define( require => {
       return paint;
     }
   };
-  geneExpressionEssentials.register( 'GradientUtil', GradientUtil );
-  return GradientUtil;
+  geneExpressionEssentials.register( 'GradientUtils', GradientUtils );
+  return GradientUtils;
 } );

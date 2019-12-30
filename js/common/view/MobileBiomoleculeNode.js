@@ -15,7 +15,7 @@ define( require => {
   const BiomoleculeDragHandler = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/BiomoleculeDragHandler' );
   const Color = require( 'SCENERY/util/Color' );
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const GradientUtil = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/GradientUtil' );
+  const GradientUtils = require( 'GENE_EXPRESSION_ESSENTIALS/common/util/GradientUtils' );
   const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -78,7 +78,7 @@ define( require => {
 
       // see the comment above on gradientPaint
       if ( self.shapeNode.shape.bounds.isFinite() ) {
-        self.shapeNode.fill = GradientUtil.createGradientPaint( self.shapeNode.shape, color );
+        self.shapeNode.fill = GradientUtils.createGradientPaint( self.shapeNode.shape, color );
       }
     }
 
