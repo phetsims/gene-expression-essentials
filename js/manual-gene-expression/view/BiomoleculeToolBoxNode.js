@@ -34,7 +34,7 @@ define( function( require ) {
 
   // strings
   var biomoleculeToolboxString = require( 'string!GENE_EXPRESSION_ESSENTIALS/biomoleculeToolbox' );
-  var mrnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mrnaDestroyer' );
+  var mRnaDestroyerString = require( 'string!GENE_EXPRESSION_ESSENTIALS/mRnaDestroyer' );
   var negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactorHtml' );
   var positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactorHtml' );
   var ribosomeString = require( 'string!GENE_EXPRESSION_ESSENTIALS/ribosome' );
@@ -78,7 +78,7 @@ define( function( require ) {
     var rnaPolymeraseLabelWidth = rnaPolymeraseLabel.width;
     var ribosomeLabel = new RowLabel( ribosomeString );
     var ribosomeLabelWidth = ribosomeLabel.width;
-    var mrnaDestroyerLabel = new RowLabel( mrnaDestroyerString );
+    var mrnaDestroyerLabel = new RowLabel( mRnaDestroyerString );
     var mrnaDestroyerLabelWidth = mrnaDestroyerLabel.width;
     var negativeTranscriptionFactorLabel = new RowLabel( negativeTranscriptionFactorHtmlString );
     var negativeTranscriptionFactorLabelWidth = negativeTranscriptionFactorLabel.width;
