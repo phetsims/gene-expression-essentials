@@ -35,6 +35,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   // constants
+
   // Stage size for the mobile biomolecules, which is basically the area in which the molecules can move. These are
   // empirically determined such that the molecules don't move off of the screen when looking at a given gene.
   var BIOMOLECULE_STAGE_WIDTH = 10000; // In picometers.
