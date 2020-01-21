@@ -10,7 +10,7 @@
 define( require => {
   'use strict';
 
-  // imports
+  // modules
   const Color = require( 'SCENERY/util/Color' );
   const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
