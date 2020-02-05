@@ -183,7 +183,7 @@ define( require => {
    * @param {GeneExpressionModel} model
    * @param {Shape} initialShape
    * @param {Vector2} position
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function WindingBiomolecule( model, initialShape, position, options ) {

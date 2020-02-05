@@ -28,7 +28,7 @@ define( require => {
   /**
    * @param {ModelViewTransform2} modelViewTransform
    * @param {MobileBiomolecule} mobileBiomolecule
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function MobileBiomoleculeNode( modelViewTransform, mobileBiomolecule, options ) {

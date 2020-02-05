@@ -38,7 +38,7 @@ define( require => {
    * @param {GeneExpressionModel} model
    * @param {Protein} proteinPrototype
    * @param {Vector2} position
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function MessengerRna( model, proteinPrototype, position, options ) {
