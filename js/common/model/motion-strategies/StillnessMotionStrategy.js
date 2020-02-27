@@ -7,35 +7,31 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import MotionStrategy from './MotionStrategy.js';
+
+/**
+ * @constructor
+ */
+function StillnessMotionStrategy() {
+  MotionStrategy.call( this );
+}
+
+geneExpressionEssentials.register( 'StillnessMotionStrategy', StillnessMotionStrategy );
+
+export default inherit( MotionStrategy, StillnessMotionStrategy, {
 
   /**
-   * @constructor
+   * @override
+   * @param {Vector2} currentPosition
+   * @param {Bounds2} bounds
+   * @param {number} dt
+   * @returns {Vector2}
+   * @public
    */
-  function StillnessMotionStrategy() {
-    MotionStrategy.call( this );
+  getNextPosition: function( currentPosition, bounds, dt ) {
+    return currentPosition;
   }
-
-  geneExpressionEssentials.register( 'StillnessMotionStrategy', StillnessMotionStrategy );
-
-  return inherit( MotionStrategy, StillnessMotionStrategy, {
-
-    /**
-     * @override
-     * @param {Vector2} currentPosition
-     * @param {Bounds2} bounds
-     * @param {number} dt
-     * @returns {Vector2}
-     * @public
-     */
-    getNextPosition: function( currentPosition, bounds, dt ) {
-      return currentPosition;
-    }
-  } );
 } );

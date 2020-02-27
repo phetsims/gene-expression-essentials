@@ -8,97 +8,90 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  const AttachmentStateMachine = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentStateMachine' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RandomWalkMotionStrategy' );
-  const StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/StillnessMotionStrategy' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
+import StillnessMotionStrategy from '../motion-strategies/StillnessMotionStrategy.js';
+import AttachmentState from './AttachmentState.js';
+import AttachmentStateMachine from './AttachmentStateMachine.js';
 
-  // constants
-  const FADE_OUT_TIME = 3; // In seconds.
+// constants
+const FADE_OUT_TIME = 3; // In seconds.
 
-  //------------------------------------------
-  // States for this attachment state machine
-  //------------------------------------------
-  const AttachedToDestroyerState = inherit(
-
-    AttachmentState,
-
-    /**
-     * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
-     */
-    function( messengerRnaFragmentAttachmentStateMachine ) {
-      this.messengerRnaFragmentAttachmentStateMachine = messengerRnaFragmentAttachmentStateMachine;
-    },
-    {
-      /**
-       * @override
-       * @param {AttachmentStateMachine} asm
-       */
-      entered: function( asm ) {
-        const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
-        biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
-      }
-    }
-  );
-
-  const UnattachedAndFadingState = inherit(
-
-    AttachmentState,
-
-    /**
-     * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
-     */
-    function( messengerRnaFragmentAttachmentStateMachine ) {
-      this.messengerRnaFragmentAttachmentStateMachine = messengerRnaFragmentAttachmentStateMachine;
-    },
-    {
-      /**
-       * @override
-       * @param {AttachmentStateMachine} asm
-       */
-      entered: function( asm ) {
-        const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
-        assert && assert( biomolecule.existenceStrengthProperty.get() === 1 );
-        biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
-      },
-
-      /**
-       * @override
-       * @param {AttachmentStateMachine} asm
-       * @param {number} dt
-       */
-      step: function( asm, dt ) {
-        const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
-        biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
-      }
-    } );
+//------------------------------------------
+// States for this attachment state machine
+//------------------------------------------
+const AttachedToDestroyerState = inherit(
+  AttachmentState,
 
   /**
-   * @param {MobileBiomolecule} biomolecule
-   * @constructor
+   * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
    */
-  function MessengerRnaFragmentAttachmentStateMachine( biomolecule ) {
-    AttachmentStateMachine.call( this, biomolecule );
-    this.setState( new AttachedToDestroyerState( this ) );
+  function( messengerRnaFragmentAttachmentStateMachine ) {
+    this.messengerRnaFragmentAttachmentStateMachine = messengerRnaFragmentAttachmentStateMachine;
+  },
+  {
+    /**
+     * @override
+     * @param {AttachmentStateMachine} asm
+     */
+    entered: function( asm ) {
+      const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+      biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
+    }
   }
+);
 
-  geneExpressionEssentials.register( 'MessengerRnaFragmentAttachmentStateMachine', MessengerRnaFragmentAttachmentStateMachine );
+const UnattachedAndFadingState = inherit(
+  AttachmentState,
 
-  return inherit( AttachmentStateMachine, MessengerRnaFragmentAttachmentStateMachine, {
+  /**
+   * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
+   */
+  function( messengerRnaFragmentAttachmentStateMachine ) {
+    this.messengerRnaFragmentAttachmentStateMachine = messengerRnaFragmentAttachmentStateMachine;
+  },
+  {
+    /**
+     * @override
+     * @param {AttachmentStateMachine} asm
+     */
+    entered: function( asm ) {
+      const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+      assert && assert( biomolecule.existenceStrengthProperty.get() === 1 );
+      biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
+    },
 
     /**
      * @override
-     * @public
+     * @param {AttachmentStateMachine} asm
+     * @param {number} dt
      */
-    detach: function() {
-      this.setState( new UnattachedAndFadingState( this ) );
+    step: function( asm, dt ) {
+      const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+      biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
     }
   } );
-} );
 
+/**
+ * @param {MobileBiomolecule} biomolecule
+ * @constructor
+ */
+function MessengerRnaFragmentAttachmentStateMachine( biomolecule ) {
+  AttachmentStateMachine.call( this, biomolecule );
+  this.setState( new AttachedToDestroyerState( this ) );
+}
+
+geneExpressionEssentials.register( 'MessengerRnaFragmentAttachmentStateMachine', MessengerRnaFragmentAttachmentStateMachine );
+
+export default inherit( AttachmentStateMachine, MessengerRnaFragmentAttachmentStateMachine, {
+
+  /**
+   * @override
+   * @public
+   */
+  detach: function() {
+    this.setState( new UnattachedAndFadingState( this ) );
+  }
+} );

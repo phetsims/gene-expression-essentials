@@ -9,80 +9,76 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const Property = require( 'AXON/Property' );
-  const Range = require( 'DOT/Range' );
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-  // constants
-  const ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
+// constants
+const ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
+
+/**
+ * @param {Object} owner - the molecule upon which this attachment site exists
+ * @param {Vector2} initialLocation
+ * @param {number} initialAffinity
+ * @constructor
+ */
+function AttachmentSite( owner, initialLocation, initialAffinity ) {
+
+  // @public (read-only) {Object}
+  this.owner = owner;
+
+  // @public {Property.<Vector2> - location of this attachment site - it is a property so that it can be followed in
+  // the event that the biomolecule upon which it exists is moving
+  this.positionProperty = new Property( initialLocation );
+
+  // @public {Property.<MobileBiomolecule>} - a property that tracks which if any biomolecule is attached to or moving
+  // towards attachment with this site
+  this.attachedOrAttachingMoleculeProperty = new Property( null );
+
+  // @public {NumberProperty} - affinity of the attachment site, meaning how strongly things attach
+  this.affinityProperty = new NumberProperty( initialAffinity, { range: new Range( 0.0, 1.0 ) } );
+}
+
+geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );
+
+export default inherit( Object, AttachmentSite, {
 
   /**
-   * @param {Object} owner - the molecule upon which this attachment site exists
-   * @param {Vector2} initialLocation
-   * @param {number} initialAffinity
-   * @constructor
+   * Return the affinity of attachment site
+   * @returns {number}
+   * @public
    */
-  function AttachmentSite( owner, initialLocation, initialAffinity ) {
+  getAffinity: function() {
+    return this.affinityProperty.get();
+  },
 
-    // @public (read-only) {Object}
-    this.owner = owner;
+  /**
+   * Indicates whether or not a biomolecules is currently attached to this site.
+   * @returns {boolean} - true if a biomolecule is fully attached, false if not.  If a molecule is on its way but not
+   * yet at the site, false is returned.
+   * @public
+   */
+  isMoleculeAttached: function() {
+    return this.attachedOrAttachingMoleculeProperty.get() !== null &&
+           this.positionProperty.get().distance( this.attachedOrAttachingMoleculeProperty.get().getPosition() ) < ATTACHED_THRESHOLD;
+  },
 
-    // @public {Property.<Vector2> - location of this attachment site - it is a property so that it can be followed in
-    // the event that the biomolecule upon which it exists is moving
-    this.positionProperty = new Property( initialLocation );
+  /**
+   * @param {AttachmentSite} obj
+   * @returns {boolean}
+   * @public
+   */
+  equals: function( obj ) {
+    if ( this === obj ) { return true; }
 
-    // @public {Property.<MobileBiomolecule>} - a property that tracks which if any biomolecule is attached to or moving
-    // towards attachment with this site
-    this.attachedOrAttachingMoleculeProperty = new Property( null );
+    if ( !( obj instanceof AttachmentSite ) ) { return false; }
 
-    // @public {NumberProperty} - affinity of the attachment site, meaning how strongly things attach
-    this.affinityProperty = new NumberProperty( initialAffinity, { range: new Range( 0.0, 1.0 ) } );
+    const otherAttachmentSite = obj;
+
+    return ( this.affinityProperty.get() === otherAttachmentSite.affinityProperty.get() ) &&
+           this.positionProperty.get().equals( otherAttachmentSite.positionProperty.get() );
   }
-
-  geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );
-
-  return inherit( Object, AttachmentSite, {
-
-    /**
-     * Return the affinity of attachment site
-     * @returns {number}
-     * @public
-     */
-    getAffinity: function() {
-      return this.affinityProperty.get();
-    },
-
-    /**
-     * Indicates whether or not a biomolecules is currently attached to this site.
-     * @returns {boolean} - true if a biomolecule is fully attached, false if not.  If a molecule is on its way but not
-     * yet at the site, false is returned.
-     * @public
-     */
-    isMoleculeAttached: function() {
-      return this.attachedOrAttachingMoleculeProperty.get() !== null &&
-             this.positionProperty.get().distance( this.attachedOrAttachingMoleculeProperty.get().getPosition() ) < ATTACHED_THRESHOLD;
-    },
-
-    /**
-     * @param {AttachmentSite} obj
-     * @returns {boolean}
-     * @public
-     */
-    equals: function( obj ) {
-      if ( this === obj ) { return true; }
-
-      if ( !( obj instanceof AttachmentSite ) ) { return false; }
-
-      const otherAttachmentSite = obj;
-
-      return (this.affinityProperty.get() === otherAttachmentSite.affinityProperty.get() ) &&
-             this.positionProperty.get().equals( otherAttachmentSite.positionProperty.get() );
-    }
-  } );
 } );

@@ -7,47 +7,45 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  //modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const PlacementHint = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/PlacementHint' );
-  const TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
+
+//modules
+import inherit from '../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+import PlacementHint from './PlacementHint.js';
+import TranscriptionFactor from './TranscriptionFactor.js';
+
+/**
+ * @param {TranscriptionFactor} transcriptionFactor
+ * @constructor
+ */
+function TranscriptionFactorPlacementHint( transcriptionFactor ) {
+  PlacementHint.call( this, transcriptionFactor );
+  this.setPosition( transcriptionFactor.getPosition() );
+  this.tfConfig = transcriptionFactor.getConfig(); // @private
+}
+
+geneExpressionEssentials.register( 'TranscriptionFactorPlacementHint', TranscriptionFactorPlacementHint );
+
+export default inherit( PlacementHint, TranscriptionFactorPlacementHint, {
 
   /**
-   * @param {TranscriptionFactor} transcriptionFactor
-   * @constructor
+   * @override
+   * @param {MobileBiomolecule} testBiomolecule
+   * @returns {boolean}
+   * @public
    */
-  function TranscriptionFactorPlacementHint( transcriptionFactor ) {
-    PlacementHint.call( this, transcriptionFactor );
-    this.setPosition( transcriptionFactor.getPosition() );
-    this.tfConfig = transcriptionFactor.getConfig(); // @private
-  }
+  isMatchingBiomolecule: function( testBiomolecule ) {
+    return testBiomolecule instanceof TranscriptionFactor && ( testBiomolecule.getConfig() === this.tfConfig );
+  },
 
-  geneExpressionEssentials.register( 'TranscriptionFactorPlacementHint', TranscriptionFactorPlacementHint );
-
-  return inherit( PlacementHint, TranscriptionFactorPlacementHint, {
-
-    /**
-     * @override
-     * @param {MobileBiomolecule} testBiomolecule
-     * @returns {boolean}
-     * @public
-     */
-    isMatchingBiomolecule: function( testBiomolecule ) {
-      return testBiomolecule instanceof TranscriptionFactor && ( testBiomolecule.getConfig() === this.tfConfig);
-    },
-
-    /**
-     * @param { TranscriptionFactorConfig } transcriptionFactorConfig
-     * @public
-     */
-    activateIfConfigMatch: function( transcriptionFactorConfig ) {
-      if ( this.tfConfig === transcriptionFactorConfig ) {
-        this.activeProperty.set( true );
-      }
+  /**
+   * @param { TranscriptionFactorConfig } transcriptionFactorConfig
+   * @public
+   */
+  activateIfConfigMatch: function( transcriptionFactorConfig ) {
+    if ( this.tfConfig === transcriptionFactorConfig ) {
+      this.activeProperty.set( true );
     }
-  } );
+  }
 } );

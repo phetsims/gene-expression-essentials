@@ -6,146 +6,142 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FollowAttachmentSite = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/FollowAttachmentSite' );
-  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const GenericAttachedState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericAttachedState' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MoveDirectlyToDestinationMotionStrategy' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const WanderInGeneralDirectionMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/WanderInGeneralDirectionMotionStrategy' );
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import GEEConstants from '../../GEEConstants.js';
+import FollowAttachmentSite from '../motion-strategies/FollowAttachmentSite.js';
+import MoveDirectlyToDestinationMotionStrategy from '../motion-strategies/MoveDirectlyToDestinationMotionStrategy.js';
+import WanderInGeneralDirectionMotionStrategy from '../motion-strategies/WanderInGeneralDirectionMotionStrategy.js';
+import GenericAttachedState from './GenericAttachedState.js';
 
-  // constants
-  const HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.
+// constants
+const HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.
+
+/**
+ * @param {TranscriptionFactorAttachmentStateMachine} transcriptionFactorAttachmentStateMachine
+ * @constructor
+ */
+function TranscriptionFactorAttachedState( transcriptionFactorAttachmentStateMachine ) {
+  GenericAttachedState.call( this );
+  this.transcriptionFactorAttachmentStateMachine = transcriptionFactorAttachmentStateMachine; //@public
+}
+
+geneExpressionEssentials.register( 'TranscriptionFactorAttachedState', TranscriptionFactorAttachedState );
+
+export default inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
 
   /**
-   * @param {TranscriptionFactorAttachmentStateMachine} transcriptionFactorAttachmentStateMachine
-   * @constructor
+   * Calculate the probability of detachment from the current base pair during the provided time interval. This uses
+   * the same mathematics as is used for calculating probabilities of decay for radioactive
+   * atomic nuclei.
+   *
+   * @param {number} affinity
+   * @param {number} dt
+   * @returns {number}
+   * @public
    */
-  function TranscriptionFactorAttachedState( transcriptionFactorAttachmentStateMachine ) {
-    GenericAttachedState.call( this );
-    this.transcriptionFactorAttachmentStateMachine = transcriptionFactorAttachmentStateMachine; //@public
-  }
+  calculateProbabilityOfDetachment: function( affinity, dt ) {
 
-  geneExpressionEssentials.register( 'TranscriptionFactorAttachedState', TranscriptionFactorAttachedState );
+    // Map affinity to a half life. Units are in seconds. This formula can be tweaked as needed in order to make the
+    // half life longer or shorter. However, zero affinity should always map to zero half life, and an affinity of one
+    // should always map to an infinite half life.
+    const halfLife = HALF_LIFE_FOR_HALF_AFFINITY * ( affinity / ( 1 - affinity ) );
 
-  return inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
+    // Use standard half-life formula to decide on probability of detachment.
+    return 1 - Math.exp( -0.693 * dt / halfLife );
+  },
 
-    /**
-     * Calculate the probability of detachment from the current base pair during the provided time interval. This uses
-     * the same mathematics as is used for calculating probabilities of decay for radioactive
-     * atomic nuclei.
-     *
-     * @param {number} affinity
-     * @param {number} dt
-     * @returns {number}
-     * @public
-     */
-    calculateProbabilityOfDetachment: function( affinity, dt ) {
+  /**
+   * @param {AttachmentStateMachine} asm
+   * @private
+   */
+  detachFromDnaMolecule: function( asm ) {
+    const biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
+    asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
+    asm.attachmentSite = null;
+    asm.setState( this.transcriptionFactorAttachmentStateMachine.unattachedButUnavailableState );
+    biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( biomolecule.getDetachDirection(),
+      biomolecule.motionBoundsProperty ) );
+    this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold = 1; // Reset this threshold.
+    asm.biomolecule.attachedToDnaProperty.set( false ); // Update externally visible state indication.
+  },
 
-      // Map affinity to a half life. Units are in seconds. This formula can be tweaked as needed in order to make the
-      // half life longer or shorter. However, zero affinity should always map to zero half life, and an affinity of one
-      // should always map to an infinite half life.
-      const halfLife = HALF_LIFE_FOR_HALF_AFFINITY * ( affinity / ( 1 - affinity ) );
+  /**
+   * @override
+   * @param {AttachmentStateMachine} asm
+   * @param {number} dt
+   * @public
+   */
+  step: function( asm, dt ) {
+    let attachmentSite = this.transcriptionFactorAttachmentStateMachine.attachmentSite;
+    const detachFromDnaThreshold = this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold;
+    const biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
+    const movingTowardsAttachmentState = this.transcriptionFactorAttachmentStateMachine.movingTowardsAttachmentState;
 
-      // Use standard half-life formula to decide on probability of detachment.
-      return 1 - Math.exp( -0.693 * dt / halfLife );
-    },
+    // Decide whether or not to detach from the current attachment site.
+    if ( phet.joist.random.nextDouble() > ( 1 - this.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
 
-    /**
-     * @param {AttachmentStateMachine} asm
-     * @private
-     */
-    detachFromDnaMolecule: function( asm ) {
-      const biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
-      asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
-      asm.attachmentSite = null;
-      asm.setState( this.transcriptionFactorAttachmentStateMachine.unattachedButUnavailableState );
-      biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy( biomolecule.getDetachDirection(),
-        biomolecule.motionBoundsProperty ) );
-      this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold = 1; // Reset this threshold.
-      asm.biomolecule.attachedToDnaProperty.set( false ); // Update externally visible state indication.
-    },
+      // The decision has been made to detach. Next, decide whether to detach completely from the DNA strand or just
+      // jump to an adjacent base pair.
+      if ( phet.joist.random.nextDouble() > detachFromDnaThreshold ) {
 
-    /**
-     * @override
-     * @param {AttachmentStateMachine} asm
-     * @param {number} dt
-     * @public
-     */
-    step: function( asm, dt ) {
-      let attachmentSite = this.transcriptionFactorAttachmentStateMachine.attachmentSite;
-      const detachFromDnaThreshold = this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold;
-      const biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
-      const movingTowardsAttachmentState = this.transcriptionFactorAttachmentStateMachine.movingTowardsAttachmentState;
+        // Detach completely from the DNA.
+        this.detachFromDnaMolecule( asm );
+      }
+      else {
 
-      // Decide whether or not to detach from the current attachment site.
-      if ( phet.joist.random.nextDouble() > ( 1 - this.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
+        // Move to an adjacent base pair. Start by making a list of candidate base pairs.
+        let attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesTranscriptionFactor( biomolecule, asm.attachmentSite );
 
-        // The decision has been made to detach. Next, decide whether to detach completely from the DNA strand or just
-        // jump to an adjacent base pair.
-        if ( phet.joist.random.nextDouble() > detachFromDnaThreshold ) {
+        // Eliminate sites that, if moved to, would put the biomolecule out of bounds.
+        //var clonedAttachmentSites = [].concat( attachmentSites );
+        _.remove( attachmentSites, function( site ) {
+          return !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.bounds,
+            site.positionProperty.get() );
+        } );
 
-          // Detach completely from the DNA.
+        // Shuffle in order to produce random-ish behavior.
+        attachmentSites = phet.joist.random.shuffle( attachmentSites );
+
+        if ( attachmentSites.length === 0 ) {
+
+          // No valid adjacent sites, so detach completely.
           this.detachFromDnaMolecule( asm );
         }
         else {
 
-          // Move to an adjacent base pair. Start by making a list of candidate base pairs.
-          let attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesTranscriptionFactor( biomolecule, asm.attachmentSite );
+          // Clear the previous attachment site.
+          attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
 
-          // Eliminate sites that, if moved to, would put the biomolecule out of bounds.
-          //var clonedAttachmentSites = [].concat( attachmentSites );
-          _.remove( attachmentSites, function( site ) {
-            return !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.bounds,
-              site.positionProperty.get() );
-          } );
+          // Set a new attachment site.
+          attachmentSite = attachmentSites[ 0 ];
+          assert && assert( attachmentSite.attachedOrAttachingMoleculeProperty.get() === null );
+          attachmentSite.attachedOrAttachingMoleculeProperty.set( biomolecule );
 
-          // Shuffle in order to produce random-ish behavior.
-          attachmentSites = phet.joist.random.shuffle( attachmentSites );
+          // Set up the state to move to the new attachment site.
+          this.transcriptionFactorAttachmentStateMachine.setState( movingTowardsAttachmentState );
+          this.transcriptionFactorAttachmentStateMachine.attachmentSite = attachmentSite;
+          biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.positionProperty,
+            biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), GEEConstants.VELOCITY_ON_DNA ) );
 
-          if ( attachmentSites.length === 0 ) {
-
-            // No valid adjacent sites, so detach completely.
-            this.detachFromDnaMolecule( asm );
-          }
-          else {
-
-            // Clear the previous attachment site.
-            attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
-
-            // Set a new attachment site.
-            attachmentSite = attachmentSites[ 0 ];
-            assert && assert( attachmentSite.attachedOrAttachingMoleculeProperty.get() === null );
-            attachmentSite.attachedOrAttachingMoleculeProperty.set( biomolecule );
-
-            // Set up the state to move to the new attachment site.
-            this.transcriptionFactorAttachmentStateMachine.setState( movingTowardsAttachmentState );
-            this.transcriptionFactorAttachmentStateMachine.attachmentSite = attachmentSite;
-            biomolecule.setMotionStrategy( new MoveDirectlyToDestinationMotionStrategy( attachmentSite.positionProperty,
-              biomolecule.motionBoundsProperty, new Vector2( 0, 0 ), GEEConstants.VELOCITY_ON_DNA ) );
-
-            // Update the detachment threshold. It gets lower over time to increase the probability of detachment.
-            // Tweak as needed.
-            this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold =
-              detachFromDnaThreshold * Math.pow( 0.5, GEEConstants.DEFAULT_ATTACH_TIME );
-          }
+          // Update the detachment threshold. It gets lower over time to increase the probability of detachment.
+          // Tweak as needed.
+          this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold =
+            detachFromDnaThreshold * Math.pow( 0.5, GEEConstants.DEFAULT_ATTACH_TIME );
         }
       }
-    },
-
-    /**
-     * @override
-     * @param {AttachmentStateMachine} enclosingStateMachine
-     * @public
-     */
-    entered: function( enclosingStateMachine ) {
-      enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
-      enclosingStateMachine.biomolecule.attachedToDnaProperty.set( true ); // Update externally visible state indication.
     }
-  } );
+  },
+
+  /**
+   * @override
+   * @param {AttachmentStateMachine} enclosingStateMachine
+   * @public
+   */
+  entered: function( enclosingStateMachine ) {
+    enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
+    enclosingStateMachine.biomolecule.attachedToDnaProperty.set( true ); // Update externally visible state indication.
+  }
 } );

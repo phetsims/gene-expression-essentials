@@ -7,59 +7,56 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  //modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
+
+//modules
+import inherit from '../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+
+/**
+ *
+ * @param {number} xPos  - X Position in model space where this separation should exist.
+ * @param {number} targetAmount
+ * @constructor
+ */
+function DnaSeparation( xPos, targetAmount ) {
+  this.xPos = xPos; // @private - x Position in model space
+  this.targetAmount = targetAmount; // @private
+  this.amount = 0;// @private - Actual amount of separation. Starts at 0 and is generally grown over time toward target.
+}
+
+geneExpressionEssentials.register( 'DnaSeparation', DnaSeparation );
+export default inherit( Object, DnaSeparation, {
 
   /**
-   *
-   * @param {number} xPos  - X Position in model space where this separation should exist.
-   * @param {number} targetAmount
-   * @constructor
+   * @returns {number}
+   * @public
    */
-  function DnaSeparation( xPos, targetAmount ) {
-    this.xPos = xPos; // @private - x Position in model space
-    this.targetAmount = targetAmount; // @private
-    this.amount = 0;// @private - Actual amount of separation. Starts at 0 and is generally grown over time toward target.
+  getXPosition: function() {
+    return this.xPos;
+  },
+
+  /**
+   * @param {number} xPos
+   * @public
+   */
+  setXPosition: function( xPos ) {
+    this.xPos = xPos;
+  },
+
+  /**
+   * @returns {number}
+   * @public
+   */
+  getAmount: function() {
+    return this.amount;
+  },
+
+  /**
+   * @param {number} proportion
+   * @public
+   */
+  setProportionOfTargetAmount: function( proportion ) {
+    this.amount = this.targetAmount * proportion;
   }
-
-  geneExpressionEssentials.register( 'DnaSeparation', DnaSeparation );
-  return inherit( Object, DnaSeparation, {
-
-    /**
-     * @returns {number}
-     * @public
-     */
-    getXPosition: function() {
-      return this.xPos;
-    },
-
-    /**
-     * @param {number} xPos
-     * @public
-     */
-    setXPosition: function( xPos ) {
-      this.xPos = xPos;
-    },
-
-    /**
-     * @returns {number}
-     * @public
-     */
-    getAmount: function() {
-      return this.amount;
-    },
-
-    /**
-     * @param {number} proportion
-     * @public
-     */
-    setProportionOfTargetAmount: function( proportion ) {
-      this.amount = this.targetAmount * proportion;
-    }
-  } );
 } );
-

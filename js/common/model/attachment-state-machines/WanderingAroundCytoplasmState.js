@@ -8,33 +8,29 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RandomWalkMotionStrategy' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
+import AttachmentState from './AttachmentState.js';
+
+/**
+ * @constructor
+ */
+function WanderingAroundCytoplasmState() {
+  AttachmentState.call( this );
+}
+
+geneExpressionEssentials.register( 'WanderingAroundCytoplasmState', WanderingAroundCytoplasmState );
+export default inherit( AttachmentState, WanderingAroundCytoplasmState, {
 
   /**
-   * @constructor
+   * @override
+   * @param {AttachmentStateMachine} enclosingStateMachine
+   * @public
    */
-  function WanderingAroundCytoplasmState() {
-    AttachmentState.call( this );
+  entered: function( enclosingStateMachine ) {
+    enclosingStateMachine.biomolecule.setMotionStrategy(
+      new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty ) );
   }
-
-  geneExpressionEssentials.register( 'WanderingAroundCytoplasmState', WanderingAroundCytoplasmState );
-  return inherit( AttachmentState, WanderingAroundCytoplasmState, {
-
-    /**
-     * @override
-     * @param {AttachmentStateMachine} enclosingStateMachine
-     * @public
-     */
-    entered: function( enclosingStateMachine ) {
-      enclosingStateMachine.biomolecule.setMotionStrategy(
-        new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty ) );
-    }
-  } );
 } );

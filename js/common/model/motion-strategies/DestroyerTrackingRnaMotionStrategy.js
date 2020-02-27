@@ -8,40 +8,35 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
-  const Vector2 = require( 'DOT/Vector2' );
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import MotionStrategy from './MotionStrategy.js';
+
+/**
+ * @param messengerRnaDestroyer {MessengerRnaDestroyer}
+ * @constructor
+ */
+function DestroyerTrackingRnaMotionStrategy( messengerRnaDestroyer ) {
+  MotionStrategy.call( this );
+  this.messengerRna = messengerRnaDestroyer.getMessengerRnaBeingDestroyed(); //@private
+}
+
+geneExpressionEssentials.register( 'DestroyerTrackingRnaMotionStrategy', DestroyerTrackingRnaMotionStrategy );
+
+export default inherit( MotionStrategy, DestroyerTrackingRnaMotionStrategy, {
 
   /**
-   * @param messengerRnaDestroyer {MessengerRnaDestroyer}
-   * @constructor
+   * @override
+   * @param {Vector2} currentPosition
+   * @param {Bounds2} bounds
+   * @param {number} dt
+   * @returns {Vector2}
+   * @public
    */
-  function DestroyerTrackingRnaMotionStrategy( messengerRnaDestroyer ) {
-    MotionStrategy.call( this );
-    this.messengerRna = messengerRnaDestroyer.getMessengerRnaBeingDestroyed(); //@private
+  getNextPosition: function( currentPosition, bounds, dt ) {
+    const generateInitialPosition3D = this.messengerRna.getDestroyerGenerateInitialPosition3D();
+    return new Vector2( generateInitialPosition3D.x, generateInitialPosition3D.y );
   }
-
-  geneExpressionEssentials.register( 'DestroyerTrackingRnaMotionStrategy', DestroyerTrackingRnaMotionStrategy );
-
-  return inherit( MotionStrategy, DestroyerTrackingRnaMotionStrategy, {
-
-    /**
-     * @override
-     * @param {Vector2} currentPosition
-     * @param {Bounds2} bounds
-     * @param {number} dt
-     * @returns {Vector2}
-     * @public
-     */
-    getNextPosition: function( currentPosition, bounds, dt ) {
-      const generateInitialPosition3D = this.messengerRna.getDestroyerGenerateInitialPosition3D();
-      return new Vector2( generateInitialPosition3D.x, generateInitialPosition3D.y );
-    }
-  } );
 } );
-

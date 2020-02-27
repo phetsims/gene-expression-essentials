@@ -12,78 +12,74 @@
  *
  * @author John Blanco
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const GenericUnattachedAndAvailableState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/GenericUnattachedAndAvailableState' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MeanderToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MeanderToDestinationMotionStrategy' );
-  const MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MoveDirectlyToDestinationMotionStrategy' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import GEEConstants from '../../GEEConstants.js';
+import MeanderToDestinationMotionStrategy from '../motion-strategies/MeanderToDestinationMotionStrategy.js';
+import MoveDirectlyToDestinationMotionStrategy from '../motion-strategies/MoveDirectlyToDestinationMotionStrategy.js';
+import GenericUnattachedAndAvailableState from './GenericUnattachedAndAvailableState.js';
+
+/**
+ * @constructor
+ * @param  {AttachmentStateMachine} attachmentStateMachine
+ */
+function UnattachedAndAvailableForMRnaAttachmentState( attachmentStateMachine ) {
+  GenericUnattachedAndAvailableState.call( this, attachmentStateMachine );
+  this.attachmentStateMachine = attachmentStateMachine; //@public
+}
+
+geneExpressionEssentials.register(
+  'UnattachedAndAvailableForMRnaAttachmentState',
+  UnattachedAndAvailableForMRnaAttachmentState
+);
+
+export default inherit( GenericUnattachedAndAvailableState, UnattachedAndAvailableForMRnaAttachmentState, {
 
   /**
-   * @constructor
-   * @param  {AttachmentStateMachine} attachmentStateMachine
+   * @override
+   * @param {AttachmentStateMachine} enclosingStateMachine
+   * @param {number} dt
+   * @public
    */
-  function UnattachedAndAvailableForMRnaAttachmentState( attachmentStateMachine ) {
-    GenericUnattachedAndAvailableState.call( this, attachmentStateMachine );
-    this.attachmentStateMachine = attachmentStateMachine; //@public
-  }
+  step: function( enclosingStateMachine, dt ) {
+    const gsm = enclosingStateMachine;
 
-  geneExpressionEssentials.register(
-    'UnattachedAndAvailableForMRnaAttachmentState',
-    UnattachedAndAvailableForMRnaAttachmentState
-  );
+    // verify that state is consistent
+    assert && assert( gsm.attachmentSite === null );
 
-  return inherit( GenericUnattachedAndAvailableState, UnattachedAndAvailableForMRnaAttachmentState, {
+    // make the biomolecule look for attachments
+    gsm.attachmentSite = gsm.biomolecule.proposeAttachments();
+    if ( gsm.attachmentSite !== null ) {
 
-    /**
-     * @override
-     * @param {AttachmentStateMachine} enclosingStateMachine
-     * @param {number} dt
-     * @public
-     */
-    step: function( enclosingStateMachine, dt ) {
-      const gsm = enclosingStateMachine;
+      // A proposal was accepted.  Mark the attachment site as being in use.
+      gsm.attachmentSite.attachedOrAttachingMoleculeProperty.set( gsm.biomolecule );
 
-      // verify that state is consistent
-      assert && assert( gsm.attachmentSite === null );
+      // Start moving towards the attachment site on the mRNA.  If the mRNA is being transcribed (aka synthesized),
+      // it will be moving rapidly, so we will need a motion strategy that moves to it quickly.
+      if ( gsm.attachmentSite.owner.beingSynthesizedProperty.get() ) {
 
-      // make the biomolecule look for attachments
-      gsm.attachmentSite = gsm.biomolecule.proposeAttachments();
-      if ( gsm.attachmentSite !== null ) {
-
-        // A proposal was accepted.  Mark the attachment site as being in use.
-        gsm.attachmentSite.attachedOrAttachingMoleculeProperty.set( gsm.biomolecule );
-
-        // Start moving towards the attachment site on the mRNA.  If the mRNA is being transcribed (aka synthesized),
-        // it will be moving rapidly, so we will need a motion strategy that moves to it quickly.
-        if ( gsm.attachmentSite.owner.beingSynthesizedProperty.get() ){
-
-          gsm.biomolecule.setMotionStrategy(
-            new MoveDirectlyToDestinationMotionStrategy(
-              gsm.attachmentSite.positionProperty,
-              gsm.biomolecule.motionBoundsProperty,
-              gsm.destinationOffset,
-              GEEConstants.TRANSCRIPTION_SPEED * 2
-            )
-          );
-        }
-        else{
-          gsm.biomolecule.setMotionStrategy(
-            new MeanderToDestinationMotionStrategy(
-              gsm.attachmentSite.positionProperty,
-              gsm.biomolecule.motionBoundsProperty,
-              gsm.destinationOffset
-            )
-          );
-        }
-
-        // Update state.
-        gsm.setState( gsm.movingTowardsAttachmentState );
+        gsm.biomolecule.setMotionStrategy(
+          new MoveDirectlyToDestinationMotionStrategy(
+            gsm.attachmentSite.positionProperty,
+            gsm.biomolecule.motionBoundsProperty,
+            gsm.destinationOffset,
+            GEEConstants.TRANSCRIPTION_SPEED * 2
+          )
+        );
       }
+      else {
+        gsm.biomolecule.setMotionStrategy(
+          new MeanderToDestinationMotionStrategy(
+            gsm.attachmentSite.positionProperty,
+            gsm.biomolecule.motionBoundsProperty,
+            gsm.destinationOffset
+          )
+        );
+      }
+
+      // Update state.
+      gsm.setState( gsm.movingTowardsAttachmentState );
     }
-  } );
+  }
 } );

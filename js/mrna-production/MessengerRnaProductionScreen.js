@@ -6,45 +6,41 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/model/MessengerRnaProductionModel' );
-  const MessengerRnaProductionScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/MessengerRnaProductionScreenView' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import mRnaProductionIcon from '../../mipmaps/mrna-production-icon_png.js';
+import GEEConstants from '../common/GEEConstants.js';
+import geneExpressionEssentialsStrings from '../gene-expression-essentials-strings.js';
+import geneExpressionEssentials from '../geneExpressionEssentials.js';
+import MessengerRnaProductionModel from './model/MessengerRnaProductionModel.js';
+import MessengerRnaProductionScreenView from './view/MessengerRnaProductionScreenView.js';
 
-  // strings
-  const screenMRnaString = require( 'string!GENE_EXPRESSION_ESSENTIALS/screen.mRna' );
+const screenMRnaString = geneExpressionEssentialsStrings.screen.mRna;
 
-  // images
-  const mRnaProductionIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/mrna-production-icon.png' );
 
-  /**
-   * @constructor
-   */
-  function MessengerRnaProductionScreen() {
+/**
+ * @constructor
+ */
+function MessengerRnaProductionScreen() {
 
-    const options = {
-      name: screenMRnaString,
-      backgroundColorProperty: new Property( '#ABCBDB' ),
-      homeScreenIcon: new Image( mRnaProductionIcon ),
-      maxDT: GEEConstants.MAX_DT
-    };
+  const options = {
+    name: screenMRnaString,
+    backgroundColorProperty: new Property( '#ABCBDB' ),
+    homeScreenIcon: new Image( mRnaProductionIcon ),
+    maxDT: GEEConstants.MAX_DT
+  };
 
-    Screen.call( this,
-      function() { return new MessengerRnaProductionModel(); },
-      function( model ) { return new MessengerRnaProductionScreenView( model ); },
-      options
-    );
-  }
+  Screen.call( this,
+    function() { return new MessengerRnaProductionModel(); },
+    function( model ) { return new MessengerRnaProductionScreenView( model ); },
+    options
+  );
+}
 
-  geneExpressionEssentials.register( 'MessengerRnaProductionScreen', MessengerRnaProductionScreen );
+geneExpressionEssentials.register( 'MessengerRnaProductionScreen', MessengerRnaProductionScreen );
 
-  return inherit( Screen, MessengerRnaProductionScreen );
-} );
+inherit( Screen, MessengerRnaProductionScreen );
+export default MessengerRnaProductionScreen;

@@ -6,45 +6,41 @@
  * @author Aadish Gupta
  * @author John Blanco
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MultipleCellsModel = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/MultipleCellsModel' );
-  const MultipleCellsScreenView = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/view/MultipleCellsScreenView' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import multipleCellsIcon from '../../mipmaps/multiple-cells-icon_png.js';
+import GEEConstants from '../common/GEEConstants.js';
+import geneExpressionEssentialsStrings from '../gene-expression-essentials-strings.js';
+import geneExpressionEssentials from '../geneExpressionEssentials.js';
+import MultipleCellsModel from './model/MultipleCellsModel.js';
+import MultipleCellsScreenView from './view/MultipleCellsScreenView.js';
 
-  // strings
-  const screenMultipleCellsString = require( 'string!GENE_EXPRESSION_ESSENTIALS/screen.multipleCells' );
+const screenMultipleCellsString = geneExpressionEssentialsStrings.screen.multipleCells;
 
-  // images
-  const multipleCellsIcon = require( 'mipmap!GENE_EXPRESSION_ESSENTIALS/multiple-cells-icon.png' );
 
-  /**
-   * @constructor
-   */
-  function MultipleCellsScreen() {
+/**
+ * @constructor
+ */
+function MultipleCellsScreen() {
 
-    const options = {
-      name: screenMultipleCellsString,
-      backgroundColorProperty: new Property( 'black' ),
-      homeScreenIcon: new Image( multipleCellsIcon ),
-      maxDT: GEEConstants.MAX_DT
-    };
+  const options = {
+    name: screenMultipleCellsString,
+    backgroundColorProperty: new Property( 'black' ),
+    homeScreenIcon: new Image( multipleCellsIcon ),
+    maxDT: GEEConstants.MAX_DT
+  };
 
-    Screen.call( this,
-      function() { return new MultipleCellsModel(); },
-      function( model ) { return new MultipleCellsScreenView( model ); },
-      options
-    );
-  }
+  Screen.call( this,
+    function() { return new MultipleCellsModel(); },
+    function( model ) { return new MultipleCellsScreenView( model ); },
+    options
+  );
+}
 
-  geneExpressionEssentials.register( 'MultipleCellsScreen', MultipleCellsScreen );
+geneExpressionEssentials.register( 'MultipleCellsScreen', MultipleCellsScreen );
 
-  return inherit( Screen, MultipleCellsScreen );
-} );
+inherit( Screen, MultipleCellsScreen );
+export default MultipleCellsScreen;

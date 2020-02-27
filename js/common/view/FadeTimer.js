@@ -7,65 +7,61 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Property = require( 'AXON/Property' );
-  const timer = require( 'AXON/timer' );
+import Property from '../../../../axon/js/Property.js';
+import timer from '../../../../axon/js/timer.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+
+/**
+ *
+ * @param {number} interval in milliseconds
+ * @param {Function} listener
+ * @constructor
+ */
+function FadeTimer( interval, listener ) {
+  this.interval = interval; // milliseconds // @private
+  this.listener = listener; // @private
+  this.isRunningProperty = new Property( false ); // @public
+  this._intervalId = null; // @private
+}
+
+geneExpressionEssentials.register( 'FadeTimer', FadeTimer );
+
+export default inherit( Object, FadeTimer, {
 
   /**
-   *
-   * @param {number} interval in milliseconds
-   * @param {Function} listener
-   * @constructor
+   * Starts the timer. This is a no-op if the timer is already running.
+   * @public
    */
-  function FadeTimer( interval, listener ) {
-    this.interval = interval; // milliseconds // @private
-    this.listener = listener; // @private
-    this.isRunningProperty = new Property( false ); // @public
-    this._intervalId = null; // @private
-  }
-
-  geneExpressionEssentials.register( 'FadeTimer', FadeTimer );
-
-  return inherit( Object, FadeTimer, {
-
-    /**
-     * Starts the timer. This is a no-op if the timer is already running.
-     * @public
-     */
-    start: function() {
-      const self = this;
-      if ( !this.isRunningProperty.get() ) {
-        self._intervalId = timer.setInterval( function() {
-          self.listener();
-        }, this.interval );
-        self.isRunningProperty.set( true );
-      }
-    },
-
-    /**
-     * Stops the timer. This is a no-op if the timer is already stopped.
-     * @public
-     */
-    stop: function() {
-      if ( this.isRunningProperty.get() ) {
-        timer.clearInterval( this._intervalId );
-        this._intervalId = null;
-        this.isRunningProperty.set( false );
-      }
-    },
-
-    /**
-     * Convenience function for restarting the timer.
-     * @public
-     */
-    restart: function() {
-      this.stop();
-      this.start();
+  start: function() {
+    const self = this;
+    if ( !this.isRunningProperty.get() ) {
+      self._intervalId = timer.setInterval( function() {
+        self.listener();
+      }, this.interval );
+      self.isRunningProperty.set( true );
     }
-  } );
+  },
+
+  /**
+   * Stops the timer. This is a no-op if the timer is already stopped.
+   * @public
+   */
+  stop: function() {
+    if ( this.isRunningProperty.get() ) {
+      timer.clearInterval( this._intervalId );
+      this._intervalId = null;
+      this.isRunningProperty.set( false );
+    }
+  },
+
+  /**
+   * Convenience function for restarting the timer.
+   * @public
+   */
+  restart: function() {
+    this.stop();
+    this.start();
+  }
 } );

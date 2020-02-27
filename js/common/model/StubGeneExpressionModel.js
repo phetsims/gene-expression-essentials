@@ -8,19 +8,16 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-  /**
-   * @constructor
-   */
-  function StubGeneExpressionModel() {
-  }
+/**
+ * @constructor
+ */
+function StubGeneExpressionModel() {
+}
 
-  geneExpressionEssentials.register( 'StubGeneExpressionModel', StubGeneExpressionModel );
-  return inherit( Object, StubGeneExpressionModel );
-} );
+geneExpressionEssentials.register( 'StubGeneExpressionModel', StubGeneExpressionModel );
+inherit( Object, StubGeneExpressionModel );
+export default StubGeneExpressionModel;

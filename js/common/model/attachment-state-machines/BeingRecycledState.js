@@ -8,77 +8,72 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  const DriftThenTeleportMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/DriftThenTeleportMotionStrategy' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RandomWalkMotionStrategy' );
-  const Vector2 = require( 'DOT/Vector2' );
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import DriftThenTeleportMotionStrategy from '../motion-strategies/DriftThenTeleportMotionStrategy.js';
+import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
+import AttachmentState from './AttachmentState.js';
+
+/**
+ * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
+ * @param {Array<Bounds2>} recycleReturnZones
+ * @constructor
+ */
+function BeingRecycledState( rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) {
+  AttachmentState.call( this );
+
+  // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+  this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+
+  // private
+  this.recycleReturnZones = recycleReturnZones;
+}
+
+geneExpressionEssentials.register( 'BeingRecycledState', BeingRecycledState );
+
+export default inherit( AttachmentState, BeingRecycledState, {
 
   /**
-   * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
-   * @param {Array<Bounds2>} recycleReturnZones
-   * @constructor
+   * @override
+   * @param {AttachmentStateMachine} asm
+   * @param {number} dt
+   * @public
    */
-  function BeingRecycledState( rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) {
-    AttachmentState.call( this );
+  step: function( asm, dt ) {
 
-    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
-    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+    // Verify that state is consistent.
+    assert && assert( asm.attachmentSite === null );
 
-    // private
-    this.recycleReturnZones = recycleReturnZones;
-  }
+    const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+    const unattachedAndAvailableState = this.rnaPolymeraseAttachmentStateMachine.unattachedAndAvailableState;
 
-  geneExpressionEssentials.register( 'BeingRecycledState', BeingRecycledState );
+    if ( this.rnaPolymeraseAttachmentStateMachine.pointContainedInBoundsList(
+      asm.biomolecule.getPosition(), this.recycleReturnZones
+    ) ) {
 
-  return inherit( AttachmentState, BeingRecycledState, {
-
-    /**
-     * @override
-     * @param {AttachmentStateMachine} asm
-     * @param {number} dt
-     * @public
-     */
-    step: function( asm, dt ) {
-
-      // Verify that state is consistent.
-      assert && assert( asm.attachmentSite === null );
-
-      const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
-      const unattachedAndAvailableState = this.rnaPolymeraseAttachmentStateMachine.unattachedAndAvailableState;
-
-      if ( this.rnaPolymeraseAttachmentStateMachine.pointContainedInBoundsList(
-          asm.biomolecule.getPosition(), this.recycleReturnZones
-        ) ) {
-
-        // The motion strategy has returned the biomolecule to the recycle return zone, so this state is complete.
-        asm.biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
-        asm.setState( unattachedAndAvailableState );
-      }
-    },
-
-    /**
-     * @override
-     * @param {AttachmentStateMachine} asm
-     * @public
-     */
-    entered: function( asm ) {
-      const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
-
-      // Prevent user interaction.
-      asm.biomolecule.movableByUserProperty.set( false );
-
-      // Set the motion strategy that will move the polymerase clear of the DNA, then teleport it to a position within
-      // the specified bounds.
-      asm.biomolecule.setMotionStrategy( new DriftThenTeleportMotionStrategy( new Vector2( 0,
-        phet.joist.random.nextBoolean() ? 1 : -1 ),
-        this.recycleReturnZones, biomolecule.motionBoundsProperty ) );
+      // The motion strategy has returned the biomolecule to the recycle return zone, so this state is complete.
+      asm.biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
+      asm.setState( unattachedAndAvailableState );
     }
-  } );
-} );
+  },
 
+  /**
+   * @override
+   * @param {AttachmentStateMachine} asm
+   * @public
+   */
+  entered: function( asm ) {
+    const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
+
+    // Prevent user interaction.
+    asm.biomolecule.movableByUserProperty.set( false );
+
+    // Set the motion strategy that will move the polymerase clear of the DNA, then teleport it to a position within
+    // the specified bounds.
+    asm.biomolecule.setMotionStrategy( new DriftThenTeleportMotionStrategy( new Vector2( 0,
+      phet.joist.random.nextBoolean() ? 1 : -1 ),
+      this.recycleReturnZones, biomolecule.motionBoundsProperty ) );
+  }
+} );

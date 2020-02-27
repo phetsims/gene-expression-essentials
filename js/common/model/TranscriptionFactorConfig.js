@@ -7,26 +7,22 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-  /**
-   * @param {Shape} shape
-   * @param {Vector2} positive
-   * @param {Color} baseColor
-   * @constructor
-   */
-  function TranscriptionFactorConfig( shape, positive, baseColor ) {
-    this.shape = shape; // @public
-    this.baseColor = baseColor; // @public
-    this.isPositive = positive; // @public
-  }
+/**
+ * @param {Shape} shape
+ * @param {Vector2} positive
+ * @param {Color} baseColor
+ * @constructor
+ */
+function TranscriptionFactorConfig( shape, positive, baseColor ) {
+  this.shape = shape; // @public
+  this.baseColor = baseColor; // @public
+  this.isPositive = positive; // @public
+}
 
-  geneExpressionEssentials.register( 'TranscriptionFactorConfig', TranscriptionFactorConfig );
+geneExpressionEssentials.register( 'TranscriptionFactorConfig', TranscriptionFactorConfig );
 
-  return inherit( Object, TranscriptionFactorConfig, {} );
-} );
+export default inherit( Object, TranscriptionFactorConfig, {} );

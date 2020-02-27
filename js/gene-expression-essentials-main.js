@@ -5,36 +5,32 @@
  *
  * @author John Blanco
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const ManualGeneExpressionScreen = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/ManualGeneExpressionScreen' );
-  const MessengerRnaProductionScreen = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/MessengerRnaProductionScreen' );
-  const MultipleCellsScreen = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/MultipleCellsScreen' );
-  const Sim = require( 'JOIST/Sim' );
-  const SimLauncher = require( 'JOIST/SimLauncher' );
+import Sim from '../../joist/js/Sim.js';
+import SimLauncher from '../../joist/js/SimLauncher.js';
+import geneExpressionEssentialsStrings from './gene-expression-essentials-strings.js';
+import ManualGeneExpressionScreen from './manual-gene-expression/ManualGeneExpressionScreen.js';
+import MessengerRnaProductionScreen from './mrna-production/MessengerRnaProductionScreen.js';
+import MultipleCellsScreen from './multiple-cells/MultipleCellsScreen.js';
 
-  // strings
-  const geneExpressionEssentialsTitleString = require( 'string!GENE_EXPRESSION_ESSENTIALS/gene-expression-essentials.title' );
+const geneExpressionEssentialsTitleString = geneExpressionEssentialsStrings[ 'gene-expression-essentials' ].title;
 
-  const simOptions = {
-    credits: {
-      leadDesign: 'Steele Dalton, John Blanco',
-      softwareDevelopment: 'John Blanco, Aadish Gupta, Sharfudeen Ashraf, George Emanuel',
-      team: 'John Blanco, Mike Klymkowsky, Amanda McGarry, Ariel Paul, Katherine Perkins, Tom Perkins',
-      qualityAssurance: 'Steele Dalton, Kerrie Dochen, Bryce Griebenow, Ethan Johnson, Liam Mulhall, Arnab Purkayastha, Ben Roberts, Clara Wilson'
-    }
-  };
+const simOptions = {
+  credits: {
+    leadDesign: 'Steele Dalton, John Blanco',
+    softwareDevelopment: 'John Blanco, Aadish Gupta, Sharfudeen Ashraf, George Emanuel',
+    team: 'John Blanco, Mike Klymkowsky, Amanda McGarry, Ariel Paul, Katherine Perkins, Tom Perkins',
+    qualityAssurance: 'Steele Dalton, Kerrie Dochen, Bryce Griebenow, Ethan Johnson, Liam Mulhall, Arnab Purkayastha, Ben Roberts, Clara Wilson'
+  }
+};
 
-  // we are go for launch
-  SimLauncher.launch( function() {
-    const sim = new Sim( geneExpressionEssentialsTitleString,
-      [
-        new ManualGeneExpressionScreen(),
-        new MessengerRnaProductionScreen(),
-        new MultipleCellsScreen()
-      ], simOptions );
-    sim.start();
-  } );
+// we are go for launch
+SimLauncher.launch( function() {
+  const sim = new Sim( geneExpressionEssentialsTitleString,
+    [
+      new ManualGeneExpressionScreen(),
+      new MessengerRnaProductionScreen(),
+      new MultipleCellsScreen()
+    ], simOptions );
+  sim.start();
 } );

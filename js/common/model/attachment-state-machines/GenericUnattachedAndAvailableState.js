@@ -6,69 +6,65 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MeanderToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MeanderToDestinationMotionStrategy' );
-  const RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RandomWalkMotionStrategy' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import MeanderToDestinationMotionStrategy from '../motion-strategies/MeanderToDestinationMotionStrategy.js';
+import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
+import AttachmentState from './AttachmentState.js';
 
-  function GenericUnattachedAndAvailableState() {
-    AttachmentState.call( this );
-  }
+function GenericUnattachedAndAvailableState() {
+  AttachmentState.call( this );
+}
 
-  geneExpressionEssentials.register( 'GenericUnattachedAndAvailableState', GenericUnattachedAndAvailableState );
+geneExpressionEssentials.register( 'GenericUnattachedAndAvailableState', GenericUnattachedAndAvailableState );
 
-  return inherit( Object, GenericUnattachedAndAvailableState, {
+export default inherit( Object, GenericUnattachedAndAvailableState, {
 
-    /**
-     * @override
-     * @param {AttachmentStateMachine} enclosingStateMachine
-     * @param {number} dt
-     * @public
-     */
-    step: function( enclosingStateMachine, dt ) {
-      const gsm = enclosingStateMachine;
+  /**
+   * @override
+   * @param {AttachmentStateMachine} enclosingStateMachine
+   * @param {number} dt
+   * @public
+   */
+  step: function( enclosingStateMachine, dt ) {
+    const gsm = enclosingStateMachine;
 
-      // Verify that state is consistent
-      assert && assert( gsm.attachmentSite === null );
+    // Verify that state is consistent
+    assert && assert( gsm.attachmentSite === null );
 
-      // Make the biomolecule look for attachments.
-      gsm.attachmentSite = gsm.biomolecule.proposeAttachments();
-      if ( gsm.attachmentSite !== null ) {
+    // Make the biomolecule look for attachments.
+    gsm.attachmentSite = gsm.biomolecule.proposeAttachments();
+    if ( gsm.attachmentSite !== null ) {
 
-        // A proposal was accepted.  Mark the attachment site as being in use.
-        gsm.attachmentSite.attachedOrAttachingMoleculeProperty.set( gsm.biomolecule );
+      // A proposal was accepted.  Mark the attachment site as being in use.
+      gsm.attachmentSite.attachedOrAttachingMoleculeProperty.set( gsm.biomolecule );
 
-        // Start moving towards the site.
-        gsm.biomolecule.setMotionStrategy(
-          new MeanderToDestinationMotionStrategy(
-            gsm.attachmentSite.positionProperty,
-            gsm.biomolecule.motionBoundsProperty,
-            gsm.destinationOffset
-          )
-        );
-
-        // Update state.
-        gsm.setState( gsm.movingTowardsAttachmentState );
-      }
-    },
-
-    /**
-     * @override
-     * @param {AttachmentStateMachine} enclosingStateMachine
-     * @public
-     */
-    entered: function( enclosingStateMachine ) {
-      enclosingStateMachine.biomolecule.setMotionStrategy(
-        new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty )
+      // Start moving towards the site.
+      gsm.biomolecule.setMotionStrategy(
+        new MeanderToDestinationMotionStrategy(
+          gsm.attachmentSite.positionProperty,
+          gsm.biomolecule.motionBoundsProperty,
+          gsm.destinationOffset
+        )
       );
 
-      // Allow user interaction.
-      enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
+      // Update state.
+      gsm.setState( gsm.movingTowardsAttachmentState );
     }
-  } );
+  },
+
+  /**
+   * @override
+   * @param {AttachmentStateMachine} enclosingStateMachine
+   * @public
+   */
+  entered: function( enclosingStateMachine ) {
+    enclosingStateMachine.biomolecule.setMotionStrategy(
+      new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty )
+    );
+
+    // Allow user interaction.
+    enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
+  }
 } );

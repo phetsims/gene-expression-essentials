@@ -7,138 +7,135 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Color = require( 'SCENERY/util/Color' );
-  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const Panel = require( 'SUN/Panel' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const ProteinCollectionArea = require( 'GENE_EXPRESSION_ESSENTIALS/manual-gene-expression/view/ProteinCollectionArea' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import Panel from '../../../../sun/js/Panel.js';
+import GEEConstants from '../../common/GEEConstants.js';
+import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+import ProteinCollectionArea from './ProteinCollectionArea.js';
 
-  // constants
-  const NUM_PROTEIN_TYPES = 3;  // Total number of protein types that can be collected.
+// constants
+const NUM_PROTEIN_TYPES = 3;  // Total number of protein types that can be collected.
 
-  // attributes of various aspects of the box
-  const TITLE_FONT = new PhetFont( { size: 18, weight: 'bold' } );
-  const READOUT_FONT = new PhetFont( { size: 18, weight: 'bold' } );
-  const BACKGROUND_COLOR = new Color( 255, 250, 205 );
-  const INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
+// attributes of various aspects of the box
+const TITLE_FONT = new PhetFont( { size: 18, weight: 'bold' } );
+const READOUT_FONT = new PhetFont( { size: 18, weight: 'bold' } );
+const BACKGROUND_COLOR = new Color( 255, 250, 205 );
+const INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
 
-  // strings
-  const collectionCompleteString = require( 'string!GENE_EXPRESSION_ESSENTIALS/collectionComplete' );
-  const proteinCountCaptionPart1String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart1' );
-  const proteinCountCaptionPart2String = require( 'string!GENE_EXPRESSION_ESSENTIALS/proteinCountCaptionPart2' );
-  const yourProteinCollectionString = require( 'string!GENE_EXPRESSION_ESSENTIALS/yourProteinCollection' );
+const collectionCompleteString = geneExpressionEssentialsStrings.collectionComplete;
+const proteinCountCaptionPart1String = geneExpressionEssentialsStrings.proteinCountCaptionPart1;
+const proteinCountCaptionPart2String = geneExpressionEssentialsStrings.proteinCountCaptionPart2;
+const yourProteinCollectionString = geneExpressionEssentialsStrings.yourProteinCollection;
 
-  /**
-   * @param {ManualGeneExpressionModel} model
-   * @param {ModelViewTransform2} modelViewTransform
-   * @constructor
-   */
-  function ProteinCollectionNode( model, modelViewTransform ) {
-    Node.call( this );
+/**
+ * @param {ManualGeneExpressionModel} model
+ * @param {ModelViewTransform2} modelViewTransform
+ * @constructor
+ */
+function ProteinCollectionNode( model, modelViewTransform ) {
+  Node.call( this );
 
-    // Create the title and scale it if needed.
-    const title = new RichText( yourProteinCollectionString, {
-      fill: Color.BLACK,
-      font: TITLE_FONT,
-      maxWidth: 120,
-      align: 'center'
-    } );
+  // Create the title and scale it if needed.
+  const title = new RichText( yourProteinCollectionString, {
+    fill: Color.BLACK,
+    font: TITLE_FONT,
+    maxWidth: 120,
+    align: 'center'
+  } );
 
-    // create the collection area
-    const collectionArea = new ProteinCollectionArea( model, modelViewTransform );
+  // create the collection area
+  const collectionArea = new ProteinCollectionArea( model, modelViewTransform );
 
-    // create the panel
-    this.addChild( new Panel(
-      new VBox( { children: [ title, collectionArea, createCollectionCountIndicator( model ) ], spacing: 5 } ),
-      {
-        cornerRadius: GEEConstants.CORNER_RADIUS,
-        fill: BACKGROUND_COLOR,
-        resize: false
-      }
-    ) );
-  }
-
-  /**
-   * helper function to create a node that indicates the number of proteins that the user has collected so far. This
-   * monitors the model and updates automatically.
-   * @param {ManualGeneExpressionModel}model
-   */
-  function createCollectionCountIndicator( model ) {
-    const contentNode = new Node();
-
-    const collectionCompleteNode = new Text( collectionCompleteString, {
-      font: new PhetFont( 20 ),
-      maxWidth: 200
-    } );
-    contentNode.addChild( collectionCompleteNode );
-
-    const countReadoutText = new Text( 0, {
-      font: READOUT_FONT
-    } );
-    const countReadoutPanel = new Panel( countReadoutText, {
-      minWidth: countReadoutText.width,
-      resize: false,
+  // create the panel
+  this.addChild( new Panel(
+    new VBox( { children: [ title, collectionArea, createCollectionCountIndicator( model ) ], spacing: 5 } ),
+    {
       cornerRadius: GEEConstants.CORNER_RADIUS,
-      lineWidth: 1,
-      align: 'center',
-      fill: INTEGER_BOX_BACKGROUND_COLOR
-    } );
-    const countIndicatorNode = new HBox( {
-      children: [ new Text( proteinCountCaptionPart1String, {
-        font: READOUT_FONT,
-        maxWidth: 100
-      } ),
-        countReadoutPanel ],
-      spacing: 4
-    } );
-
-    const children = [ countIndicatorNode, new Text( proteinCountCaptionPart2String, {
-      font: READOUT_FONT,
-      maxWidth: 200
-    } ) ];
-    const collectedQuantityIndicator = new VBox( {
-      children: children, spacing: 10
-    } );
-
-    contentNode.addChild( collectedQuantityIndicator );
-    collectedQuantityIndicator.center = collectionCompleteNode.center;
-
-    function countChangeUpdater() {
-      let numProteinTypesCollected = 0;
-      if ( model.proteinACollectedProperty.get() > 0 ) {
-        numProteinTypesCollected++;
-      }
-      if ( model.proteinBCollectedProperty.get() > 0 ) {
-        numProteinTypesCollected++;
-      }
-      if ( model.proteinCCollectedProperty.get() > 0 ) {
-        numProteinTypesCollected++;
-      }
-      countReadoutText.setText( numProteinTypesCollected );
-      // Set the visibility.
-      collectedQuantityIndicator.setVisible( numProteinTypesCollected !== NUM_PROTEIN_TYPES );
-      collectionCompleteNode.setVisible( numProteinTypesCollected === NUM_PROTEIN_TYPES );
+      fill: BACKGROUND_COLOR,
+      resize: false
     }
+  ) );
+}
 
-    model.proteinACollectedProperty.link( countChangeUpdater );
-    model.proteinBCollectedProperty.link( countChangeUpdater );
-    model.proteinCCollectedProperty.link( countChangeUpdater );
+/**
+ * helper function to create a node that indicates the number of proteins that the user has collected so far. This
+ * monitors the model and updates automatically.
+ * @param {ManualGeneExpressionModel}model
+ */
+function createCollectionCountIndicator( model ) {
+  const contentNode = new Node();
 
-    return contentNode;
+  const collectionCompleteNode = new Text( collectionCompleteString, {
+    font: new PhetFont( 20 ),
+    maxWidth: 200
+  } );
+  contentNode.addChild( collectionCompleteNode );
+
+  const countReadoutText = new Text( 0, {
+    font: READOUT_FONT
+  } );
+  const countReadoutPanel = new Panel( countReadoutText, {
+    minWidth: countReadoutText.width,
+    resize: false,
+    cornerRadius: GEEConstants.CORNER_RADIUS,
+    lineWidth: 1,
+    align: 'center',
+    fill: INTEGER_BOX_BACKGROUND_COLOR
+  } );
+  const countIndicatorNode = new HBox( {
+    children: [ new Text( proteinCountCaptionPart1String, {
+      font: READOUT_FONT,
+      maxWidth: 100
+    } ),
+      countReadoutPanel ],
+    spacing: 4
+  } );
+
+  const children = [ countIndicatorNode, new Text( proteinCountCaptionPart2String, {
+    font: READOUT_FONT,
+    maxWidth: 200
+  } ) ];
+  const collectedQuantityIndicator = new VBox( {
+    children: children, spacing: 10
+  } );
+
+  contentNode.addChild( collectedQuantityIndicator );
+  collectedQuantityIndicator.center = collectionCompleteNode.center;
+
+  function countChangeUpdater() {
+    let numProteinTypesCollected = 0;
+    if ( model.proteinACollectedProperty.get() > 0 ) {
+      numProteinTypesCollected++;
+    }
+    if ( model.proteinBCollectedProperty.get() > 0 ) {
+      numProteinTypesCollected++;
+    }
+    if ( model.proteinCCollectedProperty.get() > 0 ) {
+      numProteinTypesCollected++;
+    }
+    countReadoutText.setText( numProteinTypesCollected );
+    // Set the visibility.
+    collectedQuantityIndicator.setVisible( numProteinTypesCollected !== NUM_PROTEIN_TYPES );
+    collectionCompleteNode.setVisible( numProteinTypesCollected === NUM_PROTEIN_TYPES );
   }
 
-  geneExpressionEssentials.register( 'ProteinCollectionNode', ProteinCollectionNode );
+  model.proteinACollectedProperty.link( countChangeUpdater );
+  model.proteinBCollectedProperty.link( countChangeUpdater );
+  model.proteinCCollectedProperty.link( countChangeUpdater );
 
-  return inherit( Node, ProteinCollectionNode );
-} );
+  return contentNode;
+}
+
+geneExpressionEssentials.register( 'ProteinCollectionNode', ProteinCollectionNode );
+
+inherit( Node, ProteinCollectionNode );
+export default ProteinCollectionNode;

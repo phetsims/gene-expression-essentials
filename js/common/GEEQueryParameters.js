@@ -5,20 +5,16 @@
  *
  * @author John Blanco
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
+import geneExpressionEssentials from '../geneExpressionEssentials.js';
 
-  const GEEQueryParameters = QueryStringMachine.getAll( {
+const GEEQueryParameters = QueryStringMachine.getAll( {
 
-    // show bounding rectangle for mRNA, useful for debugging
-    showMRnaBoundingRect: { type: 'flag' }
+  // show bounding rectangle for mRNA, useful for debugging
+  showMRnaBoundingRect: { type: 'flag' }
 
-  } );
-
-  geneExpressionEssentials.register( 'GEEQueryParameters', GEEQueryParameters );
-
-  return GEEQueryParameters;
 } );
+
+geneExpressionEssentials.register( 'GEEQueryParameters', GEEQueryParameters );
+
+export default GEEQueryParameters;

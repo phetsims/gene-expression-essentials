@@ -8,80 +8,76 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
-  const MoveDirectlyToDestinationMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MoveDirectlyToDestinationMotionStrategy' );
-  const RandomWalkMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/RandomWalkMotionStrategy' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const Vector3 = require( 'DOT/Vector3' );
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import Vector3 from '../../../../../dot/js/Vector3.js';
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import MotionStrategy from './MotionStrategy.js';
+import MoveDirectlyToDestinationMotionStrategy from './MoveDirectlyToDestinationMotionStrategy.js';
+import RandomWalkMotionStrategy from './RandomWalkMotionStrategy.js';
+
+/**
+ * @param  {Property} destinationProperty
+ * @param {Property} motionBoundsProperty
+ * @param {Vector2} destinationOffset
+ * @constructor
+ */
+function MeanderToDestinationMotionStrategy( destinationProperty, motionBoundsProperty, destinationOffset ) {
+  MotionStrategy.call( this );
+  this.randomWalkMotionStrategy = new RandomWalkMotionStrategy( motionBoundsProperty ); // @private
+  this.directToDestinationMotionStrategy = new MoveDirectlyToDestinationMotionStrategy(
+    destinationProperty, motionBoundsProperty, destinationOffset, 750 ); // @private
+  this.destinationProperty = destinationProperty; // @private
+}
+
+geneExpressionEssentials.register( 'MeanderToDestinationMotionStrategy', MeanderToDestinationMotionStrategy );
+
+export default inherit( MotionStrategy, MeanderToDestinationMotionStrategy, {
 
   /**
-   * @param  {Property} destinationProperty
-   * @param {Property} motionBoundsProperty
-   * @param {Vector2} destinationOffset
-   * @constructor
+   * override
+   * @public
    */
-  function MeanderToDestinationMotionStrategy( destinationProperty, motionBoundsProperty, destinationOffset ) {
-    MotionStrategy.call( this );
-    this.randomWalkMotionStrategy = new RandomWalkMotionStrategy( motionBoundsProperty ); // @private
-    this.directToDestinationMotionStrategy = new MoveDirectlyToDestinationMotionStrategy(
-      destinationProperty, motionBoundsProperty, destinationOffset, 750 ); // @private
-    this.destinationProperty = destinationProperty; // @private
-  }
+  dispose: function() {
+    this.randomWalkMotionStrategy.dispose();
+    this.directToDestinationMotionStrategy.dispose();
+  },
 
-  geneExpressionEssentials.register( 'MeanderToDestinationMotionStrategy', MeanderToDestinationMotionStrategy );
+  /**
+   * @override
+   * @param {Vector2} currentPosition
+   * @param {Bounds2} bounds
+   * @param {number} dt
+   * @returns {Vector2}
+   * @public
+   */
+  getNextPosition: function( currentPosition, bounds, dt ) {
+    const nextPosition3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
+    return new Vector2( nextPosition3D.x, nextPosition3D.y );
+  },
 
-  return inherit( MotionStrategy, MeanderToDestinationMotionStrategy, {
+  /**
+   * @override
+   * @param {Vector2} currentPosition
+   * @param {Bounds2} bounds
+   * @param {number} dt
+   * @returns {Vector3}
+   * @public
+   */
+  getNextPosition3D: function( currentPosition, bounds, dt ) {
 
-    /**
-     * override
-     * @public
-     */
-    dispose: function() {
-      this.randomWalkMotionStrategy.dispose();
-      this.directToDestinationMotionStrategy.dispose();
-    },
+    // If the destination in within the shape, go straight to it.
+    if ( bounds.containsPoint( this.destinationProperty.get() ) ) {
 
-    /**
-     * @override
-     * @param {Vector2} currentPosition
-     * @param {Bounds2} bounds
-     * @param {number} dt
-     * @returns {Vector2}
-     * @public
-     */
-    getNextPosition: function( currentPosition, bounds, dt ) {
-      const nextPosition3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
-      return new Vector2( nextPosition3D.x, nextPosition3D.y );
-    },
-
-    /**
-     * @override
-     * @param {Vector2} currentPosition
-     * @param {Bounds2} bounds
-     * @param {number} dt
-     * @returns {Vector3}
-     * @public
-     */
-    getNextPosition3D: function( currentPosition, bounds, dt ) {
-
-      // If the destination in within the shape, go straight to it.
-      if ( bounds.containsPoint( this.destinationProperty.get() ) ) {
-
-        // Move directly towards the destination with no randomness.
-        return this.directToDestinationMotionStrategy.getNextPosition3D( currentPosition, bounds, dt );
-      }
-      else {
-
-        // Use a combination of the random and linear motion.
-        const intermediateLocation = this.randomWalkMotionStrategy.getNextPosition3D( currentPosition, bounds, dt * 0.6 );
-        return this.directToDestinationMotionStrategy.getNextPosition3D( intermediateLocation, bounds, dt * 0.4 );
-      }
+      // Move directly towards the destination with no randomness.
+      return this.directToDestinationMotionStrategy.getNextPosition3D( currentPosition, bounds, dt );
     }
-  } );
+    else {
+
+      // Use a combination of the random and linear motion.
+      const intermediateLocation = this.randomWalkMotionStrategy.getNextPosition3D( currentPosition, bounds, dt * 0.6 );
+      return this.directToDestinationMotionStrategy.getNextPosition3D( intermediateLocation, bounds, dt * 0.4 );
+    }
+  }
 } );

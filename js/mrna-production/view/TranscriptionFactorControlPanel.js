@@ -7,100 +7,97 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AffinityController = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/AffinityController' );
-  const Color = require( 'SCENERY/util/Color' );
-  const ConcentrationController = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/view/ConcentrationController' );
-  const DnaMolecule = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/DnaMolecule' );
-  const DnaMoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/DnaMoleculeNode' );
-  const GEEConstants = require( 'GENE_EXPRESSION_ESSENTIALS/common/GEEConstants' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MessengerRnaProductionModel = require( 'GENE_EXPRESSION_ESSENTIALS/mrna-production/model/MessengerRnaProductionModel' );
-  const MobileBiomoleculeNode = require( 'GENE_EXPRESSION_ESSENTIALS/common/view/MobileBiomoleculeNode' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  const Panel = require( 'SUN/Panel' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
-  const TranscriptionFactor = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/TranscriptionFactor' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
-  const Vector2 = require( 'DOT/Vector2' );
+import Vector2 from '../../../../dot/js/Vector2.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import Panel from '../../../../sun/js/Panel.js';
+import GEEConstants from '../../common/GEEConstants.js';
+import DnaMolecule from '../../common/model/DnaMolecule.js';
+import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
+import DnaMoleculeNode from '../../common/view/DnaMoleculeNode.js';
+import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
+import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+import MessengerRnaProductionModel from '../model/MessengerRnaProductionModel.js';
+import AffinityController from './AffinityController.js';
+import ConcentrationController from './ConcentrationController.js';
 
-  // constants
-  const DNA_SCALE = 0.1;
-  const DNA_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 0, 0 ), DNA_SCALE );
-  const TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
+// constants
+const DNA_SCALE = 0.1;
+const DNA_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 0, 0 ), DNA_SCALE );
+const TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
 
-  // strings
-  const negativeTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/negativeTranscriptionFactorHtml' );
-  const positiveTranscriptionFactorHtmlString = require( 'string!GENE_EXPRESSION_ESSENTIALS/positiveTranscriptionFactorHtml' );
+const negativeTranscriptionFactorHtmlString = geneExpressionEssentialsStrings.negativeTranscriptionFactorHtml;
+const positiveTranscriptionFactorHtmlString = geneExpressionEssentialsStrings.positiveTranscriptionFactorHtml;
 
-  /**
-   * @param {MessengerRnaProductionModel} model
-   * @param {TranscriptionFactorConfig} transcriptionFactorConfig
-   * @param {Property} affinityProperty
-   * @constructor
-   */
-  function TranscriptionFactorControlPanel( model, transcriptionFactorConfig, affinityProperty ) {
-    let titleText;
-    let tfLevelProperty;
-    if ( transcriptionFactorConfig.isPositive ) {
-      transcriptionFactorConfig = MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG;
-      titleText = positiveTranscriptionFactorHtmlString;
-      tfLevelProperty = model.positiveTranscriptionFactorCountProperty;
-    }
-    else {
-      transcriptionFactorConfig = MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG;
-      titleText = negativeTranscriptionFactorHtmlString;
-      tfLevelProperty = model.negativeTranscriptionFactorCountProperty;
-    }
-
-    const titleNode = new RichText( titleText, {
-      font: TITLE_FONT,
-      maxWidth: 180,
-      align: 'center'
-    } );
-
-    const transcriptionFactorNode = new MobileBiomoleculeNode(
-      GEEConstants.TRANSCRIPTION_FACTOR_MVT,
-      new TranscriptionFactor( null, transcriptionFactorConfig )
-    );
-    const dnaFragmentNode = new DnaMoleculeNode(
-      new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ),
-      DNA_MVT,
-      2,
-      false
-    ).toDataURLNodeSynchronous(); // turn into an image so as not to create a canvas layer
-
-    const concentrationController = new ConcentrationController(
-      transcriptionFactorConfig,
-      tfLevelProperty,
-      0,
-      MessengerRnaProductionModel.MAX_TRANSCRIPTION_FACTOR_COUNT
-    );
-    const affinityController = new AffinityController( transcriptionFactorNode, dnaFragmentNode, affinityProperty );
-
-    const contentNode = new VBox( {
-      children: [ titleNode, concentrationController, affinityController ],
-      spacing: 10
-    } );
-
-    Panel.call( this, contentNode, {
-      cornerRadius: GEEConstants.CORNER_RADIUS,
-      fill: new Color( 250, 250, 250 ),
-      lineWidth: 2,
-      xMargin: 10,
-      yMargin: 10,
-      minWidth: 200,
-      align: 'center',
-      resize: false
-    } );
+/**
+ * @param {MessengerRnaProductionModel} model
+ * @param {TranscriptionFactorConfig} transcriptionFactorConfig
+ * @param {Property} affinityProperty
+ * @constructor
+ */
+function TranscriptionFactorControlPanel( model, transcriptionFactorConfig, affinityProperty ) {
+  let titleText;
+  let tfLevelProperty;
+  if ( transcriptionFactorConfig.isPositive ) {
+    transcriptionFactorConfig = MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG;
+    titleText = positiveTranscriptionFactorHtmlString;
+    tfLevelProperty = model.positiveTranscriptionFactorCountProperty;
+  }
+  else {
+    transcriptionFactorConfig = MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG;
+    titleText = negativeTranscriptionFactorHtmlString;
+    tfLevelProperty = model.negativeTranscriptionFactorCountProperty;
   }
 
-  geneExpressionEssentials.register( 'TranscriptionFactorControlPanel', TranscriptionFactorControlPanel );
+  const titleNode = new RichText( titleText, {
+    font: TITLE_FONT,
+    maxWidth: 180,
+    align: 'center'
+  } );
 
-  return inherit( Panel, TranscriptionFactorControlPanel );
-} );
+  const transcriptionFactorNode = new MobileBiomoleculeNode(
+    GEEConstants.TRANSCRIPTION_FACTOR_MVT,
+    new TranscriptionFactor( null, transcriptionFactorConfig )
+  );
+  const dnaFragmentNode = new DnaMoleculeNode(
+    new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ),
+    DNA_MVT,
+    2,
+    false
+  ).toDataURLNodeSynchronous(); // turn into an image so as not to create a canvas layer
+
+  const concentrationController = new ConcentrationController(
+    transcriptionFactorConfig,
+    tfLevelProperty,
+    0,
+    MessengerRnaProductionModel.MAX_TRANSCRIPTION_FACTOR_COUNT
+  );
+  const affinityController = new AffinityController( transcriptionFactorNode, dnaFragmentNode, affinityProperty );
+
+  const contentNode = new VBox( {
+    children: [ titleNode, concentrationController, affinityController ],
+    spacing: 10
+  } );
+
+  Panel.call( this, contentNode, {
+    cornerRadius: GEEConstants.CORNER_RADIUS,
+    fill: new Color( 250, 250, 250 ),
+    lineWidth: 2,
+    xMargin: 10,
+    yMargin: 10,
+    minWidth: 200,
+    align: 'center',
+    resize: false
+  } );
+}
+
+geneExpressionEssentials.register( 'TranscriptionFactorControlPanel', TranscriptionFactorControlPanel );
+
+inherit( Panel, TranscriptionFactorControlPanel );
+export default TranscriptionFactorControlPanel;

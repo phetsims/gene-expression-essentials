@@ -6,36 +6,32 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const StillnessMotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/StillnessMotionStrategy' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import StillnessMotionStrategy from '../motion-strategies/StillnessMotionStrategy.js';
+import AttachmentState from './AttachmentState.js';
+
+/**
+ *
+ * @constructor
+ */
+function BeingSynthesizedState() {
+  AttachmentState.call( this );
+}
+
+geneExpressionEssentials.register( 'BeingSynthesizedState', BeingSynthesizedState );
+
+export default inherit( AttachmentState, BeingSynthesizedState, {
 
   /**
-   *
-   * @constructor
+   * @override
+   * @param {AttachmentStateMachine} enclosingStateMachine
+   * @public
    */
-  function BeingSynthesizedState() {
-    AttachmentState.call( this );
+  entered: function( enclosingStateMachine ) {
+    // Set the motion strategy to something that doesn't move the molecule, since its position will be controlled by
+    // the polymerase that is synthesizing it.
+    enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
   }
-
-  geneExpressionEssentials.register( 'BeingSynthesizedState', BeingSynthesizedState );
-
-  return inherit( AttachmentState, BeingSynthesizedState, {
-
-    /**
-     * @override
-     * @param {AttachmentStateMachine} enclosingStateMachine
-     * @public
-     */
-    entered: function( enclosingStateMachine ) {
-      // Set the motion strategy to something that doesn't move the molecule, since its position will be controlled by
-      // the polymerase that is synthesizing it.
-      enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
-    }
-  } );
 } );

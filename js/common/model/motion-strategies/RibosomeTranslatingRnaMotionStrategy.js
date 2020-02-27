@@ -8,39 +8,35 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MotionStrategy = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/motion-strategies/MotionStrategy' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import MotionStrategy from './MotionStrategy.js';
+
+/**
+ * @param ribosome {Ribosome}
+ * @constructor
+ */
+function RibosomeTranslatingRnaMotionStrategy( ribosome ) {
+  MotionStrategy.call( this );
+  this.ribosome = ribosome; // @private
+  this.messengerRna = ribosome.getMessengerRnaBeingTranslated(); // @private
+}
+
+geneExpressionEssentials.register( 'RibosomeTranslatingRnaMotionStrategy', RibosomeTranslatingRnaMotionStrategy );
+
+export default inherit( MotionStrategy, RibosomeTranslatingRnaMotionStrategy, {
 
   /**
-   * @param ribosome {Ribosome}
-   * @constructor
+   * @override
+   * @param {Vector2} currentPosition
+   * @param {Bounds2} bounds
+   * @param {number} dt
+   * @returns {Vector2}
+   * @public
    */
-  function RibosomeTranslatingRnaMotionStrategy( ribosome ) {
-    MotionStrategy.call( this );
-    this.ribosome = ribosome; // @private
-    this.messengerRna = ribosome.getMessengerRnaBeingTranslated(); // @private
+  getNextPosition: function( currentPosition, bounds, dt ) {
+    const ribosomeAttachmentPoint = this.messengerRna.getRibosomeGenerateInitialPosition3D( this.ribosome );
+    return ribosomeAttachmentPoint.minus( this.ribosome.offsetToTranslationChannelEntrance );
   }
-
-  geneExpressionEssentials.register( 'RibosomeTranslatingRnaMotionStrategy', RibosomeTranslatingRnaMotionStrategy );
-
-  return inherit( MotionStrategy, RibosomeTranslatingRnaMotionStrategy, {
-
-    /**
-     * @override
-     * @param {Vector2} currentPosition
-     * @param {Bounds2} bounds
-     * @param {number} dt
-     * @returns {Vector2}
-     * @public
-     */
-    getNextPosition: function( currentPosition, bounds, dt ) {
-      const ribosomeAttachmentPoint = this.messengerRna.getRibosomeGenerateInitialPosition3D( this.ribosome );
-      return ribosomeAttachmentPoint.minus( this.ribosome.offsetToTranslationChannelEntrance );
-    }
-  } );
 } );

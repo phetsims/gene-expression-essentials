@@ -14,41 +14,37 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-  // constants
-  const BASE_PAIR_WIDTH = 13; // In picometers.  Not sure if this is close to real life, chosen to look decent in view.
+// constants
+const BASE_PAIR_WIDTH = 13; // In picometers.  Not sure if this is close to real life, chosen to look decent in view.
+
+/**
+ * @param {number} centerLocationX
+ * @param {number} topYLocation
+ * @param {number} bottomYLocation
+ * @constructor
+ */
+function BasePair( centerLocationX, topYLocation, bottomYLocation ) {
+
+  // @public - values that indicate where the base pair is positioned
+  this.x = centerLocationX - BASE_PAIR_WIDTH / 2;
+  this.topYLocation = topYLocation;
+  this.bottomYLocation = bottomYLocation;
+  this.width = BASE_PAIR_WIDTH;
+}
+
+geneExpressionEssentials.register( 'BasePair', BasePair );
+
+export default inherit( Object, BasePair, {
 
   /**
-   * @param {number} centerLocationX
-   * @param {number} topYLocation
-   * @param {number} bottomYLocation
-   * @constructor
+   * @returns {number}
+   * @public
    */
-  function BasePair( centerLocationX, topYLocation, bottomYLocation ) {
-
-    // @public - values that indicate where the base pair is positioned
-    this.x = centerLocationX - BASE_PAIR_WIDTH / 2;
-    this.topYLocation = topYLocation;
-    this.bottomYLocation = bottomYLocation;
-    this.width = BASE_PAIR_WIDTH;
+  getCenterLocationX: function() {
+    return this.x + BASE_PAIR_WIDTH / 2;
   }
-
-  geneExpressionEssentials.register( 'BasePair', BasePair );
-
-  return inherit( Object, BasePair, {
-
-    /**
-     * @returns {number}
-     * @public
-     */
-    getCenterLocationX: function() {
-      return this.x + BASE_PAIR_WIDTH / 2;
-    }
-  } );
 } );

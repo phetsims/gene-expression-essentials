@@ -9,55 +9,51 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Cell = require( 'GENE_EXPRESSION_ESSENTIALS/multiple-cells/model/Cell' );
-  const Color = require( 'SCENERY/util/Color' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const Path = require( 'SCENERY/nodes/Path' );
-  const Utils = require( 'DOT/Utils' );
+import Utils from '../../../../dot/js/Utils.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+import Cell from '../model/Cell.js';
 
-  // constants
-  const NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray
-  const FLORESCENT_FILL_COLOR = new Color( 200, 255, 58 );
-  const LINE_WIDTH = 2;
-  const STROKE_COLOR = Color.WHITE;
+// constants
+const NOMINAL_FILL_COLOR = new Color( 30, 30, 40 ); // Blue Gray
+const FLORESCENT_FILL_COLOR = new Color( 200, 255, 58 );
+const LINE_WIDTH = 2;
+const STROKE_COLOR = Color.WHITE;
 
-  /**
-   * @param {Cell} cell
-   * @param {ModelViewTransform2} modelViewTransform
-   * @constructor
-   */
-  function ColorChangingCellNode( cell, modelViewTransform ) {
-    Node.call( this );
+/**
+ * @param {Cell} cell
+ * @param {ModelViewTransform2} modelViewTransform
+ * @constructor
+ */
+function ColorChangingCellNode( cell, modelViewTransform ) {
+  Node.call( this );
 
-    const cellBody = new Path( modelViewTransform.modelToViewShape( cell.getShape() ), {
-      fill: NOMINAL_FILL_COLOR,
-      stroke: STROKE_COLOR,
-      lineWidth: LINE_WIDTH,
-      lineJoin: 'round',
-      boundsMethod: 'unstroked',
-      center: modelViewTransform.modelToViewXY( cell.positionX, cell.positionY )
-    } );
-
-    cell.proteinCount.lazyLink( function( proteinCount ) {
-      const florescenceAmount = Utils.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
-                                          ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );
-      cellBody.fill = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
-    } );
-    this.addChild( cellBody );
-  }
-
-  geneExpressionEssentials.register( 'ColorChangingCellNode', ColorChangingCellNode );
-
-  return inherit( Node, ColorChangingCellNode, {}, {
-
-    // statics
-    NominalFillColor: NOMINAL_FILL_COLOR,
-    FlorescentFillColor: FLORESCENT_FILL_COLOR
+  const cellBody = new Path( modelViewTransform.modelToViewShape( cell.getShape() ), {
+    fill: NOMINAL_FILL_COLOR,
+    stroke: STROKE_COLOR,
+    lineWidth: LINE_WIDTH,
+    lineJoin: 'round',
+    boundsMethod: 'unstroked',
+    center: modelViewTransform.modelToViewXY( cell.positionX, cell.positionY )
   } );
+
+  cell.proteinCount.lazyLink( function( proteinCount ) {
+    const florescenceAmount = Utils.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
+                                           ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );
+    cellBody.fill = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
+  } );
+  this.addChild( cellBody );
+}
+
+geneExpressionEssentials.register( 'ColorChangingCellNode', ColorChangingCellNode );
+
+export default inherit( Node, ColorChangingCellNode, {}, {
+
+  // statics
+  NominalFillColor: NOMINAL_FILL_COLOR,
+  FlorescentFillColor: FLORESCENT_FILL_COLOR
 } );

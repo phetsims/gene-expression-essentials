@@ -6,60 +6,56 @@
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AttachmentState = require( 'GENE_EXPRESSION_ESSENTIALS/common/model/attachment-state-machines/AttachmentState' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import AttachmentState from './AttachmentState.js';
 
-  // constants
-  const DEFAULT_DETACH_TIME = 3; // In seconds.
+// constants
+const DEFAULT_DETACH_TIME = 3; // In seconds.
+
+/**
+ * @constructor
+ */
+function GenericUnattachedButUnavailableState() {
+  AttachmentState.call( this );
+  this.detachCountdownTime = DEFAULT_DETACH_TIME; //@private
+}
+
+geneExpressionEssentials.register( 'GenericUnattachedButUnavailableState', GenericUnattachedButUnavailableState );
+
+export default inherit( AttachmentState, GenericUnattachedButUnavailableState, {
 
   /**
-   * @constructor
+   * @override
+   * @param {AttachmentStateMachine} enclosingStateMachine
+   * @param {number} dt
+   * @public
    */
-  function GenericUnattachedButUnavailableState() {
-    AttachmentState.call( this );
-    this.detachCountdownTime = DEFAULT_DETACH_TIME; //@private
-  }
+  step: function( enclosingStateMachine, dt ) {
+    const gsm = enclosingStateMachine;
 
-  geneExpressionEssentials.register( 'GenericUnattachedButUnavailableState', GenericUnattachedButUnavailableState );
+    // Verify that state is consistent
+    assert && assert( gsm.attachmentSite === null );
 
-  return inherit( AttachmentState, GenericUnattachedButUnavailableState, {
+    // See if we've been detached long enough.
+    this.detachCountdownTime -= dt;
+    if ( this.detachCountdownTime <= 0 ) {
 
-    /**
-     * @override
-     * @param {AttachmentStateMachine} enclosingStateMachine
-     * @param {number} dt
-     * @public
-     */
-    step: function( enclosingStateMachine, dt ) {
-      const gsm = enclosingStateMachine;
-
-      // Verify that state is consistent
-      assert && assert( gsm.attachmentSite === null );
-
-      // See if we've been detached long enough.
-      this.detachCountdownTime -= dt;
-      if ( this.detachCountdownTime <= 0 ) {
-
-        // Move to the unattached-and-available state.
-        gsm.setState( gsm.unattachedAndAvailableState );
-      }
-    },
-
-    /**
-     * @override
-     * @param {AttachmentStateMachine} enclosingStateMachine
-     * @public
-     */
-    entered: function( enclosingStateMachine ) {
-      this.detachCountdownTime = DEFAULT_DETACH_TIME;
-
-      // Allow user interaction.
-      enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
+      // Move to the unattached-and-available state.
+      gsm.setState( gsm.unattachedAndAvailableState );
     }
-  } );
+  },
+
+  /**
+   * @override
+   * @param {AttachmentStateMachine} enclosingStateMachine
+   * @public
+   */
+  entered: function( enclosingStateMachine ) {
+    this.detachCountdownTime = DEFAULT_DETACH_TIME;
+
+    // Allow user interaction.
+    enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
+  }
 } );

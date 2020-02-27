@@ -8,97 +8,93 @@
  * @author John Blanco
  * @author Aadish Gupta
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Color = require( 'SCENERY/util/Color' );
-  const geneExpressionEssentials = require( 'GENE_EXPRESSION_ESSENTIALS/geneExpressionEssentials' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const Path = require( 'SCENERY/nodes/Path' );
-  const Shape = require( 'KITE/Shape' );
-  const Vector2 = require( 'DOT/Vector2' );
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Shape from '../../../../kite/js/Shape.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-  // constants
-  const HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
-  const HINT_STROKE = { lineJoin: 'bevel', lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
+// constants
+const HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
+const HINT_STROKE = { lineJoin: 'bevel', lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
 
-  /**
-   *
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {PlacementHint} placementHint
-   * @constructor
-   */
-  function PlacementHintNode( modelViewTransform, placementHint ) {
+/**
+ *
+ * @param {ModelViewTransform2} modelViewTransform
+ * @param {PlacementHint} placementHint
+ * @constructor
+ */
+function PlacementHintNode( modelViewTransform, placementHint ) {
 
-    const self = this;
-    Node.call( this );
+  const self = this;
+  Node.call( this );
 
-    // Create a transparent color based on the base color of the molecule.
-    const transparentColor = new Color(
-      placementHint.getBaseColor().getRed(),
-      placementHint.getBaseColor().getGreen(),
-      placementHint.getBaseColor().getBlue(),
-      0.4
-    );
+  // Create a transparent color based on the base color of the molecule.
+  const transparentColor = new Color(
+    placementHint.getBaseColor().getRed(),
+    placementHint.getBaseColor().getGreen(),
+    placementHint.getBaseColor().getBlue(),
+    0.4
+  );
 
-    // create a transform that will be used to scale but not translate the placement hint's shape
-    const scaleOnlyTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-      Vector2.ZERO,
-      Vector2.ZERO,
-      modelViewTransform.getMatrix().getScaleVector().x
-    );
+  // create a transform that will be used to scale but not translate the placement hint's shape
+  const scaleOnlyTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    Vector2.ZERO,
+    Vector2.ZERO,
+    modelViewTransform.getMatrix().getScaleVector().x
+  );
 
-    const pathStyleOptions = merge( HINT_STROKE, {
-      lineWidth: 2,
-      lineDash: [  5, 5 ],
-      fill: transparentColor,
-      boundsMethod: 'unstroked'
-    } );
+  const pathStyleOptions = merge( HINT_STROKE, {
+    lineWidth: 2,
+    lineDash: [ 5, 5 ],
+    fill: transparentColor,
+    boundsMethod: 'unstroked'
+  } );
 
-    const path = new Path( new Shape(), pathStyleOptions );
-    this.addChild( path );
+  const path = new Path( new Shape(), pathStyleOptions );
+  this.addChild( path );
 
-    function handlePositionChanged( position ) {
-      self.setTranslation( modelViewTransform.modelToViewPosition( position ) );
-    }
-
-    placementHint.positionProperty.link( handlePositionChanged );
-
-    function handleShapeChanged( shape ) {
-      path.setShape( scaleOnlyTransform.modelToViewShape( shape ) );
-    }
-
-    // Update the shape whenever it changes.
-    placementHint.shapeProperty.link( handleShapeChanged );
-
-    function handleActiveChanged( hintActive ) {
-      path.visible = hintActive;
-    }
-
-    // Listen to the property that indicates whether the hint is active and only be visible when it is.
-    placementHint.activeProperty.link( handleActiveChanged );
-
-    this.disposePlacementHintNode = function() {
-      placementHint.positionProperty.unlink( handlePositionChanged );
-      placementHint.shapeProperty.unlink( handleShapeChanged );
-      placementHint.activeProperty.unlink( handleActiveChanged );
-    };
+  function handlePositionChanged( position ) {
+    self.setTranslation( modelViewTransform.modelToViewPosition( position ) );
   }
 
-  geneExpressionEssentials.register( 'PlacementHintNode', PlacementHintNode );
+  placementHint.positionProperty.link( handlePositionChanged );
 
-  return inherit( Node, PlacementHintNode, {
+  function handleShapeChanged( shape ) {
+    path.setShape( scaleOnlyTransform.modelToViewShape( shape ) );
+  }
 
-    /**
-     * @private
-     */
-    dispose: function() {
-      this.disposePlacementHintNode();
-      Node.prototype.dispose.call( this );
-    }
-  } );
+  // Update the shape whenever it changes.
+  placementHint.shapeProperty.link( handleShapeChanged );
+
+  function handleActiveChanged( hintActive ) {
+    path.visible = hintActive;
+  }
+
+  // Listen to the property that indicates whether the hint is active and only be visible when it is.
+  placementHint.activeProperty.link( handleActiveChanged );
+
+  this.disposePlacementHintNode = function() {
+    placementHint.positionProperty.unlink( handlePositionChanged );
+    placementHint.shapeProperty.unlink( handleShapeChanged );
+    placementHint.activeProperty.unlink( handleActiveChanged );
+  };
+}
+
+geneExpressionEssentials.register( 'PlacementHintNode', PlacementHintNode );
+
+export default inherit( Node, PlacementHintNode, {
+
+  /**
+   * @private
+   */
+  dispose: function() {
+    this.disposePlacementHintNode();
+    Node.prototype.dispose.call( this );
+  }
 } );
