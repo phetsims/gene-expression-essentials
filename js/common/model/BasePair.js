@@ -1,4 +1,4 @@
-// Copyright 2015-2019, University of Colorado Boulder
+// Copyright 2015-2020, University of Colorado Boulder
 
 /**
  * Model class for the base pair in the DNA molecule. In the real world, a "base pair" is a pair of nitrogenous bases

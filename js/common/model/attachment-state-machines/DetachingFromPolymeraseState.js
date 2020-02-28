@@ -1,4 +1,4 @@
-// Copyright 2015-2019, University of Colorado Boulder
+// Copyright 2015-2020, University of Colorado Boulder
 
 /**
  * One of the states for MessengerRnaAttachmentStateMachine. mRna enters this state when it is detaching from the

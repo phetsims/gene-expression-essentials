@@ -1,4 +1,4 @@
-// Copyright 2015-2019, University of Colorado Boulder
+// Copyright 2015-2020, University of Colorado Boulder
 
 /**
  * One of the states of the RibosomeAttachmentStateMachine. It defines what the ribosome does when attached to mRNA,

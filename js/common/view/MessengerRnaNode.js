@@ -1,4 +1,4 @@
-// Copyright 2015-2019, University of Colorado Boulder
+// Copyright 2015-2020, University of Colorado Boulder
 
 /**
  * View representation for messenger RNA. This is done differently from most if not all of the other mobile biomolecules
