@@ -110,17 +110,19 @@ function MultipleCellsScreenView( model ) {
 
   // Add a time control node
   const timeControlNode = new TimeControlNode( model.clockRunningProperty, {
-    playPauseOptions: {
-      radius: 23,
-      touchAreaDilation: 5
-    },
-    stepForwardOptions: {
-      listener: function() {
-        model.stepInTime( 0.016 );
-        self.proteinLevelChartNode.addDataPoint( 0.016 );
+    playPauseStepButtonOptions: {
+      playPauseButtonOptions: {
+        radius: 23,
+        touchAreaDilation: 5
       },
-      radius: 15,
-      touchAreaDilation: 5
+      stepForwardButtonOptions: {
+        listener: function() {
+          model.stepInTime( 0.016 );
+          self.proteinLevelChartNode.addDataPoint( 0.016 );
+        },
+        radius: 15,
+        touchAreaDilation: 5
+      }
     }
   } );
   this.addChild( timeControlNode );

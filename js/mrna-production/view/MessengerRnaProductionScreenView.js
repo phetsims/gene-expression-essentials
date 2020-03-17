@@ -124,15 +124,17 @@ function MessengerRnaProductionScreenView( model ) {
 
   // Adds the node that has the buttons for controlling time and pausing and stepping forward
   const timeControlNode = new TimeControlNode( model.clockRunningProperty, {
-    playPauseStepXSpacing: INSET,
-    playPauseOptions: {
-      radius: 23,
-      touchAreaDilation: 5
-    },
-    stepForwardOptions: {
-      listener: function() { model.stepInTime( 0.016 ); },
-      radius: 15,
-      touchAreaDilation: 5
+    playPauseStepButtonOptions: {
+      playPauseStepXSpacing: INSET,
+      playPauseButtonOptions: {
+        radius: 23,
+        touchAreaDilation: 5
+      },
+      stepForwardButtonOptions: {
+        listener: function() { model.stepInTime( 0.016 ); },
+        radius: 15,
+        touchAreaDilation: 5
+      }
     }
   } );
   this.addChild( timeControlNode );
