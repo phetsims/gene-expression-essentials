@@ -19,7 +19,7 @@ import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
-import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 const concentrationString = geneExpressionEssentialsStrings.concentration;

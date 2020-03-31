@@ -14,7 +14,7 @@ import inherit from '../../../phet-core/js/inherit.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import manualGeneExpressionIcon from '../../mipmaps/manual-gene-expression-icon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
-import geneExpressionEssentialsStrings from '../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
 import ManualGeneExpressionModel from './model/ManualGeneExpressionModel.js';
 import ManualGeneExpressionScreenView from './view/ManualGeneExpressionScreenView.js';

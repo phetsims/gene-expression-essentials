@@ -13,7 +13,7 @@ import inherit from '../../../phet-core/js/inherit.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import mRnaProductionIcon from '../../mipmaps/mrna-production-icon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
-import geneExpressionEssentialsStrings from '../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
 import MessengerRnaProductionModel from './model/MessengerRnaProductionModel.js';
 import MessengerRnaProductionScreenView from './view/MessengerRnaProductionScreenView.js';

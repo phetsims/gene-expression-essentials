@@ -20,7 +20,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
-import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import MessengerRnaDestroyerCreatorNode from './MessengerRnaDestroyerCreatorNode.js';
 import RibosomeCreatorNode from './RibosomeCreatorNode.js';

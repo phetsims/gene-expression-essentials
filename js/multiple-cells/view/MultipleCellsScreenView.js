@@ -21,7 +21,7 @@ import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushBut
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
-import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import CellProteinSynthesisSimulator from '../model/CellProteinSynthesisSimulator.js';
 import MultipleCellsModel from '../model/MultipleCellsModel.js';

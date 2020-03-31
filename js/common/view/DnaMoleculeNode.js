@@ -12,7 +12,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import DnaMoleculeCanvasNode from './DnaMoleculeCanvasNode.js';
 import GeneNode from './GeneNode.js';

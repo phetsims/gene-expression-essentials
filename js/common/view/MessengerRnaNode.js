@@ -14,7 +14,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEQueryParameters from '../GEEQueryParameters.js';
 import FadeLabel from './FadeLabel.js';

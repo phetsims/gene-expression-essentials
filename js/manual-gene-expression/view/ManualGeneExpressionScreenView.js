@@ -24,7 +24,7 @@ import DnaMoleculeNode from '../../common/view/DnaMoleculeNode.js';
 import MessengerRnaNode from '../../common/view/MessengerRnaNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
 import PlacementHintNode from '../../common/view/PlacementHintNode.js';
-import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import BiomoleculeToolboxNode from './BiomoleculeToolboxNode.js';
 import ProteinCollectionNode from './ProteinCollectionNode.js';

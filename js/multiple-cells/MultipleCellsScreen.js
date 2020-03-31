@@ -13,7 +13,7 @@ import inherit from '../../../phet-core/js/inherit.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import multipleCellsIcon from '../../mipmaps/multiple-cells-icon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
-import geneExpressionEssentialsStrings from '../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
 import MultipleCellsModel from './model/MultipleCellsModel.js';
 import MultipleCellsScreenView from './view/MultipleCellsScreenView.js';

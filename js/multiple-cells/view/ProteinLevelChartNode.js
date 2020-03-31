@@ -19,7 +19,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
-import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ColorChangingCellNode from './ColorChangingCellNode.js';
 

@@ -8,7 +8,7 @@
 
 import Sim from '../../joist/js/Sim.js';
 import SimLauncher from '../../joist/js/SimLauncher.js';
-import geneExpressionEssentialsStrings from './gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from './geneExpressionEssentialsStrings.js';
 import ManualGeneExpressionScreen from './manual-gene-expression/ManualGeneExpressionScreen.js';
 import MessengerRnaProductionScreen from './mrna-production/MessengerRnaProductionScreen.js';
 import MultipleCellsScreen from './multiple-cells/MultipleCellsScreen.js';

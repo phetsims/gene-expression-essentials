@@ -21,7 +21,7 @@ import DnaMolecule from '../../common/model/DnaMolecule.js';
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
 import DnaMoleculeNode from '../../common/view/DnaMoleculeNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
-import geneExpressionEssentialsStrings from '../../gene-expression-essentials-strings.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import MessengerRnaProductionModel from '../model/MessengerRnaProductionModel.js';
 import AffinityController from './AffinityController.js';
