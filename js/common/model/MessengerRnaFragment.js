@@ -12,8 +12,7 @@
 import Shape from '../../../../kite/js/Shape.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import MessengerRnaFragmentAttachmentStateMachine
-  from './attachment-state-machines/MessengerRnaFragmentAttachmentStateMachine.js';
+import MessengerRnaFragmentAttachmentStateMachine from './attachment-state-machines/MessengerRnaFragmentAttachmentStateMachine.js';
 import SquareSegment from './SquareSegment.js';
 import WindingBiomolecule from './WindingBiomolecule.js';
 

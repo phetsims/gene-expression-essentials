@@ -15,8 +15,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import TranscriptionFactorAttachmentStateMachine
-  from './attachment-state-machines/TranscriptionFactorAttachmentStateMachine.js';
+import TranscriptionFactorAttachmentStateMachine from './attachment-state-machines/TranscriptionFactorAttachmentStateMachine.js';
 import BioShapeUtils from './BioShapeUtils.js';
 import MobileBiomolecule from './MobileBiomolecule.js';
 import StubGeneExpressionModel from './StubGeneExpressionModel.js';
