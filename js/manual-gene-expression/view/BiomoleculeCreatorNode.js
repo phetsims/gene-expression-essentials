@@ -13,6 +13,7 @@
 import inherit from '../../../../phet-core/js/inherit.js';
 import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import SunConstants from '../../../../sun/js/SunConstants.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 /**
@@ -51,7 +52,7 @@ function BiomoleculeCreatorNode( appearanceNode, canvas, modelViewTransform, mol
     start: function( event, trail ) {
       //Set the node to look faded out so that something is still visible. This acts as a legend in the toolbox.
       self.pickable = false;
-      self.appearanceNode.opacity = 0.3;
+      self.appearanceNode.opacity = SunConstants.DISABLED_OPACITY;
 
       // Convert the canvas position to the corresponding location in the model.
       const modelPos = self.getModelPosition( event.pointer.point );
