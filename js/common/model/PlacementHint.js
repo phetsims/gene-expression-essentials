@@ -32,7 +32,7 @@ function PlacementHint( biomolecule ) {
 
 geneExpressionEssentials.register( 'PlacementHint', PlacementHint );
 
-export default inherit( ShapeChangingModelElement, PlacementHint, {
+inherit( ShapeChangingModelElement, PlacementHint, {
 
   /**
    * @returns {Color}
@@ -65,3 +65,5 @@ export default inherit( ShapeChangingModelElement, PlacementHint, {
     }
   }
 } );
+
+export default PlacementHint;

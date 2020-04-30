@@ -44,7 +44,7 @@ function TranscriptionFactor( model, config, initialPosition ) {
 
 geneExpressionEssentials.register( 'TranscriptionFactor', TranscriptionFactor );
 
-export default inherit( MobileBiomolecule, TranscriptionFactor, {
+inherit( MobileBiomolecule, TranscriptionFactor, {
 
   /**
    * Get an indication of whether this transcription factor is positive (enhances transcription) or negative
@@ -161,3 +161,5 @@ export default inherit( MobileBiomolecule, TranscriptionFactor, {
     Color.magenta
   )
 } );
+
+export default TranscriptionFactor;

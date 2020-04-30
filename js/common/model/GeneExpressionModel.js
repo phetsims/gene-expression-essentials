@@ -22,7 +22,7 @@ function GeneExpressionModel() {
 
 geneExpressionEssentials.register( 'GeneExpressionModel', GeneExpressionModel );
 
-export default inherit( Object, GeneExpressionModel, {
+inherit( Object, GeneExpressionModel, {
 
   /**
    * Get the DNA molecule.
@@ -79,3 +79,5 @@ export default inherit( Object, GeneExpressionModel, {
     throw new Error( 'getOverlappingBiomolecules should be implemented in descendant classes of GeneExpressionModel' );
   }
 } );
+
+export default GeneExpressionModel;

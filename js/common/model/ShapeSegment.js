@@ -40,7 +40,7 @@ function ShapeSegment( owner ) {
 
 geneExpressionEssentials.register( 'ShapeSegment', ShapeSegment );
 
-export default inherit( Object, ShapeSegment, {
+inherit( Object, ShapeSegment, {
 
   /**
    * Sets the capacity
@@ -210,3 +210,5 @@ export default inherit( Object, ShapeSegment, {
 }, {
   FLOATING_POINT_COMP_FACTOR: FLOATING_POINT_COMP_FACTOR
 } );
+
+export default ShapeSegment;

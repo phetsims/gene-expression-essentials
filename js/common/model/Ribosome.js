@@ -57,7 +57,7 @@ function Ribosome( model, position ) {
 
 geneExpressionEssentials.register( 'Ribosome', Ribosome );
 
-export default inherit( MobileBiomolecule, Ribosome, {
+inherit( MobileBiomolecule, Ribosome, {
 
   /**
    * @returns {MessengerRna}
@@ -223,3 +223,5 @@ export default inherit( MobileBiomolecule, Ribosome, {
     this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
   }
 } );
+
+export default Ribosome;

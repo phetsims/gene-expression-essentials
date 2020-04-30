@@ -26,7 +26,8 @@ function DnaSeparation( xPos, targetAmount ) {
 }
 
 geneExpressionEssentials.register( 'DnaSeparation', DnaSeparation );
-export default inherit( Object, DnaSeparation, {
+
+inherit( Object, DnaSeparation, {
 
   /**
    * @returns {number}
@@ -60,3 +61,5 @@ export default inherit( Object, DnaSeparation, {
     this.amount = this.targetAmount * proportion;
   }
 } );
+
+export default DnaSeparation;

@@ -38,7 +38,7 @@ function BasePair( centerLocationX, topYLocation, bottomYLocation ) {
 
 geneExpressionEssentials.register( 'BasePair', BasePair );
 
-export default inherit( Object, BasePair, {
+inherit( Object, BasePair, {
 
   /**
    * @returns {number}
@@ -48,3 +48,5 @@ export default inherit( Object, BasePair, {
     return this.x + BASE_PAIR_WIDTH / 2;
   }
 } );
+
+export default BasePair;

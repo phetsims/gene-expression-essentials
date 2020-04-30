@@ -27,7 +27,7 @@ function TranscriptionFactorPlacementHint( transcriptionFactor ) {
 
 geneExpressionEssentials.register( 'TranscriptionFactorPlacementHint', TranscriptionFactorPlacementHint );
 
-export default inherit( PlacementHint, TranscriptionFactorPlacementHint, {
+inherit( PlacementHint, TranscriptionFactorPlacementHint, {
 
   /**
    * @override
@@ -49,3 +49,5 @@ export default inherit( PlacementHint, TranscriptionFactorPlacementHint, {
     }
   }
 } );
+
+export default TranscriptionFactorPlacementHint;

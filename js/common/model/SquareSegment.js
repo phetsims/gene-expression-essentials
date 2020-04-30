@@ -32,7 +32,7 @@ function SquareSegment( owner, origin ) {
 
 geneExpressionEssentials.register( 'SquareSegment', SquareSegment );
 
-export default inherit( ShapeSegment, SquareSegment, {
+inherit( ShapeSegment, SquareSegment, {
 
   /**
    * @override
@@ -124,3 +124,5 @@ export default inherit( ShapeSegment, SquareSegment, {
     return Math.sqrt( 2 * desiredDiagonalLength * desiredDiagonalLength );
   }
 } );
+
+export default SquareSegment;

@@ -32,7 +32,7 @@ function ShapeDefiningPoint( initialPosition, targetDistanceToPreviousPoint ) {
 
 geneExpressionEssentials.register( 'ShapeDefiningPoint', ShapeDefiningPoint );
 
-export default inherit( Object, ShapeDefiningPoint, {
+inherit( Object, ShapeDefiningPoint, {
 
   /**
    * @param {number} x
@@ -127,3 +127,5 @@ export default inherit( Object, ShapeDefiningPoint, {
   }
 
 } );
+
+export default ShapeDefiningPoint;

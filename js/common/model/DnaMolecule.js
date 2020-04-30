@@ -110,7 +110,7 @@ function DnaMolecule( model, numBasePairs, leftEdgeXOffset, pursueAttachments ) 
 
 geneExpressionEssentials.register( 'DnaMolecule', DnaMolecule );
 
-export default inherit( Object, DnaMolecule, {
+inherit( Object, DnaMolecule, {
 
   /**
    * get the index of the nearest base pair given an X position in model space
@@ -831,3 +831,5 @@ export default inherit( Object, DnaMolecule, {
     this.separations = [];
   }
 } );
+
+export default DnaMolecule;

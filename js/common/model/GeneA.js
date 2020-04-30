@@ -50,7 +50,7 @@ function GeneA( dnaMolecule, initialBasePair ) {
 
 geneExpressionEssentials.register( 'GeneA', GeneA );
 
-export default inherit( Gene, GeneA, {
+inherit( Gene, GeneA, {
 
     /**
      * @override
@@ -64,3 +64,5 @@ export default inherit( Gene, GeneA, {
   {
     NUM_BASE_PAIRS: NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
   } );
+
+export default GeneA;

@@ -37,7 +37,7 @@ function MessengerRnaFragment( model, position ) {
 
 geneExpressionEssentials.register( 'MessengerRnaFragment', MessengerRnaFragment );
 
-export default inherit( WindingBiomolecule, MessengerRnaFragment, {
+inherit( WindingBiomolecule, MessengerRnaFragment, {
 
   /**
    * Release this mRNA fragment from the destroyer molecule.
@@ -56,3 +56,5 @@ export default inherit( WindingBiomolecule, MessengerRnaFragment, {
     return new MessengerRnaFragmentAttachmentStateMachine( this );
   }
 } );
+
+export default MessengerRnaFragment;

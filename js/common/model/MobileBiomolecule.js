@@ -100,7 +100,7 @@ function MobileBiomolecule( model, initialShape, baseColor ) {
 
 geneExpressionEssentials.register( 'MobileBiomolecule', MobileBiomolecule );
 
-export default inherit( ShapeChangingModelElement, MobileBiomolecule, {
+inherit( ShapeChangingModelElement, MobileBiomolecule, {
 
   /**
    * @public
@@ -294,3 +294,5 @@ export default inherit( ShapeChangingModelElement, MobileBiomolecule, {
     this.motionStrategy = motionStrategy;
   }
 } );
+
+export default MobileBiomolecule;

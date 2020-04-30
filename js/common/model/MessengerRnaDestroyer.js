@@ -45,7 +45,7 @@ function MessengerRnaDestroyer( model, position ) {
 
 geneExpressionEssentials.register( 'MessengerRnaDestroyer', MessengerRnaDestroyer );
 
-export default inherit( MobileBiomolecule, MessengerRnaDestroyer, {
+inherit( MobileBiomolecule, MessengerRnaDestroyer, {
 
   /**
    * @override
@@ -131,3 +131,5 @@ export default inherit( MobileBiomolecule, MessengerRnaDestroyer, {
     this.messengerRnaBeingDestroyed = null;
   }
 } );
+
+export default MessengerRnaDestroyer;

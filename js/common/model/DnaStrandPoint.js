@@ -34,7 +34,7 @@ function DnaStrandPoint( xPos, strand1YPos, strand2YPos ) {
 
 geneExpressionEssentials.register( 'DnaStrandPoint', DnaStrandPoint );
 
-export default inherit( Object, DnaStrandPoint, {
+inherit( Object, DnaStrandPoint, {
 
   /**
    * @param {DnaStrandPoint} dnaStrandPoint
@@ -63,3 +63,5 @@ export default inherit( Object, DnaStrandPoint, {
     return o.xPos === this.xPos;
   }
 } );
+
+export default DnaStrandPoint;

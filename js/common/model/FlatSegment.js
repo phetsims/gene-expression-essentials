@@ -27,7 +27,7 @@ function FlatSegment( owner, origin ) {
 
 geneExpressionEssentials.register( 'FlatSegment', FlatSegment );
 
-export default inherit( ShapeSegment, FlatSegment, {
+inherit( ShapeSegment, FlatSegment, {
 
   /**
    * @override
@@ -192,3 +192,5 @@ export default inherit( ShapeSegment, FlatSegment, {
     this.updateAttachmentSitePosition();
   }
 } );
+
+export default FlatSegment;

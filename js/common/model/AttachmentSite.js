@@ -44,7 +44,7 @@ function AttachmentSite( owner, initialLocation, initialAffinity ) {
 
 geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );
 
-export default inherit( Object, AttachmentSite, {
+inherit( Object, AttachmentSite, {
 
   /**
    * Return the affinity of attachment site
@@ -82,3 +82,5 @@ export default inherit( Object, AttachmentSite, {
            this.positionProperty.get().equals( otherAttachmentSite.positionProperty.get() );
   }
 } );
+
+export default AttachmentSite;

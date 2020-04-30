@@ -63,7 +63,7 @@ function RnaPolymerase( model, position ) {
 
 geneExpressionEssentials.register( 'RnaPolymerase', RnaPolymerase );
 
-export default inherit( MobileBiomolecule, RnaPolymerase, {
+inherit( MobileBiomolecule, RnaPolymerase, {
 
   /**
    * @override
@@ -134,3 +134,5 @@ export default inherit( MobileBiomolecule, RnaPolymerase, {
     return ShapeUtils.createRoundedShapeFromPoints( SHAPE_POINTS );
   }
 } );
+
+export default RnaPolymerase;

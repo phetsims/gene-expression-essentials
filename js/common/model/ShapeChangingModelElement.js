@@ -64,7 +64,7 @@ function ShapeChangingModelElement( initialShape ) {
 
 geneExpressionEssentials.register( 'ShapeChangingModelElement', ShapeChangingModelElement );
 
-export default inherit( Object, ShapeChangingModelElement, {
+inherit( Object, ShapeChangingModelElement, {
 
   /**
    * @public
@@ -132,3 +132,5 @@ export default inherit( Object, ShapeChangingModelElement, {
            this.reusablePositionVector1;
   }
 } );
+
+export default ShapeChangingModelElement;

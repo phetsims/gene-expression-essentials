@@ -207,7 +207,7 @@ function WindingBiomolecule( model, initialShape, position, options ) {
 
 geneExpressionEssentials.register( 'WindingBiomolecule', WindingBiomolecule );
 
-export default inherit( MobileBiomolecule, WindingBiomolecule, {
+inherit( MobileBiomolecule, WindingBiomolecule, {
 
   /**
    * @public
@@ -721,3 +721,5 @@ export default inherit( MobileBiomolecule, WindingBiomolecule, {
     this.shapeSegments.splice( index, 0, shapeSegmentToInsert );
   }
 } );
+
+export default WindingBiomolecule;

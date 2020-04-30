@@ -87,7 +87,7 @@ function Gene( dnaMolecule,
 
 geneExpressionEssentials.register( 'Gene', Gene );
 
-export default inherit( Object, Gene, {
+inherit( Object, Gene, {
 
   /**
    * Returns the regulatory region color
@@ -470,3 +470,5 @@ export default inherit( Object, Gene, {
     return configList;
   }
 } );
+
+export default Gene;

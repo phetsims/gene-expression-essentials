@@ -34,7 +34,7 @@ function TranscriptionFactorAttachmentSite( owner, initialLocation, tfConfig, in
 
 geneExpressionEssentials.register( 'TranscriptionFactorAttachmentSite', TranscriptionFactorAttachmentSite );
 
-export default inherit( AttachmentSite, TranscriptionFactorAttachmentSite, {
+inherit( AttachmentSite, TranscriptionFactorAttachmentSite, {
 
   /**
    * @param {TranscriptionFactorConfig} tfConfig
@@ -53,3 +53,5 @@ export default inherit( AttachmentSite, TranscriptionFactorAttachmentSite, {
     return this.tfConfig;
   }
 } );
+
+export default TranscriptionFactorAttachmentSite;

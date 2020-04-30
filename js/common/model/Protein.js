@@ -38,7 +38,8 @@ function Protein( model, initialShape, baseColor ) {
 }
 
 geneExpressionEssentials.register( 'Protein', Protein );
-export default inherit( MobileBiomolecule, Protein, {
+
+inherit( MobileBiomolecule, Protein, {
 
   /**
    * @override
@@ -121,3 +122,5 @@ export default inherit( MobileBiomolecule, Protein, {
     throw new Error( 'setAttachmentPointPosition should be implemented in descendant classes of Protein' );
   }
 } );
+
+export default Protein;

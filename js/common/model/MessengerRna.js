@@ -104,7 +104,7 @@ function MessengerRna( model, proteinPrototype, position, options ) {
 
 geneExpressionEssentials.register( 'MessengerRna', MessengerRna );
 
-export default inherit( WindingBiomolecule, MessengerRna, {
+inherit( WindingBiomolecule, MessengerRna, {
 
   /**
    * @public
@@ -564,3 +564,5 @@ export default inherit( WindingBiomolecule, MessengerRna, {
     return this.attachmentSite.positionProperty.get();
   }
 } );
+
+export default MessengerRna;
