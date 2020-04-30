@@ -118,9 +118,11 @@ function ProteinCaptureNode( model, proteinClassName, transform, size ) {
 
 geneExpressionEssentials.register( 'ProteinCaptureNode', ProteinCaptureNode );
 
-export default inherit( Node, ProteinCaptureNode, {},
+inherit( Node, ProteinCaptureNode, {},
   //statics
   {
     SCALE_FOR_FLASH_NODE: SCALE_FOR_FLASH_NODE
   }
 );
+
+export default ProteinCaptureNode;
