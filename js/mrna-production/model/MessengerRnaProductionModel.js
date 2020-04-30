@@ -193,7 +193,7 @@ function MessengerRnaProductionModel() {
 
 geneExpressionEssentials.register( 'MessengerRnaProductionModel', MessengerRnaProductionModel );
 
-export default inherit( Object, MessengerRnaProductionModel, {
+inherit( Object, MessengerRnaProductionModel, {
 
   /**
    * Step Function for this model
@@ -389,3 +389,5 @@ export default inherit( Object, MessengerRnaProductionModel, {
   POSITIVE_TRANSCRIPTION_FACTOR_CONFIG: POSITIVE_TRANSCRIPTION_FACTOR_CONFIG,
   NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG: NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG
 } );
+
+export default MessengerRnaProductionModel;

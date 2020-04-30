@@ -70,7 +70,7 @@ function RnaPolymeraseAttachmentStateMachine( rnaPolymerase ) {
 
 geneExpressionEssentials.register( 'RnaPolymeraseAttachmentStateMachine', RnaPolymeraseAttachmentStateMachine );
 
-export default inherit( GenericAttachmentStateMachine, RnaPolymeraseAttachmentStateMachine, {
+inherit( GenericAttachmentStateMachine, RnaPolymeraseAttachmentStateMachine, {
 
   /**
    * this override makes sure that the polymerase has returned to its normal shape before detaching from DNA
@@ -138,3 +138,5 @@ export default inherit( GenericAttachmentStateMachine, RnaPolymeraseAttachmentSt
     return false;
   }
 } );
+
+export default RnaPolymeraseAttachmentStateMachine;

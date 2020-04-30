@@ -30,7 +30,7 @@ function MotionBounds( bounds ) {
 
 geneExpressionEssentials.register( 'MotionBounds', MotionBounds );
 
-export default inherit( Object, MotionBounds, {
+inherit( Object, MotionBounds, {
 
   /**
    * Sets the bounds
@@ -114,3 +114,5 @@ export default inherit( Object, MotionBounds, {
     return this.inBounds( bounds.shifted( translationVector.x, translationVector.y ) );
   }
 } );
+
+export default MotionBounds;

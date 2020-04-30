@@ -51,7 +51,7 @@ function RandomWalkMotionStrategy( motionBoundsProperty ) {
 
 geneExpressionEssentials.register( 'RandomWalkMotionStrategy', RandomWalkMotionStrategy );
 
-export default inherit( MotionStrategy, RandomWalkMotionStrategy, {
+inherit( MotionStrategy, RandomWalkMotionStrategy, {
 
   /**
    * @override
@@ -131,3 +131,5 @@ export default inherit( MotionStrategy, RandomWalkMotionStrategy, {
     );
   }
 } );
+
+export default RandomWalkMotionStrategy;

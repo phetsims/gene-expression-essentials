@@ -32,7 +32,7 @@ function DetachingFromPolymeraseState( msgRnaAttachmentStateMachine ) {
 
 geneExpressionEssentials.register( 'DetachingFromPolymeraseState', DetachingFromPolymeraseState );
 
-export default inherit( AttachmentState, DetachingFromPolymeraseState, {
+inherit( AttachmentState, DetachingFromPolymeraseState, {
 
   /**
    * @override
@@ -63,3 +63,5 @@ export default inherit( AttachmentState, DetachingFromPolymeraseState, {
     this.msgRnaAttachmentStateMachine.messengerRna.beingSynthesizedProperty.set( false );
   }
 } );
+
+export default DetachingFromPolymeraseState;

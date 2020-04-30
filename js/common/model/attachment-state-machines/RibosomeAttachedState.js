@@ -32,7 +32,7 @@ function RibosomeAttachedState( ribosomeAttachmentStateMachine ) {
 
 geneExpressionEssentials.register( 'RibosomeAttachedState', RibosomeAttachedState );
 
-export default inherit( AttachmentState, RibosomeAttachedState, {
+inherit( AttachmentState, RibosomeAttachedState, {
 
   /**
    * @override
@@ -104,3 +104,5 @@ export default inherit( AttachmentState, RibosomeAttachedState, {
     asm.biomolecule.movableByUserProperty.set( false );
   }
 } );
+
+export default RibosomeAttachedState;

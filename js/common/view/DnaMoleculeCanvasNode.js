@@ -49,7 +49,7 @@ function DnaMoleculeCanvasNode( model, modelViewTransform, backboneStrokeWidth, 
 
 geneExpressionEssentials.register( 'DnaMoleculeCanvasNode', DnaMoleculeCanvasNode );
 
-export default inherit( CanvasNode, DnaMoleculeCanvasNode, {
+inherit( CanvasNode, DnaMoleculeCanvasNode, {
 
   /**
    * Draws the base pairs - this normally just draws a single line the connects between the two strands, but if the
@@ -198,3 +198,5 @@ export default inherit( CanvasNode, DnaMoleculeCanvasNode, {
     }
   }
 } );
+
+export default DnaMoleculeCanvasNode;

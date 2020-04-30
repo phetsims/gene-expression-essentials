@@ -148,7 +148,7 @@ function MobileBiomoleculeNode( modelViewTransform, mobileBiomolecule, options )
 
 geneExpressionEssentials.register( 'MobileBiomoleculeNode', MobileBiomoleculeNode );
 
-export default inherit( Node, MobileBiomoleculeNode, {
+inherit( Node, MobileBiomoleculeNode, {
 
   /**
    * @public
@@ -159,3 +159,5 @@ export default inherit( Node, MobileBiomoleculeNode, {
   }
 
 } );
+
+export default MobileBiomoleculeNode;

@@ -235,7 +235,7 @@ function MessengerRnaProductionScreenView( model ) {
 
 geneExpressionEssentials.register( 'MessengerRnaProductionScreenView', MessengerRnaProductionScreenView );
 
-export default inherit( ScreenView, MessengerRnaProductionScreenView, {
+inherit( ScreenView, MessengerRnaProductionScreenView, {
 
   /**
    * Step function for this view
@@ -245,3 +245,5 @@ export default inherit( ScreenView, MessengerRnaProductionScreenView, {
     this.dnaMoleculeNode.step();
   }
 } );
+
+export default MessengerRnaProductionScreenView;

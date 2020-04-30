@@ -20,7 +20,7 @@ function BeingTranslatedState() {
 
 geneExpressionEssentials.register( 'BeingTranslatedState', BeingTranslatedState );
 
-export default inherit( AttachmentState, BeingTranslatedState, {
+inherit( AttachmentState, BeingTranslatedState, {
 
   /**
    * @override
@@ -33,3 +33,5 @@ export default inherit( AttachmentState, BeingTranslatedState, {
     enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
   }
 } );
+
+export default BeingTranslatedState;

@@ -22,7 +22,7 @@ function WanderingAroundCytoplasmState() {
 }
 
 geneExpressionEssentials.register( 'WanderingAroundCytoplasmState', WanderingAroundCytoplasmState );
-export default inherit( AttachmentState, WanderingAroundCytoplasmState, {
+inherit( AttachmentState, WanderingAroundCytoplasmState, {
 
   /**
    * @override
@@ -34,3 +34,5 @@ export default inherit( AttachmentState, WanderingAroundCytoplasmState, {
       new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty ) );
   }
 } );
+
+export default WanderingAroundCytoplasmState;

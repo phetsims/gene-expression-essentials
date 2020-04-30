@@ -134,7 +134,7 @@ function MultipleCellsModel() {
 }
 
 geneExpressionEssentials.register( 'MultipleCellsModel', MultipleCellsModel );
-export default inherit( Object, MultipleCellsModel, {
+inherit( Object, MultipleCellsModel, {
 
   /**
    * @param {number} dt
@@ -252,3 +252,5 @@ export default inherit( Object, MultipleCellsModel, {
   // statics
   MaxCells: MAX_CELLS
 } );
+
+export default MultipleCellsModel;

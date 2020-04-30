@@ -35,7 +35,7 @@ function MessengerRnaAttachmentStateMachine( messengerRna ) {
 
 geneExpressionEssentials.register( 'MessengerRnaAttachmentStateMachine', MessengerRnaAttachmentStateMachine );
 
-export default inherit( AttachmentStateMachine, MessengerRnaAttachmentStateMachine, {
+inherit( AttachmentStateMachine, MessengerRnaAttachmentStateMachine, {
 
   /**
    * @override
@@ -106,3 +106,5 @@ export default inherit( AttachmentStateMachine, MessengerRnaAttachmentStateMachi
     this.setState( new BeingDestroyedState() );
   }
 } );
+
+export default MessengerRnaAttachmentStateMachine;

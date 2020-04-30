@@ -96,7 +96,7 @@ function BiomoleculeCreatorNode( appearanceNode, canvas, modelViewTransform, mol
 
 geneExpressionEssentials.register( 'BiomoleculeCreatorNode', BiomoleculeCreatorNode );
 
-export default inherit( Node, BiomoleculeCreatorNode, {
+inherit( Node, BiomoleculeCreatorNode, {
 
   /**
    * Resets the Biomolecules as legends
@@ -122,3 +122,5 @@ export default inherit( Node, BiomoleculeCreatorNode, {
     return this.modelViewTransform.viewToModelPosition( adjustedCanvasPos );
   }
 } );
+
+export default BiomoleculeCreatorNode;

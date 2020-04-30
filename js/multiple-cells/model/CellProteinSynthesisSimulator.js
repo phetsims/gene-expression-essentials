@@ -59,7 +59,7 @@ function CellProteinSynthesisSimulator( ribosomeCount ) {
 }
 
 geneExpressionEssentials.register( 'CellProteinSynthesisSimulator', CellProteinSynthesisSimulator );
-export default inherit( Object, CellProteinSynthesisSimulator, {
+inherit( Object, CellProteinSynthesisSimulator, {
 
   /**
    * Sets the number of transcription factors
@@ -290,3 +290,5 @@ export default inherit( Object, CellProteinSynthesisSimulator, {
   TFAssociationProbabilityRange: TF_ASSOCIATION_PROBABILITY_RANGE,
   TranscriptionFactorCountRange: TRANSCRIPTION_FACTOR_COUNT_RANGE
 } );
+
+export default CellProteinSynthesisSimulator;

@@ -22,7 +22,7 @@ function BeingSynthesizedState() {
 
 geneExpressionEssentials.register( 'BeingSynthesizedState', BeingSynthesizedState );
 
-export default inherit( AttachmentState, BeingSynthesizedState, {
+inherit( AttachmentState, BeingSynthesizedState, {
 
   /**
    * @override
@@ -35,3 +35,5 @@ export default inherit( AttachmentState, BeingSynthesizedState, {
     enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
   }
 } );
+
+export default BeingSynthesizedState;

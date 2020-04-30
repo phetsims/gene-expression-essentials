@@ -55,7 +55,7 @@ function MoveDirectlyToDestinationMotionStrategy( destinationProperty, motionBou
 
 geneExpressionEssentials.register( 'MoveDirectlyToDestinationMotionStrategy', MoveDirectlyToDestinationMotionStrategy );
 
-export default inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
+inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
 
   /**
    * @override
@@ -148,3 +148,5 @@ export default inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy,
     );
   }
 } );
+
+export default MoveDirectlyToDestinationMotionStrategy;

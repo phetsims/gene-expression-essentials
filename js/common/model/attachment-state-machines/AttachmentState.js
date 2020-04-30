@@ -21,7 +21,7 @@ function AttachmentState() {
 
 geneExpressionEssentials.register( 'AttachmentState', AttachmentState );
 
-export default inherit( Object, AttachmentState, {
+inherit( Object, AttachmentState, {
 
   /**
    * Step function for this attachment state and is called by the step function of AttachmentStateMachine
@@ -47,3 +47,5 @@ export default inherit( Object, AttachmentState, {
   // floating point issues.
   ATTACHED_DISTANCE_THRESHOLD: 1 // In picometers.
 } );
+
+export default AttachmentState;

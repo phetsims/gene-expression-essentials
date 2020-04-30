@@ -34,7 +34,7 @@ geneExpressionEssentials.register(
   UnattachedAndAvailableForMRnaAttachmentState
 );
 
-export default inherit( GenericUnattachedAndAvailableState, UnattachedAndAvailableForMRnaAttachmentState, {
+inherit( GenericUnattachedAndAvailableState, UnattachedAndAvailableForMRnaAttachmentState, {
 
   /**
    * @override
@@ -83,3 +83,5 @@ export default inherit( GenericUnattachedAndAvailableState, UnattachedAndAvailab
     }
   }
 } );
+
+export default UnattachedAndAvailableForMRnaAttachmentState;

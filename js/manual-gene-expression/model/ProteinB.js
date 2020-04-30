@@ -32,7 +32,7 @@ function ProteinB( model ) {
 
 geneExpressionEssentials.register( 'ProteinB', ProteinB );
 
-export default inherit( Protein, ProteinB, {
+inherit( Protein, ProteinB, {
 
   /**
    * @override
@@ -102,3 +102,5 @@ export default inherit( Protein, ProteinB, {
     return path;
   }
 } );
+
+export default ProteinB;

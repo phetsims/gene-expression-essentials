@@ -25,7 +25,7 @@ function FollowAttachmentSite( attachmentSite ) {
 
 geneExpressionEssentials.register( 'FollowAttachmentSite', FollowAttachmentSite );
 
-export default inherit( MotionStrategy, FollowAttachmentSite, {
+inherit( MotionStrategy, FollowAttachmentSite, {
 
   /**
    * @override
@@ -39,3 +39,5 @@ export default inherit( MotionStrategy, FollowAttachmentSite, {
     return this.attachmentSite.positionProperty.get();
   }
 } );
+
+export default FollowAttachmentSite;

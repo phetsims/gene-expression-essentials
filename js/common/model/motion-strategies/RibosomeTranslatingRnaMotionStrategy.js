@@ -25,7 +25,7 @@ function RibosomeTranslatingRnaMotionStrategy( ribosome ) {
 
 geneExpressionEssentials.register( 'RibosomeTranslatingRnaMotionStrategy', RibosomeTranslatingRnaMotionStrategy );
 
-export default inherit( MotionStrategy, RibosomeTranslatingRnaMotionStrategy, {
+inherit( MotionStrategy, RibosomeTranslatingRnaMotionStrategy, {
 
   /**
    * @override
@@ -40,3 +40,5 @@ export default inherit( MotionStrategy, RibosomeTranslatingRnaMotionStrategy, {
     return ribosomeAttachmentPoint.minus( this.ribosome.offsetToTranslationChannelEntrance );
   }
 } );
+
+export default RibosomeTranslatingRnaMotionStrategy;

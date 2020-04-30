@@ -51,9 +51,11 @@ function ColorChangingCellNode( cell, modelViewTransform ) {
 
 geneExpressionEssentials.register( 'ColorChangingCellNode', ColorChangingCellNode );
 
-export default inherit( Node, ColorChangingCellNode, {}, {
+inherit( Node, ColorChangingCellNode, {}, {
 
   // statics
   NominalFillColor: NOMINAL_FILL_COLOR,
   FlorescentFillColor: FLORESCENT_FILL_COLOR
 } );
+
+export default ColorChangingCellNode;

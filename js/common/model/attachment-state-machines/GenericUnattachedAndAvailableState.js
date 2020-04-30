@@ -19,7 +19,7 @@ function GenericUnattachedAndAvailableState() {
 
 geneExpressionEssentials.register( 'GenericUnattachedAndAvailableState', GenericUnattachedAndAvailableState );
 
-export default inherit( Object, GenericUnattachedAndAvailableState, {
+inherit( Object, GenericUnattachedAndAvailableState, {
 
   /**
    * @override
@@ -68,3 +68,5 @@ export default inherit( Object, GenericUnattachedAndAvailableState, {
     enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
   }
 } );
+
+export default GenericUnattachedAndAvailableState;

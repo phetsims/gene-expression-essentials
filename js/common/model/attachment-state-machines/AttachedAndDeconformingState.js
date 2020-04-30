@@ -37,7 +37,7 @@ function AttachedAndDeconformingState( rnaPolymeraseAttachmentStateMachine ) {
 
 geneExpressionEssentials.register( 'AttachedAndDeconformingState', AttachedAndDeconformingState );
 
-export default inherit( AttachmentState, AttachedAndDeconformingState, {
+inherit( AttachmentState, AttachedAndDeconformingState, {
 
   /**
    * @override
@@ -119,3 +119,5 @@ export default inherit( AttachmentState, AttachedAndDeconformingState, {
     this.conformationalChangeAmount = 1;
   }
 } );
+
+export default AttachedAndDeconformingState;

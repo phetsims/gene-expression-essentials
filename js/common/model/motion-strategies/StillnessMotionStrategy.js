@@ -21,7 +21,7 @@ function StillnessMotionStrategy() {
 
 geneExpressionEssentials.register( 'StillnessMotionStrategy', StillnessMotionStrategy );
 
-export default inherit( MotionStrategy, StillnessMotionStrategy, {
+inherit( MotionStrategy, StillnessMotionStrategy, {
 
   /**
    * @override
@@ -35,3 +35,5 @@ export default inherit( MotionStrategy, StillnessMotionStrategy, {
     return currentPosition;
   }
 } );
+
+export default StillnessMotionStrategy;

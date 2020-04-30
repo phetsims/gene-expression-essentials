@@ -39,7 +39,7 @@ function MRnaDestroyerAttachedState( MRnaDestroyerAttachmentStateMachine ) {
 
 geneExpressionEssentials.register( 'MRnaDestroyerAttachedState', MRnaDestroyerAttachedState );
 
-export default inherit( AttachmentState, MRnaDestroyerAttachedState, {
+inherit( AttachmentState, MRnaDestroyerAttachedState, {
 
   /**
    * @override
@@ -111,3 +111,5 @@ export default inherit( AttachmentState, MRnaDestroyerAttachedState, {
     asm.biomolecule.movableByUserProperty.set( false );
   }
 } );
+
+export default MRnaDestroyerAttachedState;

@@ -24,7 +24,7 @@ function GenericUnattachedButUnavailableState() {
 
 geneExpressionEssentials.register( 'GenericUnattachedButUnavailableState', GenericUnattachedButUnavailableState );
 
-export default inherit( AttachmentState, GenericUnattachedButUnavailableState, {
+inherit( AttachmentState, GenericUnattachedButUnavailableState, {
 
   /**
    * @override
@@ -59,3 +59,5 @@ export default inherit( AttachmentState, GenericUnattachedButUnavailableState, {
     enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
   }
 } );
+
+export default GenericUnattachedButUnavailableState;

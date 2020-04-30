@@ -88,7 +88,7 @@ function PlacementHintNode( modelViewTransform, placementHint ) {
 
 geneExpressionEssentials.register( 'PlacementHintNode', PlacementHintNode );
 
-export default inherit( Node, PlacementHintNode, {
+inherit( Node, PlacementHintNode, {
 
   /**
    * @private
@@ -98,3 +98,5 @@ export default inherit( Node, PlacementHintNode, {
     Node.prototype.dispose.call( this );
   }
 } );
+
+export default PlacementHintNode;

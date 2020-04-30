@@ -142,7 +142,7 @@ function ProteinLevelChartNode( averageProteinLevelProperty ) {
 
 geneExpressionEssentials.register( 'ProteinLevelChartNode', ProteinLevelChartNode );
 
-export default inherit( Panel, ProteinLevelChartNode, {
+inherit( Panel, ProteinLevelChartNode, {
 
   /**
    * @param {number} dt
@@ -174,3 +174,5 @@ export default inherit( Panel, ProteinLevelChartNode, {
     this.dataSeries.clear();
   }
 } );
+
+export default ProteinLevelChartNode;

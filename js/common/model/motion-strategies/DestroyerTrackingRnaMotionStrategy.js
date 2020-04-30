@@ -25,7 +25,7 @@ function DestroyerTrackingRnaMotionStrategy( messengerRnaDestroyer ) {
 
 geneExpressionEssentials.register( 'DestroyerTrackingRnaMotionStrategy', DestroyerTrackingRnaMotionStrategy );
 
-export default inherit( MotionStrategy, DestroyerTrackingRnaMotionStrategy, {
+inherit( MotionStrategy, DestroyerTrackingRnaMotionStrategy, {
 
   /**
    * @override
@@ -40,3 +40,5 @@ export default inherit( MotionStrategy, DestroyerTrackingRnaMotionStrategy, {
     return new Vector2( generateInitialPosition3D.x, generateInitialPosition3D.y );
   }
 } );
+
+export default DestroyerTrackingRnaMotionStrategy;

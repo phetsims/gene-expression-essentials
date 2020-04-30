@@ -30,7 +30,7 @@ function TranscriptionFactorAttachedState( transcriptionFactorAttachmentStateMac
 
 geneExpressionEssentials.register( 'TranscriptionFactorAttachedState', TranscriptionFactorAttachedState );
 
-export default inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
+inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
 
   /**
    * Calculate the probability of detachment from the current base pair during the provided time interval. This uses
@@ -145,3 +145,5 @@ export default inherit( GenericAttachedState, TranscriptionFactorAttachedState, 
     enclosingStateMachine.biomolecule.attachedToDnaProperty.set( true ); // Update externally visible state indication.
   }
 } );
+
+export default TranscriptionFactorAttachedState;

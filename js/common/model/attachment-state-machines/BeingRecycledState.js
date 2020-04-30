@@ -33,7 +33,7 @@ function BeingRecycledState( rnaPolymeraseAttachmentStateMachine, recycleReturnZ
 
 geneExpressionEssentials.register( 'BeingRecycledState', BeingRecycledState );
 
-export default inherit( AttachmentState, BeingRecycledState, {
+inherit( AttachmentState, BeingRecycledState, {
 
   /**
    * @override
@@ -77,3 +77,5 @@ export default inherit( AttachmentState, BeingRecycledState, {
       this.recycleReturnZones, biomolecule.motionBoundsProperty ) );
   }
 } );
+
+export default BeingRecycledState;

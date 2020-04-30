@@ -22,7 +22,7 @@ function BeingDestroyedState() {
 
 geneExpressionEssentials.register( 'BeingDestroyedState', BeingDestroyedState );
 
-export default inherit( AttachmentState, BeingDestroyedState, {
+inherit( AttachmentState, BeingDestroyedState, {
 
   /**
    * @override
@@ -36,3 +36,5 @@ export default inherit( AttachmentState, BeingDestroyedState, {
     enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
   }
 } );
+
+export default BeingDestroyedState;

@@ -60,7 +60,7 @@ function FlashController( flashingNode, normalColor, flashColor, options ) {
 
 geneExpressionEssentials.register( 'FlashController', FlashController );
 
-export default inherit( Object, FlashController, {
+inherit( Object, FlashController, {
 
   /**
    * @returns {boolean}
@@ -111,3 +111,5 @@ export default inherit( Object, FlashController, {
     this.flashingNode.fill = flashOn ? this.flashColor : this.normalColor;
   }
 } );
+
+export default FlashController;

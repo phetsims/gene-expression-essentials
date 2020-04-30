@@ -182,7 +182,7 @@ function BiomoleculeToolboxNode( model, canvas, modelViewTransform, gene ) {
 
 geneExpressionEssentials.register( 'BiomoleculeToolboxNode', BiomoleculeToolboxNode );
 
-export default inherit( Panel, BiomoleculeToolboxNode, {
+inherit( Panel, BiomoleculeToolboxNode, {
 
   /**
    * @public reset the toolbox
@@ -206,3 +206,5 @@ export default inherit( Panel, BiomoleculeToolboxNode, {
     return biomoleculeCreatorNode;
   }
 } );
+
+export default BiomoleculeToolboxNode;

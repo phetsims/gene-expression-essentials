@@ -19,7 +19,7 @@ function GenericMovingTowardsAttachmentState( genericAttachmentStateMachine ) {
 
 geneExpressionEssentials.register( 'GenericMovingTowardsAttachmentState', GenericMovingTowardsAttachmentState );
 
-export default inherit( AttachmentState, GenericMovingTowardsAttachmentState, {
+inherit( AttachmentState, GenericMovingTowardsAttachmentState, {
 
   /**
    * @override
@@ -60,3 +60,5 @@ export default inherit( AttachmentState, GenericMovingTowardsAttachmentState, {
     enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
   }
 } );
+
+export default GenericMovingTowardsAttachmentState;

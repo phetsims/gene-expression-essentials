@@ -61,7 +61,7 @@ function DnaMoleculeNode( dnaMolecule, modelViewTransform, backboneStrokeWidth, 
 
 geneExpressionEssentials.register( 'DnaMoleculeNode', DnaMoleculeNode );
 
-export default inherit( Node, DnaMoleculeNode, {
+inherit( Node, DnaMoleculeNode, {
 
   /**
    * @public
@@ -70,3 +70,5 @@ export default inherit( Node, DnaMoleculeNode, {
     this.dnaBackboneLayer.step();
   }
 } );
+
+export default DnaMoleculeNode;

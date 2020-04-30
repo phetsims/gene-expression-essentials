@@ -41,7 +41,7 @@ function AttachedAndTranscribingState( rnaPolymeraseAttachmentStateMachine ) {
 
 geneExpressionEssentials.register( 'AttachedAndTranscribingState', AttachedAndTranscribingState );
 
-export default inherit( AttachmentState, AttachedAndTranscribingState, {
+inherit( AttachmentState, AttachedAndTranscribingState, {
 
   /**
    * @override
@@ -135,3 +135,5 @@ export default inherit( AttachmentState, AttachedAndTranscribingState, {
     this.rnaPolymeraseAttachmentStateMachine.attachmentSite = transcribingAttachmentSite;
   }
 } );
+
+export default AttachedAndTranscribingState;

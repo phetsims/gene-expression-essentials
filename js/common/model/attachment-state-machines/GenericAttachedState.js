@@ -30,7 +30,7 @@ function GenericAttachedState() {
 
 geneExpressionEssentials.register( 'GenericAttachedState', GenericAttachedState );
 
-export default inherit( AttachmentState, GenericAttachedState, {
+inherit( AttachmentState, GenericAttachedState, {
 
   /**
    * @override
@@ -70,3 +70,5 @@ export default inherit( AttachmentState, GenericAttachedState, {
     enclosingStateMachine.biomolecule.movableByUserProperty.set( false );
   }
 } );
+
+export default GenericAttachedState;

@@ -33,7 +33,7 @@ function MRnaDestroyerAttachmentStateMachine( messengerRnaDestroyer ) {
 
 geneExpressionEssentials.register( 'MRnaDestroyerAttachmentStateMachine', MRnaDestroyerAttachmentStateMachine );
 
-export default inherit( GenericAttachmentStateMachine, MRnaDestroyerAttachmentStateMachine, {
+inherit( GenericAttachmentStateMachine, MRnaDestroyerAttachmentStateMachine, {
 
   /**
    * @override
@@ -50,3 +50,5 @@ export default inherit( GenericAttachmentStateMachine, MRnaDestroyerAttachmentSt
   }
 
 } );
+
+export default MRnaDestroyerAttachmentStateMachine;

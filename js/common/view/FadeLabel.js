@@ -73,7 +73,7 @@ function FadeLabel( text, initiallyVisible, existenceStrengthProperty ) {
 
 geneExpressionEssentials.register( 'FadeLabel', FadeLabel );
 
-export default inherit( Node, FadeLabel, {
+inherit( Node, FadeLabel, {
 
   /**
    * @param {number} time // in millseconds
@@ -99,3 +99,5 @@ export default inherit( Node, FadeLabel, {
     this.fadeOutTimer.restart();
   }
 } );
+
+export default FadeLabel;

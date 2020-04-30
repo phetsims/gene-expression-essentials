@@ -23,7 +23,7 @@ function MotionStrategy() {
 
 geneExpressionEssentials.register( 'MotionStrategy', MotionStrategy );
 
-export default inherit( Object, MotionStrategy, {
+inherit( Object, MotionStrategy, {
 
   /**
    * Clean up references so that this is elibible for garbage collection.  This does nothing in the base class,
@@ -160,3 +160,5 @@ export default inherit( Object, MotionStrategy, {
     return minZ;
   }
 } );
+
+export default MotionStrategy;

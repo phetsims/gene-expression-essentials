@@ -52,7 +52,7 @@ function DriftThenTeleportMotionStrategy( wanderDirection, destinationZones, mot
 
 geneExpressionEssentials.register( 'DriftThenTeleportMotionStrategy', DriftThenTeleportMotionStrategy );
 
-export default inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
+inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
 
   /**
    * @override
@@ -144,3 +144,5 @@ export default inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
     );
   }
 } );
+
+export default DriftThenTeleportMotionStrategy;

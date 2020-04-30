@@ -107,7 +107,7 @@ function MessengerRnaNode( modelViewTransform, messengerRna ) {
 
 geneExpressionEssentials.register( 'MessengerRnaNode', MessengerRnaNode );
 
-export default inherit( MobileBiomoleculeNode, MessengerRnaNode, {
+inherit( MobileBiomoleculeNode, MessengerRnaNode, {
 
   /**
    * @public
@@ -117,3 +117,5 @@ export default inherit( MobileBiomoleculeNode, MessengerRnaNode, {
     MobileBiomoleculeNode.prototype.dispose.call( this );
   }
 } );
+
+export default MessengerRnaNode;

@@ -49,7 +49,7 @@ function Cell( rotationAngle ) {
 
 geneExpressionEssentials.register( 'Cell', Cell );
 
-export default inherit( ShapeChangingModelElement, Cell, {
+inherit( ShapeChangingModelElement, Cell, {
 
   /**
    * @param {number} dt
@@ -139,3 +139,5 @@ export default inherit( ShapeChangingModelElement, Cell, {
   ProteinLevelWhereColorChangeStarts: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_STARTS,
   ProteinLevelWhereColorChangeCompletes: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES
 } );
+
+export default Cell;

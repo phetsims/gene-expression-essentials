@@ -28,7 +28,7 @@ function UnattachedAndFadingState( messengerRnaAttachmentStateMachine ) {
 
 geneExpressionEssentials.register( 'UnattachedAndFadingState', UnattachedAndFadingState );
 
-export default inherit( AttachmentState, UnattachedAndFadingState, {
+inherit( AttachmentState, UnattachedAndFadingState, {
 
   /**
    * @override
@@ -61,3 +61,5 @@ export default inherit( AttachmentState, UnattachedAndFadingState, {
       asm.biomolecule.motionBoundsProperty ) );
   }
 } );
+
+export default UnattachedAndFadingState;

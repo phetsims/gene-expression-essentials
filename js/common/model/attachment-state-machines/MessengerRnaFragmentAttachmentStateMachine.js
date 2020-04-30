@@ -85,7 +85,7 @@ function MessengerRnaFragmentAttachmentStateMachine( biomolecule ) {
 
 geneExpressionEssentials.register( 'MessengerRnaFragmentAttachmentStateMachine', MessengerRnaFragmentAttachmentStateMachine );
 
-export default inherit( AttachmentStateMachine, MessengerRnaFragmentAttachmentStateMachine, {
+inherit( AttachmentStateMachine, MessengerRnaFragmentAttachmentStateMachine, {
 
   /**
    * @override
@@ -95,3 +95,5 @@ export default inherit( AttachmentStateMachine, MessengerRnaFragmentAttachmentSt
     this.setState( new UnattachedAndFadingState( this ) );
   }
 } );
+
+export default MessengerRnaFragmentAttachmentStateMachine;

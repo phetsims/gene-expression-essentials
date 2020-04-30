@@ -33,7 +33,7 @@ function MeanderToDestinationMotionStrategy( destinationProperty, motionBoundsPr
 
 geneExpressionEssentials.register( 'MeanderToDestinationMotionStrategy', MeanderToDestinationMotionStrategy );
 
-export default inherit( MotionStrategy, MeanderToDestinationMotionStrategy, {
+inherit( MotionStrategy, MeanderToDestinationMotionStrategy, {
 
   /**
    * override
@@ -81,3 +81,5 @@ export default inherit( MotionStrategy, MeanderToDestinationMotionStrategy, {
     }
   }
 } );
+
+export default MeanderToDestinationMotionStrategy;

@@ -292,7 +292,7 @@ function MultipleCellsScreenView( model ) {
 
 geneExpressionEssentials.register( 'MultipleCellsScreenView', MultipleCellsScreenView );
 
-export default inherit( ScreenView, MultipleCellsScreenView, {
+inherit( ScreenView, MultipleCellsScreenView, {
 
   /**
    * Step function for the view
@@ -305,3 +305,5 @@ export default inherit( ScreenView, MultipleCellsScreenView, {
     }
   }
 } );
+
+export default MultipleCellsScreenView;

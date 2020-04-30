@@ -37,7 +37,7 @@ function AttachmentStateMachine( biomolecule ) {
 
 geneExpressionEssentials.register( 'AttachmentStateMachine', AttachmentStateMachine );
 
-export default inherit( Object, AttachmentStateMachine, {
+inherit( Object, AttachmentStateMachine, {
 
   /**
    * Step function for the attachment state machine, which in turn calls the step function of attachment state
@@ -115,3 +115,5 @@ export default inherit( Object, AttachmentStateMachine, {
   }
 
 } );
+
+export default AttachmentStateMachine;

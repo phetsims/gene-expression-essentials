@@ -35,7 +35,7 @@ function GenericAttachmentStateMachine( biomolecule ) {
 
 geneExpressionEssentials.register( 'GenericAttachmentStateMachine', GenericAttachmentStateMachine );
 
-export default inherit( AttachmentStateMachine, GenericAttachmentStateMachine, {
+inherit( AttachmentStateMachine, GenericAttachmentStateMachine, {
 
   /**
    * @override
@@ -74,3 +74,5 @@ export default inherit( AttachmentStateMachine, GenericAttachmentStateMachine, {
     this.setState( this.unattachedButUnavailableState );
   }
 } );
+
+export default GenericAttachmentStateMachine;

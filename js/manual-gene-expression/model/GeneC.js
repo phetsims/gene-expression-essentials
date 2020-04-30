@@ -50,7 +50,7 @@ function GeneC( dnaMolecule, initialBasePair ) {
 
 geneExpressionEssentials.register( 'GeneC', GeneC );
 
-export default inherit( Gene, GeneC, {
+inherit( Gene, GeneC, {
 
   /**
    * @override
@@ -66,3 +66,5 @@ export default inherit( Gene, GeneC, {
   NUM_BASE_PAIRS: NUM_BASE_PAIRS
 
 } );
+
+export default GeneC;

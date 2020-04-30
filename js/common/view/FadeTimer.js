@@ -28,7 +28,7 @@ function FadeTimer( interval, listener ) {
 
 geneExpressionEssentials.register( 'FadeTimer', FadeTimer );
 
-export default inherit( Object, FadeTimer, {
+inherit( Object, FadeTimer, {
 
   /**
    * Starts the timer. This is a no-op if the timer is already running.
@@ -65,3 +65,5 @@ export default inherit( Object, FadeTimer, {
     this.start();
   }
 } );
+
+export default FadeTimer;

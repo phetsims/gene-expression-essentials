@@ -45,7 +45,7 @@ function FlashingShapeNode( shape, flashColor, options ) {
 
 geneExpressionEssentials.register( 'FlashingShapeNode', FlashingShapeNode );
 
-export default inherit( Node, FlashingShapeNode, {
+inherit( Node, FlashingShapeNode, {
 
   /**
    * @public
@@ -61,3 +61,5 @@ export default inherit( Node, FlashingShapeNode, {
     this.flashController.forceFlashOff();
   }
 } );
+
+export default FlashingShapeNode;

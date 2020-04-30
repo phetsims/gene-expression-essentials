@@ -34,7 +34,7 @@ function ProteinA( model ) {
 
 geneExpressionEssentials.register( 'ProteinA', ProteinA );
 
-export default inherit( Protein, ProteinA, {
+inherit( Protein, ProteinA, {
 
   /**
    * @override
@@ -105,3 +105,5 @@ export default inherit( Protein, ProteinA, {
     return shape;
   }
 } );
+
+export default ProteinA;

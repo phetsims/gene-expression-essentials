@@ -94,7 +94,7 @@ function ManualGeneExpressionModel() {
 
 geneExpressionEssentials.register( 'ManualGeneExpressionModel', ManualGeneExpressionModel );
 
-export default inherit( GeneExpressionModel, ManualGeneExpressionModel, {
+inherit( GeneExpressionModel, ManualGeneExpressionModel, {
 
   /**
    * main step function for this model
@@ -372,3 +372,5 @@ export default inherit( GeneExpressionModel, ManualGeneExpressionModel, {
     return motionBounds;
   }
 } );
+
+export default ManualGeneExpressionModel;

@@ -46,7 +46,7 @@ function WanderInGeneralDirectionMotionStrategy( generalDirection, motionBoundsP
 
 geneExpressionEssentials.register( 'WanderInGeneralDirectionMotionStrategy', WanderInGeneralDirectionMotionStrategy );
 
-export default inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, {
+inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, {
 
   /**
    * @override
@@ -114,3 +114,5 @@ export default inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, 
     return new Vector3( nextPosition2D.x, nextPosition2D.y, currentPosition.z );
   }
 } );
+
+export default WanderInGeneralDirectionMotionStrategy;

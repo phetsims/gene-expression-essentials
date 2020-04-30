@@ -44,7 +44,7 @@ function RibosomeAttachmentStateMachine( biomolecule ) {
 
 geneExpressionEssentials.register( 'RibosomeAttachmentStateMachine', RibosomeAttachmentStateMachine );
 
-export default inherit( GenericAttachmentStateMachine, RibosomeAttachmentStateMachine, {
+inherit( GenericAttachmentStateMachine, RibosomeAttachmentStateMachine, {
 
   /**
    * @override
@@ -80,3 +80,5 @@ export default inherit( GenericAttachmentStateMachine, RibosomeAttachmentStateMa
     return ( this.attachmentState === this.attachedState );
   }
 } );
+
+export default RibosomeAttachmentStateMachine;

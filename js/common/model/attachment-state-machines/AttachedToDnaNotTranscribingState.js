@@ -39,7 +39,7 @@ function AttachedToDnaNotTranscribingState( rnaPolymeraseAttachmentStateMachine 
 
 geneExpressionEssentials.register( 'AttachedToDnaNotTranscribingState', AttachedToDnaNotTranscribingState );
 
-export default inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
+inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
 
   /**
    * Helper function which detaches RnaPolymerase from the DNA
@@ -183,3 +183,5 @@ export default inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
     asm.biomolecule.attachedToDnaProperty.set( true );
   }
 } );
+
+export default AttachedToDnaNotTranscribingState;

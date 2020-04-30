@@ -273,7 +273,7 @@ function ManualGeneExpressionScreenView( model ) {
 
 geneExpressionEssentials.register( 'ManualGeneExpressionScreenView', ManualGeneExpressionScreenView );
 
-export default inherit( ScreenView, ManualGeneExpressionScreenView, {
+inherit( ScreenView, ManualGeneExpressionScreenView, {
 
   /**
    * @public
@@ -282,3 +282,5 @@ export default inherit( ScreenView, ManualGeneExpressionScreenView, {
     this.dnaMoleculeNode.step();
   }
 } );
+
+export default ManualGeneExpressionScreenView;
