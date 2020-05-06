@@ -72,5 +72,5 @@ function AffinityController( leftNode, rightNode, affinityProperty ) {
 }
 
 geneExpressionEssentials.register( 'AffinityController', AffinityController );
-
-export default inherit( Node, AffinityController, {} );
+inherit( Node, AffinityController );
+export default AffinityController;

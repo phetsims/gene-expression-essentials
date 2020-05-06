@@ -31,5 +31,5 @@ function TranscriptionFactorAttachmentStateMachine( biomolecule ) {
 }
 
 geneExpressionEssentials.register( 'TranscriptionFactorAttachmentStateMachine', TranscriptionFactorAttachmentStateMachine );
-
-export default inherit( GenericAttachmentStateMachine, TranscriptionFactorAttachmentStateMachine, {} );
+inherit( GenericAttachmentStateMachine, TranscriptionFactorAttachmentStateMachine );
+export default TranscriptionFactorAttachmentStateMachine;

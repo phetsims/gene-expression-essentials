@@ -52,5 +52,5 @@ function ProteinAttachmentStateMachine( biomolecule ) {
 }
 
 geneExpressionEssentials.register( 'ProteinAttachmentStateMachine', ProteinAttachmentStateMachine );
-
-export default inherit( GenericAttachmentStateMachine, ProteinAttachmentStateMachine, {} );
+inherit( GenericAttachmentStateMachine, ProteinAttachmentStateMachine );
+export default ProteinAttachmentStateMachine;

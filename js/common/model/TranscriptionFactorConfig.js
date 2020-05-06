@@ -8,7 +8,6 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 /**
@@ -25,4 +24,4 @@ function TranscriptionFactorConfig( shape, positive, baseColor ) {
 
 geneExpressionEssentials.register( 'TranscriptionFactorConfig', TranscriptionFactorConfig );
 
-export default inherit( Object, TranscriptionFactorConfig, {} );
+export default TranscriptionFactorConfig;

@@ -81,5 +81,5 @@ function ControlPanelNode( title, controllers ) {
 }
 
 geneExpressionEssentials.register( 'ControlPanelNode', ControlPanelNode );
-
-export default inherit( AccordionBox, ControlPanelNode, {} );
+inherit( AccordionBox, ControlPanelNode );
+export default ControlPanelNode;

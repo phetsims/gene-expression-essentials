@@ -89,5 +89,5 @@ function ControllerNode( controller, minValue, maxValue, minLabel, maxLabel, opt
 }
 
 geneExpressionEssentials.register( 'ControllerNode', ControllerNode );
-
-export default inherit( Node, ControllerNode, {} );
+inherit( Node, ControllerNode );
+export default ControllerNode;

@@ -65,5 +65,5 @@ function ConcentrationController( transcriptionFactorConfig, tfLevelProperty, mi
 }
 
 geneExpressionEssentials.register( 'ConcentrationController', ConcentrationController );
-
-export default inherit( Node, ConcentrationController, {} );
+inherit( Node, ConcentrationController );
+export default ConcentrationController;
