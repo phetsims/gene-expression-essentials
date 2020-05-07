@@ -7,7 +7,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import geneExpressionEssentialsStrings from './geneExpressionEssentialsStrings.js';
 import ManualGeneExpressionScreen from './manual-gene-expression/ManualGeneExpressionScreen.js';
 import MessengerRnaProductionScreen from './mrna-production/MessengerRnaProductionScreen.js';
@@ -25,7 +25,7 @@ const simOptions = {
 };
 
 // we are go for launch
-SimLauncher.launch( function() {
+simLauncher.launch( function() {
   const sim = new Sim( geneExpressionEssentialsTitleString,
     [
       new ManualGeneExpressionScreen(),
