@@ -56,7 +56,7 @@ function RnaPolymeraseAttachmentStateMachine( rnaPolymerase ) {
   this.detachFromDnaThreshold = new Property( 1.0 );
 
   // A flag that tracks whether this state machine should use the "recycle mode", which causes the polymerase to
-  // return to some new location once it has completed transcription.
+  // return to some new position once it has completed transcription.
   //@public
   this.recycleMode = false;
 

@@ -2,7 +2,7 @@
 
 /**
  * Motion strategy where the controlled entity drifts at the front of a Z dimension, then moves to the back of Z space,
- * then moves instantly to a new randomly generated location within a set of possible "destination zones" (hence the
+ * then moves instantly to a new randomly generated position within a set of possible "destination zones" (hence the
  * "teleport" portion of the name). This was created to use when a polymerase molecule needs to return to the beginning
  * of the transcribed area of a gene when it completes transcription. It may, at some point, have other applications.
  *
@@ -73,7 +73,7 @@ inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
     // randomly choose one of the destination zones
     const destinationBounds = phet.joist.random.sample( destinationZones );
 
-    // generate a random valid location within the chosen zone
+    // generate a random valid position within the chosen zone
     const reducedBoundsWidth = destinationBounds.getWidth() - bounds.getWidth();
     const reducedBoundsHeight = destinationBounds.getHeight() - bounds.getHeight();
     assert && assert(

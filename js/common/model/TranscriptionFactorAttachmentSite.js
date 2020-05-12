@@ -20,13 +20,13 @@ import AttachmentSite from './AttachmentSite.js';
 
 /**
  * @param {Object} owner - the molecule upon which this attachment site exists
- * @param {Vector2} initialLocation
+ * @param {Vector2} initialPosition
  * @param {TranscriptionFactorConfig} tfConfig
  * @param {number} initialAffinity
  * @constructor
  */
-function TranscriptionFactorAttachmentSite( owner, initialLocation, tfConfig, initialAffinity ) {
-  AttachmentSite.call( this, owner, initialLocation, initialAffinity );
+function TranscriptionFactorAttachmentSite( owner, initialPosition, tfConfig, initialAffinity ) {
+  AttachmentSite.call( this, owner, initialPosition, initialAffinity );
 
   // Configuration of TF that attaches to this site.
   this.tfConfig = tfConfig; // @private

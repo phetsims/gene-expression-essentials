@@ -342,7 +342,7 @@ inherit( Object, MessengerRnaProductionModel, {
   },
 
   /**
-   * Generate a random, valid, initial location, including the Z dimension.
+   * Generate a random, valid, initial position, including the Z dimension.
    * @param {MobileBiomolecule} biomolecule
    * @returns {Vector3}
    * @private

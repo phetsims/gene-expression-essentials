@@ -178,7 +178,7 @@ inherit( MobileBiomolecule, Ribosome, {
   },
 
   /**
-   * Get the location in model space of the point at which a protein that is being synthesized by this ribosome should
+   * Get the position in model space of the point at which a protein that is being synthesized by this ribosome should
    * be attached.
    *
    * @param {Vector2} newAttachmentPoint // optional output Vector - Added to avoid creating excessive vector2 instances

@@ -31,7 +31,7 @@ function AttachmentStateMachine( biomolecule ) {
   this.attachmentState = null; //@public
 
   // Offset to use when moving towards attachment sites. This is used when the molecule attaches to an attachment site
-  // at some location other than its geometric center.
+  // at some position other than its geometric center.
   this.destinationOffset = new Vector2( 0, 0 ); //@public
 }
 

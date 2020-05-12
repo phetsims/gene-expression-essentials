@@ -106,7 +106,7 @@ inherit( AttachmentState, AttachedAndTranscribingState, {
     asm.biomolecule.movableByUserProperty.set( false );
 
     // Determine the gene that is being transcribed.
-    const geneToTranscribe = biomolecule.getModel().getDnaMolecule().getGeneAtLocation( biomolecule.getPosition() );
+    const geneToTranscribe = biomolecule.getModel().getDnaMolecule().getGeneAtPosition( biomolecule.getPosition() );
     assert && assert( geneToTranscribe !== null );
 
     // Set up the motion strategy to move to the end of the transcribed region of the gene.

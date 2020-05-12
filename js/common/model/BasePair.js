@@ -22,17 +22,17 @@ import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 const BASE_PAIR_WIDTH = 13; // In picometers.  Not sure if this is close to real life, chosen to look decent in view.
 
 /**
- * @param {number} centerLocationX
- * @param {number} topYLocation
- * @param {number} bottomYLocation
+ * @param {number} centerPositionX
+ * @param {number} topYPosition
+ * @param {number} bottomYPosition
  * @constructor
  */
-function BasePair( centerLocationX, topYLocation, bottomYLocation ) {
+function BasePair( centerPositionX, topYPosition, bottomYPosition ) {
 
   // @public - values that indicate where the base pair is positioned
-  this.x = centerLocationX - BASE_PAIR_WIDTH / 2;
-  this.topYLocation = topYLocation;
-  this.bottomYLocation = bottomYLocation;
+  this.x = centerPositionX - BASE_PAIR_WIDTH / 2;
+  this.topYPosition = topYPosition;
+  this.bottomYPosition = bottomYPosition;
   this.width = BASE_PAIR_WIDTH;
 }
 
@@ -44,7 +44,7 @@ inherit( Object, BasePair, {
    * @returns {number}
    * @public
    */
-  getCenterLocationX: function() {
+  getCenterPositionX: function() {
     return this.x + BASE_PAIR_WIDTH / 2;
   }
 } );

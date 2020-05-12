@@ -596,7 +596,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
   },
 
   /**
-   * Adjust the position and the relative locations of all the shape segments such that the mRNA is in the same
+   * Adjust the position and the relative positions of all the shape segments such that the mRNA is in the same
    * place but the center is actually in the center of the segments.  This is necessary because during translations
    * the segments change shape and can move such that the position is not longer at the center of the shape.
    */

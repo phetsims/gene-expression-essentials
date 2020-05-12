@@ -1,7 +1,7 @@
 // Copyright 2015-2020, University of Colorado Boulder
 
 /**
- * This class represents a "placement hint" in the model, which is a location where a biomolecule of the provided type
+ * This class represents a "placement hint" in the model, which is a position where a biomolecule of the provided type
  * can be placed and which will be "hinted" to the user at the appropriate times.
  *
  * @author John Blanco

@@ -75,7 +75,7 @@ function MessengerRna( model, proteinPrototype, position, options ) {
   segment.setCapacity( GEEConstants.LEADER_LENGTH );
   this.shapeSegments.push( segment );
 
-  // Add the placement hints for the locations where the user can attach a ribosome or an mRNA destroyer.
+  // Add the placement hints for the positions where the user can attach a ribosome or an mRNA destroyer.
   const ribosome = new Ribosome( model );
   this.ribosomePlacementHint = new PlacementHint( ribosome ); //@public(read-only)
   this.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
@@ -266,7 +266,7 @@ inherit( WindingBiomolecule, MessengerRna, {
   getRibosomeGenerateInitialPosition3D: function( ribosome ) {
     assert && assert(
       this.mapRibosomeToShapeSegment[ ribosome.id ],
-      'attempt made to get attachment location for unattached ribosome'
+      'attempt made to get attachment position for unattached ribosome'
     );
     let generateInitialPosition3D;
     const mRnaPosition = this.positionProperty.get();

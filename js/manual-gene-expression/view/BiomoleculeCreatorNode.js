@@ -54,7 +54,7 @@ function BiomoleculeCreatorNode( appearanceNode, canvas, modelViewTransform, mol
       self.pickable = false;
       self.appearanceNode.opacity = SunConstants.DISABLED_OPACITY;
 
-      // Convert the canvas position to the corresponding location in the model.
+      // Convert the canvas position to the corresponding position in the model.
       const modelPos = self.getModelPosition( event.pointer.point );
 
       // Create the corresponding biomolecule and add it to the model.

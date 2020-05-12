@@ -140,7 +140,7 @@ inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
       return currentDestination3D;
     }
 
-    // calculate the next location based on the motion vector
+    // calculate the next position based on the motion vector
     return new Vector3(
       currentPosition3D.x + this.velocityVector2D.x * dt,
       currentPosition3D.y + this.velocityVector2D.y * dt,

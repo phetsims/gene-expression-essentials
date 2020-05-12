@@ -138,7 +138,7 @@ inherit( Object, ShapeSegment, {
   },
 
   /**
-   * Updates the Attachment Site Location which is the upper left corner of the segment
+   * Updates the Attachment Site Position which is the upper left corner of the segment
    * @public
    */
   updateAttachmentSitePosition: function() {

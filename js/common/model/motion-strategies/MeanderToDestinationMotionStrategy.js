@@ -76,8 +76,8 @@ inherit( MotionStrategy, MeanderToDestinationMotionStrategy, {
     else {
 
       // Use a combination of the random and linear motion.
-      const intermediateLocation = this.randomWalkMotionStrategy.getNextPosition3D( currentPosition, bounds, dt * 0.6 );
-      return this.directToDestinationMotionStrategy.getNextPosition3D( intermediateLocation, bounds, dt * 0.4 );
+      const intermediatePosition = this.randomWalkMotionStrategy.getNextPosition3D( currentPosition, bounds, dt * 0.6 );
+      return this.directToDestinationMotionStrategy.getNextPosition3D( intermediatePosition, bounds, dt * 0.4 );
     }
   }
 } );

@@ -27,7 +27,7 @@ const MRNA_WINDING_ALGORITHM_NUMBER = 4;
  * Constructor.
  *
  * @param {DnaMolecule} dnaMolecule - The DNA molecule within which this gene exists.
- * @param {number} initialBasePair - Location on the DNA strand where this gene starts.
+ * @param {number} initialBasePair - Position on the DNA strand where this gene starts.
  * @constructor
  */
 function GeneA( dnaMolecule, initialBasePair ) {
@@ -42,10 +42,10 @@ function GeneA( dnaMolecule, initialBasePair ) {
     MRNA_WINDING_ALGORITHM_NUMBER
   );
 
-  // Add transcription factors that are specific to this gene. Location is withing the regulatory region, and the
+  // Add transcription factors that are specific to this gene. Position is withing the regulatory region, and the
   // negative factor should overlap, and thus block, the positive factor(s).
-  this.addTranscriptionFactorLocation( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS );
-  this.addTranscriptionFactorLocation( 2, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG );
+  this.addTranscriptionFactorPosition( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_POS );
+  this.addTranscriptionFactorPosition( 2, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_1_NEG );
 }
 
 geneExpressionEssentials.register( 'GeneA', GeneA );

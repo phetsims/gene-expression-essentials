@@ -33,7 +33,7 @@ const TRANSCRIPTION_FACTOR_ATTACHMENT_DISTANCE = 400;
 // distance within which RNA polymerase may attach
 const RNA_POLYMERASE_ATTACHMENT_DISTANCE = 400;
 
-const attachmentSiteLocation = new Vector2( 0, 0 );
+const attachmentSitePosition = new Vector2( 0, 0 );
 
 /**
  * @param {GeneExpressionModel} model - the gene expression model within which this DNA strand exists
@@ -130,7 +130,7 @@ inherit( Object, DnaMolecule, {
   },
 
   /**
-   * get the X location of the nearest base pair given an arbitrary X location in model coordinates
+   * get the X position of the nearest base pair given an arbitrary X position in model coordinates
    * @param {number} xPos
    * @returns {number}
    * @private
@@ -178,7 +178,7 @@ inherit( Object, DnaMolecule, {
 
   /**
    * Get the Y position in model space for a DNA strand for the given X position and offset. The offset acts like a
-   * "phase difference", thus allowing this method to be used to get location information for both DNA strands.
+   * "phase difference", thus allowing this method to be used to get position information for both DNA strands.
    * @param {number} xPos
    * @param {number} offset
    * @returns {number}
@@ -201,8 +201,8 @@ inherit( Object, DnaMolecule, {
     this.strandPointsShadow.forEach( function( dnaStrandPoint, i ) {
       dnaStrandPoint.strand1YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, 0 );
       dnaStrandPoint.strand2YPos = self.getDnaStrandYPosition( dnaStrandPoint.xPos, GEEConstants.INTER_STRAND_OFFSET );
-      self.basePairs[ i ].topYLocation = Math.min( dnaStrandPoint.strand1YPos, dnaStrandPoint.strand2YPos );
-      self.basePairs[ i ].bottomYLocation = Math.max( dnaStrandPoint.strand1YPos, dnaStrandPoint.strand2YPos );
+      self.basePairs[ i ].topYPosition = Math.min( dnaStrandPoint.strand1YPos, dnaStrandPoint.strand2YPos );
+      self.basePairs[ i ].bottomYPosition = Math.max( dnaStrandPoint.strand1YPos, dnaStrandPoint.strand2YPos );
     } );
 
     // Move the shadow points to account for any separations.
@@ -230,10 +230,10 @@ inherit( Object, DnaMolecule, {
                                                      separationWeight * separation.getAmount() / 2;
           self.strandPointsShadow[ i ].strand2YPos = ( 1 - separationWeight ) * self.strandPointsShadow[ i ].strand2YPos -
                                                      separationWeight * separation.getAmount() / 2;
-          self.basePairs[ i ].topYLocation = Math.max(
+          self.basePairs[ i ].topYPosition = Math.max(
             self.strandPointsShadow[ i ].strand1YPos, self.strandPointsShadow[ i ].strand2YPos
           );
-          self.basePairs[ i ].bottomYLocation = Math.min(
+          self.basePairs[ i ].bottomYPosition = Math.min(
             self.strandPointsShadow[ i ].strand1YPos, self.strandPointsShadow[ i ].strand2YPos
           );
         }
@@ -513,9 +513,9 @@ inherit( Object, DnaMolecule, {
     for ( let i = 0; i < this.basePairs.length; i++ ) {
 
       // See if the base pair is within the max attachment distance.
-      attachmentSiteLocation.setXY( this.basePairs[ i ].getCenterLocationX(), GEEConstants.DNA_MOLECULE_Y_POS );
+      attachmentSitePosition.setXY( this.basePairs[ i ].getCenterPositionX(), GEEConstants.DNA_MOLECULE_Y_POS );
 
-      if ( attachmentSiteLocation.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
+      if ( attachmentSitePosition.distance( biomolecule.getPosition() ) <= maxAttachDistance ) {
 
         // In range.  Add it to the list if it is available.
         const potentialAttachmentSite = getAttachSiteForBasePair( i );
@@ -565,7 +565,7 @@ inherit( Object, DnaMolecule, {
     }
 
     const exponent = 1;
-    const attachLocation = biomolecule.getPosition();
+    const attachPosition = biomolecule.getPosition();
 
     // Sort the collection so that the best site is at the top of the list.
     potentialAttachmentSites.sort( function( attachmentSite1, attachmentSite2 ) {
@@ -575,9 +575,9 @@ inherit( Object, DnaMolecule, {
       // only the affinity matters, a value of 100 means it is pretty much entirely distance. A value of 2 is how
       // gravity works, so it appears kind of natural. Tweak as needed.
       const as1Factor = attachmentSite1.getAffinity() /
-                        Math.pow( attachLocation.distance( attachmentSite1.positionProperty.get() ), exponent );
+                        Math.pow( attachPosition.distance( attachmentSite1.positionProperty.get() ), exponent );
       const as2Factor = attachmentSite2.getAffinity() /
-                        Math.pow( attachLocation.distance( attachmentSite2.positionProperty.get() ), exponent );
+                        Math.pow( attachPosition.distance( attachmentSite2.positionProperty.get() ), exponent );
 
       if ( as2Factor > as1Factor ) {
         return 1;
@@ -791,33 +791,33 @@ inherit( Object, DnaMolecule, {
   },
 
   /**
-   * Get a reference to the gene that contains the given location.
+   * Get a reference to the gene that contains the given position.
    *
-   * @param {Vector2} location
-   * @returns {Gene} Gene at the location, null if no gene exists.
+   * @param {Vector2} position
+   * @returns {Gene} Gene at the position, null if no gene exists.
    * @public
    */
-  getGeneAtLocation: function( location ) {
+  getGeneAtPosition: function(position ) {
 
-    // make sure the location is reasonable
+    // make sure the position is reasonable
     assert && assert(
-    location.x >= this.leftEdgeXOffset && location.x <= this.leftEdgeXOffset + this.moleculeLength &&
-    location.y >= GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2 &&
-    location.y <= GEEConstants.DNA_MOLECULE_Y_POS + GEEConstants.DNA_MOLECULE_DIAMETER / 2,
-      'requested location is not on DNA molecule: ' + location
+    position.x >= this.leftEdgeXOffset && position.x <= this.leftEdgeXOffset + this.moleculeLength &&
+    position.y >= GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2 &&
+    position.y <= GEEConstants.DNA_MOLECULE_Y_POS + GEEConstants.DNA_MOLECULE_DIAMETER / 2,
+      'requested position is not on DNA molecule: ' + position
     );
 
-    let geneAtLocation = null;
-    const basePairIndex = this.getBasePairIndexFromXOffset( location.x );
+    let geneAtPosition = null;
+    const basePairIndex = this.getBasePairIndexFromXOffset( position.x );
     this.genes.forEach( function( gene ) {
       if ( gene.containsBasePair( basePairIndex ) ) {
 
         // Found the corresponding gene.
-        geneAtLocation = gene;
+        geneAtPosition = gene;
         return false; //break;
       }
     } );
-    return geneAtLocation;
+    return geneAtPosition;
   },
 
   /**

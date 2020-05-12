@@ -22,7 +22,7 @@ import StubGeneExpressionModel from './StubGeneExpressionModel.js';
 const WIDTH = 340;   // picometers
 const HEIGHT = 480;  // picometers
 
-// Offset from the center of the molecule to the location where mRNA should emerge when transcription is occurring.
+// Offset from the center of the molecule to the position where mRNA should emerge when transcription is occurring.
 // This is determined empirically, and may need to change if the shape is changed.
 const MESSENGER_RNA_GENERATION_OFFSET = new Vector2( -WIDTH * 0.4, HEIGHT * 0.4 );
 

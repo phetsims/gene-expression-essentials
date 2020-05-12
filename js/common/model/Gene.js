@@ -73,8 +73,8 @@ function Gene( dnaMolecule,
   // accessible via methods
   this.transcriptionFactorAttachmentSites = []; // @private
 
-  // @private {Object} - Map of transcription factors that interact with this gene to the location, in terms of base
-  // pair offset, where the TF attaches.
+  // @private {Object} - Map of transcription factors that interact with this gene to the base pair offset
+  // where the TF attaches.
   this.transcriptionFactorMap = {}; // @private
 
   // @public {Property.<number>}} - Property that determines the affinity of the site where polymerase attaches when the transcription factors
@@ -148,7 +148,7 @@ inherit( Object, Gene, {
   },
 
   /**
-   * Get the attachment site for a location that is contained within this gene. In many cases, the affinity of the
+   * Get the attachment site for a base pair that is contained within this gene. In many cases, the affinity of the
    * attachment site will be the same as the default for any DNA, but in some cases it may be especially strong.
    *
    * @param {number} basePairIndex - Index of the base pair on the DNA strand, NOT the index within this gene. In the
@@ -195,14 +195,14 @@ inherit( Object, Gene, {
   },
 
   /**
-   * Method used by descendant classes to add locations where transcription factors go on the gene. Generally this is
+   * Method used by descendant classes to add positions where transcription factors go on the gene. Generally this is
    * only used during construction.
    *
    * @param {number} basePairOffset - Offset WITHIN THIS GENE where the transcription factor's high affinity site will exist.
    * @param {TranscriptionFactorConfig} tfConfig
    * @protected
    */
-  addTranscriptionFactorLocation: function( basePairOffset, tfConfig ) {
+  addTranscriptionFactorPosition: function(basePairOffset, tfConfig ) {
     this.transcriptionFactorMap[ basePairOffset ] = new TranscriptionFactor( null, tfConfig );
     const position = new Vector2(
       this.dnaMolecule.getBasePairXOffsetByIndex( basePairOffset + this.regulatoryRegion.min ),
@@ -275,9 +275,9 @@ inherit( Object, Gene, {
   },
 
   /**
-   * Get the attachment site for a location that is contained within this gene. In many cases, the affinity of the
+   * Get the attachment site for a base pair that is contained within this gene. In many cases, the affinity of the
    * attachment site will be the same as the default for any base pair on the DNA, but if the specified base pair matches
-   * the location of the high-affinity site for this transcription factory, it will generally be higher than the default.
+   * the index of the high-affinity site for this transcription factory, it will generally be higher than the default.
    *
    * @param {number} basePairIndex - Index of the base pair on the DNA strand, NOT the index within this gene. In the
    * real world, affinities are associated with sets of base pairs rather than an individual one, so this is a bit of a

@@ -25,7 +25,7 @@ const MRNA_WINDING_ALGORITHM_NUMBER = 4;
 
 /**
  * @param {DnaMolecule} dnaMolecule -  The DNA molecule within which this gene exists
- * @param {number} initialBasePair - Location on the DNA strand where this gene starts
+ * @param {number} initialBasePair - Where this gene starts on the DNA strand
  * @constructor
  */
 function GeneB( dnaMolecule, initialBasePair ) {
@@ -40,11 +40,11 @@ function GeneB( dnaMolecule, initialBasePair ) {
     MRNA_WINDING_ALGORITHM_NUMBER
   );
 
-  // Add transcription factors that are specific to this gene. Location is pretty much arbitrary, just meant to look
+  // Add transcription factors that are specific to this gene. Position is pretty much arbitrary, just meant to look
   // decent.
-  this.addTranscriptionFactorLocation( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_1 );
-  this.addTranscriptionFactorLocation( 16, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_2 );
-  this.addTranscriptionFactorLocation( 11, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_NEG );
+  this.addTranscriptionFactorPosition( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_1 );
+  this.addTranscriptionFactorPosition( 16, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_POS_2 );
+  this.addTranscriptionFactorPosition( 11, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_2_NEG );
 }
 
 geneExpressionEssentials.register( 'GeneB', GeneB );

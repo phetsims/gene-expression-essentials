@@ -90,7 +90,7 @@ function MultipleCellsModel() {
     }
     else {
       newCell = new Cell( Math.PI * 2 * this.sizeAndRotationRandomizer.nextDouble() );
-      this.placeCellInOpenLocation( newCell );
+      this.placeCellInOpenPosition( newCell );
     }
     this.cellList.push( newCell );
   }
@@ -211,10 +211,10 @@ inherit( Object, MultipleCellsModel, {
   },
 
   /**
-   * find a location for the given cell that doesn't overlap with other cells on the list
+   * find a position for the given cell that doesn't overlap with other cells on the list
    * @private
    */
-  placeCellInOpenLocation: function( cell ) {
+  placeCellInOpenPosition: function( cell ) {
 
     // Loop, randomly generating positions of increasing distance from the center, until the cell is positioned in a
     // place that does not overlap with the existing cells. The overall bounding shape of the collection of cells is
@@ -245,7 +245,7 @@ inherit( Object, MultipleCellsModel, {
         }
       }
     }
-    assert && assert( false, 'exited placement loop without having found open location' );
+    assert && assert( false, 'exited placement loop without having found open position' );
   }
 }, {
 

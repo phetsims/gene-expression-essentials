@@ -62,20 +62,20 @@ inherit( CanvasNode, DnaMoleculeCanvasNode, {
 
     const endOffset = basePair.width / 2;
 
-    if ( basePair.topYLocation - basePair.bottomYLocation <= this.model.maxBasePairHeight ) {
+    if ( basePair.topYPosition - basePair.bottomYPosition <= this.model.maxBasePairHeight ) {
 
-      // draw the base pair as a single line between the top and bottom locations
-      context.moveTo( basePair.x, basePair.topYLocation + endOffset );
-      context.lineTo( basePair.x, basePair.bottomYLocation - endOffset );
+      // draw the base pair as a single line between the top and bottom positions
+      context.moveTo( basePair.x, basePair.topYPosition + endOffset );
+      context.lineTo( basePair.x, basePair.bottomYPosition - endOffset );
     }
     else {
 
       // the strands are separated, draw two separate base pairs, one at the top and one at the bottom
       const dividedBasePairHeight = this.model.maxBasePairHeight / 2;
-      context.moveTo( basePair.x, basePair.topYLocation + endOffset );
-      context.lineTo( basePair.x, basePair.topYLocation - dividedBasePairHeight );
-      context.moveTo( basePair.x, basePair.bottomYLocation - endOffset );
-      context.lineTo( basePair.x, basePair.bottomYLocation + dividedBasePairHeight );
+      context.moveTo( basePair.x, basePair.topYPosition + endOffset );
+      context.lineTo( basePair.x, basePair.topYPosition - dividedBasePairHeight );
+      context.moveTo( basePair.x, basePair.bottomYPosition - endOffset );
+      context.lineTo( basePair.x, basePair.bottomYPosition + dividedBasePairHeight );
     }
 
     context.lineWidth = basePair.width;

@@ -46,7 +46,7 @@ const ShapeUtils = {
    * Extrapolates a control point given three input points. The resulting control point is for the segment from point y
    * to point z, and the resulting curve would reasonably connect to point x.
    *
-   * @param {Object} x - Location where the line is "coming from".
+   * @param {Object} x - Position where the line is "coming from".
    * @param {Object} y - Beginning of line segment.
    * @param {Object} z - End of line segment.
    * @param {Vector2} cp - control point to be set and returned

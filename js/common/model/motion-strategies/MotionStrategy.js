@@ -68,7 +68,7 @@ inherit( Object, MotionStrategy, {
 
   /**
    * This utility method will return a motion vector that reflects a "bounce" in the x, y, or both directions based on
-   * which type of bounce will yield a next location for the shape that is within the motion bounds. If no such vector
+   * which type of bounce will yield a next position for the shape that is within the motion bounds. If no such vector
    * can be found, a vector to the center of the motion bounds is returned.
    *
    * @param {Bounds2} bounds

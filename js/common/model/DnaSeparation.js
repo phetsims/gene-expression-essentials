@@ -2,7 +2,7 @@
 
 /**
  * Class that defines a separation of the DNA strand. This is used when forcing the DNA strand to separate in certain
- * locations, which happens, for instance, when RNA polymerase is attached and transcribing the DNA.
+ * positions, which happens, for instance, when RNA polymerase is attached and transcribing the DNA.
  *
  * @author John Blanco
  * @author Aadish Gupta

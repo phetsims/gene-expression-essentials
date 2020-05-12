@@ -21,18 +21,18 @@ const ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biom
 
 /**
  * @param {Object} owner - the molecule upon which this attachment site exists
- * @param {Vector2} initialLocation
+ * @param {Vector2} initialPosition
  * @param {number} initialAffinity
  * @constructor
  */
-function AttachmentSite( owner, initialLocation, initialAffinity ) {
+function AttachmentSite( owner, initialPosition, initialAffinity ) {
 
   // @public (read-only) {Object}
   this.owner = owner;
 
-  // @public {Property.<Vector2> - location of this attachment site - it is a property so that it can be followed in
+  // @public {Property.<Vector2> - position of this attachment site - it is a property so that it can be followed in
   // the event that the biomolecule upon which it exists is moving
-  this.positionProperty = new Property( initialLocation );
+  this.positionProperty = new Property( initialPosition );
 
   // @public {Property.<MobileBiomolecule>} - a property that tracks which if any biomolecule is attached to or moving
   // towards attachment with this site
