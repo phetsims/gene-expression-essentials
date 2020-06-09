@@ -9,12 +9,13 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import inherit from '../../../phet-core/js/inherit.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import mRnaProductionIcon from '../../mipmaps/mrna-production-icon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
-import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
+import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
 import MessengerRnaProductionModel from './model/MessengerRnaProductionModel.js';
 import MessengerRnaProductionScreenView from './view/MessengerRnaProductionScreenView.js';
 
@@ -29,7 +30,10 @@ function MessengerRnaProductionScreen() {
   const options = {
     name: screenMRnaString,
     backgroundColorProperty: new Property( '#ABCBDB' ),
-    homeScreenIcon: new Image( mRnaProductionIcon ),
+    homeScreenIcon: new ScreenIcon( new Image( mRnaProductionIcon ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } ),
     maxDT: GEEConstants.MAX_DT
   };
 

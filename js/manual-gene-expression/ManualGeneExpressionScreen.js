@@ -10,12 +10,13 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import inherit from '../../../phet-core/js/inherit.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import manualGeneExpressionIcon from '../../mipmaps/manual-gene-expression-icon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
-import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
+import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
 import ManualGeneExpressionModel from './model/ManualGeneExpressionModel.js';
 import ManualGeneExpressionScreenView from './view/ManualGeneExpressionScreenView.js';
 
@@ -30,7 +31,10 @@ function ManualGeneExpressionScreen() {
   const options = {
     name: screenExpressionString,
     backgroundColorProperty: new Property( '#ABCBDB' ),
-    homeScreenIcon: new Image( manualGeneExpressionIcon ),
+    homeScreenIcon: new ScreenIcon( new Image( manualGeneExpressionIcon ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } ),
     maxDT: GEEConstants.MAX_DT
   };
 
