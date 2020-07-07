@@ -159,7 +159,7 @@ inherit( Object, MultipleCellsModel, {
     let totalProteinCount = 0;
     this.cellList.forEach( function( cell ) {
       cell.step( dt );
-      if ( self.visibleCellList.contains( cell ) ) {
+      if ( self.visibleCellList.includes( cell ) ) {
         totalProteinCount += cell.proteinCount.get();
       }
     } );
