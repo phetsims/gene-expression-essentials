@@ -10,23 +10,21 @@
 import inherit from '../../../../phet-core/js/inherit.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
-import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import eColiImage from '../../../mipmaps/ecoli_jpg.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 
 // constants
-const IMAGE_WIDTH = 380; // in screen coordinates, empirically determined to look good
-
-
+const IMAGE_WIDTH = 600; // in screen coordinates, empirically determined to look good
 const imageCaptionNoteString = geneExpressionEssentialsStrings.imageCaptionNote;
 const imageCaptionString = geneExpressionEssentialsStrings.imageCaption;
 
 // constants
-const TEXT_FONT = new PhetFont( 12 );
+const TEXT_FONT = new PhetFont( 16 );
 
 /**
  * @constructor
@@ -42,12 +40,9 @@ function FluorescentCellsPictureDialog() {
   // lines, but this was changed (see https://github.com/phetsims/gene-expression-essentials/issues/121) and they are
   // now combined. The strings have been left separate in the strings files so that translations don't need to be
   // modified.
-  const captionAndNoteNode = new RichText( imageCaptionString + '  ' + imageCaptionNoteString, {
+  const captionAndNoteNode = new RichText( imageCaptionString + ' <br>' + imageCaptionNoteString, {
     font: TEXT_FONT,
-    lineWrap: IMAGE_WIDTH,
-    centerX: imageNode.centerX,
-    top: imageNode.bottom + 10,
-    align: 'left'
+    align: 'center'
   } );
   const children = [
     imageNode,
@@ -55,7 +50,7 @@ function FluorescentCellsPictureDialog() {
     new Text( 'Image Copyright Dennis Kunkel Microscopy, Inc.', { font: TEXT_FONT } )
   ];
 
-  const content = new LayoutBox( { orientation: 'vertical', align: 'center', spacing: 10, children: children } );
+  const content = new VBox( { align: 'center', spacing: 10, children: children } );
 
   Dialog.call( this, content, {
     topMargin: 20,
