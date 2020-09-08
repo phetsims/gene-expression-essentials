@@ -45,6 +45,7 @@ function ProteinLevelChartNode( averageProteinLevelProperty ) {
   this.simRunningTime = 0;
   this.timeOffset = 0;
   this.averageProteinLevelProperty = averageProteinLevelProperty;
+
   const plot = new XYPlotNode( {
     width: PLOT_WIDTH,
     height: PLOT_HEIGHT,
