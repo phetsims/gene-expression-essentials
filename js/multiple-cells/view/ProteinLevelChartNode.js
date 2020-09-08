@@ -68,11 +68,9 @@ function ProteinLevelChartNode( averageProteinLevelProperty ) {
     },
 
     showVerticalGridLabels: false,
-
     gridLabelOptions: {
       font: new PhetFont( 12 )
     }
-
   } );
 
   this.dataSeries = new DynamicSeries( {
