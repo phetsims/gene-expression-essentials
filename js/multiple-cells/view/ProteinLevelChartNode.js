@@ -8,8 +8,9 @@
  * @author Aadish Gupta
  */
 
+import Range from '../../../../dot/js/Range.js';
 import DynamicSeries from '../../../../griddle/js/DynamicSeries.js';
-import XYPlotNode from '../../../../griddle/js/XYPlotNode.js';
+import ScrollingChartNode from '../../../../griddle/js/ScrollingChartNode.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -19,8 +20,8 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import ColorChangingCellNode from './ColorChangingCellNode.js';
 
 // constants
@@ -46,30 +47,41 @@ function ProteinLevelChartNode( averageProteinLevelProperty ) {
   this.timeOffset = 0;
   this.averageProteinLevelProperty = averageProteinLevelProperty;
 
-  const plot = new XYPlotNode( {
+
+  const verticalRange = new Range( 0, 170 );
+  const plot = new ScrollingChartNode( {
     width: PLOT_WIDTH,
     height: PLOT_HEIGHT,
-    minX: 0,
-    maxX: 30,
-    minY: 0,
-    maxY: 170,
-    showVerticalIntermediateLines: false,
-    showXAxisTickMarkLabels: true,
-    showHorizontalIntermediateLines: false,
-    showYAxisTickMarkLabels: false,
-    stepX: 2,
-    stepY: 25,
-    tickLabelFont: new PhetFont( 12 ),
-    lineDash: [ 2, 1 ],
-    showAxis: false
+    cornerRadius: 0,
+
+    defaultModelXRange: new Range( 0, 30 ),
+    defaultModelYRange: verticalRange,
+
+    majorHorizontalLineSpacing: verticalRange.max / 7,
+    majorVerticalLineSpacing: 2,
+
+    gridNodeOptions: {
+      majorLineOptions: {
+        lineDash: [ 2, 1 ],
+        stroke: 'grey'
+      }
+    },
+
+    showVerticalGridLabels: false,
+
+    gridLabelOptions: {
+      font: new PhetFont( 12 )
+    }
+
   } );
 
   this.dataSeries = new DynamicSeries( {
     color: PhetColorScheme.RED_COLORBLIND,
-    lineWidth: 2
+    lineWidth: 2,
+    lineJoin: 'round'
   } );
 
-  plot.addSeries( this.dataSeries, true );
+  plot.addDynamicSeries( this.dataSeries );
 
   contentNode.addChild( plot );
 
