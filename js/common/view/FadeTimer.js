@@ -9,7 +9,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import timer from '../../../../axon/js/timer.js';
+import stepTimer from '../../../../axon/js/stepTimer.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
@@ -37,7 +37,7 @@ inherit( Object, FadeTimer, {
   start: function() {
     const self = this;
     if ( !this.isRunningProperty.get() ) {
-      self._intervalId = timer.setInterval( function() {
+      self._intervalId = stepTimer.setInterval( function() {
         self.listener();
       }, this.interval );
       self.isRunningProperty.set( true );
@@ -50,7 +50,7 @@ inherit( Object, FadeTimer, {
    */
   stop: function() {
     if ( this.isRunningProperty.get() ) {
-      timer.clearInterval( this._intervalId );
+      stepTimer.clearInterval( this._intervalId );
       this._intervalId = null;
       this.isRunningProperty.set( false );
     }

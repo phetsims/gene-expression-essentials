@@ -8,7 +8,7 @@
  * @author Aadish Gupta
  */
 
-import timer from '../../../../axon/js/timer.js';
+import stepTimer from '../../../../axon/js/stepTimer.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
@@ -53,7 +53,7 @@ function FlashController( flashingNode, normalColor, flashColor, options ) {
     if ( self.transitionCountdown > 0 ) {
 
       // Set timer for next transition.
-      self.timerHandle = timer.setTimeout( self.timerListener, time );
+      self.timerHandle = stepTimer.setTimeout( self.timerListener, time );
     }
   };
 }
@@ -75,7 +75,7 @@ inherit( Object, FlashController, {
    */
   stop: function() {
     if ( this.timerHandle ) {
-      timer.clearTimeout( this.timerHandle );
+      stepTimer.clearTimeout( this.timerHandle );
     }
     this.timerHandle = null;
   },
