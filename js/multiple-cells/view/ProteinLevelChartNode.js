@@ -10,7 +10,7 @@
 
 import Range from '../../../../dot/js/Range.js';
 import DynamicSeries from '../../../../griddle/js/DynamicSeries.js';
-import ScrollingChartNode from '../../../../griddle/js/ScrollingChartNode.js';
+import XYPlotNode from '../../../../griddle/js/XYPlotNode.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -49,7 +49,7 @@ function ProteinLevelChartNode( averageProteinLevelProperty ) {
 
 
   const verticalRange = new Range( 0, 170 );
-  const plot = new ScrollingChartNode( {
+  const plot = new XYPlotNode( {
     width: PLOT_WIDTH,
     height: PLOT_HEIGHT,
     cornerRadius: 0,
