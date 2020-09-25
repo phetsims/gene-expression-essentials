@@ -10,7 +10,6 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import inherit from '../../../phet-core/js/inherit.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import multipleCellsIcon from '../../mipmaps/multiple-cells-icon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
@@ -19,32 +18,26 @@ import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.
 import MultipleCellsModel from './model/MultipleCellsModel.js';
 import MultipleCellsScreenView from './view/MultipleCellsScreenView.js';
 
-const screenMultipleCellsString = geneExpressionEssentialsStrings.screen.multipleCells;
+class MultipleCellsScreen extends Screen {
+  constructor() {
 
+    const options = {
+      name: geneExpressionEssentialsStrings.screen.multipleCells,
+      backgroundColorProperty: new Property( 'black' ),
+      homeScreenIcon: new ScreenIcon( new Image( multipleCellsIcon ), {
+        maxIconWidthProportion: 1,
+        maxIconHeightProportion: 1
+      } ),
+      maxDT: GEEConstants.MAX_DT
+    };
 
-/**
- * @constructor
- */
-function MultipleCellsScreen() {
-
-  const options = {
-    name: screenMultipleCellsString,
-    backgroundColorProperty: new Property( 'black' ),
-    homeScreenIcon: new ScreenIcon( new Image( multipleCellsIcon ), {
-      maxIconWidthProportion: 1,
-      maxIconHeightProportion: 1
-    } ),
-    maxDT: GEEConstants.MAX_DT
-  };
-
-  Screen.call( this,
-    function() { return new MultipleCellsModel(); },
-    function( model ) { return new MultipleCellsScreenView( model ); },
-    options
-  );
+    super(
+      function() { return new MultipleCellsModel(); },
+      function( model ) { return new MultipleCellsScreenView( model ); },
+      options
+    );
+  }
 }
 
 geneExpressionEssentials.register( 'MultipleCellsScreen', MultipleCellsScreen );
-
-inherit( Screen, MultipleCellsScreen );
 export default MultipleCellsScreen;
