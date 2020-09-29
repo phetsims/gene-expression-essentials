@@ -7,7 +7,6 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -26,39 +25,36 @@ const imageCaptionString = geneExpressionEssentialsStrings.imageCaption;
 // constants
 const TEXT_FONT = new PhetFont( 16 );
 
-/**
- * @constructor
- */
-function FluorescentCellsPictureDialog() {
+class FluorescentCellsPictureDialog extends Dialog {
+  constructor() {
 
-  const imageNode = new Image( eColiImage, {
-    minWidth: IMAGE_WIDTH,
-    maxWidth: IMAGE_WIDTH
-  } );
+    const imageNode = new Image( eColiImage, {
+      minWidth: IMAGE_WIDTH,
+      maxWidth: IMAGE_WIDTH
+    } );
 
-  // Add the caption.  Originally the caption and the note were two separate strings that were shown on separate
-  // lines, but this was changed (see https://github.com/phetsims/gene-expression-essentials/issues/121) and they are
-  // now combined. The strings have been left separate in the strings files so that translations don't need to be
-  // modified.
-  const captionAndNoteNode = new RichText( imageCaptionString + ' <br>' + imageCaptionNoteString, {
-    font: TEXT_FONT,
-    align: 'center'
-  } );
-  const children = [
-    imageNode,
-    captionAndNoteNode,
-    new Text( 'Image Copyright Dennis Kunkel Microscopy, Inc.', { font: TEXT_FONT } )
-  ];
+    // Add the caption.  Originally the caption and the note were two separate strings that were shown on separate
+    // lines, but this was changed (see https://github.com/phetsims/gene-expression-essentials/issues/121) and they are
+    // now combined. The strings have been left separate in the strings files so that translations don't need to be
+    // modified.
+    const captionAndNoteNode = new RichText( imageCaptionString + ' <br>' + imageCaptionNoteString, {
+      font: TEXT_FONT,
+      align: 'center'
+    } );
+    const children = [
+      imageNode,
+      captionAndNoteNode,
+      new Text( 'Image Copyright Dennis Kunkel Microscopy, Inc.', { font: TEXT_FONT } )
+    ];
 
-  const content = new VBox( { align: 'center', spacing: 10, children: children } );
+    const content = new VBox( { align: 'center', spacing: 10, children: children } );
 
-  Dialog.call( this, content, {
-    topMargin: 20,
-    bottomMargin: 20
-  } );
+    super( content, {
+      topMargin: 20,
+      bottomMargin: 20
+    } );
+  }
 }
 
 geneExpressionEssentials.register( 'FluorescentCellsPictureDialog', FluorescentCellsPictureDialog );
-
-inherit( Dialog, FluorescentCellsPictureDialog );
 export default FluorescentCellsPictureDialog;
