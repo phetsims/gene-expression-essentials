@@ -305,7 +305,7 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
 
   /**
    * @override
-   * @returns {ObservableArray}
+   * @returns {ObservableArrayDef}
    * @public
    */
   getMessengerRnaList: function() {

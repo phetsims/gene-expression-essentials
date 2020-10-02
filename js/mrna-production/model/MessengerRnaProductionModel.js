@@ -304,7 +304,7 @@ inherit( Object, MessengerRnaProductionModel, {
   },
 
   /**
-   * @returns {ObservableArray}
+   * @returns {ObservableArrayDef}
    * @public
    */
   getMessengerRnaList: function() {
