@@ -58,10 +58,12 @@ function RowLabel( text ) {
 function BiomoleculeToolboxNode( model, canvas, modelViewTransform, gene ) {
 
   const self = this;
+  this.biomoleculeCreatorNodeList = [];
+
+  //TODO These 3 fields are @private and not used. Can they be deleted?
   this.model = model; //@private
   this.canvas = canvas; //@private
   this.modelViewTransform = modelViewTransform; //@private
-  this.biomoleculeCreatorNodeList = [];
 
   // Add the title.
   const toolboxTitleNode = new Text( biomoleculeToolboxString, {
