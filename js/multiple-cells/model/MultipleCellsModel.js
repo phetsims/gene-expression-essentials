@@ -7,7 +7,7 @@
  * @author Aadish Gupta
  */
 
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Random from '../../../../dot/js/Random.js';
@@ -46,7 +46,7 @@ function MultipleCellsModel() {
 
   // List of cells in the model that should be visible to the user and that are being used in the average protein
   // level calculation. It is observable so that the view can track them coming and going.
-  this.visibleCellList = new ObservableArray(); // @public
+  this.visibleCellList = createObservableArray(); // @public
 
   // Property that controls the number of cells that are visible and that are being included in the calculation of the
   // average protein level. This is intended to be set by clients, such as the view.

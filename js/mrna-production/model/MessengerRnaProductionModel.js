@@ -8,7 +8,7 @@
  * @author Aadish Gupta
  */
 
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -63,13 +63,13 @@ function MessengerRnaProductionModel() {
   this.dnaMolecule.addGene( this.gene );
 
   // List of mobile biomolecules in the model, excluding mRNA.
-  this.mobileBiomoleculeList = new ObservableArray(); // @public
+  this.mobileBiomoleculeList = createObservableArray(); // @public
   this.positiveTranscriptionFactorList = []; // @private
   this.negativeTranscriptionFactorList = []; // @private
 
   // List of mRNA molecules in the sim. These are kept separate because they are treated a bit differently than the
   // other mobile biomolecules.
-  this.messengerRnaList = new ObservableArray(); // @public
+  this.messengerRnaList = createObservableArray(); // @public
 
   // Properties that control the quantity of transcription factors.
   this.positiveTranscriptionFactorCountProperty = new Property( 0 ); // @public

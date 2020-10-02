@@ -13,7 +13,7 @@
  * @author Aadish Gupta
  */
 
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -59,11 +59,11 @@ function ManualGeneExpressionModel() {
   this.dnaMolecule.addGene( new GeneC( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND * 3 / 4 - GeneC.NUM_BASE_PAIRS / 2 ) );
 
   // list of mobile biomolecules in the model, excluding mRNA
-  this.mobileBiomoleculeList = new ObservableArray(); // @public
+  this.mobileBiomoleculeList = createObservableArray(); // @public
 
   // list of mRNA molecules in the sim - These are kept separate because they are treated a bit differently than the
   // other mobile biomolecules.
-  this.messengerRnaList = new ObservableArray(); // @public
+  this.messengerRnaList = createObservableArray(); // @public
 
   // The gene that the user is focusing on, other gene activity is suspended.  Start with the 0th gene in the DNA
   // (leftmost). Initialize variables that are dependent upon the DNA.
