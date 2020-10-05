@@ -221,7 +221,7 @@ inherit( Object, MessengerRnaProductionModel, {
     } );
     this.dnaMolecule.step( dt );
 
-    // periodically shuffle the mobile biomolecules so that no molecules gets preference for attachments
+    // periodically shuffle the mobile biomolecules so that no molecule gets preference for attachments
     this.shuffleTimeAccumulator += dt;
     if ( this.shuffleTimeAccumulator > SHUFFLE_TIME ) {
       this.mobileBiomoleculeList.shuffle( phet.joist.random );
