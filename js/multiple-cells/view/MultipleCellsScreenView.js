@@ -26,7 +26,7 @@ import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import CellProteinSynthesisSimulator from '../model/CellProteinSynthesisSimulator.js';
 import MultipleCellsModel from '../model/MultipleCellsModel.js';
 import ColorChangingCellNode from './ColorChangingCellNode.js';
-import ControlPanelNode from './ControlPanelNode.js';
+import ParameterControlAccordionBox from './ParameterControlAccordionBox.js';
 import FluorescentCellsPictureDialog from './FluorescentCellsPictureDialog.js';
 import ProteinLevelChartNode from './ProteinLevelChartNode.js';
 
@@ -225,7 +225,7 @@ function MultipleCellsScreenView( model ) {
     }
   ];
 
-  var concentrationControlPanel = new ControlPanelNode(
+  var concentrationControlPanel = new ParameterControlAccordionBox(
     concentrationString,
     concentrationControllers
   );
@@ -251,7 +251,7 @@ function MultipleCellsScreenView( model ) {
     }
   ];
 
-  var affinityControlPanel = new ControlPanelNode(
+  var affinityControlPanel = new ParameterControlAccordionBox(
     affinitiesString,
     affinityControllers
   );
@@ -268,7 +268,7 @@ function MultipleCellsScreenView( model ) {
     }
   ];
 
-  var degradationControlPanel = new ControlPanelNode(
+  var degradationControlPanel = new ParameterControlAccordionBox(
     degradationString,
     degradationControllers
   );

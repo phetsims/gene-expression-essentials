@@ -1,8 +1,8 @@
 // Copyright 2016-2020, University of Colorado Boulder
 
 /**
- * Class for constructing control panels that allow users to alter some of the parameters of the multi-cell protein
- * synthesis model. This class makes sure fonts, colors, etc. are consistent consistent across panels.
+ * Class for constructing accordion boxes containing control panels that allow users to alter some of the parameters of
+ * the multi-cell protein synthesis model. This class makes sure fonts, colors, etc. are consistent across panels.
  *
  * @author John Blanco
  * @author Aadish Gupta
@@ -17,7 +17,7 @@ import GEEConstants from '../../common/GEEConstants.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-class ControlPanelNode extends AccordionBox {
+class ParameterControlAccordionBox extends AccordionBox {
 
   /**
    * @param {String} title
@@ -78,5 +78,5 @@ class ControlPanelNode extends AccordionBox {
   }
 }
 
-geneExpressionEssentials.register( 'ControlPanelNode', ControlPanelNode );
-export default ControlPanelNode;
+geneExpressionEssentials.register( 'ParameterControlAccordionBox', ParameterControlAccordionBox );
+export default ParameterControlAccordionBox;
