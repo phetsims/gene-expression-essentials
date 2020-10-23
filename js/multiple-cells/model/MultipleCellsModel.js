@@ -18,6 +18,7 @@ import CellProteinSynthesisSimulator from './CellProteinSynthesisSimulator.js';
 
 // constants
 const MAX_CELLS = 90;
+const NOMINAL_TIME_STEP = 1 / 60; // standard frame rate of browsers
 
 const boundingShapeWidth = Cell.DefaultCellSize.width * 20;
 const boundingShapeHeight = boundingShapeWidth * 0.35;
@@ -131,6 +132,9 @@ function MultipleCellsModel() {
       cell.setMRnaDegradationRate( mRnaDegradationRate );
     } );
   } );
+
+  // Get the protein levels to steady state before depicting them to the user so that they don't start at zero.
+  this.stepToSteadyState();
 }
 
 geneExpressionEssentials.register( 'MultipleCellsModel', MultipleCellsModel );
@@ -170,6 +174,7 @@ inherit( Object, MultipleCellsModel, {
    * @public
    */
   reset: function() {
+
     // Reset all the cell control parameters.
     this.numberOfVisibleCellsProperty.reset();
     this.transcriptionFactorLevelProperty.reset();
@@ -180,10 +185,17 @@ inherit( Object, MultipleCellsModel, {
     this.clockRunningProperty.reset();
     this.setNumVisibleCells( this.numberOfVisibleCellsProperty.get() );
 
-    // Step the model a bunch of times in order to allow it to reach a steady state. The number of times that are
-    // needed to reach steady state was empirically determined.
+    this.stepToSteadyState();
+  },
+
+  /**
+   * Step the model a number of times in order to allow it to reach a steady state.
+   */
+  stepToSteadyState() {
+
+    // The number of times that are needed for the model to reach steady state was empirically determined.
     for ( let i = 0; i < 1000; i++ ) {
-      this.step( 0.016 );
+      this.step( NOMINAL_TIME_STEP );
     }
   },
 
