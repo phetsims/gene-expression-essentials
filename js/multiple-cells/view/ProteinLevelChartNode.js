@@ -10,7 +10,7 @@
 
 import Range from '../../../../dot/js/Range.js';
 import DynamicSeries from '../../../../griddle/js/DynamicSeries.js';
-import XYPlotNode from '../../../../griddle/js/XYPlotNode.js';
+import XYChartNode from '../../../../griddle/js/XYChartNode.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -45,7 +45,7 @@ class ProteinLevelChartNode extends Panel {
     const contentNode = new Node();
 
     const verticalRange = new Range( 0, 170 );
-    const plot = new XYPlotNode( {
+    const chart = new XYChartNode( {
       width: PLOT_WIDTH,
       height: PLOT_HEIGHT,
       cornerRadius: 0,
@@ -75,9 +75,9 @@ class ProteinLevelChartNode extends Panel {
       lineJoin: 'round'
     } );
 
-    plot.addDynamicSeries( dataSeries );
+    chart.addDynamicSeries( dataSeries );
 
-    contentNode.addChild( plot );
+    contentNode.addChild( chart );
 
     // graph title
     const titleNode = new Text( averageProteinLevelVsTimeString, {
@@ -86,8 +86,8 @@ class ProteinLevelChartNode extends Panel {
     } );
 
     contentNode.addChild( titleNode );
-    titleNode.centerX = plot.centerX;
-    titleNode.bottom = plot.top - 10;
+    titleNode.centerX = chart.centerX;
+    titleNode.bottom = chart.top - 10;
 
     // x axis label
     const xLabel = new Text( timeString, {
@@ -96,12 +96,12 @@ class ProteinLevelChartNode extends Panel {
     } );
 
     contentNode.addChild( xLabel );
-    xLabel.centerX = plot.centerX;
-    xLabel.top = plot.bottom + 10;
+    xLabel.centerX = chart.centerX;
+    xLabel.top = chart.bottom + 10;
 
     // y axis label
-    const proteinLevelColorKey = new Rectangle( plot.left, plot.top, COLOR_KEY_WIDTH, PLOT_HEIGHT, {
-      fill: new LinearGradient( plot.left, plot.top, plot.left + COLOR_KEY_WIDTH, plot.top + PLOT_HEIGHT )
+    const proteinLevelColorKey = new Rectangle( chart.left, chart.top, COLOR_KEY_WIDTH, PLOT_HEIGHT, {
+      fill: new LinearGradient( chart.left, chart.top, chart.left + COLOR_KEY_WIDTH, chart.top + PLOT_HEIGHT )
         .addColorStop( 0, ColorChangingCellNode.FlorescentFillColor )
         .addColorStop( 1, ColorChangingCellNode.NominalFillColor ),
       stroke: '#000',
@@ -110,8 +110,8 @@ class ProteinLevelChartNode extends Panel {
 
     contentNode.addChild( proteinLevelColorKey );
 
-    proteinLevelColorKey.top = plot.top;
-    proteinLevelColorKey.right = plot.left - 5;
+    proteinLevelColorKey.top = chart.top;
+    proteinLevelColorKey.right = chart.left - 5;
 
     const lotsNode = new Text( lotsString, {
       font: new PhetFont( 12 ),
