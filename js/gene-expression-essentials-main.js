@@ -25,7 +25,7 @@ const simOptions = {
 };
 
 // we are go for launch
-simLauncher.launch( function() {
+simLauncher.launch( () => {
   const sim = new Sim( geneExpressionEssentialsTitleString,
     [
       new ManualGeneExpressionScreen(),

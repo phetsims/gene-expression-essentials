@@ -9,7 +9,6 @@
  */
 
 import Range from '../../../../../dot/js/Range.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MessengerRnaFragment from '../MessengerRnaFragment.js';
 import DestroyerTrackingRnaMotionStrategy from '../motion-strategies/DestroyerTrackingRnaMotionStrategy.js';
@@ -23,23 +22,20 @@ const RNA_DESTRUCTION_RATE = 750; // Picometers per second.
 // Range of lengths for mRNA fragments.
 const MRNA_FRAGMENT_LENGTH_RANGE = new Range( 100, 400 ); // In picometers.
 
-/**
- * @param {MRnaDestroyerAttachmentStateMachine} MRnaDestroyerAttachmentStateMachine
- * @constructor
- */
-function MRnaDestroyerAttachedState( MRnaDestroyerAttachmentStateMachine ) {
-  AttachmentState.call( this );
+class MRnaDestroyerAttachedState extends AttachmentState {
 
-  // @public (read-ony) {MRnaDestroyerAttachmentStateMachine}
-  this.MRnaDestroyerAttachmentStateMachine = MRnaDestroyerAttachmentStateMachine;
+  /**
+   * @param {MRnaDestroyerAttachmentStateMachine} MRnaDestroyerAttachmentStateMachine
+   */
+  constructor( MRnaDestroyerAttachmentStateMachine ) {
+    super();
 
-  this.messengerRnaFragment = null; //@private
-  this.targetFragmentLength = 0; //@private
-}
+    // @public (read-ony) {MRnaDestroyerAttachmentStateMachine}
+    this.MRnaDestroyerAttachmentStateMachine = MRnaDestroyerAttachmentStateMachine;
 
-geneExpressionEssentials.register( 'MRnaDestroyerAttachedState', MRnaDestroyerAttachedState );
-
-inherit( AttachmentState, MRnaDestroyerAttachedState, {
+    this.messengerRnaFragment = null; //@private
+    this.targetFragmentLength = 0; //@private
+  }
 
   /**
    * @override
@@ -47,7 +43,7 @@ inherit( AttachmentState, MRnaDestroyerAttachedState, {
    * @param {number} dt
    * @public
    */
-  step: function( asm, dt ) {
+  step( asm, dt ) {
     const biomolecule = this.MRnaDestroyerAttachmentStateMachine.biomolecule;
 
     // Verify that state is consistent.
@@ -95,14 +91,14 @@ inherit( AttachmentState, MRnaDestroyerAttachedState, {
       // Release this destroyer to wander in the cytoplasm.
       asm.detach();
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} asm
    * @public
    */
-  entered: function( asm ) {
+  entered( asm ) {
     const mRnaDestroyer = this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer;
     mRnaDestroyer.initiateMessengerRnaDestruction();
     mRnaDestroyer.setMotionStrategy( new DestroyerTrackingRnaMotionStrategy( mRnaDestroyer ) );
@@ -110,6 +106,8 @@ inherit( AttachmentState, MRnaDestroyerAttachedState, {
     // Turn off user interaction while mRNA is being destroyed.
     asm.biomolecule.movableByUserProperty.set( false );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'MRnaDestroyerAttachedState', MRnaDestroyerAttachedState );
 
 export default MRnaDestroyerAttachedState;

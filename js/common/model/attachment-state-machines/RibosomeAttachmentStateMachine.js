@@ -11,51 +11,47 @@
 
 
 // modules
-// const MovingTowardMRnaAttachmentState = require( '/gene-expression-essentials/js/common/model/attachment-state-machines/MovingTowardMRnaAttachmentState' );
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
+import Ribosome from '../Ribosome.js';
 import GenericAttachmentStateMachine from './GenericAttachmentStateMachine.js';
 import RibosomeAttachedState from './RibosomeAttachedState.js';
 import UnattachedAndAvailableForMRnaAttachmentState from './UnattachedAndAvailableForMRnaAttachmentState.js';
 
-/**
- * @param {MobileBiomolecule} biomolecule
- * @constructor
- */
-function RibosomeAttachmentStateMachine( biomolecule ) {
-  GenericAttachmentStateMachine.call( this, biomolecule );
+class RibosomeAttachmentStateMachine extends GenericAttachmentStateMachine {
 
-  // Set up a local reference of the needed type.
+  /**
+   * @param {MobileBiomolecule} biomolecule
+   */
+  constructor( biomolecule ) {
+    super( biomolecule );
 
-  this.ribosome = biomolecule; //@public
+    // Set up a local reference of the needed type.
 
-  // Protein created during translation process, null if no protein is being synthesized.
-  this.proteinBeingSynthesized = null; //@public
+    this.ribosome = biomolecule; //@public
 
-  // Set up offset used when attaching to mRNA.
-  this.setDestinationOffset( this.ribosome.offsetToTranslationChannelEntrance );
+    // Protein created during translation process, null if no protein is being synthesized.
+    this.proteinBeingSynthesized = null; //@public
 
-  // @override - override the unattached state, since attaching to mRNA is a little different versus the default behavior
-  this.unattachedAndAvailableState = new UnattachedAndAvailableForMRnaAttachmentState( this );
+    // Set up offset used when attaching to mRNA.
+    this.setDestinationOffset( Ribosome.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
 
-  // @override - Set up a non-default "attached" state, since the behavior is different from the default.
-  this.attachedState = new RibosomeAttachedState( this ); //@public
-}
+    // @override - override the unattached state, since attaching to mRNA is a little different versus the default behavior
+    this.unattachedAndAvailableState = new UnattachedAndAvailableForMRnaAttachmentState( this );
 
-geneExpressionEssentials.register( 'RibosomeAttachmentStateMachine', RibosomeAttachmentStateMachine );
-
-inherit( GenericAttachmentStateMachine, RibosomeAttachmentStateMachine, {
+    // @override - Set up a non-default "attached" state, since the behavior is different from the default.
+    this.attachedState = new RibosomeAttachedState( this ); //@public
+  }
 
   /**
    * @override
    * @public
    */
-  forceImmediateUnattachedAndAvailable: function() {
+  forceImmediateUnattachedAndAvailable() {
     if ( this.ribosome.getMessengerRnaBeingTranslated() !== null ) {
       this.ribosome.releaseMessengerRna();
     }
-    GenericAttachmentStateMachine.prototype.forceImmediateUnattachedAndAvailable.call( this );
-  },
+    super.forceImmediateUnattachedAndAvailable();
+  }
 
   /**
    * detach is a little different for a ribosome, since it will likely have moved away from its original attachment
@@ -63,22 +59,24 @@ inherit( GenericAttachmentStateMachine, RibosomeAttachmentStateMachine, {
    * @override
    * @public
    */
-  detach: function() {
+  detach() {
     if ( this.attachmentSite ) {
       this.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
       this.attachmentSite = null;
     }
     this.forceImmediateUnattachedButUnavailable();
-  },
+  }
 
   /**
    * returns true if the state indicates that the ribosome is currently translating mRNA, false otherwise
    * @returns {boolean}
    * @public
    */
-  isTranslating: function() {
+  isTranslating() {
     return ( this.attachmentState === this.attachedState );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'RibosomeAttachmentStateMachine', RibosomeAttachmentStateMachine );
 
 export default RibosomeAttachmentStateMachine;

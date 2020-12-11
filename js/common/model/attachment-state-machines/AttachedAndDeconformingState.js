@@ -9,7 +9,6 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import AttachmentState from './AttachmentState.js';
@@ -21,23 +20,20 @@ import BeingRecycledState from './BeingRecycledState.js';
 // less likely to collide at the end of the gene, see https://github.com/phetsims/gene-expression-essentials/issues/102.
 const DECONFORMATION_RATE = GEEConstants.CONFORMATIONAL_CHANGE_RATE * 1.25;
 
-/**
- * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
- * @constructor
- */
-function AttachedAndDeconformingState( rnaPolymeraseAttachmentStateMachine ) {
-  AttachmentState.call( this );
+class AttachedAndDeconformingState extends AttachmentState {
 
-  // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
-  this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+  /**
+   * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
+   */
+  constructor( rnaPolymeraseAttachmentStateMachine ) {
+    super();
 
-  // @private
-  this.conformationalChangeAmount = 0;
-}
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
 
-geneExpressionEssentials.register( 'AttachedAndDeconformingState', AttachedAndDeconformingState );
-
-inherit( AttachmentState, AttachedAndDeconformingState, {
+    // @private
+    this.conformationalChangeAmount = 0;
+  }
 
   /**
    * @override
@@ -45,7 +41,7 @@ inherit( AttachmentState, AttachedAndDeconformingState, {
    * @param {number} dt
    * @public
    */
-  step: function( asm, dt ) {
+  step( asm, dt ) {
     const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
 
     // Verify that state is consistent.
@@ -63,13 +59,13 @@ inherit( AttachmentState, AttachedAndDeconformingState, {
     if ( this.conformationalChangeAmount === 0 ) {
       this.detachFromDna( asm );
     }
-  },
+  }
 
   /**
    * take the steps necessary to detach from the DNA strand
    * @public
    */
-  detachFromDna: function() {
+  detachFromDna() {
 
     const asm = this.rnaPolymeraseAttachmentStateMachine;
     const dnaStrandSeparation = asm.dnaStrandSeparation;
@@ -106,18 +102,20 @@ inherit( AttachmentState, AttachedAndDeconformingState, {
     else {
       this.rnaPolymeraseAttachmentStateMachine.forceImmediateUnattachedButUnavailable();
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} asm
    * @public
    */
-  entered: function( asm ) {
+  entered( asm ) {
     // Prevent user interaction.
     asm.biomolecule.movableByUserProperty.set( false );
     this.conformationalChangeAmount = 1;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'AttachedAndDeconformingState', AttachedAndDeconformingState );
 
 export default AttachedAndDeconformingState;

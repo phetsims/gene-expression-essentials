@@ -10,7 +10,6 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import FollowAttachmentSite from '../motion-strategies/FollowAttachmentSite.js';
 import WanderInGeneralDirectionMotionStrategy from '../motion-strategies/WanderInGeneralDirectionMotionStrategy.js';
@@ -19,18 +18,14 @@ import AttachmentState from './AttachmentState.js';
 // constants
 const DEFAULT_ATTACH_TIME = 3; // In seconds.
 
-/**
- *
- * @constructor
- */
-function GenericAttachedState() {
-  AttachmentState.call( this );
-  this.attachCountdownTime = DEFAULT_ATTACH_TIME; //@private
-}
+class GenericAttachedState extends AttachmentState {
 
-geneExpressionEssentials.register( 'GenericAttachedState', GenericAttachedState );
-
-inherit( AttachmentState, GenericAttachedState, {
+  /**
+   */
+  constructor() {
+    super();
+    this.attachCountdownTime = DEFAULT_ATTACH_TIME; //@private
+  }
 
   /**
    * @override
@@ -38,7 +33,7 @@ inherit( AttachmentState, GenericAttachedState, {
    * @param {number} dt
    * @public
    */
-  step: function( enclosingStateMachine, dt ) {
+  step( enclosingStateMachine, dt ) {
     const gsm = enclosingStateMachine;
 
     // Verify that state is consistent.
@@ -54,14 +49,14 @@ inherit( AttachmentState, GenericAttachedState, {
       gsm.biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy(
         gsm.biomolecule.getDetachDirection(), gsm.biomolecule.motionBoundsProperty ) );
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
     this.attachCountdownTime = DEFAULT_ATTACH_TIME;
     enclosingStateMachine.biomolecule.setMotionStrategy(
       new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
@@ -69,6 +64,8 @@ inherit( AttachmentState, GenericAttachedState, {
     // Prevent user interaction.
     enclosingStateMachine.biomolecule.movableByUserProperty.set( false );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'GenericAttachedState', GenericAttachedState );
 
 export default GenericAttachedState;

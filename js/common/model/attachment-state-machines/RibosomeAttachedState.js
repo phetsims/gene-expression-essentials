@@ -10,7 +10,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import RibosomeTranslatingRnaMotionStrategy from '../motion-strategies/RibosomeTranslatingRnaMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
@@ -19,20 +18,16 @@ import AttachmentState from './AttachmentState.js';
 const RNA_TRANSLATION_RATE = 750; // picometers per second
 const CLEAR_RNA_ATTACHMENT_LENGTH = 700; // length which, once translated, a new biomolecule can attach to mRNA
 
-/**
- *
- * @param {RibosomeAttachmentStateMachine} ribosomeAttachmentStateMachine
- * @constructor
- */
-function RibosomeAttachedState( ribosomeAttachmentStateMachine ) {
-  AttachmentState.call( this );
-  this.ribosomeAttachmentStateMachine = ribosomeAttachmentStateMachine; //@public
-  this.proteinAttachmentPointScratchVector = new Vector2( 0, 0 );
-}
+class RibosomeAttachedState extends AttachmentState {
 
-geneExpressionEssentials.register( 'RibosomeAttachedState', RibosomeAttachedState );
-
-inherit( AttachmentState, RibosomeAttachedState, {
+  /**
+   * @param {RibosomeAttachmentStateMachine} ribosomeAttachmentStateMachine
+   */
+  constructor( ribosomeAttachmentStateMachine ) {
+    super();
+    this.ribosomeAttachmentStateMachine = ribosomeAttachmentStateMachine; //@public
+    this.proteinAttachmentPointScratchVector = new Vector2( 0, 0 );
+  }
 
   /**
    * @override
@@ -40,7 +35,7 @@ inherit( AttachmentState, RibosomeAttachedState, {
    * @param {number} dt
    * @public
    */
-  step: function( asm, dt ) {
+  step( asm, dt ) {
 
     let proteinBeingSynthesized = this.ribosomeAttachmentStateMachine.proteinBeingSynthesized;
     const ribosome = this.ribosomeAttachmentStateMachine.ribosome;
@@ -84,14 +79,14 @@ inherit( AttachmentState, RibosomeAttachedState, {
       // release this ribosome to wander in the cytoplasm
       asm.detach();
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} asm
    * @public
    */
-  entered: function( asm ) {
+  entered( asm ) {
     const ribosome = this.ribosomeAttachmentStateMachine.ribosome;
     ribosome.initiateTranslation();
     ribosome.setMotionStrategy( new RibosomeTranslatingRnaMotionStrategy( ribosome ) );
@@ -103,6 +98,8 @@ inherit( AttachmentState, RibosomeAttachedState, {
     // Prevent user interaction while translating.
     asm.biomolecule.movableByUserProperty.set( false );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'RibosomeAttachedState', RibosomeAttachedState );
 
 export default RibosomeAttachedState;

@@ -9,7 +9,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import RnaPolymeraseAttachmentStateMachine from './attachment-state-machines/RnaPolymeraseAttachmentStateMachine.js';
@@ -44,26 +43,22 @@ const CONFORMED_COLOR = Color.CYAN;
 const UP_VECTOR = new Vector2( 0, 1 );
 const DOWN_VECTOR = new Vector2( 0, -1 );
 
-/**
- *
- * @param {GeneExpressionModel} model
- * @param {Vector2} position
- * @constructor
- */
-function RnaPolymerase( model, position ) {
-  model = model || new StubGeneExpressionModel();
-  MobileBiomolecule.call( this, model, this.createShape(), NOMINAL_COLOR );
-  position = position || new Vector2( 0, 0 );
-  this.messengerRnaGenerationOffset = MESSENGER_RNA_GENERATION_OFFSET; // @public
+class RnaPolymerase extends MobileBiomolecule {
 
-  // Copy of the attachment state machine reference from base class, but with the more specific type.
-  this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // @public
-  this.setPosition( position );
-}
+  /**
+   * @param {GeneExpressionModel} model
+   * @param {Vector2} position
+   */
+  constructor( model, position ) {
+    model = model || new StubGeneExpressionModel();
+    super( model, RnaPolymerase.createShape(), NOMINAL_COLOR );
+    position = position || new Vector2( 0, 0 );
+    this.messengerRnaGenerationOffset = MESSENGER_RNA_GENERATION_OFFSET; // @public
 
-geneExpressionEssentials.register( 'RnaPolymerase', RnaPolymerase );
-
-inherit( MobileBiomolecule, RnaPolymerase, {
+    // Copy of the attachment state machine reference from base class, but with the more specific type.
+    this.rnaPolymeraseAttachmentStateMachine = this.attachmentStateMachine; // @public
+    this.setPosition( position );
+  }
 
   /**
    * @override
@@ -71,68 +66,72 @@ inherit( MobileBiomolecule, RnaPolymerase, {
    * @returns {RnaPolymeraseAttachmentStateMachine}
    * @public
    */
-  createAttachmentStateMachine: function() {
+  createAttachmentStateMachine() {
     return new RnaPolymeraseAttachmentStateMachine( this );
-  },
+  }
 
   /**
    * @override
    * @param {number} changeFactor
    * @public
    */
-  changeConformation: function( changeFactor ) {
+  changeConformation( changeFactor ) {
 
     // seed value chosen empirically through trial and error
     const newUntranslatedShape = BioShapeUtils.createdDistortedRoundedShapeFromPoints( SHAPE_POINTS, changeFactor, 45 );
     this.shapeProperty.set( newUntranslatedShape );
     this.colorProperty.set( Color.interpolateRGBA( NOMINAL_COLOR, CONFORMED_COLOR, changeFactor ) );
-  },
+  }
 
   /**
    * @override
    * @returns {AttachmentSite}
    * @public
    */
-  proposeAttachments: function() {
+  proposeAttachments() {
 
     // propose attachments to the DNA strand
     return this.model.getDnaMolecule().considerProposalFromRnaPolymerase( this );
-  },
+  }
 
   /**
    * @override
    * @returns {Vector2}
+   * @public
    */
-  getDetachDirection: function() {
+  getDetachDirection() {
 
     // Randomly either up or down when detaching from DNA.
     return phet.joist.random.nextBoolean() ? UP_VECTOR : DOWN_VECTOR;
-  },
+  }
 
   /**
    * @param {boolean} recycleMode
    * @public
    */
-  setRecycleMode: function( recycleMode ) {
+  setRecycleMode( recycleMode ) {
     this.rnaPolymeraseAttachmentStateMachine.setRecycleMode( recycleMode );
-  },
+  }
 
   /**
    * @param {Bounds2} recycleReturnZone
    * @public
    */
-  addRecycleReturnZone: function( recycleReturnZone ) {
+  addRecycleReturnZone( recycleReturnZone ) {
     this.rnaPolymeraseAttachmentStateMachine.addRecycleReturnZone( recycleReturnZone );
-  },
+  }
 
   /**
    * @returns {Shape}
    * @public
    */
-  createShape: function() {
+  static createShape() {
+
     // Shape is meant to look like illustrations in "The Machinery of Life" by David Goodsell.
     return ShapeUtils.createRoundedShapeFromPoints( SHAPE_POINTS );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'RnaPolymerase', RnaPolymerase );
 
 export default RnaPolymerase;

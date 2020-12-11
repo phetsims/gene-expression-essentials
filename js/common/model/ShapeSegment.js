@@ -15,59 +15,55 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import AttachmentSite from './AttachmentSite.js';
 
 // constants
 const FLOATING_POINT_COMP_FACTOR = 1E-7; // Factor to use to avoid issues with floating point resolution.
 
-/**
- * @param {Object} owner - the model object that this shape segment is a portion of
- * @constructor
- */
-function ShapeSegment( owner ) {
+class ShapeSegment {
 
-  // @public (read-only) {Bounds2} - Bounds of this shape segment
-  this.bounds = new Bounds2( 0, 0, 0, 0 );
+  /**
+   * @param {Object} owner - the model object that this shape segment is a portion of
+   */
+  constructor( owner ) {
 
-  // Attachment point where anything that attached to this segment would attach. Affinity is arbitrary in this case.
-  this.attachmentSite = new AttachmentSite( owner, new Vector2( 0, 0 ), 1 ); // @private
+    // @public (read-only) {Bounds2} - Bounds of this shape segment
+    this.bounds = new Bounds2( 0, 0, 0, 0 );
 
-  // Max length of mRNA that this segment can contain.
-  this.capacity = Number.MAX_VALUE; // @protected
-}
+    // Attachment point where anything that attached to this segment would attach. Affinity is arbitrary in this case.
+    this.attachmentSite = new AttachmentSite( owner, new Vector2( 0, 0 ), 1 ); // @private
 
-geneExpressionEssentials.register( 'ShapeSegment', ShapeSegment );
-
-inherit( Object, ShapeSegment, {
+    // Max length of mRNA that this segment can contain.
+    this.capacity = Number.MAX_VALUE; // @protected
+  }
 
   /**
    * Sets the capacity
    * @param {number} capacity
    * @public
    */
-  setCapacity: function( capacity ) {
+  setCapacity( capacity ) {
     this.capacity = capacity;
-  },
+  }
 
   /**
    * Returns the remaining capacity
    * @returns {number}
    * @public
    */
-  getRemainingCapacity: function() {
+  getRemainingCapacity() {
     return this.capacity - this.getContainedLength();
-  },
+  }
 
   /**
    * Returns the lower right position of the segment
    * @returns {Vector2}
    * @public
    */
-  getLowerRightCornerPosition: function() {
+  getLowerRightCornerPosition() {
     return new Vector2( this.bounds.getMaxX(), this.bounds.getMinY() );
-  },
+  }
 
   /**
    * Sets the lower right position of the segment
@@ -75,27 +71,27 @@ inherit( Object, ShapeSegment, {
    * @param {number} y
    * @public
    */
-  setLowerRightCornerPositionXY: function( x, y ) {
+  setLowerRightCornerPositionXY( x, y ) {
     this.bounds.setMinMax( x - this.bounds.width, y, x, y + this.bounds.height );
     this.updateAttachmentSitePosition();
-  },
+  }
 
   /**
    * @param {Vector2} p
    * @public
    */
-  setLowerRightCornerPosition: function( p ) {
+  setLowerRightCornerPosition( p ) {
     this.setLowerRightCornerPositionXY( p.x, p.y );
-  },
+  }
 
   /**
    * Returns the upper left position of the segment
    * @returns {Vector2}
    * @public
    */
-  getUpperLeftCornerPosition: function() {
+  getUpperLeftCornerPosition() {
     return new Vector2( this.bounds.getMinX(), this.bounds.getMaxY() );
-  },
+  }
 
   /**
    * Sets the upper left position of the segment
@@ -103,10 +99,10 @@ inherit( Object, ShapeSegment, {
    * @param {number} y
    * @public
    */
-  setUpperLeftCornerPositionXY: function( x, y ) {
+  setUpperLeftCornerPositionXY( x, y ) {
     this.bounds.setMinMax( x, y - this.bounds.height, x + this.bounds.width, y );
     this.updateAttachmentSitePosition();
-  },
+  }
 
   /**
    * Translates the segment
@@ -114,45 +110,45 @@ inherit( Object, ShapeSegment, {
    * @param {number} y
    * @public
    */
-  translate: function( x, y ) {
+  translate( x, y ) {
     this.bounds.shift( x, y );
     this.updateAttachmentSitePosition();
-  },
+  }
 
   /**
    * Returns the bounds
    * @returns {Bounds2}
    * @public
    */
-  getBounds: function() {
+  getBounds() {
     return this.bounds;
-  },
+  }
 
   /**
    * Returns whether the shape segment is flat or not. A shape segment is flat if the height is zero.
    * @returns {boolean}
    * @public
    */
-  isFlat: function() {
+  isFlat() {
     return this.getBounds().height === 0;
-  },
+  }
 
   /**
    * Updates the Attachment Site Position which is the upper left corner of the segment
    * @public
    */
-  updateAttachmentSitePosition: function() {
+  updateAttachmentSitePosition() {
     this.attachmentSite.positionProperty.set( this.getUpperLeftCornerPosition() );
-  },
+  }
 
   /**
    * Get the length of the mRNA contained by this segment.
    * @returns {number}
    * @public
    */
-  getContainedLength: function() {
+  getContainedLength() {
     throw new Error( 'getContainedLength should be implemented in descendant classes of ShapeSegment' );
-  },
+  }
 
   /**
    * Add the specified length of mRNA to the segment. This will generally cause the segment to grow. By design, flat
@@ -164,9 +160,9 @@ inherit( Object, ShapeSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  add: function( length, windingBiomolecule, shapeSegmentList ) {
+  add( length, windingBiomolecule, shapeSegmentList ) {
     throw new Error( 'add should be implemented in descendant classes of ShapeSegment' );
-  },
+  }
 
   /**
    * Remove the specified amount of mRNA from the segment. This will generally cause a segment to shrink. Flat segments
@@ -177,9 +173,9 @@ inherit( Object, ShapeSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  remove: function( length, shapeSegmentList ) {
+  remove( length, shapeSegmentList ) {
     throw new Error( 'remove should be implemented in descendant classes of ShapeSegment' );
-  },
+  }
 
   /**
    * Advance the mRNA through this shape segment. This is what happens when the mRNA is being translated by a ribosome
@@ -190,10 +186,9 @@ inherit( Object, ShapeSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  advance: function( length, windingBiomolecule, shapeSegmentList ) {
+  advance( length, windingBiomolecule, shapeSegmentList ) {
     throw new Error( 'advance should be implemented in descendant classes of ShapeSegment' );
-  },
-
+  }
 
   /**
    * Advance the mRNA through this segment but also reduce the segment contents by the given length. This is used when
@@ -204,11 +199,14 @@ inherit( Object, ShapeSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  advanceAndRemove: function( length, windingBiomolecule, shapeSegmentList ) {
+  advanceAndRemove( length, windingBiomolecule, shapeSegmentList ) {
     throw new Error( 'advance should be implemented in descendant classes of ShapeSegment' );
   }
-}, {
-  FLOATING_POINT_COMP_FACTOR: FLOATING_POINT_COMP_FACTOR
-} );
+
+}
+
+ShapeSegment.FLOATING_POINT_COMP_FACTOR = FLOATING_POINT_COMP_FACTOR;
+
+geneExpressionEssentials.register( 'ShapeSegment', ShapeSegment );
 
 export default ShapeSegment;

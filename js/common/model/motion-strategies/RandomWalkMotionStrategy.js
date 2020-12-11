@@ -12,7 +12,6 @@
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
@@ -27,39 +26,36 @@ const MAX_TIME_IN_ONE_DIRECTION = 0.8; // In seconds.
 // Vector used for intermediate calculations - Added to avoid excessive creation of Vector3 instances - Ashraf
 const nextPosition3DScratchVector = new Vector3( 0, 0, 0 );
 
-/**
- * @param {Property} motionBoundsProperty
- * @constructor
- */
-function RandomWalkMotionStrategy( motionBoundsProperty ) {
-  const self = this;
-  MotionStrategy.call( self );
-  this.directionChangeCountdown = 0; // @private
-  this.currentMotionVector2D = new Vector2( 0, 0 ); // @private
-  this.currentZVelocity = 0; // @private
+class RandomWalkMotionStrategy extends MotionStrategy {
 
-  function handleMotionBoundsChanged( motionBounds ) {
-    self.motionBounds = motionBounds;
+  /**
+   * @param {Property} motionBoundsProperty
+   */
+  constructor( motionBoundsProperty ) {
+    super();
+    const self = this;
+    this.directionChangeCountdown = 0; // @private
+    this.currentMotionVector2D = new Vector2( 0, 0 ); // @private
+    this.currentZVelocity = 0; // @private
+
+    function handleMotionBoundsChanged( motionBounds ) {
+      self.motionBounds = motionBounds;
+    }
+
+    motionBoundsProperty.link( handleMotionBoundsChanged );
+
+    this.disposeRandomWalkMotionStrategy = () => {
+      motionBoundsProperty.unlink( handleMotionBoundsChanged );
+    };
   }
-
-  motionBoundsProperty.link( handleMotionBoundsChanged );
-
-  this.disposeRandomWalkMotionStrategy = function() {
-    motionBoundsProperty.unlink( handleMotionBoundsChanged );
-  };
-}
-
-geneExpressionEssentials.register( 'RandomWalkMotionStrategy', RandomWalkMotionStrategy );
-
-inherit( MotionStrategy, RandomWalkMotionStrategy, {
 
   /**
    * @override
    * @public
    */
-  dispose: function() {
+  dispose() {
     this.disposeRandomWalkMotionStrategy();
-  },
+  }
 
   /**
    * @override
@@ -69,22 +65,22 @@ inherit( MotionStrategy, RandomWalkMotionStrategy, {
    * @returns {Vector2}
    * @public
    */
-  getNextPosition: function( currentPosition, bounds, dt ) {
+  getNextPosition( currentPosition, bounds, dt ) {
     nextPosition3DScratchVector.x = currentPosition.x;
     nextPosition3DScratchVector.y = currentPosition.y;
     nextPosition3DScratchVector.z = 0;
     const position3D = this.getNextPosition3D( nextPosition3DScratchVector, bounds, dt );
     return new Vector2( position3D.x, position3D.y );
-  },
+  }
 
   /**
    * @returns {number}
    * @private
    */
-  generateDirectionChangeCountdownValue: function() {
+  generateDirectionChangeCountdownValue() {
     return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() *
            ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
-  },
+  }
 
   /**
    * @override
@@ -94,7 +90,7 @@ inherit( MotionStrategy, RandomWalkMotionStrategy, {
    * @returns {Vector3}
    * @public
    */
-  getNextPosition3D: function( currentPosition, bounds, dt ) {
+  getNextPosition3D( currentPosition, bounds, dt ) {
     this.directionChangeCountdown -= dt;
     if ( this.directionChangeCountdown <= 0 ) {
 
@@ -130,6 +126,8 @@ inherit( MotionStrategy, RandomWalkMotionStrategy, {
       Utils.clamp( currentPosition.z + this.currentZVelocity * dt, minZ, 0 )
     );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'RandomWalkMotionStrategy', RandomWalkMotionStrategy );
 
 export default RandomWalkMotionStrategy;

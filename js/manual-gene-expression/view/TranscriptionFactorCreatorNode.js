@@ -9,7 +9,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.js';
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
@@ -27,29 +26,30 @@ const SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
   SCALING_FACTOR
 );
 
-/**
- * @param {BiomoleculeToolboxNode} biomoleculeBoxNode
- * @param {TranscriptionFactorConfig} tfConfig
- * @constructor
- */
-function TranscriptionFactorCreatorNode( biomoleculeBoxNode, tfConfig ) {
-  BiomoleculeCreatorNode.call( this, new MobileBiomoleculeNode( SCALING_MVT,
-    new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, new Vector2( 0, 0 ) ) ),
-    biomoleculeBoxNode.canvas,
-    biomoleculeBoxNode.modelViewTransform,
-    function( pos ) {
-      const transcriptionFactor = new TranscriptionFactor( biomoleculeBoxNode.model, tfConfig, pos );
-      biomoleculeBoxNode.model.addMobileBiomolecule( transcriptionFactor );
-      return transcriptionFactor;
-    },
-    function( mobileBiomolecule ) {
-      biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
-    },
-    biomoleculeBoxNode
-  );
+class TranscriptionFactorCreatorNode extends BiomoleculeCreatorNode {
+
+  /**
+   * @param {BiomoleculeToolboxNode} biomoleculeBoxNode
+   * @param {TranscriptionFactorConfig} tfConfig
+   */
+  constructor( biomoleculeBoxNode, tfConfig ) {
+    super( new MobileBiomoleculeNode( SCALING_MVT,
+      new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, new Vector2( 0, 0 ) ) ),
+      biomoleculeBoxNode.canvas,
+      biomoleculeBoxNode.modelViewTransform,
+      pos => {
+        const transcriptionFactor = new TranscriptionFactor( biomoleculeBoxNode.model, tfConfig, pos );
+        biomoleculeBoxNode.model.addMobileBiomolecule( transcriptionFactor );
+        return transcriptionFactor;
+      },
+      mobileBiomolecule => {
+        biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
+      },
+      biomoleculeBoxNode
+    );
+  }
 }
 
 geneExpressionEssentials.register( 'TranscriptionFactorCreatorNode', TranscriptionFactorCreatorNode );
 
-inherit( BiomoleculeCreatorNode, TranscriptionFactorCreatorNode );
 export default TranscriptionFactorCreatorNode;

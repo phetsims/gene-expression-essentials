@@ -8,20 +8,16 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
-/**
- * @constructor
- */
-function StillnessMotionStrategy() {
-  MotionStrategy.call( this );
-}
+class StillnessMotionStrategy extends MotionStrategy {
 
-geneExpressionEssentials.register( 'StillnessMotionStrategy', StillnessMotionStrategy );
-
-inherit( MotionStrategy, StillnessMotionStrategy, {
+  /**
+   */
+  constructor() {
+    super();
+  }
 
   /**
    * @override
@@ -31,9 +27,11 @@ inherit( MotionStrategy, StillnessMotionStrategy, {
    * @returns {Vector2}
    * @public
    */
-  getNextPosition: function( currentPosition, bounds, dt ) {
+  getNextPosition( currentPosition, bounds, dt ) {
     return currentPosition;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'StillnessMotionStrategy', StillnessMotionStrategy );
 
 export default StillnessMotionStrategy;

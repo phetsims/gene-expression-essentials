@@ -7,19 +7,16 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MeanderToDestinationMotionStrategy from '../motion-strategies/MeanderToDestinationMotionStrategy.js';
 import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 
-function GenericUnattachedAndAvailableState() {
-  AttachmentState.call( this );
-}
+class GenericUnattachedAndAvailableState extends AttachmentState {
 
-geneExpressionEssentials.register( 'GenericUnattachedAndAvailableState', GenericUnattachedAndAvailableState );
-
-inherit( Object, GenericUnattachedAndAvailableState, {
+  constructor() {
+    super();
+  }
 
   /**
    * @override
@@ -27,7 +24,7 @@ inherit( Object, GenericUnattachedAndAvailableState, {
    * @param {number} dt
    * @public
    */
-  step: function( enclosingStateMachine, dt ) {
+  step( enclosingStateMachine, dt ) {
     const gsm = enclosingStateMachine;
 
     // Verify that state is consistent
@@ -52,14 +49,14 @@ inherit( Object, GenericUnattachedAndAvailableState, {
       // Update state.
       gsm.setState( gsm.movingTowardsAttachmentState );
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
     enclosingStateMachine.biomolecule.setMotionStrategy(
       new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty )
     );
@@ -67,6 +64,8 @@ inherit( Object, GenericUnattachedAndAvailableState, {
     // Allow user interaction.
     enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'GenericUnattachedAndAvailableState', GenericUnattachedAndAvailableState );
 
 export default GenericUnattachedAndAvailableState;

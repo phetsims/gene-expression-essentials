@@ -9,15 +9,15 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-/**
- * @constructor
- */
-function StubGeneExpressionModel() {
+class StubGeneExpressionModel {
+
+  /**
+   */
+  constructor() {
+  }
 }
 
 geneExpressionEssentials.register( 'StubGeneExpressionModel', StubGeneExpressionModel );
-inherit( Object, StubGeneExpressionModel );
 export default StubGeneExpressionModel;

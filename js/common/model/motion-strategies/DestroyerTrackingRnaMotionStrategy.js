@@ -10,22 +10,18 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
-/**
- * @param messengerRnaDestroyer {MessengerRnaDestroyer}
- * @constructor
- */
-function DestroyerTrackingRnaMotionStrategy( messengerRnaDestroyer ) {
-  MotionStrategy.call( this );
-  this.messengerRna = messengerRnaDestroyer.getMessengerRnaBeingDestroyed(); //@private
-}
+class DestroyerTrackingRnaMotionStrategy extends MotionStrategy {
 
-geneExpressionEssentials.register( 'DestroyerTrackingRnaMotionStrategy', DestroyerTrackingRnaMotionStrategy );
-
-inherit( MotionStrategy, DestroyerTrackingRnaMotionStrategy, {
+  /**
+   * @param messengerRnaDestroyer {MessengerRnaDestroyer}
+   */
+  constructor( messengerRnaDestroyer ) {
+    super();
+    this.messengerRna = messengerRnaDestroyer.getMessengerRnaBeingDestroyed(); //@private
+  }
 
   /**
    * @override
@@ -35,10 +31,12 @@ inherit( MotionStrategy, DestroyerTrackingRnaMotionStrategy, {
    * @returns {Vector2}
    * @public
    */
-  getNextPosition: function( currentPosition, bounds, dt ) {
+  getNextPosition( currentPosition, bounds, dt ) {
     const generateInitialPosition3D = this.messengerRna.getDestroyerGenerateInitialPosition3D();
     return new Vector2( generateInitialPosition3D.x, generateInitialPosition3D.y );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'DestroyerTrackingRnaMotionStrategy', DestroyerTrackingRnaMotionStrategy );
 
 export default DestroyerTrackingRnaMotionStrategy;

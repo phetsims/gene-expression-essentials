@@ -7,33 +7,30 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import StillnessMotionStrategy from '../motion-strategies/StillnessMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 
-/**
- *
- * @constructor
- */
-function BeingSynthesizedState() {
-  AttachmentState.call( this );
-}
+class BeingSynthesizedState extends AttachmentState {
 
-geneExpressionEssentials.register( 'BeingSynthesizedState', BeingSynthesizedState );
-
-inherit( AttachmentState, BeingSynthesizedState, {
+  /**
+   */
+  constructor() {
+    super();
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
     // Set the motion strategy to something that doesn't move the molecule, since its position will be controlled by
     // the polymerase that is synthesizing it.
     enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'BeingSynthesizedState', BeingSynthesizedState );
 
 export default BeingSynthesizedState;

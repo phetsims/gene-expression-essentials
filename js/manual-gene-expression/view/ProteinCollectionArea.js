@@ -11,7 +11,6 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import kite from '../../../../kite/js/kite.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
@@ -20,55 +19,56 @@ import ProteinB from '../model/ProteinB.js';
 import ProteinC from '../model/ProteinC.js';
 import ProteinCaptureNode from './ProteinCaptureNode.js';
 
-/**
- * @param {ManualGeneExpressionModel} model
- * @param {ModelViewTransform2} modelViewTransform
- * @constructor
- */
-function ProteinCollectionArea( model, modelViewTransform ) {
-  Node.call( this );
+class ProteinCollectionArea extends Node {
 
-  // Get a transform that performs only the scaling portion of the modelViewTransform.
-  const scaleVector = modelViewTransform.getMatrix().getScaleVector();
-  const scale = modelViewTransform.getMatrix().scaleVector.x;
+  /**
+   * @param {ManualGeneExpressionModel} model
+   * @param {ModelViewTransform2} modelViewTransform
+   */
+  constructor( model, modelViewTransform ) {
+    super();
 
-  // The getScaleVector method of Matrix3 always returns positive value for the scales, even though
-  // the modelViewTransform uses inverted scaling for Y, so changing the assertion statement to check for absolute values
-  // see issue #7
-  assert && assert( scale === Math.abs( scaleVector.y ) ); // This only handles symmetric transform case.
-  const transform = Matrix3.scaling( scale, -scale );
+    // Get a transform that performs only the scaling portion of the modelViewTransform.
+    const scaleVector = modelViewTransform.getMatrix().getScaleVector();
+    const scale = modelViewTransform.getMatrix().scaleVector.x;
 
-  // Figure out the max dimensions of the various protein types so that the capture nodes can be properly laid out.
-  const captureNodeBackgroundSize = new Dimension2( 0, 0 );
+    // The getScaleVector method of Matrix3 always returns positive value for the scales, even though
+    // the modelViewTransform uses inverted scaling for Y, so changing the assertion statement to check for absolute values
+    // see issue #7
+    assert && assert( scale === Math.abs( scaleVector.y ) ); // This only handles symmetric transform case.
+    const transform = Matrix3.scaling( scale, -scale );
 
-  const proteinTypes = [ ProteinA, ProteinB, ProteinC ];
-  for ( let i = 0; i < proteinTypes.length; i++ ) {
-    const protein = new proteinTypes[ i ]();
-    const proteinShapeBounds = protein.getFullyGrownShape()
-      .transformed( transform )
-      .getStrokedBounds( new kite.LineStyles( { lineWidth: 1 } ) );
-    captureNodeBackgroundSize.width = ( Math.max(
-      proteinShapeBounds.width * ProteinCaptureNode.SCALE_FOR_FLASH_NODE,
-      captureNodeBackgroundSize.width
-    ) );
-    captureNodeBackgroundSize.height = ( Math.max(
-        proteinShapeBounds.height * ProteinCaptureNode.SCALE_FOR_FLASH_NODE,
-        captureNodeBackgroundSize.height )
-    );
+    // Figure out the max dimensions of the various protein types so that the capture nodes can be properly laid out.
+    const captureNodeBackgroundSize = new Dimension2( 0, 0 );
+
+    const proteinTypes = [ ProteinA, ProteinB, ProteinC ];
+    for ( let i = 0; i < proteinTypes.length; i++ ) {
+      const protein = new proteinTypes[ i ]();
+      const proteinShapeBounds = protein.getFullyGrownShape()
+        .transformed( transform )
+        .getStrokedBounds( new kite.LineStyles( { lineWidth: 1 } ) );
+      captureNodeBackgroundSize.width = ( Math.max(
+        proteinShapeBounds.width * ProteinCaptureNode.SCALE_FOR_FLASH_NODE,
+        captureNodeBackgroundSize.width
+      ) );
+      captureNodeBackgroundSize.height = ( Math.max(
+          proteinShapeBounds.height * ProteinCaptureNode.SCALE_FOR_FLASH_NODE,
+          captureNodeBackgroundSize.height )
+      );
+    }
+
+    // Add the collection area, which is a set of collection nodes.
+    this.addChild( new HBox( {
+      children: [
+        new ProteinCaptureNode( model, 'ProteinA', transform, captureNodeBackgroundSize ),
+        new ProteinCaptureNode( model, 'ProteinB', transform, captureNodeBackgroundSize ),
+        new ProteinCaptureNode( model, 'ProteinC', transform, captureNodeBackgroundSize )
+      ],
+      spacing: 0
+    } ) );
   }
-
-  // Add the collection area, which is a set of collection nodes.
-  this.addChild( new HBox( {
-    children: [
-      new ProteinCaptureNode( model, 'ProteinA', transform, captureNodeBackgroundSize ),
-      new ProteinCaptureNode( model, 'ProteinB', transform, captureNodeBackgroundSize ),
-      new ProteinCaptureNode( model, 'ProteinC', transform, captureNodeBackgroundSize )
-    ],
-    spacing: 0
-  } ) );
 }
 
 geneExpressionEssentials.register( 'ProteinCollectionArea', ProteinCollectionArea );
 
-inherit( Node, ProteinCollectionArea );
 export default ProteinCollectionArea;

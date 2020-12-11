@@ -22,7 +22,7 @@ const GradientUtils = {
    * @param {Shape} shape;
    * @param {Color} baseColor
    */
-  createGradientPaint: function( shape, baseColor ) {
+  createGradientPaint( shape, baseColor ) {
     let paint;
     if ( !GEEConstants.FLORESCENT_FILL_COLOR.equals( baseColor ) ) {
       const shapeBounds = shape.bounds;

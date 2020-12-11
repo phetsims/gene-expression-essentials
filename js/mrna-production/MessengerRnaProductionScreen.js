@@ -19,6 +19,7 @@ import MessengerRnaProductionModel from './model/MessengerRnaProductionModel.js'
 import MessengerRnaProductionScreenView from './view/MessengerRnaProductionScreenView.js';
 
 class MessengerRnaProductionScreen extends Screen {
+
   constructor() {
 
     const options = {
@@ -32,8 +33,8 @@ class MessengerRnaProductionScreen extends Screen {
     };
 
     super(
-      function() { return new MessengerRnaProductionModel(); },
-      function( model ) { return new MessengerRnaProductionScreenView( model ); },
+      () => new MessengerRnaProductionModel(),
+      model => new MessengerRnaProductionScreenView( model ),
       options
     );
   }

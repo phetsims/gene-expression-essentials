@@ -10,7 +10,6 @@
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
@@ -20,50 +19,47 @@ const MAX_VELOCITY = 500; // In picometers/s
 const MIN_TIME_IN_ONE_DIRECTION = 0.25; // In seconds.
 const MAX_TIME_IN_ONE_DIRECTION = 1.25; // In seconds.
 
-/**
- * @param  {Vector2} generalDirection
- * @param motionBoundsProperty
- * @constructor
- */
-function WanderInGeneralDirectionMotionStrategy( generalDirection, motionBoundsProperty ) {
-  const self = this;
-  MotionStrategy.call( self );
-  this.directionChangeCountdown = 0; // @private
-  this.currentMotionVector = new Vector2( 0, 0 ); // @private
+class WanderInGeneralDirectionMotionStrategy extends MotionStrategy {
 
-  function handleMotionBoundsChanged( motionBounds ) {
-    self.motionBounds = motionBounds;
+  /**
+   * @param  {Vector2} generalDirection
+   * @param motionBoundsProperty
+   */
+  constructor( generalDirection, motionBoundsProperty ) {
+    super();
+    const self = this;
+    this.directionChangeCountdown = 0; // @private
+    this.currentMotionVector = new Vector2( 0, 0 ); // @private
+
+    function handleMotionBoundsChanged( motionBounds ) {
+      self.motionBounds = motionBounds;
+    }
+
+    motionBoundsProperty.link( handleMotionBoundsChanged );
+
+    this.disposeWanderInGeneralDirectionMotionStrategy = () => {
+      motionBoundsProperty.unlink( handleMotionBoundsChanged );
+    };
+
+    this.generalDirection = generalDirection;
   }
-
-  motionBoundsProperty.link( handleMotionBoundsChanged );
-
-  this.disposeWanderInGeneralDirectionMotionStrategy = function() {
-    motionBoundsProperty.unlink( handleMotionBoundsChanged );
-  };
-
-  this.generalDirection = generalDirection;
-}
-
-geneExpressionEssentials.register( 'WanderInGeneralDirectionMotionStrategy', WanderInGeneralDirectionMotionStrategy );
-
-inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, {
 
   /**
    * @override
    * @public
    */
-  dispose: function() {
+  dispose() {
     this.disposeWanderInGeneralDirectionMotionStrategy();
-  },
+  }
 
   /**
    * @returns {number}
    * @private
    */
-  generateDirectionChangeCountdownValue: function() {
+  generateDirectionChangeCountdownValue() {
     return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() *
            ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
-  },
+  }
 
   /**
    * @override
@@ -73,7 +69,7 @@ inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, {
    * @returns {Vector2}
    * @public
    */
-  getNextPosition: function( currentPosition, bounds, dt ) {
+  getNextPosition( currentPosition, bounds, dt ) {
     this.directionChangeCountdown -= dt;
     if ( this.directionChangeCountdown <= 0 ) {
 
@@ -97,7 +93,7 @@ inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, {
     }
 
     return currentPosition.plus( this.currentMotionVector.timesScalar( dt ) );
-  },
+  }
 
   /**
    * @override
@@ -107,12 +103,14 @@ inherit( MotionStrategy, WanderInGeneralDirectionMotionStrategy, {
    * @returns {Vector3}
    * @public
    */
-  getNextPosition3D: function( currentPosition, bounds, dt ) {
+  getNextPosition3D( currentPosition, bounds, dt ) {
 
     // The 3D version of this motion strategy doesn't move in the z direction. This may change some day.
     const nextPosition2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
     return new Vector3( nextPosition2D.x, nextPosition2D.y, currentPosition.z );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'WanderInGeneralDirectionMotionStrategy', WanderInGeneralDirectionMotionStrategy );
 
 export default WanderInGeneralDirectionMotionStrategy;

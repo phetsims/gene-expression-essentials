@@ -10,22 +10,18 @@
 
 
 //modules
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
-/**
- * @param {AttachmentSite} attachmentSite
- * @constructor
- */
-function FollowAttachmentSite( attachmentSite ) {
-  MotionStrategy.call( this );
-  this.attachmentSite = attachmentSite; // @private
-}
+class FollowAttachmentSite extends MotionStrategy {
 
-geneExpressionEssentials.register( 'FollowAttachmentSite', FollowAttachmentSite );
-
-inherit( MotionStrategy, FollowAttachmentSite, {
+  /**
+   * @param {AttachmentSite} attachmentSite
+   */
+  constructor( attachmentSite ) {
+    super();
+    this.attachmentSite = attachmentSite; // @private
+  }
 
   /**
    * @override
@@ -35,9 +31,11 @@ inherit( MotionStrategy, FollowAttachmentSite, {
    * @returns {Vector2}
    * @public
    */
-  getNextPosition: function( currentPosition, bounds, dt ) {
+  getNextPosition( currentPosition, bounds, dt ) {
     return this.attachmentSite.positionProperty.get();
   }
-} );
+}
+
+geneExpressionEssentials.register( 'FollowAttachmentSite', FollowAttachmentSite );
 
 export default FollowAttachmentSite;

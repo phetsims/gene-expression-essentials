@@ -9,91 +9,86 @@
  */
 
 import stepTimer from '../../../../axon/js/stepTimer.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-/**
- * @param {Path} flashingNode
- * @param {Color} normalColor
- * @param {Color} flashColor
- * @param {Object} [options]
- * @constructor
- */
-function FlashController( flashingNode, normalColor, flashColor, options ) {
-  const self = this;
+class FlashController {
 
-  // variables used to implement the flashing behavior
-  this.transitionCountdown = 0; // @private
-  this.flashingNode = flashingNode; // @private
-  this.flashColor = flashColor; // @private
-  this.normalColor = normalColor; // @private
-  this.flashOnAtStart = options.visibleAtStart; // @private
-  this.flashOnAtEnd = options.visibleAtEnd; // @private
-  this.numFlashes = options.numFlashes; // @private
-  this.timerHandle = null; // @private
+  /**
+   * @param {Path} flashingNode
+   * @param {Color} normalColor
+   * @param {Color} flashColor
+   * @param {Object} [options]
+   */
+  constructor( flashingNode, normalColor, flashColor, options ) {
 
-  let time = 0;
+    // variables used to implement the flashing behavior
+    this.transitionCountdown = 0; // @private
+    this.flashingNode = flashingNode; // @private
+    this.flashColor = flashColor; // @private
+    this.normalColor = normalColor; // @private
+    this.flashOnAtStart = options.visibleAtStart; // @private
+    this.flashOnAtEnd = options.visibleAtEnd; // @private
+    this.numFlashes = options.numFlashes; // @private
+    this.timerHandle = null; // @private
 
-  // @private
-  this.timerListener = function() {
-    self.timerHandle = null;
-    if ( self.flashingNode.fill === self.flashColor ) {
+    let time = 0;
 
-      // Flash is on, so turn flash off.
-      self.flashingNode.fill = self.normalColor;
-      time = options.offTime;
-    }
-    else {
+    // @private
+    this.timerListener = () => {
+      this.timerHandle = null;
+      if ( this.flashingNode.fill === this.flashColor ) {
 
-      // Flash is off, so turn flash on.
-      self.flashingNode.fill = self.flashColor;
-      time = options.onTime;
-    }
-    self.transitionCountdown--;
-    if ( self.transitionCountdown > 0 ) {
+        // Flash is on, so turn flash off.
+        this.flashingNode.fill = this.normalColor;
+        time = options.offTime;
+      }
+      else {
 
-      // Set timer for next transition.
-      self.timerHandle = stepTimer.setTimeout( self.timerListener, time );
-    }
-  };
-}
+        // Flash is off, so turn flash on.
+        this.flashingNode.fill = this.flashColor;
+        time = options.onTime;
+      }
+      this.transitionCountdown--;
+      if ( this.transitionCountdown > 0 ) {
 
-geneExpressionEssentials.register( 'FlashController', FlashController );
-
-inherit( Object, FlashController, {
+        // Set timer for next transition.
+        this.timerHandle = stepTimer.setTimeout( this.timerListener, time );
+      }
+    };
+  }
 
   /**
    * @returns {boolean}
    * @public
    */
-  isFlashing: function() {
+  isFlashing() {
     return this.timerHandle !== null;
-  },
+  }
 
   /**
    * @public
    */
-  stop: function() {
+  stop() {
     if ( this.timerHandle ) {
       stepTimer.clearTimeout( this.timerHandle );
     }
     this.timerHandle = null;
-  },
+  }
 
   /**
    * @public
    */
-  forceFlashOff: function() {
+  forceFlashOff() {
     if ( this.isFlashing() ) {
       this.stop();
     }
     this.setFlashOn( false );
-  },
+  }
 
   /**
    * @public
    */
-  restart: function() {
+  restart() {
     this.stop();
     this.setFlashOn( this.flashOnAtStart );
     this.transitionCountdown = this.numFlashes * 2;
@@ -101,15 +96,17 @@ inherit( Object, FlashController, {
       this.transitionCountdown -= 1;
     }
     this.timerListener();
-  },
+  }
 
   /**
    * @param {boolean} flashOn
    * @private
    */
-  setFlashOn: function( flashOn ) {
+  setFlashOn( flashOn ) {
     this.flashingNode.fill = flashOn ? this.flashColor : this.normalColor;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'FlashController', FlashController );
 
 export default FlashController;

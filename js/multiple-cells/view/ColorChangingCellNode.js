@@ -11,7 +11,6 @@
  */
 
 import Utils from '../../../../dot/js/Utils.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
@@ -24,38 +23,38 @@ const FLORESCENT_FILL_COLOR = new Color( 200, 255, 58 );
 const LINE_WIDTH = 2;
 const STROKE_COLOR = Color.WHITE;
 
-/**
- * @param {Cell} cell
- * @param {ModelViewTransform2} modelViewTransform
- * @constructor
- */
-function ColorChangingCellNode( cell, modelViewTransform ) {
-  Node.call( this );
+class ColorChangingCellNode extends Node {
 
-  const cellBody = new Path( modelViewTransform.modelToViewShape( cell.getShape() ), {
-    fill: NOMINAL_FILL_COLOR,
-    stroke: STROKE_COLOR,
-    lineWidth: LINE_WIDTH,
-    lineJoin: 'round',
-    boundsMethod: 'unstroked',
-    center: modelViewTransform.modelToViewXY( cell.positionX, cell.positionY )
-  } );
+  /**
+   * @param {Cell} cell
+   * @param {ModelViewTransform2} modelViewTransform
+   */
+  constructor( cell, modelViewTransform ) {
+    super();
 
-  cell.proteinCount.lazyLink( function( proteinCount ) {
-    const florescenceAmount = Utils.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
-                                           ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );
-    cellBody.fill = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
-  } );
-  this.addChild( cellBody );
+    const cellBody = new Path( modelViewTransform.modelToViewShape( cell.getShape() ), {
+      fill: NOMINAL_FILL_COLOR,
+      stroke: STROKE_COLOR,
+      lineWidth: LINE_WIDTH,
+      lineJoin: 'round',
+      boundsMethod: 'unstroked',
+      center: modelViewTransform.modelToViewXY( cell.positionX, cell.positionY )
+    } );
+
+    cell.proteinCount.lazyLink( proteinCount => {
+      const florescenceAmount = Utils.clamp( ( proteinCount - Cell.ProteinLevelWhereColorChangeStarts ) /
+                                             ( Cell.ProteinLevelWhereColorChangeCompletes - Cell.ProteinLevelWhereColorChangeStarts ), 0, 1.0 );
+      cellBody.fill = Color.interpolateRGBA( NOMINAL_FILL_COLOR, FLORESCENT_FILL_COLOR, florescenceAmount );
+    } );
+    this.addChild( cellBody );
+  }
 }
 
+
+// statics
+ColorChangingCellNode.NominalFillColor = NOMINAL_FILL_COLOR;
+ColorChangingCellNode.FlorescentFillColor = FLORESCENT_FILL_COLOR;
+
 geneExpressionEssentials.register( 'ColorChangingCellNode', ColorChangingCellNode );
-
-inherit( Node, ColorChangingCellNode, {}, {
-
-  // statics
-  NominalFillColor: NOMINAL_FILL_COLOR,
-  FlorescentFillColor: FLORESCENT_FILL_COLOR
-} );
 
 export default ColorChangingCellNode;

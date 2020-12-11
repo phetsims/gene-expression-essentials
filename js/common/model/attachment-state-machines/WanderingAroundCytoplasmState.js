@@ -9,30 +9,28 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 
-/**
- * @constructor
- */
-function WanderingAroundCytoplasmState() {
-  AttachmentState.call( this );
-}
+class WanderingAroundCytoplasmState extends AttachmentState {
 
-geneExpressionEssentials.register( 'WanderingAroundCytoplasmState', WanderingAroundCytoplasmState );
-inherit( AttachmentState, WanderingAroundCytoplasmState, {
+  /**
+   */
+  constructor() {
+    super();
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
     enclosingStateMachine.biomolecule.setMotionStrategy(
       new RandomWalkMotionStrategy( enclosingStateMachine.biomolecule.motionBoundsProperty ) );
   }
-} );
+}
 
+geneExpressionEssentials.register( 'WanderingAroundCytoplasmState', WanderingAroundCytoplasmState );
 export default WanderingAroundCytoplasmState;

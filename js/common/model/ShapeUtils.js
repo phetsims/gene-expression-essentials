@@ -23,7 +23,7 @@ const ShapeUtils = {
    * @returns Shape that the provided points define.
    * @public
    */
-  createRoundedShapeFromPoints: function( points, existingShape ) {
+  createRoundedShapeFromPoints( points, existingShape ) {
     const shape = existingShape || new Shape();
     shape.moveToPoint( points[ 0 ] );
     let cp1 = Vector2.dirtyFromPool();
@@ -53,7 +53,7 @@ const ShapeUtils = {
    * @returns {Object}
    * @public
    */
-  extrapolateControlPoint: function( x, y, z, cp ) {
+  extrapolateControlPoint( x, y, z, cp ) {
     const xz_x = 0.25 * ( z.x - x.x );
     const xz_y = 0.25 * ( z.y - x.y );
     return ( cp.setXY( y.x + xz_x, y.y + xz_y ) );

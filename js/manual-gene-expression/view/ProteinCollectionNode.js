@@ -8,7 +8,6 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -18,8 +17,8 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import ProteinCollectionArea from './ProteinCollectionArea.js';
 
 // constants
@@ -36,34 +35,36 @@ const proteinCountCaptionPart1String = geneExpressionEssentialsStrings.proteinCo
 const proteinCountCaptionPart2String = geneExpressionEssentialsStrings.proteinCountCaptionPart2;
 const yourProteinCollectionString = geneExpressionEssentialsStrings.yourProteinCollection;
 
-/**
- * @param {ManualGeneExpressionModel} model
- * @param {ModelViewTransform2} modelViewTransform
- * @constructor
- */
-function ProteinCollectionNode( model, modelViewTransform ) {
-  Node.call( this );
+class ProteinCollectionNode extends Node {
 
-  // Create the title and scale it if needed.
-  const title = new RichText( yourProteinCollectionString, {
-    fill: Color.BLACK,
-    font: TITLE_FONT,
-    maxWidth: 120,
-    align: 'center'
-  } );
+  /**
+   * @param {ManualGeneExpressionModel} model
+   * @param {ModelViewTransform2} modelViewTransform
+   */
+  constructor( model, modelViewTransform ) {
+    super();
 
-  // create the collection area
-  const collectionArea = new ProteinCollectionArea( model, modelViewTransform );
+    // Create the title and scale it if needed.
+    const title = new RichText( yourProteinCollectionString, {
+      fill: Color.BLACK,
+      font: TITLE_FONT,
+      maxWidth: 120,
+      align: 'center'
+    } );
 
-  // create the panel
-  this.addChild( new Panel(
-    new VBox( { children: [ title, collectionArea, createCollectionCountIndicator( model ) ], spacing: 5 } ),
-    {
-      cornerRadius: GEEConstants.CORNER_RADIUS,
-      fill: BACKGROUND_COLOR,
-      resize: false
-    }
-  ) );
+    // create the collection area
+    const collectionArea = new ProteinCollectionArea( model, modelViewTransform );
+
+    // create the panel
+    this.addChild( new Panel(
+      new VBox( { children: [ title, collectionArea, createCollectionCountIndicator( model ) ], spacing: 5 } ),
+      {
+        cornerRadius: GEEConstants.CORNER_RADIUS,
+        fill: BACKGROUND_COLOR,
+        resize: false
+      }
+    ) );
+  }
 }
 
 /**
@@ -137,5 +138,4 @@ function createCollectionCountIndicator( model ) {
 
 geneExpressionEssentials.register( 'ProteinCollectionNode', ProteinCollectionNode );
 
-inherit( Node, ProteinCollectionNode );
 export default ProteinCollectionNode;

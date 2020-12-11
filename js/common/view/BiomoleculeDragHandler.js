@@ -8,40 +8,38 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-/**
- *
- * @param {MobileBiomolecule} biomolecule
- * @param {ModelViewTransform2} modelViewTransform
- * @constructor
- */
-function BiomoleculeDragHandler( biomolecule, modelViewTransform ) {
-  const self = this;
-  SimpleDragHandler.call( self, {
-    allowTouchSnag: true,
+class BiomoleculeDragHandler extends SimpleDragHandler {
 
-    start: function( event, trail ) {
-      // The user is moving this, so they have control.
-      biomolecule.userControlledProperty.set( true );
-    },
+  /**
+   * @param {MobileBiomolecule} biomolecule
+   * @param {ModelViewTransform2} modelViewTransform
+   */
+  constructor( biomolecule, modelViewTransform ) {
+    super( {
+      allowTouchSnag: true,
 
-    translate: function( translationParams ) {
-      const modelDelta = modelViewTransform.viewToModelDelta( translationParams.delta );
-      biomolecule.translate( modelDelta.x, modelDelta.y );
-    },
+      start: ( event, trail ) => {
+        // The user is moving this, so they have control.
+        biomolecule.userControlledProperty.set( true );
+      },
 
-    end: function( event ) {
-      // The user is no longer moving this, so they have relinquished control.
-      biomolecule.userControlledProperty.set( false );
-    }
-  } );
+      translate: translationParams => {
+        const modelDelta = modelViewTransform.viewToModelDelta( translationParams.delta );
+        biomolecule.translate( modelDelta.x, modelDelta.y );
+      },
 
+      end: event => {
+        // The user is no longer moving this, so they have relinquished control.
+        biomolecule.userControlledProperty.set( false );
+      }
+    } );
+
+  }
 }
 
 geneExpressionEssentials.register( 'BiomoleculeDragHandler', BiomoleculeDragHandler );
 
-inherit( SimpleDragHandler, BiomoleculeDragHandler );
 export default BiomoleculeDragHandler;

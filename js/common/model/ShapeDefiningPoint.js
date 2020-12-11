@@ -10,122 +10,118 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-/**
- *
- * @param {Vector2} initialPosition
- * @param {number} targetDistanceToPreviousPoint
- * @constructor
- */
-function ShapeDefiningPoint( initialPosition, targetDistanceToPreviousPoint ) {
+class ShapeDefiningPoint {
 
-  // @private
-  this.position = new Vector2( 0, 0 );
-  this.previousPoint = null;
-  this.nextPoint = null;
-  this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint; // in picometers
+  /**
+   * @param {Vector2} initialPosition
+   * @param {number} targetDistanceToPreviousPoint
+   */
+  constructor( initialPosition, targetDistanceToPreviousPoint ) {
 
-  this.setPosition( initialPosition );
-}
+    // @private
+    this.position = new Vector2( 0, 0 );
+    this.previousPoint = null;
+    this.nextPoint = null;
+    this.targetDistanceToPreviousPoint = targetDistanceToPreviousPoint; // in picometers
 
-geneExpressionEssentials.register( 'ShapeDefiningPoint', ShapeDefiningPoint );
-
-inherit( Object, ShapeDefiningPoint, {
+    this.setPosition( initialPosition );
+  }
 
   /**
    * @param {number} x
    * @param {number} y
    * @public
    */
-  setPositionXY: function( x, y ) {
+  setPositionXY( x, y ) {
     assert && assert( arguments.length === 2, 'incorrect number of arguments: ' + arguments.length );
     this.position.setXY( x, y );
-  },
+  }
 
   /**
    * @param {Vector2} position
    * @public
    */
-  setPosition: function( position ) {
+  setPosition( position ) {
     this.setPositionXY( position.x, position.y );
-  },
+  }
 
   /**
    * @returns {Vector2}
    * @public
    */
-  getPosition: function() {
+  getPosition() {
     return this.position;
-  },
+  }
 
   /**
    * @returns {ShapeDefiningPoint}
    * @public
    */
-  getPreviousPoint: function() {
+  getPreviousPoint() {
     return this.previousPoint;
-  },
+  }
 
   /**
    * @param {ShapeDefiningPoint} previousPoint
    * @public
    */
-  setPreviousPoint: function( previousPoint ) {
+  setPreviousPoint( previousPoint ) {
     this.previousPoint = previousPoint;
-  },
+  }
 
   /**
    * @returns {ShapeDefiningPoint}
    * @public
    */
-  getNextPoint: function() {
+  getNextPoint() {
     return this.nextPoint;
-  },
+  }
 
   /**
    * @param {ShapeDefiningPoint} nextPoint
    * @public
    */
-  setNextPoint: function( nextPoint ) {
+  setNextPoint( nextPoint ) {
     this.nextPoint = nextPoint;
-  },
+  }
 
   /**
    * @returns {number}
    * @public
    */
-  getTargetDistanceToPreviousPoint: function() {
+  getTargetDistanceToPreviousPoint() {
     return this.targetDistanceToPreviousPoint;
-  },
+  }
 
   /**
    * @param {ShapeDefiningPoint} p
    * @returns {number}
    * @public
    */
-  distance: function( p ) {
+  distance( p ) {
     return this.getPosition().distance( p.getPosition() );
-  },
+  }
 
   /**
    * @param {number} x
    * @param {number} y
    * @public
    */
-  translate: function( x, y ) {
+  translate( x, y ) {
     this.setPositionXY( this.position.x + x, this.position.y + y );
-  },
+  }
 
   /**
    * @param {number} targetDistance
    * @public
    */
-  setTargetDistanceToPreviousPoint: function( targetDistance ) {
+  setTargetDistanceToPreviousPoint( targetDistance ) {
     this.targetDistanceToPreviousPoint = targetDistance;
   }
+}
 
-} );
+geneExpressionEssentials.register( 'ShapeDefiningPoint', ShapeDefiningPoint );
 
 export default ShapeDefiningPoint;

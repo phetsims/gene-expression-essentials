@@ -11,28 +11,25 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import WanderInGeneralDirectionMotionStrategy from '../motion-strategies/WanderInGeneralDirectionMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 import WanderingAroundCytoplasmState from './WanderingAroundCytoplasmState.js';
 
 // constants
-const DETACHING_TIME = 3; // seconds
+const DETACHING_TIME = 3;
 
-function DetachingFromPolymeraseState( msgRnaAttachmentStateMachine ) {
-  AttachmentState.call( this );
+class DetachingFromPolymeraseState extends AttachmentState {
 
-  // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
-  this.msgRnaAttachmentStateMachine = msgRnaAttachmentStateMachine;
+  constructor( msgRnaAttachmentStateMachine ) {
+    super();
 
-  // @private
-  this.detachingCountdownTimer = DETACHING_TIME;
-}
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.msgRnaAttachmentStateMachine = msgRnaAttachmentStateMachine;
 
-geneExpressionEssentials.register( 'DetachingFromPolymeraseState', DetachingFromPolymeraseState );
-
-inherit( AttachmentState, DetachingFromPolymeraseState, {
+    // @private
+    this.detachingCountdownTimer = DETACHING_TIME;
+  }
 
   /**
    * @override
@@ -40,21 +37,21 @@ inherit( AttachmentState, DetachingFromPolymeraseState, {
    * @param {number} dt
    * @public
    */
-  step: function( enclosingStateMachine, dt ) {
+  step( enclosingStateMachine, dt ) {
     this.detachingCountdownTimer -= dt;
     if ( this.detachingCountdownTimer <= 0 ) {
 
       // Done detaching, start wandering.
       this.msgRnaAttachmentStateMachine.setState( new WanderingAroundCytoplasmState() );
     }
-  },
+  }
 
   /**
    * @override
    * @param  {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
     // Move upwards, away from the DNA and polymerase.
     enclosingStateMachine.biomolecule.setMotionStrategy( new WanderInGeneralDirectionMotionStrategy(
       new Vector2( -0.5, 1 ), enclosingStateMachine.biomolecule.motionBoundsProperty ) );
@@ -62,6 +59,8 @@ inherit( AttachmentState, DetachingFromPolymeraseState, {
     // Update externally visible state.
     this.msgRnaAttachmentStateMachine.messengerRna.beingSynthesizedProperty.set( false );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'DetachingFromPolymeraseState', DetachingFromPolymeraseState );
 
 export default DetachingFromPolymeraseState;

@@ -11,7 +11,6 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -23,80 +22,78 @@ import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 const HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
 const HINT_STROKE = { lineJoin: 'bevel', lineDash: [ 5, 5 ], stroke: HINT_STROKE_COLOR };
 
-/**
- *
- * @param {ModelViewTransform2} modelViewTransform
- * @param {PlacementHint} placementHint
- * @constructor
- */
-function PlacementHintNode( modelViewTransform, placementHint ) {
+class PlacementHintNode extends Node {
 
-  const self = this;
-  Node.call( this );
+  /**
+   * @param {ModelViewTransform2} modelViewTransform
+   * @param {PlacementHint} placementHint
+   */
+  constructor( modelViewTransform, placementHint ) {
 
-  // Create a transparent color based on the base color of the molecule.
-  const transparentColor = new Color(
-    placementHint.getBaseColor().getRed(),
-    placementHint.getBaseColor().getGreen(),
-    placementHint.getBaseColor().getBlue(),
-    0.4
-  );
+    super();
+    const self = this;
 
-  // create a transform that will be used to scale but not translate the placement hint's shape
-  const scaleOnlyTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-    Vector2.ZERO,
-    Vector2.ZERO,
-    modelViewTransform.getMatrix().getScaleVector().x
-  );
+    // Create a transparent color based on the base color of the molecule.
+    const transparentColor = new Color(
+      placementHint.getBaseColor().getRed(),
+      placementHint.getBaseColor().getGreen(),
+      placementHint.getBaseColor().getBlue(),
+      0.4
+    );
 
-  const pathStyleOptions = merge( HINT_STROKE, {
-    lineWidth: 2,
-    lineDash: [ 5, 5 ],
-    fill: transparentColor,
-    boundsMethod: 'unstroked'
-  } );
+    // create a transform that will be used to scale but not translate the placement hint's shape
+    const scaleOnlyTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+      Vector2.ZERO,
+      Vector2.ZERO,
+      modelViewTransform.getMatrix().getScaleVector().x
+    );
 
-  const path = new Path( new Shape(), pathStyleOptions );
-  this.addChild( path );
+    const pathStyleOptions = merge( HINT_STROKE, {
+      lineWidth: 2,
+      lineDash: [ 5, 5 ],
+      fill: transparentColor,
+      boundsMethod: 'unstroked'
+    } );
 
-  function handlePositionChanged( position ) {
-    self.setTranslation( modelViewTransform.modelToViewPosition( position ) );
+    const path = new Path( new Shape(), pathStyleOptions );
+    this.addChild( path );
+
+    function handlePositionChanged( position ) {
+      self.setTranslation( modelViewTransform.modelToViewPosition( position ) );
+    }
+
+    placementHint.positionProperty.link( handlePositionChanged );
+
+    function handleShapeChanged( shape ) {
+      path.setShape( scaleOnlyTransform.modelToViewShape( shape ) );
+    }
+
+    // Update the shape whenever it changes.
+    placementHint.shapeProperty.link( handleShapeChanged );
+
+    function handleActiveChanged( hintActive ) {
+      path.visible = hintActive;
+    }
+
+    // Listen to the property that indicates whether the hint is active and only be visible when it is.
+    placementHint.activeProperty.link( handleActiveChanged );
+
+    this.disposePlacementHintNode = () => {
+      placementHint.positionProperty.unlink( handlePositionChanged );
+      placementHint.shapeProperty.unlink( handleShapeChanged );
+      placementHint.activeProperty.unlink( handleActiveChanged );
+    };
   }
-
-  placementHint.positionProperty.link( handlePositionChanged );
-
-  function handleShapeChanged( shape ) {
-    path.setShape( scaleOnlyTransform.modelToViewShape( shape ) );
-  }
-
-  // Update the shape whenever it changes.
-  placementHint.shapeProperty.link( handleShapeChanged );
-
-  function handleActiveChanged( hintActive ) {
-    path.visible = hintActive;
-  }
-
-  // Listen to the property that indicates whether the hint is active and only be visible when it is.
-  placementHint.activeProperty.link( handleActiveChanged );
-
-  this.disposePlacementHintNode = function() {
-    placementHint.positionProperty.unlink( handlePositionChanged );
-    placementHint.shapeProperty.unlink( handleShapeChanged );
-    placementHint.activeProperty.unlink( handleActiveChanged );
-  };
-}
-
-geneExpressionEssentials.register( 'PlacementHintNode', PlacementHintNode );
-
-inherit( Node, PlacementHintNode, {
 
   /**
    * @private
    */
-  dispose: function() {
+  dispose() {
     this.disposePlacementHintNode();
-    Node.prototype.dispose.call( this );
+    super.dispose();
   }
-} );
+}
+
+geneExpressionEssentials.register( 'PlacementHintNode', PlacementHintNode );
 
 export default PlacementHintNode;

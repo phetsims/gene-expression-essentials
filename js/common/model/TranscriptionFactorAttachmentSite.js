@@ -14,44 +14,42 @@
 
 
 //modules
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import AttachmentSite from './AttachmentSite.js';
 
-/**
- * @param {Object} owner - the molecule upon which this attachment site exists
- * @param {Vector2} initialPosition
- * @param {TranscriptionFactorConfig} tfConfig
- * @param {number} initialAffinity
- * @constructor
- */
-function TranscriptionFactorAttachmentSite( owner, initialPosition, tfConfig, initialAffinity ) {
-  AttachmentSite.call( this, owner, initialPosition, initialAffinity );
+class TranscriptionFactorAttachmentSite extends AttachmentSite {
 
-  // Configuration of TF that attaches to this site.
-  this.tfConfig = tfConfig; // @private
-}
+  /**
+   * @param {Object} owner - the molecule upon which this attachment site exists
+   * @param {Vector2} initialPosition
+   * @param {TranscriptionFactorConfig} tfConfig
+   * @param {number} initialAffinity
+   */
+  constructor( owner, initialPosition, tfConfig, initialAffinity ) {
+    super( owner, initialPosition, initialAffinity );
 
-geneExpressionEssentials.register( 'TranscriptionFactorAttachmentSite', TranscriptionFactorAttachmentSite );
-
-inherit( AttachmentSite, TranscriptionFactorAttachmentSite, {
+    // Configuration of TF that attaches to this site.
+    this.tfConfig = tfConfig; // @private
+  }
 
   /**
    * @param {TranscriptionFactorConfig} tfConfig
    * @returns {boolean}
    * @public
    */
-  configurationMatches: function( tfConfig ) {
+  configurationMatches( tfConfig ) {
     return this.tfConfig === tfConfig;
-  },
+  }
 
   /**
    * @returns {TranscriptionFactorConfig}
    * @public
    */
-  getTfConfig: function() {
+  getTfConfig() {
     return this.tfConfig;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'TranscriptionFactorAttachmentSite', TranscriptionFactorAttachmentSite );
 
 export default TranscriptionFactorAttachmentSite;

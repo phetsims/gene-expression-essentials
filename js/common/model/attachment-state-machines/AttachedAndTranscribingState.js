@@ -11,7 +11,6 @@
 
 import Property from '../../../../../axon/js/Property.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import MessengerRna from '../MessengerRna.js';
@@ -24,24 +23,21 @@ const MRNA_GROWTH_FACTOR = 0.63; // empirically determined adjustment factor to 
 // used for comparing the position of Biomolecule and endOfGene's position.
 const BIO_MOLECULE_POSITION_COMPARISON_EPSILON = 0.000001;
 
-/**
- * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
- * @constructor
- */
-function AttachedAndTranscribingState( rnaPolymeraseAttachmentStateMachine ) {
-  AttachmentState.call( this );
+class AttachedAndTranscribingState extends AttachmentState {
 
-  // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
-  this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+  /**
+   * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
+   */
+  constructor( rnaPolymeraseAttachmentStateMachine ) {
+    super();
 
-  // @private
-  this.endOfGene = null;
-  this.messengerRna = null;
-}
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
 
-geneExpressionEssentials.register( 'AttachedAndTranscribingState', AttachedAndTranscribingState );
-
-inherit( AttachmentState, AttachedAndTranscribingState, {
+    // @private
+    this.endOfGene = null;
+    this.messengerRna = null;
+  }
 
   /**
    * @override
@@ -49,7 +45,7 @@ inherit( AttachmentState, AttachedAndTranscribingState, {
    * @param {number} dt - delta time
    * @public
    */
-  step: function( asm, dt ) {
+  step( asm, dt ) {
     const rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
     const dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
     const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
@@ -72,7 +68,7 @@ inherit( AttachmentState, AttachedAndTranscribingState, {
 
     // Check for molecules that are in the way.
     const molecules = asm.biomolecule.getModel().getOverlappingBiomolecules( asm.biomolecule.bounds );
-    molecules.forEach( function( molecule ) {
+    molecules.forEach( molecule => {
       if ( molecule.getPosition().x > asm.biomolecule.getPosition().x && molecule.attachedToDnaProperty.get() ) {
 
         // This molecule is blocking transcription, so bump it off
@@ -90,14 +86,14 @@ inherit( AttachmentState, AttachedAndTranscribingState, {
       this.messengerRna = null;
       this.endOfGene = null;
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} asm
    * @public
    */
-  entered: function( asm ) {
+  entered( asm ) {
     const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
     const transcribingAttachmentSite = this.rnaPolymeraseAttachmentStateMachine.transcribingAttachmentSite;
     const attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
@@ -134,6 +130,8 @@ inherit( AttachmentState, AttachedAndTranscribingState, {
     transcribingAttachmentSite.attachedOrAttachingMoleculeProperty.set( asm.biomolecule );
     this.rnaPolymeraseAttachmentStateMachine.attachmentSite = transcribingAttachmentSite;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'AttachedAndTranscribingState', AttachedAndTranscribingState );
 
 export default AttachedAndTranscribingState;

@@ -9,7 +9,6 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
 import StillnessMotionStrategy from '../motion-strategies/StillnessMotionStrategy.js';
@@ -22,78 +21,73 @@ const FADE_OUT_TIME = 3; // In seconds.
 //------------------------------------------
 // States for this attachment state machine
 //------------------------------------------
-const AttachedToDestroyerState = inherit(
-  AttachmentState,
+class AttachedToDestroyerState extends AttachmentState {
 
-  /**
-   * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
-   */
-  function( messengerRnaFragmentAttachmentStateMachine ) {
+  constructor( messengerRnaFragmentAttachmentStateMachine ) {
+    super();
     this.messengerRnaFragmentAttachmentStateMachine = messengerRnaFragmentAttachmentStateMachine;
-  },
-  {
-    /**
-     * @override
-     * @param {AttachmentStateMachine} asm
-     */
-    entered: function( asm ) {
-      const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
-      biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
-    }
   }
-);
-
-const UnattachedAndFadingState = inherit(
-  AttachmentState,
 
   /**
-   * @param {MessengerRnaFragmentAttachmentStateMachine} messengerRnaFragmentAttachmentStateMachine
+   * @override
+   * @param {AttachmentStateMachine} asm
+   * @public
    */
-  function( messengerRnaFragmentAttachmentStateMachine ) {
-    this.messengerRnaFragmentAttachmentStateMachine = messengerRnaFragmentAttachmentStateMachine;
-  },
-  {
-    /**
-     * @override
-     * @param {AttachmentStateMachine} asm
-     */
-    entered: function( asm ) {
-      const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
-      assert && assert( biomolecule.existenceStrengthProperty.get() === 1 );
-      biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
-    },
-
-    /**
-     * @override
-     * @param {AttachmentStateMachine} asm
-     * @param {number} dt
-     */
-    step: function( asm, dt ) {
-      const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
-      biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
-    }
-  } );
-
-/**
- * @param {MobileBiomolecule} biomolecule
- * @constructor
- */
-function MessengerRnaFragmentAttachmentStateMachine( biomolecule ) {
-  AttachmentStateMachine.call( this, biomolecule );
-  this.setState( new AttachedToDestroyerState( this ) );
+  entered( asm ) {
+    const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+    biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
+  }
 }
 
-geneExpressionEssentials.register( 'MessengerRnaFragmentAttachmentStateMachine', MessengerRnaFragmentAttachmentStateMachine );
+class UnattachedAndFadingState extends AttachmentState {
 
-inherit( AttachmentStateMachine, MessengerRnaFragmentAttachmentStateMachine, {
+  constructor( messengerRnaFragmentAttachmentStateMachine ) {
+    super();
+    this.messengerRnaFragmentAttachmentStateMachine = messengerRnaFragmentAttachmentStateMachine;
+  }
+
+  /**
+   * @override
+   * @param {AttachmentStateMachine} asm
+   * @public
+   */
+  entered( asm ) {
+    const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+    assert && assert( biomolecule.existenceStrengthProperty.get() === 1 );
+    biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
+  }
+
+  /**
+   * @override
+   * @param {AttachmentStateMachine} asm
+   * @param {number} dt
+   * @public
+   */
+  step( asm, dt ) {
+    const biomolecule = this.messengerRnaFragmentAttachmentStateMachine.biomolecule;
+    biomolecule.existenceStrengthProperty.set( Math.max( biomolecule.existenceStrengthProperty.get() - dt / FADE_OUT_TIME, 0 ) );
+  }
+}
+
+class MessengerRnaFragmentAttachmentStateMachine extends AttachmentStateMachine {
+
+  /**
+   * @param {MobileBiomolecule} biomolecule
+   */
+  constructor( biomolecule ) {
+    super( biomolecule );
+    this.setState( new AttachedToDestroyerState( this ) );
+  }
 
   /**
    * @override
    * @public
    */
-  detach: function() {
+  detach() {
     this.setState( new UnattachedAndFadingState( this ) );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'MessengerRnaFragmentAttachmentStateMachine', MessengerRnaFragmentAttachmentStateMachine );
 
 export default MessengerRnaFragmentAttachmentStateMachine;

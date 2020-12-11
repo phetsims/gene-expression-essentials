@@ -14,7 +14,6 @@
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
@@ -23,44 +22,40 @@ const PRE_FADE_DRIFT_TIME = 1.5; // In seconds.
 const FADE_AND_DRIFT_TIME = 1; // In seconds.
 const PRE_TELEPORT_VELOCITY = 250; // In picometers per second.
 
-/**
- * @param {Vector2} wanderDirection
- * @param {Array.<Rectangle>} destinationZones
- * @param {Property.<MotionBounds>} motionBoundsProperty
- * @constructor
- */
-function DriftThenTeleportMotionStrategy( wanderDirection, destinationZones, motionBoundsProperty ) {
-  const self = this;
-  MotionStrategy.call( this );
+class DriftThenTeleportMotionStrategy extends MotionStrategy {
 
-  function handleMotionBoundsChanged( motionBounds ) {
-    self.motionBounds = motionBounds;
+  /**
+   * @param {Vector2} wanderDirection
+   * @param {Array.<Rectangle>} destinationZones
+   * @param {Property.<MotionBounds>} motionBoundsProperty
+   */
+  constructor( wanderDirection, destinationZones, motionBoundsProperty ) {
+    super();
+
+    const handleMotionBoundsChanged = motionBounds => {
+      this.motionBounds = motionBounds;
+    };
+
+    motionBoundsProperty.link( handleMotionBoundsChanged );
+
+    this.disposeDriftThenTeleportMotionStrategy = () => {
+      motionBoundsProperty.unlink( handleMotionBoundsChanged );
+    };
+
+    // list of valid places where the item can teleport
+    this.destinationZones = destinationZones; // @private
+    this.preFadeCountdown = PRE_FADE_DRIFT_TIME; // @private
+    this.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY ); // @private
+    this.velocityZ = -1 / FADE_AND_DRIFT_TIME; // @private
   }
-
-  motionBoundsProperty.link( handleMotionBoundsChanged );
-
-  this.disposeDriftThenTeleportMotionStrategy = function() {
-    motionBoundsProperty.unlink( handleMotionBoundsChanged );
-  };
-
-  // list of valid places where the item can teleport
-  this.destinationZones = destinationZones; // @private
-  this.preFadeCountdown = PRE_FADE_DRIFT_TIME; // @private
-  this.velocityXY = wanderDirection.timesScalar( PRE_TELEPORT_VELOCITY ); // @private
-  this.velocityZ = -1 / FADE_AND_DRIFT_TIME; // @private
-}
-
-geneExpressionEssentials.register( 'DriftThenTeleportMotionStrategy', DriftThenTeleportMotionStrategy );
-
-inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
 
   /**
    * @override
    * @public
    */
-  dispose: function() {
+  dispose() {
     this.disposeDriftThenTeleportMotionStrategy();
-  },
+  }
 
   /**
    * @param {Array.<Bounds2>} destinationZones
@@ -68,7 +63,7 @@ inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
    * @returns {Vector2}
    * @private
    */
-  generateRandomPositionInBounds: function( destinationZones, bounds ) {
+  generateRandomPositionInBounds( destinationZones, bounds ) {
 
     // randomly choose one of the destination zones
     const destinationBounds = phet.joist.random.sample( destinationZones );
@@ -84,7 +79,7 @@ inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
       destinationBounds.x + bounds.getWidth() / 2 + phet.joist.random.nextDouble() * reducedBoundsWidth,
       destinationBounds.y + bounds.getHeight() / 2 + phet.joist.random.nextDouble() * reducedBoundsHeight
     );
-  },
+  }
 
   /**
    * @override
@@ -94,10 +89,10 @@ inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
    * @returns {Vector2}
    * @public
    */
-  getNextPosition: function( currentPosition, bounds, dt ) {
+  getNextPosition( currentPosition, bounds, dt ) {
     const position3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.x, 0 ), bounds, dt );
     return new Vector2( position3D.x, position3D.y );
-  },
+  }
 
   /**
    * @override
@@ -107,7 +102,7 @@ inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
    * @returns {Vector3}
    * @public
    */
-  getNextPosition3D: function( currentPosition, bounds, dt ) {
+  getNextPosition3D( currentPosition, bounds, dt ) {
 
     // Check if it is time to teleport.  This occurs when back of Z-space is reached.
     if ( currentPosition.z <= -1 ) {
@@ -143,6 +138,8 @@ inherit( MotionStrategy, DriftThenTeleportMotionStrategy, {
       Utils.clamp( currentPosition.z + zMovement, -1, 0 )
     );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'DriftThenTeleportMotionStrategy', DriftThenTeleportMotionStrategy );
 
 export default DriftThenTeleportMotionStrategy;

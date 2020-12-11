@@ -11,7 +11,6 @@
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import BioShapeUtils from '../../common/model/BioShapeUtils.js';
 import ShapeChangingModelElement from '../../common/model/ShapeChangingModelElement.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
@@ -30,47 +29,46 @@ const PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES = 150;
 // Default E-Coli like shape for performance improvement and we make copy of it and rotate for different instances
 const E_COLI_LLIKE_SHAPE = BioShapeUtils.createEColiLikeShape( DEFAULT_CELL_SIZE.width, DEFAULT_CELL_SIZE.height );
 
-/**
- * @param {number} rotationAngle rotation for the cell in model space
- * @constructor
- */
-function Cell( rotationAngle ) {
-  ShapeChangingModelElement.call( this, this.createShape( rotationAngle ) );
+class Cell extends ShapeChangingModelElement {
 
-  // This is a separate object in which the protein synthesis is simulated. The reason that this is broken out into a
-  // separate class is that it was supplied by someone outside of the PhET project, and this keeps it encapsulated and
-  // thus easier for the original author to help maintain.
-  this.proteinSynthesisSimulator = new CellProteinSynthesisSimulator( 100 ); // @private
+  /**
+   * @param {number} rotationAngle rotation for the cell in model space
+   */
+  constructor( rotationAngle ) {
+    super( Cell.createShape( rotationAngle ) );
 
-  // Property that indicates the current protein count in the cell. This should not be set by external users, only
-  // monitored.
-  this.proteinCount = new Property( 0 ); // @public
-}
+    // This is a separate object in which the protein synthesis is simulated. The reason that this is broken out into a
+    // separate class is that it was supplied by someone outside of the PhET project, and this keeps it encapsulated and
+    // thus easier for the original author to help maintain.
+    this.proteinSynthesisSimulator = new CellProteinSynthesisSimulator( 100 ); // @private
 
-geneExpressionEssentials.register( 'Cell', Cell );
-
-inherit( ShapeChangingModelElement, Cell, {
+    // Property that indicates the current protein count in the cell. This should not be set by external users, only
+    // monitored.
+    this.proteinCount = new Property( 0 ); // @public
+  }
 
   /**
    * @param {number} dt
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
     // NOTE: The time step is multiplied in order to get the model to run at the desired rate.
     this.proteinSynthesisSimulator.step( dt * 1000 );
     this.proteinCount.set( this.proteinSynthesisSimulator.getProteinCount() );
-  },
+  }
 
   /**
    * Static function for creating the shape of the cell.
    * @param {number} rotationAngle
    * @returns {Shape}
+   * @private
    */
-  createShape: function( rotationAngle ) {
+  static createShape( rotationAngle ) {
     const eColiShape = E_COLI_LLIKE_SHAPE.copy();
+
     // rotate and return
     return eColiShape.transformed( Matrix3.rotation2( rotationAngle ) );
-  },
+  }
 
   /*-----------------------------------------------------------------------------------------------------------------
    * The following methods are essentially "pass through" methods to the protein synthesis simulator. This is done to
@@ -81,63 +79,66 @@ inherit( ShapeChangingModelElement, Cell, {
    * @param {number} tfCount
    * @public
    */
-  setTranscriptionFactorCount: function( tfCount ) {
+  setTranscriptionFactorCount( tfCount ) {
     this.proteinSynthesisSimulator.setTranscriptionFactorCount( tfCount );
-  },
+  }
 
   /**
    * @param {number} polymeraseCount
    * @public
    */
-  setPolymeraseCount: function( polymeraseCount ) {
+  setPolymeraseCount( polymeraseCount ) {
     this.proteinSynthesisSimulator.setPolymeraseCount( polymeraseCount );
-  },
+  }
 
   /**
    * @param {number} newRate
    * @public
    */
-  setGeneTranscriptionFactorAssociationRate: function( newRate ) {
+  setGeneTranscriptionFactorAssociationRate( newRate ) {
     this.proteinSynthesisSimulator.setGeneTranscriptionFactorAssociationRate( newRate );
-  },
+  }
 
   /**
    * @param {number} newRate
    * @public
    */
-  setPolymeraseAssociationRate: function( newRate ) {
+  setPolymeraseAssociationRate( newRate ) {
     this.proteinSynthesisSimulator.setPolymeraseAssociationRate( newRate );
-  },
+  }
 
   /**
    * @param {number} newRate
    * @public
    */
-  setRNARibosomeAssociationRate: function( newRate ) {
+  setRNARibosomeAssociationRate( newRate ) {
     this.proteinSynthesisSimulator.setRNARibosomeAssociationRate( newRate );
-  },
+  }
 
   /**
    * @param {number} newRate
    * @public
    */
-  setProteinDegradationRate: function( newRate ) {
+  setProteinDegradationRate( newRate ) {
     this.proteinSynthesisSimulator.setProteinDegradationRate( newRate );
-  },
+  }
 
   /**
    * @param {number} mRnaDegradationRate
    * @public
    */
-  setMRnaDegradationRate: function( mRnaDegradationRate ) {
+  setMRnaDegradationRate( mRnaDegradationRate ) {
     this.proteinSynthesisSimulator.setMrnaDegradationRate( mRnaDegradationRate );
   }
-}, {
 
-  // statics
-  DefaultCellSize: DEFAULT_CELL_SIZE,
-  ProteinLevelWhereColorChangeStarts: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_STARTS,
-  ProteinLevelWhereColorChangeCompletes: PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES
-} );
+}
+
+
+// statics
+Cell.DefaultCellSize = DEFAULT_CELL_SIZE;
+Cell.ProteinLevelWhereColorChangeStarts = PROTEIN_LEVEL_WHERE_COLOR_CHANGE_STARTS;
+Cell.ProteinLevelWhereColorChangeCompletes = PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES;
+
+geneExpressionEssentials.register( 'Cell', Cell );
 
 export default Cell;

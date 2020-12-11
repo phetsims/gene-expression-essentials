@@ -10,30 +10,26 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import DriftThenTeleportMotionStrategy from '../motion-strategies/DriftThenTeleportMotionStrategy.js';
 import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 
-/**
- * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
- * @param {Array<Bounds2>} recycleReturnZones
- * @constructor
- */
-function BeingRecycledState( rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) {
-  AttachmentState.call( this );
+class BeingRecycledState extends AttachmentState {
 
-  // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
-  this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+  /**
+   * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
+   * @param {Array<Bounds2>} recycleReturnZones
+   */
+  constructor( rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) {
+    super();
 
-  // private
-  this.recycleReturnZones = recycleReturnZones;
-}
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
 
-geneExpressionEssentials.register( 'BeingRecycledState', BeingRecycledState );
-
-inherit( AttachmentState, BeingRecycledState, {
+    // private
+    this.recycleReturnZones = recycleReturnZones;
+  }
 
   /**
    * @override
@@ -41,7 +37,7 @@ inherit( AttachmentState, BeingRecycledState, {
    * @param {number} dt
    * @public
    */
-  step: function( asm, dt ) {
+  step( asm, dt ) {
 
     // Verify that state is consistent.
     assert && assert( asm.attachmentSite === null );
@@ -57,14 +53,14 @@ inherit( AttachmentState, BeingRecycledState, {
       asm.biomolecule.setMotionStrategy( new RandomWalkMotionStrategy( biomolecule.motionBoundsProperty ) );
       asm.setState( unattachedAndAvailableState );
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} asm
    * @public
    */
-  entered: function( asm ) {
+  entered( asm ) {
     const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
 
     // Prevent user interaction.
@@ -76,6 +72,8 @@ inherit( AttachmentState, BeingRecycledState, {
       phet.joist.random.nextBoolean() ? 1 : -1 ),
       this.recycleReturnZones, biomolecule.motionBoundsProperty ) );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'BeingRecycledState', BeingRecycledState );
 
 export default BeingRecycledState;

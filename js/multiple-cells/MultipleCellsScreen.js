@@ -19,6 +19,7 @@ import MultipleCellsModel from './model/MultipleCellsModel.js';
 import MultipleCellsScreenView from './view/MultipleCellsScreenView.js';
 
 class MultipleCellsScreen extends Screen {
+
   constructor() {
 
     const options = {
@@ -32,8 +33,8 @@ class MultipleCellsScreen extends Screen {
     };
 
     super(
-      function() { return new MultipleCellsModel(); },
-      function( model ) { return new MultipleCellsScreenView( model ); },
+      () => new MultipleCellsModel(),
+      model => new MultipleCellsScreenView( model ),
       options
     );
   }

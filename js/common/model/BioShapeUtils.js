@@ -30,7 +30,7 @@ const BioShapeUtils = {
    * @returns {Shape}
    * @public
    */
-  createdDistortedRoundedShapeFromPoints: function( points, distortionFactor, randomNumberSeed ) {
+  createdDistortedRoundedShapeFromPoints( points, distortionFactor, randomNumberSeed ) {
     const rand = new Random( {
       seed: randomNumberSeed
     } );
@@ -60,7 +60,7 @@ const BioShapeUtils = {
    * @returns {Shape}
    * @private
    */
-  createRandomShapeFromPoints: function( points, seed ) {
+  createRandomShapeFromPoints( points, seed ) {
 
     const shape = new Shape();
     const rand = new Random( {
@@ -98,7 +98,7 @@ const BioShapeUtils = {
    * @returns {Shape}
    * @public
    */
-  createRandomShape: function( size, seed ) {
+  createRandomShape( size, seed ) {
     const pointList = [];
     const rand = new Random( {
       seed: seed
@@ -126,7 +126,7 @@ const BioShapeUtils = {
    * @returns {Shape}
    * @public
    */
-  createCurvyLineFromPoints: function( points ) {
+  createCurvyLineFromPoints( points ) {
     assert && assert( points.length > 0 );
 
     // Control points, used throughout the code below for curving the line.
@@ -182,7 +182,7 @@ const BioShapeUtils = {
    * @returns {Shape}
    * @public
    */
-  createEColiLikeShape: function( width, height ) {
+  createEColiLikeShape( width, height ) {
     assert && assert( width > height ); // Param checking.  Can't create the needed shape if this isn't true.
 
     // Tweakable parameters that affect number of points used to define the shape.

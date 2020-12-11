@@ -15,38 +15,36 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 // constants
 const BASE_PAIR_WIDTH = 13; // In picometers.  Not sure if this is close to real life, chosen to look decent in view.
 
-/**
- * @param {number} centerPositionX
- * @param {number} topYPosition
- * @param {number} bottomYPosition
- * @constructor
- */
-function BasePair( centerPositionX, topYPosition, bottomYPosition ) {
+class BasePair {
 
-  // @public - values that indicate where the base pair is positioned
-  this.x = centerPositionX - BASE_PAIR_WIDTH / 2;
-  this.topYPosition = topYPosition;
-  this.bottomYPosition = bottomYPosition;
-  this.width = BASE_PAIR_WIDTH;
-}
+  /**
+   * @param {number} centerPositionX
+   * @param {number} topYPosition
+   * @param {number} bottomYPosition
+   */
+  constructor( centerPositionX, topYPosition, bottomYPosition ) {
 
-geneExpressionEssentials.register( 'BasePair', BasePair );
-
-inherit( Object, BasePair, {
+    // @public - values that indicate where the base pair is positioned
+    this.x = centerPositionX - BASE_PAIR_WIDTH / 2;
+    this.topYPosition = topYPosition;
+    this.bottomYPosition = bottomYPosition;
+    this.width = BASE_PAIR_WIDTH;
+  }
 
   /**
    * @returns {number}
    * @public
    */
-  getCenterPositionX: function() {
+  getCenterPositionX() {
     return this.x + BASE_PAIR_WIDTH / 2;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'BasePair', BasePair );
 
 export default BasePair;

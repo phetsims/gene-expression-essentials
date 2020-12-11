@@ -17,7 +17,6 @@ import createObservableArray from '../../../../axon/js/createObservableArray.js'
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import DnaMolecule from '../../common/model/DnaMolecule.js';
 import GeneA from '../../common/model/GeneA.js';
@@ -40,155 +39,152 @@ const BIOMOLECULE_STAGE_HEIGHT = 6000; // In picometers.
 // size of the DNA strand
 const NUM_BASE_PAIRS_ON_DNA_STRAND = 2000;
 
-/**
- * @constructor
- */
-function ManualGeneExpressionModel() {
-  GeneExpressionModel.call( this );
+class ManualGeneExpressionModel extends GeneExpressionModel {
 
-  // @private {DnaMolecule} - the DNA strand, which is where the genes reside and where the polymerase does its
-  // transcription, and where a lot of the action within this model takes place.
-  this.dnaMolecule = new DnaMolecule(
-    this,
-    NUM_BASE_PAIRS_ON_DNA_STRAND,
-    -NUM_BASE_PAIRS_ON_DNA_STRAND * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS / 4,
-    false
-  );
-  this.dnaMolecule.addGene( new GeneA( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 4 - GeneA.NUM_BASE_PAIRS / 2 ) );
-  this.dnaMolecule.addGene( new GeneB( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 2 - GeneB.NUM_BASE_PAIRS / 2 ) );
-  this.dnaMolecule.addGene( new GeneC( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND * 3 / 4 - GeneC.NUM_BASE_PAIRS / 2 ) );
+  /**
+   */
+  constructor() {
+    super();
 
-  // list of mobile biomolecules in the model, excluding mRNA
-  this.mobileBiomoleculeList = createObservableArray(); // @public
+    // @private {DnaMolecule} - the DNA strand, which is where the genes reside and where the polymerase does its
+    // transcription, and where a lot of the action within this model takes place.
+    this.dnaMolecule = new DnaMolecule(
+      this,
+      NUM_BASE_PAIRS_ON_DNA_STRAND,
+      -NUM_BASE_PAIRS_ON_DNA_STRAND * GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS / 4,
+      false
+    );
+    this.dnaMolecule.addGene( new GeneA( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 4 - GeneA.NUM_BASE_PAIRS / 2 ) );
+    this.dnaMolecule.addGene( new GeneB( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND / 2 - GeneB.NUM_BASE_PAIRS / 2 ) );
+    this.dnaMolecule.addGene( new GeneC( this.dnaMolecule, NUM_BASE_PAIRS_ON_DNA_STRAND * 3 / 4 - GeneC.NUM_BASE_PAIRS / 2 ) );
 
-  // list of mRNA molecules in the sim - These are kept separate because they are treated a bit differently than the
-  // other mobile biomolecules.
-  this.messengerRnaList = createObservableArray(); // @public
+    // list of mobile biomolecules in the model, excluding mRNA
+    this.mobileBiomoleculeList = createObservableArray(); // @public
 
-  // The gene that the user is focusing on, other gene activity is suspended.  Start with the 0th gene in the DNA
-  // (leftmost). Initialize variables that are dependent upon the DNA.
-  this.activeGeneProperty = new Property( this.dnaMolecule.getGenes()[ 0 ] ); // @public(read-only)
+    // list of mRNA molecules in the sim - These are kept separate because they are treated a bit differently than the
+    // other mobile biomolecules.
+    this.messengerRnaList = createObservableArray(); // @public
 
-  // List of areas where biomolecules should not be allowed.  These are generally populated by the view in order to
-  // keep biomolecules from wandering over the toolboxes and collection areas.
-  this.offLimitsMotionSpaces = []; //@private
+    // The gene that the user is focusing on, other gene activity is suspended.  Start with the 0th gene in the DNA
+    // (leftmost). Initialize variables that are dependent upon the DNA.
+    this.activeGeneProperty = new Property( this.dnaMolecule.getGenes()[ 0 ] ); // @public(read-only)
 
-  // Properties that track how many of the various proteins have been collected.
-  this.proteinACollectedProperty = new Property( 0 ); // @public(read-only)
-  this.proteinBCollectedProperty = new Property( 0 ); // @public(read-only)
-  this.proteinCCollectedProperty = new Property( 0 ); // @public(read-only)
+    // List of areas where biomolecules should not be allowed.  These are generally populated by the view in order to
+    // keep biomolecules from wandering over the toolboxes and collection areas.
+    this.offLimitsMotionSpaces = []; //@private
 
-  // Map of the protein collection count properties to the protein types, used to obtain the count property based on
-  // the type of protein.
-  this.mapProteinClassToCollectedCount = {
-    'ProteinA': this.proteinACollectedProperty,
-    'ProteinB': this.proteinBCollectedProperty,
-    'ProteinC': this.proteinCCollectedProperty
-  };
+    // Properties that track how many of the various proteins have been collected.
+    this.proteinACollectedProperty = new Property( 0 ); // @public(read-only)
+    this.proteinBCollectedProperty = new Property( 0 ); // @public(read-only)
+    this.proteinCCollectedProperty = new Property( 0 ); // @public(read-only)
 
-  // Rectangle that describes the "protein capture area".  When a protein is dropped by the user over this area, it
-  // is considered to be captured.
-  // Initially it is empty and is set by call to the function setProteinCaptureArea()
-  this.proteinCaptureArea = Bounds2.NOTHING.copy(); // @private
-}
+    // Map of the protein collection count properties to the protein types, used to obtain the count property based on
+    // the type of protein.
+    this.mapProteinClassToCollectedCount = {
+      'ProteinA': this.proteinACollectedProperty,
+      'ProteinB': this.proteinBCollectedProperty,
+      'ProteinC': this.proteinCCollectedProperty
+    };
 
-geneExpressionEssentials.register( 'ManualGeneExpressionModel', ManualGeneExpressionModel );
-
-inherit( GeneExpressionModel, ManualGeneExpressionModel, {
+    // Rectangle that describes the "protein capture area".  When a protein is dropped by the user over this area, it
+    // is considered to be captured.
+    // Initially it is empty and is set by call to the function setProteinCaptureArea()
+    this.proteinCaptureArea = Bounds2.NOTHING.copy(); // @private
+  }
 
   /**
    * main step function for this model
    * @param {number} dt
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
 
-    this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
+    this.mobileBiomoleculeList.forEach( mobileBiomolecule => {
       mobileBiomolecule.step( dt );
     } );
 
-    this.messengerRnaList.forEach( function( messengerRna ) {
+    this.messengerRnaList.forEach( messengerRna => {
       messengerRna.step( dt );
     } );
 
     this.dnaMolecule.step( dt );
-  },
+  }
 
   /**
    * @returns {DnaMolecule}
    * @public
    */
-  getDnaMolecule: function() {
+  getDnaMolecule() {
     return this.dnaMolecule;
-  },
+  }
 
   /**
    * Switch to the previous gene
    * @public
    */
-  previousGene: function() {
+  previousGene() {
     this.switchToGeneRelative( -1 );
-  },
+  }
 
   /**
    * Switch to the next gene
    * @public
    */
-  nextGene: function() {
+  nextGene() {
     this.switchToGeneRelative( +1 );
-  },
+  }
 
   /**
    * @param {Bounds2} newCaptureAreaBounds
    * @public
    */
-  setProteinCaptureArea: function( newCaptureAreaBounds ) {
+  setProteinCaptureArea( newCaptureAreaBounds ) {
     this.proteinCaptureArea.set( newCaptureAreaBounds );
-  },
+  }
 
   /**
    * @param {string} proteinType
    * @returns {Property}
    * @public
    */
-  getCollectedCounterForProteinType: function( proteinType ) {
+  getCollectedCounterForProteinType( proteinType ) {
     return this.mapProteinClassToCollectedCount[ proteinType ];
-  },
+  }
 
   /**
    * @param {number} i
    * @private
    */
-  switchToGeneRelative: function( i ) {
+  switchToGeneRelative( i ) {
     const genes = this.dnaMolecule.getGenes();
     const index = Utils.clamp( 0, genes.indexOf( this.activeGeneProperty.get() ) + i, genes.length - 1 );
     this.activeGeneProperty.set( genes[ index ] );
-  },
+  }
 
   /**
    * @param {number} i
    * @private
    */
-  activateGene: function( i ) {
+  activateGene( i ) {
     this.activeGeneProperty.set( this.dnaMolecule.getGenes()[ i ] );
-  },
+  }
 
   /**
    * @override
    * @param {MobileBiomolecule} mobileBiomolecule
    * @public
    */
-  addMobileBiomolecule: function( mobileBiomolecule ) {
+  addMobileBiomolecule( mobileBiomolecule ) {
     const self = this;
-    self.mobileBiomoleculeList.add( mobileBiomolecule );
-    mobileBiomolecule.setMotionBounds( self.getBoundsForActiveGene() );
+    this.mobileBiomoleculeList.add( mobileBiomolecule );
+    mobileBiomolecule.setMotionBounds( this.getBoundsForActiveGene() );
 
     // Hook up an observer that will activate and deactivate placement hints for this molecule.
-    mobileBiomolecule.userControlledProperty.link( function( isUserControlled, wasUserControlled ) {
+    mobileBiomolecule.userControlledProperty.link( ( isUserControlled, wasUserControlled ) => {
 
       if ( isUserControlled ) {
-        self.dnaMolecule.activateHints( mobileBiomolecule );
-        self.messengerRnaList.forEach( function( messengerRna ) {
+        this.dnaMolecule.activateHints( mobileBiomolecule );
+        this.messengerRnaList.forEach( messengerRna => {
           messengerRna.activateHints( mobileBiomolecule );
         } );
       }
@@ -197,17 +193,17 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
         if ( wasUserControlled ) {
 
           // The user dropped this biomolecule, so deactivate any hints that were showing where it could be placed.
-          self.dnaMolecule.deactivateAllHints();
-          self.messengerRnaList.forEach( function( messengerRna ) {
+          this.dnaMolecule.deactivateAllHints();
+          this.messengerRnaList.forEach( messengerRna => {
             messengerRna.deactivateAllHints();
           } );
 
           // See if this is a protein being placed in the capture area.
-          if ( self.proteinCaptureArea.containsPoint( mobileBiomolecule.getPosition() ) &&
+          if ( this.proteinCaptureArea.containsPoint( mobileBiomolecule.getPosition() ) &&
                mobileBiomolecule instanceof Protein ) {
 
             // The user has dropped this protein in the capture area. So capture it.
-            self.captureProtein( mobileBiomolecule );
+            this.captureProtein( mobileBiomolecule );
           }
         }
       }
@@ -220,7 +216,7 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
         mobileBiomolecule.existenceStrengthProperty.unlink( existenceStrengthChangeHandler );
       }
     } );
-  },
+  }
 
   /**
    * Get a list of all mobile biomolecules that overlap with the provided shape.
@@ -229,11 +225,11 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
    * @returns {Array.<MobileBiomolecule>} List of molecules that overlap with the provided bounds.
    * @public
    */
-  getOverlappingBiomolecules: function( testShapeBounds ) {
+  getOverlappingBiomolecules( testShapeBounds ) {
 
     const overlappingBiomolecules = [];
 
-    this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
+    this.mobileBiomoleculeList.forEach( mobileBiomolecule => {
       if ( mobileBiomolecule.bounds.intersectsBounds( testShapeBounds ) ) {
 
         overlappingBiomolecules.push( mobileBiomolecule );
@@ -241,8 +237,7 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
     } );
 
     return overlappingBiomolecules;
-  },
-
+  }
 
   /**
    * Capture the specified protein, which means that it is actually removed from the model and the associated
@@ -250,7 +245,7 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
    * @param {Protein} protein
    * @private
    */
-  captureProtein: function( protein ) {
+  captureProtein( protein ) {
     if ( protein instanceof ProteinA ) {
       this.proteinACollectedProperty.set( this.proteinACollectedProperty.get() + 1 );
     }
@@ -261,62 +256,62 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
       this.proteinCCollectedProperty.set( this.proteinCCollectedProperty.get() + 1 );
     }
     this.mobileBiomoleculeList.remove( protein );
-  },
+  }
 
   /**
    * @param {Protein} proteinClassType
    * @returns {number}
    * @public
    */
-  getProteinCount: function( proteinClassType ) {
+  getProteinCount( proteinClassType ) {
     let count = 0;
-    this.mobileBiomoleculeList.forEach( function( mobileBiomolecule ) {
+    this.mobileBiomoleculeList.forEach( mobileBiomolecule => {
       if ( mobileBiomolecule instanceof proteinClassType ) {
         count++;
       }
     } );
     return count;
-  },
+  }
 
   /**
    * @param {MobileBiomolecule} mobileBiomolecule
    * @public
    */
-  removeMobileBiomolecule: function( mobileBiomolecule ) {
+  removeMobileBiomolecule( mobileBiomolecule ) {
     this.mobileBiomoleculeList.remove( mobileBiomolecule );
-  },
+  }
 
   /**
    * @param {MessengerRna} messengerRna
    * @public
    */
-  addMessengerRna: function( messengerRna ) {
+  addMessengerRna( messengerRna ) {
     this.messengerRnaList.add( messengerRna );
     messengerRna.setMotionBounds( this.getBoundsForActiveGene() );
-  },
+  }
 
   /**
    * @param {MessengerRna} messengerRnaBeingDestroyed
    * @public
    */
-  removeMessengerRna: function( messengerRnaBeingDestroyed ) {
+  removeMessengerRna( messengerRnaBeingDestroyed ) {
     this.messengerRnaList.remove( messengerRnaBeingDestroyed );
-  },
+  }
 
   /**
    * @override
    * @returns {ObservableArrayDef}
    * @public
    */
-  getMessengerRnaList: function() {
+  getMessengerRnaList() {
     return this.messengerRnaList;
-  },
+  }
 
   /**
    * Resets the model to initial state
    * @public
    */
-  reset: function() {
+  reset() {
     this.mobileBiomoleculeList.clear();
     this.messengerRnaList.clear();
     this.dnaMolecule.reset();
@@ -324,7 +319,7 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
     this.proteinBCollectedProperty.reset();
     this.proteinCCollectedProperty.reset();
     this.activateGene( 0 );
-  },
+  }
 
   /**
    * Add a space where the biomolecules should not be allowed to wander. This is generally used by the view to prevent
@@ -333,7 +328,7 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
    * @param {Bounds2} newOffLimitsSpace
    * @public
    */
-  addOffLimitsMotionSpace: function( newOffLimitsSpace ) {
+  addOffLimitsMotionSpace( newOffLimitsSpace ) {
     for ( let i = 0; i < this.offLimitsMotionSpaces.length; i++ ) {
 
       const offLimitsMotionSpace = this.offLimitsMotionSpaces[ i ];
@@ -344,14 +339,14 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
     }
     // Add the new one to the list.
     this.offLimitsMotionSpaces.push( newOffLimitsSpace );
-  },
+  }
 
   /**
    * Get the motion bounds for any biomolecule that is going to be associated with the currently active gene.  This is
    * used to keep the biomolecules from wandering outside of the area that the user can see.
    * @private
    */
-  getBoundsForActiveGene: function() {
+  getBoundsForActiveGene() {
 
     // The bottom bounds are intended to be roughly at the bottom of the viewport.  The value was empirically determined.
     const bottomYPos = GEEConstants.DNA_MOLECULE_Y_POS - 2100;
@@ -364,13 +359,15 @@ inherit( GeneExpressionModel, ManualGeneExpressionModel, {
 
     const motionBounds = new MotionBounds( bounds );
     // Subtract off any off limits areas.
-    this.offLimitsMotionSpaces.forEach( function( offLimitMotionSpace ) {
+    this.offLimitsMotionSpaces.forEach( offLimitMotionSpace => {
       if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {
         motionBounds.addOffLimitMotionSpace( offLimitMotionSpace );
       }
     } );
     return motionBounds;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'ManualGeneExpressionModel', ManualGeneExpressionModel );
 
 export default ManualGeneExpressionModel;

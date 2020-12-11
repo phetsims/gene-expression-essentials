@@ -9,7 +9,6 @@
  */
 
 import Range from '../../../../dot/js/Range.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Gene from '../../common/model/Gene.js';
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
@@ -24,47 +23,46 @@ const NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION = 200;
 const NUM_BASE_PAIRS = NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION;
 const MRNA_WINDING_ALGORITHM_NUMBER = 4;
 
-/**
- * @param {DnaMolecule} dnaMolecule -  The DNA molecule within which this gene exists
- * @param {number} initialBasePair - Where this gene starts on the DNA strand
- * @constructor
- */
-function GeneC( dnaMolecule, initialBasePair ) {
-  Gene.call( this, dnaMolecule,
-    new Range( initialBasePair, initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION ),
-    REGULATORY_REGION_COLOR,
-    new Range(
-      initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1,
-      initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1 + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
-    ),
-    TRANSCRIBED_REGION_COLOR,
-    MRNA_WINDING_ALGORITHM_NUMBER
-  );
+class GeneC extends Gene {
 
-  // Add transcription factors that are specific to this gene.  Position is pretty much arbitrary, just meant to look
-  // decent.
-  this.addTranscriptionFactorPosition( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_1 );
-  this.addTranscriptionFactorPosition( 16, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_2 );
-  this.addTranscriptionFactorPosition( 11, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_NEG );
-}
+  /**
+   * @param {DnaMolecule} dnaMolecule -  The DNA molecule within which this gene exists
+   * @param {number} initialBasePair - Where this gene starts on the DNA strand
+   */
+  constructor( dnaMolecule, initialBasePair ) {
+    super( dnaMolecule,
+      new Range( initialBasePair, initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION ),
+      REGULATORY_REGION_COLOR,
+      new Range(
+        initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1,
+        initialBasePair + NUM_BASE_PAIRS_IN_REGULATORY_REGION + 1 + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION
+      ),
+      TRANSCRIBED_REGION_COLOR,
+      MRNA_WINDING_ALGORITHM_NUMBER
+    );
 
-geneExpressionEssentials.register( 'GeneC', GeneC );
-
-inherit( Gene, GeneC, {
+    // Add transcription factors that are specific to this gene.  Position is pretty much arbitrary, just meant to look
+    // decent.
+    this.addTranscriptionFactorPosition( 5, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_1 );
+    this.addTranscriptionFactorPosition( 16, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_POS_2 );
+    this.addTranscriptionFactorPosition( 11, TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_NEG );
+  }
 
   /**
    * @override
    * @returns {ProteinC}
+   * @public
    */
-  getProteinPrototype: function() {
+  getProteinPrototype() {
     return new ProteinC();
   }
 
-}, {
+}
 
-  // statics
-  NUM_BASE_PAIRS: NUM_BASE_PAIRS
 
-} );
+// statics
+GeneC.NUM_BASE_PAIRS = NUM_BASE_PAIRS;
+
+geneExpressionEssentials.register( 'GeneC', GeneC );
 
 export default GeneC;

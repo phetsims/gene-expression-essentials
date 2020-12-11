@@ -8,33 +8,31 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import StillnessMotionStrategy from '../motion-strategies/StillnessMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 
-/**
- * @constructor
- */
-function BeingDestroyedState() {
-  AttachmentState.call( this );
-}
+class BeingDestroyedState extends AttachmentState {
 
-geneExpressionEssentials.register( 'BeingDestroyedState', BeingDestroyedState );
-
-inherit( AttachmentState, BeingDestroyedState, {
+  /**
+   */
+  constructor() {
+    super();
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
 
     // Set a motion strategy that will not move this molecule, since its position will be defined by the destroyer and
     // translators.
     enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'BeingDestroyedState', BeingDestroyedState );
 
 export default BeingDestroyedState;

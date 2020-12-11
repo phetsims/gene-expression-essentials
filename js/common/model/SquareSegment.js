@@ -11,37 +11,35 @@
 
 //modules
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ShapeSegment from './ShapeSegment.js';
 
-/**
- * @param {Object} owner
- * @param {Vector2} origin
- * @constructor
- */
-function SquareSegment( owner, origin ) {
-  // Maintain an explicit value for the length of the mRNA contained within this segment even though the bounds
-  // essentially define said length.  This helps to avoid floating point issues.
-  this.containedLength = 0; // @private
-  ShapeSegment.call( this, owner );
+class SquareSegment extends ShapeSegment {
 
-  this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );
-  this.updateAttachmentSitePosition();
-}
+  /**
+   * @param {Object} owner
+   * @param {Vector2} origin
+   */
+  constructor( owner, origin ) {
 
-geneExpressionEssentials.register( 'SquareSegment', SquareSegment );
+    super( owner );
 
-inherit( ShapeSegment, SquareSegment, {
+    // Maintain an explicit value for the length of the mRNA contained within this segment even though the bounds
+    // essentially define said length.  This helps to avoid floating point issues.
+    this.containedLength = 0; // @private
+
+    this.bounds.set( Bounds2.rect( origin.x, origin.y, 0, 0 ) );
+    this.updateAttachmentSitePosition();
+  }
 
   /**
    * @override
    * @returns {number}
    * @public
    */
-  getContainedLength: function() {
+  getContainedLength() {
     return this.containedLength;
-  },
+  }
 
   /**
    * @override
@@ -50,7 +48,7 @@ inherit( ShapeSegment, SquareSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  add: function( length, windingBiomolecule, shapeSegmentList ) {
+  add( length, windingBiomolecule, shapeSegmentList ) {
     this.containedLength += length;
 
     // Grow the bounds up and to the left to accommodate the additional length.
@@ -61,14 +59,15 @@ inherit( ShapeSegment, SquareSegment, {
       this.bounds.getWidth() + sideGrowthAmount,
       this.bounds.getHeight() + sideGrowthAmount ) );
     this.updateAttachmentSitePosition();
-  },
+  }
 
   /**
    * @override
    * @param {number} length
    * @param {Array.<ShapeSegment>} shapeSegmentList
+   * @public
    */
-  remove: function( length, shapeSegmentList ) {
+  remove( length, shapeSegmentList ) {
     this.containedLength -= length;
 
     // Shrink by moving the lower right corner up and to the left.
@@ -85,7 +84,7 @@ inherit( ShapeSegment, SquareSegment, {
       shapeSegmentList.splice( index, 1 );
     }
     this.updateAttachmentSitePosition();
-  },
+  }
 
   /**
    * @override
@@ -94,14 +93,14 @@ inherit( ShapeSegment, SquareSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  advance: function( length, windingBiomolecule, shapeSegmentList ) {
+  advance( length, windingBiomolecule, shapeSegmentList ) {
 
     // This should never be called for square shape segments, since translation should only occur based around flat
     // segments.
     assert && assert( false,
       'This should never be called for square shape segments, since translation should only occur based around flat segments.' );
 
-  },
+  }
 
   /**
    * @override
@@ -110,19 +109,21 @@ inherit( ShapeSegment, SquareSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  advanceAndRemove: function( length, windingBiomolecule, shapeSegmentList ) {
+  advanceAndRemove( length, windingBiomolecule, shapeSegmentList ) {
     assert && assert( false, 'Unimplemented method called on square shape segment' );
-  },
+  }
 
   /**
    * Determine the length of a side as a function of the contained length of mRNA.
    * @returns {number}
    * @private
    */
-  calculateSideLength: function() {
+  calculateSideLength() {
     const desiredDiagonalLength = Math.pow( this.containedLength, 0.7 ); // Power value was empirically determined.
     return Math.sqrt( 2 * desiredDiagonalLength * desiredDiagonalLength );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'SquareSegment', SquareSegment );
 
 export default SquareSegment;

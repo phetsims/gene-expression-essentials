@@ -1,33 +1,29 @@
 // Copyright 2015-2020, University of Colorado Boulder
 
 /**
- * Flat segment is inherited from ShapeSegment and has no height, so mRNA contained in this segment is not wound.
+ * Flat segment extends ShapeSegment and has no height, so mRNA contained in this segment is not wound.
  *
  * @author John Blanco
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 import ShapeSegment from './ShapeSegment.js';
 import SquareSegment from './SquareSegment.js';
 
-/**
- * @param {Object} owner
- * @param {Vector2} origin
- * @constructor
- */
-function FlatSegment( owner, origin ) {
-  ShapeSegment.call( this, owner );
-  this.bounds.setMinMax( origin.x, origin.y, origin.x, origin.y ); // make sure bounds height and width is zero
-  this.updateAttachmentSitePosition();
-}
+class FlatSegment extends ShapeSegment {
 
-geneExpressionEssentials.register( 'FlatSegment', FlatSegment );
-
-inherit( ShapeSegment, FlatSegment, {
+  /**
+   * @param {Object} owner
+   * @param {Vector2} origin
+   */
+  constructor( owner, origin ) {
+    super( owner );
+    this.bounds.setMinMax( origin.x, origin.y, origin.x, origin.y ); // make sure bounds height and width is zero
+    this.updateAttachmentSitePosition();
+  }
 
   /**
    * @override
@@ -35,9 +31,9 @@ inherit( ShapeSegment, FlatSegment, {
    * @returns {number}
    * @public
    */
-  getContainedLength: function() {
+  getContainedLength() {
     return this.bounds.getWidth();
-  },
+  }
 
   /**
    * @override
@@ -46,7 +42,7 @@ inherit( ShapeSegment, FlatSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  add: function( length, windingBiomolecule, shapeSegmentList ) {
+  add( length, windingBiomolecule, shapeSegmentList ) {
 
     // This shouldn't be called if there is no remaining capacity.
     assert && assert( this.getContainedLength() <= this.capacity );
@@ -69,7 +65,7 @@ inherit( ShapeSegment, FlatSegment, {
       this.bounds.y
     );
     this.updateAttachmentSitePosition();
-  },
+  }
 
   /**
    * @override
@@ -77,7 +73,7 @@ inherit( ShapeSegment, FlatSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  remove: function( length, shapeSegmentList ) {
+  remove( length, shapeSegmentList ) {
     this.bounds.setMinMax( this.bounds.x, this.bounds.y, this.bounds.x + this.bounds.getWidth() - length, this.bounds.y );
 
     // If the length has gotten to zero, remove this segment from  the list.
@@ -86,7 +82,7 @@ inherit( ShapeSegment, FlatSegment, {
       shapeSegmentList.splice( index, 1 );
     }
     this.updateAttachmentSitePosition();
-  },
+  }
 
   /**
    * @override
@@ -95,7 +91,7 @@ inherit( ShapeSegment, FlatSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  advance: function( length, windingBiomolecule, shapeSegmentList ) {
+  advance( length, windingBiomolecule, shapeSegmentList ) {
     let outputSegment = windingBiomolecule.getPreviousShapeSegment( this );
     const inputSegment = windingBiomolecule.getNextShapeSegment( this );
     if ( inputSegment === null ) {
@@ -148,7 +144,7 @@ inherit( ShapeSegment, FlatSegment, {
       outputSegment.add( length, windingBiomolecule, shapeSegmentList );
     }
     this.updateAttachmentSitePosition();
-  },
+  }
 
   /**
    * @override
@@ -157,7 +153,7 @@ inherit( ShapeSegment, FlatSegment, {
    * @param {Array.<ShapeSegment>} shapeSegmentList
    * @public
    */
-  advanceAndRemove: function( length, windingBiomolecule, shapeSegmentList ) {
+  advanceAndRemove( length, windingBiomolecule, shapeSegmentList ) {
     const inputSegment = windingBiomolecule.getNextShapeSegment( this );
     if ( inputSegment === null ) {
 
@@ -178,19 +174,21 @@ inherit( ShapeSegment, FlatSegment, {
       inputSegment.remove( inputSegment.getContainedLength(), shapeSegmentList );
     }
     this.updateAttachmentSitePosition();
-  },
+  }
 
   /**
    * Set size to be exactly the capacity. Do not create any new segments.
    * @private
    */
-  maxOutLength: function() {
+  maxOutLength() {
     const growthAmount = this.getRemainingCapacity();
     this.bounds.setMinMax( this.bounds.x - growthAmount,
       this.bounds.minY, this.bounds.x - growthAmount + this.capacity,
       this.bounds.minY );
     this.updateAttachmentSitePosition();
   }
-} );
+}
+
+geneExpressionEssentials.register( 'FlatSegment', FlatSegment );
 
 export default FlatSegment;

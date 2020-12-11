@@ -8,18 +8,15 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import AttachmentState from './AttachmentState.js';
 
-function GenericMovingTowardsAttachmentState( genericAttachmentStateMachine ) {
-  AttachmentState.call( this );
-  this.genericAttachmentStateMachine = genericAttachmentStateMachine; //@public
-}
+class GenericMovingTowardsAttachmentState extends AttachmentState {
 
-geneExpressionEssentials.register( 'GenericMovingTowardsAttachmentState', GenericMovingTowardsAttachmentState );
-
-inherit( AttachmentState, GenericMovingTowardsAttachmentState, {
+  constructor( genericAttachmentStateMachine ) {
+    super();
+    this.genericAttachmentStateMachine = genericAttachmentStateMachine; //@public
+  }
 
   /**
    * @override
@@ -27,7 +24,7 @@ inherit( AttachmentState, GenericMovingTowardsAttachmentState, {
    * @param {number} dt
    * @public
    */
-  step: function( enclosingStateMachine, dt ) {
+  step( enclosingStateMachine, dt ) {
 
     const gsm = enclosingStateMachine;
 
@@ -47,18 +44,20 @@ inherit( AttachmentState, GenericMovingTowardsAttachmentState, {
       // this molecule is now at the attachment site, so consider it attached
       gsm.setState( gsm.attachedState );
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
 
     // allow user interaction
     enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'GenericMovingTowardsAttachmentState', GenericMovingTowardsAttachmentState );
 
 export default GenericMovingTowardsAttachmentState;

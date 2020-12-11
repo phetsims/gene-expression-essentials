@@ -10,60 +10,57 @@
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
 // constants
 const MAX_Z_VELOCITY = 10; // Max Z velocity in normalized units.
 
-/**
- * @param {Property} destinationProperty
- * @param {Property} motionBoundsProperty
- * @param {Vector2} destinationOffset
- * @param {number} velocity
- * @constructor
- */
-function MoveDirectlyToDestinationMotionStrategy( destinationProperty, motionBoundsProperty, destinationOffset, velocity ) {
-  const self = this;
-  MotionStrategy.call( self );
+class MoveDirectlyToDestinationMotionStrategy extends MotionStrategy {
 
-  function handleMotionBoundsChanged( motionBounds ) {
-    self.motionBounds = motionBounds;
+  /**
+   * @param {Property} destinationProperty
+   * @param {Property} motionBoundsProperty
+   * @param {Vector2} destinationOffset
+   * @param {number} velocity
+   */
+  constructor( destinationProperty, motionBoundsProperty, destinationOffset, velocity ) {
+
+    super();
+    const self = this;
+
+    function handleMotionBoundsChanged( motionBounds ) {
+      self.motionBounds = motionBounds;
+    }
+
+    motionBoundsProperty.link( handleMotionBoundsChanged );
+
+    this.disposeMoveDirectlyToDestinationMotionStrategy = () => {
+      motionBoundsProperty.unlink( handleMotionBoundsChanged );
+    };
+
+    this.velocityVector2D = new Vector2( 0, 0 ); // @private
+
+    // Destination to which this motion strategy moves. Note that it is potentially a moving target.
+    this.destinationProperty = destinationProperty; // @private
+
+    // Fixed offset from the destination position property used when computing the actual target destination. This is
+    // useful in cases where something needs to move such that some point that is not its center is positioned at the
+    // destination.
+    this.offsetFromDestination = destinationOffset; //@private
+
+    // Scalar velocity with which the controlled item travels.
+    this.scalarVelocity2D = velocity; //@private
+
   }
-
-  motionBoundsProperty.link( handleMotionBoundsChanged );
-
-  this.disposeMoveDirectlyToDestinationMotionStrategy = function() {
-    motionBoundsProperty.unlink( handleMotionBoundsChanged );
-  };
-
-  this.velocityVector2D = new Vector2( 0, 0 ); // @private
-
-  // Destination to which this motion strategy moves. Note that it is potentially a moving target.
-  this.destinationProperty = destinationProperty; // @private
-
-  // Fixed offset from the destination position property used when computing the actual target destination. This is
-  // useful in cases where something needs to move such that some point that is not its center is positioned at the
-  // destination.
-  this.offsetFromDestination = destinationOffset; //@private
-
-  // Scalar velocity with which the controlled item travels.
-  this.scalarVelocity2D = velocity; //@private
-
-}
-
-geneExpressionEssentials.register( 'MoveDirectlyToDestinationMotionStrategy', MoveDirectlyToDestinationMotionStrategy );
-
-inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
 
   /**
    * @override
    * @public
    */
-  dispose: function() {
+  dispose() {
     this.disposeMoveDirectlyToDestinationMotionStrategy();
-  },
+  }
 
   /**
    * @override
@@ -73,10 +70,10 @@ inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
    * @returns {Vector2}
    * @public
    */
-  getNextPosition: function( currentPosition, bounds, dt ) {
+  getNextPosition( currentPosition, bounds, dt ) {
     const nextPosition3D = this.getNextPosition3D( new Vector3( currentPosition.x, currentPosition.y, 0 ), bounds, dt );
     return new Vector2( nextPosition3D.x, nextPosition3D.y );
-  },
+  }
 
   /**
    * @param {Vector2} currentPosition
@@ -84,14 +81,14 @@ inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
    * @param {number} velocity
    * @private
    */
-  updateVelocityVector2D: function( currentPosition, destination, velocity ) {
+  updateVelocityVector2D( currentPosition, destination, velocity ) {
     if ( currentPosition.distance( destination ) === 0 ) {
       this.velocityVector2D.setXY( 0, 0 );
     }
     else {
       this.velocityVector2D.set( destination.minus( currentPosition ).setMagnitude( velocity ) );
     }
-  },
+  }
 
   /**
    * @override
@@ -101,7 +98,7 @@ inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
    * @returns {Vector3}
    * @public
    */
-  getNextPosition3D: function( currentPosition3D, bounds, dt ) {
+  getNextPosition3D( currentPosition3D, bounds, dt ) {
 
     // destination is assumed to always have a Z value of 0, i.e. at the "surface"
     const currentDestination3D = new Vector3(
@@ -147,6 +144,8 @@ inherit( MotionStrategy, MoveDirectlyToDestinationMotionStrategy, {
       Utils.clamp( currentPosition3D.z + zVelocity * dt, -1, 0 )
     );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'MoveDirectlyToDestinationMotionStrategy', MoveDirectlyToDestinationMotionStrategy );
 
 export default MoveDirectlyToDestinationMotionStrategy;

@@ -7,24 +7,20 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import AttachmentState from './AttachmentState.js';
 
 // constants
 const DEFAULT_DETACH_TIME = 3; // In seconds.
 
-/**
- * @constructor
- */
-function GenericUnattachedButUnavailableState() {
-  AttachmentState.call( this );
-  this.detachCountdownTime = DEFAULT_DETACH_TIME; //@private
-}
+class GenericUnattachedButUnavailableState extends AttachmentState {
 
-geneExpressionEssentials.register( 'GenericUnattachedButUnavailableState', GenericUnattachedButUnavailableState );
-
-inherit( AttachmentState, GenericUnattachedButUnavailableState, {
+  /**
+   */
+  constructor() {
+    super();
+    this.detachCountdownTime = DEFAULT_DETACH_TIME; //@private
+  }
 
   /**
    * @override
@@ -32,7 +28,7 @@ inherit( AttachmentState, GenericUnattachedButUnavailableState, {
    * @param {number} dt
    * @public
    */
-  step: function( enclosingStateMachine, dt ) {
+  step( enclosingStateMachine, dt ) {
     const gsm = enclosingStateMachine;
 
     // Verify that state is consistent
@@ -45,19 +41,21 @@ inherit( AttachmentState, GenericUnattachedButUnavailableState, {
       // Move to the unattached-and-available state.
       gsm.setState( gsm.unattachedAndAvailableState );
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
     this.detachCountdownTime = DEFAULT_DETACH_TIME;
 
     // Allow user interaction.
     enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'GenericUnattachedButUnavailableState', GenericUnattachedButUnavailableState );
 
 export default GenericUnattachedButUnavailableState;

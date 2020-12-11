@@ -20,6 +20,7 @@ import ManualGeneExpressionModel from './model/ManualGeneExpressionModel.js';
 import ManualGeneExpressionScreenView from './view/ManualGeneExpressionScreenView.js';
 
 class ManualGeneExpressionScreen extends Screen {
+
   constructor() {
 
     const options = {
@@ -33,8 +34,8 @@ class ManualGeneExpressionScreen extends Screen {
     };
 
     super(
-      function() { return new ManualGeneExpressionModel();},
-      function( model ) { return new ManualGeneExpressionScreenView( model ); },
+      () => new ManualGeneExpressionModel(),
+      model => new ManualGeneExpressionScreenView( model ),
       options
     );
   }

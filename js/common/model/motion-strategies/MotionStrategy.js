@@ -12,26 +12,23 @@
 import Range from '../../../../../dot/js/Range.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import MotionBounds from './MotionBounds.js';
 
-function MotionStrategy() {
-  this.motionBounds = new MotionBounds(); //@protected
-}
+class MotionStrategy {
 
-geneExpressionEssentials.register( 'MotionStrategy', MotionStrategy );
-
-inherit( Object, MotionStrategy, {
+  constructor() {
+    this.motionBounds = new MotionBounds(); //@protected
+  }
 
   /**
    * Clean up references so that this is elibible for garbage collection.  This does nothing in the base class,
    * override as needed in subclasses.
    * @public
    */
-  dispose: function() {
-  },
+  dispose() {
+  }
 
   /**
    * Get the next position given the current position. State information contained in the motion strategy instance,
@@ -43,9 +40,9 @@ inherit( Object, MotionStrategy, {
    * @param {number} dt
    * @public
    */
-  getNextPosition: function( currentPosition, bounds, dt ) {
+  getNextPosition( currentPosition, bounds, dt ) {
     throw new Error( 'getNextPosition should be implemented in descendant classes of MotionStrategy .' );
-  },
+  }
 
   /**
    * Get the next position in three dimensions given the current position. State information contained in the motion
@@ -59,12 +56,12 @@ inherit( Object, MotionStrategy, {
    * @returns {Vector3}
    * @public
    */
-  getNextPosition3D: function( currentPosition, bounds, dt ) {
+  getNextPosition3D( currentPosition, bounds, dt ) {
 
     // Default version does not move in Z direction, override for true 3D motion.
     const nextPosition2D = this.getNextPosition( new Vector2( currentPosition.x, currentPosition.y ), bounds, dt );
     return new Vector3( nextPosition2D.x, nextPosition2D.y, 0 );
-  },
+  }
 
   /**
    * This utility method will return a motion vector that reflects a "bounce" in the x, y, or both directions based on
@@ -78,7 +75,7 @@ inherit( Object, MotionStrategy, {
    * @returns {Vector2}
    * @protected
    */
-  getMotionVectorForBounce: function( bounds, originalMotionVector, dt, maxVelocity ) {
+  getMotionVectorForBounce( bounds, originalMotionVector, dt, maxVelocity ) {
     // Check that this isn't being called inappropriately
     assert && assert( !this.motionBounds.inBounds( bounds.shifted( originalMotionVector.x * dt, originalMotionVector.y * dt ) ) );
 
@@ -109,7 +106,7 @@ inherit( Object, MotionStrategy, {
       centerOfMotionBounds.y - bounds.getCenterY() );
     vectorToMotionBoundsCenter.multiplyScalar( maxVelocity / vectorToMotionBoundsCenter.magnitude );
     return vectorToMotionBoundsCenter;
-  },
+  }
 
   /**
    * Utility function for determining the distance between two ranges.
@@ -118,7 +115,7 @@ inherit( Object, MotionStrategy, {
    * @returns {number}
    * @private
    */
-  calculateDistanceBetweenRanges: function( r1, r2 ) {
+  calculateDistanceBetweenRanges( r1, r2 ) {
     let distance;
     if ( r1.intersects( r2 ) ) {
 
@@ -132,7 +129,7 @@ inherit( Object, MotionStrategy, {
       distance = r1.min - r2.max;
     }
     return distance;
-  },
+  }
 
   /**
    * Limit the Z position so that biomolecules don't look transparent when on top of the DNA, and become less
@@ -144,7 +141,7 @@ inherit( Object, MotionStrategy, {
    * @returns {number}
    * @protected
    */
-  getMinZ: function( bounds, positionXY ) {
+  getMinZ( bounds, positionXY ) {
     const shapeYRange = new Range( positionXY.y - bounds.height / 2,
       positionXY.y + bounds.height / 2 );
     const dnaYRange = new Range( GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2,
@@ -159,6 +156,8 @@ inherit( Object, MotionStrategy, {
     }
     return minZ;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'MotionStrategy', MotionStrategy );
 
 export default MotionStrategy;

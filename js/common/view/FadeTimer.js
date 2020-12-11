@@ -10,60 +10,56 @@
 
 import Property from '../../../../axon/js/Property.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-/**
- *
- * @param {number} interval in milliseconds
- * @param {Function} listener
- * @constructor
- */
-function FadeTimer( interval, listener ) {
-  this.interval = interval; // milliseconds // @private
-  this.listener = listener; // @private
-  this.isRunningProperty = new Property( false ); // @public
-  this._intervalId = null; // @private
-}
+class FadeTimer {
 
-geneExpressionEssentials.register( 'FadeTimer', FadeTimer );
-
-inherit( Object, FadeTimer, {
+  /**
+   * @param {number} interval in milliseconds
+   * @param {Function} listener
+   */
+  constructor( interval, listener ) {
+    this.interval = interval; // milliseconds // @private
+    this.listener = listener; // @private
+    this.isRunningProperty = new Property( false ); // @public
+    this._intervalId = null; // @private
+  }
 
   /**
    * Starts the timer. This is a no-op if the timer is already running.
    * @public
    */
-  start: function() {
-    const self = this;
+  start() {
     if ( !this.isRunningProperty.get() ) {
-      self._intervalId = stepTimer.setInterval( function() {
-        self.listener();
+      this._intervalId = stepTimer.setInterval( () => {
+        this.listener();
       }, this.interval );
-      self.isRunningProperty.set( true );
+      this.isRunningProperty.set( true );
     }
-  },
+  }
 
   /**
    * Stops the timer. This is a no-op if the timer is already stopped.
    * @public
    */
-  stop: function() {
+  stop() {
     if ( this.isRunningProperty.get() ) {
       stepTimer.clearInterval( this._intervalId );
       this._intervalId = null;
       this.isRunningProperty.set( false );
     }
-  },
+  }
 
   /**
    * Convenience function for restarting the timer.
    * @public
    */
-  restart: function() {
+  restart() {
     this.stop();
     this.start();
   }
-} );
+}
+
+geneExpressionEssentials.register( 'FadeTimer', FadeTimer );
 
 export default FadeTimer;

@@ -8,7 +8,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import FollowAttachmentSite from '../motion-strategies/FollowAttachmentSite.js';
@@ -19,18 +18,15 @@ import GenericAttachedState from './GenericAttachedState.js';
 // constants
 const HALF_LIFE_FOR_HALF_AFFINITY = 1.5; // In seconds.
 
-/**
- * @param {TranscriptionFactorAttachmentStateMachine} transcriptionFactorAttachmentStateMachine
- * @constructor
- */
-function TranscriptionFactorAttachedState( transcriptionFactorAttachmentStateMachine ) {
-  GenericAttachedState.call( this );
-  this.transcriptionFactorAttachmentStateMachine = transcriptionFactorAttachmentStateMachine; //@public
-}
+class TranscriptionFactorAttachedState extends GenericAttachedState {
 
-geneExpressionEssentials.register( 'TranscriptionFactorAttachedState', TranscriptionFactorAttachedState );
-
-inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
+  /**
+   * @param {TranscriptionFactorAttachmentStateMachine} transcriptionFactorAttachmentStateMachine
+   */
+  constructor( transcriptionFactorAttachmentStateMachine ) {
+    super();
+    this.transcriptionFactorAttachmentStateMachine = transcriptionFactorAttachmentStateMachine; //@public
+  }
 
   /**
    * Calculate the probability of detachment from the current base pair during the provided time interval. This uses
@@ -42,7 +38,7 @@ inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
    * @returns {number}
    * @public
    */
-  calculateProbabilityOfDetachment: function( affinity, dt ) {
+  calculateProbabilityOfDetachment( affinity, dt ) {
 
     // Map affinity to a half life. Units are in seconds. This formula can be tweaked as needed in order to make the
     // half life longer or shorter. However, zero affinity should always map to zero half life, and an affinity of one
@@ -51,13 +47,13 @@ inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
 
     // Use standard half-life formula to decide on probability of detachment.
     return 1 - Math.exp( -0.693 * dt / halfLife );
-  },
+  }
 
   /**
    * @param {AttachmentStateMachine} asm
    * @private
    */
-  detachFromDnaMolecule: function( asm ) {
+  detachFromDnaMolecule( asm ) {
     const biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
     asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
     asm.attachmentSite = null;
@@ -66,7 +62,7 @@ inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
       biomolecule.motionBoundsProperty ) );
     this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold = 1; // Reset this threshold.
     asm.biomolecule.attachedToDnaProperty.set( false ); // Update externally visible state indication.
-  },
+  }
 
   /**
    * @override
@@ -74,7 +70,7 @@ inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
    * @param {number} dt
    * @public
    */
-  step: function( asm, dt ) {
+  step( asm, dt ) {
     let attachmentSite = this.transcriptionFactorAttachmentStateMachine.attachmentSite;
     const detachFromDnaThreshold = this.transcriptionFactorAttachmentStateMachine.detachFromDnaThreshold;
     const biomolecule = this.transcriptionFactorAttachmentStateMachine.biomolecule;
@@ -97,10 +93,8 @@ inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
 
         // Eliminate sites that, if moved to, would put the biomolecule out of bounds.
         //var clonedAttachmentSites = [].concat( attachmentSites );
-        _.remove( attachmentSites, function( site ) {
-          return !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.bounds,
-            site.positionProperty.get() );
-        } );
+        _.remove( attachmentSites, site => !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.bounds,
+          site.positionProperty.get() ) );
 
         // Shuffle in order to produce random-ish behavior.
         attachmentSites = phet.joist.random.shuffle( attachmentSites );
@@ -133,17 +127,19 @@ inherit( GenericAttachedState, TranscriptionFactorAttachedState, {
         }
       }
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
     enclosingStateMachine.biomolecule.setMotionStrategy( new FollowAttachmentSite( enclosingStateMachine.attachmentSite ) );
     enclosingStateMachine.biomolecule.attachedToDnaProperty.set( true ); // Update externally visible state indication.
   }
-} );
+}
+
+geneExpressionEssentials.register( 'TranscriptionFactorAttachedState', TranscriptionFactorAttachedState );
 
 export default TranscriptionFactorAttachedState;

@@ -9,23 +9,19 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
-/**
- * @param ribosome {Ribosome}
- * @constructor
- */
-function RibosomeTranslatingRnaMotionStrategy( ribosome ) {
-  MotionStrategy.call( this );
-  this.ribosome = ribosome; // @private
-  this.messengerRna = ribosome.getMessengerRnaBeingTranslated(); // @private
-}
+class RibosomeTranslatingRnaMotionStrategy extends MotionStrategy {
 
-geneExpressionEssentials.register( 'RibosomeTranslatingRnaMotionStrategy', RibosomeTranslatingRnaMotionStrategy );
-
-inherit( MotionStrategy, RibosomeTranslatingRnaMotionStrategy, {
+  /**
+   * @param ribosome {Ribosome}
+   */
+  constructor( ribosome ) {
+    super();
+    this.ribosome = ribosome; // @private
+    this.messengerRna = ribosome.getMessengerRnaBeingTranslated(); // @private
+  }
 
   /**
    * @override
@@ -35,10 +31,12 @@ inherit( MotionStrategy, RibosomeTranslatingRnaMotionStrategy, {
    * @returns {Vector2}
    * @public
    */
-  getNextPosition: function( currentPosition, bounds, dt ) {
+  getNextPosition( currentPosition, bounds, dt ) {
     const ribosomeAttachmentPoint = this.messengerRna.getRibosomeGenerateInitialPosition3D( this.ribosome );
     return ribosomeAttachmentPoint.minus( this.ribosome.offsetToTranslationChannelEntrance );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'RibosomeTranslatingRnaMotionStrategy', RibosomeTranslatingRnaMotionStrategy );
 
 export default RibosomeTranslatingRnaMotionStrategy;

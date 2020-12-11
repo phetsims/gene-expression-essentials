@@ -11,7 +11,6 @@
 
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
@@ -173,49 +172,45 @@ const WINDING_PARAMS = [
     xWavePhaseOffset: 1.7894001491723766,
     xWaveMultiplier: 0.13588696362810446
   }
-
 ];
 
-/**
- * @param {GeneExpressionModel} model
- * @param {Shape} initialShape
- * @param {Vector2} position
- * @param {Object} [options]
- * @constructor
- */
-function WindingBiomolecule( model, initialShape, position, options ) {
+class WindingBiomolecule extends MobileBiomolecule {
 
-  options = merge( {
+  /**
+   * @param {GeneExpressionModel} model
+   * @param {Shape} initialShape
+   * @param {Vector2} position
+   * @param {Object} [options]
+   */
+  constructor( model, initialShape, position, options ) {
 
-    // {number} - winding algorithm to use when creating and updating this biomolecule, see code for range
-    windingParamSet: 0
+    options = merge( {
 
-  }, options );
+      // {number} - winding algorithm to use when creating and updating this biomolecule, see code for range
+      windingParamSet: 0
 
-  MobileBiomolecule.call( this, model, initialShape, NOMINAL_COLOR );
+    }, options );
 
-  // set up the winding params
-  this.windingParams = WINDING_PARAMS[ options.windingParamSet ];
+    super( model, initialShape, NOMINAL_COLOR );
 
-  // Add first shape defining point to the point list.
-  this.firstShapeDefiningPoint = new ShapeDefiningPoint( position, 0 ); //@protected
-  this.lastShapeDefiningPoint = this.firstShapeDefiningPoint; //@protected
+    // set up the winding params
+    this.windingParams = WINDING_PARAMS[ options.windingParamSet ];
 
-  // List of the shape segments that define the outline shape.
-  this.shapeSegments = []; //@public
-}
+    // Add first shape defining point to the point list.
+    this.firstShapeDefiningPoint = new ShapeDefiningPoint( position, 0 ); //@protected
+    this.lastShapeDefiningPoint = this.firstShapeDefiningPoint; //@protected
 
-geneExpressionEssentials.register( 'WindingBiomolecule', WindingBiomolecule );
-
-inherit( MobileBiomolecule, WindingBiomolecule, {
+    // List of the shape segments that define the outline shape.
+    this.shapeSegments = []; //@public
+  }
 
   /**
    * @public
    */
-  dispose: function() {
+  dispose() {
     this.shapeSegments.length = 0;
-    MobileBiomolecule.prototype.dispose.call( this );
-  },
+    super.dispose();
+  }
 
   /**
    * Get the first shape-defining point enclosed in the provided length range.
@@ -223,7 +218,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @returns {ShapeDefiningPoint}
    * @private
    */
-  getFirstEnclosedPoint: function( lengthRange ) {
+  getFirstEnclosedPoint( lengthRange ) {
     let currentPoint = this.firstShapeDefiningPoint;
     let currentLength = 0;
     while ( currentPoint !== null ) {
@@ -236,7 +231,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
       currentLength += currentPoint !== null ? currentPoint.getTargetDistanceToPreviousPoint() : 0;
     }
     return currentPoint;
-  },
+  }
 
   /**
    * Get the last shape-defining point enclosed in the provided length range.
@@ -244,7 +239,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @returns {ShapeDefiningPoint}
    * @private
    */
-  getLastEnclosedPoint: function( lengthRange ) {
+  getLastEnclosedPoint( lengthRange ) {
     let currentPoint = this.firstShapeDefiningPoint;
     let currentLength = 0;
     while ( currentPoint !== null ) {
@@ -264,7 +259,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
     }
 
     return currentPoint;
-  },
+  }
 
   /**
    * Add the specified amount of mRNA length to the tail end of the mRNA. Adding a length will cause the winding
@@ -272,7 +267,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @param {number} length - Length of mRNA to add in picometers.
    * @public
    */
-  addLength: function( length ) {
+  addLength( length ) {
 
     // Add the length to the set of shape-defining points. This may add a new point, or simply reposition the current
     // last point.
@@ -319,7 +314,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
     // Now that the points and shape segments are updated, run the algorithm that winds the points through the shapes
     // to produce the shape of the strand that will be presented to the user.
     this.windPointsThroughSegments();
-  },
+  }
 
   /**
    * This is the "winding algorithm" that positions the points that define the shape of the mRNA within the shape
@@ -327,7 +322,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * being synthesized and when it is being transcribed.
    * @protected
    */
-  windPointsThroughSegments: function() {
+  windPointsThroughSegments() {
     let handledLength = 0;
 
     // Loop through the shape segments positioning the shape-defining points within them.
@@ -377,22 +372,22 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
 
     // Update the shape property based on the newly positioned points.
     this.shapeProperty.set( BioShapeUtils.createCurvyLineFromPoints( this.getPointList() ).makeImmutable() );
-  },
+  }
 
   /**
    * Returns the sum of length of all shape segments
    * @returns {number}
    * @private
    */
-  getTotalLengthInShapeSegments: function() {
+  getTotalLengthInShapeSegments() {
     let totalShapeSegmentLength = 0;
 
-    this.shapeSegments.forEach( function( shapeSeg ) {
+    this.shapeSegments.forEach( shapeSeg => {
       totalShapeSegmentLength += shapeSeg.getContainedLength();
     } );
 
     return totalShapeSegmentLength;
-  },
+  }
 
   /**
    * Position a series of points in a straight line. The distances between the points are set to be their target
@@ -403,7 +398,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @param {Vector2} origin
    * @private
    */
-  positionPointsInLine: function( firstPoint, lastPoint, origin ) {
+  positionPointsInLine( firstPoint, lastPoint, origin ) {
     let currentPoint = firstPoint;
     let xOffset = 0;
     while ( currentPoint !== lastPoint && currentPoint !== null ) {
@@ -416,7 +411,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
 
     // position the last point
     currentPoint.setPositionXY( origin.x + xOffset, origin.y );
-  },
+  }
 
   /**
    * position the points that define the shape of the strand using a combination of sine waves
@@ -425,7 +420,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @param {Rectangle} bounds
    * @private
    */
-  positionPointsAsComplexWave: function( firstPoint, lastPoint, bounds ) {
+  positionPointsAsComplexWave( firstPoint, lastPoint, bounds ) {
 
     if ( firstPoint === null ) {
 
@@ -500,14 +495,14 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
       nextLinearPosition.addXY( interPointXDistance, interPointYDistance );
       totalDistanceTraversed += totalDistancePerStep;
     }
-  },
+  }
 
   /**
    * Realign all the segments, making sure that the end of one connects to the beginning of another, using the last
    * segment on the list as the starting point.
    * @private
    */
-  realignSegmentsFromEnd: function() {
+  realignSegmentsFromEnd() {
     let copyOfShapeSegments = this.shapeSegments.slice();
 
     copyOfShapeSegments = copyOfShapeSegments.reverse();
@@ -518,16 +513,16 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
       // the lower right.
       copyOfShapeSegments[ i + 1 ].setLowerRightCornerPosition( copyOfShapeSegments[ i ].getUpperLeftCornerPosition() );
     }
-  },
+  }
 
   /**
    * Returns the last shape segment in the shapeSegments array
    * @returns {ShapeSegment}
    * @private
    */
-  getLastShapeSegment: function() {
+  getLastShapeSegment() {
     return this.shapeSegments[ this.shapeSegments.length - 1 ];
-  },
+  }
 
   /**
    * Add a point to the end of the list of shape defining points. Note that this will alter the last point on the list.
@@ -535,19 +530,19 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @param {number} targetDistanceToPreviousPoint
    * @private
    */
-  addPointToEnd: function( position, targetDistanceToPreviousPoint ) {
+  addPointToEnd( position, targetDistanceToPreviousPoint ) {
     const newPoint = new ShapeDefiningPoint( position, targetDistanceToPreviousPoint );
     this.lastShapeDefiningPoint.setNextPoint( newPoint );
     newPoint.setPreviousPoint( this.lastShapeDefiningPoint );
     this.lastShapeDefiningPoint = newPoint;
-  },
+  }
 
   /**
    * Get the points that define the shape as a list.
    * @returns {Array}
    * @private
    */
-  getPointList: function() {
+  getPointList() {
     const pointList = [];
     let thisPoint = this.firstShapeDefiningPoint;
     while ( thisPoint !== null ) {
@@ -555,7 +550,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
       thisPoint = thisPoint.getNextPoint();
     }
     return pointList;
-  },
+  }
 
   /**
    * Get the length of the strand. The length is calculated by adding up the intended distances between the points, and
@@ -563,7 +558,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @returns {number} length in picometers
    * @protected
    */
-  getLength: function() {
+  getLength() {
     let length = 0;
     let thisPoint = this.firstShapeDefiningPoint.getNextPoint();
     while ( thisPoint !== null ) {
@@ -571,14 +566,14 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
       thisPoint = thisPoint.getNextPoint();
     }
     return length;
-  },
+  }
 
   /**
    * @param {number} x
    * @param {number} y
    * @public
    */
-  setLowerRightPositionXY: function( x, y ) {
+  setLowerRightPositionXY( x, y ) {
     let totalWidth = 0;
     let totalHeight = 0;
     for ( let i = 0; i < this.shapeSegments.length; i++ ) {
@@ -593,14 +588,15 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
 
     // realign all other segments based on the position of the last one
     this.realignSegmentsFromEnd();
-  },
+  }
 
   /**
    * Adjust the position and the relative positions of all the shape segments such that the mRNA is in the same
    * place but the center is actually in the center of the segments.  This is necessary because during translations
    * the segments change shape and can move such that the position is not longer at the center of the shape.
+   * @protected
    */
-  recenter: function() {
+  recenter() {
     const shapeBounds = this.shapeProperty.get().bounds;
     const adjustmentX = shapeBounds.centerX;
     const adjustmentY = shapeBounds.centerY;
@@ -622,7 +618,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
       const position = this.getPosition();
       this.setPositionXY( position.x + adjustmentX, position.y + adjustmentY );
     }
-  },
+  }
 
   /**
    * Realign the positions of all segments starting from the given segment and working forward and backward through
@@ -630,7 +626,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @param {ShapeSegment} segmentToAlignFrom
    * @protected
    */
-  realignSegmentsFrom: function( segmentToAlignFrom ) {
+  realignSegmentsFrom( segmentToAlignFrom ) {
 
     assert && assert(
       this.shapeSegments.indexOf( segmentToAlignFrom ) !== -1,
@@ -655,7 +651,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
       currentSegment = previousSegment;
       previousSegment = this.getPreviousShapeSegment( currentSegment );
     }
-  },
+  }
 
   /**
    * Returns the next shape segment in the array for the given shape segment
@@ -663,7 +659,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @returns {ShapeSegment}
    * @public
    */
-  getNextShapeSegment: function( shapeSegment ) {
+  getNextShapeSegment( shapeSegment ) {
     const index = this.shapeSegments.indexOf( shapeSegment );
 
     assert && assert( index !== -1, 'Given item not in list' );
@@ -675,7 +671,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
     else {
       return this.shapeSegments[ index + 1 ];
     }
-  },
+  }
 
   /**
    * Returns the previous shape segment in the array for the given shape segment
@@ -683,7 +679,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @returns {ShapeSegment}
    * @public
    */
-  getPreviousShapeSegment: function( shapeSegment ) {
+  getPreviousShapeSegment( shapeSegment ) {
     const index = this.shapeSegments.indexOf( shapeSegment );
 
     assert && assert( index !== -1, 'Given item not in list' );
@@ -695,7 +691,7 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
     else {
       return this.shapeSegments[ index - 1 ];
     }
-  },
+  }
 
   /**
    * Inserts the new shape segment after the given shape segment in the array
@@ -703,11 +699,11 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @param {ShapeSegment} shapeSegmentToInsert
    * @public
    */
-  insertAfterShapeSegment: function( existingShapeSegment, shapeSegmentToInsert ) {
+  insertAfterShapeSegment( existingShapeSegment, shapeSegmentToInsert ) {
     const index = this.shapeSegments.indexOf( existingShapeSegment );
     assert && assert( index !== -1, 'Given item not in list' );
     this.shapeSegments.splice( index + 1, 0, shapeSegmentToInsert );
-  },
+  }
 
   /**
    * Inserts the new shape segment before the given shape segment in the array
@@ -715,11 +711,13 @@ inherit( MobileBiomolecule, WindingBiomolecule, {
    * @param {ShapeSegment} shapeSegmentToInsert
    * @public
    */
-  insertBeforeShapeSegment: function( existingShapeSegment, shapeSegmentToInsert ) {
+  insertBeforeShapeSegment( existingShapeSegment, shapeSegmentToInsert ) {
     const index = this.shapeSegments.indexOf( existingShapeSegment );
     assert && assert( index !== -1, 'Given item not in list' );
     this.shapeSegments.splice( index, 0, shapeSegmentToInsert );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'WindingBiomolecule', WindingBiomolecule );
 
 export default WindingBiomolecule;

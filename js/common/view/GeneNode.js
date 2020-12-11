@@ -10,15 +10,14 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
+import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 import GEEConstants from '../GEEConstants.js';
 
 const regulatoryRegionString = geneExpressionEssentialsStrings.regulatoryRegion;
@@ -30,88 +29,89 @@ const GENE_LABEL_FONT = new PhetFont( { size: 18, weight: 'bold' } );
 const BRACKET_DEPTH = 30;
 const RECT_ROUNDING = 15;
 
-/**
- * @param {ModelViewTransform2} modelViewTransform
- * @param {Gene} gene
- * @param {DnaMolecule} dnaMolecule
- * @param {string} label
- * @param {boolean} showBracketLabel
- * @constructor
- */
-function GeneNode( modelViewTransform, gene, dnaMolecule, label, showBracketLabel ) {
-  Node.call( this );
+class GeneNode extends Node {
 
-  const highlightHeight = -modelViewTransform.modelToViewDeltaY( GEEConstants.DNA_MOLECULE_DIAMETER * 1.5 );
-  const highlightStartY = modelViewTransform.modelToViewY( dnaMolecule.getLeftEdgePosition().y ) - highlightHeight / 2;
+  /**
+   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Gene} gene
+   * @param {DnaMolecule} dnaMolecule
+   * @param {string} label
+   * @param {boolean} showBracketLabel
+   */
+  constructor( modelViewTransform, gene, dnaMolecule, label, showBracketLabel ) {
+    super();
 
-  // Add the highlight for the regulatory region.
-  const regRegionHighlightStartX = modelViewTransform.modelToViewX(
-    dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().min )
-  );
-  const regRegionWidth = modelViewTransform.modelToViewX(
-    dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().max )
-  ) - regRegionHighlightStartX;
-  const regRegionShape = Shape.roundRect( regRegionHighlightStartX, highlightStartY, regRegionWidth, highlightHeight,
-    RECT_ROUNDING, RECT_ROUNDING );
-  const regulatoryRegionNode = new Path( regRegionShape, { fill: gene.getRegulatoryRegionColor() } );
-  this.addChild( regulatoryRegionNode );
+    const highlightHeight = -modelViewTransform.modelToViewDeltaY( GEEConstants.DNA_MOLECULE_DIAMETER * 1.5 );
+    const highlightStartY = modelViewTransform.modelToViewY( dnaMolecule.getLeftEdgePosition().y ) - highlightHeight / 2;
 
-  const regulatoryRegionCaption = new RichText( regulatoryRegionString, {
-    font: REGION_LABEL_FONT,
-    maxWidth: 100,
-    align: 'center',
-    centerX: regulatoryRegionNode.bounds.getCenterX(),
-    top: regulatoryRegionNode.bounds.getMaxY()
-  } );
-  this.addChild( regulatoryRegionCaption );
-
-  // Add the highlight for the transcribed region.
-  const transcribedRegionHighlightStartX = modelViewTransform.modelToViewX(
-    dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().min )
-  );
-  const transcribedRegionWidth = modelViewTransform.modelToViewX(
-    dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().max )
-  ) - transcribedRegionHighlightStartX;
-  const transcribedRegionShape = Shape.roundRect( transcribedRegionHighlightStartX, highlightStartY,
-    transcribedRegionWidth, highlightHeight, RECT_ROUNDING, RECT_ROUNDING );
-
-  const transcribedRegionNode = new Path( transcribedRegionShape, { fill: gene.getTranscribedRegionColor() } );
-  this.addChild( transcribedRegionNode );
-
-  const transcribedRegionCaption = new RichText( transcribedRegionString, {
-    font: REGION_LABEL_FONT,
-    maxWidth: 100,
-    align: 'center',
-    centerX: transcribedRegionNode.bounds.getCenterX(),
-    top: transcribedRegionNode.bounds.getMaxY()
-  } );
-  this.addChild( transcribedRegionCaption );
-
-  // Add the bracket.  This is a portion (the non-textual part) of the  label for the gene.
-  if ( showBracketLabel ) {
-    const bracketPath = new Shape();
-    bracketPath.moveTo( regulatoryRegionNode.bounds.getMinX(), regulatoryRegionCaption.bounds.getMaxY() );
-    bracketPath.lineToRelative( BRACKET_DEPTH, BRACKET_DEPTH );
-    bracketPath.lineTo(
-      transcribedRegionNode.bounds.getMaxX() - BRACKET_DEPTH,
-      transcribedRegionCaption.bounds.getMaxY() + BRACKET_DEPTH
+    // Add the highlight for the regulatory region.
+    const regRegionHighlightStartX = modelViewTransform.modelToViewX(
+      dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().min )
     );
-    bracketPath.lineToRelative( BRACKET_DEPTH, -BRACKET_DEPTH );
-    this.addChild( new Path( bracketPath, { lineWidth: 2, stroke: Color.BLACK } ) );
+    const regRegionWidth = modelViewTransform.modelToViewX(
+      dnaMolecule.getBasePairXOffsetByIndex( gene.getRegulatoryRegion().max )
+    ) - regRegionHighlightStartX;
+    const regRegionShape = Shape.roundRect( regRegionHighlightStartX, highlightStartY, regRegionWidth, highlightHeight,
+      RECT_ROUNDING, RECT_ROUNDING );
+    const regulatoryRegionNode = new Path( regRegionShape, { fill: gene.getRegulatoryRegionColor() } );
+    this.addChild( regulatoryRegionNode );
 
-    // And the textual label for the gene.
-    const labelText = new Text( label, {
-      font: GENE_LABEL_FONT,
-      maxWidth: 150
+    const regulatoryRegionCaption = new RichText( regulatoryRegionString, {
+      font: REGION_LABEL_FONT,
+      maxWidth: 100,
+      align: 'center',
+      centerX: regulatoryRegionNode.bounds.getCenterX(),
+      top: regulatoryRegionNode.bounds.getMaxY()
     } );
-    this.addChild( labelText );
-    const bracketBounds = bracketPath.bounds;
-    labelText.x = bracketBounds.getCenterX() - labelText.bounds.width / 2;
-    labelText.y = bracketBounds.getMaxY() + 20;
+    this.addChild( regulatoryRegionCaption );
+
+    // Add the highlight for the transcribed region.
+    const transcribedRegionHighlightStartX = modelViewTransform.modelToViewX(
+      dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().min )
+    );
+    const transcribedRegionWidth = modelViewTransform.modelToViewX(
+      dnaMolecule.getBasePairXOffsetByIndex( gene.getTranscribedRegion().max )
+    ) - transcribedRegionHighlightStartX;
+    const transcribedRegionShape = Shape.roundRect( transcribedRegionHighlightStartX, highlightStartY,
+      transcribedRegionWidth, highlightHeight, RECT_ROUNDING, RECT_ROUNDING );
+
+    const transcribedRegionNode = new Path( transcribedRegionShape, { fill: gene.getTranscribedRegionColor() } );
+    this.addChild( transcribedRegionNode );
+
+    const transcribedRegionCaption = new RichText( transcribedRegionString, {
+      font: REGION_LABEL_FONT,
+      maxWidth: 100,
+      align: 'center',
+      centerX: transcribedRegionNode.bounds.getCenterX(),
+      top: transcribedRegionNode.bounds.getMaxY()
+    } );
+    this.addChild( transcribedRegionCaption );
+
+    // Add the bracket.  This is a portion (the non-textual part) of the  label for the gene.
+    if ( showBracketLabel ) {
+      const bracketPath = new Shape();
+      bracketPath.moveTo( regulatoryRegionNode.bounds.getMinX(), regulatoryRegionCaption.bounds.getMaxY() );
+      bracketPath.lineToRelative( BRACKET_DEPTH, BRACKET_DEPTH );
+      bracketPath.lineTo(
+        transcribedRegionNode.bounds.getMaxX() - BRACKET_DEPTH,
+        transcribedRegionCaption.bounds.getMaxY() + BRACKET_DEPTH
+      );
+      bracketPath.lineToRelative( BRACKET_DEPTH, -BRACKET_DEPTH );
+      this.addChild( new Path( bracketPath, { lineWidth: 2, stroke: Color.BLACK } ) );
+
+      // And the textual label for the gene.
+      const labelText = new Text( label, {
+        font: GENE_LABEL_FONT,
+        maxWidth: 150
+      } );
+      this.addChild( labelText );
+      const bracketBounds = bracketPath.bounds;
+      labelText.x = bracketBounds.getCenterX() - labelText.bounds.width / 2;
+      labelText.y = bracketBounds.getMaxY() + 20;
+    }
   }
 }
 
 geneExpressionEssentials.register( 'GeneNode', GeneNode );
 
-inherit( Node, GeneNode );
 export default GeneNode;

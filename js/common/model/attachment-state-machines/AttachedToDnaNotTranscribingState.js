@@ -10,7 +10,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import MoveDirectlyToDestinationMotionStrategy from '../motion-strategies/MoveDirectlyToDestinationMotionStrategy.js';
@@ -20,33 +19,30 @@ import AttachmentState from './AttachmentState.js';
 // constant
 const REEVALUATE_TRANSCRIPTION_DECISION_TIME = 1; // seconds
 
-/**
- * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
- * @constructor
- */
-function AttachedToDnaNotTranscribingState( rnaPolymeraseAttachmentStateMachine ) {
-  AttachmentState.call( this );
+class AttachedToDnaNotTranscribingState extends AttachmentState {
 
-  // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
-  this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+  /**
+   * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
+   */
+  constructor( rnaPolymeraseAttachmentStateMachine ) {
+    super();
 
-  // @private - flag that is set upon entry that determines whether transcription occurs
-  this.transcribe = false;
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
 
-  // @private
-  this.timeSinceTranscriptionDecision = 0;
-}
+    // @private - flag that is set upon entry that determines whether transcription occurs
+    this.transcribe = false;
 
-geneExpressionEssentials.register( 'AttachedToDnaNotTranscribingState', AttachedToDnaNotTranscribingState );
-
-inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
+    // @private
+    this.timeSinceTranscriptionDecision = 0;
+  }
 
   /**
    * Helper function which detaches RnaPolymerase from the DNA
    * @param  {AttachmentStateMachine} asm
    * @private
    */
-  detachFromDnaMolecule: function( asm ) {
+  detachFromDnaMolecule( asm ) {
     asm.attachmentSite.attachedOrAttachingMoleculeProperty.set( null );
     asm.attachmentSite = null;
     asm.setState( this.rnaPolymeraseAttachmentStateMachine.unattachedButUnavailableState );
@@ -55,7 +51,7 @@ inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
         this.rnaPolymeraseAttachmentStateMachine.biomolecule.motionBoundsProperty ) );
     this.rnaPolymeraseAttachmentStateMachine.detachFromDnaThreshold.reset(); // Reset this threshold.
     asm.biomolecule.attachedToDnaProperty.set( false ); // Update externally visible state indication.
-  },
+  }
 
   /**
    * @override
@@ -63,7 +59,7 @@ inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
    * @param {number} dt
    * @public
    */
-  step: function( asm, dt ) {
+  step( asm, dt ) {
 
     // Verify that state is consistent
     assert && assert( asm.attachmentSite !== null );
@@ -105,10 +101,8 @@ inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
 
         // Eliminate sites that are in use or that, if moved to, would put the biomolecule out of bounds.
         //var clonedAttachmentSites = [].concat( attachmentSites );
-        _.remove( attachmentSites, function( site ) {
-          return site.isMoleculeAttached() || !biomolecule.motionBoundsProperty.get().testIfInMotionBounds(
-            biomolecule.bounds, site.positionProperty.get() );
-        } );
+        _.remove( attachmentSites, site => site.isMoleculeAttached() || !biomolecule.motionBoundsProperty.get().testIfInMotionBounds(
+          biomolecule.bounds, site.positionProperty.get() ) );
 
         // Shuffle in order to produce random-ish behavior.
         attachmentSites = phet.joist.random.shuffle( attachmentSites );
@@ -161,14 +155,14 @@ inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
         this.timeSinceTranscriptionDecision = 0;
       }
     }
-  },
+  }
 
   /**
    * @override
    * @param  { AttachmentStateMachine} asm
    * @public
    */
-  entered: function( asm ) {
+  entered( asm ) {
     const attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
     const randValue = phet.joist.random.nextDouble();
 
@@ -182,6 +176,8 @@ inherit( AttachmentState, AttachedToDnaNotTranscribingState, {
     // Indicate attachment to DNA.
     asm.biomolecule.attachedToDnaProperty.set( true );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'AttachedToDnaNotTranscribingState', AttachedToDnaNotTranscribingState );
 
 export default AttachedToDnaNotTranscribingState;

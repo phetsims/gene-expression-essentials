@@ -12,7 +12,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 import MessengerRnaAttachmentStateMachine from './attachment-state-machines/MessengerRnaAttachmentStateMachine.js';
@@ -29,91 +28,86 @@ const MRNA_DESTROYER_CONNECT_DISTANCE = 400; // picometers - Distance within whi
 const INITIAL_MRNA_SHAPE = Shape.circle( 0, 0, 0.1 ); // tiny circle until the strand starts to grow
 const MIN_LENGTH_TO_ATTACH = 75; // picometers - min length before attachments are allowed
 
-/**
- * Constructor.  This creates the mRNA as a single point, with the intention of growing it.
- *
- * @param {GeneExpressionModel} model
- * @param {Protein} proteinPrototype
- * @param {Vector2} position
- * @param {Object} [options]
- * @constructor
- */
-function MessengerRna( model, proteinPrototype, position, options ) {
+class MessengerRna extends WindingBiomolecule {
 
-  const self = this;
+  /**
+   * Constructor.  This creates the mRNA as a single point, with the intention of growing it.
+   *
+   * @param {GeneExpressionModel} model
+   * @param {Protein} proteinPrototype
+   * @param {Vector2} position
+   * @param {Object} [options]
+   */
+  constructor( model, proteinPrototype, position, options ) {
 
-  // @private {Object} - object that maps from ribosomes to the shape segment to which they are attached
-  this.mapRibosomeToShapeSegment = {};
+    super( model, INITIAL_MRNA_SHAPE, position, options );
 
-  WindingBiomolecule.call( self, model, INITIAL_MRNA_SHAPE, position, options );
+    // @private {Object} - object that maps from ribosomes to the shape segment to which they are attached
+    this.mapRibosomeToShapeSegment = {};
 
-  // @public {BooleanProperty} - externally visible indicator for whether this mRNA is being synthesized, assumes that
-  // it is being synthesized when initially created
-  this.beingSynthesizedProperty = new BooleanProperty( true ); //@public
+    // @public {BooleanProperty} - externally visible indicator for whether this mRNA is being synthesized, assumes that
+    // it is being synthesized when initially created
+    this.beingSynthesizedProperty = new BooleanProperty( true ); //@public
 
-  // @private - protein prototype, used to keep track of protein that should be synthesized from this particular
-  // strand of mRNA
-  this.proteinPrototype = proteinPrototype;
+    // @private - protein prototype, used to keep track of protein that should be synthesized from this particular
+    // strand of mRNA
+    this.proteinPrototype = proteinPrototype;
 
-  // @private - local reference to the non-generic state machine used by this molecule
-  this.mRnaAttachmentStateMachine = this.attachmentStateMachine;
+    // @private - local reference to the non-generic state machine used by this molecule
+    this.mRnaAttachmentStateMachine = this.attachmentStateMachine;
 
-  // @private - mRNA destroyer that is destroying this mRNA. Null until and unless destruction has begun.
-  this.messengerRnaDestroyer = null;
+    // @private - mRNA destroyer that is destroying this mRNA. Null until and unless destruction has begun.
+    this.messengerRnaDestroyer = null;
 
-  // @private - Shape segment where the mRNA destroyer is connected. This is null until destruction has begun.
-  this.segmentBeingDestroyed = null;
+    // @private - Shape segment where the mRNA destroyer is connected. This is null until destruction has begun.
+    this.segmentBeingDestroyed = null;
 
-  // @private {AttachmentSite} - site where ribosomes or mRNA destroyers can attach
-  this.attachmentSite = new AttachmentSite( this, new Vector2( 0, 0 ), 1 );
+    // @private {AttachmentSite} - site where ribosomes or mRNA destroyers can attach
+    this.attachmentSite = new AttachmentSite( this, new Vector2( 0, 0 ), 1 );
 
-  // set the initial position
-  this.setPosition( position );
+    // set the initial position
+    this.setPosition( position );
 
-  // Add the first segment to the shape segment list. This segment will contain the "leader" for the mRNA.
-  const segment = new FlatSegment( this, Vector2.ZERO );
-  segment.setCapacity( GEEConstants.LEADER_LENGTH );
-  this.shapeSegments.push( segment );
+    // Add the first segment to the shape segment list. This segment will contain the "leader" for the mRNA.
+    const segment = new FlatSegment( this, Vector2.ZERO );
+    segment.setCapacity( GEEConstants.LEADER_LENGTH );
+    this.shapeSegments.push( segment );
 
-  // Add the placement hints for the positions where the user can attach a ribosome or an mRNA destroyer.
-  const ribosome = new Ribosome( model );
-  this.ribosomePlacementHint = new PlacementHint( ribosome ); //@public(read-only)
-  this.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
+    // Add the placement hints for the positions where the user can attach a ribosome or an mRNA destroyer.
+    const ribosome = new Ribosome( model );
+    this.ribosomePlacementHint = new PlacementHint( ribosome ); //@public(read-only)
+    this.mRnaDestroyerPlacementHint = new PlacementHint( new MessengerRnaDestroyer( model ) ); //@public(read-only)
 
-  function updateHintPositions( shape ) {
+    const updateHintPositions = shape => {
 
-    // All hints always sit at the beginning of the RNA strand and are positioned relative to its center.
-    const strandStartPosition = new Vector2( shape.bounds.minX, shape.bounds.maxY );
-    self.ribosomePlacementHint.setPosition( strandStartPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
-    self.mRnaDestroyerPlacementHint.setPosition( strandStartPosition );
+      // All hints always sit at the beginning of the RNA strand and are positioned relative to its center.
+      const strandStartPosition = new Vector2( shape.bounds.minX, shape.bounds.maxY );
+      this.ribosomePlacementHint.setPosition( strandStartPosition.minus( ribosome.offsetToTranslationChannelEntrance ) );
+      this.mRnaDestroyerPlacementHint.setPosition( strandStartPosition );
+    };
+
+    this.shapeProperty.link( updateHintPositions );
+
+    // update the attachment site position when the mRNA moves or changes shape
+    const attachmentSitePositionUpdater = this.updateAttachmentSitePosition.bind( this );
+    this.positionProperty.link( attachmentSitePositionUpdater );
+    this.shapeProperty.link( attachmentSitePositionUpdater );
+
+    this.disposeMessengerRna = function() {
+      this.shapeProperty.unlink( updateHintPositions );
+      this.shapeProperty.unlink( attachmentSitePositionUpdater );
+      this.positionProperty.unlink( attachmentSitePositionUpdater );
+    };
   }
-
-  this.shapeProperty.link( updateHintPositions );
-
-  // update the attachment site position when the mRNA moves or changes shape
-  const attachmentSitePositionUpdater = this.updateAttachmentSitePosition.bind( this );
-  this.positionProperty.link( attachmentSitePositionUpdater );
-  this.shapeProperty.link( attachmentSitePositionUpdater );
-
-  this.disposeMessengerRna = function() {
-    this.shapeProperty.unlink( updateHintPositions );
-    this.shapeProperty.unlink( attachmentSitePositionUpdater );
-    this.positionProperty.unlink( attachmentSitePositionUpdater );
-  };
-}
-
-geneExpressionEssentials.register( 'MessengerRna', MessengerRna );
-
-inherit( WindingBiomolecule, MessengerRna, {
 
   /**
    * @public
    */
-  dispose: function() {
+  dispose() {
     this.mapRibosomeToShapeSegment = null;
     this.disposeMessengerRna();
-    WindingBiomolecule.prototype.dispose.call( this );
-  },
+    super.dispose();
+  }
 
   /**
    * Command this mRNA strand to fade away when it has become fully formed. This was created for use in the 2nd
@@ -121,11 +115,11 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @param {boolean} fadeAwayWhenFormed
    * @public
    */
-  setFadeAwayWhenFormed: function( fadeAwayWhenFormed ) {
+  setFadeAwayWhenFormed( fadeAwayWhenFormed ) {
 
     // Just pass this through to the state machine.
     this.mRnaAttachmentStateMachine.setFadeAwayWhenFormed( fadeAwayWhenFormed );
-  },
+  }
 
   /**
    * Advance the translation of the mRNA through the given ribosome by the specified length. The given ribosome must
@@ -136,7 +130,7 @@ inherit( WindingBiomolecule, MessengerRna, {
    * if not.
    * @public
    */
-  advanceTranslation: function( ribosome, length ) {
+  advanceTranslation( ribosome, length ) {
 
     const segmentToAdvance = this.mapRibosomeToShapeSegment[ ribosome.id ];
 
@@ -158,7 +152,7 @@ inherit( WindingBiomolecule, MessengerRna, {
 
     // If there is anything left in this segment, then transcription is not yet complete.
     return segmentToAdvance.getContainedLength() <= 0;
-  },
+  }
 
   /**
    * Advance the destruction of the mRNA by the specified length. This pulls the strand into the lead segment much like
@@ -167,7 +161,7 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @returns {boolean}
    * @public
    */
-  advanceDestruction: function( length ) {
+  advanceDestruction( length ) {
 
     // Error checking.
     assert && assert(
@@ -191,14 +185,14 @@ inherit( WindingBiomolecule, MessengerRna, {
 
     // If there is any length left, then the destruction is not yet complete. This is a quick way to test this.
     return this.firstShapeDefiningPoint === this.lastShapeDefiningPoint;
-  },
+  }
 
   /**
    * Reduce the length of the mRNA. This handles both the shape segments and the shape-defining points.
    * @param {number} reductionAmount
    * @private
    */
-  reduceLength: function( reductionAmount ) {
+  reduceLength( reductionAmount ) {
     if ( reductionAmount >= this.getLength() ) {
 
       // Reduce length to be zero.
@@ -228,12 +222,12 @@ inherit( WindingBiomolecule, MessengerRna, {
         }
       }
     }
-  },
+  }
 
   /**
    * @private
    */
-  updateAttachmentSitePosition: function() {
+  updateAttachmentSitePosition() {
     if ( this.shapeSegments.length > 0 ) {
       const leadingShapeSegment = this.shapeSegments[ 0 ];
       this.attachmentSite.positionProperty.set( new Vector2(
@@ -244,16 +238,16 @@ inherit( WindingBiomolecule, MessengerRna, {
     else {
       this.attachmentSite.positionProperty.set( this.positionProperty.get() );
     }
-  },
+  }
 
   /**
    * Create a new version of the protein that should result when this strand of mRNA is translated.
    * @returns {Protein}
    * @public
    */
-  getProteinPrototype: function() {
+  getProteinPrototype() {
     return this.proteinPrototype;
-  },
+  }
 
   /**
    * Get the point in model space where the entrance of the given ribosome's translation channel should be in order to
@@ -263,7 +257,7 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @returns {Vector2}
    * @public
    */
-  getRibosomeGenerateInitialPosition3D: function( ribosome ) {
+  getRibosomeGenerateInitialPosition3D( ribosome ) {
     assert && assert(
       this.mapRibosomeToShapeSegment[ ribosome.id ],
       'attempt made to get attachment position for unattached ribosome'
@@ -292,7 +286,7 @@ inherit( WindingBiomolecule, MessengerRna, {
       );
     }
     return generateInitialPosition3D;
-  },
+  }
 
   /**
    * Release this mRNA from a ribosome. If this is the only ribosome to which the mRNA is connected, the mRNA will
@@ -300,28 +294,29 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @param {Ribosome} ribosome
    * @public
    */
-  releaseFromRibosome: function( ribosome ) {
+  releaseFromRibosome( ribosome ) {
     delete this.mapRibosomeToShapeSegment[ ribosome.id ];
     if ( _.keys( this.mapRibosomeToShapeSegment ).length === 0 ) {
       this.mRnaAttachmentStateMachine.allRibosomesDetached();
     }
-  },
+  }
 
   /**
    * Release this mRNA from the polymerase which is, presumably, transcribing it.
    * @public
    */
-  releaseFromPolymerase: function() {
+  releaseFromPolymerase() {
     this.mRnaAttachmentStateMachine.detach();
-  },
+  }
 
   /**
    * This override checks to see if the mRNA is about to be translated and destroyed and, if so, aborts those
    * operations.  If translation or destruction are in progress, nothing is done, since those can't be stopped once
    * they've started.
    * @override
+   * @public
    */
-  handleGrabbedByUser: function() {
+  handleGrabbedByUser() {
 
     const attachedOrAttachingMolecule = this.attachmentSite.attachedOrAttachingMoleculeProperty.get();
 
@@ -349,7 +344,7 @@ inherit( WindingBiomolecule, MessengerRna, {
         this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
       }
     }
-  },
+  }
 
   /**
    * Activate the placement hint(s) as appropriate for the given biomolecule.
@@ -357,19 +352,19 @@ inherit( WindingBiomolecule, MessengerRna, {
    * should be activated.
    * @public
    */
-  activateHints: function( biomolecule ) {
+  activateHints( biomolecule ) {
     this.ribosomePlacementHint.activateIfMatch( biomolecule );
     this.mRnaDestroyerPlacementHint.activateIfMatch( biomolecule );
-  },
+  }
 
   /**
    * Deactivate placement hints for all biomolecules
    * @public
    */
-  deactivateAllHints: function() {
+  deactivateAllHints() {
     this.ribosomePlacementHint.activeProperty.set( false );
     this.mRnaDestroyerPlacementHint.activeProperty.set( false );
-  },
+  }
 
   /**
    * Initiate the translation process by setting up the segments as needed. This should only be called after a ribosome
@@ -377,7 +372,7 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @param {Ribosome} ribosome
    * @public
    */
-  initiateTranslation: function( ribosome ) {
+  initiateTranslation( ribosome ) {
     assert && assert( this.mapRibosomeToShapeSegment[ ribosome.id ] ); // State checking.
 
     // Set the capacity of the first segment to the size of the channel through which it will be pulled plus the
@@ -385,7 +380,7 @@ inherit( WindingBiomolecule, MessengerRna, {
     const firstShapeSegment = this.shapeSegments[ 0 ];
     assert && assert( firstShapeSegment.isFlat() );
     firstShapeSegment.setCapacity( ribosome.getTranslationChannelLength() + GEEConstants.LEADER_LENGTH );
-  },
+  }
 
   /**
    * Initiate the destruction of this mRNA strand by setting up the segments as needed. This should only be called
@@ -393,7 +388,7 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @param {MessengerRnaDestroyer} messengerRnaDestroyer
    * @public
    */
-  initiateDestruction: function( messengerRnaDestroyer ) {
+  initiateDestruction( messengerRnaDestroyer ) {
     assert && assert( this.messengerRnaDestroyer === messengerRnaDestroyer ); // Shouldn't get this from unattached destroyers.
 
     // Set the capacity of the first segment to the size of the channel through which it will be pulled plus the leader length.
@@ -403,16 +398,16 @@ inherit( WindingBiomolecule, MessengerRna, {
     this.segmentBeingDestroyed.setCapacity(
       this.messengerRnaDestroyer.getDestructionChannelLength() + GEEConstants.LEADER_LENGTH
     );
-  },
+  }
 
   /**
    * returns true if destruction has started, false if not - note that destruction must actually have started, and
    * the state where an mRNA destroyer is moving towards the mRNA doesn't count
    * @private
    */
-  isDestructionInProgress: function() {
+  isDestructionInProgress() {
     return this.segmentBeingDestroyed !== null;
-  },
+  }
 
   /**
    * Get the proportion of the entire mRNA that has been translated by the given ribosome.
@@ -420,10 +415,10 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @returns {number}
    * @public
    */
-  getProportionOfRnaTranslated: function( ribosome ) {
+  getProportionOfRnaTranslated( ribosome ) {
     const translatedLength = this.getLengthOfRnaTranslated( ribosome );
     return Math.max( translatedLength / this.getLength(), 0 );
-  },
+  }
 
   /**
    * Get the length of the mRNA that has been translated by the given ribosome.
@@ -431,7 +426,7 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @returns {number}
    * @public
    */
-  getLengthOfRnaTranslated: function( ribosome ) {
+  getLengthOfRnaTranslated( ribosome ) {
     assert && assert( this.mapRibosomeToShapeSegment[ ribosome.id ] ); // Makes no sense if ribosome isn't attached.
     let translatedLength = 0;
     const segmentInRibosomeChannel = this.mapRibosomeToShapeSegment[ ribosome.id ];
@@ -453,21 +448,21 @@ inherit( WindingBiomolecule, MessengerRna, {
                         segmentInRibosomeChannel.attachmentSite.positionProperty.get().x );
 
     return translatedLength;
-  },
+  }
 
   /**
    * returns true if this messenger RNA is in a state where attachments can occur
    * @returns {boolean}
    * @private
    */
-  attachmentAllowed: function() {
+  attachmentAllowed() {
 
     // For an attachment proposal to be considered, the mRNA can't be controlled by the user, too short, or in the
     // process of being destroyed.
     return !this.userControlledProperty.get() &&
            this.getLength() >= MIN_LENGTH_TO_ATTACH &&
            this.messengerRnaDestroyer === null;
-  },
+  }
 
   /**
    * Consider proposal from ribosome, and, if the proposal is accepted, return the attachment position
@@ -475,7 +470,7 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @returns {AttachmentSite}
    * @public
    */
-  considerProposalFromRibosome: function( ribosome ) {
+  considerProposalFromRibosome( ribosome ) {
     assert && assert( !this.mapRibosomeToShapeSegment[ ribosome.id ] ); // Shouldn't get redundant proposals from a ribosome.
     let returnValue = null;
 
@@ -496,7 +491,7 @@ inherit( WindingBiomolecule, MessengerRna, {
       }
     }
     return returnValue;
-  },
+  }
 
   /**
    * Consider proposal from mRnaDestroyer and if it can attach return the attachment position
@@ -504,7 +499,7 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @returns {AttachmentSite}
    * @public
    */
-  considerProposalFromMessengerRnaDestroyer: function( messengerRnaDestroyer ) {
+  considerProposalFromMessengerRnaDestroyer( messengerRnaDestroyer ) {
     assert && assert( this.messengerRnaDestroyer !== messengerRnaDestroyer ); // Shouldn't get redundant proposals from same destroyer.
 
     let returnValue = null;
@@ -528,26 +523,26 @@ inherit( WindingBiomolecule, MessengerRna, {
     }
 
     return returnValue;
-  },
+  }
 
   /**
    * Aborts the destruction process, used if the mRNA destroyer was on its way to the mRNA but the user picked up
    * once of the two biomolecules before destruction started.
    * @public
    */
-  abortDestruction: function() {
+  abortDestruction() {
     this.messengerRnaDestroyer = null;
     this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
-  },
+  }
 
   /**
    * @override
    * @returns {MessengerRnaAttachmentStateMachine}
    * @public
    */
-  createAttachmentStateMachine: function() {
+  createAttachmentStateMachine() {
     return new MessengerRnaAttachmentStateMachine( this );
-  },
+  }
 
   /**
    * Get the point in model space where the entrance of the given destroyer's translation channel should be in order to
@@ -555,7 +550,7 @@ inherit( WindingBiomolecule, MessengerRna, {
    * @returns {Vector2}
    * @public
    */
-  getDestroyerGenerateInitialPosition3D: function() {
+  getDestroyerGenerateInitialPosition3D() {
 
     // state checking - shouldn't be called before this is set
     assert && assert( this.segmentBeingDestroyed !== null );
@@ -563,6 +558,8 @@ inherit( WindingBiomolecule, MessengerRna, {
     // the attachment position is at the right most side of the segment minus the leader length
     return this.attachmentSite.positionProperty.get();
   }
-} );
+}
+
+geneExpressionEssentials.register( 'MessengerRna', MessengerRna );
 
 export default MessengerRna;

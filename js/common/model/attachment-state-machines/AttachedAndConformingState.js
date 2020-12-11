@@ -9,28 +9,24 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import AttachmentState from './AttachmentState.js';
 
-/**
- * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
- * @constructor
- */
-function AttachedAndConformingState( rnaPolymeraseAttachmentStateMachine ) {
-  AttachmentState.call( this );
+class AttachedAndConformingState extends AttachmentState {
 
-  // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
-  this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
+  /**
+   * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
+   */
+  constructor( rnaPolymeraseAttachmentStateMachine ) {
+    super();
 
-  // @private
-  this.conformationalChangeAmount = 0;
-}
+    // @public (read-ony) {RnaPolymeraseAttachmentStateMachine}
+    this.rnaPolymeraseAttachmentStateMachine = rnaPolymeraseAttachmentStateMachine;
 
-geneExpressionEssentials.register( 'AttachedAndConformingState', AttachedAndConformingState );
-
-inherit( AttachmentState, AttachedAndConformingState, {
+    // @private
+    this.conformationalChangeAmount = 0;
+  }
 
   /**
    * @override
@@ -38,7 +34,7 @@ inherit( AttachmentState, AttachedAndConformingState, {
    * @param {number} dt - delta time
    * @public
    */
-  step: function( asm, dt ) {
+  step( asm, dt ) {
 
     const biomolecule = this.rnaPolymeraseAttachmentStateMachine.biomolecule;
     const dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
@@ -57,14 +53,14 @@ inherit( AttachmentState, AttachedAndConformingState, {
       this.rnaPolymeraseAttachmentStateMachine.attachedState = attachedAndTranscribingState;
       this.rnaPolymeraseAttachmentStateMachine.setState( this.rnaPolymeraseAttachmentStateMachine.attachedState );
     }
-  },
+  }
 
   /**
    * @override
    * @param {AttachmentStateMachine} asm
    * @public
    */
-  entered: function( asm ) {
+  entered( asm ) {
     const rnaPolymerase = this.rnaPolymeraseAttachmentStateMachine.rnaPolymerase;
     const dnaStrandSeparation = this.rnaPolymeraseAttachmentStateMachine.dnaStrandSeparation;
 
@@ -76,6 +72,8 @@ inherit( AttachmentState, AttachedAndConformingState, {
     rnaPolymerase.getModel().getDnaMolecule().addSeparation( dnaStrandSeparation );
     this.conformationalChangeAmount = 0;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'AttachedAndConformingState', AttachedAndConformingState );
 
 export default AttachedAndConformingState;

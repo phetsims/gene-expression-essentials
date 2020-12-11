@@ -9,7 +9,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import MessengerRnaDestroyer from '../../common/model/MessengerRnaDestroyer.js';
 import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.js';
@@ -27,29 +26,30 @@ const SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
   SCALING_FACTOR
 );
 
-/**
- * @param {BiomoleculeToolboxNode} biomoleculeBoxNode
- * @constructor
- */
-function MessengerRnaDestroyerCreatorNode( biomoleculeBoxNode ) {
-  BiomoleculeCreatorNode.call( this,
-    new MobileBiomoleculeNode( SCALING_MVT, new MessengerRnaDestroyer( new StubGeneExpressionModel() ) ),
-    biomoleculeBoxNode.canvas,
-    biomoleculeBoxNode.modelViewTransform,
-    function( pos ) {
-      const mRnaDestroyer = new MessengerRnaDestroyer( biomoleculeBoxNode.model, pos );
-      biomoleculeBoxNode.model.addMobileBiomolecule( mRnaDestroyer );
-      return mRnaDestroyer;
+class MessengerRnaDestroyerCreatorNode extends BiomoleculeCreatorNode {
 
-    },
-    function( mobileBiomolecule ) {
-      biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
-    },
-    biomoleculeBoxNode
-  );
+  /**
+   * @param {BiomoleculeToolboxNode} biomoleculeBoxNode
+   */
+  constructor( biomoleculeBoxNode ) {
+    super(
+      new MobileBiomoleculeNode( SCALING_MVT, new MessengerRnaDestroyer( new StubGeneExpressionModel() ) ),
+      biomoleculeBoxNode.canvas,
+      biomoleculeBoxNode.modelViewTransform,
+      pos => {
+        const mRnaDestroyer = new MessengerRnaDestroyer( biomoleculeBoxNode.model, pos );
+        biomoleculeBoxNode.model.addMobileBiomolecule( mRnaDestroyer );
+        return mRnaDestroyer;
+
+      },
+      mobileBiomolecule => {
+        biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
+      },
+      biomoleculeBoxNode
+    );
+  }
 }
 
 geneExpressionEssentials.register( 'MessengerRnaDestroyerCreatorNode', MessengerRnaDestroyerCreatorNode );
 
-inherit( BiomoleculeCreatorNode, MessengerRnaDestroyerCreatorNode );
 export default MessengerRnaDestroyerCreatorNode;

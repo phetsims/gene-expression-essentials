@@ -9,7 +9,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Ribosome from '../../common/model/Ribosome.js';
 import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.js';
@@ -26,32 +25,32 @@ const SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
   SCALING_FACTOR
 );
 
-/**
- * @param {BiomoleculeToolboxNode} biomoleculeBoxNode
- * @constructor
- */
-function RibosomeCreatorNode( biomoleculeBoxNode ) {
-  BiomoleculeCreatorNode.call(
-    this,
-    new MobileBiomoleculeNode(
-      SCALING_MVT,
-      new Ribosome( new StubGeneExpressionModel() )
-    ),
-    biomoleculeBoxNode.canvas,
-    biomoleculeBoxNode.modelViewTransform,
-    function( pos ) {
-      const srs = new Ribosome( biomoleculeBoxNode.model, pos );
-      biomoleculeBoxNode.model.addMobileBiomolecule( srs );
-      return srs;
-    },
-    function( mobileBiomolecule ) {
-      biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
-    },
-    biomoleculeBoxNode
-  );
+class RibosomeCreatorNode extends BiomoleculeCreatorNode {
+
+  /**
+   * @param {BiomoleculeToolboxNode} biomoleculeBoxNode
+   */
+  constructor( biomoleculeBoxNode ) {
+    super(
+      new MobileBiomoleculeNode(
+        SCALING_MVT,
+        new Ribosome( new StubGeneExpressionModel() )
+      ),
+      biomoleculeBoxNode.canvas,
+      biomoleculeBoxNode.modelViewTransform,
+      pos => {
+        const srs = new Ribosome( biomoleculeBoxNode.model, pos );
+        biomoleculeBoxNode.model.addMobileBiomolecule( srs );
+        return srs;
+      },
+      mobileBiomolecule => {
+        biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
+      },
+      biomoleculeBoxNode
+    );
+  }
 }
 
 geneExpressionEssentials.register( 'RibosomeCreatorNode', RibosomeCreatorNode );
 
-inherit( BiomoleculeCreatorNode, RibosomeCreatorNode );
 export default RibosomeCreatorNode;

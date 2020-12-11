@@ -8,7 +8,6 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import CanvasNode from '../../../../scenery/js/nodes/CanvasNode.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
@@ -19,37 +18,34 @@ const STRAND_1_COLOR = new Color( 31, 163, 223 );
 const STRAND_2_COLOR = new Color( 214, 87, 107 );
 const BASE_PAIR_COLOR = Color.DARK_GRAY.computeCSS();
 
-/**
- * @param {DnaMolecule} model
- * @param {ModelViewTransform2} modelViewTransform
- * @param {number} backboneStrokeWidth
- * @param {Object} [options]
- * @constructor
- */
-function DnaMoleculeCanvasNode( model, modelViewTransform, backboneStrokeWidth, options ) {
-  this.model = model; // @private
-  this.modelViewTransform = modelViewTransform; // @private
-  this.backboneStrokeWidth = modelViewTransform.viewToModelDeltaX( backboneStrokeWidth ); // @private
+class DnaMoleculeCanvasNode extends CanvasNode {
 
-  // @private - pre-allocated reusable vectors, used to reduce garbage collection
-  this.cp1ResuableVector = new Vector2( 0, 0 );
-  this.cp2ResuableVector = new Vector2( 0, 0 );
+  /**
+   * @param {DnaMolecule} model
+   * @param {ModelViewTransform2} modelViewTransform
+   * @param {number} backboneStrokeWidth
+   * @param {Object} [options]
+   */
+  constructor( model, modelViewTransform, backboneStrokeWidth, options ) {
+    super( options );
+    this.model = model; // @private
+    this.modelViewTransform = modelViewTransform; // @private
+    this.backboneStrokeWidth = modelViewTransform.viewToModelDeltaX( backboneStrokeWidth ); // @private
 
-  // @private - four arrays for the DNA backbone representation
-  const longerArrayLength = Utils.roundSymmetric( this.model.strand1Segments.length / 2 );
-  const shorterArrayLength = Math.floor( this.model.strand1Segments.length / 2 );
-  this.strand1ArrayBehind = new Array( shorterArrayLength );
-  this.strand2ArrayBehind = new Array( longerArrayLength );
-  this.strand1ArrayFront = new Array( longerArrayLength );
-  this.strand2ArrayFront = new Array( shorterArrayLength );
+    // @private - pre-allocated reusable vectors, used to reduce garbage collection
+    this.cp1ResuableVector = new Vector2( 0, 0 );
+    this.cp2ResuableVector = new Vector2( 0, 0 );
 
-  CanvasNode.call( this, options );
-  this.invalidatePaint();
-}
+    // @private - four arrays for the DNA backbone representation
+    const longerArrayLength = Utils.roundSymmetric( this.model.strand1Segments.length / 2 );
+    const shorterArrayLength = Math.floor( this.model.strand1Segments.length / 2 );
+    this.strand1ArrayBehind = new Array( shorterArrayLength );
+    this.strand2ArrayBehind = new Array( longerArrayLength );
+    this.strand1ArrayFront = new Array( longerArrayLength );
+    this.strand2ArrayFront = new Array( shorterArrayLength );
 
-geneExpressionEssentials.register( 'DnaMoleculeCanvasNode', DnaMoleculeCanvasNode );
-
-inherit( CanvasNode, DnaMoleculeCanvasNode, {
+    this.invalidatePaint();
+  }
 
   /**
    * Draws the base pairs - this normally just draws a single line the connects between the two strands, but if the
@@ -58,7 +54,7 @@ inherit( CanvasNode, DnaMoleculeCanvasNode, {
    * @param {BasePair}basePair
    * @private
    */
-  drawBasePair: function( context, basePair ) {
+  drawBasePair( context, basePair ) {
 
     const endOffset = basePair.width / 2;
 
@@ -79,7 +75,7 @@ inherit( CanvasNode, DnaMoleculeCanvasNode, {
     }
 
     context.lineWidth = basePair.width;
-  },
+  }
 
   /**
    * Draws the strand segments
@@ -88,7 +84,7 @@ inherit( CanvasNode, DnaMoleculeCanvasNode, {
    * @param {Color} strokeColor
    * @private
    */
-  drawStrandSegments: function( context, strandSegmentArray, strokeColor ) {
+  drawStrandSegments( context, strandSegmentArray, strokeColor ) {
     context.beginPath();
 
     // allocate reusable vectors for optimal performance
@@ -142,17 +138,18 @@ inherit( CanvasNode, DnaMoleculeCanvasNode, {
     context.strokeStyle = strokeColor.computeCSS();
     context.lineWidth = this.backboneStrokeWidth;
     context.stroke();
-  },
+  }
 
   /**
    * @override
    * Draws the DNA Molecule on canvas which includes helix like strands and base pairs.
    * @param {CanvasRenderingContext2D} context
+   * @public
    */
-  paintCanvas: function( context ) {
+  paintCanvas( context ) {
 
     // map the segments of the DNA in the model to the arrays used in rendering
-    for ( var i = 0; i < this.model.strand1Segments.length; i++ ) {
+    for ( let i = 0; i < this.model.strand1Segments.length; i++ ) {
       const strand1Segment = this.model.strand1Segments[ i ];
       const strand2Segment = this.model.strand2Segments[ i ];
 
@@ -176,7 +173,7 @@ inherit( CanvasNode, DnaMoleculeCanvasNode, {
     context.lineCap = 'butt';
     context.beginPath();
     context.strokeStyle = BASE_PAIR_COLOR;
-    for ( i = 0; i < this.model.basePairs.length; i++ ) {
+    for ( let i = 0; i < this.model.basePairs.length; i++ ) {
       const basePair = this.model.basePairs[ i ];
       this.drawBasePair( context, basePair );
     }
@@ -186,17 +183,19 @@ inherit( CanvasNode, DnaMoleculeCanvasNode, {
     context.lineCap = 'round';
     this.drawStrandSegments( context, this.strand1ArrayFront, STRAND_1_COLOR );
     this.drawStrandSegments( context, this.strand2ArrayFront, STRAND_2_COLOR );
-  },
+  }
 
   /**
    * Step Function which checks whether to redraw or not
    * @public
    */
-  step: function() {
+  step() {
     if ( this.model.redraw ) {
       this.invalidatePaint();
     }
   }
-} );
+}
+
+geneExpressionEssentials.register( 'DnaMoleculeCanvasNode', DnaMoleculeCanvasNode );
 
 export default DnaMoleculeCanvasNode;

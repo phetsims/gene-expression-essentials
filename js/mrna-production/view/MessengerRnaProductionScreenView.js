@@ -114,11 +114,11 @@ class MessengerRnaProductionScreenView extends ScreenView {
     controlsNode.addChild( negativeFactorEnabledCheckbox );
 
     // Only show the control for the negative transcription factor if it is enabled.
-    this.negativeTranscriptionFactorEnabled.link( function( enabled ) {
+    this.negativeTranscriptionFactorEnabled.link( enabled => {
       negativeTranscriptionFactorControlPanel.setVisible( enabled );
       if ( !enabled ) {
         // When the negative transcription factor control is hidden, there should be no negative factors.
-        self.model.negativeTranscriptionFactorCountProperty.reset();
+        this.model.negativeTranscriptionFactorCountProperty.reset();
       }
     } );
 
@@ -131,7 +131,7 @@ class MessengerRnaProductionScreenView extends ScreenView {
           touchAreaDilation: 5
         },
         stepForwardButtonOptions: {
-          listener: function() { model.stepInTime( 0.016 ); },
+          listener: () => { model.stepInTime( 0.016 ); },
           radius: 15,
           touchAreaDilation: 5
         }
@@ -141,9 +141,9 @@ class MessengerRnaProductionScreenView extends ScreenView {
 
     // Add the Reset All button.
     const resetAllButton = new ResetAllButton( {
-      listener: function() {
-        self.model.reset();
-        self.negativeTranscriptionFactorEnabled.reset();
+      listener: () => {
+        this.model.reset();
+        this.negativeTranscriptionFactorEnabled.reset();
       },
       right: this.layoutBounds.maxX - INSET,
       bottom: this.layoutBounds.maxY - INSET
@@ -176,7 +176,7 @@ class MessengerRnaProductionScreenView extends ScreenView {
 
       // Add a listener that moves the child on to a lower layer when it connects to the DNA so that we see the desired
       // overlap behavior.
-      const positionBiomolecule = function( attachedToDna ) {
+      const positionBiomolecule = attachedToDna => {
         if ( attachedToDna ) {
           if ( topBiomoleculeLayer.hasChild( biomoleculeNode ) ) {
             topBiomoleculeLayer.removeChild( biomoleculeNode );
@@ -207,20 +207,20 @@ class MessengerRnaProductionScreenView extends ScreenView {
       } );
     }
 
-    model.mobileBiomoleculeList.forEach( function( bioMolecule ) {
+    model.mobileBiomoleculeList.forEach( bioMolecule => {
       addBiomoleculeView( bioMolecule );
     } );
 
     // Watch for and handle comings and goings of biomolecules in the model. Most, but not all, of the biomolecules are
     // handled by this. A few others are handled as special cases.
-    model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
+    model.mobileBiomoleculeList.addItemAddedListener( addedBiomolecule => {
       addBiomoleculeView( addedBiomolecule );
     } );
 
     // Watch for and handle comings and goings of messenger RNA.
-    model.messengerRnaList.addItemAddedListener( function( addedMessengerRna ) {
+    model.messengerRnaList.addItemAddedListener( addedMessengerRna => {
 
-      const messengerRnaNode = new MessengerRnaNode( self.modelViewTransform, addedMessengerRna );
+      const messengerRnaNode = new MessengerRnaNode( this.modelViewTransform, addedMessengerRna );
       messengerRnaLayer.addChild( messengerRnaNode );
 
       model.messengerRnaList.addItemRemovedListener( function removalListener( removedMessengerRna ) {

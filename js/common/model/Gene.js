@@ -13,7 +13,6 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 import AttachmentSite from './AttachmentSite.js';
@@ -24,128 +23,120 @@ import TranscriptionFactor from './TranscriptionFactor.js';
 import TranscriptionFactorAttachmentSite from './TranscriptionFactorAttachmentSite.js';
 import TranscriptionFactorPlacementHint from './TranscriptionFactorPlacementHint.js';
 
-/**
- * @param {DnaMolecule} dnaMolecule - The DNA molecule within which this gene exists.
- * @param {Range} regulatoryRegion - The range, in terms of base pairs on the DNA strand, where this region exists.
- * @param {Color} regulatoryRegionColor
- * @param {Range} transcribedRegion - The range, in terms of base pairs on the DNA strand, where this region exists.
- * @param {Color} transcribedRegionColor
- * @param {number} windingAlgorithmParameterSet - algorithm used to wind mRNA produced from this gene
- * @constructor
- */
-function Gene( dnaMolecule,
-               regulatoryRegion,
-               regulatoryRegionColor,
-               transcribedRegion,
-               transcribedRegionColor,
-               windingAlgorithmParameterSet ) {
+class Gene {
 
-  // @public (read-only) {Color}
-  this.regulatoryRegionColor = regulatoryRegionColor;
+  /**
+   * @param {DnaMolecule} dnaMolecule - The DNA molecule within which this gene exists.
+   * @param {Range} regulatoryRegion - The range, in terms of base pairs on the DNA strand, where this region exists.
+   * @param {Color} regulatoryRegionColor
+   * @param {Range} transcribedRegion - The range, in terms of base pairs on the DNA strand, where this region exists.
+   * @param {Color} transcribedRegionColor
+   * @param {number} windingAlgorithmParameterSet - algorithm used to wind mRNA produced from this gene
+   */
+  constructor( dnaMolecule, regulatoryRegion, regulatoryRegionColor, transcribedRegion, transcribedRegionColor, windingAlgorithmParameterSet ) {
 
-  // @public (read-only) {Color}
-  this.transcribedRegionColor = transcribedRegionColor;
+    // @public (read-only) {Color}
+    this.regulatoryRegionColor = regulatoryRegionColor;
 
-  // @public (read-only) {number}
-  this.windingAlgorithmParameterSet = windingAlgorithmParameterSet;
+    // @public (read-only) {Color}
+    this.transcribedRegionColor = transcribedRegionColor;
 
-  // @private {AttachmentSite} - attachment site for polymerase. It is always at the end of the regulatory region.
-  this.polymeraseAttachmentSite = new AttachmentSite(
-    dnaMolecule,
-    new Vector2( dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.max ), GEEConstants.DNA_MOLECULE_Y_POS ),
-    1
-  );
+    // @public (read-only) {number}
+    this.windingAlgorithmParameterSet = windingAlgorithmParameterSet;
 
-  // @private - internal variables used by the methods
-  this.dnaMolecule = dnaMolecule;
-  this.regulatoryRegion = regulatoryRegion;
-  this.transcribedRegion = transcribedRegion;
+    // @private {AttachmentSite} - attachment site for polymerase. It is always at the end of the regulatory region.
+    this.polymeraseAttachmentSite = new AttachmentSite(
+      dnaMolecule,
+      new Vector2( dnaMolecule.getBasePairXOffsetByIndex( regulatoryRegion.max ), GEEConstants.DNA_MOLECULE_Y_POS ),
+      1
+    );
 
-  // @private {PlacementHint} - Placement hint for polymerase. There is always only one.  Strictly speaking it is
-  // private, but it is accessed by methods to allow it to be portrayed in the view.
-  this.rnaPolymerasePlacementHint = new PlacementHint( new RnaPolymerase() ); // @private
+    // @private - internal variables used by the methods
+    this.dnaMolecule = dnaMolecule;
+    this.regulatoryRegion = regulatoryRegion;
+    this.transcribedRegion = transcribedRegion;
 
-  // @private {Array.<PlacementHint>} - Placement hint for polymerase. There is always only one.  Strictly speaking
-  // this is private, but the hints are accessed by methods to allow them to be portrayed in the view.
-  this.transcriptionFactorPlacementHints = [];
+    // @private {PlacementHint} - Placement hint for polymerase. There is always only one.  Strictly speaking it is
+    // private, but it is accessed by methods to allow it to be portrayed in the view.
+    this.rnaPolymerasePlacementHint = new PlacementHint( new RnaPolymerase() ); // @private
 
-  // @private {Array.<TranscriptionFactorAttachmentSite>} - attachment sites for transcription factors, private, but
-  // accessible via methods
-  this.transcriptionFactorAttachmentSites = []; // @private
+    // @private {Array.<PlacementHint>} - Placement hint for polymerase. There is always only one.  Strictly speaking
+    // this is private, but the hints are accessed by methods to allow them to be portrayed in the view.
+    this.transcriptionFactorPlacementHints = [];
 
-  // @private {Object} - Map of transcription factors that interact with this gene to the base pair offset
-  // where the TF attaches.
-  this.transcriptionFactorMap = {}; // @private
+    // @private {Array.<TranscriptionFactorAttachmentSite>} - attachment sites for transcription factors, private, but
+    // accessible via methods
+    this.transcriptionFactorAttachmentSites = []; // @private
 
-  // @public {Property.<number>}} - Property that determines the affinity of the site where polymerase attaches when the transcription factors
-  // support transcription.
-  this.polymeraseAffinityProperty = new Property( 1.0 );
+    // @private {Object} - Map of transcription factors that interact with this gene to the base pair offset
+    // where the TF attaches.
+    this.transcriptionFactorMap = {}; // @private
 
-  // Initialize the placement hint for polymerase.
-  this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.positionProperty.get() );
-}
+    // @public {Property.<number>}} - Property that determines the affinity of the site where polymerase attaches when the transcription factors
+    // support transcription.
+    this.polymeraseAffinityProperty = new Property( 1.0 );
 
-geneExpressionEssentials.register( 'Gene', Gene );
-
-inherit( Object, Gene, {
+    // Initialize the placement hint for polymerase.
+    this.rnaPolymerasePlacementHint.setPosition( this.polymeraseAttachmentSite.positionProperty.get() );
+  }
 
   /**
    * Returns the regulatory region color
    * @returns {Color}
    * @public
    */
-  getRegulatoryRegionColor: function() {
+  getRegulatoryRegionColor() {
     return this.regulatoryRegionColor;
-  },
+  }
 
   /**
    * Returns ths transcribed region color
    * @returns {Color}
    * @public
    */
-  getTranscribedRegionColor: function() {
+  getTranscribedRegionColor() {
     return this.transcribedRegionColor;
-  },
+  }
 
   /**
    * @returns {number}
    * @public
    */
-  getCenterX: function() {
+  getCenterX() {
     return this.getStartX() + ( this.getEndX() - this.getStartX() ) / 2;
-  },
+  }
 
   /**
    * @returns {number}
    * @public
    */
-  getStartX: function() {
+  getStartX() {
     return this.dnaMolecule.getBasePairXOffsetByIndex( this.regulatoryRegion.min );
-  },
+  }
 
   /**
    * @returns {number}
    * @public
    */
-  getEndX: function() {
+  getEndX() {
     return this.dnaMolecule.getBasePairXOffsetByIndex( this.transcribedRegion.max );
-  },
+  }
 
   /**
    * @returns {Range}
    * @public
    */
-  getRegulatoryRegion: function() {
+  getRegulatoryRegion() {
     return this.regulatoryRegion;
-  },
+  }
 
   /**
    * @returns {Range}
    * @public
    */
-  getTranscribedRegion: function() {
+  getTranscribedRegion() {
     return this.transcribedRegion;
-  },
+  }
 
   /**
    * Get the attachment site for a base pair that is contained within this gene. In many cases, the affinity of the
@@ -157,7 +148,7 @@ inherit( Object, Gene, {
    * @returns {AttachmentSite}
    * @public
    */
-  getPolymeraseAttachmentSiteByIndex: function( basePairIndex ) {
+  getPolymeraseAttachmentSiteByIndex( basePairIndex ) {
     if ( basePairIndex === this.regulatoryRegion.max ) {
 
       // This is the last base pair within the regulatory region, which is where the polymerase would begin transcription.
@@ -167,7 +158,7 @@ inherit( Object, Gene, {
     // There is currently nothing special about this site, so return a default affinity site.
     return this.dnaMolecule.createDefaultAffinityAttachmentSite(
       this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) );
-  },
+  }
 
   /**
    * Get the attachment site where RNA polymerase would start transcribing the DNA. This is assumes that there is only
@@ -176,15 +167,15 @@ inherit( Object, Gene, {
    * @returns {AttachmentSite}
    * @public
    */
-  getPolymeraseAttachmentSite: function() {
+  getPolymeraseAttachmentSite() {
     return this.polymeraseAttachmentSite;
-  },
+  }
 
   /**
    * Update the affinity of attachment sites
    * @public
    */
-  updateAffinities: function() {
+  updateAffinities() {
     // Update the affinity of the polymerase attachment site based upon the state of the transcription factors.
     if ( this.transcriptionFactorsSupportTranscription() ) {
       this.polymeraseAttachmentSite.affinityProperty.set( this.polymeraseAffinityProperty.get() );
@@ -192,7 +183,7 @@ inherit( Object, Gene, {
     else {
       this.polymeraseAttachmentSite.affinityProperty.set( GEEConstants.DEFAULT_AFFINITY );
     }
-  },
+  }
 
   /**
    * Method used by descendant classes to add positions where transcription factors go on the gene. Generally this is
@@ -202,7 +193,7 @@ inherit( Object, Gene, {
    * @param {TranscriptionFactorConfig} tfConfig
    * @protected
    */
-  addTranscriptionFactorPosition: function(basePairOffset, tfConfig ) {
+  addTranscriptionFactorPosition( basePairOffset, tfConfig ) {
     this.transcriptionFactorMap[ basePairOffset ] = new TranscriptionFactor( null, tfConfig );
     const position = new Vector2(
       this.dnaMolecule.getBasePairXOffsetByIndex( basePairOffset + this.regulatoryRegion.min ),
@@ -214,7 +205,7 @@ inherit( Object, Gene, {
     this.transcriptionFactorAttachmentSites.push(
       new TranscriptionFactorAttachmentSite( this.dnaMolecule, position, tfConfig, 1 )
     );
-  },
+  }
 
   /**
    * Returns true if all positive transcription factors are attached and no negative ones are attached, which indicates
@@ -222,7 +213,7 @@ inherit( Object, Gene, {
    * @returns {boolean}
    * @public
    */
-  transcriptionFactorsSupportTranscription: function() {
+  transcriptionFactorsSupportTranscription() {
 
     // In this sim, blocking factors overrule positive factors, so test for those first.
     if ( this.transcriptionFactorsBlockTranscription() ) {
@@ -231,7 +222,7 @@ inherit( Object, Gene, {
 
     // Count the number of positive transcription factors needed to enable transcription.
     let numPositiveTranscriptionFactorsNeeded = 0;
-    _.values( this.transcriptionFactorMap ).forEach( function( transcriptionFactor ) {
+    _.values( this.transcriptionFactorMap ).forEach( transcriptionFactor => {
       if ( transcriptionFactor.getConfig().isPositive ) {
         numPositiveTranscriptionFactorsNeeded += 1;
       }
@@ -239,7 +230,7 @@ inherit( Object, Gene, {
 
     // Count the number of positive transcription factors attached.
     let numPositiveTranscriptionFactorsAttached = 0;
-    this.transcriptionFactorAttachmentSites.forEach( function( transcriptionFactorAttachmentSite ) {
+    this.transcriptionFactorAttachmentSites.forEach( transcriptionFactorAttachmentSite => {
       if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() !== null ) {
         const tf = transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get();
 
@@ -253,7 +244,7 @@ inherit( Object, Gene, {
     } );
 
     return numPositiveTranscriptionFactorsAttached === numPositiveTranscriptionFactorsNeeded;
-  },
+  }
 
   /**
    * Evaluate if transcription factors are blocking transcription.
@@ -261,7 +252,7 @@ inherit( Object, Gene, {
    * @returns {boolean} true if there are transcription factors that block transcription.
    * @private
    */
-  transcriptionFactorsBlockTranscription: function() {
+  transcriptionFactorsBlockTranscription() {
     for ( let i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
       const transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
       if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() !== null ) {
@@ -272,7 +263,7 @@ inherit( Object, Gene, {
     }
 
     return false;
-  },
+  }
 
   /**
    * Get the attachment site for a base pair that is contained within this gene. In many cases, the affinity of the
@@ -286,7 +277,7 @@ inherit( Object, Gene, {
    * @returns {AttachmentSite}
    * @public
    */
-  getTranscriptionFactorAttachmentSite: function( basePairIndex, tfConfig ) {
+  getTranscriptionFactorAttachmentSite( basePairIndex, tfConfig ) {
     // Assume a default affinity site until proven otherwise.
     let attachmentSite = this.dnaMolecule.createDefaultAffinityAttachmentSite(
       this.dnaMolecule.getBasePairXOffsetByIndex( basePairIndex ) );
@@ -309,7 +300,7 @@ inherit( Object, Gene, {
       }
     }
     return attachmentSite;
-  },
+  }
 
   /**
    * Get the attachment site that is specific to the given transcription factor configuration, if one exists.
@@ -321,7 +312,7 @@ inherit( Object, Gene, {
    * @returns {AttachmentSite} attachment site for the config if present on the gene, null if not.
    * @public
    */
-  getMatchingSite: function( transcriptionFactorConfig ) {
+  getMatchingSite( transcriptionFactorConfig ) {
     for ( let i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
       const transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
       if ( transcriptionFactorAttachmentSite.configurationMatches( transcriptionFactorConfig ) ) {
@@ -329,7 +320,7 @@ inherit( Object, Gene, {
       }
     }
     return null;
-  },
+  }
 
   /**
    * Get a property that can be used to vary the affinity of the attachment site associated with the specified
@@ -339,7 +330,7 @@ inherit( Object, Gene, {
    * @returns {Property<number>}
    * @public
    */
-  getTranscriptionFactorAffinityProperty: function( tfConfig ) {
+  getTranscriptionFactorAffinityProperty( tfConfig ) {
     let affinityProperty = null;
     for ( let i = 0; i < this.transcriptionFactorAttachmentSites.length; i++ ) {
       const transcriptionFactorAttachmentSite = this.transcriptionFactorAttachmentSites[ i ];
@@ -350,33 +341,32 @@ inherit( Object, Gene, {
       }
     }
     return affinityProperty;
-  },
+  }
 
   /**
    * Get the property that controls the affinity of the site where polymerase binds when initiating transcription.
    * @returns {Property<number>}
    * @public
    */
-  getPolymeraseAffinityProperty: function() {
+  getPolymeraseAffinityProperty() {
     return this.polymeraseAffinityProperty;
-  },
+  }
 
   /**
    * @param {number} basePairIndex
    * @returns {boolean}
    * @public
    */
-  containsBasePair: function( basePairIndex ) {
+  containsBasePair( basePairIndex ) {
     return this.regulatoryRegion.contains( basePairIndex ) || this.transcribedRegion.contains( basePairIndex );
-  },
+  }
 
   /**
    * Activate any and all placement hints associated with the given biomolecule.
    * @param {MobileBiomolecule} biomolecule
    * @public
    */
-  activateHints: function( biomolecule ) {
-    const self = this;
+  activateHints( biomolecule ) {
     if ( this.rnaPolymerasePlacementHint.isMatchingBiomolecule( biomolecule ) ) {
       if ( !this.transcriptionFactorsBlockTranscription() ) {
 
@@ -385,81 +375,81 @@ inherit( Object, Gene, {
 
         // Also activate any unoccupied positive transcription factor hints in order to convey to the user that these
         // are needed for transcription to start.
-        this.transcriptionFactorAttachmentSites.forEach( function( transcriptionFactorAttachmentSite ) {
+        this.transcriptionFactorAttachmentSites.forEach( transcriptionFactorAttachmentSite => {
           if ( transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.get() === null &&
                transcriptionFactorAttachmentSite.getTfConfig().isPositive ) {
-            self.activateTranscriptionFactorHint( transcriptionFactorAttachmentSite.getTfConfig() );
+            this.activateTranscriptionFactorHint( transcriptionFactorAttachmentSite.getTfConfig() );
           }
         } );
       }
     }
     else if ( biomolecule instanceof TranscriptionFactor ) {
       // Activate hint that matches this transcription factor.
-      this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
+      this.transcriptionFactorPlacementHints.forEach( transcriptionFactorPlacementHint => {
         transcriptionFactorPlacementHint.activateIfMatch( biomolecule );
       } );
     }
-  },
+  }
 
   /**
    * @param { TranscriptionFactorConfig } tfConfig
    * @private
    */
-  activateTranscriptionFactorHint: function( tfConfig ) {
-    this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
+  activateTranscriptionFactorHint( tfConfig ) {
+    this.transcriptionFactorPlacementHints.forEach( transcriptionFactorPlacementHint => {
       transcriptionFactorPlacementHint.activateIfConfigMatch( tfConfig );
     } );
-  },
+  }
 
   /**
    * Deactivate Hints for the biomolecules
    * @public
    */
-  deactivateHints: function() {
+  deactivateHints() {
     this.rnaPolymerasePlacementHint.activeProperty.set( false );
-    this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
+    this.transcriptionFactorPlacementHints.forEach( transcriptionFactorPlacementHint => {
       transcriptionFactorPlacementHint.activeProperty.set( false );
     } );
-  },
+  }
 
   /**
    * @returns {Array.<PlacementHint>}
    * @public
    */
-  getPlacementHints: function() {
+  getPlacementHints() {
     const placementHints = [ this.rnaPolymerasePlacementHint ];
-    this.transcriptionFactorPlacementHints.forEach( function( transcriptionFactorPlacementHint ) {
+    this.transcriptionFactorPlacementHints.forEach( transcriptionFactorPlacementHint => {
       placementHints.push( transcriptionFactorPlacementHint );
     } );
     return placementHints;
-  },
+  }
 
   /**
    * Clear the attachment sites, generally only done as part of a reset operation.
    * @public
    */
-  clearAttachmentSites: function() {
+  clearAttachmentSites() {
     this.polymeraseAttachmentSite.attachedOrAttachingMoleculeProperty.set( null );
-    this.transcriptionFactorAttachmentSites.forEach( function( transcriptionFactorAttachmentSite ) {
+    this.transcriptionFactorAttachmentSites.forEach( transcriptionFactorAttachmentSite => {
       transcriptionFactorAttachmentSite.attachedOrAttachingMoleculeProperty.set( null );
     } );
-  },
+  }
 
   /**
    * Get an instance (a.k.a. a prototype) of the protein associated with this gene.
    * @returns {Protein}
    * @public
    */
-  getProteinPrototype: function() {
+  getProteinPrototype() {
     throw new Error( 'getProteinPrototype should be implemented in descendant classes of Gene .' );
-  },
+  }
 
   /**
    * Get the list of all transcription factors that have high-affinity binding sites on this gene.
    * @returns {Array.<TranscriptionFactorConfig>}
    * @public
    */
-  getTranscriptionFactorConfigs: function() {
+  getTranscriptionFactorConfigs() {
     const configList = [];
     for ( const key in this.transcriptionFactorMap ) {
       if ( this.transcriptionFactorMap.hasOwnProperty( key ) ) {
@@ -469,6 +459,8 @@ inherit( Object, Gene, {
     }
     return configList;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'Gene', Gene );
 
 export default Gene;

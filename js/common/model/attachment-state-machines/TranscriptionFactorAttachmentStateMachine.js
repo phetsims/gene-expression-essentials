@@ -10,26 +10,26 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GenericAttachmentStateMachine from './GenericAttachmentStateMachine.js';
 import TranscriptionFactorAttachedState from './TranscriptionFactorAttachedState.js';
 
-/**
- * @param {MobileBiomolecule} biomolecule
- * @constructor
- */
-function TranscriptionFactorAttachmentStateMachine( biomolecule ) {
-  GenericAttachmentStateMachine.call( this, biomolecule );
+class TranscriptionFactorAttachmentStateMachine extends GenericAttachmentStateMachine {
 
-  // Set up a new "attached" state, since the behavior is different from  the default.
-  this.attachedState = new TranscriptionFactorAttachedState( this ); //@public
+  /**
+   * @param {MobileBiomolecule} biomolecule
+   */
+  constructor( biomolecule ) {
+    super( biomolecule );
 
-  // Threshold for the detachment algorithm, used in deciding whether or not to detach completely from the DNA at a
-  // given time step.
-  this.detachFromDnaThreshold = 1; //@public
+    // Set up a new "attached" state, since the behavior is different from  the default.
+    this.attachedState = new TranscriptionFactorAttachedState( this ); //@public
+
+    // Threshold for the detachment algorithm, used in deciding whether or not to detach completely from the DNA at a
+    // given time step.
+    this.detachFromDnaThreshold = 1; //@public
+  }
 }
 
 geneExpressionEssentials.register( 'TranscriptionFactorAttachmentStateMachine', TranscriptionFactorAttachmentStateMachine );
-inherit( GenericAttachmentStateMachine, TranscriptionFactorAttachmentStateMachine );
 export default TranscriptionFactorAttachmentStateMachine;

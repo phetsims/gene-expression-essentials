@@ -43,8 +43,6 @@ class ManualGeneExpressionScreenView extends ScreenView {
   constructor( model ) {
 
     super( { preventFit: true } );
-    const self = this;
-
     this.viewPortOffset = new Vector2( 0, 0 );
     const biomoleculeToolboxNodeList = []; // array containing the toolbox nodes used to create biomolecules
 
@@ -90,9 +88,9 @@ class ManualGeneExpressionScreenView extends ScreenView {
 
     // Add the placement hints that go on the DNA molecule. These exist on their own layer so that they can be seen
     // above any molecules that are attached to the DNA strand.
-    model.getDnaMolecule().getGenes().forEach( function( gene ) {
-      gene.getPlacementHints().forEach( function( placementHint ) {
-        placementHintLayer.addChild( new PlacementHintNode( self.modelViewTransform, placementHint ) );
+    model.getDnaMolecule().getGenes().forEach( gene => {
+      gene.getPlacementHints().forEach( placementHint => {
+        placementHintLayer.addChild( new PlacementHintNode( this.modelViewTransform, placementHint ) );
       } );
     } );
 
@@ -103,14 +101,14 @@ class ManualGeneExpressionScreenView extends ScreenView {
     backControlsLayer.addChild( proteinCollectionNode );
 
     // Add any initial molecules.
-    model.mobileBiomoleculeList.forEach( function( biomolecule ) {
-      topBiomoleculeLayer.addChild( new MobileBiomoleculeNode( self.modelViewTransform, biomolecule ) );
+    model.mobileBiomoleculeList.forEach( biomolecule => {
+      topBiomoleculeLayer.addChild( new MobileBiomoleculeNode( this.modelViewTransform, biomolecule ) );
     } );
 
     // Watch for and handle comings and goings of biomolecules in the model. Most, but not all, of the biomolecules
     // are handled by this. Some  others are handled as special cases.
-    model.mobileBiomoleculeList.addItemAddedListener( function( addedBiomolecule ) {
-      const biomoleculeNode = new MobileBiomoleculeNode( self.modelViewTransform, addedBiomolecule );
+    model.mobileBiomoleculeList.addItemAddedListener( addedBiomolecule => {
+      const biomoleculeNode = new MobileBiomoleculeNode( this.modelViewTransform, addedBiomolecule );
       topBiomoleculeLayer.addChild( biomoleculeNode );
 
       function removeItemListener( removedBiomolecule ) {
@@ -125,9 +123,9 @@ class ManualGeneExpressionScreenView extends ScreenView {
     } );
 
     // Watch for and handle comings and goings of messenger RNA.
-    model.messengerRnaList.addItemAddedListener( function( addedMessengerRna ) {
+    model.messengerRnaList.addItemAddedListener( addedMessengerRna => {
 
-      const messengerRnaNode = new MessengerRnaNode( self.modelViewTransform, addedMessengerRna );
+      const messengerRnaNode = new MessengerRnaNode( this.modelViewTransform, addedMessengerRna );
       messengerRnaLayer.addChild( messengerRnaNode );
 
       function removeItemListener( removedMessengerRna ) {
@@ -142,18 +140,18 @@ class ManualGeneExpressionScreenView extends ScreenView {
     } );
 
     // Add the toolboxes from which the various biomolecules can be moved  into the active area of the sim.
-    model.getDnaMolecule().getGenes().forEach( function( gene ) {
-      const biomoleculeToolboxNode = new BiomoleculeToolboxNode( model, self, self.modelViewTransform, gene );
-      biomoleculeToolboxNode.x = self.modelViewTransform.modelToViewX( gene.getCenterX() ) - self.layoutBounds.getWidth() / 2 + INSET;
+    model.getDnaMolecule().getGenes().forEach( gene => {
+      const biomoleculeToolboxNode = new BiomoleculeToolboxNode( model, this, this.modelViewTransform, gene );
+      biomoleculeToolboxNode.x = this.modelViewTransform.modelToViewX( gene.getCenterX() ) - this.layoutBounds.getWidth() / 2 + INSET;
       biomoleculeToolboxNode.y = INSET;
       biomoleculeToolboxNodeList.push( biomoleculeToolboxNode );
       biomoleculeToolboxLayer.addChild( biomoleculeToolboxNode );
-      model.addOffLimitsMotionSpace( self.modelViewTransform.viewToModelBounds( biomoleculeToolboxNode.bounds ) );
+      model.addOffLimitsMotionSpace( this.modelViewTransform.viewToModelBounds( biomoleculeToolboxNode.bounds ) );
     } );
 
     // define a convenience function that allows quick setting of the pickability of the toolbox nodes
     function setBiomoleculeToolboxPickability( pickable ) {
-      biomoleculeToolboxNodeList.forEach( function( biomoleculeToolboxNode ) {
+      biomoleculeToolboxNodeList.forEach( biomoleculeToolboxNode => {
         biomoleculeToolboxNode.pickable = pickable;
       } );
     }
@@ -175,7 +173,7 @@ class ManualGeneExpressionScreenView extends ScreenView {
     } );
     const nextGeneButton = new RectangularPushButton( {
       content: nextGeneButtonContent,
-      listener: function() {
+      listener: () => {
         model.nextGene();
       },
       baseColor: 'yellow',
@@ -203,7 +201,7 @@ class ManualGeneExpressionScreenView extends ScreenView {
     } );
     const previousGeneButton = new RectangularPushButton( {
       content: previousGeneButtonContent,
-      listener: function() {
+      listener: () => {
         model.previousGene();
       },
       baseColor: 'yellow',
@@ -219,7 +217,7 @@ class ManualGeneExpressionScreenView extends ScreenView {
                            + this.layoutBounds.width / 2;
 
     // Monitor the active gene and move the view port to be centered on it whenever it changes.
-    model.activeGeneProperty.link( function( gene ) {
+    model.activeGeneProperty.link( gene => {
 
       // update the enabled state of the buttons that navigate between genes
       nextGeneButton.enabled = !( gene === model.dnaMolecule.getLastGene() );
@@ -229,24 +227,24 @@ class ManualGeneExpressionScreenView extends ScreenView {
       setBiomoleculeToolboxPickability( false );
 
       // set the offset of the viewport
-      self.viewPortOffset.setXY( -self.modelViewTransform.modelToViewX( gene.getCenterX() ) + self.layoutBounds.width / 2, 0 );
+      this.viewPortOffset.setXY( -this.modelViewTransform.modelToViewX( gene.getCenterX() ) + this.layoutBounds.width / 2, 0 );
 
       // create and run the animation that will move the view to the selected gene
       const modelRootNodeAnimator = new Animation( {
         duration: GENE_TO_GENE_ANIMATION_TIME,
         easing: Easing.CUBIC_IN_OUT,
-        setValue: function( newXPos ) {
-          self.modelRootNode.x = newXPos;
+        setValue: newXPos => {
+          this.modelRootNode.x = newXPos;
         },
-        from: self.modelRootNode.x,
-        to: self.viewPortOffset.x
+        from: this.modelRootNode.x,
+        to: this.viewPortOffset.x
       } );
-      modelRootNodeAnimator.finishEmitter.addListener( function() {
-        self.modelRootNode.visible = true;
-        self.modelRootNode.pickable = null;
+      modelRootNodeAnimator.finishEmitter.addListener( () => {
+        this.modelRootNode.visible = true;
+        this.modelRootNode.pickable = null;
         const boundsInControlNode = proteinCollectionNode.getBounds().copy();
-        const boundsAfterTransform = boundsInControlNode.transform( self.modelRootNode.getTransform().getInverse() );
-        const boundsInModel = self.modelViewTransform.viewToModelBounds( boundsAfterTransform );
+        const boundsAfterTransform = boundsInControlNode.transform( this.modelRootNode.getTransform().getInverse() );
+        const boundsInModel = this.modelViewTransform.viewToModelBounds( boundsAfterTransform );
         model.setProteinCaptureArea( boundsInModel );
         model.addOffLimitsMotionSpace( boundsInModel );
         setBiomoleculeToolboxPickability( true );
@@ -259,9 +257,9 @@ class ManualGeneExpressionScreenView extends ScreenView {
 
     // Create and add the Reset All Button in the bottom right, which resets the model
     const resetAllButton = new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         model.reset();
-        biomoleculeToolboxNodeList.forEach( function( biomoleculeToolboxNode ) {
+        biomoleculeToolboxNodeList.forEach( biomoleculeToolboxNode => {
           biomoleculeToolboxNode.reset();
         } );
       },

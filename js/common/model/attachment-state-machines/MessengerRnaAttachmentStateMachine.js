@@ -8,7 +8,6 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import AttachmentStateMachine from './AttachmentStateMachine.js';
 import BeingDestroyedState from './BeingDestroyedState.js';
@@ -18,24 +17,21 @@ import DetachingFromPolymeraseState from './DetachingFromPolymeraseState.js';
 import UnattachedAndFadingState from './UnattachedAndFadingState.js';
 import WanderingAroundCytoplasmState from './WanderingAroundCytoplasmState.js';
 
-/**
- * @param {MessengerRna} messengerRna
- * @constructor
- */
-function MessengerRnaAttachmentStateMachine( messengerRna ) {
-  AttachmentStateMachine.call( this, messengerRna );
+class MessengerRnaAttachmentStateMachine extends AttachmentStateMachine {
 
-  // Local reference of appropriate type.
-  this.messengerRna = messengerRna; //@private;
+  /**
+   * @param {MessengerRna} messengerRna
+   */
+  constructor( messengerRna ) {
+    super( messengerRna );
 
-  // @private - flag to control whether the mRNA continues to exist once fully formed
-  this.fadeAwayWhenFormed = false;
-  this.setState( new BeingSynthesizedState() );
-}
+    // Local reference of appropriate type.
+    this.messengerRna = messengerRna; //@private;
 
-geneExpressionEssentials.register( 'MessengerRnaAttachmentStateMachine', MessengerRnaAttachmentStateMachine );
-
-inherit( AttachmentStateMachine, MessengerRnaAttachmentStateMachine, {
+    // @private - flag to control whether the mRNA continues to exist once fully formed
+    this.fadeAwayWhenFormed = false;
+    this.setState( new BeingSynthesizedState() );
+  }
 
   /**
    * @override
@@ -43,20 +39,20 @@ inherit( AttachmentStateMachine, MessengerRnaAttachmentStateMachine, {
    * biomolecules.
    * @public
    */
-  detach: function() {
+  detach() {
     if ( this.fadeAwayWhenFormed ) {
       this.setState( new UnattachedAndFadingState( this ) );
     }
     else {
       this.setState( new DetachingFromPolymeraseState( this ) );
     }
-  },
+  }
 
   /**
    * @override
    * @public
    */
-  forceImmediateUnattachedAndAvailable: function() {
+  forceImmediateUnattachedAndAvailable() {
     if ( this.attachmentSite !== null ) {
       const attachedOrAttachingMolecule = this.attachmentSite.attachedOrAttachingMoleculeProperty.get();
 
@@ -70,41 +66,43 @@ inherit( AttachmentStateMachine, MessengerRnaAttachmentStateMachine, {
     }
     this.attachmentSite = null;
     this.setState( new WanderingAroundCytoplasmState() );
-  },
+  }
 
   /**
    * Sets whether mRNA fades away or not when formed
    * @param {boolean} fadeAwayWhenFormed
    * @public
    */
-  setFadeAwayWhenFormed: function( fadeAwayWhenFormed ) {
+  setFadeAwayWhenFormed( fadeAwayWhenFormed ) {
     this.fadeAwayWhenFormed = fadeAwayWhenFormed;
-  },
+  }
 
   /**
    * Signals this state machine that at least one ribosome is now attached to the mRNA and is thus translating it.
    * @public
    */
-  attachedToRibosome: function() {
+  attachedToRibosome() {
     this.setState( new BeingTranslatedState() );
-  },
+  }
 
   /**
    * Signals this state machine that all ribosomes that were translating it have completed the translation process and
    * have detached.
    * @public
    */
-  allRibosomesDetached: function() {
+  allRibosomesDetached() {
     this.setState( new WanderingAroundCytoplasmState() );
-  },
+  }
 
   /**
    * Signals this state machine that destroyer is now attached to the mRNA and is thus being destroyed.
    * @public
    */
-  attachToDestroyer: function() {
+  attachToDestroyer() {
     this.setState( new BeingDestroyedState() );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'MessengerRnaAttachmentStateMachine', MessengerRnaAttachmentStateMachine );
 
 export default MessengerRnaAttachmentStateMachine;

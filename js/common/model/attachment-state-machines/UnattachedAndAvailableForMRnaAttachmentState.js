@@ -13,28 +13,21 @@
  * @author John Blanco
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import MeanderToDestinationMotionStrategy from '../motion-strategies/MeanderToDestinationMotionStrategy.js';
 import MoveDirectlyToDestinationMotionStrategy from '../motion-strategies/MoveDirectlyToDestinationMotionStrategy.js';
 import GenericUnattachedAndAvailableState from './GenericUnattachedAndAvailableState.js';
 
-/**
- * @constructor
- * @param  {AttachmentStateMachine} attachmentStateMachine
- */
-function UnattachedAndAvailableForMRnaAttachmentState( attachmentStateMachine ) {
-  GenericUnattachedAndAvailableState.call( this, attachmentStateMachine );
-  this.attachmentStateMachine = attachmentStateMachine; //@public
-}
+class UnattachedAndAvailableForMRnaAttachmentState extends GenericUnattachedAndAvailableState {
 
-geneExpressionEssentials.register(
-  'UnattachedAndAvailableForMRnaAttachmentState',
-  UnattachedAndAvailableForMRnaAttachmentState
-);
-
-inherit( GenericUnattachedAndAvailableState, UnattachedAndAvailableForMRnaAttachmentState, {
+  /**
+   * @param  {AttachmentStateMachine} attachmentStateMachine
+   */
+  constructor( attachmentStateMachine ) {
+    super( attachmentStateMachine );
+    this.attachmentStateMachine = attachmentStateMachine; //@public
+  }
 
   /**
    * @override
@@ -42,7 +35,7 @@ inherit( GenericUnattachedAndAvailableState, UnattachedAndAvailableForMRnaAttach
    * @param {number} dt
    * @public
    */
-  step: function( enclosingStateMachine, dt ) {
+  step( enclosingStateMachine, dt ) {
     const gsm = enclosingStateMachine;
 
     // verify that state is consistent
@@ -82,6 +75,11 @@ inherit( GenericUnattachedAndAvailableState, UnattachedAndAvailableForMRnaAttach
       gsm.setState( gsm.movingTowardsAttachmentState );
     }
   }
-} );
+}
+
+geneExpressionEssentials.register(
+  'UnattachedAndAvailableForMRnaAttachmentState',
+  UnattachedAndAvailableForMRnaAttachmentState
+);
 
 export default UnattachedAndAvailableForMRnaAttachmentState;

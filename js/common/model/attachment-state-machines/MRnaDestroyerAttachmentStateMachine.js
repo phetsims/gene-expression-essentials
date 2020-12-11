@@ -8,47 +8,44 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GenericAttachmentStateMachine from './GenericAttachmentStateMachine.js';
 import MRnaDestroyerAttachedState from './MRnaDestroyerAttachedState.js';
 import UnattachedAndAvailableForMRnaAttachmentState from './UnattachedAndAvailableForMRnaAttachmentState.js';
 
-/**
- * @param {MessengerRnaDestroyer} messengerRnaDestroyer
- * @constructor
- */
-function MRnaDestroyerAttachmentStateMachine( messengerRnaDestroyer ) {
-  GenericAttachmentStateMachine.call( this, messengerRnaDestroyer );
+class MRnaDestroyerAttachmentStateMachine extends GenericAttachmentStateMachine {
 
-  // @public {MessengerRnaDestroyer}
-  this.mRnaDestroyer = messengerRnaDestroyer;
+  /**
+   * @param {MessengerRnaDestroyer} messengerRnaDestroyer
+   */
+  constructor( messengerRnaDestroyer ) {
+    super( messengerRnaDestroyer );
 
-  // @override - override the unattached state, since attaching to mRNA is a little different versus the default behavior
-  this.unattachedAndAvailableState = new UnattachedAndAvailableForMRnaAttachmentState( this );
+    // @public {MessengerRnaDestroyer}
+    this.mRnaDestroyer = messengerRnaDestroyer;
 
-  // @override - Set up a non-default "attached" state, since the behavior is different from the default.
-  this.attachedState = new MRnaDestroyerAttachedState( this );
-}
+    // @override - override the unattached state, since attaching to mRNA is a little different versus the default behavior
+    this.unattachedAndAvailableState = new UnattachedAndAvailableForMRnaAttachmentState( this );
 
-geneExpressionEssentials.register( 'MRnaDestroyerAttachmentStateMachine', MRnaDestroyerAttachmentStateMachine );
-
-inherit( GenericAttachmentStateMachine, MRnaDestroyerAttachmentStateMachine, {
+    // @override - Set up a non-default "attached" state, since the behavior is different from the default.
+    this.attachedState = new MRnaDestroyerAttachedState( this );
+  }
 
   /**
    * @override
    * @public
    */
-  forceImmediateUnattachedAndAvailable: function() {
+  forceImmediateUnattachedAndAvailable() {
     if ( this.mRnaDestroyer.getMessengerRnaBeingDestroyed() !== null ) {
 
       // Abort a pending attachment to mRNA.
       this.mRnaDestroyer.getMessengerRnaBeingDestroyed().abortDestruction();
       this.mRnaDestroyer.clearMessengerRnaBeingDestroyed();
     }
-    GenericAttachmentStateMachine.prototype.forceImmediateUnattachedAndAvailable.call( this );
+    super.forceImmediateUnattachedAndAvailable();
   }
+}
 
-} );
+geneExpressionEssentials.register( 'MRnaDestroyerAttachmentStateMachine', MRnaDestroyerAttachmentStateMachine );
 
 export default MRnaDestroyerAttachmentStateMachine;

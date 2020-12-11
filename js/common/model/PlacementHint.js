@@ -10,37 +10,32 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ShapeChangingModelElement from './ShapeChangingModelElement.js';
 
-/**
- *
- * @param {MobileBiomolecule} biomolecule
- * @constructor
- */
-function PlacementHint( biomolecule ) {
+class PlacementHint extends ShapeChangingModelElement {
 
-  // biomolecule that defines the shape of this hint
-  this.biomolecule = biomolecule; // @public
+  /**
+   * @param {MobileBiomolecule} biomolecule - biomolecule that defines the shape of this hint
+   */
+  constructor( biomolecule ) {
 
-  ShapeChangingModelElement.call( this, biomolecule.getShape() );
+    super( biomolecule.getShape() );
 
-  // property that tracks whether or not the hint is should be visible to the user
-  this.activeProperty = new Property( false ); // @public
-}
+    // @public
+    this.biomolecule = biomolecule;
 
-geneExpressionEssentials.register( 'PlacementHint', PlacementHint );
-
-inherit( ShapeChangingModelElement, PlacementHint, {
+    // @public - property that tracks whether or not the hint is should be visible to the user
+    this.activeProperty = new Property( false );
+  }
 
   /**
    * @returns {Color}
    * @public
    */
-  getBaseColor: function() {
+  getBaseColor() {
     return this.biomolecule.colorProperty.get();
-  },
+  }
 
   /**
    * Determine whether the given biomolecule matches the one that this hint is meant to represent. In this base class,
@@ -50,20 +45,22 @@ inherit( ShapeChangingModelElement, PlacementHint, {
    * @returns {boolean}
    * @public
    */
-  isMatchingBiomolecule: function( testBiomolecule ) {
+  isMatchingBiomolecule( testBiomolecule ) {
     return testBiomolecule instanceof this.biomolecule.constructor;
-  },
+  }
 
   /**
    * If the proffered test biomolecule is of the appropriate type, activate this hint.
    * @param {MobileBiomolecule} testBiomolecule
    * @public
    */
-  activateIfMatch: function( testBiomolecule ) {
+  activateIfMatch( testBiomolecule ) {
     if ( this.isMatchingBiomolecule( testBiomolecule ) ) {
       this.activeProperty.set( true );
     }
   }
-} );
+}
+
+geneExpressionEssentials.register( 'PlacementHint', PlacementHint );
 
 export default PlacementHint;

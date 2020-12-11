@@ -8,20 +8,16 @@
  * @author Aadish Gupta
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 
-/**
- * @abstract class
- * @constructor
- */
-function AttachmentState() {
-  // does nothing in base type
-}
+class AttachmentState {
 
-geneExpressionEssentials.register( 'AttachmentState', AttachmentState );
-
-inherit( Object, AttachmentState, {
+  /**
+   * @abstract class
+   */
+  constructor() {
+    // does nothing in base type
+  }
 
   /**
    * Step function for this attachment state and is called by the step function of AttachmentStateMachine
@@ -29,9 +25,9 @@ inherit( Object, AttachmentState, {
    * @param {number} dt
    * @public
    */
-  step: function( enclosingStateMachine, dt ) {
+  step( enclosingStateMachine, dt ) {
     // By default does nothing, override to implement unique behavior.
-  },
+  }
 
   /**
    * This is called whenever biomolecules state changes. This is called when setState function of
@@ -39,13 +35,16 @@ inherit( Object, AttachmentState, {
    * @param {AttachmentStateMachine} enclosingStateMachine
    * @public
    */
-  entered: function( enclosingStateMachine ) {
+  entered( enclosingStateMachine ) {
     // By default does nothing, override to implement unique behavior.
   }
-}, {
-  // Distance within which a molecule is considered to be attached to an attachment site. This essentially avoids
-  // floating point issues.
-  ATTACHED_DISTANCE_THRESHOLD: 1 // In picometers.
-} );
+
+}
+
+// Distance within which a molecule is considered to be attached to an attachment site. This essentially avoids
+// floating point issues.
+AttachmentState.ATTACHED_DISTANCE_THRESHOLD = 1;
+
+geneExpressionEssentials.register( 'AttachmentState', AttachmentState );
 
 export default AttachmentState;

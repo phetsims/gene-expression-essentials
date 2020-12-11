@@ -10,45 +10,41 @@
  */
 
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 
-/**
- * @param {Bounds2} bounds
- * @constructor
- */
-function MotionBounds( bounds ) {
+class MotionBounds {
 
-  if ( !bounds ) {
-    // Set up bounds to be infinite, is JS world setting the max values
-    bounds = Bounds2.EVERYTHING;
+  /**
+   * @param {Bounds2} bounds
+   */
+  constructor( bounds ) {
+
+    if ( !bounds ) {
+      // Set up bounds to be infinite, is JS world setting the max values
+      bounds = Bounds2.EVERYTHING;
+    }
+
+    this.bounds = bounds; //@private
+    this.offLimitMotionSpaces = []; //@private
   }
-
-  this.bounds = bounds; //@private
-  this.offLimitMotionSpaces = []; //@private
-}
-
-geneExpressionEssentials.register( 'MotionBounds', MotionBounds );
-
-inherit( Object, MotionBounds, {
 
   /**
    * Sets the bounds
    * @param {Bounds2} bounds
    * @public
    */
-  set: function( bounds ) {
+  set( bounds ) {
     this.bounds.set( bounds );
-  },
+  }
 
   /**
    * Add off limit motion space. Bounds does not support subtract so this is workaround
    * @param {Bounds2} offLimitBounds
    * @public
    */
-  addOffLimitMotionSpace: function( offLimitBounds ) {
+  addOffLimitMotionSpace( offLimitBounds ) {
     this.offLimitMotionSpaces.push( offLimitBounds );
-  },
+  }
 
   /**
    * Check whether given bounds intersects with any off limit motion space
@@ -56,15 +52,15 @@ inherit( Object, MotionBounds, {
    * @returns {boolean}
    * @private
    */
-  inOffLimitMotionSpace: function( bounds ) {
+  inOffLimitMotionSpace( bounds ) {
     let flag = false;
-    this.offLimitMotionSpaces.forEach( function( offLimitMotionSpace ) {
+    this.offLimitMotionSpaces.forEach( offLimitMotionSpace => {
       if ( bounds.intersectsBounds( offLimitMotionSpace ) ) {
         flag = true;
       }
     } );
     return flag;
-  },
+  }
 
   /**
    * Check whether given bounds are in the bounds or not
@@ -72,18 +68,18 @@ inherit( Object, MotionBounds, {
    * @returns {boolean}
    * @public
    */
-  inBounds: function( bounds ) {
+  inBounds( bounds ) {
     return this.bounds === null || ( this.bounds.containsBounds( bounds ) && !this.inOffLimitMotionSpace( bounds ) );
-  },
+  }
 
   /**
    * returns bounds
    * @returns {Bounds2}
    * @public
    */
-  getBounds: function() {
+  getBounds() {
     return this.bounds;
-  },
+  }
 
   /**
    * Test whether the given shape will be in or out of the motion bounds if the given motion vector is applied for the
@@ -95,9 +91,9 @@ inherit( Object, MotionBounds, {
    * @returns {boolean}
    * @public
    */
-  testIfInMotionBoundsWithDelta: function( bounds, motionVector, dt ) {
+  testIfInMotionBoundsWithDelta( bounds, motionVector, dt ) {
     return this.inBounds( bounds.shifted( motionVector.x * dt, motionVector.y * dt ) );
-  },
+  }
 
   /**
    * Test whether the given shape will be within the motion bounds if it is translated such that its center is at the
@@ -108,11 +104,13 @@ inherit( Object, MotionBounds, {
    * @returns {boolean}
    * @public
    */
-  testIfInMotionBounds: function( bounds, proposedPosition ) {
+  testIfInMotionBounds( bounds, proposedPosition ) {
     const shapeCenter = bounds.getCenter();
     const translationVector = proposedPosition.minus( shapeCenter );
     return this.inBounds( bounds.shifted( translationVector.x, translationVector.y ) );
   }
-} );
+}
+
+geneExpressionEssentials.register( 'MotionBounds', MotionBounds );
 
 export default MotionBounds;

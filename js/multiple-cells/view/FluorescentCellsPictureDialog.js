@@ -26,6 +26,7 @@ const imageCaptionString = geneExpressionEssentialsStrings.imageCaption;
 const TEXT_FONT = new PhetFont( 16 );
 
 class FluorescentCellsPictureDialog extends Dialog {
+
   constructor() {
 
     const imageNode = new Image( eColiImage, {

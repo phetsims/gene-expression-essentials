@@ -46,6 +46,7 @@ const showRealCellsString = geneExpressionEssentialsStrings.showRealCells;
 const slowString = geneExpressionEssentialsStrings.slow;
 
 class MultipleCellsScreenView extends ScreenView {
+
   /**
    * @param {MultipleCellsModel} model
    */
@@ -76,7 +77,7 @@ class MultipleCellsScreenView extends ScreenView {
       touchAreaYDilation: 7,
       baseColor: 'yellow',
       cornerRadius: GEEConstants.CORNER_RADIUS,
-      listener: function() {
+      listener: () => {
         if ( !dialog ) {
           dialog = new FluorescentCellsPictureDialog();
         }
@@ -95,12 +96,12 @@ class MultipleCellsScreenView extends ScreenView {
 
     // Add the Reset All button.
     const resetAllButton = new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         model.reset();
         concentrationControlPanel.expandedProperty.reset();
         affinityControlPanel.expandedProperty.reset();
         degradationControlPanel.expandedProperty.reset();
-        self.proteinLevelChartNode.reset();
+        this.proteinLevelChartNode.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
@@ -115,9 +116,9 @@ class MultipleCellsScreenView extends ScreenView {
           touchAreaDilation: 5
         },
         stepForwardButtonOptions: {
-          listener: function() {
+          listener: () => {
             model.stepInTime( 0.016 );
-            self.proteinLevelChartNode.addDataPoint( 0.016 );
+            this.proteinLevelChartNode.addDataPoint( 0.016 );
           },
           radius: 15,
           touchAreaDilation: 5
@@ -195,11 +196,11 @@ class MultipleCellsScreenView extends ScreenView {
     }
 
     // Set up an observer of the list of cells in the model so that the view representations can come and go as needed.
-    model.visibleCellList.addItemAddedListener( function( addedCell ) {
+    model.visibleCellList.addItemAddedListener( addedCell => {
       addCellView( model.cellList.indexOf( addedCell ) );
     } );
 
-    model.visibleCellList.forEach( function( cell ) {
+    model.visibleCellList.forEach( cell => {
       addCellView( model.cellList.indexOf( cell ) );
     } );
 

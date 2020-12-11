@@ -10,7 +10,6 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import MRnaDestroyerAttachmentStateMachine from './attachment-state-machines/MRnaDestroyerAttachmentStateMachine.js';
@@ -28,42 +27,38 @@ function createShape() {
   return mouthShape;
 }
 
-/**
- *
- * @param {GeneExpressionModel} model
- * @param {Vector2} position
- * @constructor
- */
-function MessengerRnaDestroyer( model, position ) {
-  position = position || new Vector2( 0, 0 );
-  MobileBiomolecule.call( this, model, createShape(), new Color( 255, 150, 66 ) );
-  this.setPosition( position );
+class MessengerRnaDestroyer extends MobileBiomolecule {
 
-  // Reference to the messenger RNA being destroyed.
-  this.messengerRnaBeingDestroyed = null; // @private
-}
+  /**
+   * @param {GeneExpressionModel} model
+   * @param {Vector2} position
+   */
+  constructor( model, position ) {
+    position = position || new Vector2( 0, 0 );
+    super( model, createShape(), new Color( 255, 150, 66 ) );
+    this.setPosition( position );
 
-geneExpressionEssentials.register( 'MessengerRnaDestroyer', MessengerRnaDestroyer );
-
-inherit( MobileBiomolecule, MessengerRnaDestroyer, {
+    // Reference to the messenger RNA being destroyed.
+    this.messengerRnaBeingDestroyed = null; // @private
+  }
 
   /**
    * @override
    * @returns {MRnaDestroyerAttachmentStateMachine}
    * @public
    */
-  createAttachmentStateMachine: function() {
+  createAttachmentStateMachine() {
     return new MRnaDestroyerAttachmentStateMachine( this );
-  },
+  }
 
   /**
    * @param {number} amountToDestroy
    * @returns {boolean}
    * @public
    */
-  advanceMessengerRnaDestruction: function( amountToDestroy ) {
+  advanceMessengerRnaDestruction( amountToDestroy ) {
     return this.messengerRnaBeingDestroyed.advanceDestruction( amountToDestroy );
-  },
+  }
 
   /**
    * @override
@@ -73,7 +68,7 @@ inherit( MobileBiomolecule, MessengerRnaDestroyer, {
    * @returns {AttachmentSite}
    * @public
    */
-  proposeAttachments: function() {
+  proposeAttachments() {
     let attachmentSite = null;
     const messengerRnaList = this.model.getMessengerRnaList();
     for ( let i = 0; i < messengerRnaList.length; i++ ) {
@@ -86,24 +81,24 @@ inherit( MobileBiomolecule, MessengerRnaDestroyer, {
       }
     }
     return attachmentSite;
-  },
+  }
 
   /**
    * @returns {number}
    * @public
    */
-  getDestructionChannelLength: function() {
+  getDestructionChannelLength() {
 
     // since this looks like a circle with a slice out of it, the channel is half of the width
     return this.bounds.getWidth() / 2;
-  },
+  }
 
   /**
    * @public
    */
-  initiateMessengerRnaDestruction: function() {
+  initiateMessengerRnaDestruction() {
     this.messengerRnaBeingDestroyed.initiateDestruction( this );
-  },
+  }
 
   /**
    * If destruction was planned but not yet initiated, it can be canceled using this method.  This can happen when
@@ -111,25 +106,27 @@ inherit( MobileBiomolecule, MessengerRnaDestroyer, {
    * destruction process starts.
    * @public
    */
-  cancelMessengerRnaDestruction: function() {
+  cancelMessengerRnaDestruction() {
     this.messengerRnaBeingDestroyed = null;
     this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
-  },
+  }
 
   /**
    * @returns {MessengerRna}
    * @public
    */
-  getMessengerRnaBeingDestroyed: function() {
+  getMessengerRnaBeingDestroyed() {
     return this.messengerRnaBeingDestroyed;
-  },
+  }
 
   /**
    * @public
    */
-  clearMessengerRnaBeingDestroyed: function() {
+  clearMessengerRnaBeingDestroyed() {
     this.messengerRnaBeingDestroyed = null;
   }
-} );
+}
+
+geneExpressionEssentials.register( 'MessengerRnaDestroyer', MessengerRnaDestroyer );
 
 export default MessengerRnaDestroyer;

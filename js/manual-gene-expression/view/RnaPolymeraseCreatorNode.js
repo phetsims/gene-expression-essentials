@@ -9,7 +9,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RnaPolymerase from '../../common/model/RnaPolymerase.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
@@ -27,32 +26,33 @@ const SCALING_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
   SCALING_FACTOR
 );
 
-/**
- * @param {BiomoleculeToolboxNode} biomoleculeBoxNode - Biomolecule box, which is a sort of toolbox, in which
- * this creator node exists.
- *
- * @constructor
- */
-function RnaPolymeraseCreatorNode( biomoleculeBoxNode ) {
-  BiomoleculeCreatorNode.call( this, new MobileBiomoleculeNode( SCALING_MVT, new RnaPolymerase() ),
-    biomoleculeBoxNode.canvas,
-    biomoleculeBoxNode.modelViewTransform,
+class RnaPolymeraseCreatorNode extends BiomoleculeCreatorNode {
 
-    function( pos ) { // Molecule creator function.
-      const rnaPolymerase = new RnaPolymerase( biomoleculeBoxNode.model, pos );
-      biomoleculeBoxNode.model.addMobileBiomolecule( rnaPolymerase );
-      return rnaPolymerase;
-    },
+  /**
+   * @param {BiomoleculeToolboxNode} biomoleculeBoxNode - Biomolecule box, which is a sort of toolbox, in which
+   * this creator node exists.
+   *
+   */
+  constructor( biomoleculeBoxNode ) {
+    super( new MobileBiomoleculeNode( SCALING_MVT, new RnaPolymerase() ),
+      biomoleculeBoxNode.canvas,
+      biomoleculeBoxNode.modelViewTransform,
 
-    function( mobileBiomolecule ) {
-      biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
-    },
+      pos => { // Molecule creator function.
+        const rnaPolymerase = new RnaPolymerase( biomoleculeBoxNode.model, pos );
+        biomoleculeBoxNode.model.addMobileBiomolecule( rnaPolymerase );
+        return rnaPolymerase;
+      },
 
-    biomoleculeBoxNode
-  );
+      mobileBiomolecule => {
+        biomoleculeBoxNode.model.removeMobileBiomolecule( mobileBiomolecule );
+      },
+
+      biomoleculeBoxNode
+    );
+  }
 }
 
 geneExpressionEssentials.register( 'RnaPolymeraseCreatorNode', RnaPolymeraseCreatorNode );
 
-inherit( BiomoleculeCreatorNode, RnaPolymeraseCreatorNode );
 export default RnaPolymeraseCreatorNode;

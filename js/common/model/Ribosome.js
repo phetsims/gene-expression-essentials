@@ -12,7 +12,6 @@
 //modules
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import RibosomeAttachmentStateMachine from './attachment-state-machines/RibosomeAttachmentStateMachine.js';
@@ -37,68 +36,65 @@ const OFFSET_TO_PROTEIN_OUTPUT_CHANNEL = new Vector2( WIDTH * 0.4, OVERALL_HEIGH
 // a counter used to create a unique ID for each instance
 let instanceCounter = 0;
 
-/**
- * @param {GeneExpressionModel} model
- * @param {Vector2} position
- * @constructor
- */
-function Ribosome( model, position ) {
-  this.offsetToTranslationChannelEntrance = OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE; // @public
-  position = position || new Vector2( 0, 0 );
-  MobileBiomolecule.call( this, model, this.createShape(), new Color( 205, 155, 29 ) );
-  this.setPosition( position );
+class Ribosome extends MobileBiomolecule {
 
-  // @private {MessengerRna} messenger RNA being translated, null if no translation is in progress
-  this.messengerRnaBeingTranslated = null; // @private
+  /**
+   * @param {GeneExpressionModel} model
+   * @param {Vector2} position
+   */
+  constructor( model, position ) {
+    super( model, Ribosome.createShape(), new Color( 205, 155, 29 ) );
+    this.offsetToTranslationChannelEntrance = OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE; // @public
+    position = position || new Vector2( 0, 0 );
+    this.setPosition( position );
 
-  // @public (read-only) {String} - unique ID for this instance
-  this.id = 'ribosome-' + instanceCounter++;
-}
+    // @private {MessengerRna} messenger RNA being translated, null if no translation is in progress
+    this.messengerRnaBeingTranslated = null; // @private
 
-geneExpressionEssentials.register( 'Ribosome', Ribosome );
-
-inherit( MobileBiomolecule, Ribosome, {
+    // @public (read-only) {String} - unique ID for this instance
+    this.id = 'ribosome-' + instanceCounter++;
+  }
 
   /**
    * @returns {MessengerRna}
    * @public
    */
-  getMessengerRnaBeingTranslated: function() {
+  getMessengerRnaBeingTranslated() {
     return this.messengerRnaBeingTranslated;
-  },
+  }
 
   /**
-   * @override
    * Scan for mRNA and propose attachments to any that are found. It is up to the mRNA to accept or refuse based on
    * distance, availability, or whatever.
    *
    * This method is called from the attachment state machine framework.
-   * @returns {AttachmentSite}
+   * @override
    * @public
    */
-  proposeAttachments: function() {
+  proposeAttachments() {
     let attachmentSite = null;
     const messengerRnaList = this.model.getMessengerRnaList();
     for ( let i = 0; i < messengerRnaList.length; i++ ) {
       const messengerRna = messengerRnaList.get( i );
       attachmentSite = messengerRna.considerProposalFromRibosome( this );
       if ( attachmentSite !== null ) {
+
         // Proposal accepted.
         this.messengerRnaBeingTranslated = messengerRna;
         break;
       }
     }
     return attachmentSite;
-  },
+  }
 
   /**
    * Release the messenger RNA
    * @public
    */
-  releaseMessengerRna: function() {
+  releaseMessengerRna() {
     this.messengerRnaBeingTranslated.releaseFromRibosome( this );
     this.messengerRnaBeingTranslated = null;
-  },
+  }
 
   /**
    * @override
@@ -106,19 +102,20 @@ inherit( MobileBiomolecule, Ribosome, {
    * @returns {RibosomeAttachmentStateMachine}
    * @public
    */
-  createAttachmentStateMachine: function() {
+  createAttachmentStateMachine() {
     return new RibosomeAttachmentStateMachine( this );
-  },
+  }
 
   /**
    * @returns {Shape}
    * @private
    */
-  createShape: function() {
+  static createShape() {
 
     // Draw the top portion, which in this sim is the larger subunit. The shape is essentially a lumpy ellipse, and
     // is based on some drawings seen on the web.
     const topSubunitPointList = [
+
       // Define the shape with a series of points.  Starts at top left.
       new Vector2( -WIDTH * 0.3, TOP_SUBUNIT_HEIGHT * 0.9 ),
       new Vector2( WIDTH * 0.3, TOP_SUBUNIT_HEIGHT ),
@@ -135,6 +132,7 @@ inherit( MobileBiomolecule, Ribosome, {
     // Draw the bottom portion, which in this sim is the smaller subunit.
     const startPointY = topSubunitShape.bounds.minY;
     const bottomSubunitPointList = [
+
       // Define the shape with a series of points.
       new Vector2( -WIDTH * 0.45, startPointY ),
       new Vector2( 0, startPointY ),
@@ -145,26 +143,24 @@ inherit( MobileBiomolecule, Ribosome, {
     ];
 
     const bottomSubunitTranslation = Matrix3.translation( 0, -OVERALL_HEIGHT / 4 );
-    const ribosomeShape = ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList, topSubunitShape ).transformed( bottomSubunitTranslation );
-
-    return ribosomeShape;
-  },
+    return ShapeUtils.createRoundedShapeFromPoints( bottomSubunitPointList, topSubunitShape ).transformed( bottomSubunitTranslation );
+  }
 
   /**
    * @returns {Vector2}
    * @public
    */
-  getEntranceOfRnaChannelPosition: function() {
+  getEntranceOfRnaChannelPosition() {
     return this.getPosition().plus( OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE );
-  },
+  }
 
   /**
    * @returns {number}
    * @public
    */
-  getTranslationChannelLength: function() {
+  getTranslationChannelLength() {
     return WIDTH * 0.95;
-  },
+  }
 
   /**
    * Advance the translation of the mRNA.
@@ -172,10 +168,10 @@ inherit( MobileBiomolecule, Ribosome, {
    * @returns {boolean} - true if translation is complete, false if not.
    * @public
    */
-  advanceMessengerRnaTranslation: function( amount ) {
+  advanceMessengerRnaTranslation( amount ) {
     return this.messengerRnaBeingTranslated !== null &&
            this.messengerRnaBeingTranslated.advanceTranslation( this, amount );
-  },
+  }
 
   /**
    * Get the position in model space of the point at which a protein that is being synthesized by this ribosome should
@@ -185,43 +181,48 @@ inherit( MobileBiomolecule, Ribosome, {
    * @returns {Vector2}
    * @public
    */
-  getProteinAttachmentPoint: function( newAttachmentPoint ) {
+  getProteinAttachmentPoint( newAttachmentPoint ) {
     newAttachmentPoint = newAttachmentPoint || new Vector2( 0, 0 );
     newAttachmentPoint.x = this.getPosition().x + OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.x;
     newAttachmentPoint.y = this.getPosition().y + OFFSET_TO_PROTEIN_OUTPUT_CHANNEL.y;
     return newAttachmentPoint;
-  },
+  }
 
   /**
    * Initiate translation of Messenger Rna
    * @public
    */
-  initiateTranslation: function() {
+  initiateTranslation() {
     if ( this.messengerRnaBeingTranslated !== null ) {
       this.messengerRnaBeingTranslated.initiateTranslation( this );
     }
-  },
+  }
 
-  isTranslating: function() {
-    /**
-     * returns true if this ribosome is currently translating mRNA, false otherwise
-     * @public
-     * @returns {boolean}
-     */
+  /**
+   * returns true if this ribosome is currently translating mRNA, false otherwise
+   * @public
+   * @returns {boolean}
+   */
+  isTranslating() {
     return this.attachmentStateMachine.isTranslating();
-  },
+  }
 
   /**
    * cancel a translation that was going to happen but something occured to prevent it
    * @public
    */
-  cancelTranslation: function() {
+  cancelTranslation() {
 
     // make sure we're in a state that supports this operation
     assert && assert( !this.attachmentStateMachine.isTranslating() );
 
     this.attachmentStateMachine.forceImmediateUnattachedAndAvailable();
   }
-} );
+}
+
+// statics
+Ribosome.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE = OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE;
+
+geneExpressionEssentials.register( 'Ribosome', Ribosome );
 
 export default Ribosome;

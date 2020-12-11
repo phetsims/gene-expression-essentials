@@ -10,24 +10,20 @@
 
 
 //modules
-import inherit from '../../../../phet-core/js/inherit.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import PlacementHint from './PlacementHint.js';
 import TranscriptionFactor from './TranscriptionFactor.js';
 
-/**
- * @param {TranscriptionFactor} transcriptionFactor
- * @constructor
- */
-function TranscriptionFactorPlacementHint( transcriptionFactor ) {
-  PlacementHint.call( this, transcriptionFactor );
-  this.setPosition( transcriptionFactor.getPosition() );
-  this.tfConfig = transcriptionFactor.getConfig(); // @private
-}
+class TranscriptionFactorPlacementHint extends PlacementHint {
 
-geneExpressionEssentials.register( 'TranscriptionFactorPlacementHint', TranscriptionFactorPlacementHint );
-
-inherit( PlacementHint, TranscriptionFactorPlacementHint, {
+  /**
+   * @param {TranscriptionFactor} transcriptionFactor
+   */
+  constructor( transcriptionFactor ) {
+    super( transcriptionFactor );
+    this.setPosition( transcriptionFactor.getPosition() );
+    this.tfConfig = transcriptionFactor.getConfig(); // @private
+  }
 
   /**
    * @override
@@ -35,19 +31,21 @@ inherit( PlacementHint, TranscriptionFactorPlacementHint, {
    * @returns {boolean}
    * @public
    */
-  isMatchingBiomolecule: function( testBiomolecule ) {
+  isMatchingBiomolecule( testBiomolecule ) {
     return testBiomolecule instanceof TranscriptionFactor && ( testBiomolecule.getConfig() === this.tfConfig );
-  },
+  }
 
   /**
    * @param { TranscriptionFactorConfig } transcriptionFactorConfig
    * @public
    */
-  activateIfConfigMatch: function( transcriptionFactorConfig ) {
+  activateIfConfigMatch( transcriptionFactorConfig ) {
     if ( this.tfConfig === transcriptionFactorConfig ) {
       this.activeProperty.set( true );
     }
   }
-} );
+}
+
+geneExpressionEssentials.register( 'TranscriptionFactorPlacementHint', TranscriptionFactorPlacementHint );
 
 export default TranscriptionFactorPlacementHint;
