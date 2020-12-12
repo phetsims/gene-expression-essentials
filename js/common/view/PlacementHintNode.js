@@ -31,7 +31,6 @@ class PlacementHintNode extends Node {
   constructor( modelViewTransform, placementHint ) {
 
     super();
-    const self = this;
 
     // Create a transparent color based on the base color of the molecule.
     const transparentColor = new Color(
@@ -58,9 +57,9 @@ class PlacementHintNode extends Node {
     const path = new Path( new Shape(), pathStyleOptions );
     this.addChild( path );
 
-    function handlePositionChanged( position ) {
-      self.setTranslation( modelViewTransform.modelToViewPosition( position ) );
-    }
+    const handlePositionChanged = position => {
+      this.setTranslation( modelViewTransform.modelToViewPosition( position ) );
+    };
 
     placementHint.positionProperty.link( handlePositionChanged );
 

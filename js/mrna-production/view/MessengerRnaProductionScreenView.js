@@ -41,7 +41,6 @@ class MessengerRnaProductionScreenView extends ScreenView {
 
     // due to odd behavior of flickering on this screen, we run it with preventFit
     super( { preventFit: true } );
-    const self = this;
     this.model = model;
     this.negativeTranscriptionFactorEnabled = new Property( false );
     const viewPortPosition = new Vector2( this.layoutBounds.width * 0.48, this.layoutBounds.height * 0.4 );
@@ -167,8 +166,8 @@ class MessengerRnaProductionScreenView extends ScreenView {
     timeControlNode.centerX = negativeFactorEnabledCheckbox.centerX;
 
     // define a function for adding views of biomolecules
-    function addBiomoleculeView( addedBiomolecule ) {
-      const biomoleculeNode = new MobileBiomoleculeNode( self.modelViewTransform, addedBiomolecule );
+    const addBiomoleculeView = addedBiomolecule => {
+      const biomoleculeNode = new MobileBiomoleculeNode( this.modelViewTransform, addedBiomolecule );
 
       // On this screen, users can't directly interact with individual biomolecules.
       biomoleculeNode.setPickable( false );
@@ -205,7 +204,7 @@ class MessengerRnaProductionScreenView extends ScreenView {
           model.mobileBiomoleculeList.removeItemRemovedListener( removalListener );
         }
       } );
-    }
+    };
 
     model.mobileBiomoleculeList.forEach( bioMolecule => {
       addBiomoleculeView( bioMolecule );

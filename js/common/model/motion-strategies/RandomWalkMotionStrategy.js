@@ -33,14 +33,13 @@ class RandomWalkMotionStrategy extends MotionStrategy {
    */
   constructor( motionBoundsProperty ) {
     super();
-    const self = this;
     this.directionChangeCountdown = 0; // @private
     this.currentMotionVector2D = new Vector2( 0, 0 ); // @private
     this.currentZVelocity = 0; // @private
 
-    function handleMotionBoundsChanged( motionBounds ) {
-      self.motionBounds = motionBounds;
-    }
+    const handleMotionBoundsChanged = motionBounds => {
+      this.motionBounds = motionBounds;
+    };
 
     motionBoundsProperty.link( handleMotionBoundsChanged );
 

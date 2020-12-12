@@ -27,7 +27,6 @@ class FadeLabel extends Node {
    */
   constructor( text, initiallyVisible, existenceStrengthProperty ) {
     super( { pickable: false } );
-    const self = this;
     this.fadeDelta = 0; // @private
     let opacity = 0;
 
@@ -59,9 +58,9 @@ class FadeLabel extends Node {
       }
     } );
 
-    function updateTransparency() {
-      self.opacity = Math.min( existenceStrengthProperty.get(), opacity );
-    }
+    const updateTransparency = () => {
+      this.opacity = Math.min( existenceStrengthProperty.get(), opacity );
+    };
 
     // Update if existence strength changes.
     existenceStrengthProperty.link( () => {

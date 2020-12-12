@@ -27,11 +27,10 @@ class MoveDirectlyToDestinationMotionStrategy extends MotionStrategy {
   constructor( destinationProperty, motionBoundsProperty, destinationOffset, velocity ) {
 
     super();
-    const self = this;
 
-    function handleMotionBoundsChanged( motionBounds ) {
-      self.motionBounds = motionBounds;
-    }
+    const handleMotionBoundsChanged = motionBounds => {
+      this.motionBounds = motionBounds;
+    };
 
     motionBoundsProperty.link( handleMotionBoundsChanged );
 
@@ -51,7 +50,6 @@ class MoveDirectlyToDestinationMotionStrategy extends MotionStrategy {
 
     // Scalar velocity with which the controlled item travels.
     this.scalarVelocity2D = velocity; //@private
-
   }
 
   /**

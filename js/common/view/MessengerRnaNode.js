@@ -31,7 +31,6 @@ class MessengerRnaNode extends MobileBiomoleculeNode {
   constructor( modelViewTransform, messengerRna ) {
 
     super( modelViewTransform, messengerRna, { lineWidth: 2 } );
-    const self = this;
 
     // Add placement hints that show where ribosomes and mRNA destroyers can be attached.  Placement hint node, like
     // other mobile biomolecule nodes, are designed to position themselves, but we don't want that to happen here since
@@ -75,10 +74,10 @@ class MessengerRnaNode extends MobileBiomoleculeNode {
     }
 
     // handler for shape changes
-    function handleShapeChanged( shape ) {
+    const handleShapeChanged = shape => {
       const shapeBounds = shape.bounds;
       if ( shapeBounds.isFinite() ) {
-        const scaledShapeBounds = self.scaleOnlyModelViewTransform.modelToViewShape( shapeBounds );
+        const scaledShapeBounds = this.scaleOnlyModelViewTransform.modelToViewShape( shapeBounds );
         rect && rect.setRectBounds( scaledShapeBounds );
 
         // position the label
@@ -86,13 +85,13 @@ class MessengerRnaNode extends MobileBiomoleculeNode {
         label.y = scaledShapeBounds.minY;
 
         // set the mouse and touch areas to the overall bounds to make this easier for the user to move around
-        self.mouseArea = scaledShapeBounds;
-        self.touchArea = scaledShapeBounds;
+        this.mouseArea = scaledShapeBounds;
+        this.touchArea = scaledShapeBounds;
 
         // explicitly set the local bounds of the main shape path - improves performance
-        self.shapeNode.localBounds = scaledShapeBounds;
+        this.shapeNode.localBounds = scaledShapeBounds;
       }
-    }
+    };
 
     // Update the label position as the shape changes.
     messengerRna.shapeProperty.lazyLink( handleShapeChanged );

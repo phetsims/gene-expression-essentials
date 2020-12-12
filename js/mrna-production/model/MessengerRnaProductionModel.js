@@ -42,8 +42,6 @@ const RNA_POLYMERASE_COUNT = 7;
 
 class MessengerRnaProductionModel {
 
-  /**
-   */
   constructor() {
     const self = this;
     this.clockRunningProperty = new Property( true ); //@public
@@ -133,23 +131,23 @@ class MessengerRnaProductionModel {
       // Set the motion bounds such that the molecules move around above and on top of the DNA.
       mobileBiomolecule.setMotionBounds( this.moleculeMotionBounds );
 
-      function handleUserControlledChanged( isUserControlled ) {
+      const handleUserControlledChanged = isUserControlled => {
         if ( isUserControlled ) {
-          self.dnaMolecule.activateHints( mobileBiomolecule );
+          this.dnaMolecule.activateHints( mobileBiomolecule );
         }
         else {
-          self.dnaMolecule.deactivateAllHints();
+          this.dnaMolecule.deactivateAllHints();
         }
-      }
+      };
 
       // Hook up an observer that will activate and deactivate placement hints for this molecule.
       mobileBiomolecule.userControlledProperty.link( handleUserControlledChanged );
 
-      function handleExistenceStrengthChanged( existenceStrength ) {
+      const handleExistenceStrengthChanged = existenceStrength => {
         if ( existenceStrength === 0 ) {
-          self.removeMobileBiomolecule( mobileBiomolecule );
+          this.removeMobileBiomolecule( mobileBiomolecule );
         }
-      }
+      };
 
       // Hook up an observer that will remove this biomolecule from the model if its existence strength reaches zero.
       mobileBiomolecule.existenceStrengthProperty.link( handleExistenceStrengthChanged );
@@ -169,12 +167,13 @@ class MessengerRnaProductionModel {
       // Since this will never be translated in this model, make it fade away once it is formed.
       messengerRna.setFadeAwayWhenFormed( true );
 
-      function handleExistenceStrengthChanged( existenceStrength ) {
+      const handleExistenceStrengthChanged = existenceStrength => {
         if ( existenceStrength <= 0 ) {
+
           // It's "gone", so remove it from the model.
-          self.removeMessengerRna( messengerRna );
+          this.removeMessengerRna( messengerRna );
         }
-      }
+      };
 
       // Remove this from the model once its existence strength reaches zero, which it will do since it is fading out.
       messengerRna.existenceStrengthProperty.link( handleExistenceStrengthChanged );

@@ -30,7 +30,6 @@ class MobileBiomoleculeNode extends Node {
    */
   constructor( modelViewTransform, mobileBiomolecule, options ) {
     super( { cursor: 'pointer' } );
-    const self = this;
     options = merge( {
       lineWidth: 1
     }, options );
@@ -52,62 +51,63 @@ class MobileBiomoleculeNode extends Node {
     this.addChild( this.shapeNode );
 
     // update the shape whenever it changes
-    function handleShapeChanged( shape ) {
+    const handleShapeChanged = shape => {
 
       // update the shape
-      self.shapeNode.shape = null;
-      const transformedShape = self.scaleOnlyModelViewTransform.modelToViewShape( shape );
-      self.shapeNode.setShape( transformedShape );
-      self.mouseArea = transformedShape.bounds.dilated( 2 );
-      self.touchArea = transformedShape.bounds.dilated( 5 );
-    }
+      this.shapeNode.shape = null;
+      const transformedShape = this.scaleOnlyModelViewTransform.modelToViewShape( shape );
+      this.shapeNode.setShape( transformedShape );
+      this.mouseArea = transformedShape.bounds.dilated( 2 );
+      this.touchArea = transformedShape.bounds.dilated( 5 );
+    };
 
     mobileBiomolecule.shapeProperty.link( handleShapeChanged );
 
     // update this node's position when the corresponding model element moves
-    function handlePositionChanged( position ) {
-      self.setTranslation( modelViewTransform.modelToViewPosition( position ) );
-    }
+    const handlePositionChanged = position => {
+      this.setTranslation( modelViewTransform.modelToViewPosition( position ) );
+    };
 
     mobileBiomolecule.positionProperty.link( handlePositionChanged );
 
-    function handleColorChanged( color ) {
+    const handleColorChanged = color => {
 
       // see the comment above on gradientPaint
-      if ( self.shapeNode.shape.bounds.isFinite() ) {
-        self.shapeNode.fill = GradientUtils.createGradientPaint( self.shapeNode.shape, color );
+      if ( this.shapeNode.shape.bounds.isFinite() ) {
+        this.shapeNode.fill = GradientUtils.createGradientPaint( this.shapeNode.shape, color );
       }
-    }
+    };
 
     // Update the color whenever it changes.
     mobileBiomolecule.colorProperty.link( handleColorChanged );
 
-    function handleExistenceStrengthChanged( existenceStrength ) {
+    const handleExistenceStrengthChanged = existenceStrength => {
       assert && assert( existenceStrength >= 0 && existenceStrength <= 1 ); // Bounds checking.
-      self.setOpacity( Math.min( Number( existenceStrength ), 1 + mobileBiomolecule.zPositionProperty.get() ) );
-    }
+      this.setOpacity( Math.min( Number( existenceStrength ), 1 + mobileBiomolecule.zPositionProperty.get() ) );
+    };
 
     // Update its existence strength (i.e. fade level) whenever it changes.
     mobileBiomolecule.existenceStrengthProperty.link( handleExistenceStrengthChanged );
 
-    function handleZPositionChanged( zPosition ) {
+    const handleZPositionChanged = zPosition => {
       assert && assert( zPosition >= -1 && zPosition <= 0 ); // Parameter checking.
+
       // The further back the biomolecule is, the more transparent it is in order to make it look more distant.
-      self.setOpacity( Math.min( 1 + zPosition, mobileBiomolecule.existenceStrengthProperty.get() ) );
+      this.setOpacity( Math.min( 1 + zPosition, mobileBiomolecule.existenceStrengthProperty.get() ) );
 
       // Also, as it goes further back, this node is scaled down a bit, also to make it look further away.
-      self.setScaleMagnitude( 1 );
-      self.setScaleMagnitude( 1 + 0.15 * zPosition );
-    }
+      this.setScaleMagnitude( 1 );
+      this.setScaleMagnitude( 1 + 0.15 * zPosition );
+    };
 
     // Update the "closeness" whenever it changes.
     mobileBiomolecule.zPositionProperty.link( handleZPositionChanged );
 
-    function handleAttachedToDnaChanged( attachedToDna ) {
+    const handleAttachedToDnaChanged = attachedToDna => {
       if ( mobileBiomolecule instanceof RnaPolymerase && attachedToDna ) {
-        self.moveToBack();
+        this.moveToBack();
       }
-    }
+    };
 
     // If a polymerase molecule attaches to the DNA strand, move it to the back of its current layer so that nothing can
     // go between it and the DNA molecule. Otherwise odd-looking things can happen.
@@ -117,16 +117,16 @@ class MobileBiomoleculeNode extends Node {
     const dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, modelViewTransform );
     this.addInputListener( dragHandler );
 
-    function handleMovableByUserChanged( movableByUser ) {
-      self.setPickable( movableByUser );
-    }
+    const handleMovableByUserChanged = movableByUser => {
+      this.setPickable( movableByUser );
+    };
 
     // interactivity control
     mobileBiomolecule.movableByUserProperty.link( handleMovableByUserChanged );
 
-    function handleUserControlledChanged( userControlled ) {
-      self.moveToFront();
-    }
+    const handleUserControlledChanged = userControlled => {
+      this.moveToFront();
+    };
 
     // Move this biomolecule to the top of its layer when grabbed.
     mobileBiomolecule.userControlledProperty.link( handleUserControlledChanged );
