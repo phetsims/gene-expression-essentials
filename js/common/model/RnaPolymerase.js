@@ -8,6 +8,7 @@
  * @author Aadish Gupta
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
@@ -102,7 +103,7 @@ class RnaPolymerase extends MobileBiomolecule {
   getDetachDirection() {
 
     // Randomly either up or down when detaching from DNA.
-    return phet.joist.random.nextBoolean() ? UP_VECTOR : DOWN_VECTOR;
+    return dotRandom.nextBoolean() ? UP_VECTOR : DOWN_VECTOR;
   }
 
   /**

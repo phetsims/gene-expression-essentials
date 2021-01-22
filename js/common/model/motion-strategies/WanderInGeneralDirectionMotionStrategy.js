@@ -8,6 +8,7 @@
  * @author Aadish Gupta
  */
 
+import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
@@ -56,7 +57,7 @@ class WanderInGeneralDirectionMotionStrategy extends MotionStrategy {
    * @private
    */
   generateDirectionChangeCountdownValue() {
-    return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() *
+    return MIN_TIME_IN_ONE_DIRECTION + dotRandom.nextDouble() *
            ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
   }
 
@@ -73,8 +74,8 @@ class WanderInGeneralDirectionMotionStrategy extends MotionStrategy {
     if ( this.directionChangeCountdown <= 0 ) {
 
       // Time to change the direction.
-      const newVelocity = MIN_VELOCITY + phet.joist.random.nextDouble() * ( MAX_VELOCITY - MIN_VELOCITY );
-      const varianceAngle = ( phet.joist.random.nextDouble() - 0.5 ) * Math.PI / 3;
+      const newVelocity = MIN_VELOCITY + dotRandom.nextDouble() * ( MAX_VELOCITY - MIN_VELOCITY );
+      const varianceAngle = ( dotRandom.nextDouble() - 0.5 ) * Math.PI / 3;
       this.currentMotionVector = this.generalDirection.withMagnitude( newVelocity ).rotated( varianceAngle );
 
       // Reset the countdown timer.

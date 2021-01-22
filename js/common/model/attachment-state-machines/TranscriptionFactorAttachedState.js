@@ -7,6 +7,7 @@
  * @author Aadish Gupta
  */
 
+import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
@@ -77,11 +78,11 @@ class TranscriptionFactorAttachedState extends GenericAttachedState {
     const movingTowardsAttachmentState = this.transcriptionFactorAttachmentStateMachine.movingTowardsAttachmentState;
 
     // Decide whether or not to detach from the current attachment site.
-    if ( phet.joist.random.nextDouble() > ( 1 - this.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
+    if ( dotRandom.nextDouble() > ( 1 - this.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
 
       // The decision has been made to detach. Next, decide whether to detach completely from the DNA strand or just
       // jump to an adjacent base pair.
-      if ( phet.joist.random.nextDouble() > detachFromDnaThreshold ) {
+      if ( dotRandom.nextDouble() > detachFromDnaThreshold ) {
 
         // Detach completely from the DNA.
         this.detachFromDnaMolecule( asm );
@@ -97,7 +98,7 @@ class TranscriptionFactorAttachedState extends GenericAttachedState {
           site.positionProperty.get() ) );
 
         // Shuffle in order to produce random-ish behavior.
-        attachmentSites = phet.joist.random.shuffle( attachmentSites );
+        attachmentSites = dotRandom.shuffle( attachmentSites );
 
         if ( attachmentSites.length === 0 ) {
 

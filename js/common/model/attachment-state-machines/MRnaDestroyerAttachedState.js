@@ -8,6 +8,7 @@
  * @author Aadish Gupta
  */
 
+import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Range from '../../../../../dot/js/Range.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MessengerRnaFragment from '../MessengerRnaFragment.js';
@@ -56,7 +57,7 @@ class MRnaDestroyerAttachedState extends AttachmentState {
       this.messengerRnaFragment.movableByUserProperty.set( false );
       biomolecule.getModel().addMobileBiomolecule( this.messengerRnaFragment );
       this.targetFragmentLength = MRNA_FRAGMENT_LENGTH_RANGE.min +
-                                  phet.joist.random.nextDouble() * MRNA_FRAGMENT_LENGTH_RANGE.getLength();
+                                  dotRandom.nextDouble() * MRNA_FRAGMENT_LENGTH_RANGE.getLength();
     }
     this.messengerRnaFragment.addLength( RNA_DESTRUCTION_RATE * dt );
     if ( this.messengerRnaFragment.getLength() >= this.targetFragmentLength ) {

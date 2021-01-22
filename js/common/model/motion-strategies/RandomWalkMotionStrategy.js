@@ -9,6 +9,7 @@
  * @author Aadish Gupta
  */
 
+import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
@@ -77,7 +78,7 @@ class RandomWalkMotionStrategy extends MotionStrategy {
    * @private
    */
   generateDirectionChangeCountdownValue() {
-    return MIN_TIME_IN_ONE_DIRECTION + phet.joist.random.nextDouble() *
+    return MIN_TIME_IN_ONE_DIRECTION + dotRandom.nextDouble() *
            ( MAX_TIME_IN_ONE_DIRECTION - MIN_TIME_IN_ONE_DIRECTION );
   }
 
@@ -94,11 +95,11 @@ class RandomWalkMotionStrategy extends MotionStrategy {
     if ( this.directionChangeCountdown <= 0 ) {
 
       // Time to change direction.
-      const newXYVelocity = MIN_XY_VELOCITY + phet.joist.random.nextDouble() * ( MAX_XY_VELOCITY - MIN_XY_VELOCITY );
-      const newXYAngle = Math.PI * 2 * phet.joist.random.nextDouble();
+      const newXYVelocity = MIN_XY_VELOCITY + dotRandom.nextDouble() * ( MAX_XY_VELOCITY - MIN_XY_VELOCITY );
+      const newXYAngle = Math.PI * 2 * dotRandom.nextDouble();
       this.currentMotionVector2D = Vector2.createPolar( newXYVelocity, newXYAngle );
-      this.currentZVelocity = MIN_Z_VELOCITY + phet.joist.random.nextDouble() * ( MAX_Z_VELOCITY - MIN_Z_VELOCITY );
-      this.currentZVelocity = phet.joist.random.nextBoolean() ? -this.currentZVelocity : this.currentZVelocity;
+      this.currentZVelocity = MIN_Z_VELOCITY + dotRandom.nextDouble() * ( MAX_Z_VELOCITY - MIN_Z_VELOCITY );
+      this.currentZVelocity = dotRandom.nextBoolean() ? -this.currentZVelocity : this.currentZVelocity;
 
       // Reset the countdown timer.
       this.directionChangeCountdown = this.generateDirectionChangeCountdownValue();

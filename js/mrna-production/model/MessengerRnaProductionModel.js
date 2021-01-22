@@ -11,6 +11,7 @@
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../dot/js/Vector3.js';
@@ -101,7 +102,7 @@ class MessengerRnaProductionModel {
     const polymeraseSize = new RnaPolymerase().bounds;
     const firstGene = this.dnaMolecule.getGenes()[ 0 ];
     const recycleZoneCenterX = this.dnaMolecule.getBasePairXOffsetByIndex( firstGene.getTranscribedRegion().min ) +
-                               ( phet.joist.random.nextDouble() - 0.5 ) * 2000;
+                               ( dotRandom.nextDouble() - 0.5 ) * 2000;
     const recycleZoneHeight = polymeraseSize.getHeight() * 1.2;
     const recycleZoneWidth = polymeraseSize.getWidth() * 4;
     const minX = recycleZoneCenterX - polymeraseSize.getWidth() * 2;
@@ -219,7 +220,7 @@ class MessengerRnaProductionModel {
     // periodically shuffle the mobile biomolecules so that no molecule gets preference for attachments
     this.shuffleTimeAccumulator += dt;
     if ( this.shuffleTimeAccumulator > SHUFFLE_TIME ) {
-      this.mobileBiomoleculeList.shuffle( phet.joist.random );
+      this.mobileBiomoleculeList.shuffle( dotRandom );
       this.shuffleTimeAccumulator = 0;
     }
   }
@@ -347,9 +348,9 @@ class MessengerRnaProductionModel {
     const yMin = this.moleculeMotionBounds.getBounds().minY + biomolecule.bounds.getHeight() / 2;
     const xMax = this.moleculeMotionBounds.getBounds().maxX - biomolecule.bounds.getWidth() / 2;
     const yMax = this.moleculeMotionBounds.getBounds().maxY - biomolecule.bounds.getHeight() / 2;
-    const xPos = xMin + phet.joist.random.nextDouble() * ( xMax - xMin );
-    const yPos = yMin + phet.joist.random.nextDouble() * ( yMax - yMin );
-    const zPos = -phet.joist.random.nextDouble(); // Valid z values are from -1 to 0.
+    const xPos = xMin + dotRandom.nextDouble() * ( xMax - xMin );
+    const yPos = yMin + dotRandom.nextDouble() * ( yMax - yMin );
+    const zPos = -dotRandom.nextDouble(); // Valid z values are from -1 to 0.
     return new Vector3( xPos, yPos, zPos );
   }
 

@@ -11,6 +11,7 @@
  * @author Aadish Gupta
  */
 
+import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
@@ -66,7 +67,7 @@ class DriftThenTeleportMotionStrategy extends MotionStrategy {
   generateRandomPositionInBounds( destinationZones, bounds ) {
 
     // randomly choose one of the destination zones
-    const destinationBounds = phet.joist.random.sample( destinationZones );
+    const destinationBounds = dotRandom.sample( destinationZones );
 
     // generate a random valid position within the chosen zone
     const reducedBoundsWidth = destinationBounds.getWidth() - bounds.getWidth();
@@ -76,8 +77,8 @@ class DriftThenTeleportMotionStrategy extends MotionStrategy {
       'earning: bounds cannot contain shape'
     );
     return new Vector2(
-      destinationBounds.x + bounds.getWidth() / 2 + phet.joist.random.nextDouble() * reducedBoundsWidth,
-      destinationBounds.y + bounds.getHeight() / 2 + phet.joist.random.nextDouble() * reducedBoundsHeight
+      destinationBounds.x + bounds.getWidth() / 2 + dotRandom.nextDouble() * reducedBoundsWidth,
+      destinationBounds.y + bounds.getHeight() / 2 + dotRandom.nextDouble() * reducedBoundsHeight
     );
   }
 

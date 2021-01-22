@@ -9,6 +9,7 @@
  * @author Aadish Gupta
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Shape from '../../../../kite/js/Shape.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import MessengerRnaFragmentAttachmentStateMachine from './attachment-state-machines/MessengerRnaFragmentAttachmentStateMachine.js';
@@ -28,7 +29,7 @@ class MessengerRnaFragment extends WindingBiomolecule {
    */
   constructor( model, position ) {
     super( model, new Shape().moveToPoint( position ), position, {
-      windingParamSet: MRNA_WINDING_ALGORITHMS[ phet.joist.random.nextInt( MRNA_WINDING_ALGORITHMS.length ) ]
+      windingParamSet: MRNA_WINDING_ALGORITHMS[ dotRandom.nextInt( MRNA_WINDING_ALGORITHMS.length ) ]
     } );
 
     // Add the first, and in this case only, segment to the shape segment list.

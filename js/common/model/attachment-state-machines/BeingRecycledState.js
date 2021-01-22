@@ -9,6 +9,7 @@
  * @author Aadish Gupta
  */
 
+import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import DriftThenTeleportMotionStrategy from '../motion-strategies/DriftThenTeleportMotionStrategy.js';
@@ -69,7 +70,7 @@ class BeingRecycledState extends AttachmentState {
     // Set the motion strategy that will move the polymerase clear of the DNA, then teleport it to a position within
     // the specified bounds.
     asm.biomolecule.setMotionStrategy( new DriftThenTeleportMotionStrategy( new Vector2( 0,
-      phet.joist.random.nextBoolean() ? 1 : -1 ),
+      dotRandom.nextBoolean() ? 1 : -1 ),
       this.recycleReturnZones, biomolecule.motionBoundsProperty ) );
   }
 }

@@ -10,6 +10,7 @@
  * @Author Aadish Gupta
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
@@ -151,8 +152,8 @@ class CellProteinSynthesisSimulator {
     const a = this.calculateA();
     const a0 = this.sum( a );
 
-    const r1 = phet.joist.random.nextDouble();
-    const r2 = phet.joist.random.nextDouble();
+    const r1 = dotRandom.nextDouble();
+    const r2 = dotRandom.nextDouble();
     const tau = ( 1 / a0 ) * Math.log( 1 / r1 );
     if ( tau > maxTime ) {
       return 0.0;

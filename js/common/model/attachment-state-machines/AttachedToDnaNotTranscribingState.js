@@ -9,6 +9,7 @@
  * @author Aadish Gupta
  */
 
+import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
@@ -81,12 +82,12 @@ class AttachedToDnaNotTranscribingState extends AttachmentState {
       this.rnaPolymeraseAttachmentStateMachine.setState( attachedState );
       detachFromDnaThreshold.reset(); // Reset this threshold.
     }
-    else if ( phet.joist.random.nextDouble() >
+    else if ( dotRandom.nextDouble() >
               ( 1 - this.rnaPolymeraseAttachmentStateMachine.calculateProbabilityOfDetachment( attachmentSite.getAffinity(), dt ) ) ) {
 
       // The decision has been made to detach. Next, decide whether to detach completely from the DNA strand or just
       // jump to an adjacent base pair.
-      if ( phet.joist.random.nextDouble() > detachFromDnaThreshold.get() ) {
+      if ( dotRandom.nextDouble() > detachFromDnaThreshold.get() ) {
 
         // Detach completely from the DNA.
         this.detachFromDnaMolecule( asm );
@@ -105,7 +106,7 @@ class AttachedToDnaNotTranscribingState extends AttachmentState {
           biomolecule.bounds, site.positionProperty.get() ) );
 
         // Shuffle in order to produce random-ish behavior.
-        attachmentSites = phet.joist.random.shuffle( attachmentSites );
+        attachmentSites = dotRandom.shuffle( attachmentSites );
 
         if ( attachmentSites.length === 0 ) {
 
@@ -151,7 +152,7 @@ class AttachedToDnaNotTranscribingState extends AttachmentState {
 
       if ( this.timeSinceTranscriptionDecision >= REEVALUATE_TRANSCRIPTION_DECISION_TIME ) {
         this.transcribe = attachmentSite.getAffinity() > GEEConstants.DEFAULT_AFFINITY &&
-                          phet.joist.random.nextDouble() < attachmentSite.getAffinity();
+                          dotRandom.nextDouble() < attachmentSite.getAffinity();
         this.timeSinceTranscriptionDecision = 0;
       }
     }
@@ -164,7 +165,7 @@ class AttachedToDnaNotTranscribingState extends AttachmentState {
    */
   entered( asm ) {
     const attachmentSite = this.rnaPolymeraseAttachmentStateMachine.attachmentSite;
-    const randValue = phet.joist.random.nextDouble();
+    const randValue = dotRandom.nextDouble();
 
     // Decide right away whether or not to transcribe.
     this.transcribe = attachmentSite.getAffinity() > GEEConstants.DEFAULT_AFFINITY &&

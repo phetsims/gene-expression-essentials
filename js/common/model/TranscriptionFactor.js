@@ -11,6 +11,7 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
@@ -92,7 +93,7 @@ class TranscriptionFactor extends MobileBiomolecule {
    */
   getDetachDirection() {
     // Randomly either up or down when detaching from DNA.
-    return phet.joist.random.nextBoolean() ? new Vector2( 0, 1 ) : new Vector2( 0, -1 );
+    return dotRandom.nextBoolean() ? new Vector2( 0, 1 ) : new Vector2( 0, -1 );
   }
 
   /**
