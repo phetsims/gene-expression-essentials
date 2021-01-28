@@ -77,23 +77,23 @@ class MotionStrategy {
    */
   getMotionVectorForBounce( bounds, originalMotionVector, dt, maxVelocity ) {
     // Check that this isn't being called inappropriately
-    assert && assert( !this.motionBounds.inBounds( bounds.shifted( originalMotionVector.x * dt, originalMotionVector.y * dt ) ) );
+    assert && assert( !this.motionBounds.inBounds( bounds.shiftedXY( originalMotionVector.x * dt, originalMotionVector.y * dt ) ) );
 
     // Try reversing X direction.
     const reversedXMotionVector = new Vector2( -originalMotionVector.x, originalMotionVector.y );
-    if ( this.motionBounds.inBounds( bounds.shifted( reversedXMotionVector.x * dt, reversedXMotionVector.y * dt ) ) ) {
+    if ( this.motionBounds.inBounds( bounds.shiftedXY( reversedXMotionVector.x * dt, reversedXMotionVector.y * dt ) ) ) {
       return reversedXMotionVector;
     }
 
     // Try reversing Y direction.
     const reversedYMotionVector = new Vector2( originalMotionVector.x, -originalMotionVector.y );
-    if ( this.motionBounds.inBounds( bounds.shifted( reversedYMotionVector.x * dt, reversedYMotionVector * dt ) ) ) {
+    if ( this.motionBounds.inBounds( bounds.shiftedXY( reversedYMotionVector.x * dt, reversedYMotionVector * dt ) ) ) {
       return reversedYMotionVector;
     }
 
     // Try reversing both X and Y directions.
     const reversedXYMotionVector = new Vector2( -originalMotionVector.x, -originalMotionVector.y );
-    if ( this.motionBounds.inBounds( bounds.shifted( reversedXYMotionVector.x * dt, reversedXYMotionVector.x * dt ) ) ) {
+    if ( this.motionBounds.inBounds( bounds.shiftedXY( reversedXYMotionVector.x * dt, reversedXYMotionVector.x * dt ) ) ) {
       return reversedXYMotionVector;
     }
 

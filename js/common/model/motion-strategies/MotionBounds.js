@@ -92,7 +92,7 @@ class MotionBounds {
    * @public
    */
   testIfInMotionBoundsWithDelta( bounds, motionVector, dt ) {
-    return this.inBounds( bounds.shifted( motionVector.x * dt, motionVector.y * dt ) );
+    return this.inBounds( bounds.shiftedXY( motionVector.x * dt, motionVector.y * dt ) );
   }
 
   /**
@@ -107,7 +107,7 @@ class MotionBounds {
   testIfInMotionBounds( bounds, proposedPosition ) {
     const shapeCenter = bounds.getCenter();
     const translationVector = proposedPosition.minus( shapeCenter );
-    return this.inBounds( bounds.shifted( translationVector.x, translationVector.y ) );
+    return this.inBounds( bounds.shiftedXY( translationVector.x, translationVector.y ) );
   }
 }
 

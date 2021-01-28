@@ -588,7 +588,7 @@ class DnaMolecule {
 
       // determine the bounds for the provided biomolecule when translated to the attachment site
       let translationVector = attachmentSite.positionProperty.get().minus( biomolecule.getPosition() );
-      const translatedShapeBounds = biomolecule.bounds.shifted( translationVector.x, translationVector.y );
+      const translatedShapeBounds = biomolecule.bounds.shiftedXY( translationVector.x, translationVector.y );
 
       // if the biomolecule would be out of the model bounds, the site should be excluded
       if ( !biomolecule.motionBoundsProperty.get().inBounds( translatedShapeBounds ) ) {
@@ -618,7 +618,7 @@ class DnaMolecule {
             // they will be once attachment occurs.
             translationVector = attachmentSite.positionProperty.get().minus( mobileBiomolecule.getPosition() );
             attachedOrIncomingBiomoleculeBounds.push(
-              mobileBiomolecule.bounds.shifted( translationVector.x, translationVector.y )
+              mobileBiomolecule.bounds.shiftedXY( translationVector.x, translationVector.y )
             );
           }
         }

@@ -241,8 +241,8 @@ class MultipleCellsModel {
         for ( let k = 0; k < this.cellList.length; k++ ) {
           const existingCell = this.cellList[ k ];
           // new bounds
-          if ( cell.bounds.shifted( cell.positionX, cell.positionY )
-            .intersectsBounds( existingCell.bounds.shifted( existingCell.positionX, existingCell.positionY ) ) ) {
+          if ( cell.bounds.shiftedXY( cell.positionX, cell.positionY )
+            .intersectsBounds( existingCell.bounds.shiftedXY( existingCell.positionX, existingCell.positionY ) ) ) {
             overlapDetected = true;
             break;
           }

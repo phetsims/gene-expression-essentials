@@ -111,7 +111,7 @@ class ShapeSegment {
    * @public
    */
   translate( x, y ) {
-    this.bounds.shift( x, y );
+    this.bounds.shiftXY( x, y );
     this.updateAttachmentSitePosition();
   }
 
