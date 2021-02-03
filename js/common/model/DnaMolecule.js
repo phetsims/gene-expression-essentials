@@ -482,9 +482,9 @@ class DnaMolecule {
    * Consider a proposal from a biomolecule. This is the generic version that avoids duplicated code.
    * @param {MobileBiomolecule} biomolecule
    * @param {number} maxAttachDistance
-   * @param {Function<Number>} getAttachSiteForBasePair
-   * @param {Function<Gene>} isOkayToAttach
-   * @param {Function<Gene>} getAttachmentSite
+   * @param {Function.<Number>} getAttachSiteForBasePair
+   * @param {Function.<Gene>} isOkayToAttach
+   * @param {Function.<Gene>} getAttachmentSite
    * @returns {AttachmentSite}
    * @private
    */

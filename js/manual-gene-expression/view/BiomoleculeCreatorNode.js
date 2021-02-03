@@ -23,9 +23,9 @@ class BiomoleculeCreatorNode extends Node {
    * @param canvas - Canvas upon which this node ultimately resides.  This is needed for figuring out where in model
    * space this node exists.
    * @param {ModelViewTransform2} modelViewTransform - Model view transform.
-   * @param {Function<>} moleculeCreator -  Function object that knows how to create the model element and add it to the
+   * @param {Function} moleculeCreator -  Function object that knows how to create the model element and add it to the
    * model.
-   * @param {Function<>} moleculeDestroyer
+   * @param {Function} moleculeDestroyer
    * @param enclosingToolboxNode - Toolbox in which this creator node is  contained.  This is needed in order to
    * determine when the created model element is returned to the toolbox.
    */
