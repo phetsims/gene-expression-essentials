@@ -20,7 +20,7 @@ class BeingRecycledState extends AttachmentState {
 
   /**
    * @param {RnaPolymeraseAttachmentStateMachine} rnaPolymeraseAttachmentStateMachine
-   * @param {Array<Bounds2>} recycleReturnZones
+   * @param {Array.<Bounds2>} recycleReturnZones
    */
   constructor( rnaPolymeraseAttachmentStateMachine, recycleReturnZones ) {
     super();

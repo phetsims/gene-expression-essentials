@@ -21,7 +21,7 @@ class ParameterControlAccordionBox extends AccordionBox {
 
   /**
    * @param {String} title
-   * @param {Array<Object>}controllers
+   * @param {Array.<Object>}controllers
    */
   constructor( title, controllers ) {
 
