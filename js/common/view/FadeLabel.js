@@ -23,7 +23,7 @@ class FadeLabel extends Node {
   /**
    * @param {string} text
    * @param {boolean} initiallyVisible
-   * @param {Property<number>} existenceStrengthProperty
+   * @param {Property.<number>} existenceStrengthProperty
    */
   constructor( text, initiallyVisible, existenceStrengthProperty ) {
     super( { pickable: false } );

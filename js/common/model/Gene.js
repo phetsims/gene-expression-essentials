@@ -327,7 +327,7 @@ class Gene {
    * transcription factor.
    *
    * @param {TranscriptionFactorConfig} tfConfig
-   * @returns {Property<number>}
+   * @returns {Property.<number>}
    * @public
    */
   getTranscriptionFactorAffinityProperty( tfConfig ) {
@@ -345,7 +345,7 @@ class Gene {
 
   /**
    * Get the property that controls the affinity of the site where polymerase binds when initiating transcription.
-   * @returns {Property<number>}
+   * @returns {Property.<number>}
    * @public
    */
   getPolymeraseAffinityProperty() {

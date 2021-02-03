@@ -38,7 +38,7 @@ const timeString = geneExpressionEssentialsStrings.time;
 class ProteinLevelChartNode extends Panel {
 
   /**
-   * @param {Property<number>} averageProteinLevelProperty
+   * @param {Property.<number>} averageProteinLevelProperty
    */
   constructor( averageProteinLevelProperty ) {
 
