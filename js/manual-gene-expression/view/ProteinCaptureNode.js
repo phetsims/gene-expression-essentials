@@ -31,9 +31,9 @@ const SCALE_FOR_FLASH_NODE = 1.5;
 const VERTICAL_DISTANCE_TO_COUNT_NODE = 40;
 
 const proteinStringConstructorMap = {
-  'ProteinA': ProteinA,
-  'ProteinB': ProteinB,
-  'ProteinC': ProteinC
+  ProteinA: ProteinA,
+  ProteinB: ProteinB,
+  ProteinC: ProteinC
 };
 
 class ProteinCaptureNode extends Node {

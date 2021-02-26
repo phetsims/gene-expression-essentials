@@ -81,9 +81,9 @@ class ManualGeneExpressionModel extends GeneExpressionModel {
     // Map of the protein collection count properties to the protein types, used to obtain the count property based on
     // the type of protein.
     this.mapProteinClassToCollectedCount = {
-      'ProteinA': this.proteinACollectedProperty,
-      'ProteinB': this.proteinBCollectedProperty,
-      'ProteinC': this.proteinCCollectedProperty
+      ProteinA: this.proteinACollectedProperty,
+      ProteinB: this.proteinBCollectedProperty,
+      ProteinC: this.proteinCCollectedProperty
     };
 
     // Rectangle that describes the "protein capture area".  When a protein is dropped by the user over this area, it
