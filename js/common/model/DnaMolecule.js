@@ -122,8 +122,8 @@ class DnaMolecule {
       this.leftEdgeXOffset,
       this.leftEdgeXOffset + GEEConstants.LENGTH_PER_TWIST * this.numberOfTwists
     );
-    return ( Utils.roundSymmetric( ( xOffset - this.leftEdgeXOffset - GEEConstants.INTER_STRAND_OFFSET ) /
-                                   GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) ) | 0; // make it int
+    return Math.trunc( Utils.roundSymmetric( ( xOffset - this.leftEdgeXOffset - GEEConstants.INTER_STRAND_OFFSET ) /
+                                             GEEConstants.DISTANCE_BETWEEN_BASE_PAIRS ) );
   }
 
   /**
