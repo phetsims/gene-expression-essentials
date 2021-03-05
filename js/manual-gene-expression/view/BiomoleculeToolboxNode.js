@@ -40,11 +40,11 @@ class BiomoleculeToolboxNode extends Node {
 
   /**
    * @param {ManualGeneExpressionModel} model
-   * @param {ManualGeneExpressionScreenView} canvas
+   * @param {ManualGeneExpressionScreenView} screenView
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Gene} gene
    */
-  constructor( model, canvas, modelViewTransform, gene ) {
+  constructor( model, screenView, modelViewTransform, gene ) {
 
     super();
 
@@ -52,7 +52,7 @@ class BiomoleculeToolboxNode extends Node {
     this.model = model;
 
     // @public {ManualGeneExpressionScreenView} - used by the creator nodes to add new biomolecule nodes to the view
-    this.canvas = canvas;
+    this.screenView = screenView;
 
     // @public {ModelViewTransform2} - used by the creator nodes to add new biomolecule nodes to the view
     this.modelViewTransform = modelViewTransform;

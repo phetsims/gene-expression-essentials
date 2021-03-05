@@ -10,7 +10,7 @@
  * @author Aadish Gupta
  */
 
-import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import SunConstants from '../../../../sun/js/SunConstants.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
@@ -20,8 +20,9 @@ class BiomoleculeCreatorNode extends Node {
   /**
    * @param {Path} appearanceNode - Node that represents the appearance of this creator node, generally looks like the
    * thing being created.
-   * @param canvas - Canvas upon which this node ultimately resides.  This is needed for figuring out where in model
-   * space this node exists.
+   * @param {ManualGeneExpressionScreenView} screenView - Screen view upon which this node ultimately resides.  This is
+   * needed for figuring out where in model space this node exists and obtaining the node that represent the biomolecule
+   * in the view.
    * @param {ModelViewTransform2} modelViewTransform - Model view transform.
    * @param {Function} moleculeCreator -  Function object that knows how to create the model element and add it to the
    * model.
@@ -29,12 +30,14 @@ class BiomoleculeCreatorNode extends Node {
    * @param enclosingToolboxNode - Toolbox in which this creator node is  contained.  This is needed in order to
    * determine when the created model element is returned to the toolbox.
    */
-  constructor( appearanceNode, canvas, modelViewTransform, moleculeCreator, moleculeDestroyer, enclosingToolboxNode ) {
+  constructor( appearanceNode, screenView, modelViewTransform, moleculeCreator, moleculeDestroyer, enclosingToolboxNode ) {
     super( { cursor: 'pointer' } );
-    this.canvas = canvas; // @private
-    this.modelViewTransform = modelViewTransform; // @private
-    this.appearanceNode = appearanceNode; // @private
-    this.biomolecule = null; // @private
+
+    // @private - values used in methods
+    this.screenView = screenView;
+    this.modelViewTransform = modelViewTransform;
+    this.appearanceNode = appearanceNode;
+    this.biomolecule = null;
 
     // Appearance Node is a bioMolecule Node which has its own DragHandler, since the node within the creator Node only
     // serves as a icon, it shouldn't be pickable - otherwise the DragHandler of the BioMolecule takes over the
@@ -44,51 +47,53 @@ class BiomoleculeCreatorNode extends Node {
     this.mouseArea = appearanceNode.bounds.dilated( 2 );
     this.touchArea = appearanceNode.bounds.dilated( 5 );
 
-    this.addInputListener( new SimpleDragHandler( {
+    // Add a listener that will create a biomolecule, then forward drag events to created node in the view.
+    this.addInputListener( DragListener.createForwardingListener( event => {
 
-      // Allow moving a finger (touch) across this node to interact with it
-      allowTouchSnag: true,
-      start: ( event, trail ) => {
-        //Set the node to look faded out so that something is still visible. This acts as a legend in the toolbox.
-        this.pickable = false;
-        this.appearanceNode.opacity = SunConstants.DISABLED_OPACITY;
+      // Set the node to look faded out so that something is still visible. This acts as a legend in the toolbox.
+      this.pickable = false;
+      appearanceNode.opacity = SunConstants.DISABLED_OPACITY;
 
-        // Convert the canvas position to the corresponding position in the model.
-        const modelPos = this.getModelPosition( event.pointer.point );
+      // Convert the screenView position to the corresponding position in the model.
+      const modelPosition = this.getModelPosition( event.pointer.point );
 
-        // Create the corresponding biomolecule and add it to the model.
-        this.biomolecule = moleculeCreator( modelPos );
-        this.biomolecule.userControlledProperty.set( true );
+      // Create a biomolecule and add it to the model.
+      this.biomolecule = moleculeCreator( modelPosition );
+      this.biomolecule.userControlledProperty.set( true );
 
-        // Add an observer to watch for this model element to be returned.
-        const finalBiomolecule = this.biomolecule;
-        var userControlledPropertyObserver = userControlled => {
-          if ( !userControlled ) {
-            // The user has released this biomolecule.  If it  was dropped above the return bounds (which are generally
-            // the bounds of the toolbox where this creator node resides),then the model element should be removed from
-            // the model.
-            if ( enclosingToolboxNode.bounds.containsPoint( modelViewTransform.modelToViewPosition( finalBiomolecule.getPosition() ) ) ) {
-              moleculeDestroyer( finalBiomolecule );
-              finalBiomolecule.userControlledProperty.unlink( userControlledPropertyObserver );
-              this.appearanceNode.opacity = 1;
-              this.pickable = true;
-            }
+      // Add an observer to watch for this model element to be returned.
+      this.userControlledPropertyObserver = userControlled => {
+        if ( !userControlled ) {
+
+          // The user has released this biomolecule.  If it was dropped above the return bounds (which are generally
+          // the bounds of the toolbox where this creator node resides), then the model element should be removed from
+          // the model.  Otherwise the model will handle this change.
+          const inBox = enclosingToolboxNode.bounds.containsPoint(
+            modelViewTransform.modelToViewPosition( this.biomolecule.getPosition() )
+          );
+          if ( inBox ) {
+            moleculeDestroyer( this.biomolecule );
+            this.biomolecule.userControlledProperty.unlink( this.userControlledPropertyObserver );
+
+            // Update this node to reflect that it's in a state where it can create a new biomolecule.
+            this.appearanceNode.opacity = 1;
+            this.pickable = true;
+
+            // Update internal state.
+            this.biomolecule = null;
           }
-        };
+        }
+      };
 
-        this.biomolecule.userControlledProperty.link( userControlledPropertyObserver );
-      },
+      this.biomolecule.userControlledProperty.link( this.userControlledPropertyObserver );
 
-      translate: translationParams => {
-        this.biomolecule.setPosition( this.biomolecule.getPosition().plus( modelViewTransform.viewToModelDelta( translationParams.delta ) ) );
-      },
+      // Get the node that was added to the view for this biomolecule.
+      const biomoleculeNode = screenView.mobileBiomoleculeToNodeMap.get( this.biomolecule );
 
-      end: event => {
-        this.biomolecule.userControlledProperty.set( false );
-        this.biomolecule = null;
-      }
-
+      // Forward the event to the view node's drag handler.
+      biomoleculeNode.dragHandler.press( event, biomoleculeNode );
     } ) );
+
     // Add the main node with which the user will interact.
     this.addChild( appearanceNode );
   }
@@ -100,6 +105,7 @@ class BiomoleculeCreatorNode extends Node {
   reset() {
     if ( this.biomolecule !== null ) {
       this.biomolecule.userControlledProperty.unlink( this.userControlledPropertyObserver );
+      this.userControlledPropertyObserver = null;
       this.biomolecule = null;
     }
     this.appearanceNode.opacity = 1;
@@ -112,8 +118,8 @@ class BiomoleculeCreatorNode extends Node {
    * @private
    */
   getModelPosition( point ) {
-    const canvasPosition = this.canvas.globalToLocalPoint( point );
-    const adjustedCanvasPos = canvasPosition.minus( this.canvas.viewPortOffset );
+    const screenViewPosition = this.screenView.globalToLocalPoint( point );
+    const adjustedCanvasPos = screenViewPosition.minus( this.screenView.viewPortOffset );
     return this.modelViewTransform.viewToModelPosition( adjustedCanvasPos );
   }
 }

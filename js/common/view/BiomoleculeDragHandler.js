@@ -8,30 +8,30 @@
  * @author Aadish Gupta
  */
 
-import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
-class BiomoleculeDragHandler extends SimpleDragHandler {
+class BiomoleculeDragHandler extends DragListener {
 
   /**
    * @param {MobileBiomolecule} biomolecule
    * @param {ModelViewTransform2} modelViewTransform
    */
   constructor( biomolecule, modelViewTransform ) {
+
     super( {
+      positionProperty: biomolecule.positionProperty,
+      transform: modelViewTransform,
       allowTouchSnag: true,
 
-      start: ( event, trail ) => {
+      start: () => {
+
         // The user is moving this, so they have control.
         biomolecule.userControlledProperty.set( true );
       },
 
-      translate: translationParams => {
-        const modelDelta = modelViewTransform.viewToModelDelta( translationParams.delta );
-        biomolecule.translate( modelDelta.x, modelDelta.y );
-      },
+      end: () => {
 
-      end: event => {
         // The user is no longer moving this, so they have relinquished control.
         biomolecule.userControlledProperty.set( false );
       }

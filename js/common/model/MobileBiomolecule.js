@@ -11,7 +11,6 @@
  * @author Aadish Gupta
  */
 
-
 //modules
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -36,7 +35,6 @@ class MobileBiomolecule extends ShapeChangingModelElement {
     // @private {MotionStrategy} - Motion strategy that governs how this biomolecule moves. This changes as the molecule
     // interacts with other portions of the model.
     this.motionStrategy = null; // @private
-
 
     // @public (read-only) {Property.<Bounds2>} - bounds within which this biomolecule is allowed to move
     this.motionBoundsProperty = new Property( new MotionBounds() );

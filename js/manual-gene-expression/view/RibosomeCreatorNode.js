@@ -36,7 +36,7 @@ class RibosomeCreatorNode extends BiomoleculeCreatorNode {
         SCALING_MVT,
         new Ribosome( new StubGeneExpressionModel() )
       ),
-      biomoleculeBoxNode.canvas,
+      biomoleculeBoxNode.screenView,
       biomoleculeBoxNode.modelViewTransform,
       pos => {
         const srs = new Ribosome( biomoleculeBoxNode.model, pos );

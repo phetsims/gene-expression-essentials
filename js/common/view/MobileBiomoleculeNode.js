@@ -113,9 +113,9 @@ class MobileBiomoleculeNode extends Node {
     // go between it and the DNA molecule. Otherwise odd-looking things can happen.
     mobileBiomolecule.attachedToDnaProperty.link( handleAttachedToDnaChanged );
 
-    // drag handling
-    const dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, modelViewTransform );
-    this.addInputListener( dragHandler );
+    // @public (read-only) {DragListener} - drag handling
+    this.dragHandler = new BiomoleculeDragHandler( mobileBiomolecule, modelViewTransform );
+    this.addInputListener( this.dragHandler );
 
     const handleMovableByUserChanged = movableByUser => {
       this.setPickable( movableByUser );
@@ -138,7 +138,8 @@ class MobileBiomoleculeNode extends Node {
       mobileBiomolecule.existenceStrengthProperty.unlink( handleExistenceStrengthChanged );
       mobileBiomolecule.zPositionProperty.unlink( handleZPositionChanged );
       mobileBiomolecule.attachedToDnaProperty.unlink( handleAttachedToDnaChanged );
-      this.removeInputListener( dragHandler );
+      this.removeInputListener( this.dragHandler );
+      this.dragHandler.dispose();
       mobileBiomolecule.movableByUserProperty.unlink( handleMovableByUserChanged );
       mobileBiomolecule.userControlledProperty.unlink( handleUserControlledChanged );
       this.shapeNode.shape = null;

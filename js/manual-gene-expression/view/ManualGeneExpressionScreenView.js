@@ -46,7 +46,7 @@ class ManualGeneExpressionScreenView extends ScreenView {
     this.viewPortOffset = new Vector2( 0, 0 );
     const biomoleculeToolboxNodeList = []; // array containing the toolbox nodes used to create biomolecules
 
-    // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
+    // Set up the model-view transform. The multiplier factors for the 2nd point can be adjusted to shift the center
     // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
     // in).
     this.modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -105,21 +105,28 @@ class ManualGeneExpressionScreenView extends ScreenView {
       topBiomoleculeLayer.addChild( new MobileBiomoleculeNode( this.modelViewTransform, biomolecule ) );
     } );
 
+    // @public (read-only) Map.<MobileBiomolecule,MobileBiomoleculeNode> - A map of the mobile biomolecules to the nodes
+    // that represent each in the view.
+    this.mobileBiomoleculeToNodeMap = new Map();
+
     // Watch for and handle comings and goings of biomolecules in the model. Most, but not all, of the biomolecules
-    // are handled by this. Some  others are handled as special cases.
+    // are handled by this. Some others are handled as special cases, see below.
     model.mobileBiomoleculeList.addItemAddedListener( addedBiomolecule => {
+
+      // Add a node to the view when a new mobile biomolecule is added to the model.
       const biomoleculeNode = new MobileBiomoleculeNode( this.modelViewTransform, addedBiomolecule );
       topBiomoleculeLayer.addChild( biomoleculeNode );
+      this.mobileBiomoleculeToNodeMap.set( addedBiomolecule, biomoleculeNode );
 
-      function removeItemListener( removedBiomolecule ) {
+      // Handle removal of the mobile biomolecule.
+      const removeItemListener = removedBiomolecule => {
         if ( removedBiomolecule === addedBiomolecule ) {
           topBiomoleculeLayer.removeChild( biomoleculeNode );
-          model.mobileBiomoleculeList.removeItemRemovedListener( removeItemListener );// Clean up memory leak
+          this.mobileBiomoleculeToNodeMap.delete( addedBiomolecule );
+          model.mobileBiomoleculeList.removeItemRemovedListener( removeItemListener );
         }
-      }
-
+      };
       model.mobileBiomoleculeList.addItemRemovedListener( removeItemListener );
-
     } );
 
     // Watch for and handle comings and goings of messenger RNA.
@@ -258,6 +265,7 @@ class ManualGeneExpressionScreenView extends ScreenView {
     // Create and add the Reset All Button in the bottom right, which resets the model
     const resetAllButton = new ResetAllButton( {
       listener: () => {
+        this.interruptSubtreeInput(); // cancel user interactions
         model.reset();
         biomoleculeToolboxNodeList.forEach( biomoleculeToolboxNode => {
           biomoleculeToolboxNode.reset();

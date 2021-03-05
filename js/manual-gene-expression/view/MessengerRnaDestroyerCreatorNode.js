@@ -34,7 +34,7 @@ class MessengerRnaDestroyerCreatorNode extends BiomoleculeCreatorNode {
   constructor( biomoleculeBoxNode ) {
     super(
       new MobileBiomoleculeNode( SCALING_MVT, new MessengerRnaDestroyer( new StubGeneExpressionModel() ) ),
-      biomoleculeBoxNode.canvas,
+      biomoleculeBoxNode.screenView,
       biomoleculeBoxNode.modelViewTransform,
       pos => {
         const mRnaDestroyer = new MessengerRnaDestroyer( biomoleculeBoxNode.model, pos );

@@ -55,7 +55,7 @@ class MultipleCellsScreenView extends ScreenView {
     const self = this;
     this.model = model;
 
-    // Set up the model-canvas transform. The multiplier factors for the 2nd point can be adjusted to shift the center
+    // Set up the model-view transform. The multiplier factors for the 2nd point can be adjusted to shift the center
     // right or left, and the scale factor can be adjusted to zoom in or out (smaller numbers zoom out, larger ones zoom
     // in).
     this.modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -97,6 +97,7 @@ class MultipleCellsScreenView extends ScreenView {
     // Add the Reset All button.
     const resetAllButton = new ResetAllButton( {
       listener: () => {
+        this.interruptSubtreeInput(); // cancel user interactions
         model.reset();
         concentrationControlPanel.expandedProperty.reset();
         affinityControlPanel.expandedProperty.reset();

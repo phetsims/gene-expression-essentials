@@ -35,7 +35,7 @@ class TranscriptionFactorCreatorNode extends BiomoleculeCreatorNode {
   constructor( biomoleculeBoxNode, tfConfig ) {
     super( new MobileBiomoleculeNode( SCALING_MVT,
       new TranscriptionFactor( new StubGeneExpressionModel(), tfConfig, new Vector2( 0, 0 ) ) ),
-      biomoleculeBoxNode.canvas,
+      biomoleculeBoxNode.screenView,
       biomoleculeBoxNode.modelViewTransform,
       pos => {
         const transcriptionFactor = new TranscriptionFactor( biomoleculeBoxNode.model, tfConfig, pos );

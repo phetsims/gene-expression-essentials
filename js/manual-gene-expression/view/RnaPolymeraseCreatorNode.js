@@ -35,7 +35,7 @@ class RnaPolymeraseCreatorNode extends BiomoleculeCreatorNode {
    */
   constructor( biomoleculeBoxNode ) {
     super( new MobileBiomoleculeNode( SCALING_MVT, new RnaPolymerase() ),
-      biomoleculeBoxNode.canvas,
+      biomoleculeBoxNode.screenView,
       biomoleculeBoxNode.modelViewTransform,
 
       pos => { // Molecule creator function.

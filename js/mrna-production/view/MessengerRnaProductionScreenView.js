@@ -45,7 +45,7 @@ class MessengerRnaProductionScreenView extends ScreenView {
     this.negativeTranscriptionFactorEnabled = new Property( false );
     const viewPortPosition = new Vector2( this.layoutBounds.width * 0.48, this.layoutBounds.height * 0.4 );
 
-    // Set up the model-canvas transform.
+    // Set up the model-view transform.
     this.modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       viewPortPosition,
@@ -141,6 +141,7 @@ class MessengerRnaProductionScreenView extends ScreenView {
     // Add the Reset All button.
     const resetAllButton = new ResetAllButton( {
       listener: () => {
+        this.interruptSubtreeInput(); // cancel user interactions
         this.model.reset();
         this.negativeTranscriptionFactorEnabled.reset();
       },
