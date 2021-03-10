@@ -62,7 +62,7 @@ class BiomoleculeCreatorNode extends Node {
       this.biomolecule.userControlledProperty.set( true );
 
       // Add an observer to watch for this model element to be returned.
-      this.userControlledPropertyObserver = userControlled => {
+      this.userControlledListener = userControlled => {
         if ( !userControlled ) {
 
           // The user has released this biomolecule.  If it was dropped above the return bounds (which are generally
@@ -73,7 +73,7 @@ class BiomoleculeCreatorNode extends Node {
           );
           if ( inBox ) {
             moleculeDestroyer( this.biomolecule );
-            this.biomolecule.userControlledProperty.unlink( this.userControlledPropertyObserver );
+            this.biomolecule.userControlledProperty.unlink( this.userControlledListener );
 
             // Update this node to reflect that it's in a state where it can create a new biomolecule.
             this.appearanceNode.opacity = 1;
@@ -85,7 +85,7 @@ class BiomoleculeCreatorNode extends Node {
         }
       };
 
-      this.biomolecule.userControlledProperty.link( this.userControlledPropertyObserver );
+      this.biomolecule.userControlledProperty.link( this.userControlledListener );
 
       // Get the node that was added to the view for this biomolecule.
       const biomoleculeNode = screenView.mobileBiomoleculeToNodeMap.get( this.biomolecule );
@@ -104,8 +104,16 @@ class BiomoleculeCreatorNode extends Node {
    */
   reset() {
     if ( this.biomolecule !== null ) {
-      this.biomolecule.userControlledProperty.unlink( this.userControlledPropertyObserver );
-      this.userControlledPropertyObserver = null;
+
+      // Since there was an active biomolecule when reset was invoked, there should also be a listener on the user
+      // controlled property.  Make sure that there is.
+      assert && assert(
+        this.biomolecule.userControlledProperty.hasListener( this.userControlledListener ),
+        'the creator node should never be in a state where it has a biomolecule without a user-controlled listener'
+      );
+
+      this.biomolecule.userControlledProperty.unlink( this.userControlledListener );
+      this.userControlledListener = null;
       this.biomolecule = null;
     }
     this.appearanceNode.opacity = 1;
