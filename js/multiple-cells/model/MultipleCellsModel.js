@@ -228,7 +228,7 @@ class MultipleCellsModel {
     // place that does not overlap with the existing cells. The overall bounding shape of the collection of cells is
     // elliptical, not circular.
     for ( let i = 0; i < Math.ceil( Math.sqrt( this.cellList.length ) ); i++ ) {
-      const radius = ( i + 1 ) * Cell.DefaultCellSize.width * ( this.positionRandomizer.nextDouble() / 2 + .75 );
+      const radius = ( i + 1 ) * Cell.DefaultCellSize.width * ( this.positionRandomizer.nextDouble() / 2 + 0.75 );
       for ( let j = 0; j < radius * Math.PI / ( Cell.DefaultCellSize.height * 2 ); j++ ) {
         const angle = this.positionRandomizer.nextDouble() * 2 * Math.PI;
         cell.positionX = radius * Math.cos( angle );
