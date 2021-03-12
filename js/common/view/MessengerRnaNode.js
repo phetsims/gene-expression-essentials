@@ -69,7 +69,7 @@ class MessengerRnaNode extends MobileBiomoleculeNode {
     this.shapeNode.boundsMethod = 'none';
     this.shapeNode.localBounds = new Bounds2( 0, 0, 0.1, 0.1 ); // add some initial arbitrary bounds to avoid positioning issues
     if ( GEEQueryParameters.showMRnaBoundingRect ) {
-      var rect = new Rectangle( 0, 0, 0.1, 0.1, { fill: 'rgba( 256, 256, 0, 0.5 )' } );
+      var rect = new Rectangle( 0, 0, 0.1, 0.1, { fill: 'rgba( 256, 256, 0, 0.5 )' } ); // eslint-disable-line no-var
       this.addChild( rect );
     }
 

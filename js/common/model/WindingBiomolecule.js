@@ -20,7 +20,7 @@ import MobileBiomolecule from './MobileBiomolecule.js';
 import ShapeDefiningPoint from './ShapeDefiningPoint.js';
 
 // constants
-// Color used by this molecule. Since mRNA is depicted as a line and not as a closed shape, a transparent color is 
+// Color used by this molecule. Since mRNA is depicted as a line and not as a closed shape, a transparent color is
 // used for the fill. This enables reuse of generic biomolecule classes.
 const NOMINAL_COLOR = new Color( 0, 0, 0, 0 );
 
@@ -328,7 +328,7 @@ class WindingBiomolecule extends MobileBiomolecule {
     // Loop through the shape segments positioning the shape-defining points within them.
     for ( let i = 0; i < this.shapeSegments.length; i++ ) {
       const shapeSegment = this.shapeSegments[ i ];
-      var lengthRange;
+      let lengthRange;
 
       // determine how much of the mRNA is within this shape segment and set the amount of length to work with accordingly
       if ( shapeSegment !== this.getLastShapeSegment() ) {
@@ -472,7 +472,7 @@ class WindingBiomolecule extends MobileBiomolecule {
     for ( let i = 0; i < points.length; i++ ) {
 
       // window function to modulate less at corners of square than in middle so that everything fits in the segment
-      var offsetScale;
+      let offsetScale;
       if ( totalDistanceTraversed < diagonalSpan / 2 ) {
         offsetScale = totalDistanceTraversed;
       }

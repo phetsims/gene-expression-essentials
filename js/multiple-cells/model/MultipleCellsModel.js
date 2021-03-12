@@ -81,7 +81,7 @@ class MultipleCellsModel {
 
     // Add the max number of cells to the list of invisible cells.
     while ( this.cellList.length < MAX_CELLS ) {
-      var newCell;
+      let newCell;
       if ( this.cellList.length === 0 ) {
         // The first cell is centered and level.
         newCell = new Cell( 0 );

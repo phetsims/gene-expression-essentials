@@ -216,7 +216,7 @@ const BioShapeUtils = {
     // around the shape in a clockwise direction.
 
     // Add points for the top line.
-    for ( var i = 0; i < numPointsPerLineSegment; i++ ) {
+    for ( let i = 0; i < numPointsPerLineSegment; i++ ) {
       nextPoint = new Vector2( leftCurveCenterX + i * ( lineLength / ( numPointsPerLineSegment - 1 ) ), centerY - height / 2 );
       nextPoint.setXY( nextPoint.x, nextPoint.y + ( rand.nextDouble() - 0.5 ) * height * alterationFactor );
       pointList.push( nextPoint );
@@ -224,7 +224,7 @@ const BioShapeUtils = {
 
     // Add points that define the right curved edge. Skip what would be the first point, because it would overlap with
     // the previous segment.
-    for ( i = 1; i < numPointsPerCurvedSegment; i++ ) {
+    for ( let i = 1; i < numPointsPerCurvedSegment; i++ ) {
       angle = -Math.PI / 2 + i * ( Math.PI / ( numPointsPerCurvedSegment - 1 ) );
       radius = curveRadius + ( rand.nextDouble() - 0.5 ) * height * alterationFactor;
       pointList.push( new Vector2( rightCurveCenterX + radius * Math.cos( angle ), radius * Math.sin( angle ) ) );
@@ -232,7 +232,7 @@ const BioShapeUtils = {
 
     // Add points that define the bottom line. Skip what would be the first point, because it would overlap with the
     // previous segment.
-    for ( i = 1; i < numPointsPerLineSegment; i++ ) {
+    for ( let i = 1; i < numPointsPerLineSegment; i++ ) {
       nextPoint = new Vector2( rightCurveCenterX - i * ( lineLength / ( numPointsPerLineSegment - 1 ) ), centerY + height / 2 );
       nextPoint.setXY( nextPoint.x, nextPoint.y + ( rand.nextDouble() - 0.5 ) * height * alterationFactor );
       pointList.push( nextPoint );
@@ -240,7 +240,7 @@ const BioShapeUtils = {
 
     // Add points that define the left curved side. Skip what would be the first point and last points, because the
     // would overlap with the previous and next segment (respectively).
-    for ( i = 1; i < numPointsPerCurvedSegment - 1; i++ ) {
+    for ( let i = 1; i < numPointsPerCurvedSegment - 1; i++ ) {
       angle = Math.PI / 2 + i * ( Math.PI / ( numPointsPerCurvedSegment - 1 ) );
       radius = curveRadius + ( rand.nextDouble() - 0.5 ) * height * alterationFactor;
       pointList.push( new Vector2( leftCurveCenterX + radius * Math.cos( angle ), radius * Math.sin( angle ) ) );

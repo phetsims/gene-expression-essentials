@@ -226,7 +226,7 @@ class MultipleCellsScreenView extends ScreenView {
       }
     ];
 
-    var concentrationControlPanel = new ParameterControlAccordionBox(
+    const concentrationControlPanel = new ParameterControlAccordionBox(
       concentrationString,
       concentrationControllers
     );
@@ -252,7 +252,7 @@ class MultipleCellsScreenView extends ScreenView {
       }
     ];
 
-    var affinityControlPanel = new ParameterControlAccordionBox(
+    const affinityControlPanel = new ParameterControlAccordionBox(
       affinitiesString,
       affinityControllers
     );
@@ -269,7 +269,7 @@ class MultipleCellsScreenView extends ScreenView {
       }
     ];
 
-    var degradationControlPanel = new ParameterControlAccordionBox(
+    const degradationControlPanel = new ParameterControlAccordionBox(
       degradationString,
       degradationControllers
     );
