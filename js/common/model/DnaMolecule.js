@@ -784,7 +784,7 @@ class DnaMolecule {
     position.x >= this.leftEdgeXOffset && position.x <= this.leftEdgeXOffset + this.moleculeLength &&
     position.y >= GEEConstants.DNA_MOLECULE_Y_POS - GEEConstants.DNA_MOLECULE_DIAMETER / 2 &&
     position.y <= GEEConstants.DNA_MOLECULE_Y_POS + GEEConstants.DNA_MOLECULE_DIAMETER / 2,
-      'requested position is not on DNA molecule: ' + position
+      `requested position is not on DNA molecule: ${position}`
     );
 
     let geneAtPosition = null;

@@ -38,7 +38,7 @@ class FluorescentCellsPictureDialog extends Dialog {
     // lines, but this was changed (see https://github.com/phetsims/gene-expression-essentials/issues/121) and they are
     // now combined. The strings have been left separate in the strings files so that translations don't need to be
     // modified.
-    const captionAndNoteNode = new RichText( imageCaptionString + ' <br>' + imageCaptionNoteString, {
+    const captionAndNoteNode = new RichText( `${imageCaptionString} <br>${imageCaptionNoteString}`, {
       font: TEXT_FONT,
       align: 'center'
     } );

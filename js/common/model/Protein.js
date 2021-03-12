@@ -53,7 +53,7 @@ class Protein extends MobileBiomolecule {
    * @public
    */
   setFullSizeProportion( proportion ) {
-    assert && assert( proportion >= 0 && proportion <= 1, 'proportion value out of range: ' + proportion );
+    assert && assert( proportion >= 0 && proportion <= 1, `proportion value out of range: ${proportion}` );
     if ( this.fullSizeProportion !== proportion ) {
       this.fullSizeProportion = proportion;
       this.shapeProperty.set( this.getScaledShape( proportion ) );

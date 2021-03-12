@@ -35,7 +35,7 @@ class ShapeDefiningPoint {
    * @public
    */
   setPositionXY( x, y ) {
-    assert && assert( arguments.length === 2, 'incorrect number of arguments: ' + arguments.length );
+    assert && assert( arguments.length === 2, `incorrect number of arguments: ${arguments.length}` );
     this.position.setXY( x, y );
   }
 

@@ -52,7 +52,7 @@ class Ribosome extends MobileBiomolecule {
     this.messengerRnaBeingTranslated = null; // @private
 
     // @public (read-only) {String} - unique ID for this instance
-    this.id = 'ribosome-' + instanceCounter++;
+    this.id = `ribosome-${instanceCounter++}`;
   }
 
   /**
