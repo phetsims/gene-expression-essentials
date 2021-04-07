@@ -93,7 +93,6 @@ class TranscriptionFactorAttachedState extends GenericAttachedState {
         let attachmentSites = biomolecule.getModel().getDnaMolecule().getAdjacentAttachmentSitesTranscriptionFactor( biomolecule, asm.attachmentSite );
 
         // Eliminate sites that, if moved to, would put the biomolecule out of bounds.
-        //var clonedAttachmentSites = [].concat( attachmentSites );
         _.remove( attachmentSites, site => !biomolecule.motionBoundsProperty.get().testIfInMotionBounds( biomolecule.bounds,
           site.positionProperty.get() ) );
 

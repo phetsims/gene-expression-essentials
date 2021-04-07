@@ -68,9 +68,10 @@ class MessengerRnaNode extends MobileBiomoleculeNode {
     // computed on changes, and the local bounds are explicitly set below when the model shape changes.
     this.shapeNode.boundsMethod = 'none';
     this.shapeNode.localBounds = new Bounds2( 0, 0, 0.1, 0.1 ); // add some initial arbitrary bounds to avoid positioning issues
+    let boundsRectangle; // bounds rectangle, only used if enabled via query parameter
     if ( GEEQueryParameters.showMRnaBoundingRect ) {
-      var rect = new Rectangle( 0, 0, 0.1, 0.1, { fill: 'rgba( 256, 256, 0, 0.5 )' } ); // eslint-disable-line no-var
-      this.addChild( rect );
+      boundsRectangle = new Rectangle( 0, 0, 0.1, 0.1, { fill: 'rgba( 256, 256, 0, 0.5 )' } ); // eslint-disable-line no-var
+      this.addChild( boundsRectangle );
     }
 
     // handler for shape changes
@@ -78,7 +79,7 @@ class MessengerRnaNode extends MobileBiomoleculeNode {
       const shapeBounds = shape.bounds;
       if ( shapeBounds.isFinite() ) {
         const scaledShapeBounds = this.scaleOnlyModelViewTransform.modelToViewShape( shapeBounds );
-        rect && rect.setRectBounds( scaledShapeBounds );
+        boundsRectangle && boundsRectangle.setRectBounds( scaledShapeBounds );
 
         // position the label
         label.left = scaledShapeBounds.maxX;

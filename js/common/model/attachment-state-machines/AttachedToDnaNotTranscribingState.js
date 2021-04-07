@@ -101,7 +101,6 @@ class AttachedToDnaNotTranscribingState extends AttachmentState {
         );
 
         // Eliminate sites that are in use or that, if moved to, would put the biomolecule out of bounds.
-        //var clonedAttachmentSites = [].concat( attachmentSites );
         _.remove( attachmentSites, site => site.isMoleculeAttached() || !biomolecule.motionBoundsProperty.get().testIfInMotionBounds(
           biomolecule.bounds, site.positionProperty.get() ) );
 
