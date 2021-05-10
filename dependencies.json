@@ -1,5 +1,5 @@
 {
-  "comment": "# gene-expression-essentials 1.0.17-rc.1 Sat May 08 2021 22:08:38 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# gene-expression-essentials 1.0.17-rc.1 Mon May 10 2021 15:17:19 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "gene-expression-essentials": {
-    "sha": "a3bcf45efbdf1c39cb9fe1ed0dcfea505863ae8d",
+    "sha": "08fd548e63c0dcb810ce7a4a108d2d1243a96747",
     "branch": "1.0"
   },
   "griddle": {
@@ -46,15 +46,15 @@
   },
   "phetmarks": {
     "sha": "b09848235cf15823f7baf020b878e82a37b0c095",
-    "branch": "gene-expression-essentials-1.0"
+    "branch": "HEAD"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "ecb4a849b5c704b8eaa61e5ed690fb8a1a086b5e",
-    "branch": "HEAD"
+    "sha": "8c90f1cca87892883e7f5cf8e8aafb0e1cd2e28d",
+    "branch": "gene-expression-essentials-1.0"
   },
   "scenery-phet": {
     "sha": "fab926d99b68a2591856875123721629c82f6793",
