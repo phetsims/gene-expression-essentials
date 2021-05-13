@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "gene-expression-essentials": {
-    "sha": "75a065f92bd26c130d7c88cdb1d89b06947407b0",
+    "sha": "d3cc74ed91b8ddbf31a52dcb4c4ece88cc7e1c8c",
     "branch": "1.0"
   },
   "griddle": {
@@ -53,7 +53,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "c8fa2b68348003a542e70d84676fa4043a03cfff",
+    "sha": "75bf8342a9c90b3dbc39ab69a1f1d4e4caf3f5bd",
     "branch": "gene-expression-essentials-1.0"
   },
   "scenery-phet": {
