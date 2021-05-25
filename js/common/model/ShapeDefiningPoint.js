@@ -1,4 +1,4 @@
-// Copyright 2015-2020, University of Colorado Boulder
+// Copyright 2015-2021, University of Colorado Boulder
 
 /**
  * This class defines a point in model space that can be used to define a complex, winding shape.  In this simulation,

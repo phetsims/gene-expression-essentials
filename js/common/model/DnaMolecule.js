@@ -1,4 +1,4 @@
-// Copyright 2015-2020, University of Colorado Boulder
+// Copyright 2015-2021, University of Colorado Boulder
 
 /**
  * This class models a molecule of DNA. It includes the shape of the two "backbone" strands of the DNA and the

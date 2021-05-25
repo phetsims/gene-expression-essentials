@@ -1,4 +1,4 @@
-// Copyright 2015-2020, University of Colorado Boulder
+// Copyright 2015-2021, University of Colorado Boulder
 
 /**
  * Class that defines the bounds within which some shape or point is allowed to move. If the bounds are not set, they
