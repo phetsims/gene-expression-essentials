@@ -12,7 +12,7 @@
 
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import SunConstants from '../../../../sun/js/SunConstants.js';
+import SceneryConstants from '../../../../scenery/js/SceneryConstants.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class BiomoleculeCreatorNode extends Node {
@@ -52,7 +52,7 @@ class BiomoleculeCreatorNode extends Node {
 
       // Set the node to look faded out so that something is still visible. This acts as a legend in the toolbox.
       this.pickable = false;
-      appearanceNode.opacity = SunConstants.DISABLED_OPACITY;
+      appearanceNode.opacity = SceneryConstants.DISABLED_OPACITY;
 
       // Convert the screenView position to the corresponding position in the model.
       const modelPosition = this.getModelPosition( event.pointer.point );
