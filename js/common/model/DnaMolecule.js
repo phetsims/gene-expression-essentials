@@ -788,7 +788,7 @@ class DnaMolecule {
 
     let geneAtPosition = null;
     const basePairIndex = this.getBasePairIndexFromXOffset( position.x );
-    this.genes.forEach( gene => {
+    this.genes.forEach( gene => { // eslint-disable-line consistent-return
       if ( gene.containsBasePair( basePairIndex ) ) {
 
         // Found the corresponding gene.
