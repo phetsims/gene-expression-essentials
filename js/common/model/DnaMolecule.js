@@ -773,7 +773,7 @@ class DnaMolecule {
    * Get a reference to the gene that contains the given position.
    *
    * @param {Vector2} position
-   * @returns {Gene} Gene at the position, null if no gene exists.
+   * @returns {Gene|null} Gene at the position, null if no gene exists.
    * @public
    */
   getGeneAtPosition( position ) {
@@ -788,14 +788,14 @@ class DnaMolecule {
 
     let geneAtPosition = null;
     const basePairIndex = this.getBasePairIndexFromXOffset( position.x );
-    this.genes.forEach( gene => { // eslint-disable-line consistent-return
+    for ( let i = 0; i < this.genes.length && geneAtPosition === null; i++ ) {
+      const gene = this.genes[ i ];
       if ( gene.containsBasePair( basePairIndex ) ) {
 
         // Found the corresponding gene.
         geneAtPosition = gene;
-        return false; //break;
       }
-    } );
+    }
     return geneAtPosition;
   }
 
