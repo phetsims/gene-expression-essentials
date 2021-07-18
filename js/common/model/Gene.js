@@ -6,7 +6,7 @@
  * affinities are for attachment. In real life, a gene is just a collection of base pairs on the DNA strand.
  *
  * @author John Blanco
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  * @author Mohamed Safi
  * @author Aadish Gupta
  */
