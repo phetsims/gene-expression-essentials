@@ -5,7 +5,7 @@
       "path": "../griddle"
     },
     {
-      "path": "../twixt"
+      "path": "../twixt/tsconfig-module.json"
     },
     {
       "path": "../joist/tsconfig-module.json"
