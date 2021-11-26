@@ -8,8 +8,8 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import CanvasNode from '../../../../scenery/js/nodes/CanvasNode.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import { CanvasNode } from '../../../../scenery/js/imports.js';
+import { Color } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ShapeUtils from '../model/ShapeUtils.js';
 

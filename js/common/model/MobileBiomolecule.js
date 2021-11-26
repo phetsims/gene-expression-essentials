@@ -16,7 +16,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../dot/js/Vector3.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import { Color } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import MotionBounds from './motion-strategies/MotionBounds.js';
 import ShapeChangingModelElement from './ShapeChangingModelElement.js';

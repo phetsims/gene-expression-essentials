@@ -11,7 +11,7 @@
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import { Color } from '../../../../scenery/js/imports.js';
 import Protein from '../../common/model/Protein.js';
 import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';

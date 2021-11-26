@@ -9,9 +9,9 @@
  */
 
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import { Text } from '../../../../scenery/js/imports.js';
+import { VBox } from '../../../../scenery/js/imports.js';
+import { Color } from '../../../../scenery/js/imports.js';
 import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import ControllerNode from '../../common/view/ControllerNode.js';

@@ -9,7 +9,7 @@
  */
 
 import Range from '../../../../dot/js/Range.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import { Color } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ProteinA from '../../manual-gene-expression/model/ProteinA.js';
 import Gene from './Gene.js';

@@ -13,7 +13,7 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import { Color } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import TranscriptionFactorAttachmentStateMachine from './attachment-state-machines/TranscriptionFactorAttachmentStateMachine.js';
 import BioShapeUtils from './BioShapeUtils.js';
