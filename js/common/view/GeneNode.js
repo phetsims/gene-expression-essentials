@@ -1,4 +1,4 @@
-// Copyright 2015-2020, University of Colorado Boulder
+// Copyright 2015-2021, University of Colorado Boulder
 
 /**
  * Type that represents a gene in the view. Since a gene is basically a sequential collection of base pairs, this node
