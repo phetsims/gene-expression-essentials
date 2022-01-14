@@ -13,7 +13,7 @@ import { RichText } from '../../../../scenery/js/imports.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import { VBox } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
-import eColiImage from '../../../mipmaps/ecoli_jpg.js';
+import ecoli_jpg from '../../../mipmaps/ecoli_jpg.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
 
@@ -29,7 +29,7 @@ class FluorescentCellsPictureDialog extends Dialog {
 
   constructor() {
 
-    const imageNode = new Image( eColiImage, {
+    const imageNode = new Image( ecoli_jpg, {
       minWidth: IMAGE_WIDTH,
       maxWidth: IMAGE_WIDTH
     } );

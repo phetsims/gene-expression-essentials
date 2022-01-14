@@ -8,7 +8,7 @@
     "source": "Dennis Kunkel Microscopy",
     "notes": "used with permission (purchased), terms are on purchase invoice"
   },
-  "manual-gene-expression-icon.png": {
+  "manualGeneExpressionIcon.png": {
     "text": [
       "Copyright 2015 University of Colorado Boulder"
     ],
@@ -16,7 +16,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by John Blanco"
   },
-  "mrna-production-icon.png": {
+  "mrnaProductionIcon.png": {
     "text": [
       "Copyright 2015 University of Colorado Boulder"
     ],
@@ -24,7 +24,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by John Blanco"
   },
-  "multiple-cells-icon.png": {
+  "multipleCellsIcon.png": {
     "text": [
       "Copyright 2015 University of Colorado Boulder"
     ],

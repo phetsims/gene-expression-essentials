@@ -11,7 +11,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
-import multipleCellsIcon from '../../mipmaps/multiple-cells-icon_png.js';
+import multipleCellsIcon_png from '../../mipmaps/multipleCellsIcon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
 import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
@@ -25,7 +25,7 @@ class MultipleCellsScreen extends Screen {
     const options = {
       name: geneExpressionEssentialsStrings.screen.multipleCells,
       backgroundColorProperty: new Property( 'black' ),
-      homeScreenIcon: new ScreenIcon( new Image( multipleCellsIcon ), {
+      homeScreenIcon: new ScreenIcon( new Image( multipleCellsIcon_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } ),

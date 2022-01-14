@@ -12,7 +12,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
-import manualGeneExpressionIcon from '../../mipmaps/manual-gene-expression-icon_png.js';
+import manualGeneExpressionIcon_png from '../../mipmaps/manualGeneExpressionIcon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
 import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
@@ -26,7 +26,7 @@ class ManualGeneExpressionScreen extends Screen {
     const options = {
       name: geneExpressionEssentialsStrings.screen.expression,
       backgroundColorProperty: new Property( '#ABCBDB' ),
-      homeScreenIcon: new ScreenIcon( new Image( manualGeneExpressionIcon ), {
+      homeScreenIcon: new ScreenIcon( new Image( manualGeneExpressionIcon_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } ),

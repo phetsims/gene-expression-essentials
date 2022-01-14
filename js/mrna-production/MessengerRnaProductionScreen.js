@@ -11,7 +11,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
-import mRnaProductionIcon from '../../mipmaps/mrna-production-icon_png.js';
+import mrnaProductionIcon_png from '../../mipmaps/mrnaProductionIcon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
 import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
@@ -25,7 +25,7 @@ class MessengerRnaProductionScreen extends Screen {
     const options = {
       name: geneExpressionEssentialsStrings.screen.mRna,
       backgroundColorProperty: new Property( '#ABCBDB' ),
-      homeScreenIcon: new ScreenIcon( new Image( mRnaProductionIcon ), {
+      homeScreenIcon: new ScreenIcon( new Image( mrnaProductionIcon_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } ),
