@@ -26,8 +26,8 @@ const ShapeUtils = {
   createRoundedShapeFromPoints( points, existingShape ) {
     const shape = existingShape || new Shape();
     shape.moveToPoint( points[ 0 ] );
-    let cp1 = Vector2.dirtyFromPool();
-    let cp2 = Vector2.dirtyFromPool();
+    let cp1 = Vector2.pool.fetch();
+    let cp2 = Vector2.pool.fetch();
     for ( let i = 0; i < points.length; i++ ) {
       const segmentStartPoint = points[ i ];
       const segmentEndPoint = points[ ( i + 1 ) % points.length ];

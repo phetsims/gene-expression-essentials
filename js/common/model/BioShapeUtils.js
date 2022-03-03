@@ -66,8 +66,8 @@ const BioShapeUtils = {
     const rand = new Random( {
       seed: seed
     } );
-    let cp1 = Vector2.dirtyFromPool();
-    let cp2 = Vector2.dirtyFromPool();
+    let cp1 = Vector2.pool.fetch();
+    let cp2 = Vector2.pool.fetch();
 
     shape.moveToPoint( points[ 0 ] );
     for ( let i = 0; i < points.length; i++ ) {
@@ -130,8 +130,8 @@ const BioShapeUtils = {
     assert && assert( points.length > 0 );
 
     // Control points, used throughout the code below for curving the line.
-    let cp1 = Vector2.dirtyFromPool();
-    let cp2 = Vector2.dirtyFromPool();
+    let cp1 = Vector2.pool.fetch();
+    let cp2 = Vector2.pool.fetch();
 
     const path = new Shape();
     path.moveTo( points[ 0 ].x, points[ 0 ].y );
