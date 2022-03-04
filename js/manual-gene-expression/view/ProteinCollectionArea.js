@@ -10,7 +10,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import kite from '../../../../kite/js/kite.js';
+import { kite } from '../../../../kite/js/imports.js';
 import { HBox } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
