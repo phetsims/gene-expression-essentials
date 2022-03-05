@@ -1,4 +1,4 @@
-// Copyright 2015-2020, University of Colorado Boulder
+// Copyright 2015-2022, University of Colorado Boulder
 
 /**
  * Class that represents messenger ribonucleic acid, or mRNA, in the model. This class is fairly complex, due to the
