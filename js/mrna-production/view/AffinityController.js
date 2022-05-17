@@ -13,10 +13,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
@@ -52,7 +49,7 @@ class AffinityController extends Node {
     };
     const arrowNode = new ArrowNode( arrowTail.x, arrowTail.y, arrowTip.x, arrowTip.y, arrowOptions );
     const affinityKey = new HBox( {
-      children: [ leftNode, arrowNode, rightNode ],
+      children: [ new Node( { children: [ leftNode ] } ), arrowNode, new Node( { children: [ rightNode ] } ) ],
       spacing: 10
     } );
     affinityKey.setPickable( false );

@@ -95,7 +95,7 @@ class BiomoleculeToolboxNode extends Node {
       if ( tfConfig.isPositive ) {
         const positiveTranscriptionBox = new HBox( {
           children: [
-            positiveTranscriptionFactorLabel,
+            new Node( { children: [ positiveTranscriptionFactorLabel ] } ),
             new Spacer( maxWidth - positiveTranscriptionFactorLabelWidth, 0 ),
             creatorNode
           ],
@@ -106,7 +106,7 @@ class BiomoleculeToolboxNode extends Node {
       else {
         const negativeTranscriptionBox = new HBox( {
           children: [
-            negativeTranscriptionFactorLabel,
+            new Node( { children: [ negativeTranscriptionFactorLabel ] } ),
             new Spacer( maxWidth - negativeTranscriptionFactorLabelWidth, 0 ),
             creatorNode
           ],

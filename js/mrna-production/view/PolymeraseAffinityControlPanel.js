@@ -94,7 +94,8 @@ class PolymeraseAffinityControlPanel extends Panel {
     // In order to size the control panel correctly, make one first, see how far off it is, and then make one of the
     // correct size.
     const dummyContents = new VBox( {
-        children: [ titleNode,
+        children: [
+          titleNode,
           new AffinityController( polymeraseNode, dnaFragmentNode, new Property( 0 ) )
         ],
         spacing: 20
@@ -102,6 +103,8 @@ class PolymeraseAffinityControlPanel extends Panel {
     );
     const dummyControlPanel = new Panel( dummyContents, panelOptions );
     const growthAmount = minHeight - dummyControlPanel.height - 40;
+    dummyControlPanel.dispose();
+    dummyContents.dispose();
 
     // Create the spacers used to make the panel meet the min size.
     const topSpacer = new Spacer( 0, growthAmount * 0.25 );
