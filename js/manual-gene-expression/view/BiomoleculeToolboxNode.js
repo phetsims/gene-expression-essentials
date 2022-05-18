@@ -1,4 +1,4 @@
-// Copyright 2015-2021, University of Colorado Boulder
+// Copyright 2015-2022, University of Colorado Boulder
 
 /**
  * BiomoleculeToolboxNode is a Scenery node that portrays a box from which the user can extract various biomolecules and
