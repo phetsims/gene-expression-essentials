@@ -9,6 +9,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -36,7 +37,7 @@ class ShapeChangingModelElement {
     this.bounds = new Bounds2( 0, 0, 1, 1 ); // initial value is arbitrary, will be updated immediately
 
     // update the bounds whenever the shape or the position changes
-    const boundsUpdateMultilink = Property.multilink(
+    const boundsUpdateMultilink = Multilink.multilink(
       [ this.shapeProperty, this.positionProperty ],
       ( shape, position ) => {
         const shapeBounds = shape.bounds;
