@@ -105,11 +105,7 @@ class MessengerRnaProductionScreenView extends ScreenView {
     controlsNode.addChild( negativeTranscriptionFactorControlPanel );
 
     // Add the checkbox for showing/hiding the control panel for the negative transcription factor.
-    const negativeFactorEnabledCheckbox = new Checkbox(
-      new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ), maxWidth: 275 } ),
-      this.negativeTranscriptionFactorEnabled,
-      { boxWidth: 20 }
-    );
+    const negativeFactorEnabledCheckbox = new Checkbox( this.negativeTranscriptionFactorEnabled, new Text( negativeTranscriptionFactorString, { font: new PhetFont( 18 ), maxWidth: 275 } ), { boxWidth: 20 } );
     controlsNode.addChild( negativeFactorEnabledCheckbox );
 
     // Only show the control for the negative transcription factor if it is enabled.
