@@ -10,9 +10,7 @@
  * @author Aadish Gupta
  */
 
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { SceneryConstants } from '../../../../scenery/js/imports.js';
+import { DragListener, Node, SceneryConstants } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class BiomoleculeCreatorNode extends Node {
