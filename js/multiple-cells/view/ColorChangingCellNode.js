@@ -1,4 +1,4 @@
-// Copyright 2015-2021, University of Colorado Boulder
+// Copyright 2015-2022, University of Colorado Boulder
 
 /**
  * Node that represents a cell (as in a biological organism) that changes color as the level of protein within the cell
