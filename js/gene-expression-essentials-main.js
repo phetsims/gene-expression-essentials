@@ -13,7 +13,7 @@ import ManualGeneExpressionScreen from './manual-gene-expression/ManualGeneExpre
 import MessengerRnaProductionScreen from './mrna-production/MessengerRnaProductionScreen.js';
 import MultipleCellsScreen from './multiple-cells/MultipleCellsScreen.js';
 
-const geneExpressionEssentialsTitleString = geneExpressionEssentialsStrings[ 'gene-expression-essentials' ].title;
+const geneExpressionEssentialsTitleStringProperty = geneExpressionEssentialsStrings[ 'gene-expression-essentials' ].titleStringProperty;
 
 const simOptions = {
   credits: {
@@ -26,7 +26,7 @@ const simOptions = {
 
 // we are go for launch
 simLauncher.launch( () => {
-  const sim = new Sim( geneExpressionEssentialsTitleString,
+  const sim = new Sim( geneExpressionEssentialsTitleStringProperty,
     [
       new ManualGeneExpressionScreen(),
       new MessengerRnaProductionScreen(),
