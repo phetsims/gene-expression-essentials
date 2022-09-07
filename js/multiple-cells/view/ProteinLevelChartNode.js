@@ -17,7 +17,7 @@ import { LinearGradient, Node, Rectangle, Text } from '../../../../scenery/js/im
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import ColorChangingCellNode from './ColorChangingCellNode.js';
 
 // constants
@@ -26,11 +26,11 @@ const PLOT_HEIGHT = 120;
 const COLOR_KEY_WIDTH = 20;
 const TIME_SPAN = 30;
 
-const averageProteinLevelString = geneExpressionEssentialsStrings.averageProteinLevel;
-const averageProteinLevelVsTimeString = geneExpressionEssentialsStrings.averageProteinLevelVsTime;
-const lotsString = geneExpressionEssentialsStrings.lots;
-const noneString = geneExpressionEssentialsStrings.none;
-const timeString = geneExpressionEssentialsStrings.time;
+const averageProteinLevelString = GeneExpressionEssentialsStrings.averageProteinLevel;
+const averageProteinLevelVsTimeString = GeneExpressionEssentialsStrings.averageProteinLevelVsTime;
+const lotsString = GeneExpressionEssentialsStrings.lots;
+const noneString = GeneExpressionEssentialsStrings.none;
+const timeString = GeneExpressionEssentialsStrings.time;
 
 class ProteinLevelChartNode extends Panel {
 

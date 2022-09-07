@@ -13,7 +13,7 @@ import { Color, HBox, Node, RichText, Text, VBox } from '../../../../scenery/js/
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import ProteinCollectionArea from './ProteinCollectionArea.js';
 
 // constants
@@ -25,10 +25,10 @@ const READOUT_FONT = new PhetFont( { size: 18, weight: 'bold' } );
 const BACKGROUND_COLOR = new Color( 255, 250, 205 );
 const INTEGER_BOX_BACKGROUND_COLOR = new Color( 240, 240, 240 );
 
-const collectionCompleteString = geneExpressionEssentialsStrings.collectionComplete;
-const proteinCountCaptionPart1String = geneExpressionEssentialsStrings.proteinCountCaptionPart1;
-const proteinCountCaptionPart2String = geneExpressionEssentialsStrings.proteinCountCaptionPart2;
-const yourProteinCollectionString = geneExpressionEssentialsStrings.yourProteinCollection;
+const collectionCompleteString = GeneExpressionEssentialsStrings.collectionComplete;
+const proteinCountCaptionPart1String = GeneExpressionEssentialsStrings.proteinCountCaptionPart1;
+const proteinCountCaptionPart2String = GeneExpressionEssentialsStrings.proteinCountCaptionPart2;
+const yourProteinCollectionString = GeneExpressionEssentialsStrings.yourProteinCollection;
 
 class ProteinCollectionNode extends Node {
 

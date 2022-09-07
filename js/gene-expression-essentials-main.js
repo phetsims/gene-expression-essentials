@@ -8,12 +8,12 @@
 
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
-import geneExpressionEssentialsStrings from './geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from './GeneExpressionEssentialsStrings.js';
 import ManualGeneExpressionScreen from './manual-gene-expression/ManualGeneExpressionScreen.js';
 import MessengerRnaProductionScreen from './mrna-production/MessengerRnaProductionScreen.js';
 import MultipleCellsScreen from './multiple-cells/MultipleCellsScreen.js';
 
-const geneExpressionEssentialsTitleStringProperty = geneExpressionEssentialsStrings[ 'gene-expression-essentials' ].titleStringProperty;
+const geneExpressionEssentialsTitleStringProperty = GeneExpressionEssentialsStrings[ 'gene-expression-essentials' ].titleStringProperty;
 
 const simOptions = {
   credits: {

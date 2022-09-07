@@ -13,11 +13,11 @@ import { Shape } from '../../../../kite/js/imports.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Color, Node, Path, RichText, Text } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import GEEConstants from '../GEEConstants.js';
 
-const regulatoryRegionString = geneExpressionEssentialsStrings.regulatoryRegion;
-const transcribedRegionString = geneExpressionEssentialsStrings.transcribedRegion;
+const regulatoryRegionString = GeneExpressionEssentialsStrings.regulatoryRegion;
+const transcribedRegionString = GeneExpressionEssentialsStrings.transcribedRegion;
 
 // constants
 const REGION_LABEL_FONT = new PhetFont( { size: 12, weight: 'bold' } );

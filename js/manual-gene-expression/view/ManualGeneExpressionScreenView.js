@@ -22,7 +22,7 @@ import MessengerRnaNode from '../../common/view/MessengerRnaNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
 import PlacementHintNode from '../../common/view/PlacementHintNode.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import BiomoleculeToolboxNode from './BiomoleculeToolboxNode.js';
 import ProteinCollectionNode from './ProteinCollectionNode.js';
 
@@ -30,8 +30,8 @@ import ProteinCollectionNode from './ProteinCollectionNode.js';
 const GENE_TO_GENE_ANIMATION_TIME = 1; // in seconds
 const INSET = 15; // inset for several of the controls, in view coordinates
 
-const nextGeneString = geneExpressionEssentialsStrings.nextGene;
-const previousGeneString = geneExpressionEssentialsStrings.previousGene;
+const nextGeneString = GeneExpressionEssentialsStrings.nextGene;
+const previousGeneString = GeneExpressionEssentialsStrings.previousGene;
 
 class ManualGeneExpressionScreenView extends ScreenView {
 

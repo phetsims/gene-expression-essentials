@@ -12,11 +12,11 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import DnaMoleculeCanvasNode from './DnaMoleculeCanvasNode.js';
 import GeneNode from './GeneNode.js';
 
-const geneString = geneExpressionEssentialsStrings.gene;
+const geneString = GeneExpressionEssentialsStrings.gene;
 
 class DnaMoleculeNode extends Node {
 

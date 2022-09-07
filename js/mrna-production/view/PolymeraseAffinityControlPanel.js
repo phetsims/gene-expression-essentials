@@ -22,7 +22,7 @@ import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
 import DnaMoleculeNode from '../../common/view/DnaMoleculeNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import AffinityController from './AffinityController.js';
 
 // constants
@@ -41,7 +41,7 @@ const DNA_AND_TF_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMappin
 );
 
 //strings
-const rnaPolymeraseString = geneExpressionEssentialsStrings.rnaPolymerase;
+const rnaPolymeraseString = GeneExpressionEssentialsStrings.rnaPolymerase;
 
 class PolymeraseAffinityControlPanel extends Panel {
 

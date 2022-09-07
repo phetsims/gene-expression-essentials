@@ -19,7 +19,7 @@ import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import CellProteinSynthesisSimulator from '../model/CellProteinSynthesisSimulator.js';
 import MultipleCellsModel from '../model/MultipleCellsModel.js';
 import ColorChangingCellNode from './ColorChangingCellNode.js';
@@ -27,21 +27,21 @@ import FluorescentCellsPictureDialog from './FluorescentCellsPictureDialog.js';
 import ParameterControlAccordionBox from './ParameterControlAccordionBox.js';
 import ProteinLevelChartNode from './ProteinLevelChartNode.js';
 
-const affinitiesString = geneExpressionEssentialsStrings.affinities;
-const cellsString = geneExpressionEssentialsStrings.cells;
-const concentrationString = geneExpressionEssentialsStrings.concentration;
-const degradationString = geneExpressionEssentialsStrings.degradation;
-const fastString = geneExpressionEssentialsStrings.fast;
-const highString = geneExpressionEssentialsStrings.high;
-const lowString = geneExpressionEssentialsStrings.low;
-const manyString = geneExpressionEssentialsStrings.many;
-const mRnaDestroyerString = geneExpressionEssentialsStrings.mRnaDestroyer;
-const oneString = geneExpressionEssentialsStrings.one;
-const polymeraseString = geneExpressionEssentialsStrings.polymerase;
-const positiveTranscriptionFactorString = geneExpressionEssentialsStrings.positiveTranscriptionFactor;
-const proteinString = geneExpressionEssentialsStrings.protein;
-const showRealCellsString = geneExpressionEssentialsStrings.showRealCells;
-const slowString = geneExpressionEssentialsStrings.slow;
+const affinitiesString = GeneExpressionEssentialsStrings.affinities;
+const cellsString = GeneExpressionEssentialsStrings.cells;
+const concentrationString = GeneExpressionEssentialsStrings.concentration;
+const degradationString = GeneExpressionEssentialsStrings.degradation;
+const fastString = GeneExpressionEssentialsStrings.fast;
+const highString = GeneExpressionEssentialsStrings.high;
+const lowString = GeneExpressionEssentialsStrings.low;
+const manyString = GeneExpressionEssentialsStrings.many;
+const mRnaDestroyerString = GeneExpressionEssentialsStrings.mRnaDestroyer;
+const oneString = GeneExpressionEssentialsStrings.one;
+const polymeraseString = GeneExpressionEssentialsStrings.polymerase;
+const positiveTranscriptionFactorString = GeneExpressionEssentialsStrings.positiveTranscriptionFactor;
+const proteinString = GeneExpressionEssentialsStrings.protein;
+const showRealCellsString = GeneExpressionEssentialsStrings.showRealCells;
+const slowString = GeneExpressionEssentialsStrings.slow;
 
 class MultipleCellsScreenView extends ScreenView {
 

@@ -14,7 +14,7 @@ import { Image } from '../../../scenery/js/imports.js';
 import multipleCellsIcon_png from '../../mipmaps/multipleCellsIcon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../GeneExpressionEssentialsStrings.js';
 import MultipleCellsModel from './model/MultipleCellsModel.js';
 import MultipleCellsScreenView from './view/MultipleCellsScreenView.js';
 
@@ -23,7 +23,7 @@ class MultipleCellsScreen extends Screen {
   constructor() {
 
     const options = {
-      name: geneExpressionEssentialsStrings.screen.multipleCells,
+      name: GeneExpressionEssentialsStrings.screen.multipleCells,
       backgroundColorProperty: new Property( 'black' ),
       homeScreenIcon: new ScreenIcon( new Image( multipleCellsIcon_png ), {
         maxIconWidthProportion: 1,

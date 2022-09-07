@@ -19,7 +19,7 @@ import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
 import DnaMoleculeNode from '../../common/view/DnaMoleculeNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import MessengerRnaProductionModel from '../model/MessengerRnaProductionModel.js';
 import AffinityController from './AffinityController.js';
 import ConcentrationController from './ConcentrationController.js';
@@ -29,8 +29,8 @@ const DNA_SCALE = 0.1;
 const DNA_MVT = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 0, 0 ), DNA_SCALE );
 const TITLE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
 
-const negativeTranscriptionFactorHtmlString = geneExpressionEssentialsStrings.negativeTranscriptionFactorHtml;
-const positiveTranscriptionFactorHtmlString = geneExpressionEssentialsStrings.positiveTranscriptionFactorHtml;
+const negativeTranscriptionFactorHtmlString = GeneExpressionEssentialsStrings.negativeTranscriptionFactorHtml;
+const positiveTranscriptionFactorHtmlString = GeneExpressionEssentialsStrings.positiveTranscriptionFactorHtml;
 
 class TranscriptionFactorControlPanel extends Panel {
 

@@ -12,12 +12,12 @@ import { Image, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import ecoli_jpg from '../../../mipmaps/ecoli_jpg.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 
 // constants
 const IMAGE_WIDTH = 600; // in screen coordinates, empirically determined to look good
-const imageCaptionNoteString = geneExpressionEssentialsStrings.imageCaptionNote;
-const imageCaptionString = geneExpressionEssentialsStrings.imageCaption;
+const imageCaptionNoteString = GeneExpressionEssentialsStrings.imageCaptionNote;
+const imageCaptionString = GeneExpressionEssentialsStrings.imageCaption;
 
 // constants
 const TEXT_FONT = new PhetFont( 16 );

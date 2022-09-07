@@ -14,7 +14,7 @@ import { Color, HBox, Node, RichText, Spacer, Text, VBox } from '../../../../sce
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import MessengerRnaDestroyerCreatorNode from './MessengerRnaDestroyerCreatorNode.js';
 import RibosomeCreatorNode from './RibosomeCreatorNode.js';
 import RnaPolymeraseCreatorNode from './RnaPolymeraseCreatorNode.js';
@@ -23,12 +23,12 @@ import TranscriptionFactorCreatorNode from './TranscriptionFactorCreatorNode.js'
 // constants
 const TITLE_FONT = new PhetFont( { size: 20, weight: 'bold' } );
 
-const biomoleculeToolboxString = geneExpressionEssentialsStrings.biomoleculeToolbox;
-const mRnaDestroyerString = geneExpressionEssentialsStrings.mRnaDestroyer;
-const negativeTranscriptionFactorHtmlString = geneExpressionEssentialsStrings.negativeTranscriptionFactorHtml;
-const positiveTranscriptionFactorHtmlString = geneExpressionEssentialsStrings.positiveTranscriptionFactorHtml;
-const ribosomeString = geneExpressionEssentialsStrings.ribosome;
-const rnaPolymeraseString = geneExpressionEssentialsStrings.rnaPolymerase;
+const biomoleculeToolboxString = GeneExpressionEssentialsStrings.biomoleculeToolbox;
+const mRnaDestroyerString = GeneExpressionEssentialsStrings.mRnaDestroyer;
+const negativeTranscriptionFactorHtmlString = GeneExpressionEssentialsStrings.negativeTranscriptionFactorHtml;
+const positiveTranscriptionFactorHtmlString = GeneExpressionEssentialsStrings.positiveTranscriptionFactorHtml;
+const ribosomeString = GeneExpressionEssentialsStrings.ribosome;
+const rnaPolymeraseString = GeneExpressionEssentialsStrings.rnaPolymerase;
 
 class BiomoleculeToolboxNode extends Node {
 

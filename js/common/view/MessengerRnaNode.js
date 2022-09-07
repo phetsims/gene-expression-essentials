@@ -14,13 +14,13 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import GEEQueryParameters from '../GEEQueryParameters.js';
 import FadeLabel from './FadeLabel.js';
 import MobileBiomoleculeNode from './MobileBiomoleculeNode.js';
 import PlacementHintNode from './PlacementHintNode.js';
 
-const quotedMRnaString = geneExpressionEssentialsStrings.quotedMRna;
+const quotedMRnaString = GeneExpressionEssentialsStrings.quotedMRna;
 
 class MessengerRnaNode extends MobileBiomoleculeNode {
 

@@ -16,15 +16,15 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 
 // constants
 const ARROW_LENGTH = 30;
 const ARROW_HEAD_HEIGHT = 10;
 
-const affinityString = geneExpressionEssentialsStrings.affinity;
-const highString = geneExpressionEssentialsStrings.high;
-const lowString = geneExpressionEssentialsStrings.low;
+const affinityString = GeneExpressionEssentialsStrings.affinity;
+const highString = GeneExpressionEssentialsStrings.high;
+const lowString = GeneExpressionEssentialsStrings.low;
 
 class AffinityController extends Node {
 

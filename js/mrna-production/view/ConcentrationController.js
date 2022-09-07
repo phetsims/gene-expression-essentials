@@ -17,11 +17,11 @@ import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 
-const concentrationString = geneExpressionEssentialsStrings.concentration;
-const highString = geneExpressionEssentialsStrings.high;
-const noneString = geneExpressionEssentialsStrings.none;
+const concentrationString = GeneExpressionEssentialsStrings.concentration;
+const highString = GeneExpressionEssentialsStrings.high;
+const noneString = GeneExpressionEssentialsStrings.none;
 
 class ConcentrationController extends Node {
 

@@ -21,7 +21,7 @@ import DnaMoleculeNode from '../../common/view/DnaMoleculeNode.js';
 import MessengerRnaNode from '../../common/view/MessengerRnaNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import MessengerRnaProductionModel from '../model/MessengerRnaProductionModel.js';
 import PolymeraseAffinityControlPanel from './PolymeraseAffinityControlPanel.js';
 import TranscriptionFactorControlPanel from './TranscriptionFactorControlPanel.js';
@@ -29,7 +29,7 @@ import TranscriptionFactorControlPanel from './TranscriptionFactorControlPanel.j
 // constants
 const INSET = 10;  // Inset for several of the controls.
 
-const negativeTranscriptionFactorString = geneExpressionEssentialsStrings.negativeTranscriptionFactor;
+const negativeTranscriptionFactorString = GeneExpressionEssentialsStrings.negativeTranscriptionFactor;
 
 class MessengerRnaProductionScreenView extends ScreenView {
 

@@ -15,7 +15,7 @@ import { Image } from '../../../scenery/js/imports.js';
 import manualGeneExpressionIcon_png from '../../mipmaps/manualGeneExpressionIcon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
-import geneExpressionEssentialsStrings from '../geneExpressionEssentialsStrings.js';
+import GeneExpressionEssentialsStrings from '../GeneExpressionEssentialsStrings.js';
 import ManualGeneExpressionModel from './model/ManualGeneExpressionModel.js';
 import ManualGeneExpressionScreenView from './view/ManualGeneExpressionScreenView.js';
 
@@ -24,7 +24,7 @@ class ManualGeneExpressionScreen extends Screen {
   constructor() {
 
     const options = {
-      name: geneExpressionEssentialsStrings.screen.expression,
+      name: GeneExpressionEssentialsStrings.screen.expression,
       backgroundColorProperty: new Property( '#ABCBDB' ),
       homeScreenIcon: new ScreenIcon( new Image( manualGeneExpressionIcon_png ), {
         maxIconWidthProportion: 1,

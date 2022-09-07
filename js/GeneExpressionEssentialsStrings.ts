@@ -101,8 +101,8 @@ type StringsType = {
   'polymeraseStringProperty': TReadOnlyProperty<string>;
 };
 
-const geneExpressionEssentialsStrings = getStringModule( 'GENE_EXPRESSION_ESSENTIALS' ) as StringsType;
+const GeneExpressionEssentialsStrings = getStringModule( 'GENE_EXPRESSION_ESSENTIALS' ) as StringsType;
 
-geneExpressionEssentials.register( 'geneExpressionEssentialsStrings', geneExpressionEssentialsStrings );
+geneExpressionEssentials.register( 'GeneExpressionEssentialsStrings', GeneExpressionEssentialsStrings );
 
-export default geneExpressionEssentialsStrings;
+export default GeneExpressionEssentialsStrings;
