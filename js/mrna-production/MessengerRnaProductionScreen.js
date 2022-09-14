@@ -23,7 +23,7 @@ class MessengerRnaProductionScreen extends Screen {
   constructor() {
 
     const options = {
-      name: GeneExpressionEssentialsStrings.screen.mRna,
+      name: GeneExpressionEssentialsStrings.screen.mRnaStringProperty,
       backgroundColorProperty: new Property( '#ABCBDB' ),
       homeScreenIcon: new ScreenIcon( new Image( mrnaProductionIcon_png ), {
         maxIconWidthProportion: 1,

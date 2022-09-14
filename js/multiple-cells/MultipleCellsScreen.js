@@ -23,7 +23,7 @@ class MultipleCellsScreen extends Screen {
   constructor() {
 
     const options = {
-      name: GeneExpressionEssentialsStrings.screen.multipleCells,
+      name: GeneExpressionEssentialsStrings.screen.multipleCellsStringProperty,
       backgroundColorProperty: new Property( 'black' ),
       homeScreenIcon: new ScreenIcon( new Image( multipleCellsIcon_png ), {
         maxIconWidthProportion: 1,

@@ -24,7 +24,7 @@ class ManualGeneExpressionScreen extends Screen {
   constructor() {
 
     const options = {
-      name: GeneExpressionEssentialsStrings.screen.expression,
+      name: GeneExpressionEssentialsStrings.screen.expressionStringProperty,
       backgroundColorProperty: new Property( '#ABCBDB' ),
       homeScreenIcon: new ScreenIcon( new Image( manualGeneExpressionIcon_png ), {
         maxIconWidthProportion: 1,
