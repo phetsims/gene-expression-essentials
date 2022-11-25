@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "gene-expression-essentials": {
-    "sha": "90c7ab8566e7fedd6aa74c71db5101e0c8e32e43",
+    "sha": "90fab5305bc5db187f1609f7a55510d5858b6f3f",
     "branch": "1.0"
   },
   "griddle": {
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "f2046b0ab4f259e3ad0bcbbf4d36cefb0c00b527",
+    "sha": "52651199f081c660c75b5982127788e375dd17e7",
     "branch": "HEAD"
   },
   "kite": {
