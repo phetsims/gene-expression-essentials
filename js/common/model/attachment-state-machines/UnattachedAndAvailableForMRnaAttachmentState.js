@@ -77,9 +77,6 @@ class UnattachedAndAvailableForMRnaAttachmentState extends GenericUnattachedAndA
   }
 }
 
-geneExpressionEssentials.register(
-  'UnattachedAndAvailableForMRnaAttachmentState',
-  UnattachedAndAvailableForMRnaAttachmentState
-);
+geneExpressionEssentials.register( 'UnattachedAndAvailableForMRnaAttachmentState', UnattachedAndAvailableForMRnaAttachmentState );
 
 export default UnattachedAndAvailableForMRnaAttachmentState;
