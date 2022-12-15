@@ -1,5 +1,5 @@
 {
-  "comment": "# gene-expression-essentials 1.0.21-rc.1 Wed Dec 14 2022 20:24:43 GMT-0700 (Mountain Standard Time)",
+  "comment": "# gene-expression-essentials 1.0.21 Wed Dec 14 2022 20:25:27 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "gene-expression-essentials": {
-    "sha": "9555b2a0bd912ceebe0be550f73e5260f7636300",
+    "sha": "18e93fc0e3e4b60c643534bcb527aa6123e45322",
     "branch": "1.0"
   },
   "griddle": {
