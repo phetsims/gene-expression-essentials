@@ -10,7 +10,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import { kite } from '../../../../kite/js/imports.js';
+import { LineStyles } from '../../../../kite/js/imports.js';
 import { HBox, Node } from '../../../../scenery/js/imports.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ProteinA from '../model/ProteinA.js';
@@ -45,7 +45,7 @@ class ProteinCollectionArea extends Node {
       const protein = new proteinTypes[ i ]();
       const proteinShapeBounds = protein.getFullyGrownShape()
         .transformed( transform )
-        .getStrokedBounds( new kite.LineStyles( { lineWidth: 1 } ) );
+        .getStrokedBounds( new LineStyles( { lineWidth: 1 } ) );
       captureNodeBackgroundSize.width = ( Math.max(
         proteinShapeBounds.width * ProteinCaptureNode.SCALE_FOR_FLASH_NODE,
         captureNodeBackgroundSize.width
