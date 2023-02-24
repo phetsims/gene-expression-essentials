@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "gene-expression-essentials": {
-    "sha": "ab6168cc272678a90ece55403e4a10a951f95dc1",
+    "sha": "4b502c9936fa9e2d65d8a28426cb470629d2eeec",
     "branch": "1.0"
   },
   "griddle": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "584121274bea268101c0fac40473e38a73b1a3cd",
+    "sha": "89a8696957153f06246a0152a940b451fc1e0bd1",
     "branch": "HEAD"
   },
   "phetmarks": {
