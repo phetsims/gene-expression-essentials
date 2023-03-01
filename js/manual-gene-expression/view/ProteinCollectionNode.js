@@ -118,7 +118,7 @@ function createCollectionCountIndicator( model ) {
     if ( model.proteinCCollectedProperty.get() > 0 ) {
       numProteinTypesCollected++;
     }
-    countReadoutText.setText( numProteinTypesCollected );
+    countReadoutText.setString( numProteinTypesCollected );
     // Set the visibility.
     collectedQuantityIndicator.setVisible( numProteinTypesCollected !== NUM_PROTEIN_TYPES );
     collectionCompleteNode.setVisible( numProteinTypesCollected === NUM_PROTEIN_TYPES );

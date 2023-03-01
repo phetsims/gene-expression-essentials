@@ -70,7 +70,7 @@ class ProteinCaptureNode extends Node {
     const countNode = new Text( '', { font: new PhetFont( { size: 18, weight: 'bold' } ) } );
     this.addChild( countNode );
     model.getCollectedCounterForProteinType( proteinClassName ).link( proteinCaptureCount => {
-      countNode.text = proteinCaptureCount;
+      countNode.string = proteinCaptureCount;
       countNode.x = ( captureAreaNode.bounds.getCenterX() - countNode.bounds.width / 2 );
       countNode.y = captureAreaNode.bounds.getCenterY() + VERTICAL_DISTANCE_TO_COUNT_NODE;
     } );
