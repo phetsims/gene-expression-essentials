@@ -1,4 +1,4 @@
-// Copyright 2015-2022, University of Colorado Boulder
+// Copyright 2015-2023, University of Colorado Boulder
 
 /**
  * A Node that represents a labeled box where the user can collect protein molecules.
