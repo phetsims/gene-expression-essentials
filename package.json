@@ -16,6 +16,11 @@
     ],
     "phetLibs": [
       "griddle"
+    ],
+    "screenNameKeys": [
+      "GENE_EXPRESSION_ESSENTIALS/screen.expression",
+      "GENE_EXPRESSION_ESSENTIALS/screen.mRna",
+      "GENE_EXPRESSION_ESSENTIALS/screen.multipleCells"
     ]
   }
 }
