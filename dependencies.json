@@ -2,66 +2,66 @@
   "comment": "# gene-expression-essentials 1.0.0-dev.13 Wed Oct 25 2017 15:56:51 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
-    "branch": "master"
+    "branch": "main"
   },
   "axon": {
     "sha": "80b602933d64501d55105dbc538a6ff83d019fec",
-    "branch": "master"
+    "branch": "main"
   },
   "brand": {
     "sha": "cfca902dca800a6e8b80729a46611346c4f16250",
-    "branch": "master"
+    "branch": "main"
   },
   "chipper": {
     "sha": "6b338220320729240b9b4c7508a11519febe8be4",
-    "branch": "master"
+    "branch": "main"
   },
   "dot": {
     "sha": "85ef2bbfad0bc023dec7988d60475bd513af1e1c",
-    "branch": "master"
+    "branch": "main"
   },
   "gene-expression-essentials": {
     "sha": "a8b7efc7fc7677978fec7d8a7cf779136d5d8350",
-    "branch": "master"
+    "branch": "main"
   },
   "joist": {
     "sha": "eb3a19517018fd3886c3f301c9e74546f0af323b",
-    "branch": "master"
+    "branch": "main"
   },
   "kite": {
     "sha": "2c921cba0c91bd8ceef51dbb5abea335ff89a001",
-    "branch": "master"
+    "branch": "main"
   },
   "phet-core": {
     "sha": "c30d15ed8d869d926ea86fd126e653edea617717",
-    "branch": "master"
+    "branch": "main"
   },
   "phetcommon": {
     "sha": "b13138d238de374a8d62056e137a3d7e7c6cea08",
-    "branch": "master"
+    "branch": "main"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
-    "branch": "master"
+    "branch": "main"
   },
   "scenery": {
     "sha": "92a2872de17089e1687e55424081d27897fa47a5",
-    "branch": "master"
+    "branch": "main"
   },
   "scenery-phet": {
     "sha": "d394b9df8fad4f5187af87bc28cd0f39543a4c3c",
-    "branch": "master"
+    "branch": "main"
   },
   "sherpa": {
     "sha": "0d590744f991ef0461a2e854ceedfe9467a17815",
-    "branch": "master"
+    "branch": "main"
   },
   "sun": {
     "sha": "99a0abef0e66f642e4bd72bf62ece5967c71b014",
-    "branch": "master"
+    "branch": "main"
   },
   "tandem": {
     "sha": "c1e98f69b57aa3527428ac069284766757b713d8",
-    "branch": "master"
+    "branch": "main"
   }
 }
