@@ -6,8 +6,8 @@
  * DNA   ->    RNA       ->    Protein
  * Simulated using the algorithm from Gillespie, 1977
  *
- * @Author George A. Emanuel
- * @Author Aadish Gupta
+ * @author George A. Emanuel
+ * @author Aadish Gupta
  */
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
