@@ -1,4 +1,4 @@
-// Copyright 2015-2021, University of Colorado Boulder
+// Copyright 2015-2024, University of Colorado Boulder
 
 /**
  * This class defines a synthetic cell. The central dogma is simulated as a Markov process for a single protein.
