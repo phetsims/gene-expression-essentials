@@ -1,4 +1,4 @@
-// Copyright 2017-2022, University of Colorado Boulder
+// Copyright 2017-2024, University of Colorado Boulder
 
 /**
  * A DNA Backbone Layer rendered on canvas. This exists for performance reasons.
