@@ -82,7 +82,7 @@ class MRnaDestroyerAttachedState extends AttachmentState {
         this.messengerRnaFragment = null;
       }
 
-      // Remove the messenger RNA that is now destroyed from the model. There should be no visual representation left
+      // Remove the messenger RNA that is now destroyed from the model. There should be no visual snackType left
       // to it at this point.
       biomolecule.getModel().removeMessengerRna(
         this.MRnaDestroyerAttachmentStateMachine.mRnaDestroyer.getMessengerRnaBeingDestroyed()

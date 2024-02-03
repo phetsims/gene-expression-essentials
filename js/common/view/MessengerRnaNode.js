@@ -1,7 +1,7 @@
 // Copyright 2015-2022, University of Colorado Boulder
 
 /**
- * View representation for messenger RNA. This is done differently from most if not all of the other mobile biomolecules
+ * View snackType for messenger RNA. This is done differently from most if not all of the other mobile biomolecules
  * because it is represented as an unclosed shape.
  *
  * @author Sharfudeen Ashraf

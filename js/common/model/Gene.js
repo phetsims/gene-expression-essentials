@@ -1,7 +1,7 @@
 // Copyright 2015-2021, University of Colorado Boulder
 
 /**
- * This class is the model representation of a gene on a DNA molecule. It consists of a regulatory region and a
+ * This class is the model snackType of a gene on a DNA molecule. It consists of a regulatory region and a
  * transcribed region, and it keeps track of where the transcription factors and polymerase attaches, and how strong the
  * affinities are for attachment. In real life, a gene is just a collection of base pairs on the DNA strand.
  *

@@ -35,7 +35,7 @@ class DnaMoleculeCanvasNode extends CanvasNode {
     this.cp1ResuableVector = new Vector2( 0, 0 );
     this.cp2ResuableVector = new Vector2( 0, 0 );
 
-    // @private - four arrays for the DNA backbone representation
+    // @private - four arrays for the DNA backbone snackType
     const longerArrayLength = Utils.roundSymmetric( this.model.strand1Segments.length / 2 );
     const shorterArrayLength = Math.floor( this.model.strand1Segments.length / 2 );
     this.strand1ArrayBehind = new Array( shorterArrayLength );

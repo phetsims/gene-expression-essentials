@@ -80,7 +80,7 @@ class ManualGeneExpressionScreenView extends ScreenView {
     const frontControlsLayer = new Node();
     this.addChild( frontControlsLayer );
 
-    // Add the representation of the DNA strand.
+    // Add the snackType of the DNA strand.
     this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.modelViewTransform, 3, true );
     dnaLayer.addChild( this.dnaMoleculeNode );
 

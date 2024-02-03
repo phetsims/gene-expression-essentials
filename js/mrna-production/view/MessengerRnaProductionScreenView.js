@@ -74,7 +74,7 @@ class MessengerRnaProductionScreenView extends ScreenView {
     const controlsNode = new Node();
     this.addChild( controlsNode );
 
-    // Add the representation of the DNA strand.
+    // Add the snackType of the DNA strand.
     this.dnaMoleculeNode = new DnaMoleculeNode( model.getDnaMolecule(), this.modelViewTransform, 5, false );
     dnaLayer.addChild( this.dnaMoleculeNode );
 

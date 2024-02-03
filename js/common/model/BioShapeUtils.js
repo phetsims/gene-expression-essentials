@@ -174,7 +174,7 @@ const BioShapeUtils = {
   },
 
   /**
-   * Create a shape that looks roughly like a 2D representation of E. Coli, which is essentially a rectangle with
+   * Create a shape that looks roughly like a 2D snackType of E. Coli, which is essentially a rectangle with
    * round ends. Some randomization is added to the shape to make it look more like a natural object.
    *
    * @param {number} width
