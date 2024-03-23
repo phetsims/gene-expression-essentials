@@ -1,4 +1,4 @@
-// Copyright 2015-2021, University of Colorado Boulder
+// Copyright 2015-2024, University of Colorado Boulder
 
 /**
  * Biomolecule that is a represented as a wound up strand. Generally, this refers to some sort of RNA. The complicated

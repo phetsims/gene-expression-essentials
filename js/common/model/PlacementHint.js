@@ -1,4 +1,4 @@
-// Copyright 2015-2020, University of Colorado Boulder
+// Copyright 2015-2024, University of Colorado Boulder
 
 /**
  * This class represents a "placement hint" in the model, which is a position where a biomolecule of the provided type

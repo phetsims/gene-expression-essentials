@@ -1,4 +1,4 @@
-// Copyright 2015-2022, University of Colorado Boulder
+// Copyright 2015-2024, University of Colorado Boulder
 
 /**
  * This class defines a node that can be used in the view to create biomolecules in the model. It is intended for use in
