@@ -38,7 +38,7 @@
         ],
         "parserOptions": {
           "project": [
-            "../gene-expression-essentials/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
