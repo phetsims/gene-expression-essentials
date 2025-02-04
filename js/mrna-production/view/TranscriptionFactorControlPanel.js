@@ -11,7 +11,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Color, RichText, VBox } from '../../../../scenery/js/imports.js';
+import { Color, RichText, toDataURLNodeSynchronous, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import DnaMolecule from '../../common/model/DnaMolecule.js';
@@ -63,12 +63,12 @@ class TranscriptionFactorControlPanel extends Panel {
       GEEConstants.TRANSCRIPTION_FACTOR_MVT,
       new TranscriptionFactor( null, transcriptionFactorConfig )
     );
-    const dnaFragmentNode = new DnaMoleculeNode(
+    const dnaFragmentNode = toDataURLNodeSynchronous( new DnaMoleculeNode(
       new DnaMolecule( null, GEEConstants.BASE_PAIRS_PER_TWIST + 1, 0.0, true ),
       DNA_MVT,
       2,
       false
-    ).toDataURLNodeSynchronous(); // turn into an image so as not to create a canvas layer
+    ) ); // turn into an image so as not to create a canvas layer
 
     const concentrationController = new ConcentrationController(
       transcriptionFactorConfig,

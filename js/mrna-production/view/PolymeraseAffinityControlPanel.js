@@ -13,7 +13,7 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Color, Spacer, Text, VBox } from '../../../../scenery/js/imports.js';
+import { Color, Spacer, Text, toDataURLNodeSynchronous, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import DnaMolecule from '../../common/model/DnaMolecule.js';
@@ -58,7 +58,7 @@ class PolymeraseAffinityControlPanel extends Panel {
 
     // Create the affinity control node.
     const polymeraseNode = new MobileBiomoleculeNode( POLYMERASE_MVT, new RnaPolymerase() );
-    const dnaFragmentNode = new DnaMoleculeNode(
+    const dnaFragmentNode = toDataURLNodeSynchronous( new DnaMoleculeNode(
       new DnaMolecule(
         null,
         GEEConstants.BASE_PAIRS_PER_TWIST * 2 + 1,
@@ -68,7 +68,7 @@ class PolymeraseAffinityControlPanel extends Panel {
       DNA_AND_TF_MVT,
       2,
       false
-    ).toDataURLNodeSynchronous(); // make this into an image in the control panel so another canvas isn't created
+    ) ); // make this into an image in the control panel so another canvas isn't created
     const transcriptionFactorNode = new MobileBiomoleculeNode( DNA_AND_TF_MVT, new TranscriptionFactor( null, tfConfig ) );
 
     // Set position to be on top of the dna, values empirically determined.
