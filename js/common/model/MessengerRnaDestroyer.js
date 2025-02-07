@@ -9,8 +9,8 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Shape } from '../../../../kite/js/imports.js';
-import { Color } from '../../../../scenery/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import MRnaDestroyerAttachmentStateMachine from './attachment-state-machines/MRnaDestroyerAttachmentStateMachine.js';
 import MobileBiomolecule from './MobileBiomolecule.js';

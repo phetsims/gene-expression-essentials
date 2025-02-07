@@ -9,9 +9,13 @@
  * @author Aadish Gupta
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Color, Node, Path, RichText, Text } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import GEEConstants from '../GEEConstants.js';

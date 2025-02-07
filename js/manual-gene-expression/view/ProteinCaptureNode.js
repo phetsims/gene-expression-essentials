@@ -9,9 +9,12 @@
  */
 
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Color, Node, Path, Text } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import GradientUtils from '../../common/util/GradientUtils.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ProteinA from '../model/ProteinA.js';

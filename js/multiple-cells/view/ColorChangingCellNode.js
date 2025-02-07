@@ -11,7 +11,9 @@
  */
 
 import Utils from '../../../../dot/js/Utils.js';
-import { Color, Node, Path } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import Cell from '../model/Cell.js';
 

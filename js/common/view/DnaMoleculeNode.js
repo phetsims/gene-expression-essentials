@@ -10,7 +10,7 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import DnaMoleculeCanvasNode from './DnaMoleculeCanvasNode.js';

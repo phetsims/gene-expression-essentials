@@ -10,8 +10,9 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import { LineStyles } from '../../../../kite/js/imports.js';
-import { HBox, Node } from '../../../../scenery/js/imports.js';
+import LineStyles from '../../../../kite/js/util/LineStyles.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ProteinA from '../model/ProteinA.js';
 import ProteinB from '../model/ProteinB.js';

@@ -10,7 +10,7 @@
 
 import Vector2 from '../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Color } from '../../../scenery/js/imports.js';
+import Color from '../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';
 
 // constants

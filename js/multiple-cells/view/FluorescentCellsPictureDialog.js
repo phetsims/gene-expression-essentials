@@ -8,7 +8,10 @@
  */
 
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Image, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import ecoli_jpg from '../../../mipmaps/ecoli_jpg.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';

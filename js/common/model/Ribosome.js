@@ -12,7 +12,7 @@
 //modules
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Color } from '../../../../scenery/js/imports.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import RibosomeAttachmentStateMachine from './attachment-state-machines/RibosomeAttachmentStateMachine.js';
 import MobileBiomolecule from './MobileBiomolecule.js';

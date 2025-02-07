@@ -10,7 +10,7 @@
 
 
 //modules
-import { LinearGradient } from '../../../../scenery/js/imports.js';
+import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 

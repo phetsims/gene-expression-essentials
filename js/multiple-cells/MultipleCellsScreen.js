@@ -10,7 +10,7 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import { Image } from '../../../scenery/js/imports.js';
+import Image from '../../../scenery/js/nodes/Image.js';
 import multipleCellsIcon_png from '../../mipmaps/multipleCellsIcon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
 import geneExpressionEssentials from '../geneExpressionEssentials.js';

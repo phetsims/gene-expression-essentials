@@ -8,7 +8,7 @@
  * @author Aadish Gupta
  */
 
-import { DragListener } from '../../../../scenery/js/imports.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class BiomoleculeDragHandler extends DragListener {

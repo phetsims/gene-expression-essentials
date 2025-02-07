@@ -11,7 +11,10 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Color, RichText, toDataURLNodeSynchronous, VBox } from '../../../../scenery/js/imports.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import { toDataURLNodeSynchronous } from '../../../../scenery/js/util/rasterized.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import DnaMolecule from '../../common/model/DnaMolecule.js';

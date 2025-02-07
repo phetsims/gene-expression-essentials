@@ -10,7 +10,7 @@
  */
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import MessengerRnaFragmentAttachmentStateMachine from './attachment-state-machines/MessengerRnaFragmentAttachmentStateMachine.js';
 import SquareSegment from './SquareSegment.js';

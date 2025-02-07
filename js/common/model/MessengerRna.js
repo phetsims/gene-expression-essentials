@@ -11,7 +11,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 import MessengerRnaAttachmentStateMachine from './attachment-state-machines/MessengerRnaAttachmentStateMachine.js';
