@@ -1,4 +1,4 @@
-// Copyright 2015-2022, University of Colorado Boulder
+// Copyright 2015-2025, University of Colorado Boulder
 
 /**
  * Base class for displaying and interacting with mobile biomolecules. In essence, this observes the shape of the

@@ -1,4 +1,4 @@
-// Copyright 2015-2021, University of Colorado Boulder
+// Copyright 2015-2025, University of Colorado Boulder
 
 /**
  * The constants used in DNAMolecule is referred in multiple external places, so a separate constants file is created

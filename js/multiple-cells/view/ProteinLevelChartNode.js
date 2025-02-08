@@ -1,4 +1,4 @@
-// Copyright 2015-2022, University of Colorado Boulder
+// Copyright 2015-2025, University of Colorado Boulder
 
 /**
  * This class defines a node that displays the average protein level for a population of cells. It in turns call Griddle
