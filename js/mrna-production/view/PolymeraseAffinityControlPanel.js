@@ -17,7 +17,7 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Spacer from '../../../../scenery/js/nodes/Spacer.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import { toDataURLNodeSynchronous } from '../../../../scenery/js/util/rasterized.js';
+import { toDataURLNodeSynchronous } from '../../../../scenery/js/util/rasterizeNode.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import DnaMolecule from '../../common/model/DnaMolecule.js';
