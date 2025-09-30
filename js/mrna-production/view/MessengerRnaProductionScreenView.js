@@ -137,7 +137,6 @@ class MessengerRnaProductionScreenView extends ScreenView {
     // Add the Reset All button.
     const resetAllButton = new ResetAllButton( {
       listener: () => {
-        this.interruptSubtreeInput(); // cancel user interactions
         this.model.reset();
         this.negativeTranscriptionFactorEnabled.reset();
       },

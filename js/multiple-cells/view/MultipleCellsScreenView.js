@@ -97,7 +97,6 @@ class MultipleCellsScreenView extends ScreenView {
     // Add the Reset All button.
     const resetAllButton = new ResetAllButton( {
       listener: () => {
-        this.interruptSubtreeInput(); // cancel user interactions
         model.reset();
         concentrationControlPanel.expandedProperty.reset();
         affinityControlPanel.expandedProperty.reset();
