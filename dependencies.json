@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "e66153e023ddf94f1efc38a78355a973abe492ea",
+    "sha": "7d738db48c6566dd09373df0073cbc276cad89ea",
     "branch": "HEAD"
   },
   "chipper": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "gene-expression-essentials": {
-    "sha": "b53dfc4fcaf0d3bce2b9d1e62f547d2a99096a98",
+    "sha": "c89242c05e27fe9fa015a907cb95f9d716f61662",
     "branch": "1.0"
   },
   "griddle": {
