@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "cf6a949ff880ee157eb91d9578737f5d5757fae5",
+    "sha": "2845025599f031c2c22dea7a0ce5077fbf7f74db",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "gene-expression-essentials": {
-    "sha": "c89242c05e27fe9fa015a907cb95f9d716f61662",
+    "sha": "c30f48e8ff04878fa1848e1d1de1156f7255d16d",
     "branch": "1.0"
   },
   "griddle": {
