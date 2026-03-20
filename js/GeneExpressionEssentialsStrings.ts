@@ -106,4 +106,6 @@ type StringsType = {
 
 const GeneExpressionEssentialsStrings = getStringModule( 'GENE_EXPRESSION_ESSENTIALS' ) as StringsType;
 
+geneExpressionEssentials.register( 'GeneExpressionEssentialsStrings', GeneExpressionEssentialsStrings );
+
 export default GeneExpressionEssentialsStrings;
