@@ -13,7 +13,6 @@
  * @author John Blanco
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import MeanderToDestinationMotionStrategy from '../motion-strategies/MeanderToDestinationMotionStrategy.js';
 import MoveDirectlyToDestinationMotionStrategy from '../motion-strategies/MoveDirectlyToDestinationMotionStrategy.js';
@@ -76,7 +75,5 @@ class UnattachedAndAvailableForMRnaAttachmentState extends GenericUnattachedAndA
     }
   }
 }
-
-geneExpressionEssentials.register( 'UnattachedAndAvailableForMRnaAttachmentState', UnattachedAndAvailableForMRnaAttachmentState );
 
 export default UnattachedAndAvailableForMRnaAttachmentState;

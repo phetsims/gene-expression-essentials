@@ -10,7 +10,6 @@
 
 
 //modules
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
 class FollowAttachmentSite extends MotionStrategy {
@@ -35,7 +34,5 @@ class FollowAttachmentSite extends MotionStrategy {
     return this.attachmentSite.positionProperty.get();
   }
 }
-
-geneExpressionEssentials.register( 'FollowAttachmentSite', FollowAttachmentSite );
 
 export default FollowAttachmentSite;

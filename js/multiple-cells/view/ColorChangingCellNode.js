@@ -14,7 +14,6 @@ import Utils from '../../../../dot/js/Utils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import Cell from '../model/Cell.js';
 
 // constants
@@ -54,7 +53,5 @@ class ColorChangingCellNode extends Node {
 // statics
 ColorChangingCellNode.NominalFillColor = NOMINAL_FILL_COLOR;
 ColorChangingCellNode.FlorescentFillColor = FLORESCENT_FILL_COLOR;
-
-geneExpressionEssentials.register( 'ColorChangingCellNode', ColorChangingCellNode );
 
 export default ColorChangingCellNode;

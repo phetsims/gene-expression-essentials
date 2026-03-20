@@ -10,7 +10,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import RibosomeTranslatingRnaMotionStrategy from '../motion-strategies/RibosomeTranslatingRnaMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 
@@ -99,7 +98,5 @@ class RibosomeAttachedState extends AttachmentState {
     asm.biomolecule.movableByUserProperty.set( false );
   }
 }
-
-geneExpressionEssentials.register( 'RibosomeAttachedState', RibosomeAttachedState );
 
 export default RibosomeAttachedState;

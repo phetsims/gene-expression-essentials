@@ -7,7 +7,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import AttachmentState from './AttachmentState.js';
 
 // constants
@@ -55,7 +54,5 @@ class GenericUnattachedButUnavailableState extends AttachmentState {
     enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
   }
 }
-
-geneExpressionEssentials.register( 'GenericUnattachedButUnavailableState', GenericUnattachedButUnavailableState );
 
 export default GenericUnattachedButUnavailableState;

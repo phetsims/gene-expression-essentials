@@ -10,7 +10,6 @@
 
 
 //modules
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class DnaSeparation {
 
@@ -56,7 +55,5 @@ class DnaSeparation {
     this.amount = this.targetAmount * proportion;
   }
 }
-
-geneExpressionEssentials.register( 'DnaSeparation', DnaSeparation );
 
 export default DnaSeparation;

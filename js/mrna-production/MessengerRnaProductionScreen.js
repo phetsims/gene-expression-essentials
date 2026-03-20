@@ -13,7 +13,6 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import mrnaProductionIcon_png from '../../mipmaps/mrnaProductionIcon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
-import geneExpressionEssentials from '../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../GeneExpressionEssentialsStrings.js';
 import MessengerRnaProductionModel from './model/MessengerRnaProductionModel.js';
 import MessengerRnaProductionScreenView from './view/MessengerRnaProductionScreenView.js';
@@ -40,5 +39,4 @@ class MessengerRnaProductionScreen extends Screen {
   }
 }
 
-geneExpressionEssentials.register( 'MessengerRnaProductionScreen', MessengerRnaProductionScreen );
 export default MessengerRnaProductionScreen;

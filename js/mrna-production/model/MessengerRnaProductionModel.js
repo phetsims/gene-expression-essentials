@@ -21,7 +21,6 @@ import GeneA from '../../common/model/GeneA.js';
 import MotionBounds from '../../common/model/motion-strategies/MotionBounds.js';
 import RnaPolymerase from '../../common/model/RnaPolymerase.js';
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 // constants
 
@@ -386,7 +385,5 @@ class MessengerRnaProductionModel {
 MessengerRnaProductionModel.MAX_TRANSCRIPTION_FACTOR_COUNT = MAX_TRANSCRIPTION_FACTOR_COUNT;
 MessengerRnaProductionModel.POSITIVE_TRANSCRIPTION_FACTOR_CONFIG = POSITIVE_TRANSCRIPTION_FACTOR_CONFIG;
 MessengerRnaProductionModel.NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG = NEGATIVE_TRANSCRIPTION_FACTOR_CONFIG;
-
-geneExpressionEssentials.register( 'MessengerRnaProductionModel', MessengerRnaProductionModel );
 
 export default MessengerRnaProductionModel;

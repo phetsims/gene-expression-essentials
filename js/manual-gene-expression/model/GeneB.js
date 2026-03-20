@@ -12,7 +12,6 @@ import Range from '../../../../dot/js/Range.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Gene from '../../common/model/Gene.js';
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ProteinB from './ProteinB.js';
 
 // constants
@@ -60,7 +59,5 @@ class GeneB extends Gene {
 
 // statics
 GeneB.NUM_BASE_PAIRS = NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION;
-
-geneExpressionEssentials.register( 'GeneB', GeneB );
 
 export default GeneB;

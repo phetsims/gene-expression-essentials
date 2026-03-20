@@ -14,7 +14,6 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import manualGeneExpressionIcon_png from '../../mipmaps/manualGeneExpressionIcon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
-import geneExpressionEssentials from '../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../GeneExpressionEssentialsStrings.js';
 import ManualGeneExpressionModel from './model/ManualGeneExpressionModel.js';
 import ManualGeneExpressionScreenView from './view/ManualGeneExpressionScreenView.js';
@@ -41,5 +40,4 @@ class ManualGeneExpressionScreen extends Screen {
   }
 }
 
-geneExpressionEssentials.register( 'ManualGeneExpressionScreen', ManualGeneExpressionScreen );
 export default ManualGeneExpressionScreen;

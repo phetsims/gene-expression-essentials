@@ -10,7 +10,6 @@
 
 import Property from '../../../../axon/js/Property.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class FadeTimer {
 
@@ -59,7 +58,5 @@ class FadeTimer {
     this.start();
   }
 }
-
-geneExpressionEssentials.register( 'FadeTimer', FadeTimer );
 
 export default FadeTimer;

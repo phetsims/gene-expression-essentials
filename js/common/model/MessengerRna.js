@@ -12,7 +12,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 import MessengerRnaAttachmentStateMachine from './attachment-state-machines/MessengerRnaAttachmentStateMachine.js';
 import AttachmentSite from './AttachmentSite.js';
@@ -559,7 +558,5 @@ class MessengerRna extends WindingBiomolecule {
     return this.attachmentSite.positionProperty.get();
   }
 }
-
-geneExpressionEssentials.register( 'MessengerRna', MessengerRna );
 
 export default MessengerRna;

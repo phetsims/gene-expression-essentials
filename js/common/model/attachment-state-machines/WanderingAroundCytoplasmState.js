@@ -9,7 +9,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 
@@ -32,5 +31,4 @@ class WanderingAroundCytoplasmState extends AttachmentState {
   }
 }
 
-geneExpressionEssentials.register( 'WanderingAroundCytoplasmState', WanderingAroundCytoplasmState );
 export default WanderingAroundCytoplasmState;

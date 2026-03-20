@@ -13,7 +13,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Ribosome from '../../common/model/Ribosome.js';
 import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import BiomoleculeCreatorNode from './BiomoleculeCreatorNode.js';
 
 // Scaling factor for this node when used as a creator node. May be significantly different from the size of the
@@ -50,7 +49,5 @@ class RibosomeCreatorNode extends BiomoleculeCreatorNode {
     );
   }
 }
-
-geneExpressionEssentials.register( 'RibosomeCreatorNode', RibosomeCreatorNode );
 
 export default RibosomeCreatorNode;

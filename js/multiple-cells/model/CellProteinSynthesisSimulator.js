@@ -12,7 +12,6 @@
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 const DEFAULT_TRANSCRIPTION_FACTOR_COUNT = 2000;
 const TRANSCRIPTION_FACTOR_COUNT_RANGE = new Range( DEFAULT_TRANSCRIPTION_FACTOR_COUNT / 10, DEFAULT_TRANSCRIPTION_FACTOR_COUNT * 10 );
@@ -291,5 +290,4 @@ CellProteinSynthesisSimulator.ProteinDegradationRange = PROTEIN_DEGRADATION_RANG
 CellProteinSynthesisSimulator.TFAssociationProbabilityRange = TF_ASSOCIATION_PROBABILITY_RANGE;
 CellProteinSynthesisSimulator.TranscriptionFactorCountRange = TRANSCRIPTION_FACTOR_COUNT_RANGE;
 
-geneExpressionEssentials.register( 'CellProteinSynthesisSimulator', CellProteinSynthesisSimulator );
 export default CellProteinSynthesisSimulator;

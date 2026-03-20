@@ -23,7 +23,6 @@ import DnaMoleculeNode from '../../common/view/DnaMoleculeNode.js';
 import MessengerRnaNode from '../../common/view/MessengerRnaNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
 import PlacementHintNode from '../../common/view/PlacementHintNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import BiomoleculeToolboxNode from './BiomoleculeToolboxNode.js';
 import ProteinCollectionNode from './ProteinCollectionNode.js';
@@ -284,5 +283,4 @@ class ManualGeneExpressionScreenView extends ScreenView {
   }
 }
 
-geneExpressionEssentials.register( 'ManualGeneExpressionScreenView', ManualGeneExpressionScreenView );
 export default ManualGeneExpressionScreenView;

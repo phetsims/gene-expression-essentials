@@ -12,7 +12,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RnaPolymerase from '../../common/model/RnaPolymerase.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import BiomoleculeCreatorNode from './BiomoleculeCreatorNode.js';
 
 // constants
@@ -52,7 +51,5 @@ class RnaPolymeraseCreatorNode extends BiomoleculeCreatorNode {
     );
   }
 }
-
-geneExpressionEssentials.register( 'RnaPolymeraseCreatorNode', RnaPolymeraseCreatorNode );
 
 export default RnaPolymeraseCreatorNode;

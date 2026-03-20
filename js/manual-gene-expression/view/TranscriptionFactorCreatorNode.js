@@ -13,7 +13,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.js';
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import BiomoleculeCreatorNode from './BiomoleculeCreatorNode.js';
 
 // constants
@@ -49,7 +48,5 @@ class TranscriptionFactorCreatorNode extends BiomoleculeCreatorNode {
     );
   }
 }
-
-geneExpressionEssentials.register( 'TranscriptionFactorCreatorNode', TranscriptionFactorCreatorNode );
 
 export default TranscriptionFactorCreatorNode;

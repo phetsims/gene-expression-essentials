@@ -21,7 +21,6 @@ import DnaMolecule from '../../common/model/DnaMolecule.js';
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
 import DnaMoleculeNode from '../../common/view/DnaMoleculeNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import MessengerRnaProductionModel from '../model/MessengerRnaProductionModel.js';
 import AffinityController from './AffinityController.js';
@@ -99,5 +98,4 @@ class TranscriptionFactorControlPanel extends Panel {
   }
 }
 
-geneExpressionEssentials.register( 'TranscriptionFactorControlPanel', TranscriptionFactorControlPanel );
 export default TranscriptionFactorControlPanel;

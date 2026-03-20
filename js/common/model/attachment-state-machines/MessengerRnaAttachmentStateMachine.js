@@ -8,7 +8,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import AttachmentStateMachine from './AttachmentStateMachine.js';
 import BeingDestroyedState from './BeingDestroyedState.js';
 import BeingSynthesizedState from './BeingSynthesizedState.js';
@@ -102,7 +101,5 @@ class MessengerRnaAttachmentStateMachine extends AttachmentStateMachine {
     this.setState( new BeingDestroyedState() );
   }
 }
-
-geneExpressionEssentials.register( 'MessengerRnaAttachmentStateMachine', MessengerRnaAttachmentStateMachine );
 
 export default MessengerRnaAttachmentStateMachine;

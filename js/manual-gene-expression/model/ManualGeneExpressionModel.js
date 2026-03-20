@@ -23,7 +23,6 @@ import GeneA from '../../common/model/GeneA.js';
 import GeneExpressionModel from '../../common/model/GeneExpressionModel.js';
 import MotionBounds from '../../common/model/motion-strategies/MotionBounds.js';
 import Protein from '../../common/model/Protein.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneB from './GeneB.js';
 import GeneC from './GeneC.js';
 import ProteinA from './ProteinA.js';
@@ -367,7 +366,5 @@ class ManualGeneExpressionModel extends GeneExpressionModel {
     return motionBounds;
   }
 }
-
-geneExpressionEssentials.register( 'ManualGeneExpressionModel', ManualGeneExpressionModel );
 
 export default ManualGeneExpressionModel;

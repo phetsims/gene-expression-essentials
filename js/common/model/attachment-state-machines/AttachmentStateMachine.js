@@ -10,7 +10,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 
 class AttachmentStateMachine {
 
@@ -110,7 +109,5 @@ class AttachmentStateMachine {
     this.destinationOffset.setXY( offset.x, offset.y );
   }
 }
-
-geneExpressionEssentials.register( 'AttachmentStateMachine', AttachmentStateMachine );
 
 export default AttachmentStateMachine;

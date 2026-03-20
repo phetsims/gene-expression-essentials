@@ -12,7 +12,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import FlashController from './FlashController.js';
 
 // constants
@@ -57,7 +56,5 @@ class FlashingShapeNode extends Node {
     this.flashController.forceFlashOff();
   }
 }
-
-geneExpressionEssentials.register( 'FlashingShapeNode', FlashingShapeNode );
 
 export default FlashingShapeNode;

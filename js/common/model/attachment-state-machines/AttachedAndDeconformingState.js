@@ -9,7 +9,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import AttachmentState from './AttachmentState.js';
 import BeingRecycledState from './BeingRecycledState.js';
@@ -115,7 +114,5 @@ class AttachedAndDeconformingState extends AttachmentState {
     this.conformationalChangeAmount = 1;
   }
 }
-
-geneExpressionEssentials.register( 'AttachedAndDeconformingState', AttachedAndDeconformingState );
 
 export default AttachedAndDeconformingState;

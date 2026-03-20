@@ -9,7 +9,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
 class RibosomeTranslatingRnaMotionStrategy extends MotionStrategy {
@@ -36,7 +35,5 @@ class RibosomeTranslatingRnaMotionStrategy extends MotionStrategy {
     return ribosomeAttachmentPoint.minus( this.ribosome.offsetToTranslationChannelEntrance );
   }
 }
-
-geneExpressionEssentials.register( 'RibosomeTranslatingRnaMotionStrategy', RibosomeTranslatingRnaMotionStrategy );
 
 export default RibosomeTranslatingRnaMotionStrategy;

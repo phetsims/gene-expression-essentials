@@ -8,7 +8,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import StillnessMotionStrategy from '../motion-strategies/StillnessMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 
@@ -32,7 +31,5 @@ class BeingDestroyedState extends AttachmentState {
     enclosingStateMachine.biomolecule.setMotionStrategy( new StillnessMotionStrategy() );
   }
 }
-
-geneExpressionEssentials.register( 'BeingDestroyedState', BeingDestroyedState );
 
 export default BeingDestroyedState;

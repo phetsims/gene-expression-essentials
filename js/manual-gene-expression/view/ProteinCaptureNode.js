@@ -16,7 +16,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import GradientUtils from '../../common/util/GradientUtils.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ProteinA from '../model/ProteinA.js';
 import ProteinB from '../model/ProteinB.js';
 import ProteinC from '../model/ProteinC.js';
@@ -118,7 +117,5 @@ class ProteinCaptureNode extends Node {
 }
 
 ProteinCaptureNode.SCALE_FOR_FLASH_NODE = SCALE_FOR_FLASH_NODE;
-
-geneExpressionEssentials.register( 'ProteinCaptureNode', ProteinCaptureNode );
 
 export default ProteinCaptureNode;

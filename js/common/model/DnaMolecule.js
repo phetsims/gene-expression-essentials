@@ -17,7 +17,6 @@
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 import AttachmentSite from './AttachmentSite.js';
 import BasePair from './BasePair.js';
@@ -810,7 +809,5 @@ class DnaMolecule {
     this.separations = [];
   }
 }
-
-geneExpressionEssentials.register( 'DnaMolecule', DnaMolecule );
 
 export default DnaMolecule;

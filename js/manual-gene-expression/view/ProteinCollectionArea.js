@@ -13,7 +13,6 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import LineStyles from '../../../../kite/js/util/LineStyles.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ProteinA from '../model/ProteinA.js';
 import ProteinB from '../model/ProteinB.js';
 import ProteinC from '../model/ProteinC.js';
@@ -68,7 +67,5 @@ class ProteinCollectionArea extends Node {
     } ) );
   }
 }
-
-geneExpressionEssentials.register( 'ProteinCollectionArea', ProteinCollectionArea );
 
 export default ProteinCollectionArea;

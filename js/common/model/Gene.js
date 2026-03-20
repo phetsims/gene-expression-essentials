@@ -13,7 +13,6 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 import AttachmentSite from './AttachmentSite.js';
 import PlacementHint from './PlacementHint.js';
@@ -460,7 +459,5 @@ class Gene {
     return configList;
   }
 }
-
-geneExpressionEssentials.register( 'Gene', Gene );
 
 export default Gene;

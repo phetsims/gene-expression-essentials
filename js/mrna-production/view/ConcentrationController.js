@@ -18,7 +18,6 @@ import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 
 const concentrationString = GeneExpressionEssentialsStrings.concentration;
@@ -64,5 +63,4 @@ class ConcentrationController extends Node {
   }
 }
 
-geneExpressionEssentials.register( 'ConcentrationController', ConcentrationController );
 export default ConcentrationController;

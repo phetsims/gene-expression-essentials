@@ -9,7 +9,6 @@
  */
 
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class BiomoleculeDragHandler extends DragListener {
 
@@ -39,7 +38,5 @@ class BiomoleculeDragHandler extends DragListener {
 
   }
 }
-
-geneExpressionEssentials.register( 'BiomoleculeDragHandler', BiomoleculeDragHandler );
 
 export default BiomoleculeDragHandler;

@@ -8,8 +8,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-
 /**
  * @param {Shape} shape
  * @param {Vector2} positive
@@ -21,7 +19,5 @@ function TranscriptionFactorConfig( shape, positive, baseColor ) {
   this.baseColor = baseColor; // @public
   this.isPositive = positive; // @public
 }
-
-geneExpressionEssentials.register( 'TranscriptionFactorConfig', TranscriptionFactorConfig );
 
 export default TranscriptionFactorConfig;

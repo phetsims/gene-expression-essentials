@@ -13,7 +13,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import MessengerRnaDestroyer from '../../common/model/MessengerRnaDestroyer.js';
 import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import BiomoleculeCreatorNode from './BiomoleculeCreatorNode.js';
 
 // constants
@@ -49,7 +48,5 @@ class MessengerRnaDestroyerCreatorNode extends BiomoleculeCreatorNode {
     );
   }
 }
-
-geneExpressionEssentials.register( 'MessengerRnaDestroyerCreatorNode', MessengerRnaDestroyerCreatorNode );
 
 export default MessengerRnaDestroyerCreatorNode;

@@ -10,7 +10,6 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 const ShapeUtils = {
 
@@ -59,5 +58,4 @@ const ShapeUtils = {
     return ( cp.setXY( y.x + xz_x, y.y + xz_y ) );
   }
 };
-geneExpressionEssentials.register( 'ShapeUtils', ShapeUtils );
 export default ShapeUtils;

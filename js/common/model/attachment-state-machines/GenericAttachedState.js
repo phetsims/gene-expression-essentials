@@ -10,7 +10,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import FollowAttachmentSite from '../motion-strategies/FollowAttachmentSite.js';
 import WanderInGeneralDirectionMotionStrategy from '../motion-strategies/WanderInGeneralDirectionMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
@@ -65,7 +64,5 @@ class GenericAttachedState extends AttachmentState {
     enclosingStateMachine.biomolecule.movableByUserProperty.set( false );
   }
 }
-
-geneExpressionEssentials.register( 'GenericAttachedState', GenericAttachedState );
 
 export default GenericAttachedState;

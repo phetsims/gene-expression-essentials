@@ -11,7 +11,6 @@
 
 import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import MoveDirectlyToDestinationMotionStrategy from '../motion-strategies/MoveDirectlyToDestinationMotionStrategy.js';
 import WanderInGeneralDirectionMotionStrategy from '../motion-strategies/WanderInGeneralDirectionMotionStrategy.js';
@@ -177,7 +176,5 @@ class AttachedToDnaNotTranscribingState extends AttachmentState {
     asm.biomolecule.attachedToDnaProperty.set( true );
   }
 }
-
-geneExpressionEssentials.register( 'AttachedToDnaNotTranscribingState', AttachedToDnaNotTranscribingState );
 
 export default AttachedToDnaNotTranscribingState;

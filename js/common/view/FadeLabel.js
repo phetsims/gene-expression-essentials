@@ -11,7 +11,6 @@
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import FadeTimer from './FadeTimer.js';
 
 // constants
@@ -93,7 +92,5 @@ class FadeLabel extends Node {
     this.fadeOutTimer.restart();
   }
 }
-
-geneExpressionEssentials.register( 'FadeLabel', FadeLabel );
 
 export default FadeLabel;

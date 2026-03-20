@@ -11,7 +11,6 @@
 
 //modules
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 
 const GradientUtils = {
@@ -43,5 +42,4 @@ const GradientUtils = {
     return paint;
   }
 };
-geneExpressionEssentials.register( 'GradientUtils', GradientUtils );
 export default GradientUtils;

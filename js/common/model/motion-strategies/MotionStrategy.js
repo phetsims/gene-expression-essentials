@@ -12,7 +12,6 @@
 import Range from '../../../../../dot/js/Range.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import MotionBounds from './MotionBounds.js';
 
@@ -157,7 +156,5 @@ class MotionStrategy {
     return minZ;
   }
 }
-
-geneExpressionEssentials.register( 'MotionStrategy', MotionStrategy );
 
 export default MotionStrategy;

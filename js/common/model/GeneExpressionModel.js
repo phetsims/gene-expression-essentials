@@ -9,7 +9,6 @@
 
 
 //modules
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class GeneExpressionModel {
 
@@ -75,7 +74,5 @@ class GeneExpressionModel {
     throw new Error( 'getOverlappingBiomolecules should be implemented in descendant classes of GeneExpressionModel' );
   }
 }
-
-geneExpressionEssentials.register( 'GeneExpressionModel', GeneExpressionModel );
 
 export default GeneExpressionModel;

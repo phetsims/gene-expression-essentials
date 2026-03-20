@@ -10,7 +10,6 @@
  */
 
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 
 class MotionBounds {
 
@@ -110,7 +109,5 @@ class MotionBounds {
     return this.inBounds( bounds.shiftedXY( translationVector.x, translationVector.y ) );
   }
 }
-
-geneExpressionEssentials.register( 'MotionBounds', MotionBounds );
 
 export default MotionBounds;

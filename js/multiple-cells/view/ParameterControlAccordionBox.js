@@ -15,7 +15,6 @@ import Color from '../../../../scenery/js/util/Color.js';
 import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import GEEConstants from '../../common/GEEConstants.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class ParameterControlAccordionBox extends AccordionBox {
 
@@ -78,5 +77,4 @@ class ParameterControlAccordionBox extends AccordionBox {
   }
 }
 
-geneExpressionEssentials.register( 'ParameterControlAccordionBox', ParameterControlAccordionBox );
 export default ParameterControlAccordionBox;

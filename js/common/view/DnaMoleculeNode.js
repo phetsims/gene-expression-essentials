@@ -11,7 +11,6 @@
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import DnaMoleculeCanvasNode from './DnaMoleculeCanvasNode.js';
 import GeneNode from './GeneNode.js';
@@ -65,7 +64,5 @@ class DnaMoleculeNode extends Node {
     this.dnaBackboneLayer.step();
   }
 }
-
-geneExpressionEssentials.register( 'DnaMoleculeNode', DnaMoleculeNode );
 
 export default DnaMoleculeNode;

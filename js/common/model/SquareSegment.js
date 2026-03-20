@@ -11,7 +11,6 @@
 
 //modules
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ShapeSegment from './ShapeSegment.js';
 
 class SquareSegment extends ShapeSegment {
@@ -123,7 +122,5 @@ class SquareSegment extends ShapeSegment {
     return Math.sqrt( 2 * desiredDiagonalLength * desiredDiagonalLength );
   }
 }
-
-geneExpressionEssentials.register( 'SquareSegment', SquareSegment );
 
 export default SquareSegment;

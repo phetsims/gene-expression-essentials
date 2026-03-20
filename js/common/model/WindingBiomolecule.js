@@ -13,7 +13,6 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 import BioShapeUtils from './BioShapeUtils.js';
 import MobileBiomolecule from './MobileBiomolecule.js';
@@ -717,7 +716,5 @@ class WindingBiomolecule extends MobileBiomolecule {
     this.shapeSegments.splice( index, 0, shapeSegmentToInsert );
   }
 }
-
-geneExpressionEssentials.register( 'WindingBiomolecule', WindingBiomolecule );
 
 export default WindingBiomolecule;

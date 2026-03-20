@@ -10,7 +10,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GenericAttachmentStateMachine from './GenericAttachmentStateMachine.js';
 import TranscriptionFactorAttachedState from './TranscriptionFactorAttachedState.js';
 
@@ -31,5 +30,4 @@ class TranscriptionFactorAttachmentStateMachine extends GenericAttachmentStateMa
   }
 }
 
-geneExpressionEssentials.register( 'TranscriptionFactorAttachmentStateMachine', TranscriptionFactorAttachmentStateMachine );
 export default TranscriptionFactorAttachmentStateMachine;

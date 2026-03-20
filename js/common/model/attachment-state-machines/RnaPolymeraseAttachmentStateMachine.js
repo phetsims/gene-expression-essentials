@@ -11,7 +11,6 @@
 
 import Property from '../../../../../axon/js/Property.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import AttachmentSite from '../AttachmentSite.js';
 import DnaSeparation from '../DnaSeparation.js';
 import AttachedAndConformingState from './AttachedAndConformingState.js';
@@ -135,7 +134,5 @@ class RnaPolymeraseAttachmentStateMachine extends GenericAttachmentStateMachine 
     return false;
   }
 }
-
-geneExpressionEssentials.register( 'RnaPolymeraseAttachmentStateMachine', RnaPolymeraseAttachmentStateMachine );
 
 export default RnaPolymeraseAttachmentStateMachine;

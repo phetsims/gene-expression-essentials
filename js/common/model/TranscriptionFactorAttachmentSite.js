@@ -14,7 +14,6 @@
 
 
 //modules
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import AttachmentSite from './AttachmentSite.js';
 
 class TranscriptionFactorAttachmentSite extends AttachmentSite {
@@ -49,7 +48,5 @@ class TranscriptionFactorAttachmentSite extends AttachmentSite {
     return this.tfConfig;
   }
 }
-
-geneExpressionEssentials.register( 'TranscriptionFactorAttachmentSite', TranscriptionFactorAttachmentSite );
 
 export default TranscriptionFactorAttachmentSite;

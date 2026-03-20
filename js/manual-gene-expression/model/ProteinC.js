@@ -14,7 +14,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Protein from '../../common/model/Protein.js';
 import StubGeneExpressionModel from '../../common/model/StubGeneExpressionModel.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 // constants
 const BASE_COLOR = new Color( 57, 255, 20 );
@@ -99,7 +98,5 @@ const createShape = growthFactor => {
   path.cubicCurveTo( -currentWidth * sideCurvesMultiplier, -currentHeight * 0.33, -currentWidth * sideCurvesMultiplier, currentHeight * 0.33, -currentWidth * 0.45, currentHeight * 0.45 );
   return path;
 };
-
-geneExpressionEssentials.register( 'ProteinC', ProteinC );
 
 export default ProteinC;

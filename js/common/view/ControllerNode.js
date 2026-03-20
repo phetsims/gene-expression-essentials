@@ -16,7 +16,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import HSlider from '../../../../sun/js/HSlider.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class ControllerNode extends Node {
 
@@ -89,5 +88,4 @@ class ControllerNode extends Node {
   }
 }
 
-geneExpressionEssentials.register( 'ControllerNode', ControllerNode );
 export default ControllerNode;

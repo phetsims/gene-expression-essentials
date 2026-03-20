@@ -11,7 +11,6 @@
 
 import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import DriftThenTeleportMotionStrategy from '../motion-strategies/DriftThenTeleportMotionStrategy.js';
 import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
@@ -74,7 +73,5 @@ class BeingRecycledState extends AttachmentState {
       this.recycleReturnZones, biomolecule.motionBoundsProperty ) );
   }
 }
-
-geneExpressionEssentials.register( 'BeingRecycledState', BeingRecycledState );
 
 export default BeingRecycledState;

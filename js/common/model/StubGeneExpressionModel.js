@@ -9,8 +9,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-
 class StubGeneExpressionModel {
 
   /**
@@ -19,5 +17,4 @@ class StubGeneExpressionModel {
   }
 }
 
-geneExpressionEssentials.register( 'StubGeneExpressionModel', StubGeneExpressionModel );
 export default StubGeneExpressionModel;

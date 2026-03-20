@@ -19,7 +19,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import ColorChangingCellNode from './ColorChangingCellNode.js';
 
@@ -184,5 +183,4 @@ class ProteinLevelChartNode extends Panel {
   }
 }
 
-geneExpressionEssentials.register( 'ProteinLevelChartNode', ProteinLevelChartNode );
 export default ProteinLevelChartNode;

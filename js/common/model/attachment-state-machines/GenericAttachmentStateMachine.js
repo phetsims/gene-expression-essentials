@@ -8,7 +8,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import WanderInGeneralDirectionMotionStrategy from '../motion-strategies/WanderInGeneralDirectionMotionStrategy.js';
 import AttachmentStateMachine from './AttachmentStateMachine.js';
 import GenericAttachedState from './GenericAttachedState.js';
@@ -70,7 +69,5 @@ class GenericAttachmentStateMachine extends AttachmentStateMachine {
     this.setState( this.unattachedButUnavailableState );
   }
 }
-
-geneExpressionEssentials.register( 'GenericAttachmentStateMachine', GenericAttachmentStateMachine );
 
 export default GenericAttachmentStateMachine;

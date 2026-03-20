@@ -11,7 +11,6 @@ import createObservableArray from '../../../../axon/js/createObservableArray.js'
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Random from '../../../../dot/js/Random.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import Cell from './Cell.js';
 import CellProteinSynthesisSimulator from './CellProteinSynthesisSimulator.js';
 
@@ -262,5 +261,4 @@ class MultipleCellsModel {
 // statics
 MultipleCellsModel.MaxCells = MAX_CELLS;
 
-geneExpressionEssentials.register( 'MultipleCellsModel', MultipleCellsModel );
 export default MultipleCellsModel;

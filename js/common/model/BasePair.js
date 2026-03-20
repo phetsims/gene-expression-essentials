@@ -15,8 +15,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-
 // constants
 const BASE_PAIR_WIDTH = 13; // In picometers.  Not sure if this is close to real life, chosen to look decent in view.
 
@@ -44,7 +42,5 @@ class BasePair {
     return this.x + BASE_PAIR_WIDTH / 2;
   }
 }
-
-geneExpressionEssentials.register( 'BasePair', BasePair );
 
 export default BasePair;

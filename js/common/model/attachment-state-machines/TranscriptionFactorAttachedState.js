@@ -9,7 +9,6 @@
 
 import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import FollowAttachmentSite from '../motion-strategies/FollowAttachmentSite.js';
 import MoveDirectlyToDestinationMotionStrategy from '../motion-strategies/MoveDirectlyToDestinationMotionStrategy.js';
@@ -139,7 +138,5 @@ class TranscriptionFactorAttachedState extends GenericAttachedState {
     enclosingStateMachine.biomolecule.attachedToDnaProperty.set( true ); // Update externally visible state indication.
   }
 }
-
-geneExpressionEssentials.register( 'TranscriptionFactorAttachedState', TranscriptionFactorAttachedState );
 
 export default TranscriptionFactorAttachedState;

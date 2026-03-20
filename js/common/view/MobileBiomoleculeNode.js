@@ -16,7 +16,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import RnaPolymerase from '../model/RnaPolymerase.js';
 import GradientUtils from '../util/GradientUtils.js';
 import BiomoleculeDragHandler from './BiomoleculeDragHandler.js';
@@ -155,7 +154,5 @@ class MobileBiomoleculeNode extends Node {
     super.dispose();
   }
 }
-
-geneExpressionEssentials.register( 'MobileBiomoleculeNode', MobileBiomoleculeNode );
 
 export default MobileBiomoleculeNode;

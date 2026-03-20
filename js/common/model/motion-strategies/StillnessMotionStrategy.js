@@ -8,7 +8,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
 class StillnessMotionStrategy extends MotionStrategy {
@@ -31,7 +30,5 @@ class StillnessMotionStrategy extends MotionStrategy {
     return currentPosition;
   }
 }
-
-geneExpressionEssentials.register( 'StillnessMotionStrategy', StillnessMotionStrategy );
 
 export default StillnessMotionStrategy;

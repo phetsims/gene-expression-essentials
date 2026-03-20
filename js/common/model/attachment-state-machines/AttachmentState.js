@@ -8,8 +8,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
-
 class AttachmentState {
 
   /**
@@ -44,7 +42,5 @@ class AttachmentState {
 // Distance within which a molecule is considered to be attached to an attachment site. This essentially avoids
 // floating point issues.
 AttachmentState.ATTACHED_DISTANCE_THRESHOLD = 1;
-
-geneExpressionEssentials.register( 'AttachmentState', AttachmentState );
 
 export default AttachmentState;

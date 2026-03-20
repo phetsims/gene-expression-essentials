@@ -10,7 +10,6 @@
 import Utils from '../../../../../dot/js/Utils.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
 // constants
@@ -143,7 +142,5 @@ class MoveDirectlyToDestinationMotionStrategy extends MotionStrategy {
     );
   }
 }
-
-geneExpressionEssentials.register( 'MoveDirectlyToDestinationMotionStrategy', MoveDirectlyToDestinationMotionStrategy );
 
 export default MoveDirectlyToDestinationMotionStrategy;

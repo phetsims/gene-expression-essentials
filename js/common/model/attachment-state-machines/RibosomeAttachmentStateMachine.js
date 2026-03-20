@@ -11,7 +11,6 @@
 
 
 // modules
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import Ribosome from '../Ribosome.js';
 import GenericAttachmentStateMachine from './GenericAttachmentStateMachine.js';
 import RibosomeAttachedState from './RibosomeAttachedState.js';
@@ -76,7 +75,5 @@ class RibosomeAttachmentStateMachine extends GenericAttachmentStateMachine {
     return ( this.attachmentState === this.attachedState );
   }
 }
-
-geneExpressionEssentials.register( 'RibosomeAttachmentStateMachine', RibosomeAttachmentStateMachine );
 
 export default RibosomeAttachmentStateMachine;

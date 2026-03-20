@@ -9,7 +9,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
 import StillnessMotionStrategy from '../motion-strategies/StillnessMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
@@ -87,7 +86,5 @@ class MessengerRnaFragmentAttachmentStateMachine extends AttachmentStateMachine 
     this.setState( new UnattachedAndFadingState( this ) );
   }
 }
-
-geneExpressionEssentials.register( 'MessengerRnaFragmentAttachmentStateMachine', MessengerRnaFragmentAttachmentStateMachine );
 
 export default MessengerRnaFragmentAttachmentStateMachine;

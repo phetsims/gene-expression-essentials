@@ -9,7 +9,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import StillnessMotionStrategy from '../motion-strategies/StillnessMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 import GenericAttachmentStateMachine from './GenericAttachmentStateMachine.js';
@@ -54,5 +53,4 @@ class ProteinAttachmentStateMachine extends GenericAttachmentStateMachine {
   }
 }
 
-geneExpressionEssentials.register( 'ProteinAttachmentStateMachine', ProteinAttachmentStateMachine );
 export default ProteinAttachmentStateMachine;

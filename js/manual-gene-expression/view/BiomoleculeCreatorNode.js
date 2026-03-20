@@ -13,7 +13,6 @@
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import SceneryConstants from '../../../../scenery/js/SceneryConstants.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class BiomoleculeCreatorNode extends Node {
 
@@ -131,7 +130,5 @@ class BiomoleculeCreatorNode extends Node {
     return this.modelViewTransform.viewToModelPosition( adjustedCanvasPos );
   }
 }
-
-geneExpressionEssentials.register( 'BiomoleculeCreatorNode', BiomoleculeCreatorNode );
 
 export default BiomoleculeCreatorNode;

@@ -13,7 +13,6 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import multipleCellsIcon_png from '../../mipmaps/multipleCellsIcon_png.js';
 import GEEConstants from '../common/GEEConstants.js';
-import geneExpressionEssentials from '../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../GeneExpressionEssentialsStrings.js';
 import MultipleCellsModel from './model/MultipleCellsModel.js';
 import MultipleCellsScreenView from './view/MultipleCellsScreenView.js';
@@ -40,5 +39,4 @@ class MultipleCellsScreen extends Screen {
   }
 }
 
-geneExpressionEssentials.register( 'MultipleCellsScreen', MultipleCellsScreen );
 export default MultipleCellsScreen;

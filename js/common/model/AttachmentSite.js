@@ -13,7 +13,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 // constants
 const ATTACHED_THRESHOLD = 10; // Threshold used to decide whether or not a biomolecule is attached, in picometers.
@@ -78,7 +77,5 @@ class AttachmentSite {
            this.positionProperty.get().equals( otherAttachmentSite.positionProperty.get() );
   }
 }
-
-geneExpressionEssentials.register( 'AttachmentSite', AttachmentSite );
 
 export default AttachmentSite;

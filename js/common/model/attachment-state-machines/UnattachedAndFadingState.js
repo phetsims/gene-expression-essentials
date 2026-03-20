@@ -8,7 +8,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import WanderInGeneralDirectionMotionStrategy from '../motion-strategies/WanderInGeneralDirectionMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 
@@ -58,7 +57,5 @@ class UnattachedAndFadingState extends AttachmentState {
       asm.biomolecule.motionBoundsProperty ) );
   }
 }
-
-geneExpressionEssentials.register( 'UnattachedAndFadingState', UnattachedAndFadingState );
 
 export default UnattachedAndFadingState;

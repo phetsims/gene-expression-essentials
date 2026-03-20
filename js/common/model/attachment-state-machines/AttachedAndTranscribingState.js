@@ -11,7 +11,6 @@
 
 import Property from '../../../../../axon/js/Property.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import MessengerRna from '../MessengerRna.js';
 import MoveDirectlyToDestinationMotionStrategy from '../motion-strategies/MoveDirectlyToDestinationMotionStrategy.js';
@@ -131,7 +130,5 @@ class AttachedAndTranscribingState extends AttachmentState {
     this.rnaPolymeraseAttachmentStateMachine.attachmentSite = transcribingAttachmentSite;
   }
 }
-
-geneExpressionEssentials.register( 'AttachedAndTranscribingState', AttachedAndTranscribingState );
 
 export default AttachedAndTranscribingState;

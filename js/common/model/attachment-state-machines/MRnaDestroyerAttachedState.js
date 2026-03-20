@@ -10,7 +10,6 @@
 
 import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Range from '../../../../../dot/js/Range.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MessengerRnaFragment from '../MessengerRnaFragment.js';
 import DestroyerTrackingRnaMotionStrategy from '../motion-strategies/DestroyerTrackingRnaMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
@@ -108,7 +107,5 @@ class MRnaDestroyerAttachedState extends AttachmentState {
     asm.biomolecule.movableByUserProperty.set( false );
   }
 }
-
-geneExpressionEssentials.register( 'MRnaDestroyerAttachedState', MRnaDestroyerAttachedState );
 
 export default MRnaDestroyerAttachedState;

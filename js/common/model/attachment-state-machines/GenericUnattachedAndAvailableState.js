@@ -7,7 +7,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MeanderToDestinationMotionStrategy from '../motion-strategies/MeanderToDestinationMotionStrategy.js';
 import RandomWalkMotionStrategy from '../motion-strategies/RandomWalkMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
@@ -65,7 +64,5 @@ class GenericUnattachedAndAvailableState extends AttachmentState {
     enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
   }
 }
-
-geneExpressionEssentials.register( 'GenericUnattachedAndAvailableState', GenericUnattachedAndAvailableState );
 
 export default GenericUnattachedAndAvailableState;

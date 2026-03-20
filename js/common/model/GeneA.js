@@ -10,7 +10,6 @@
 
 import Range from '../../../../dot/js/Range.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ProteinA from '../../manual-gene-expression/model/ProteinA.js';
 import Gene from './Gene.js';
 import TranscriptionFactor from './TranscriptionFactor.js';
@@ -60,7 +59,5 @@ class GeneA extends Gene {
 }
 
 GeneA.NUM_BASE_PAIRS = NUM_BASE_PAIRS_IN_REGULATORY_REGION + NUM_BASE_PAIRS_IN_TRANSCRIBED_REGION;
-
-geneExpressionEssentials.register( 'GeneA', GeneA );
 
 export default GeneA;

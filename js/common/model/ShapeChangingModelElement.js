@@ -13,7 +13,6 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class ShapeChangingModelElement {
 
@@ -133,7 +132,5 @@ class ShapeChangingModelElement {
            this.reusablePositionVector1;
   }
 }
-
-geneExpressionEssentials.register( 'ShapeChangingModelElement', ShapeChangingModelElement );
 
 export default ShapeChangingModelElement;

@@ -8,7 +8,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GenericAttachmentStateMachine from './GenericAttachmentStateMachine.js';
 import MRnaDestroyerAttachedState from './MRnaDestroyerAttachedState.js';
 import UnattachedAndAvailableForMRnaAttachmentState from './UnattachedAndAvailableForMRnaAttachmentState.js';
@@ -45,7 +44,5 @@ class MRnaDestroyerAttachmentStateMachine extends GenericAttachmentStateMachine 
     super.forceImmediateUnattachedAndAvailable();
   }
 }
-
-geneExpressionEssentials.register( 'MRnaDestroyerAttachmentStateMachine', MRnaDestroyerAttachmentStateMachine );
 
 export default MRnaDestroyerAttachmentStateMachine;

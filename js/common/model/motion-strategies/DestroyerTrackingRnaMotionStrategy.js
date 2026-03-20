@@ -10,7 +10,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
 class DestroyerTrackingRnaMotionStrategy extends MotionStrategy {
@@ -36,7 +35,5 @@ class DestroyerTrackingRnaMotionStrategy extends MotionStrategy {
     return new Vector2( generateInitialPosition3D.x, generateInitialPosition3D.y );
   }
 }
-
-geneExpressionEssentials.register( 'DestroyerTrackingRnaMotionStrategy', DestroyerTrackingRnaMotionStrategy );
 
 export default DestroyerTrackingRnaMotionStrategy;

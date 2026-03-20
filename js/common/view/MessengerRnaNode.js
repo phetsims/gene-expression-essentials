@@ -13,7 +13,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import GEEQueryParameters from '../GEEQueryParameters.js';
 import FadeLabel from './FadeLabel.js';
@@ -113,7 +112,5 @@ class MessengerRnaNode extends MobileBiomoleculeNode {
     super.dispose();
   }
 }
-
-geneExpressionEssentials.register( 'MessengerRnaNode', MessengerRnaNode );
 
 export default MessengerRnaNode;

@@ -25,7 +25,6 @@ import RnaPolymerase from '../../common/model/RnaPolymerase.js';
 import TranscriptionFactor from '../../common/model/TranscriptionFactor.js';
 import DnaMoleculeNode from '../../common/view/DnaMoleculeNode.js';
 import MobileBiomoleculeNode from '../../common/view/MobileBiomoleculeNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import AffinityController from './AffinityController.js';
 
@@ -126,5 +125,4 @@ class PolymeraseAffinityControlPanel extends Panel {
   }
 }
 
-geneExpressionEssentials.register( 'PolymeraseAffinityControlPanel', PolymeraseAffinityControlPanel );
 export default PolymeraseAffinityControlPanel;

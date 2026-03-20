@@ -8,7 +8,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GEEConstants from '../GEEConstants.js';
 import ShapeSegment from './ShapeSegment.js';
 import SquareSegment from './SquareSegment.js';
@@ -188,7 +187,5 @@ class FlatSegment extends ShapeSegment {
     this.updateAttachmentSitePosition();
   }
 }
-
-geneExpressionEssentials.register( 'FlatSegment', FlatSegment );
 
 export default FlatSegment;

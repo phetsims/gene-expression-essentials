@@ -7,7 +7,6 @@
  */
 
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import geneExpressionEssentials from '../geneExpressionEssentials.js';
 
 const GEEQueryParameters = QueryStringMachine.getAll( {
 
@@ -15,7 +14,5 @@ const GEEQueryParameters = QueryStringMachine.getAll( {
   showMRnaBoundingRect: { type: 'flag' }
 
 } );
-
-geneExpressionEssentials.register( 'GEEQueryParameters', GEEQueryParameters );
 
 export default GEEQueryParameters;

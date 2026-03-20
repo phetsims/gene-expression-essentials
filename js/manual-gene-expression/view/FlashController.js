@@ -9,7 +9,6 @@
  */
 
 import stepTimer from '../../../../axon/js/stepTimer.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class FlashController {
 
@@ -106,7 +105,5 @@ class FlashController {
     this.flashingNode.fill = flashOn ? this.flashColor : this.normalColor;
   }
 }
-
-geneExpressionEssentials.register( 'FlashController', FlashController );
 
 export default FlashController;

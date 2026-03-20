@@ -11,7 +11,6 @@
 
 //modules
 import Property from '../../../../axon/js/Property.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GenericUnattachedAndAvailableState from './attachment-state-machines/GenericUnattachedAndAvailableState.js';
 import ProteinAttachmentStateMachine from './attachment-state-machines/ProteinAttachmentStateMachine.js';
 import MobileBiomolecule from './MobileBiomolecule.js';
@@ -117,7 +116,5 @@ class Protein extends MobileBiomolecule {
     throw new Error( 'setAttachmentPointPosition should be implemented in descendant classes of Protein' );
   }
 }
-
-geneExpressionEssentials.register( 'Protein', Protein );
 
 export default Protein;

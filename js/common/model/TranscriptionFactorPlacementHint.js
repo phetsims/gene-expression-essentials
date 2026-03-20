@@ -10,7 +10,6 @@
 
 
 //modules
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import PlacementHint from './PlacementHint.js';
 import TranscriptionFactor from './TranscriptionFactor.js';
 
@@ -45,7 +44,5 @@ class TranscriptionFactorPlacementHint extends PlacementHint {
     }
   }
 }
-
-geneExpressionEssentials.register( 'TranscriptionFactorPlacementHint', TranscriptionFactorPlacementHint );
 
 export default TranscriptionFactorPlacementHint;

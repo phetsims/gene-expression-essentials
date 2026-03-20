@@ -9,8 +9,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
-
 class DnaStrandPoint {
 
   /**
@@ -59,7 +57,5 @@ class DnaStrandPoint {
     return o.xPos === this.xPos;
   }
 }
-
-geneExpressionEssentials.register( 'DnaStrandPoint', DnaStrandPoint );
 
 export default DnaStrandPoint;

@@ -19,7 +19,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import MessengerRnaDestroyerCreatorNode from './MessengerRnaDestroyerCreatorNode.js';
 import RibosomeCreatorNode from './RibosomeCreatorNode.js';
@@ -215,5 +214,4 @@ class BiomoleculeToolboxNode extends Node {
   }
 }
 
-geneExpressionEssentials.register( 'BiomoleculeToolboxNode', BiomoleculeToolboxNode );
 export default BiomoleculeToolboxNode;

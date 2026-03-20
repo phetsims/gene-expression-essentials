@@ -11,7 +11,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import WanderInGeneralDirectionMotionStrategy from '../motion-strategies/WanderInGeneralDirectionMotionStrategy.js';
 import AttachmentState from './AttachmentState.js';
 import WanderingAroundCytoplasmState from './WanderingAroundCytoplasmState.js';
@@ -60,7 +59,5 @@ class DetachingFromPolymeraseState extends AttachmentState {
     this.msgRnaAttachmentStateMachine.messengerRna.beingSynthesizedProperty.set( false );
   }
 }
-
-geneExpressionEssentials.register( 'DetachingFromPolymeraseState', DetachingFromPolymeraseState );
 
 export default DetachingFromPolymeraseState;

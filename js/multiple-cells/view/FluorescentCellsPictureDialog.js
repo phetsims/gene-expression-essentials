@@ -14,7 +14,6 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import ecoli_jpg from '../../../mipmaps/ecoli_jpg.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 
 // constants
@@ -57,5 +56,4 @@ class FluorescentCellsPictureDialog extends Dialog {
   }
 }
 
-geneExpressionEssentials.register( 'FluorescentCellsPictureDialog', FluorescentCellsPictureDialog );
 export default FluorescentCellsPictureDialog;

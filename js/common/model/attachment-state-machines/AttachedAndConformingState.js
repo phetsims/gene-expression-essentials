@@ -9,7 +9,6 @@
  * @author Aadish Gupta
  */
 
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import GEEConstants from '../../GEEConstants.js';
 import AttachmentState from './AttachmentState.js';
 
@@ -73,7 +72,5 @@ class AttachedAndConformingState extends AttachmentState {
     this.conformationalChangeAmount = 0;
   }
 }
-
-geneExpressionEssentials.register( 'AttachedAndConformingState', AttachedAndConformingState );
 
 export default AttachedAndConformingState;

@@ -13,7 +13,6 @@
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import RibosomeAttachmentStateMachine from './attachment-state-machines/RibosomeAttachmentStateMachine.js';
 import MobileBiomolecule from './MobileBiomolecule.js';
 import ShapeUtils from './ShapeUtils.js';
@@ -222,7 +221,5 @@ class Ribosome extends MobileBiomolecule {
 
 // statics
 Ribosome.OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE = OFFSET_TO_TRANSLATION_CHANNEL_ENTRANCE;
-
-geneExpressionEssentials.register( 'Ribosome', Ribosome );
 
 export default Ribosome;

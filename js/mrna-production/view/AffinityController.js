@@ -18,7 +18,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ControllerNode from '../../common/view/ControllerNode.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 
 // constants
@@ -72,5 +71,4 @@ class AffinityController extends Node {
   }
 }
 
-geneExpressionEssentials.register( 'AffinityController', AffinityController );
 export default AffinityController;

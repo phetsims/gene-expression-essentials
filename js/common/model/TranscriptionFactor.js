@@ -14,7 +14,6 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import TranscriptionFactorAttachmentStateMachine from './attachment-state-machines/TranscriptionFactorAttachmentStateMachine.js';
 import BioShapeUtils from './BioShapeUtils.js';
 import MobileBiomolecule from './MobileBiomolecule.js';
@@ -159,7 +158,5 @@ TranscriptionFactor.TRANSCRIPTION_FACTOR_CONFIG_GENE_3_NEG = new TranscriptionFa
   false,
   Color.magenta
 );
-
-geneExpressionEssentials.register( 'TranscriptionFactor', TranscriptionFactor );
 
 export default TranscriptionFactor;

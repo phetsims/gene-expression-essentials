@@ -11,7 +11,6 @@
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 import MoveDirectlyToDestinationMotionStrategy from './MoveDirectlyToDestinationMotionStrategy.js';
 import RandomWalkMotionStrategy from './RandomWalkMotionStrategy.js';
@@ -83,7 +82,5 @@ class MeanderToDestinationMotionStrategy extends MotionStrategy {
     }
   }
 }
-
-geneExpressionEssentials.register( 'MeanderToDestinationMotionStrategy', MeanderToDestinationMotionStrategy );
 
 export default MeanderToDestinationMotionStrategy;

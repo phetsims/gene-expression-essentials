@@ -13,7 +13,6 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import BioShapeUtils from '../../common/model/BioShapeUtils.js';
 import ShapeChangingModelElement from '../../common/model/ShapeChangingModelElement.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import CellProteinSynthesisSimulator from './CellProteinSynthesisSimulator.js';
 
 // Default size for a cell.
@@ -138,7 +137,5 @@ class Cell extends ShapeChangingModelElement {
 Cell.DefaultCellSize = DEFAULT_CELL_SIZE;
 Cell.ProteinLevelWhereColorChangeStarts = PROTEIN_LEVEL_WHERE_COLOR_CHANGE_STARTS;
 Cell.ProteinLevelWhereColorChangeCompletes = PROTEIN_LEVEL_WHERE_COLOR_CHANGE_COMPLETES;
-
-geneExpressionEssentials.register( 'Cell', Cell );
 
 export default Cell;

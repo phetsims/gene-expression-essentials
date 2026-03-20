@@ -16,7 +16,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 // constants
 const HINT_STROKE_COLOR = new Color( 0, 0, 0, 100 ); // Somewhat transparent stroke.
@@ -92,7 +91,5 @@ class PlacementHintNode extends Node {
     super.dispose();
   }
 }
-
-geneExpressionEssentials.register( 'PlacementHintNode', PlacementHintNode );
 
 export default PlacementHintNode;

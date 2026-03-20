@@ -17,7 +17,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Panel from '../../../../sun/js/Panel.js';
 import GEEConstants from '../../common/GEEConstants.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import ProteinCollectionArea from './ProteinCollectionArea.js';
 
@@ -135,7 +134,5 @@ function createCollectionCountIndicator( model ) {
 
   return contentNode;
 }
-
-geneExpressionEssentials.register( 'ProteinCollectionNode', ProteinCollectionNode );
 
 export default ProteinCollectionNode;

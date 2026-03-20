@@ -16,7 +16,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import GeneExpressionEssentialsStrings from '../../GeneExpressionEssentialsStrings.js';
 import GEEConstants from '../GEEConstants.js';
 
@@ -111,7 +110,5 @@ class GeneNode extends Node {
     }
   }
 }
-
-geneExpressionEssentials.register( 'GeneNode', GeneNode );
 
 export default GeneNode;

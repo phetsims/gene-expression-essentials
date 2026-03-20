@@ -10,7 +10,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 
 class ShapeDefiningPoint {
 
@@ -121,7 +120,5 @@ class ShapeDefiningPoint {
     this.targetDistanceToPreviousPoint = targetDistance;
   }
 }
-
-geneExpressionEssentials.register( 'ShapeDefiningPoint', ShapeDefiningPoint );
 
 export default ShapeDefiningPoint;

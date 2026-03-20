@@ -15,7 +15,6 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import AttachmentSite from './AttachmentSite.js';
 
 // constants
@@ -206,7 +205,5 @@ class ShapeSegment {
 }
 
 ShapeSegment.FLOATING_POINT_COMP_FACTOR = FLOATING_POINT_COMP_FACTOR;
-
-geneExpressionEssentials.register( 'ShapeSegment', ShapeSegment );
 
 export default ShapeSegment;

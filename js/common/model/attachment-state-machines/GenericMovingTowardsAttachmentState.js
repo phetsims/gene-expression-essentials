@@ -8,7 +8,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import AttachmentState from './AttachmentState.js';
 
 class GenericMovingTowardsAttachmentState extends AttachmentState {
@@ -57,7 +56,5 @@ class GenericMovingTowardsAttachmentState extends AttachmentState {
     enclosingStateMachine.biomolecule.movableByUserProperty.set( true );
   }
 }
-
-geneExpressionEssentials.register( 'GenericMovingTowardsAttachmentState', GenericMovingTowardsAttachmentState );
 
 export default GenericMovingTowardsAttachmentState;

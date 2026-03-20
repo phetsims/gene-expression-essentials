@@ -11,7 +11,6 @@
 import dotRandom from '../../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Vector3 from '../../../../../dot/js/Vector3.js';
-import geneExpressionEssentials from '../../../geneExpressionEssentials.js';
 import MotionStrategy from './MotionStrategy.js';
 
 // constants
@@ -110,7 +109,5 @@ class WanderInGeneralDirectionMotionStrategy extends MotionStrategy {
     return new Vector3( nextPosition2D.x, nextPosition2D.y, currentPosition.z );
   }
 }
-
-geneExpressionEssentials.register( 'WanderInGeneralDirectionMotionStrategy', WanderInGeneralDirectionMotionStrategy );
 
 export default WanderInGeneralDirectionMotionStrategy;

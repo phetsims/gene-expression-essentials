@@ -11,7 +11,6 @@
 import Vector2 from '../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
 import Color from '../../../scenery/js/util/Color.js';
-import geneExpressionEssentials from '../geneExpressionEssentials.js';
 
 // constants
 const LENGTH_PER_TWIST = 340;// In picometers
@@ -56,7 +55,5 @@ const GEEConstants = {
   DEFAULT_ATTACH_TIME: 0.15, // // Time for attachment to a site on the DNA, in seconds.
   CORNER_RADIUS: 5 // corner radius for different panels and accordion boxes in the views
 };
-
-geneExpressionEssentials.register( 'GEEConstants', GEEConstants );
 
 export default GEEConstants;

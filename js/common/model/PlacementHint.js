@@ -10,7 +10,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import geneExpressionEssentials from '../../geneExpressionEssentials.js';
 import ShapeChangingModelElement from './ShapeChangingModelElement.js';
 
 class PlacementHint extends ShapeChangingModelElement {
@@ -60,7 +59,5 @@ class PlacementHint extends ShapeChangingModelElement {
     }
   }
 }
-
-geneExpressionEssentials.register( 'PlacementHint', PlacementHint );
 
 export default PlacementHint;
