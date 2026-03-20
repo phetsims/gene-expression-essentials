@@ -1,4 +1,4 @@
-// Copyright 2015-2020, University of Colorado Boulder
+// Copyright 2015-2026, University of Colorado Boulder
 
 /**
  * Flat segment extends ShapeSegment and has no height, so mRNA contained in this segment is not wound.
